@@ -680,7 +680,7 @@ def bone_auto_hide(context):
                                             bone.hide = 1  
                                 
 ####### Reproportion Toggle #######
-
+listaDeEstados = []
 def reproportion_toggle(context):
     if not bpy.context.screen:
         return False
@@ -693,8 +693,21 @@ def reproportion_toggle(context):
             if prop[0] == 'rig_name' and prop[1] == 'BlenRig_5':  
                 prop = bool(bpy.context.active_object.data.reproportion)        
                 p_bones = bpy.context.active_object.pose.bones
-                if prop == True:
-                    bpy.context.active_object.data.layers[31] = True 
+                if prop:
+                    contador = 0
+                    for layer in bpy.context.active_object.data.layers:
+                        listaDeEstados.insert(contador, layer)
+                        contador += 1
+                    
+                    contador = 0
+                    for layer in bpy.context.active_object.data.layers:
+                        if layer:
+                            bpy.context.active_object.data.layers[contador] = not bpy.context.active_object.data.layers[contador]
+                        
+                        contador += 1
+                        bpy.context.active_object.data.layers[31] = True
+
+
                     for b in p_bones:      
                         for C in b.constraints:
                             if ('REPROP' in C.name):
@@ -703,15 +716,22 @@ def reproportion_toggle(context):
                                 C.mute = True   
 
                 else:
-                    bpy.context.active_object.data.layers[0] = True
-                    bpy.context.active_object.data.layers[31] = False   
-                    for b in p_bones:     
-                        for C in b.constraints:
-                            if ('REPROP' in C.name):
-                                C.mute = True 
-                            if ('NOREP' in C.name):
-                                C.mute = False   
-                    rig_toggles(context)            
+                    contador = 0 
+                    try :
+                        for layer in bpy.context.active_object.data.layers:
+                            bpy.context.active_object.data.layers[contador] = listaDeEstados[contador]
+                            contador += 1
+                    
+                        for b in p_bones:
+                            for C in b.constraints:
+                                if ('REPROP' in C.name):
+                                    C.mute = True
+                                if ('NOREP' in C.name):
+                                    C.mute = False
+                        rig_toggles(context)
+                    except:
+                        pass
+
 
 ####### Rig Toggles #######
 

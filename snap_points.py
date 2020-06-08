@@ -217,19 +217,19 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
 #         return context.mode in {'POSE', 'EDIT_ARMATURE'}
 #     # Draw.
 #     def draw(self, context):
-        
+
 #         # Main variables.
 #         # armaturePanelOptions = context.window_manager.armaturePanelSettings
-        
+
 #         object = context.object
 #         armature = bpy.data.armatures[object.name]
 #         bone = context.active_bone
 #         poseBone = object.pose.bones[bone.name]
-        
+
 #         # Layout
 #         layout = self.layout
 #         column = layout.column(align=True)
-        
+
 #         # Display options.
 #         columnRow = column.row()
 #         # columnRow.prop(armaturePanelOptions, 'displayContext', text="",

@@ -13,22 +13,22 @@ class BLENRIG_PT_BlenRig_5_mesh_panel(bpy.types.Panel):
         if not bpy.context.active_object:
             return False
         if (bpy.context.active_object.type in ["MESH"]):
-            for mod in bpy.context.active_object.modifiers:          
+            for mod in bpy.context.active_object.modifiers:
                 if (mod.type in ["ARMATURE", "MESH_DEFORM"]):
-                    return True    
+                    return True
 
     def draw(self, context):
-        props = context.window_manager.blenrig_5_props        
+        props = context.window_manager.blenrig_5_props
         layout = self.layout
 
         box = layout.column()
         col = box.column()
         row = col.row()
-    # expanded box                                 
-        col.separator        
-        row = col.row()              
+    # expanded box
+        col.separator
+        row = col.row()
         row.operator("blenrig5.mesh_pose_baker", text="Bake Mesh")
-        row.prop(props, "bake_to_shape")   
+        row.prop(props, "bake_to_shape")
 
 ####### Lattice & Curves Panel
 
@@ -43,9 +43,9 @@ class BLENRIG_PT_BlenRig_5_lattice_panel(bpy.types.Panel):
         if not bpy.context.active_object:
             return False
         if (bpy.context.active_object.type in ["LATTICE", "CURVE"]):
-            for mod in bpy.context.active_object.modifiers:          
+            for mod in bpy.context.active_object.modifiers:
                 if (mod.type in ["HOOK"]):
-                    return True      
+                    return True
 
     def draw(self, context):
         layout = self.layout
@@ -53,7 +53,7 @@ class BLENRIG_PT_BlenRig_5_lattice_panel(bpy.types.Panel):
         box = layout.column()
         col = box.column()
         row = col.row()
-    # expanded box                                 
-        col.separator        
-        row = col.row()              
+    # expanded box
+        col.separator
+        row = col.row()
         row.operator("blenrig5.reset_hooks", text="Reset Hooks")

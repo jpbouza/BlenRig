@@ -4,10 +4,10 @@ import bpy
 
 # Biped
 
-class Operator_Biped_Updater(bpy.types.Operator):     
-    bl_idname = "blenrig5.biped_updater"  
-    bl_label = "BlenRig 5 Biped Rig Updater"     
-    bl_description = "Update BlenRig 5 biped rig to the latest version"    
+class Operator_Biped_Updater(bpy.types.Operator):
+    bl_idname = "blenrig5.biped_updater"
+    bl_label = "BlenRig 5 Biped Rig Updater"
+    bl_description = "Update BlenRig 5 biped rig to the latest version"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -19,7 +19,7 @@ class Operator_Biped_Updater(bpy.types.Operator):
                 if prop[0] == 'rig_name' and prop[1] == 'BlenRig_5':
                     for propb in bpy.context.active_object.data.items():
                         if propb[0] == 'rig_type' and propb[1] == 'Biped':
-                            return True      
+                            return True
 
     def execute(self, context):
         arm = bpy.context.active_object
@@ -45,7 +45,7 @@ class Operator_Biped_Updater(bpy.types.Operator):
             biped_update_1005_functions_script,
             biped_update_1005_layer_scheme,
             biped_update_1005_update_version
-            )            
+            )
             # Apply
             biped_update_1005_drivers(self, context)
             biped_update_1005_locks(self, context)
@@ -60,5 +60,5 @@ class Operator_Biped_Updater(bpy.types.Operator):
             biped_update_1005_update_version(self, context)
 
         else:
-            self.report({'INFO'}, 'Armature already up to date')                            
+            self.report({'INFO'}, 'Armature already up to date')
         return {"FINISHED"}
