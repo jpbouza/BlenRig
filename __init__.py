@@ -46,7 +46,7 @@ bl_info = {
 import bpy
 import os
 
-from bpy.props import FloatProperty, IntProperty, BoolProperty
+from bpy.props import FloatProperty, IntProperty, BoolProperty 
 
 ######### Load Rig Functions ##########
 from .rig_functions import (
@@ -1436,6 +1436,9 @@ class ARMATURE_OT_blenrig_5_gui(bpy.types.Operator):
         arm = bpy.context.active_object.data
         if self.properties.tab in arm:
             arm[self.properties.tab] = not arm[self.properties.tab]
+        if self.properties.tab == 'gui_custom_layers':
+            context.window_manager.blenrig_5_props.gui_custom_layers = not context.window_manager.blenrig_5_props.gui_custom_layers
+
         return{'FINISHED'}
 
 ####### REGISTRATION ##############################################
@@ -1464,7 +1467,7 @@ class Blenrig_5_Props(bpy.types.PropertyGroup):
     gui_body_collisions : bpy.props.BoolProperty(default=False, description="Body Collisions Offset")
     bake_to_shape : bpy.props.BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
     align_selected_only : bpy.props.BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
-
+    gui_custom_layers : bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
 # BlenRig Armature Tools Operator
 armature_classes = [
     ARMATURE_OT_reset_constraints,
@@ -1481,7 +1484,33 @@ armature_classes = [
     BLENRIG_PT_BlenRig_5_rigging_panel_2_0,
     BLENRIG_PT_BlenRig_5_mesh_panel,
     BLENRIG_PT_BlenRig_5_lattice_panel
+    ]
+
+######## bone selections set ###############
+
+from .bone_selection_sets import *
+
+bone_selecction_set_classes = [
+    POSE_MT_selection_set_create,
+    POSE_MT_selection_sets_context_menu,
+    POSE_MT_selection_sets_select,
+    POSE_UL_selection_set,
+    SelectionEntry,
+    SelectionSet,
+    POSE_OT_selection_set_delete_all,
+    POSE_OT_selection_set_remove_bones,
+    POSE_OT_selection_set_move,
+    POSE_OT_selection_set_add,
+    POSE_OT_selection_set_remove,
+    POSE_OT_selection_set_assign,
+    POSE_OT_selection_set_unassign,
+    POSE_OT_selection_set_select,
+    POSE_OT_selection_set_deselect,
+    POSE_OT_selection_set_add_and_assign,
+    POSE_OT_selection_set_copy,
+    POSE_OT_selection_set_paste
 ]
+
 # BlenRig Align Operators
 alignment_classes = [
     Operator_BlenRig_Fix_Misaligned_Bones,
@@ -2055,6 +2084,12 @@ blenrig_rigs_classes = [
 addon_dependencies = ["space_view3d_copy_attributes"]
 
 
+######## bone selections set ###############
+# Store keymaps here to access after registration.
+addon_keymaps = []
+######## bone selections set ###############
+
+
 def register():
 
     # load dependency add-ons
@@ -2085,11 +2120,41 @@ def register():
         bpy.utils.register_class(c)
     for c in blenrig_rigs_classes:
         bpy.utils.register_class(c)
+    for c in bone_selecction_set_classes:
+        bpy.utils.register_class(c)
+
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
     # BlenRig Object Add Panel
     bpy.types.VIEW3D_MT_armature_add.append(blenrig5_add_menu_func)
+
+######## bone selections set ###############
+
+    # Add properties.
+    bpy.types.Object.selection_sets = CollectionProperty(
+        type=SelectionSet,
+        name="Selection Sets",
+        description="List of groups of bones for easy selection"
+    )
+    bpy.types.Object.active_selection_set = IntProperty(
+        name="Active Selection Set",
+        description="Index of the currently active selection set",
+        default=0
+    )
+
+    # Add shortcuts to the keymap.
+    wm = bpy.context.window_manager
+    km = wm.keyconfigs.addon.keymaps.new(name='Pose')
+    kmi = km.keymap_items.new('wm.call_menu', 'W', 'PRESS', alt=True, shift=True)
+    kmi.properties.name = 'POSE_MT_selection_sets_select'
+    addon_keymaps.append((km, kmi))
+
+    # Add entries to menus.
+    bpy.types.VIEW3D_MT_select_pose.append(menu_func_select_selection_set)
+
+
+######## bone selections set ###############
 
 def unregister():
 
@@ -2119,11 +2184,28 @@ def unregister():
         bpy.utils.unregister_class(c)
     for c in blenrig_rigs_classes:
         bpy.utils.unregister_class(c)
+    for c in bone_selecction_set_classes:
+        bpy.utils.unregister_class(c)
 
     # unload add-on dependencies
     import addon_utils
     for addon_id in addon_dependencies:
         addon_utils.disable(addon_id, default_set=False)
+
+######## bone selections set ###############
+    # Clear properties.
+    del bpy.types.Object.selection_sets
+    del bpy.types.Object.active_selection_set
+
+    # Clear shortcuts from the keymap.
+    for km, kmi in addon_keymaps:
+        km.keymap_items.remove(kmi)
+    addon_keymaps.clear()
+
+    # Clear entries from menus.
+    bpy.types.VIEW3D_MT_select_pose.remove(menu_func_select_selection_set)
+
+######## bone selections set ###############
 
 
 if __name__ == "__main__":
