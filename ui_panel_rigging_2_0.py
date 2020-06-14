@@ -4,6 +4,7 @@ import bpy
 
 class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
     bl_label = "BlenRig 5 Rigging Control 2.0"
+    bl_idname = "BLENRIG_PT_BlenRig_5_rigging_panel_2_0"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
     bl_context = "data"
