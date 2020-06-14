@@ -1,6 +1,6 @@
 import bpy
 
-##################################### Bone Alignment Operators #######################################
+#################################### Bone Alignment Operators #######################################
 
 class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
 
