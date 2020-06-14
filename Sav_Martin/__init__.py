@@ -2,7 +2,7 @@
 import bpy, os
 
 bl_info = {
-    "name": "Martin",
+    "name": "BlenRig visual helper",
     "author": "Sav Martin, Jorge Hernandez Melendez",
     "version": (0, 1),
     "blender": (2, 83, 0),
@@ -10,7 +10,7 @@ bl_info = {
     "description": "",
     "warning": "",
     "wiki_url": "",
-    "category": "Martin",
+    "category": "Rig",
     }
 
 from bpy.props import (BoolProperty, PointerProperty)
