@@ -313,45 +313,35 @@ class SIDE_PT_visibility(Panel):
         ccb = scene.ccb
 
         row = layout.row(align=True)
-        box = layout.column()
-        col = box.column()
 
         icon = 'HIDE_OFF' if not ccb.right_side else 'HIDE_ON'
         row.prop(ccb, "right_side", text="R_Side", icon=icon, toggle=True)
         icon = 'HIDE_OFF' if not ccb.left_side else 'HIDE_ON'
         row.prop(ccb, "left_side", text="L_Side", icon=icon, toggle=True)
 
-        row = layout.row(align=True)
+        layout.use_property_split = True
+        layout.use_property_decorate = False
+
+        flow = layout.grid_flow(align=True)
+        col = flow.column()
+
         icon = 'HIDE_ON' if not ccb.eyes else 'HIDE_OFF'
-        row.prop(ccb, "eyes", icon= icon , text="", toggle=True)
-        row.label(text = "EYES")
+        col.prop(ccb, "eyes", icon=icon, text="EYES", toggle=True)
 
-        row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.face else 'HIDE_OFF'
-        row.prop(ccb, "face", icon=icon , text="", toggle=True)
-        row.label(text = "FACE")
+        col.prop(ccb, "face", icon=icon, text="FACE", toggle=True)
 
-        row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.eyebrows else 'HIDE_OFF'
-        row.prop(ccb, "eyebrows", icon=icon, text="", toggle=True)
-        row.label(text = "EYEBROWS")
+        col.prop(ccb, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
 
-        row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.face_mech else 'HIDE_OFF'
-        row.prop(ccb, "face_mech", icon=icon, text="", toggle=True)
-        row.label(text = "FACE MECH")
+        col.prop(ccb, "face_mech", icon=icon, text="FACE MECH", toggle=True)
 
-        row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.inner_mouth else 'HIDE_OFF'
-        row.prop(ccb, "inner_mouth", icon=icon, text="", toggle=True)
-        row.label(text = "INNER MOUTH")
+        col.prop(ccb, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
 
-        row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.hands else 'HIDE_OFF'
-        row.prop(ccb, "hands", icon=icon, text="", toggle=True)
-        row.label(text = "HANDS")
+        col.prop(ccb, "hands", icon=icon, text="HANDS", toggle=True)
 
-        row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.body else 'HIDE_OFF'
-        row.prop(ccb, "body", icon=icon, text="", toggle=True)
-        row.label(text = "BODY")
+        col.prop(ccb, "body", icon=icon, text="BODY", toggle=True)
