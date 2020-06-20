@@ -16,7 +16,7 @@ class Operator_BlenRig5_Add_Biped(bpy.types.Operator):
     def import_blenrig_biped(self, context):
         CURRENT_DIR = os.path.dirname(__file__)
         filepath =  os.path.join(CURRENT_DIR, "blenrig_biped.blend")
-        scene = bpy.context.scene
+        scene = context.scene
 
         # Link the top-level collection into the file.
         with bpy.data.libraries.load(filepath, link=False) as (data_from, data_to):
@@ -31,7 +31,7 @@ class Operator_BlenRig5_Add_Biped(bpy.types.Operator):
             if coll.name in hide_collections:
                 coll.hide_viewport = True
 
-                #Context Override 
+                #Context Override
                 #areas  = [area for area in bpy.context.screen.areas if area.type == 'OUTLINER']
 
                 #if areas:
@@ -39,10 +39,12 @@ class Operator_BlenRig5_Add_Biped(bpy.types.Operator):
 
                     #if regions:
                         #override = {'area': areas[0],
-                                    #'region': regions[0]}       
+                                    #'region': regions[0]}
                 #bpy.context.view_layer.active_layer_collection = context.view_layer.layer_collection.children[coll.name]
                 #bpy.ops.outliner.show_one_level(open=False)
 
     def execute(self, context):
+        bpy.ops.object.select_all(action='DESELECT')
         self.import_blenrig_biped(context)
+        context.view_layer.objects.active = bpy.context.selected_objects[0]
         return{'FINISHED'}
