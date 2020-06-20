@@ -33,20 +33,21 @@
 
 bl_info = {
     'name': 'BlenRig 5',
-    'author': 'Juan Pablo Bouza , Sav Martin',
+    'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
     'version': (2,0,0),
     'blender': (2, 83, 0),
     'location': 'Armature, Object and Lattice properties, View3d tools panel, Armature Add menu',
     'description': 'BlenRig 5 rigging system',
     'wiki_url': 'https://cloud.blender.org/p/blenrig/56966411c379cf44546120e8',
     'tracker_url': 'https://gitlab.com/jpbouza/BlenRig/issues',
-    'category': 'Rigging'}
+    'category': 'Rigging'
+}
 
 
 import bpy
 import os
 
-from bpy.props import FloatProperty, IntProperty, BoolProperty 
+from bpy.props import FloatProperty, IntProperty, BoolProperty
 
 ######### Load Rig Functions ##########
 from .rig_functions import (
@@ -59,6 +60,9 @@ from .rig_functions import (
     toggle_body_drivers,
     pole_toggles
 )
+
+######### Import all from side_visibility.py #########
+from .side_visibility import side_visibility_props, SIDE_PT_visibility
 
 ######### Update Function for Properties ##########
 
@@ -1430,10 +1434,10 @@ class ARMATURE_OT_blenrig_5_gui(bpy.types.Operator):
     bl_label = ""
     bl_idname = "gui.blenrig_5_tabs"
 
-    tab : bpy.props.StringProperty(name="Tab", description="Tab of the gui to expand")
+    tab: bpy.props.StringProperty(name="Tab", description="Tab of the gui to expand")
 
     def invoke(self, context, event):
-        arm = bpy.context.active_object.data
+        arm = context.active_object.data
         if self.properties.tab in arm:
             arm[self.properties.tab] = not arm[self.properties.tab]
         if self.properties.tab == 'gui_custom_layers':
@@ -1445,29 +1449,31 @@ class ARMATURE_OT_blenrig_5_gui(bpy.types.Operator):
 
 # Needed for property registration
 class Blenrig_5_Props(bpy.types.PropertyGroup):
-    gui_picker_body_props : bpy.props.BoolProperty(default=True, description="Toggle properties display")
-    gui_picker_body_picker : bpy.props.BoolProperty(default=True, description="Toggle properties display")
-    gui_snap_all : bpy.props.BoolProperty(default=False, description="Display ALL Snapping Buttons")
-    gui_snap : bpy.props.BoolProperty(default=False, description="Display Snapping Buttons")
-    gui_cust_props_all : bpy.props.BoolProperty(default=False, description="Show ALL Custom Properties")
-    gui_extra_props_face : bpy.props.BoolProperty(default=False, description="Tweak head extra options")
-    gui_extra_props_arms : bpy.props.BoolProperty(default=False, description="Tweak arms extra options")
-    gui_extra_props_fingers : bpy.props.BoolProperty(default=False, description="Tweak fingers extra options")
-    gui_extra_props_legs : bpy.props.BoolProperty(default=False, description="Tweak legs extra options")
-    gui_extra_props_props : bpy.props.BoolProperty(default=False, description="Tweak accessories options")
-    gui_face_movement_ranges : bpy.props.BoolProperty(default=False, description="Set limits to facial movement")
-    gui_face_lip_shaping : bpy.props.BoolProperty(default=False, description="Parameters to define lips curvature")
-    gui_face_action_toggles : bpy.props.BoolProperty(default=False, description="Toggle facial actions off for editing")
-    gui_face_collisions : bpy.props.BoolProperty(default=False, description="Face Collisions Offset")
-    gui_body_ik_rot : bpy.props.BoolProperty(default=False, description="Set the initial rotation of IK bones")
-    gui_body_auto_move : bpy.props.BoolProperty(default=False, description="Parameters for automated movement")
-    gui_body_rj : bpy.props.BoolProperty(default=False, description="Simulate how bone thickness affects joint rotation")
-    gui_body_toggles : bpy.props.BoolProperty(default=False, description="Toggle body parts")
-    gui_body_bbones : bpy.props.BoolProperty(default=False, description="Bendy Bones Settings")
-    gui_body_collisions : bpy.props.BoolProperty(default=False, description="Body Collisions Offset")
-    bake_to_shape : bpy.props.BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
-    align_selected_only : bpy.props.BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
-    gui_custom_layers : bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
+    gui_picker_body_props: bpy.props.BoolProperty(default=True, description="Toggle properties display")
+    gui_picker_body_picker: bpy.props.BoolProperty(default=True, description="Toggle properties display")
+    gui_snap_all: bpy.props.BoolProperty(default=False, description="Display ALL Snapping Buttons")
+    gui_snap: bpy.props.BoolProperty(default=False, description="Display Snapping Buttons")
+    gui_cust_props_all: bpy.props.BoolProperty(default=False, description="Show ALL Custom Properties")
+    gui_extra_props_face: bpy.props.BoolProperty(default=False, description="Tweak head extra options")
+    gui_extra_props_arms: bpy.props.BoolProperty(default=False, description="Tweak arms extra options")
+    gui_extra_props_fingers: bpy.props.BoolProperty(default=False, description="Tweak fingers extra options")
+    gui_extra_props_legs: bpy.props.BoolProperty(default=False, description="Tweak legs extra options")
+    gui_extra_props_props: bpy.props.BoolProperty(default=False, description="Tweak accessories options")
+    gui_face_movement_ranges: bpy.props.BoolProperty(default=False, description="Set limits to facial movement")
+    gui_face_lip_shaping: bpy.props.BoolProperty(default=False, description="Parameters to define lips curvature")
+    gui_face_action_toggles: bpy.props.BoolProperty(default=False, description="Toggle facial actions off for editing")
+    gui_face_collisions: bpy.props.BoolProperty(default=False, description="Face Collisions Offset")
+    gui_body_ik_rot: bpy.props.BoolProperty(default=False, description="Set the initial rotation of IK bones")
+    gui_body_auto_move: bpy.props.BoolProperty(default=False, description="Parameters for automated movement")
+    gui_body_rj: bpy.props.BoolProperty(default=False, description="Simulate how bone thickness affects joint rotation")
+    gui_body_toggles: bpy.props.BoolProperty(default=False, description="Toggle body parts")
+    gui_body_bbones: bpy.props.BoolProperty(default=False, description="Bendy Bones Settings")
+    gui_body_collisions: bpy.props.BoolProperty(default=False, description="Body Collisions Offset")
+    bake_to_shape: bpy.props.BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
+    align_selected_only: bpy.props.BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
+    gui_custom_layers: bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
+
+
 # BlenRig Armature Tools Operator
 armature_classes = [
     ARMATURE_OT_reset_constraints,
@@ -2091,6 +2097,7 @@ addon_keymaps = []
 
 
 def register():
+    from bpy.utils import register_class
 
     # load dependency add-ons
     import addon_utils
@@ -2101,31 +2108,36 @@ def register():
 
     # load BlenRig internal classes
     for c in armature_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in set_values_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in alignment_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in schemes_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in rig_updater_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in snapping_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in body_picker_biped_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in body_picker_quadruped_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in face_picker_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in blenrig_rigs_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in bone_selecction_set_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
+
+    register_class(side_visibility_props)
+    register_class(SIDE_PT_visibility)
 
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
+    # Side Visibility Props
+    bpy.types.Armature.side_visibility = bpy.props.PointerProperty(type=side_visibility_props)
     # BlenRig Object Add Panel
     bpy.types.VIEW3D_MT_armature_add.append(blenrig5_add_menu_func)
 
@@ -2157,35 +2169,41 @@ def register():
 ######## bone selections set ###############
 
 def unregister():
+    from bpy.utils import unregister_class
 
     # BlenRig Props
     del bpy.types.WindowManager.blenrig_5_props
+    # Side Visibility Props
+    del bpy.types.Armature.side_visibility
     # BlenRig Object Add Panel
     bpy.types.VIEW3D_MT_armature_add.remove(blenrig5_add_menu_func)
 
     # unload BlenRig internal classes
     for c in armature_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in set_values_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in alignment_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in schemes_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in rig_updater_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in snapping_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in body_picker_biped_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in body_picker_quadruped_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in face_picker_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in blenrig_rigs_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in bone_selecction_set_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
+
+    unregister_class(side_visibility_props)
+    unregister_class(SIDE_PT_visibility)
 
     # unload add-on dependencies
     import addon_utils
@@ -2206,7 +2224,3 @@ def unregister():
     bpy.types.VIEW3D_MT_select_pose.remove(menu_func_select_selection_set)
 
 ######## bone selections set ###############
-
-
-if __name__ == "__main__":
-    register()
