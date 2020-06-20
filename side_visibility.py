@@ -92,7 +92,7 @@ def get_bones_from_group(target):
 
 
 def show_eyes(self, context):
-    if bpy.context.scene.ccb.eyes:
+    if context.window_manager.blenrig_5_props.eyes:
         huesos = get_bones_from_group(g_EYES)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = False
@@ -103,7 +103,7 @@ def show_eyes(self, context):
 
 
 def show_face(self, context):
-    if bpy.context.scene.ccb.face:
+    if context.window_manager.blenrig_5_props.face:
         for g in g_FACIAL:
             huesos = get_bones_from_group(g)
 
@@ -118,7 +118,7 @@ def show_face(self, context):
 
 
 def show_eyebrows(self, context):
-    if bpy.context.scene.ccb.eyebrows:
+    if context.window_manager.blenrig_5_props.eyebrows:
         huesos = get_bones_from_group(g_EYEBROWS)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = False
@@ -133,7 +133,7 @@ def show_eyebrows(self, context):
 
 
 def show_face_mech(self, context):
-    if bpy.context.scene.ccb.face_mech:
+    if context.window_manager.blenrig_5_props.face_mech:
         huesos = get_bones_from_group(g_STR_FACE_MECH)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = False
@@ -144,7 +144,7 @@ def show_face_mech(self, context):
 
 
 def show_inner_mouth(self, context):
-    if bpy.context.scene.ccb.inner_mouth:
+    if context.window_manager.blenrig_5_props.inner_mouth:
         huesos = get_bones_from_group(g_STR_INNER_MOUTH)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = False
@@ -155,7 +155,7 @@ def show_inner_mouth(self, context):
 
 
 def show_hands(self, context):
-    if bpy.context.scene.ccb.hands:
+    if context.window_manager.blenrig_5_props.hands:
         huesos = get_bones_from_group(g_STR_HANDS)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = False
@@ -166,7 +166,7 @@ def show_hands(self, context):
 
 
 def show_body(self, context):
-    if bpy.context.scene.ccb.body:
+    if context.window_manager.blenrig_5_props.body:
         for g in g_STR:
             huesos = get_bones_from_group(g)
 
@@ -188,7 +188,7 @@ def show_body(self, context):
 
 r_side= []
 def show_right_side (self, context):
-    if bpy.context.scene.ccb.right_side:
+    if context.window_manager.blenrig_5_props.right_side:
         if bpy.context.visible_pose_bones:
             for bone in bpy.context.visible_pose_bones:
                 if bone.name.endswith("_R"):
@@ -212,7 +212,7 @@ def show_right_side (self, context):
 
 l_side= []
 def show_left_side (self, context):
-    if bpy.context.scene.ccb.left_side:
+    if context.window_manager.blenrig_5_props.left_side:
         if bpy.context.visible_pose_bones:
             for bone in bpy.context.visible_pose_bones:
                 if bone.name.endswith("_L"):
@@ -231,61 +231,6 @@ def show_left_side (self, context):
             for bone in bpy.context.visible_pose_bones:
                 if bone.name.endswith("_L"):
                     l_side.remove(bone.name)
-
-
-class side_visibility_properties(PropertyGroup):
-    eyes: BoolProperty(
-        name="eyes",
-        default=True,
-        update=show_eyes
-        )
-
-    face: BoolProperty(
-        name="face",
-        default=True,
-        update=show_face
-        )
-
-    eyebrows: BoolProperty(
-            name="eyebrows",
-            default=True,
-            update=show_eyebrows
-            )
-
-    face_mech: BoolProperty(
-            name="face_mech",
-            default=True,
-            update=show_face_mech
-            )
-
-    inner_mouth: BoolProperty(
-            name="inner_mouth",
-            default=True,
-            update=show_inner_mouth
-            )
-
-    hands: BoolProperty(
-            name="hands",
-            default=True,
-            update=show_hands
-            )
-    body: BoolProperty(
-            name="body",
-            default=True,
-            update=show_body
-            )
-
-    left_side: BoolProperty(
-            name="left_side",
-            default=False,
-            update=show_left_side
-            )
-
-    right_side: BoolProperty(
-            name="right_side",
-            default=False,
-            update=show_right_side
-            )
 
 
 class SIDE_PT_visibility(Panel):
@@ -310,14 +255,14 @@ class SIDE_PT_visibility(Panel):
     def draw(self, context):
         layout = self.layout
         scene = context.scene
-        ccb = scene.ccb
+        blenrig_5_props = context.window_manager.blenrig_5_props
 
         row = layout.row(align=True)
 
-        icon = 'HIDE_OFF' if not ccb.right_side else 'HIDE_ON'
-        row.prop(ccb, "right_side", text="R_Side", icon=icon, toggle=True)
-        icon = 'HIDE_OFF' if not ccb.left_side else 'HIDE_ON'
-        row.prop(ccb, "left_side", text="L_Side", icon=icon, toggle=True)
+        icon = 'HIDE_OFF' if not blenrig_5_props.right_side else 'HIDE_ON'
+        row.prop(blenrig_5_props, "right_side", text="R_Side", icon=icon, toggle=True)
+        icon = 'HIDE_OFF' if not blenrig_5_props.left_side else 'HIDE_ON'
+        row.prop(blenrig_5_props, "left_side", text="L_Side", icon=icon, toggle=True)
 
         layout.use_property_split = True
         layout.use_property_decorate = False
@@ -325,23 +270,23 @@ class SIDE_PT_visibility(Panel):
         flow = layout.grid_flow(align=True)
         col = flow.column()
 
-        icon = 'HIDE_ON' if not ccb.eyes else 'HIDE_OFF'
-        col.prop(ccb, "eyes", icon=icon, text="EYES", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.eyes else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "eyes", icon=icon, text="EYES", toggle=True)
 
-        icon = 'HIDE_ON' if not ccb.face else 'HIDE_OFF'
-        col.prop(ccb, "face", icon=icon, text="FACE", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.face else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "face", icon=icon, text="FACE", toggle=True)
 
-        icon = 'HIDE_ON' if not ccb.eyebrows else 'HIDE_OFF'
-        col.prop(ccb, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.eyebrows else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
 
-        icon = 'HIDE_ON' if not ccb.face_mech else 'HIDE_OFF'
-        col.prop(ccb, "face_mech", icon=icon, text="FACE MECH", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.face_mech else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "face_mech", icon=icon, text="FACE MECH", toggle=True)
 
-        icon = 'HIDE_ON' if not ccb.inner_mouth else 'HIDE_OFF'
-        col.prop(ccb, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.inner_mouth else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
 
-        icon = 'HIDE_ON' if not ccb.hands else 'HIDE_OFF'
-        col.prop(ccb, "hands", icon=icon, text="HANDS", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.hands else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "hands", icon=icon, text="HANDS", toggle=True)
 
-        icon = 'HIDE_ON' if not ccb.body else 'HIDE_OFF'
-        col.prop(ccb, "body", icon=icon, text="BODY", toggle=True)
+        icon = 'HIDE_ON' if not blenrig_5_props.body else 'HIDE_OFF'
+        col.prop(blenrig_5_props, "body", icon=icon, text="BODY", toggle=True)
