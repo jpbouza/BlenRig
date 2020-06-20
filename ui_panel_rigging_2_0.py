@@ -1123,8 +1123,56 @@ class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
             row.operator("gui.blenrig_5_tabs", icon="PREFERENCES", emboss = 1).tab = "gui_rig_bake"
             row.label(text="RIGGING & BAKING")
             col.separator()
-            box = col.box()
-            box.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
+            # box = col.box()
+            col.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
+
+            ################### side visibility ##########################
+            if context.active_object.data.reproportion:
+                ao = context.active_object
+                if ao.type == 'ARMATURE':
+                    side_visibility = context.active_object.data.side_visibility
+
+                row = layout.row(align=True)
+
+                icon = 'HIDE_OFF' if not side_visibility.right_side else 'HIDE_ON'
+                row.prop(side_visibility, "right_side", text="R_Side", icon=icon, toggle=True)
+                icon = 'HIDE_OFF' if not side_visibility.left_side else 'HIDE_ON'
+                row.prop(side_visibility, "left_side", text="L_Side", icon=icon, toggle=True)
+
+                layout.use_property_split = True
+                layout.use_property_decorate = False
+
+                flow = layout.grid_flow(align=True)
+                col = flow.column()
+
+                icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
+                col.prop(side_visibility, "eyes", icon=icon, text="EYES", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
+                col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.face_controls else 'HIDE_OFF'
+                col.prop(side_visibility, "face_controls", icon=icon , text="FACE CONTROLS", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
+                col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.lips else 'HIDE_OFF'
+                col.prop(side_visibility, "lips", icon=icon , text="LIPS", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
+                col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
+                col.prop(side_visibility, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
+                col.prop(side_visibility, "hands", icon=icon, text="HANDS", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
+                col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)
+
+            ################### end side visibility ##########################
 
             # col.label(text="Setup:")
             # box = col.box()
