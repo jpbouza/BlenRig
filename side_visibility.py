@@ -298,12 +298,14 @@ class SIDE_PT_visibility(Panel):
     def poll(cls, context):
         if not bpy.context.active_object:
             return False
-        if (bpy.context.active_object.type in ["ARMATURE"]):
-            for prop in bpy.context.active_object.data.items():
-                if prop[0] == 'rig_name' and prop[1] == 'BlenRig_5':
+        else:
+            if context.object.mode == 'POSE':
+                if (bpy.context.active_object.type in ["ARMATURE"]):
                     for prop in bpy.context.active_object.data.items():
-                        if prop[0] == 'rig_version' and str(prop[1]) >= '2.0.0':
-                            return True
+                        if prop[0] == 'rig_name' and prop[1] == 'BlenRig_5':
+                                return True
+            else:
+                return False
 
     def draw(self, context):
         layout = self.layout
@@ -313,11 +315,11 @@ class SIDE_PT_visibility(Panel):
         row = layout.row(align=True)
         box = layout.column()
         col = box.column()
-        box = col.box()
-        row = box.row()
 
-        row.prop(ccb, "right_side", text="R_Side")
-        row.prop(ccb, "left_side", text="L_Side")
+        icon = 'HIDE_OFF' if not ccb.right_side else 'HIDE_ON'
+        row.prop(ccb, "right_side", text="R_Side", icon=icon, toggle=True)
+        icon = 'HIDE_OFF' if not ccb.left_side else 'HIDE_ON'
+        row.prop(ccb, "left_side", text="L_Side", icon=icon, toggle=True)
 
         row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.eyes else 'HIDE_OFF'
