@@ -85,157 +85,159 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
         HEADS_DICT = {}
         TAILS_DICT = {}
 
+        # #Create Heads Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_head' in b.keys():
+        #                             if b['b_head'][0] != "''":
+        #                                 HEADS_DICT[b['b_head'][0]] = []
+
+        # #Populate Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_head' in b.keys():
+        #                             if b['b_head'][0] != "''":
+        #                                 if b['b_head'][0] in HEADS_DICT:
+        #                                     HEADS_DICT[b['b_head'][0]].append(b.name)
+
+        #     #Align Bones to Heads
+        #     for b_act in HEADS_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 bone_head_vec = b.head
+        #                 bone_tail_vec = b.tail
+        #         for b_listed in HEADS_DICT[b_act]:
+        #             for b_sel in bones:
+        #                 if b_sel.name == b_listed:
+        #                     if b_sel['b_head'][1] == 'head':
+        #                         b_sel.head = bone_head_vec
+        #                         print (b_sel.name)
+        #                     if b_sel['b_head'][1] == 'tail':
+        #                         b_sel.head = bone_tail_vec
+        #                         print (b_sel.name)
+
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'HEADS', 'XXXXXXXXXXXXXXXXXX', '\n')
+
+        # else:
         #Create Heads Dictionary
-        if arm_data.use_mirror_x == True:
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_head' in b.keys():
-                                    if b['b_head'][0] != "''":
-                                        HEADS_DICT[b['b_head'][0]] = []
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_head' in b.keys():
+                        if b['b_head'][0] != "''":
+                            HEADS_DICT[b['b_head'][0]] = []
 
         #Populate Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_head' in b.keys():
+                        if b['b_head'][0] != "''":
+                            if b['b_head'][0] in HEADS_DICT:
+                                HEADS_DICT[b['b_head'][0]].append(b.name)
+
+        #Align Bones to Heads
+        for b_act in HEADS_DICT:
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_head' in b.keys():
-                                    if b['b_head'][0] != "''":
-                                        if b['b_head'][0] in HEADS_DICT:
-                                            HEADS_DICT[b['b_head'][0]].append(b.name)
+                if b.name == b_act:
+                    bone_head_vec = b.head
+                    bone_tail_vec = b.tail
+            for b_listed in HEADS_DICT[b_act]:
+                for b_sel in bones:
+                    if b_sel.name == b_listed:
+                        if b_sel['b_head'][1] == 'head':
+                            b_sel.head = bone_head_vec
+                            print (b_sel.name)
+                        if b_sel['b_head'][1] == 'tail':
+                            b_sel.head = bone_tail_vec
+                            print (b_sel.name)
 
-            #Align Bones to Heads
-            for b_act in HEADS_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        bone_head_vec = b.head
-                        bone_tail_vec = b.tail
-                for b_listed in HEADS_DICT[b_act]:
-                    for b_sel in bones:
-                        if b_sel.name == b_listed:
-                            if b_sel['b_head'][1] == 'head':
-                                b_sel.head = bone_head_vec
-                                print (b_sel.name)
-                            if b_sel['b_head'][1] == 'tail':
-                                b_sel.head = bone_tail_vec
-                                print (b_sel.name)
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'HEADS', 'XXXXXXXXXXXXXXXXXX', '\n')
 
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'HEADS', 'XXXXXXXXXXXXXXXXXX', '\n')
+        # #Create TAILS Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_tail' in b.keys():
+        #                             if b['b_tail'][0] != "''":
+        #                                 TAILS_DICT[b['b_tail'][0]] = []
 
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_head' in b.keys():
-                            if b['b_head'][0] != "''":
-                                HEADS_DICT[b['b_head'][0]] = []
+        # #Populate Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_tail' in b.keys():
+        #                             if b['b_tail'][0] != "''":
+        #                                 if b['b_tail'][0] in TAILS_DICT:
+        #                                     TAILS_DICT[b['b_tail'][0]].append(b.name)
 
-        #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_head' in b.keys():
-                            if b['b_head'][0] != "''":
-                                if b['b_head'][0] in HEADS_DICT:
-                                    HEADS_DICT[b['b_head'][0]].append(b.name)
+        #     #Align Bones to Heads
+        #     for b_act in TAILS_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 bone_head_vec = b.head
+        #                 bone_tail_vec = b.tail
+        #         for b_listed in TAILS_DICT[b_act]:
+        #             for b_sel in bones:
+        #                 if b_sel.name == b_listed:
+        #                     if b_sel['b_tail'][1] == 'head':
+        #                         b_sel.tail = bone_head_vec
+        #                         print (b_sel.name)
+        #                     if b_sel['b_tail'][1] == 'tail':
+        #                         b_sel.tail = bone_tail_vec
+        #                         print (b_sel.name)
 
-            #Align Bones to Heads
-            for b_act in HEADS_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        bone_head_vec = b.head
-                        bone_tail_vec = b.tail
-                for b_listed in HEADS_DICT[b_act]:
-                    for b_sel in bones:
-                        if b_sel.name == b_listed:
-                            if b_sel['b_head'][1] == 'head':
-                                b_sel.head = bone_head_vec
-                                print (b_sel.name)
-                            if b_sel['b_head'][1] == 'tail':
-                                b_sel.head = bone_tail_vec
-                                print (b_sel.name)
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'TAILS', 'XXXXXXXXXXXXXXXXXX', '\n')
 
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'HEADS', 'XXXXXXXXXXXXXXXXXX', '\n')
-
+        # else:
         #Create TAILS Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_tail' in b.keys():
+                        if b['b_tail'][0] != "''":
+                            TAILS_DICT[b['b_tail'][0]] = []
+
+    #Populate Dictionary
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_tail' in b.keys():
+                        if b['b_tail'][0] != "''":
+                            if b['b_tail'][0] in TAILS_DICT:
+                                TAILS_DICT[b['b_tail'][0]].append(b.name)
+
+        #Align Bones to Heads
+        for b_act in TAILS_DICT:
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_tail' in b.keys():
-                                    if b['b_tail'][0] != "''":
-                                        TAILS_DICT[b['b_tail'][0]] = []
+                if b.name == b_act:
+                    bone_head_vec = b.head
+                    bone_tail_vec = b.tail
+            for b_listed in TAILS_DICT[b_act]:
+                for b_sel in bones:
+                    if b_sel.name == b_listed:
+                        if b_sel['b_tail'][1] == 'head':
+                            b_sel.tail = bone_head_vec
+                            print (b_sel.name)
+                        if b_sel['b_tail'][1] == 'tail':
+                            b_sel.tail = bone_tail_vec
+                            print (b_sel.name)
 
-        #Populate Dictionary
-        if arm_data.use_mirror_x == True:
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_tail' in b.keys():
-                                    if b['b_tail'][0] != "''":
-                                        if b['b_tail'][0] in TAILS_DICT:
-                                            TAILS_DICT[b['b_tail'][0]].append(b.name)
-
-            #Align Bones to Heads
-            for b_act in TAILS_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        bone_head_vec = b.head
-                        bone_tail_vec = b.tail
-                for b_listed in TAILS_DICT[b_act]:
-                    for b_sel in bones:
-                        if b_sel.name == b_listed:
-                            if b_sel['b_tail'][1] == 'head':
-                                b_sel.tail = bone_head_vec
-                                print (b_sel.name)
-                            if b_sel['b_tail'][1] == 'tail':
-                                b_sel.tail = bone_tail_vec
-                                print (b_sel.name)
-
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'TAILS', 'XXXXXXXXXXXXXXXXXX', '\n')
-
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_tail' in b.keys():
-                            if b['b_tail'][0] != "''":
-                                TAILS_DICT[b['b_tail'][0]] = []
-
-        #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_tail' in b.keys():
-                            if b['b_tail'][0] != "''":
-                                if b['b_tail'][0] in TAILS_DICT:
-                                    TAILS_DICT[b['b_tail'][0]].append(b.name)
-
-            #Align Bones to Heads
-            for b_act in TAILS_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        bone_head_vec = b.head
-                        bone_tail_vec = b.tail
-                for b_listed in TAILS_DICT[b_act]:
-                    for b_sel in bones:
-                        if b_sel.name == b_listed:
-                            if b_sel['b_tail'][1] == 'head':
-                                b_sel.tail = bone_head_vec
-                                print (b_sel.name)
-                            if b_sel['b_tail'][1] == 'tail':
-                                b_sel.tail = bone_tail_vec
-                                print (b_sel.name)
-
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'TAILS', 'XXXXXXXXXXXXXXXXXX', '\n')
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'TAILS', 'XXXXXXXXXXXXXXXXXX', '\n')
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -254,7 +256,7 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
     def execute(self, context):
         self.all_layers(context)
         self.match_heads_tails(context)
-        self.blenrig_update_mirrored(context)
+        # self.blenrig_update_mirrored(context)
         self.reset_layers(context)
 
 
@@ -351,6 +353,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
         for B in B_List:
             for b in bones:
                 if b.name == B:
+                    print (b.name)
                     b.select = 1
 
         bpy.ops.armature.calculate_roll(type= roll_type, axis_flip=False, axis_only=False)
@@ -367,15 +370,25 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
     def blenrig_bone_global_roll(self, context):
         print ('### Global Roll ###', '\n', '\n')
         self.global_roll(context, 'GLOBAL_POS_Y')
+        print ('XXXXXXXXXXXXXXXXXX', 'GLOBAL_POS_Y', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'GLOBAL_POS_Z')
+        print ('XXXXXXXXXXXXXXXXXX', 'GLOBAL_POS_Z', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'GLOBAL_POS_X')
+        print ('XXXXXXXXXXXXXXXXXX', 'GLOBAL_POS_X', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'GLOBAL_NEG_Y')
+        print ('XXXXXXXXXXXXXXXXXX', 'GLOBAL_NEG_Y', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'GLOBAL_NEG_Z')
+        print ('XXXXXXXXXXXXXXXXXX', 'GLOBAL_NEG_Z', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'GLOBAL_NEG_X')
+        print ('XXXXXXXXXXXXXXXXXX', 'GLOBAL_NEG_X', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'POS_Z')
+        print ('XXXXXXXXXXXXXXXXXX', 'POS_Z', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'POS_X')
+        print ('XXXXXXXXXXXXXXXXXX', 'POS_X', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'NEG_Z')
+        print ('XXXXXXXXXXXXXXXXXX', 'NEG_Z', 'XXXXXXXXXXXXXXXXXX', '\n')
         self.global_roll(context, 'NEG_X')
+        print ('XXXXXXXXXXXXXXXXXX', 'NEG_X', 'XXXXXXXXXXXXXXXXXX', '\n')
 
     #Assign Bone Roll for Bones that must have the same Roll of other Bone (Active Bone)
     def blenrig_bone_custom_roll(self, context):
@@ -398,68 +411,74 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
 
         B_DICT = {}
 
+        # #Create Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_roll' in b.keys():
+        #                             if b['b_roll'][0] == 'ACTIVE':
+        #                                 B_DICT[b['b_roll'][1]] = []
+        #     #Populate Dictionary
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_roll' in b.keys():
+        #                             if b['b_roll'][0] == 'ACTIVE':
+        #                                 if b['b_roll'][1] in B_DICT:
+        #                                     B_DICT[b['b_roll'][1]].append(b.name)
+        #     #Perfrom Bone Roll
+        #     for b_act in B_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 arm.data.edit_bones.active = b
+        #                 for b_listed in B_DICT[b_act]:
+        #                     for b_sel in bones:
+        #                         if b_sel.name == b_listed:
+        #                             print (b_sel.name)
+        #                             b_sel.select = 1
+
+        #         bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
+        #         bpy.ops.armature.select_all(action='DESELECT')
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+
+        # else:
         #Create Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_roll' in b.keys():
+                        if b['b_roll'][0] == 'ACTIVE':
+                            B_DICT[b['b_roll'][1]] = []
+        #Populate Dictionary
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_roll' in b.keys():
+                        if b['b_roll'][0] == 'ACTIVE':
+                            if b['b_roll'][1] in B_DICT:
+                                B_DICT[b['b_roll'][1]].append(b.name)
+        #Perfrom Bone Roll
+        for b_act in B_DICT:
+            print (b_act)
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_roll' in b.keys():
-                                    if b['b_roll'][0] == 'ACTIVE':
-                                        B_DICT[b['b_roll'][1]] = []
-            #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_roll' in b.keys():
-                                    if b['b_roll'][0] == 'ACTIVE':
-                                        if b['b_roll'][1] in B_DICT:
-                                            B_DICT[b['b_roll'][1]].append(b.name)
-            #Perfrom Bone Roll
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
+                if b.name == b_act:
+                    print (b_act)
+                    arm.data.edit_bones.active = b
+                    for b_listed in B_DICT[b_act]:
+                        for b_sel in bones:
+                            if b_sel.name == b_listed:
+                                print (b_sel.name)
+                                b_sel.select = 1
 
-                bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
-
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_roll' in b.keys():
-                            if b['b_roll'][0] == 'ACTIVE':
-                                B_DICT[b['b_roll'][1]] = []
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_roll' in b.keys():
-                            if b['b_roll'][0] == 'ACTIVE':
-                                if b['b_roll'][1] in B_DICT:
-                                    B_DICT[b['b_roll'][1]].append(b.name)
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
-
-                bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
+            arm.data.edit_bones.active = None
+            bpy.ops.armature.select_all(action='DESELECT')
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -490,80 +509,84 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
             if area.type == 'VIEW_3D':
                 c = bpy.context.copy()
                 c['area'] = area
-        else:
-            print("No View3D, aborting.")
+            else:
+                print("No View3D, aborting.")
 
         print ('### Cursor Roll ###', '\n', '\n')
 
         B_DICT = {}
 
+        # #Create Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_roll' in b.keys():
+        #                             if b['b_roll'][0] == 'CURSOR':
+        #                                 B_DICT[b['b_roll'][1]] = []
+        #     #Populate Dictionary
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_roll' in b.keys():
+        #                             if b['b_roll'][0] == 'CURSOR':
+        #                                 if b['b_roll'][1] in B_DICT:
+        #                                     B_DICT[b['b_roll'][1]].append(b.name)
+        #     #Perfrom Bone Roll
+        #     for b_act in B_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 arm.data.edit_bones.active = b
+        #                 bpy.ops.view3d.snap_cursor_to_active(c)
+        #                 for b_listed in B_DICT[b_act]:
+        #                     for b_sel in bones:
+        #                         if b_sel.name == b_listed:
+        #                             print (b_sel.name)
+        #                             b_sel.select = 1
+
+        #         bpy.ops.armature.calculate_roll(type='CURSOR', axis_flip=False, axis_only=False)
+        #         bpy.ops.armature.select_all(action='DESELECT')
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+
+
+        # else:
         #Create Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_roll' in b.keys():
+                        if b['b_roll'][0] == 'CURSOR':
+                            B_DICT[b['b_roll'][1]] = []
+        #Populate Dictionary
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_roll' in b.keys():
+                        if b['b_roll'][0] == 'CURSOR':
+                            if b['b_roll'][1] in B_DICT:
+                                B_DICT[b['b_roll'][1]].append(b.name)
+        #Perfrom Bone Roll
+        for b_act in B_DICT:
+            print (b_act)
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_roll' in b.keys():
-                                    if b['b_roll'][0] == 'CURSOR':
-                                        B_DICT[b['b_roll'][1]] = []
-            #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_roll' in b.keys():
-                                    if b['b_roll'][0] == 'CURSOR':
-                                        if b['b_roll'][1] in B_DICT:
-                                            B_DICT[b['b_roll'][1]].append(b.name)
-            #Perfrom Bone Roll
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        bpy.ops.view3d.snap_cursor_to_active(c)
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
+                if b.name == b_act:
+                    print (b_act)
+                    arm.data.edit_bones.active = b
+                    bpy.ops.view3d.snap_cursor_to_active(c)
+                    for b_listed in B_DICT[b_act]:
+                        for b_sel in bones:
+                            if b_sel.name == b_listed:
+                                print (b_sel.name)
+                                b_sel.select = 1
 
-                bpy.ops.armature.calculate_roll(type='CURSOR', axis_flip=False, axis_only=False)
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
-
-
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_roll' in b.keys():
-                            if b['b_roll'][0] == 'CURSOR':
-                                B_DICT[b['b_roll'][1]] = []
-            #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_roll' in b.keys():
-                            if b['b_roll'][0] == 'CURSOR':
-                                if b['b_roll'][1] in B_DICT:
-                                    B_DICT[b['b_roll'][1]].append(b.name)
-            #Perfrom Bone Roll
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        bpy.ops.view3d.snap_cursor_to_active(c)
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
-
-                bpy.ops.armature.calculate_roll(type='CURSOR', axis_flip=False, axis_only=False)
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            bpy.ops.armature.calculate_roll(type='CURSOR', axis_flip=False, axis_only=False)
+            arm.data.edit_bones.active = None
+            bpy.ops.armature.select_all(action='DESELECT')
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -594,68 +617,78 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
 
         B_DICT = {}
 
+        # #Create Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_align' in b.keys():
+        #                             if b['b_align'][0] != "''":
+        #                                 B_DICT[b['b_align'][0]] = []
+        #     #Populate Dictionary
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_align' in b.keys():
+        #                             if b['b_align'] != "['']":
+        #                                 if b['b_align'][0] in B_DICT:
+        #                                     B_DICT[b['b_align'][0]].append(b.name)
+        #     #Perfrom Bone Alignment
+        #     for b_act in B_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 arm.data.edit_bones.active = b
+        #                 for b_listed in B_DICT[b_act]:
+        #                     for b_sel in bones:
+        #                         if b_sel.name == b_listed:
+        #                             print (b_sel.name)
+        #                             b_sel.select = 1
+
+        #         bpy.ops.armature.align()
+        #         bpy.ops.armature.select_all(action='DESELECT')
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+
+        # else:
         #Create Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_align' in b.keys():
+                        if b['b_align'] == ['']:
+                            print ('empty')
+                        else:
+                            B_DICT[b['b_align'][0]] = []
+        #Populate Dictionary
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_align' in b.keys():
+                        if b['b_align'] == ['']:
+                            print ('empty')
+                        else:
+                            if b['b_align'][0] in B_DICT:
+                                B_DICT[b['b_align'][0]].append(b.name)
+        #Perfrom Bone Alignment
+        for b_act in B_DICT:
+            print (b_act)
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_align' in b.keys():
-                                    if b['b_align'][0] != "''":
-                                        B_DICT[b['b_align'][0]] = []
-            #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_align' in b.keys():
-                                    if b['b_align'][0] != "''":
-                                        if b['b_align'][0] in B_DICT:
-                                            B_DICT[b['b_align'][0]].append(b.name)
-            #Perfrom Bone Alignment
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
+                if b.name == b_act:
+                    print (b_act)
+                    arm.data.edit_bones.active = b
+                    for b_listed in B_DICT[b_act]:
+                        for b_sel in bones:
+                            if b_sel.name == b_listed:
+                                print (b_sel.name)
+                                b_sel.select = 1
 
-                bpy.ops.armature.align()
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
-
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_align' in b.keys():
-                            if b['b_align'][0] != "''":
-                                B_DICT[b['b_align'][0]] = []
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_align' in b.keys():
-                            if b['b_align'][0] != "''":
-                                if b['b_align'][0] in B_DICT:
-                                    B_DICT[b['b_align'][0]].append(b.name)
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
-
-                bpy.ops.armature.align()
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            bpy.ops.armature.align()
+            arm.data.edit_bones.active = None
+            bpy.ops.armature.select_all(action='DESELECT')
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -678,7 +711,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
         self.blenrig_bone_custom_roll(context)
         self.blenrig_bone_cursor_roll(context)
         self.blenrig_bone_align(context)
-        self.blenrig_update_mirrored(context)
+        # self.blenrig_update_mirrored(context)
         self.reset_layers(context)
 
         return {'FINISHED'}
@@ -766,68 +799,74 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
 
         B_DICT = {}
 
+        # #Create Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_roll' in b.keys():
+        #                             if b['b_roll'][0] == 'ACTIVE':
+        #                                 B_DICT[b['b_roll'][1]] = []
+        #     #Populate Dictionary
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_roll' in b.keys():
+        #                             if b['b_roll'][0] == 'ACTIVE':
+        #                                 if b['b_roll'][1] in B_DICT:
+        #                                     B_DICT[b['b_roll'][1]].append(b.name)
+        #     #Perfrom Bone Roll
+        #     for b_act in B_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 arm.data.edit_bones.active = b
+        #                 for b_listed in B_DICT[b_act]:
+        #                     for b_sel in bones:
+        #                         if b_sel.name == b_listed:
+        #                             print (b_sel.name)
+        #                             b_sel.select = 1
+
+        #         bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
+        #         bpy.ops.armature.select_all(action='DESELECT')
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+
+        # else:
         #Create Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_roll' in b.keys():
+                        if b['b_roll'][0] == 'ACTIVE':
+                            B_DICT[b['b_roll'][1]] = []
+        #Populate Dictionary
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_roll' in b.keys():
+                        if b['b_roll'][0] == 'ACTIVE':
+                            if b['b_roll'][1] in B_DICT:
+                                B_DICT[b['b_roll'][1]].append(b.name)
+        #Perfrom Bone Roll
+        for b_act in B_DICT:
+            print (b_act)
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_roll' in b.keys():
-                                    if b['b_roll'][0] == 'ACTIVE':
-                                        B_DICT[b['b_roll'][1]] = []
-            #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_roll' in b.keys():
-                                    if b['b_roll'][0] == 'ACTIVE':
-                                        if b['b_roll'][1] in B_DICT:
-                                            B_DICT[b['b_roll'][1]].append(b.name)
-            #Perfrom Bone Roll
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
+                if b.name == b_act:
+                    print (b_act)
+                    arm.data.edit_bones.active = b
+                    for b_listed in B_DICT[b_act]:
+                        for b_sel in bones:
+                            if b_sel.name == b_listed:
+                                print (b_sel.name)
+                                b_sel.select = 1
 
-                bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
-
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_roll' in b.keys():
-                            if b['b_roll'][0] == 'ACTIVE':
-                                B_DICT[b['b_roll'][1]] = []
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_roll' in b.keys():
-                            if b['b_roll'][0] == 'ACTIVE':
-                                if b['b_roll'][1] in B_DICT:
-                                    B_DICT[b['b_roll'][1]].append(b.name)
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
-
-                bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            bpy.ops.armature.calculate_roll(type='ACTIVE', axis_flip=False, axis_only=False)
+            arm.data.edit_bones.active = None
+            bpy.ops.armature.select_all(action='DESELECT')
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -836,6 +875,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+
 
     #Perform Bone Alignment for Bones that have to be aligned to other Bones
     def blenrig_bone_align(self, context):
@@ -858,68 +898,78 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
 
         B_DICT = {}
 
+        # #Create Dictionary
+        # if arm_data.use_mirror_x == True:
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_align' in b.keys():
+        #                             if b['b_align'][0] != "''":
+        #                                 B_DICT[b['b_align'][0]] = []
+        #     #Populate Dictionary
+        #     for b in bones:
+        #         if b.name in selected_bones:
+        #             if '_R' not in b.name:
+        #                 if b.name in selected_bones:
+        #                     if b.keys() != '[]':
+        #                         if 'b_align' in b.keys():
+        #                             if b['b_align'] != "['']":
+        #                                 if b['b_align'][0] in B_DICT:
+        #                                     B_DICT[b['b_align'][0]].append(b.name)
+        #     #Perfrom Bone Alignment
+        #     for b_act in B_DICT:
+        #         for b in bones:
+        #             if b.name == b_act:
+        #                 arm.data.edit_bones.active = b
+        #                 for b_listed in B_DICT[b_act]:
+        #                     for b_sel in bones:
+        #                         if b_sel.name == b_listed:
+        #                             print (b_sel.name)
+        #                             b_sel.select = 1
+
+        #         bpy.ops.armature.align()
+        #         bpy.ops.armature.select_all(action='DESELECT')
+        #         print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+
+        # else:
         #Create Dictionary
-        if arm_data.use_mirror_x == True:
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_align' in b.keys():
+                        if b['b_align'] == ['']:
+                            print ('empty')
+                        else:
+                            B_DICT[b['b_align'][0]] = []
+        #Populate Dictionary
+        for b in bones:
+            if b.name in selected_bones:
+                if b.keys() != '[]':
+                    if 'b_align' in b.keys():
+                        if b['b_align'] == ['']:
+                            print ('empty')
+                        else:
+                            if b['b_align'][0] in B_DICT:
+                                B_DICT[b['b_align'][0]].append(b.name)
+        #Perfrom Bone Alignment
+        for b_act in B_DICT:
+            print (b_act)
             for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_align' in b.keys():
-                                    if b['b_align'][0] != "''":
-                                        B_DICT[b['b_align'][0]] = []
-            #Populate Dictionary
-            for b in bones:
-                if b.name in selected_bones:
-                    if '_R' not in b.name:
-                        if b.name in selected_bones:
-                            if b.keys() != '[]':
-                                if 'b_align' in b.keys():
-                                    if b['b_align'][0] != "''":
-                                        if b['b_align'][0] in B_DICT:
-                                            B_DICT[b['b_align'][0]].append(b.name)
-            #Perfrom Bone Alignment
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
+                if b.name == b_act:
+                    print (b_act)
+                    arm.data.edit_bones.active = b
+                    for b_listed in B_DICT[b_act]:
+                        for b_sel in bones:
+                            if b_sel.name == b_listed:
+                                print (b_sel.name)
+                                b_sel.select = 1
 
-                bpy.ops.armature.align()
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
-
-        else:
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_align' in b.keys():
-                            if b['b_align'][0] != "''":
-                                B_DICT[b['b_align'][0]] = []
-            for b in bones:
-                if b.name in selected_bones:
-                    if b.keys() != '[]':
-                        if 'b_align' in b.keys():
-                            if b['b_align'][0] != "''":
-                                if b['b_align'][0] in B_DICT:
-                                    B_DICT[b['b_align'][0]].append(b.name)
-            for b_act in B_DICT:
-                for b in bones:
-                    if b.name == b_act:
-                        arm.data.edit_bones.active = b
-                        for b_listed in B_DICT[b_act]:
-                            for b_sel in bones:
-                                if b_sel.name == b_listed:
-                                    print (b_sel.name)
-                                    b_sel.select = 1
-
-                bpy.ops.armature.align()
-                bpy.ops.armature.select_all(action='DESELECT')
-                print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            bpy.ops.armature.align()
+            arm.data.edit_bones.active = None
+            bpy.ops.armature.select_all(action='DESELECT')
+            print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -940,7 +990,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
         self.all_layers(context)
         self.blenrig_bone_custom_roll(context)
         self.blenrig_bone_align(context)
-        self.blenrig_update_mirrored(context)
+        #self.blenrig_update_mirrored(context)
         self.reset_layers(context)
 
         return {'FINISHED'}
