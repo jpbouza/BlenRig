@@ -4,6 +4,13 @@ from bpy.props import BoolProperty, PointerProperty
 from bpy.types import Panel, Operator, PropertyGroup
 
 
+def get_properties(context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+    if side_visibility:
+        return side_visibility
+
 def get_bones_from_group(target):
     arm_name = bpy.context.active_object.name
     armature = bpy.data.objects[arm_name]
@@ -16,9 +23,7 @@ def get_bones_from_group(target):
 
 
 def show_eyes(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.eyes:
         huesos = get_bones_from_group(g_EYES)
@@ -31,9 +36,7 @@ def show_eyes(self, context):
 
 
 def show_face(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.face:
         for g in g_FACIAL:
@@ -50,9 +53,7 @@ def show_face(self, context):
 
 
 def show_eyebrows(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.eyebrows:
         huesos = get_bones_from_group(g_EYEBROWS)
@@ -69,9 +70,7 @@ def show_eyebrows(self, context):
 
 
 def show_face_mech(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.face_mech:
         huesos = get_bones_from_group(g_STR_FACE_MECH)
@@ -84,9 +83,7 @@ def show_face_mech(self, context):
 
 
 def show_inner_mouth(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.inner_mouth:
         huesos = get_bones_from_group(g_STR_INNER_MOUTH)
@@ -99,9 +96,7 @@ def show_inner_mouth(self, context):
 
 
 def show_hands(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.hands:
         huesos = get_bones_from_group(g_STR_HANDS)
@@ -114,9 +109,7 @@ def show_hands(self, context):
 
 
 def show_body(self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.body:
         for g in g_STR:
@@ -140,9 +133,7 @@ def show_body(self, context):
 
 r_side= []
 def show_right_side (self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.right_side:
         if bpy.context.visible_pose_bones:
@@ -168,9 +159,7 @@ def show_right_side (self, context):
 
 l_side= []
 def show_left_side (self, context):
-    ao = context.active_object
-    if ao.type == 'ARMATURE':
-        side_visibility = context.active_object.data.side_visibility
+    side_visibility = get_properties(context)
 
     if side_visibility.left_side:
         if bpy.context.visible_pose_bones:
