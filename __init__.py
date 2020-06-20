@@ -46,7 +46,7 @@ bl_info = {
 import bpy
 import os
 
-from bpy.props import FloatProperty, IntProperty, BoolProperty 
+from bpy.props import FloatProperty, IntProperty, BoolProperty
 
 ######### Load Rig Functions ##########
 from .rig_functions import (
@@ -59,6 +59,9 @@ from .rig_functions import (
     toggle_body_drivers,
     pole_toggles
 )
+
+######### Import all from side_visibility.py #########
+from .side_visibility import side_visibility_properties, SIDE_PT_visibility
 
 ######### Update Function for Properties ##########
 
@@ -2084,6 +2087,12 @@ blenrig_rigs_classes = [
 addon_dependencies = ["space_view3d_copy_attributes"]
 
 
+side_visibility_classes = [
+    side_visibility_properties,
+    SIDE_PT_visibility,
+]
+
+
 ######## bone selections set ###############
 # Store keymaps here to access after registration.
 addon_keymaps = []
@@ -2091,6 +2100,7 @@ addon_keymaps = []
 
 
 def register():
+    from bpy.utils import register_class
 
     # load dependency add-ons
     import addon_utils
@@ -2101,31 +2111,35 @@ def register():
 
     # load BlenRig internal classes
     for c in armature_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in set_values_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in alignment_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in schemes_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in rig_updater_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in snapping_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in body_picker_biped_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in body_picker_quadruped_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in face_picker_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in blenrig_rigs_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
     for c in bone_selecction_set_classes:
-        bpy.utils.register_class(c)
+        register_class(c)
+    for c in side_visibility_classes:
+            register_class(c)
 
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
+    # Side Visibility Props
+    bpy.types.Scene.ccb = bpy.props.PointerProperty(type=side_visibility_properties)
     # BlenRig Object Add Panel
     bpy.types.VIEW3D_MT_armature_add.append(blenrig5_add_menu_func)
 
@@ -2157,6 +2171,7 @@ def register():
 ######## bone selections set ###############
 
 def unregister():
+    from bpy.utils import unregister_class
 
     # BlenRig Props
     del bpy.types.WindowManager.blenrig_5_props
@@ -2165,27 +2180,29 @@ def unregister():
 
     # unload BlenRig internal classes
     for c in armature_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in set_values_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in alignment_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in schemes_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in rig_updater_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in snapping_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in body_picker_biped_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in body_picker_quadruped_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in face_picker_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in blenrig_rigs_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
     for c in bone_selecction_set_classes:
-        bpy.utils.unregister_class(c)
+        unregister_class(c)
+    for c in reversed(side_visibility_classes):
+            unregister_class(c)
 
     # unload add-on dependencies
     import addon_utils
@@ -2196,6 +2213,8 @@ def unregister():
     # Clear properties.
     del bpy.types.Object.selection_sets
     del bpy.types.Object.active_selection_set
+    # Clear visibility properties
+    del bpy.types.Scene.ccb
 
     # Clear shortcuts from the keymap.
     for km, kmi in addon_keymaps:

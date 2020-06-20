@@ -1,17 +1,6 @@
 
-import bpy, os
+import bpy
 
-bl_info = {
-    "name": "Martin",
-    "author": "Sav Martin, Jorge Hernandez Melendez",
-    "version": (0, 1),
-    "blender": (2, 83, 0),
-    "location": "",
-    "description": "",
-    "warning": "",
-    "wiki_url": "",
-    "category": "Martin",
-    }
 
 from bpy.props import (BoolProperty, PointerProperty)
 from bpy.types import (Panel, Operator, PropertyGroup)
@@ -25,19 +14,12 @@ g_FACIAL = ['FACIAL_MAIN_MID',
             'FACIAL_MID',
             'FACIAL_R',
             'FACIAL_L']
-
 g_EYES = ('STR_EYES')
-
 g_EYEBROWS = ('STR_EYEBROWS')
-
 g_STR_FACE_MECH = ('STR_FACE_MECH')
-
 g_STR_INNER_MOUTH = ('STR_INNER_MOUTH')
-
 g_STR_HANDS = ('STR_HANDS')
-
 g_STR = ('STR','GEN','IK_L','IK_R','PIVOT_POINTS')
-
 ex_huesos= ('brow_ctrl_3_L',
             'brow_ctrl_2_L',
             'brow_ctrl_1_L',
@@ -48,7 +30,6 @@ ex_huesos= ('brow_ctrl_3_L',
             'brow_ctrl_1_R',
             'brow_ctrl_4_R',
             'brow_ctrl_5_R')
-
 g_BODY = ('neck_1_def',
         'neck_2_def',
         'neck_3_def',
@@ -57,14 +38,18 @@ g_BODY = ('neck_1_def',
         'head_def_3',
         'head_def_1',
         'thigh_twist_def_L',
-        'toe_2_def_L',
-        'toe_1_def_L',
+        # 'toe_2_def_L',
+        # 'toe_1_def_L',
+        'toe_2_toon_L',
+        'toe_1_toon_L',
         'foot_def_L',
         'shin_def_L',
         'shin_twist_def_L',
         'thigh_twist_def_R',
-        'toe_2_def_R',
-        'toe_1_def_R',
+        # 'toe_2_def_R',
+        # 'toe_1_def_R',
+        'toe_2_toon_R',
+        'toe_1_toon_R',
         'foot_def_R',
         'shin_def_R',
         'shin_twist_def_R',
@@ -94,6 +79,7 @@ g_BODY = ('neck_1_def',
         'spine_3_def',
         'mouth_mstr_ik_copy_loc')
 
+
 def get_bones_from_group(target):
     arm_name =bpy.context.active_object.name
     armature = bpy.data.objects[arm_name]
@@ -104,8 +90,8 @@ def get_bones_from_group(target):
             bones.append(b)
     return bones
 
+
 def show_eyes(self, context):
-    
     if bpy.context.scene.ccb.eyes:
         huesos = get_bones_from_group(g_EYES)
         for h in huesos:
@@ -114,6 +100,7 @@ def show_eyes(self, context):
         huesos = get_bones_from_group(g_EYES)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
+
 
 def show_face(self, context):
     if bpy.context.scene.ccb.face:
@@ -129,6 +116,7 @@ def show_face(self, context):
             for h in huesos:
                 bpy.context.object.data.bones[h.name].hide = True
 
+
 def show_eyebrows(self, context):
     if bpy.context.scene.ccb.eyebrows:
         huesos = get_bones_from_group(g_EYEBROWS)
@@ -136,12 +124,13 @@ def show_eyebrows(self, context):
             bpy.context.object.data.bones[h.name].hide = False
         for h in ex_huesos:
             bpy.context.object.data.bones[h].hide = False
-    else:        
+    else:
         huesos = get_bones_from_group(g_EYEBROWS)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
         for h in ex_huesos:
             bpy.context.object.data.bones[h].hide = True
+
 
 def show_face_mech(self, context):
     if bpy.context.scene.ccb.face_mech:
@@ -153,6 +142,7 @@ def show_face_mech(self, context):
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
 
+
 def show_inner_mouth(self, context):
     if bpy.context.scene.ccb.inner_mouth:
         huesos = get_bones_from_group(g_STR_INNER_MOUTH)
@@ -162,6 +152,7 @@ def show_inner_mouth(self, context):
         huesos = get_bones_from_group(g_STR_INNER_MOUTH)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
+
 
 def show_hands(self, context):
     if bpy.context.scene.ccb.hands:
@@ -173,13 +164,14 @@ def show_hands(self, context):
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
 
+
 def show_body(self, context):
     if bpy.context.scene.ccb.body:
         for g in g_STR:
             huesos = get_bones_from_group(g)
 
             for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False 
+                bpy.context.object.data.bones[h.name].hide = False
 
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = False
@@ -188,110 +180,116 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True 
-        
+                bpy.context.object.data.bones[h.name].hide = True
+
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = True
 
+
 r_side= []
-def show_right_side (self, context):     
-    if bpy.context.scene.ccb.right_side:                   
-        for bone in bpy.context.visible_pose_bones:
-            if bone.name.endswith("_R"):
-                r_side.append(bone.name)
+def show_right_side (self, context):
+    if bpy.context.scene.ccb.right_side:
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_R"):
+                    r_side.append(bone.name)
 
         for bones_r in r_side:
             bpy.context.object.data.bones[bones_r].hide = True
-        for bone in bpy.context.visible_pose_bones:
-            if bone.name.endswith("_R"):
-                r_side.remove(bone.name)
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_R"):
+                    r_side.remove(bone.name)
 
-    else: 
+    else:
         for bones_r in r_side:
             bpy.context.object.data.bones[bones_r].hide = False
-        for bone in bpy.context.visible_pose_bones:
-            if bone.name.endswith("_R"):
-                r_side.remove(bone.name)
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_R"):
+                    r_side.remove(bone.name)
+
 
 l_side= []
 def show_left_side (self, context):
-    if bpy.context.scene.ccb.left_side:                   
-        for bone in bpy.context.visible_pose_bones:
-            if bone.name.endswith("_L"):
-                l_side.append(bone.name)
+    if bpy.context.scene.ccb.left_side:
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_L"):
+                    l_side.append(bone.name)
 
         for bones_l in l_side:
             bpy.context.object.data.bones[bones_l].hide = True
-        for bone in bpy.context.visible_pose_bones:
-            if bone.name.endswith("_L"):
-                l_side.remove(bone.name)
-
-    else: 
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_L"):
+                    l_side.remove(bone.name)
+    else:
         for bones_l in l_side:
             bpy.context.object.data.bones[bones_l].hide = False
-        for bone in bpy.context.visible_pose_bones:
-            if bone.name.endswith("_L"):
-                l_side.remove(bone.name)
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_L"):
+                    l_side.remove(bone.name)
 
 
-class myProperties(PropertyGroup):
-    eyes : BoolProperty(
-        name="eyes", 
-        default=True, 
+class side_visibility_properties(PropertyGroup):
+    eyes: BoolProperty(
+        name="eyes",
+        default=True,
         update=show_eyes
         )
 
-    face : BoolProperty(
-        name="face", 
-        default=True, 
+    face: BoolProperty(
+        name="face",
+        default=True,
         update=show_face
         )
 
-    eyebrows : BoolProperty(
-            name="eyebrows", 
-            default=True, 
+    eyebrows: BoolProperty(
+            name="eyebrows",
+            default=True,
             update=show_eyebrows
             )
 
-    face_mech : BoolProperty(
-            name="face_mech", 
-            default=True, 
+    face_mech: BoolProperty(
+            name="face_mech",
+            default=True,
             update=show_face_mech
             )
 
-    inner_mouth : BoolProperty(
-            name="inner_mouth", 
-            default=True, 
+    inner_mouth: BoolProperty(
+            name="inner_mouth",
+            default=True,
             update=show_inner_mouth
             )
 
-    hands : BoolProperty(
-            name="hands", 
-            default=True, 
+    hands: BoolProperty(
+            name="hands",
+            default=True,
             update=show_hands
             )
-    body : BoolProperty(
-            name="body", 
-            default=True, 
+    body: BoolProperty(
+            name="body",
+            default=True,
             update=show_body
             )
 
-    left_side : BoolProperty(
-            name="left_side", 
-            default=False, 
+    left_side: BoolProperty(
+            name="left_side",
+            default=False,
             update=show_left_side
             )
 
-    right_side : BoolProperty(
-            name="right_side", 
-            default=False, 
+    right_side: BoolProperty(
+            name="right_side",
+            default=False,
             update=show_right_side
             )
 
 
-
-class CYCLES_PT_color_bleeding(Panel):
-    bl_label = "Martin"
+class SIDE_PT_visibility(Panel):
+    bl_label = "Side Visibility"
     bl_space_type = "PROPERTIES"
     bl_region_type = "WINDOW"
     bl_context = "data"
@@ -319,8 +317,7 @@ class CYCLES_PT_color_bleeding(Panel):
         row = box.row()
 
         row.prop(ccb, "right_side", text="R_Side")
-        row.prop(ccb, "left_side", text="L_Side")        
-        
+        row.prop(ccb, "left_side", text="L_Side")
 
         row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.eyes else 'HIDE_OFF'
@@ -330,7 +327,7 @@ class CYCLES_PT_color_bleeding(Panel):
         row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.face else 'HIDE_OFF'
         row.prop(ccb, "face", icon=icon , text="", toggle=True)
-        row.label(text = "FACE")  
+        row.label(text = "FACE")
 
         row = layout.row(align=True)
         icon = 'HIDE_ON' if not ccb.eyebrows else 'HIDE_OFF'
@@ -356,33 +353,3 @@ class CYCLES_PT_color_bleeding(Panel):
         icon = 'HIDE_ON' if not ccb.body else 'HIDE_OFF'
         row.prop(ccb, "body", icon=icon, text="", toggle=True)
         row.label(text = "BODY")
-
-
-
-
-all_classes = [
-    myProperties,
-    CYCLES_PT_color_bleeding,
-]
-
-def register():
-    from bpy.utils import register_class
-    if len(all_classes) > 1:
-        for cls in all_classes:
-            register_class(cls)
-    else:
-        register_class(all_classes[0])
-    bpy.types.Scene.ccb = bpy.props.PointerProperty(type=myProperties)
-
-def unregister():
-    from bpy.utils import unregister_class
-    if len(all_classes) > 1:
-        for cls in reversed(all_classes):
-            unregister_class(cls)
-    else:
-        unregister_class(all_classes[0])
-    del bpy.types.Scene.ccb
-
-
-if __name__ == "__main__":
-    register()
