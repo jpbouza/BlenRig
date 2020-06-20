@@ -44,7 +44,13 @@ class Operator_BlenRig5_Add_Biped(bpy.types.Operator):
                 #bpy.ops.outliner.show_one_level(open=False)
 
     def execute(self, context):
+        if bpy.context.mode != 'OBJECT':
+            bpy.ops.object.mode_set(mode='OBJECT')
+
         bpy.ops.object.select_all(action='DESELECT')
+
         self.import_blenrig_biped(context)
+
         context.view_layer.objects.active = bpy.context.selected_objects[0]
+
         return{'FINISHED'}
