@@ -307,23 +307,25 @@ class SIDE_PT_visibility(Panel):
             flow = layout.grid_flow(align=True)
             col = flow.column()
 
-            icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
-            col.prop(side_visibility, "eyes", icon=icon, text="EYES", toggle=True)
+            if context.active_object.data.reproportion:
 
-            icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
-            col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
+                icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
+                col.prop(side_visibility, "eyes", icon=icon, text="EYES", toggle=True)
 
-            icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
-            col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
+                icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
+                col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
 
-            icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
-            col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
+                icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
+                col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
 
-            icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
-            col.prop(side_visibility, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
+                icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
+                col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
 
-            icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
-            col.prop(side_visibility, "hands", icon=icon, text="HANDS", toggle=True)
+                icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
+                col.prop(side_visibility, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
 
-            icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
-            col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)
+                icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
+                col.prop(side_visibility, "hands", icon=icon, text="HANDS", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
+                col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)
