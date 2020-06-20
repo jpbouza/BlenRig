@@ -62,8 +62,7 @@ from .rig_functions import (
 )
 
 ######### Import all from side_visibility.py #########
-# from .side_visibility import SIDE_PT_visibility
-from .side_visibility import *
+from .side_visibility import side_visibility_props, SIDE_PT_visibility
 
 ######### Update Function for Properties ##########
 
@@ -1438,7 +1437,7 @@ class ARMATURE_OT_blenrig_5_gui(bpy.types.Operator):
     tab: bpy.props.StringProperty(name="Tab", description="Tab of the gui to expand")
 
     def invoke(self, context, event):
-        arm = bpy.context.active_object.data
+        arm = context.active_object.data
         if self.properties.tab in arm:
             arm[self.properties.tab] = not arm[self.properties.tab]
         if self.properties.tab == 'gui_custom_layers':
@@ -1473,15 +1472,7 @@ class Blenrig_5_Props(bpy.types.PropertyGroup):
     bake_to_shape: bpy.props.BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
     align_selected_only: bpy.props.BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
     gui_custom_layers: bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
-    eyes: BoolProperty(name="eyes", default=True, update=show_eyes)
-    face: BoolProperty(name="face", default=True, update=show_face)
-    eyebrows: BoolProperty(name="eyebrows", default=True, update=show_eyebrows)
-    face_mech: BoolProperty(name="face_mech", default=True, update=show_face_mech)
-    inner_mouth: BoolProperty(name="inner_mouth", default=True, update=show_inner_mouth)
-    hands: BoolProperty(name="hands", default=True, update=show_hands)
-    body: BoolProperty(name="body", default=True, update=show_body)
-    left_side: BoolProperty(name="left_side", default=False, update=show_left_side)
-    right_side: BoolProperty(name="right_side", default=False, update=show_right_side)
+
 
 # BlenRig Armature Tools Operator
 armature_classes = [
@@ -2139,11 +2130,14 @@ def register():
     for c in bone_selecction_set_classes:
         register_class(c)
 
+    register_class(side_visibility_props)
     register_class(SIDE_PT_visibility)
 
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
+    # Side Visibility Props
+    bpy.types.Armature.side_visibility = bpy.props.PointerProperty(type=side_visibility_props)
     # BlenRig Object Add Panel
     bpy.types.VIEW3D_MT_armature_add.append(blenrig5_add_menu_func)
 
@@ -2179,6 +2173,8 @@ def unregister():
 
     # BlenRig Props
     del bpy.types.WindowManager.blenrig_5_props
+    # Side Visibility Props
+    del bpy.types.Armature.side_visibility
     # BlenRig Object Add Panel
     bpy.types.VIEW3D_MT_armature_add.remove(blenrig5_add_menu_func)
 
@@ -2206,6 +2202,7 @@ def unregister():
     for c in bone_selecction_set_classes:
         unregister_class(c)
 
+    unregister_class(side_visibility_props)
     unregister_class(SIDE_PT_visibility)
 
     # unload add-on dependencies

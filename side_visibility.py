@@ -1,10 +1,208 @@
 
 import bpy
+from bpy.props import BoolProperty, PointerProperty
+from bpy.types import Panel, Operator, PropertyGroup
 
 
-from bpy.props import (BoolProperty, PointerProperty)
-from bpy.types import (Panel, Operator, PropertyGroup)
+def get_bones_from_group(target):
+    arm_name = bpy.context.active_object.name
+    armature = bpy.data.objects[arm_name]
+    grupo_target = armature.pose.bone_groups[target]
+    bones = []
+    for b in armature.pose.bones:
+        if b.bone_group == grupo_target:
+            bones.append(b)
+    return bones
 
+
+def show_eyes(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.eyes:
+        huesos = get_bones_from_group(g_EYES)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = False
+    else:
+        huesos = get_bones_from_group(g_EYES)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = True
+
+
+def show_face(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.face:
+        for g in g_FACIAL:
+            huesos = get_bones_from_group(g)
+
+            for h in huesos:
+                bpy.context.object.data.bones[h.name].hide = False
+    else:
+        for g in g_FACIAL:
+            huesos = get_bones_from_group(g)
+
+            for h in huesos:
+                bpy.context.object.data.bones[h.name].hide = True
+
+
+def show_eyebrows(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.eyebrows:
+        huesos = get_bones_from_group(g_EYEBROWS)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = False
+        for h in ex_huesos:
+            bpy.context.object.data.bones[h].hide = False
+    else:
+        huesos = get_bones_from_group(g_EYEBROWS)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = True
+        for h in ex_huesos:
+            bpy.context.object.data.bones[h].hide = True
+
+
+def show_face_mech(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.face_mech:
+        huesos = get_bones_from_group(g_STR_FACE_MECH)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = False
+    else:
+        huesos = get_bones_from_group(g_STR_FACE_MECH)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = True
+
+
+def show_inner_mouth(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.inner_mouth:
+        huesos = get_bones_from_group(g_STR_INNER_MOUTH)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = False
+    else:
+        huesos = get_bones_from_group(g_STR_INNER_MOUTH)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = True
+
+
+def show_hands(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.hands:
+        huesos = get_bones_from_group(g_STR_HANDS)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = False
+    else:
+        huesos = get_bones_from_group(g_STR_HANDS)
+        for h in huesos:
+            bpy.context.object.data.bones[h.name].hide = True
+
+
+def show_body(self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.body:
+        for g in g_STR:
+            huesos = get_bones_from_group(g)
+
+            for h in huesos:
+                bpy.context.object.data.bones[h.name].hide = False
+
+        for h in g_BODY:
+            bpy.context.object.data.bones[h].hide = False
+    else:
+        for g in g_STR:
+            huesos = get_bones_from_group(g)
+
+            for h in huesos:
+                bpy.context.object.data.bones[h.name].hide = True
+
+        for h in g_BODY:
+            bpy.context.object.data.bones[h].hide = True
+
+
+r_side= []
+def show_right_side (self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.right_side:
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_R"):
+                    r_side.append(bone.name)
+
+        for bones_r in r_side:
+            bpy.context.object.data.bones[bones_r].hide = True
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_R"):
+                    r_side.remove(bone.name)
+
+    else:
+        for bones_r in r_side:
+            bpy.context.object.data.bones[bones_r].hide = False
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_R"):
+                    r_side.remove(bone.name)
+
+
+l_side= []
+def show_left_side (self, context):
+    ao = context.active_object
+    if ao.type == 'ARMATURE':
+        side_visibility = context.active_object.data.side_visibility
+
+    if side_visibility.left_side:
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_L"):
+                    l_side.append(bone.name)
+
+        for bones_l in l_side:
+            bpy.context.object.data.bones[bones_l].hide = True
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_L"):
+                    l_side.remove(bone.name)
+    else:
+        for bones_l in l_side:
+            bpy.context.object.data.bones[bones_l].hide = False
+        if bpy.context.visible_pose_bones:
+            for bone in bpy.context.visible_pose_bones:
+                if bone.name.endswith("_L"):
+                    l_side.remove(bone.name)
+
+
+class side_visibility_props(PropertyGroup):
+    eyes: BoolProperty(name="eyes", default=True, update=show_eyes)
+    face: BoolProperty(name="face", default=True, update=show_face)
+    eyebrows: BoolProperty(name="eyebrows", default=True, update=show_eyebrows)
+    face_mech: BoolProperty(name="face_mech", default=True, update=show_face_mech)
+    inner_mouth: BoolProperty(name="inner_mouth", default=True, update=show_inner_mouth)
+    hands: BoolProperty(name="hands", default=True, update=show_hands)
+    body: BoolProperty(name="body", default=True, update=show_body)
+    left_side: BoolProperty(name="left_side", default=False, update=show_left_side)
+    right_side: BoolProperty(name="right_side", default=False, update=show_right_side)
 
 g_FACIAL = ['FACIAL_MAIN_MID',
             'STR_FACE',
@@ -80,159 +278,6 @@ g_BODY = ('neck_1_def',
         'mouth_mstr_ik_copy_loc')
 
 
-def get_bones_from_group(target):
-    arm_name =bpy.context.active_object.name
-    armature = bpy.data.objects[arm_name]
-    grupo_target = armature.pose.bone_groups[target]
-    bones = []
-    for b in armature.pose.bones:
-        if b.bone_group == grupo_target:
-            bones.append(b)
-    return bones
-
-
-def show_eyes(self, context):
-    if context.window_manager.blenrig_5_props.eyes:
-        huesos = get_bones_from_group(g_EYES)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-    else:
-        huesos = get_bones_from_group(g_EYES)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
-
-
-def show_face(self, context):
-    if context.window_manager.blenrig_5_props.face:
-        for g in g_FACIAL:
-            huesos = get_bones_from_group(g)
-
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False
-    else:
-        for g in g_FACIAL:
-            huesos = get_bones_from_group(g)
-
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True
-
-
-def show_eyebrows(self, context):
-    if context.window_manager.blenrig_5_props.eyebrows:
-        huesos = get_bones_from_group(g_EYEBROWS)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-        for h in ex_huesos:
-            bpy.context.object.data.bones[h].hide = False
-    else:
-        huesos = get_bones_from_group(g_EYEBROWS)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
-        for h in ex_huesos:
-            bpy.context.object.data.bones[h].hide = True
-
-
-def show_face_mech(self, context):
-    if context.window_manager.blenrig_5_props.face_mech:
-        huesos = get_bones_from_group(g_STR_FACE_MECH)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-    else:
-        huesos = get_bones_from_group(g_STR_FACE_MECH)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
-
-
-def show_inner_mouth(self, context):
-    if context.window_manager.blenrig_5_props.inner_mouth:
-        huesos = get_bones_from_group(g_STR_INNER_MOUTH)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-    else:
-        huesos = get_bones_from_group(g_STR_INNER_MOUTH)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
-
-
-def show_hands(self, context):
-    if context.window_manager.blenrig_5_props.hands:
-        huesos = get_bones_from_group(g_STR_HANDS)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-    else:
-        huesos = get_bones_from_group(g_STR_HANDS)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
-
-
-def show_body(self, context):
-    if context.window_manager.blenrig_5_props.body:
-        for g in g_STR:
-            huesos = get_bones_from_group(g)
-
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False
-
-        for h in g_BODY:
-            bpy.context.object.data.bones[h].hide = False
-    else:
-        for g in g_STR:
-            huesos = get_bones_from_group(g)
-
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True
-
-        for h in g_BODY:
-            bpy.context.object.data.bones[h].hide = True
-
-
-r_side= []
-def show_right_side (self, context):
-    if context.window_manager.blenrig_5_props.right_side:
-        if bpy.context.visible_pose_bones:
-            for bone in bpy.context.visible_pose_bones:
-                if bone.name.endswith("_R"):
-                    r_side.append(bone.name)
-
-        for bones_r in r_side:
-            bpy.context.object.data.bones[bones_r].hide = True
-        if bpy.context.visible_pose_bones:
-            for bone in bpy.context.visible_pose_bones:
-                if bone.name.endswith("_R"):
-                    r_side.remove(bone.name)
-
-    else:
-        for bones_r in r_side:
-            bpy.context.object.data.bones[bones_r].hide = False
-        if bpy.context.visible_pose_bones:
-            for bone in bpy.context.visible_pose_bones:
-                if bone.name.endswith("_R"):
-                    r_side.remove(bone.name)
-
-
-l_side= []
-def show_left_side (self, context):
-    if context.window_manager.blenrig_5_props.left_side:
-        if bpy.context.visible_pose_bones:
-            for bone in bpy.context.visible_pose_bones:
-                if bone.name.endswith("_L"):
-                    l_side.append(bone.name)
-
-        for bones_l in l_side:
-            bpy.context.object.data.bones[bones_l].hide = True
-        if bpy.context.visible_pose_bones:
-            for bone in bpy.context.visible_pose_bones:
-                if bone.name.endswith("_L"):
-                    l_side.remove(bone.name)
-    else:
-        for bones_l in l_side:
-            bpy.context.object.data.bones[bones_l].hide = False
-        if bpy.context.visible_pose_bones:
-            for bone in bpy.context.visible_pose_bones:
-                if bone.name.endswith("_L"):
-                    l_side.remove(bone.name)
-
-
 class SIDE_PT_visibility(Panel):
     bl_label = "Side Visibility"
     bl_space_type = "PROPERTIES"
@@ -255,38 +300,41 @@ class SIDE_PT_visibility(Panel):
     def draw(self, context):
         layout = self.layout
         scene = context.scene
-        blenrig_5_props = context.window_manager.blenrig_5_props
 
-        row = layout.row(align=True)
+        ao = context.active_object
+        if ao.type == 'ARMATURE':
+            side_visibility = context.active_object.data.side_visibility
 
-        icon = 'HIDE_OFF' if not blenrig_5_props.right_side else 'HIDE_ON'
-        row.prop(blenrig_5_props, "right_side", text="R_Side", icon=icon, toggle=True)
-        icon = 'HIDE_OFF' if not blenrig_5_props.left_side else 'HIDE_ON'
-        row.prop(blenrig_5_props, "left_side", text="L_Side", icon=icon, toggle=True)
+            row = layout.row(align=True)
 
-        layout.use_property_split = True
-        layout.use_property_decorate = False
+            icon = 'HIDE_OFF' if not side_visibility.right_side else 'HIDE_ON'
+            row.prop(side_visibility, "right_side", text="R_Side", icon=icon, toggle=True)
+            icon = 'HIDE_OFF' if not side_visibility.left_side else 'HIDE_ON'
+            row.prop(side_visibility, "left_side", text="L_Side", icon=icon, toggle=True)
 
-        flow = layout.grid_flow(align=True)
-        col = flow.column()
+            layout.use_property_split = True
+            layout.use_property_decorate = False
 
-        icon = 'HIDE_ON' if not blenrig_5_props.eyes else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "eyes", icon=icon, text="EYES", toggle=True)
+            flow = layout.grid_flow(align=True)
+            col = flow.column()
 
-        icon = 'HIDE_ON' if not blenrig_5_props.face else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "face", icon=icon, text="FACE", toggle=True)
+            icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
+            col.prop(side_visibility, "eyes", icon=icon, text="EYES", toggle=True)
 
-        icon = 'HIDE_ON' if not blenrig_5_props.eyebrows else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
+            icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
+            col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
 
-        icon = 'HIDE_ON' if not blenrig_5_props.face_mech else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "face_mech", icon=icon, text="FACE MECH", toggle=True)
+            icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
+            col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
 
-        icon = 'HIDE_ON' if not blenrig_5_props.inner_mouth else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
+            icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
+            col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
 
-        icon = 'HIDE_ON' if not blenrig_5_props.hands else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "hands", icon=icon, text="HANDS", toggle=True)
+            icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
+            col.prop(side_visibility, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
 
-        icon = 'HIDE_ON' if not blenrig_5_props.body else 'HIDE_OFF'
-        col.prop(blenrig_5_props, "body", icon=icon, text="BODY", toggle=True)
+            icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
+            col.prop(side_visibility, "hands", icon=icon, text="HANDS", toggle=True)
+
+            icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
+            col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)

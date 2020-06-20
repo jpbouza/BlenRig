@@ -1,7 +1,9 @@
 import bpy
 import os
+from bpy.types import Operator
+from ..side_visibility import side_visibility_props
 
-class Operator_BlenRig5_Add_Biped(bpy.types.Operator):
+class Operator_BlenRig5_Add_Biped(Operator):
 
     bl_idname = "blenrig5.add_biped_rig"
     bl_label = "BlenRig 5 Add Biped Rig"
