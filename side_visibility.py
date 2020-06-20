@@ -34,16 +34,18 @@ def show_eyes(self, context):
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
 
-
 def show_face(self, context):
     side_visibility = get_properties(context)
-
+    
     if side_visibility.face:
         for g in g_FACIAL:
             huesos = get_bones_from_group(g)
 
             for h in huesos:
                 bpy.context.object.data.bones[h.name].hide = False
+
+        for h in g_FACIAL_EXTRAS:
+                bpy.context.object.data.bones[h].hide = False
     else:
         for g in g_FACIAL:
             huesos = get_bones_from_group(g)
@@ -51,6 +53,28 @@ def show_face(self, context):
             for h in huesos:
                 bpy.context.object.data.bones[h.name].hide = True
 
+        for h in g_FACIAL_EXTRAS:
+                bpy.context.object.data.bones[h].hide = True
+
+def show_lips(self, context):
+    side_visibility = get_properties(context)
+
+    if side_visibility.lips:
+        for g in g_LIPS:
+            huesos = get_bones_from_group(g)
+            for h in huesos:
+                bpy.context.object.data.bones[h.name].hide = False
+
+        for h in g_LIPS_EXTRAS:
+            bpy.context.object.data.bones[h].hide = False
+    else:
+        for g in g_LIPS:
+            huesos = get_bones_from_group(g)
+            for h in huesos:
+                bpy.context.object.data.bones[h.name].hide = True
+            
+        for h in g_LIPS_EXTRAS:
+            bpy.context.object.data.bones[h].hide = True
 
 def show_eyebrows(self, context):
     side_visibility = get_properties(context)
@@ -68,7 +92,6 @@ def show_eyebrows(self, context):
         for h in ex_huesos:
             bpy.context.object.data.bones[h].hide = True
 
-
 def show_face_mech(self, context):
     side_visibility = get_properties(context)
 
@@ -76,11 +99,16 @@ def show_face_mech(self, context):
         huesos = get_bones_from_group(g_STR_FACE_MECH)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = False
+
+        for h in g_FACE_MECH_EXTRA :
+            bpy.context.object.data.bones[h].hide = False
     else:
         huesos = get_bones_from_group(g_STR_FACE_MECH)
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
 
+        for h in g_FACE_MECH_EXTRA :
+            bpy.context.object.data.bones[h].hide = True
 
 def show_inner_mouth(self, context):
     side_visibility = get_properties(context)
@@ -94,7 +122,6 @@ def show_inner_mouth(self, context):
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
 
-
 def show_hands(self, context):
     side_visibility = get_properties(context)
 
@@ -107,7 +134,6 @@ def show_hands(self, context):
         for h in huesos:
             bpy.context.object.data.bones[h.name].hide = True
 
-
 def show_body(self, context):
     side_visibility = get_properties(context)
 
@@ -116,7 +142,7 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False
+                bpy.context.object.data.bones[h.name].hide = False 
 
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = False
@@ -125,9 +151,19 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True
-
+                bpy.context.object.data.bones[h.name].hide = True 
+        
         for h in g_BODY:
+            bpy.context.object.data.bones[h].hide = True
+
+def show_face_controls(self, context):
+    side_visibility = get_properties(context)
+
+    if side_visibility.face_controls:
+        for h in g_FACE_CONTROLS :
+            bpy.context.object.data.bones[h].hide = False
+    else:
+        for h in g_FACE_CONTROLS :
             bpy.context.object.data.bones[h].hide = True
 
 
@@ -190,9 +226,12 @@ class side_visibility_props(PropertyGroup):
     inner_mouth: BoolProperty(name="inner_mouth", default=True, update=show_inner_mouth)
     hands: BoolProperty(name="hands", default=True, update=show_hands)
     body: BoolProperty(name="body", default=True, update=show_body)
+    lips: BoolProperty(name="body", default=True, update=show_lips)
+    face_controls: BoolProperty(name="body", default=True, update=show_face_controls)
     left_side: BoolProperty(name="left_side", default=False, update=show_left_side)
     right_side: BoolProperty(name="right_side", default=False, update=show_right_side)
 
+########################## FACIAL ##################################
 g_FACIAL = ['FACIAL_MAIN_MID',
             'STR_FACE',
             'FACIAL_MAIN_R',
@@ -201,12 +240,109 @@ g_FACIAL = ['FACIAL_MAIN_MID',
             'FACIAL_MID',
             'FACIAL_R',
             'FACIAL_L']
+
+g_FACIAL_EXTRAS = ('chin_ctrl_mid',
+                    'lip_low_outer_ctrl_mid',
+                    'nose_bridge_ctrl_2',
+                    'nose_root_ctrl_mid',
+                    'frown_ctrl'
+)
+
+####################### LIPS ####################################
+
+g_LIPS = ['STR_LIPS']
+g_LIPS_EXTRAS = ('lip_low_rim_ctrl_mid',
+                'lip_low_line_ctrl_mid',
+                'lip_up_rim_ctrl_mid',
+                'lip_up_line_ctrl_mid',
+
+                'lip_low_rim_ctrl_1_L',
+                'lip_low_rim_ctrl_2_L',
+                'lip_low_rim_ctrl_3_L',
+                'lip_low_rim_ctrl_1_R',
+                'lip_low_rim_ctrl_2_R',
+                'lip_low_rim_ctrl_3_R',
+
+                'lip_up_rim_ctrl_1_L',
+                'lip_up_rim_ctrl_2_L',
+                'lip_up_rim_ctrl_3_L',
+                'lip_up_rim_ctrl_4_L',
+                'lip_up_rim_ctrl_1_R',
+                'lip_up_rim_ctrl_2_R',
+                'lip_up_rim_ctrl_3_R',
+                'lip_up_rim_ctrl_4_R',
+
+                'lip_low_line_ctrl_1_L',
+                'lip_low_line_ctrl_2_L',
+                'lip_low_line_ctrl_3_L',
+                'lip_low_line_ctrl_1_R',
+                'lip_low_line_ctrl_2_R',
+                'lip_low_line_ctrl_3_R',
+
+                'lip_up_line_ctrl_1_L',
+                'lip_up_line_ctrl_2_L',
+                'lip_up_line_ctrl_3_L',
+                'lip_up_line_ctrl_4_L',
+                'lip_up_line_ctrl_1_R',
+                'lip_up_line_ctrl_2_R',
+                'lip_up_line_ctrl_3_R',
+                'lip_up_line_ctrl_4_R',
+)
+
+############################## FACE CONTROLS ############################
+
+g_FACE_CONTROLS = ('mouth_corner_L',
+                    'mouth_corner_R',
+                    'mouth_frown_ctrl_L',
+                    'mouth_frown_ctrl_R',
+                    'cheek_ctrl_L',
+                    'cheek_ctrl_R',
+                    'nose_frown_ctrl_L',
+                    'nose_frown_ctrl_R',
+                    'eyelid_up_ctrl_L',
+                    'eyelid_up_ctrl_R',
+                    'eyelid_low_ctrl_L',
+                    'eyelid_low_ctrl_R',
+                    'cheek_puff_mstr_L',
+                    'cheek_puff_mstr_R',
+                    'cheek_puff_ctrl_L',
+                    'cheek_puff_ctrl_R',
+                    'eyelid_up_rim_ctrl_L',
+                    'eyelid_up_rim_ctrl_R',
+                    'old_eyelid_up_ctrl_L',
+                    'old_eyelid_up_ctrl_R',
+                    'old_eyelid_low_rim_ctrl_L',
+                    'old_eyelid_low_rim_ctrl_R',
+                    'old_eyelid_low_ctrl_L',
+                    'old_eyelid_low_ctrl_R'
+)
+
+############################## EYES #####################################
+
 g_EYES = ('STR_EYES')
+
+############################## EYEBROWS ############################
+
 g_EYEBROWS = ('STR_EYEBROWS')
+
+############################## FACE MECH ############################
+
 g_STR_FACE_MECH = ('STR_FACE_MECH')
+g_FACE_MECH_EXTRA = ('lip_low_ctrl_collision',
+                    'lip_up_ctrl_collision'
+                    )
+############################## INNER MOUTH ############################
+
 g_STR_INNER_MOUTH = ('STR_INNER_MOUTH')
+
+############################## HANDS ############################
+
 g_STR_HANDS = ('STR_HANDS')
+
+############################## REST ############################
+
 g_STR = ('STR','GEN','IK_L','IK_R','PIVOT_POINTS')
+
 ex_huesos= ('brow_ctrl_3_L',
             'brow_ctrl_2_L',
             'brow_ctrl_1_L',
@@ -217,6 +353,10 @@ ex_huesos= ('brow_ctrl_3_L',
             'brow_ctrl_1_R',
             'brow_ctrl_4_R',
             'brow_ctrl_5_R')
+
+
+############################## BODY ############################
+
 g_BODY = ('neck_1_def',
         'neck_2_def',
         'neck_3_def',
@@ -225,18 +365,10 @@ g_BODY = ('neck_1_def',
         'head_def_3',
         'head_def_1',
         'thigh_twist_def_L',
-        # 'toe_2_def_L',
-        # 'toe_1_def_L',
-        'toe_2_toon_L',
-        'toe_1_toon_L',
         'foot_def_L',
         'shin_def_L',
         'shin_twist_def_L',
         'thigh_twist_def_R',
-        # 'toe_2_def_R',
-        # 'toe_1_def_R',
-        'toe_2_toon_R',
-        'toe_1_toon_R',
         'foot_def_R',
         'shin_def_R',
         'shin_twist_def_R',
@@ -264,7 +396,15 @@ g_BODY = ('neck_1_def',
         'clavi_def_L',
         'arm_def_L',
         'spine_3_def',
-        'mouth_mstr_ik_copy_loc')
+        'mouth_mstr_ik_copy_loc',
+        'foot_toe_2_def_L',
+        'foot_toe_1_def_L',
+        'foot_toe_2_def_R',
+        'foot_toe_1_def_R',
+        'neck_1_def.001',
+        'neck_2_def.001',
+        'neck_3_def.001'
+        )
 
 
 class SIDE_PT_visibility(Panel):
@@ -315,8 +455,14 @@ class SIDE_PT_visibility(Panel):
                 icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
                 col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
 
+                icon = 'HIDE_ON' if not side_visibility.face_controls else 'HIDE_OFF'
+                col.prop(side_visibility, "face_controls", icon=icon , text="FACE CONTROLS", toggle=True)
+
                 icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
                 col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.lips else 'HIDE_OFF'
+                col.prop(side_visibility, "lips", icon=icon , text="LIPS", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
                 col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
