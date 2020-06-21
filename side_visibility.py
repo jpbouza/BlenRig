@@ -11,6 +11,16 @@ json_path_file = os.path.join("data_jsons", "bones_from_bone_groups.json")
 ##### el ui esta en ui_panel_rigging_2_0.py #####
 #################################################
 
+def get_bones(target_groups):
+    bones = []
+    with open(json_path_file) as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] in target_groups:
+                for bone in bg['bones']:
+                    bones.append(bone)
+    return bones
+
 def toggle_bone_visibility(left_side, right_side, target, bones):
     for bone in bones:
         if target:
@@ -38,6 +48,7 @@ def get_properties(context):
     if side_visibility:
         return side_visibility
 
+
 def get_bones_from_group(target):
     arm_name = bpy.context.active_object.name
     armature = bpy.data.objects[arm_name]
@@ -52,28 +63,16 @@ def get_bones_from_group(target):
 def show_eyes(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR_EYES']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.eyes, bones)
 
 def show_face(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR_SMILE_LINE','STR_FACE', 'FACIAL_L', 'FACIAL_R', 'FACIAL_MID', 'FACIAL_MAIN_L', 'FACIAL_MAIN_R', 'FACIAL_MAIN_MID']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.face, bones)
 
@@ -81,14 +80,8 @@ def show_face(self, context):
 def show_lips(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR_LIPS']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.lips, bones)
 
@@ -96,14 +89,8 @@ def show_lips(self, context):
 def show_eyebrows(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR_EYEBROWS']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.eyebrows, bones)
 
@@ -111,14 +98,8 @@ def show_face_mech(self, context):
     side_visibility = get_properties(context)
 
     # FACE_MECH_EXTRA no existe como tal
-    bones = []
     target_groups = ['STR_FACE_MECH', 'STR_FACE_MECH']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.face_mech, bones)
 
@@ -126,57 +107,33 @@ def show_face_mech(self, context):
 def show_inner_mouth(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR_INNER_MOUTH']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.inner_mouth, bones)
 
 def show_hands(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR_HANDS']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.hands, bones)
 
 def show_body(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     target_groups = ['STR', 'BODY']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.body, bones)
 
 def show_face_controls(self, context):
     side_visibility = get_properties(context)
 
-    bones = []
     # FACE_CONTROLS no existe como tal
     target_groups = ['FACE_CONTROLS']
-    with open(json_path_file) as json_file:
-        data = json.load(json_file)
-        for bg in data['bone_groups']:
-            if bg['name'] in target_groups:
-                for bone in bg['bones']:
-                    bones.append(bone)
+    bones = get_bones(target_groups)
 
     toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.face_controls, bones)
 
