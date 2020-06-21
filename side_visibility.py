@@ -2,7 +2,15 @@
 import bpy
 from bpy.props import BoolProperty, PointerProperty
 from bpy.types import Panel, Operator, PropertyGroup
+<<<<<<< HEAD
 
+=======
+import json
+
+#################################################
+##### el ui esta en ui_panel_rigging_2_0.py #####
+#################################################
+>>>>>>> zebus3d
 
 def get_properties(context):
     ao = context.active_object
@@ -25,6 +33,7 @@ def get_bones_from_group(target):
 def show_eyes(self, context):
     side_visibility = get_properties(context)
 
+<<<<<<< HEAD
     if side_visibility.eyes:
         huesos = get_bones_from_group(g_EYES)
         for h in huesos:
@@ -55,6 +64,36 @@ def show_face(self, context):
 
         for h in g_FACIAL_EXTRAS:
                 bpy.context.object.data.bones[h].hide = True
+=======
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] == 'STR_EYES':
+                bones = bg['bones']
+
+    for bone in bones:
+        if not side_visibility.right_side and bone[-2:len(bone)] != '_L':
+            bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+        if not side_visibility.left_side and bone[-2:len(bone)] != '_R':
+            bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+
+def show_face(self, context):
+    side_visibility = get_properties(context)
+    bones = []
+    target_groups = ['STR_FACE', 'FACIAL_L', 'FACIAL_R', 'FACIAL_MID', 'FACIAL_MAIN_L', 'FACIAL_MAIN_R', 'FACIAL_MAIN_MID']
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] in target_groups:
+                bones.append(bg['bones'])
+
+    for b in bones:
+        for bone in b:
+            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+>>>>>>> zebus3d
 
 def show_lips(self, context):
     side_visibility = get_properties(context)
@@ -72,7 +111,11 @@ def show_lips(self, context):
             huesos = get_bones_from_group(g)
             for h in huesos:
                 bpy.context.object.data.bones[h.name].hide = True
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> zebus3d
         for h in g_LIPS_EXTRAS:
             bpy.context.object.data.bones[h].hide = True
 
@@ -142,7 +185,11 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
+<<<<<<< HEAD
                 bpy.context.object.data.bones[h.name].hide = False 
+=======
+                bpy.context.object.data.bones[h.name].hide = False
+>>>>>>> zebus3d
 
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = False
@@ -151,8 +198,13 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
+<<<<<<< HEAD
                 bpy.context.object.data.bones[h.name].hide = True 
         
+=======
+                bpy.context.object.data.bones[h.name].hide = True
+
+>>>>>>> zebus3d
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = True
 
@@ -290,7 +342,10 @@ g_LIPS_EXTRAS = ('lip_low_rim_ctrl_mid',
 )
 
 ############################## FACE CONTROLS ############################
+<<<<<<< HEAD
 
+=======
+>>>>>>> zebus3d
 g_FACE_CONTROLS = ('mouth_corner_L',
                     'mouth_corner_R',
                     'mouth_frown_ctrl_L',
@@ -308,6 +363,7 @@ g_FACE_CONTROLS = ('mouth_corner_L',
                     'cheek_puff_ctrl_L',
                     'cheek_puff_ctrl_R',
                     'eyelid_up_rim_ctrl_L',
+<<<<<<< HEAD
                     'eyelid_up_rim_ctrl_R',
                     'old_eyelid_up_ctrl_L',
                     'old_eyelid_up_ctrl_R',
@@ -315,6 +371,9 @@ g_FACE_CONTROLS = ('mouth_corner_L',
                     'old_eyelid_low_rim_ctrl_R',
                     'old_eyelid_low_ctrl_L',
                     'old_eyelid_low_ctrl_R'
+=======
+                    'eyelid_up_rim_ctrl_R'
+>>>>>>> zebus3d
 )
 
 ############################## EYES #####################################
@@ -405,6 +464,7 @@ g_BODY = ('neck_1_def',
         'neck_2_def.001',
         'neck_3_def.001'
         )
+<<<<<<< HEAD
 
 
 class SIDE_PT_visibility(Panel):
@@ -475,3 +535,5 @@ class SIDE_PT_visibility(Panel):
 
                 icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
                 col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)
+=======
+>>>>>>> zebus3d

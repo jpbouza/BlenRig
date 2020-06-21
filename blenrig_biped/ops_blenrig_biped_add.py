@@ -55,4 +55,25 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
         context.view_layer.objects.active = bpy.context.selected_objects[0]
 
+<<<<<<< HEAD
+=======
+        scenes = bpy.data.scenes
+
+        # desactivamos las siguientes colecciones:
+        disable_cols = ['Mesh_Deform_Cage', 'GameModel', 'BoneShapes', 'Lattices']
+        for scn in scenes:
+            view_layers = scn.view_layers
+            for vl in view_layers:
+                for child in reversed(vl.layer_collection.children):
+                    if len(disable_cols) < 1:
+                        break
+                    for subchild in reversed(child.children):
+                        if len(disable_cols) < 1:
+                            break
+                        else:
+                            if subchild.name in disable_cols:
+                                subchild.exclude = True
+                                disable_cols.remove(subchild.name)
+
+>>>>>>> zebus3d
         return{'FINISHED'}

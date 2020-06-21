@@ -62,7 +62,11 @@ from .rig_functions import (
 )
 
 ######### Import all from side_visibility.py #########
+<<<<<<< HEAD
 from .side_visibility import side_visibility_props, SIDE_PT_visibility
+=======
+from .side_visibility import side_visibility_props
+>>>>>>> zebus3d
 
 ######### Update Function for Properties ##########
 
@@ -1443,6 +1447,7 @@ class ARMATURE_OT_blenrig_5_gui(bpy.types.Operator):
         if self.properties.tab == 'gui_custom_layers':
             context.window_manager.blenrig_5_props.gui_custom_layers = not context.window_manager.blenrig_5_props.gui_custom_layers
 
+
         return{'FINISHED'}
 
 ####### REGISTRATION ##############################################
@@ -2131,8 +2136,14 @@ def register():
         register_class(c)
 
     register_class(side_visibility_props)
+<<<<<<< HEAD
     register_class(SIDE_PT_visibility)
+=======
+<<<<<<< HEAD
+>>>>>>> zebus3d
 
+=======
+>>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
@@ -2203,7 +2214,14 @@ def unregister():
         unregister_class(c)
 
     unregister_class(side_visibility_props)
+<<<<<<< HEAD
     unregister_class(SIDE_PT_visibility)
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
+>>>>>>> zebus3d
 
     # unload add-on dependencies
     import addon_utils
