@@ -8,6 +8,26 @@ import json
 ##### el ui esta en ui_panel_rigging_2_0.py #####
 #################################################
 
+def toggle_bone_visibility(left_side, right_side, target, bones):
+    for bone in bones:
+        if target:
+            if not left_side and bone[-2:len(bone)] == '_L':
+                bpy.context.object.data.bones[bone].hide = False
+            if not right_side and bone[-2:len(bone)] == '_R':
+                bpy.context.object.data.bones[bone].hide = False
+            if not left_side and bone[-2:len(bone)] == '_mid':
+                bpy.context.object.data.bones[bone].hide = False
+            if bone[-4:len(bone)] == '_mid':
+                bpy.context.object.data.bones[bone].hide = False
+        else:
+            if not left_side and bone[-2:len(bone)] == '_L':
+                bpy.context.object.data.bones[bone].hide = True
+            if not right_side and bone[-2:len(bone)] == '_R':
+                bpy.context.object.data.bones[bone].hide = True
+            if bone[-4:len(bone)] == '_mid':
+                bpy.context.object.data.bones[bone].hide = True
+
+
 def get_properties(context):
     ao = context.active_object
     if ao.type == 'ARMATURE':
@@ -38,24 +58,7 @@ def show_eyes(self, context):
                 for bone in bg['bones']:
                     bones.append(bone)
 
-    for bone in bones:
-        if side_visibility.eyes:
-            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
-                bpy.context.object.data.bones[bone].hide = False
-            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
-                bpy.context.object.data.bones[bone].hide = False
-            if not side_visibility.left_side and bone[-2:len(bone)] == '_mid':
-                bpy.context.object.data.bones[bone].hide = False
-            if bone[-4:len(bone)] == '_mid':
-                bpy.context.object.data.bones[bone].hide = False
-        else:
-            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
-                bpy.context.object.data.bones[bone].hide = True
-            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
-                bpy.context.object.data.bones[bone].hide = True
-            if bone[-4:len(bone)] == '_mid':
-                bpy.context.object.data.bones[bone].hide = True
-
+    toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.eyes, bones)
 
 def show_face(self, context):
     side_visibility = get_properties(context)
@@ -69,44 +72,23 @@ def show_face(self, context):
                 for bone in bg['bones']:
                     bones.append(bone)
 
-    for bone in bones:
-        if side_visibility.face:
-            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
-                bpy.context.object.data.bones[bone].hide = False
-            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
-                bpy.context.object.data.bones[bone].hide = False
-            if not side_visibility.left_side and bone[-2:len(bone)] == '_mid':
-                bpy.context.object.data.bones[bone].hide = False
-            if bone[-4:len(bone)] == '_mid':
-                bpy.context.object.data.bones[bone].hide = False
-        else:
-            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
-                bpy.context.object.data.bones[bone].hide = True
-            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
-                bpy.context.object.data.bones[bone].hide = True
-            if bone[-4:len(bone)] == '_mid':
-                bpy.context.object.data.bones[bone].hide = True
+    toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.face, bones)
 
 
 def show_lips(self, context):
     side_visibility = get_properties(context)
 
-    if side_visibility.lips:
-        for g in g_LIPS:
-            huesos = get_bones_from_group(g)
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False
+    bones = []
+    target_groups = ['STR_LIPS']
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] in target_groups:
+                for bone in bg['bones']:
+                    bones.append(bone)
 
-        for h in g_LIPS_EXTRAS:
-            bpy.context.object.data.bones[h].hide = False
-    else:
-        for g in g_LIPS:
-            huesos = get_bones_from_group(g)
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True
+    toggle_bone_visibility(side_visibility.left_side, side_visibility.right_side, side_visibility.lips, bones)
 
-        for h in g_LIPS_EXTRAS:
-            bpy.context.object.data.bones[h].hide = True
 
 def show_eyebrows(self, context):
     side_visibility = get_properties(context)
