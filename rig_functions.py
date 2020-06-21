@@ -314,30 +314,30 @@ def reproportion_toggle(context):
                     for layer in bpy.context.active_object.data.layers:
                         listaDeEstados.insert(contador, layer)
                         contador += 1
-                    
+
                     contador = 0
                     for layer in bpy.context.active_object.data.layers:
                         if layer:
                             bpy.context.active_object.data.layers[contador] = not bpy.context.active_object.data.layers[contador]
-                        
+
                         contador += 1
                         bpy.context.active_object.data.layers[31] = True
 
 
-                    for b in p_bones:      
+                    for b in p_bones:
                         for C in b.constraints:
                             if ('REPROP' in C.name):
-                                C.mute = False 
+                                C.mute = False
                             if ('NOREP' in C.name):
-                                C.mute = True   
+                                C.mute = True
 
                 else:
-                    contador = 0 
+                    contador = 0
                     try :
                         for layer in bpy.context.active_object.data.layers:
                             bpy.context.active_object.data.layers[contador] = listaDeEstados[contador]
                             contador += 1
-                    
+
                         for b in p_bones:
                             for C in b.constraints:
                                 if ('REPROP' in C.name):
