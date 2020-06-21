@@ -294,7 +294,8 @@ def reproportion_toggle(context):
     else:
         if len(mode) > 1:
             bpy.ops.object.mode_set(mode=mode[-2])
-    del mode[0]
+    if len(mode) > 1:
+        del mode[0]
 
     if not bpy.context.screen:
         return False
