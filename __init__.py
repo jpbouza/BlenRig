@@ -1443,6 +1443,7 @@ class ARMATURE_OT_blenrig_5_gui(bpy.types.Operator):
         if self.properties.tab == 'gui_custom_layers':
             context.window_manager.blenrig_5_props.gui_custom_layers = not context.window_manager.blenrig_5_props.gui_custom_layers
 
+
         return{'FINISHED'}
 
 ####### REGISTRATION ##############################################

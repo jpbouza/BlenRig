@@ -285,7 +285,17 @@ def bone_auto_hide(context):
 
 ####### Reproportion Toggle #######
 listaDeEstados = []
+mode = []
 def reproportion_toggle(context):
+    mode.append(context.active_object.mode)
+    print(mode)
+    if context.active_object.data.reproportion:
+        bpy.ops.object.mode_set(mode='POSE')
+    else:
+        if len(mode) > 1:
+            bpy.ops.object.mode_set(mode=mode[-2])
+    del mode[0]
+
     if not bpy.context.screen:
         return False
     if bpy.context.screen.is_animation_playing == True:

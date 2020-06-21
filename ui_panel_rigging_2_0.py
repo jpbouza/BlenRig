@@ -1124,6 +1124,7 @@ class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
             row.label(text="RIGGING & BAKING")
             col.separator()
             # box = col.box()
+
             col.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
 
             ################### side visibility ##########################
