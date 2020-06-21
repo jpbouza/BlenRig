@@ -2132,6 +2132,10 @@ def register():
         register_class(c)
 
     register_class(side_visibility_props)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
@@ -2202,6 +2206,10 @@ def unregister():
         unregister_class(c)
 
     unregister_class(side_visibility_props)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
 
     # unload add-on dependencies
     import addon_utils
