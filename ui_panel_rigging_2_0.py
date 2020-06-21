@@ -1147,31 +1147,31 @@ class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
                 col = flow.column()
 
                 icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
-                col.prop(side_visibility, "eyes", icon=icon, text="EYES", toggle=True)
+                col.prop(side_visibility, "eyes", icon=icon, text="Eyes", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
-                col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
+                col.prop(side_visibility, "face", icon=icon, text="Face", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.face_controls else 'HIDE_OFF'
-                col.prop(side_visibility, "face_controls", icon=icon , text="FACE CONTROLS", toggle=True)
+                col.prop(side_visibility, "face_controls", icon=icon , text="Face Controls", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
-                col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
+                col.prop(side_visibility, "eyebrows", icon=icon, text="Eyerbrows", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.lips else 'HIDE_OFF'
-                col.prop(side_visibility, "lips", icon=icon , text="LIPS", toggle=True)
+                col.prop(side_visibility, "lips", icon=icon , text="Lips", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
-                col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
+                col.prop(side_visibility, "face_mech", icon=icon, text="Face Mech", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
-                col.prop(side_visibility, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
+                col.prop(side_visibility, "inner_mouth", icon=icon, text="Inner Mouth", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
-                col.prop(side_visibility, "hands", icon=icon, text="HANDS", toggle=True)
+                col.prop(side_visibility, "hands", icon=icon, text="Hands", toggle=True)
 
                 icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
-                col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)
+                col.prop(side_visibility, "body", icon=icon, text="Body", toggle=True)
 
             ################### end side visibility ##########################
 
