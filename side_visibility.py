@@ -2,6 +2,7 @@
 import bpy
 from bpy.props import BoolProperty, PointerProperty
 from bpy.types import Panel, Operator, PropertyGroup
+import json
 
 #################################################
 ##### el ui esta en ui_panel_rigging_2_0.py #####
@@ -27,30 +28,37 @@ def get_bones_from_group(target):
 
 def show_eyes(self, context):
     side_visibility = get_properties(context)
-    huesos = get_bones_from_group(g_EYES)
-    for h in huesos:
-        if not side_visibility.right_side and h.name[-2:len(h.name)] != '_L':
-            bpy.context.object.data.bones[h.name].hide = not bpy.context.object.data.bones[h.name].hide
-        if not side_visibility.left_side and h.name[-2:len(h.name)] != '_R':
-            bpy.context.object.data.bones[h.name].hide = not bpy.context.object.data.bones[h.name].hide
+
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] == 'STR_EYES':
+                bones = bg['bones']
+
+    for bone in bones:
+        if not side_visibility.right_side and bone[-2:len(bone)] != '_L':
+            bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+        if not side_visibility.left_side and bone[-2:len(bone)] != '_R':
+            bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
 
 def show_face(self, context):
     side_visibility = get_properties(context)
+    bones = []
+    target_groups = ['STR_FACE', 'FACIAL_L', 'FACIAL_R', 'FACIAL_MID', 'FACIAL_MAIN_L', 'FACIAL_MAIN_R', 'FACIAL_MAIN_MID']
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] in target_groups:
+                bones.append(bg['bones'])
 
-    for g in g_FACIAL:
-        huesos = get_bones_from_group(g)
-        for h in huesos:
-            if not side_visibility.right_side and h.name[-2:len(h.name)] != '_L':
-                bpy.context.object.data.bones[h.name].hide = not bpy.context.object.data.bones[h.name].hide
-            elif not side_visibility.left_side and h.name[-2:len(h.name)] != '_R':
-                bpy.context.object.data.bones[h.name].hide = not bpy.context.object.data.bones[h.name].hide
-
-        # for h in g_FACIAL_EXTRAS:
-        #     if not side_visibility.right_side and h[-2:len(h)] != '_L':
-        #         bpy.context.object.data.bones[h].hide = not bpy.context.object.data.bones[h].hide
-        #     if not side_visibility.left_side and h[-2:len(h)] != '_R':
-        #         bpy.context.object.data.bones[h].hide = not bpy.context.object.data.bones[h].hide
-
+    for b in bones:
+        for bone in b:
+            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+            elif not side_visibility.left_side and bone[-2:len(bone)] == '_L':
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+            else:
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
 
 def show_lips(self, context):
     side_visibility = get_properties(context)
