@@ -310,13 +310,7 @@ g_FACE_CONTROLS = ('mouth_corner_L',
                     'cheek_puff_ctrl_L',
                     'cheek_puff_ctrl_R',
                     'eyelid_up_rim_ctrl_L',
-                    'eyelid_up_rim_ctrl_R',
-                    # 'old_eyelid_up_ctrl_L',
-                    # 'old_eyelid_up_ctrl_R',
-                    # 'old_eyelid_low_rim_ctrl_L',
-                    # 'old_eyelid_low_rim_ctrl_R',
-                    # 'old_eyelid_low_ctrl_L',
-                    # 'old_eyelid_low_ctrl_R'
+                    'eyelid_up_rim_ctrl_R'
 )
 
 ############################## EYES #####################################
