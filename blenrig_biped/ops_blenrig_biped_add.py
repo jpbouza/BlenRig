@@ -55,8 +55,6 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
         context.view_layer.objects.active = bpy.context.selected_objects[0]
 
-<<<<<<< HEAD
-=======
         scenes = bpy.data.scenes
 
         # desactivamos las siguientes colecciones:
@@ -75,5 +73,4 @@ class Operator_BlenRig5_Add_Biped(Operator):
                                 subchild.exclude = True
                                 disable_cols.remove(subchild.name)
 
->>>>>>> zebus3d
         return{'FINISHED'}

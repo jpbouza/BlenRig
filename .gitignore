@@ -128,11 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-<<<<<<< HEAD
-#Pycaches
-=======
-
-# Pycaches
->>>>>>> zebus3d
+#Pycaches eliminar
 *.pyc
 __pycache__/

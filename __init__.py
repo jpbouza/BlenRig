@@ -63,6 +63,7 @@ from .rig_functions import (
 
 ######### Import all from side_visibility.py #########
 from .side_visibility import side_visibility_props
+
 ######### Update Function for Properties ##########
 
 def prop_update(self, context):
@@ -2131,17 +2132,6 @@ def register():
         register_class(c)
 
     register_class(side_visibility_props)
-<<<<<<< HEAD
-<<<<<<< HEAD
-    register_class(SIDE_PT_visibility)
-=======
-<<<<<<< HEAD
->>>>>>> zebus3d
-=======
->>>>>>> f96dfd057b77d46f058a632b033cc2eaa148206b
-
-=======
->>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
@@ -2212,17 +2202,6 @@ def unregister():
         unregister_class(c)
 
     unregister_class(side_visibility_props)
-<<<<<<< HEAD
-<<<<<<< HEAD
-    unregister_class(SIDE_PT_visibility)
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
->>>>>>> zebus3d
-=======
->>>>>>> f96dfd057b77d46f058a632b033cc2eaa148206b
 
     # unload add-on dependencies
     import addon_utils
