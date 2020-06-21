@@ -1,6 +1,7 @@
 {
     "bone_groups": [
         {
+            "name": "GEN",
             "bones": [
                 "look",
                 "look_L",
@@ -50,10 +51,10 @@
                 "flex_shin_width_L",
                 "flex_foot_scale_L",
                 "master_extra"
-            ],
-            "name": "GEN"
+            ]
         },
         {
+            "name": "Fk_MID",
             "bones": [
                 "neck_fk_ctrl",
                 "neck_1_fk",
@@ -66,18 +67,18 @@
                 "spine_2_fk",
                 "spine_3_fk",
                 "pelvis_ctrl"
-            ],
-            "name": "Fk_MID"
+            ]
         },
         {
+            "name": "FK_INV_MID",
             "bones": [
                 "spine_3_fk_inv",
                 "spine_2_fk_inv",
                 "torso_fk_ctrl_inv"
-            ],
-            "name": "FK_INV_MID"
+            ]
         },
         {
+            "name": "FK_L",
             "bones": [
                 "head_fk_mstr",
                 "thigh_fk_L",
@@ -180,10 +181,10 @@
                 "shin_fk_mstr_L",
                 "shin_drv_L",
                 "breast_L"
-            ],
-            "name": "FK_L"
+            ]
         },
         {
+            "name": "FK_R",
             "bones": [
                 "thigh_fk_R",
                 "shin_fk_R",
@@ -263,10 +264,10 @@
                 "shin_fk_mstr_R",
                 "shin_drv_R",
                 "breast_R"
-            ],
-            "name": "FK_R"
+            ]
         },
         {
+            "name": "IK_L",
             "bones": [
                 "snap_toes_ctrl_mid_fk_L",
                 "thigh_ik_L",
@@ -339,10 +340,10 @@
                 "fing_thumb_3_ik_R",
                 "arm_ik_shoulder_track_L",
                 "forearm_ik_shoulder_track_L"
-            ],
-            "name": "IK_L"
+            ]
         },
         {
+            "name": "IK_R",
             "bones": [
                 "thigh_ik_R",
                 "shin_ik_R",
@@ -375,10 +376,10 @@
                 "fing_lit_ik_R",
                 "arm_ik_shoulder_track_R",
                 "forearm_ik_shoulder_track_R"
-            ],
-            "name": "IK_R"
+            ]
         },
         {
+            "name": "TOON_L",
             "bones": [
                 "eye_ctrl_L",
                 "pupil_ctrl_L",
@@ -469,10 +470,10 @@
                 "eye_socket_ctrl_R",
                 "eye_spec_L",
                 "eye_spec_RR"
-            ],
-            "name": "TOON_L"
+            ]
         },
         {
+            "name": "TOON_R",
             "bones": [
                 "toon_brow_R",
                 "toon_eye_up_R",
@@ -540,25 +541,25 @@
                 "forearm_toon_R",
                 "pelvis_toon_R",
                 "clavi_toon_R"
-            ],
-            "name": "TOON_R"
+            ]
         },
         {
+            "name": "SCALE_L",
             "bones": [
                 "leg_scale_L",
                 "arm_scale_L",
                 "head_scale"
-            ],
-            "name": "SCALE_L"
+            ]
         },
         {
+            "name": "SCALE_R",
             "bones": [
                 "leg_scale_R",
                 "arm_scale_R"
-            ],
-            "name": "SCALE_R"
+            ]
         },
         {
+            "name": "PIVOT_POINTS",
             "bones": [
                 "master_pivot_point",
                 "master_body_pivot_point",
@@ -567,10 +568,10 @@
                 "master_torso_pivot_point",
                 "sole_pivot_point_L",
                 "sole_pivot_point_R"
-            ],
-            "name": "PIVOT_POINTS"
+            ]
         },
         {
+            "name": "FACIAL_L",
             "bones": [
                 "nostril_ctrl_L",
                 "cheekbone_ctrl_1_L",
@@ -753,10 +754,10 @@
                 "lip_up_zipper_3_L",
                 "eyelid_ctrl_in_L",
                 "eyelid_low_ctrl_3_L"
-            ],
-            "name": "FACIAL_L"
+            ]
         },
         {
+            "name": "FACIAL_R",
             "bones": [
                 "nostril_ctrl_R",
                 "cheekbone_ctrl_1_R",
@@ -864,10 +865,10 @@
                 "lip_up_zipper_1_R",
                 "lip_up_zipper_2_R",
                 "lip_up_zipper_3_R"
-            ],
-            "name": "FACIAL_R"
+            ]
         },
         {
+            "name": "FACIAL_MID",
             "bones": [
                 "nose_tip_ctrl_mstr",
                 "nose_base_ctrl_mid",
@@ -900,10 +901,10 @@
                 "lip_low_line_ctrl_mid",
                 "lip_low_zipper_mid",
                 "lip_up_zipper_mid"
-            ],
-            "name": "FACIAL_MID"
+            ]
         },
         {
+            "name": "FACIAL_MAIN_L",
             "bones": [
                 "cheek_ctrl_L",
                 "nose_frown_ctrl_L",
@@ -950,10 +951,10 @@
                 "brow_hair_ctrl_5_L",
                 "brow_hair_ctrl_4_L",
                 "blink_ctrl_L"
-            ],
-            "name": "FACIAL_MAIN_L"
+            ]
         },
         {
+            "name": "FACIAL_MAIN_R",
             "bones": [
                 "cheek_ctrl_R",
                 "nose_frown_ctrl_R",
@@ -976,10 +977,10 @@
                 "brow_hair_ctrl_5_R",
                 "brow_hair_ctrl_4_R",
                 "blink_ctrl_R"
-            ],
-            "name": "FACIAL_MAIN_R"
+            ]
         },
         {
+            "name": "FACIAL_MAIN_MID",
             "bones": [
                 "head_mid_ctrl",
                 "nose_ctrl",
@@ -1008,17 +1009,17 @@
                 "mouth_mstr_ctrl",
                 "mouth_ctrl_symmetric",
                 "brow_ctrl_mstr"
-            ],
-            "name": "FACIAL_MAIN_MID"
+            ]
         },
         {
+            "name": "CLOTH",
             "bones": [
                 "eyeglasses_mstr",
                 "knot"
-            ],
-            "name": "CLOTH"
+            ]
         },
         {
+            "name": "STR",
             "bones": [
                 "face_mstr_str",
                 "head_mid_2_str",
@@ -1061,10 +1062,10 @@
                 "toe_str_2_R",
                 "sole_str_L",
                 "sole_str_R"
-            ],
-            "name": "STR"
+            ]
         },
         {
+            "name": "STR_EYEBROWS",
             "bones": [
                 "brow_mstr_L",
                 "brow_def_5_L",
@@ -1141,10 +1142,10 @@
                 "brow_hair_def_3_R",
                 "brow_hair_def_2_R",
                 "brow_hair_def_1_R"
-            ],
-            "name": "STR_EYEBROWS"
+            ]
         },
         {
+            "name": "STR_EYES",
             "bones": [
                 "eye_socket_mstr_str_L",
                 "eyelid_up_ctrl_2_mstr_L",
@@ -1262,10 +1263,10 @@
                 "eyelid_low_rot_3_R",
                 "eyelid_low_rot_1_L",
                 "eyelid_low_rot_1_R"
-            ],
-            "name": "STR_EYES"
+            ]
         },
         {
+            "name": "STR_FACE",
             "bones": [
                 "cheekbone_line_def_1_R",
                 "cheekbone_line_def_2_R",
@@ -1489,10 +1490,10 @@
                 "nose_def_1_mid",
                 "smile_line_low_def_1_R",
                 "smile_line_low_def_1_L"
-            ],
-            "name": "STR_FACE"
+            ]
         },
         {
+            "name": "STR_FACE_MECH",
             "bones": [
                 "mouth_str_loc_1",
                 "mouth_str",
@@ -1507,10 +1508,10 @@
                 "mouth_ctrl_str",
                 "mouth_str_loc_2",
                 "mouth_mstr_ik_mouth_loc"
-            ],
-            "name": "STR_FACE_MECH"
+            ]
         },
         {
+            "name": "STR_INNER_MOUTH",
             "bones": [
                 "tongue_1_def",
                 "tongue_2_def",
@@ -1539,10 +1540,10 @@
                 "teeth_up_str",
                 "teeth_low_str",
                 "tongue_str"
-            ],
-            "name": "STR_INNER_MOUTH"
+            ]
         },
         {
+            "name": "STR_HANDS",
             "bones": [
                 "toe_lit_1_def_L",
                 "toe_big_1_def_L",
@@ -1716,10 +1717,10 @@
                 "toe_ind_str_5_R",
                 "foot_side_roll_str_out_R",
                 "foot_side_roll_str_in_R"
-            ],
-            "name": "STR_HANDS"
+            ]
         },
         {
+            "name": "STR_LIPS",
             "bones": [
                 "lip_up_def_1_L",
                 "lip_up_def_1_R",
@@ -1769,10 +1770,10 @@
                 "lip_up_def_3_R",
                 "lip_low_def_4_L",
                 "lip_low_def_4_R"
-            ],
-            "name": "STR_LIPS"
+            ]
         },
         {
+            "name": "STR_SMILE_LINE",
             "bones": [
                 "smile_line_def_1_R",
                 "smile_line_def_2_R",
@@ -1780,10 +1781,10 @@
                 "smile_line_def_1_L",
                 "smile_line_def_2_L",
                 "smile_line_def_3_L"
-            ],
-            "name": "STR_SMILE_LINE"
+            ]
         },
         {
+            "name": "B-BONE_MECH",
             "bones": [
                 "eyelid_up_line_def_1_bbone_in_L",
                 "eyelid_low_line_1_bbone_in_L",
@@ -1819,10 +1820,10 @@
                 "lip_low_rim_def_4_bbone_out_R",
                 "lip_up_rim_def_4_bbone_out_L",
                 "lip_up_rim_def_4_bbone_out_R"
-            ],
-            "name": "B-BONE_MECH"
+            ]
         },
         {
+            "name": "HAIR",
             "bones": [
                 "hair_front_mid_ctrl",
                 "hair_front_mid_ctrl_1_L",
@@ -1842,8 +1843,7 @@
                 "eyeglasses_bridge_bbone_out_L",
                 "eyeglasses_bridge_bbone_out_R",
                 "hair_top_ctrl"
-            ],
-            "name": "HAIR"
+            ]
         }
     ]
 }

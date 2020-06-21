@@ -25,6 +25,6 @@ for bg in bpy.context.active_object.pose.bone_groups:
 
 
 with open('/tmp/bone_groups.json', 'w') as outfile:
-    json.dump(data, outfile, sort_keys=True, indent=4)
+    json.dump(data, outfile, indent=4)
 
 ########################################################
