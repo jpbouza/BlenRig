@@ -43,11 +43,11 @@ class Operator_BlenRig5_Add_Biped(Operator):
                         #override = {'area': areas[0],
                                     #'region': regions[0]}
                 #context.view_layer.active_layer_collection = context.view_layer.layer_collection.children[coll.name]
-                #ops.outliner.show_one_level(open=False)
+                #bpy.ops.outliner.show_one_level(open=False)
 
     def execute(self, context):
         if context.mode != 'OBJECT':
-            ops.object.mode_set(mode='OBJECT')
+            bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.select_all(action='DESELECT')
 
