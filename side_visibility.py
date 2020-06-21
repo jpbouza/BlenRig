@@ -51,7 +51,7 @@ def show_eyes(self, context):
 
     bones = []
     target_groups = ['STR_EYES']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -65,7 +65,7 @@ def show_face(self, context):
 
     bones = []
     target_groups = ['STR_SMILE_LINE','STR_FACE', 'FACIAL_L', 'FACIAL_R', 'FACIAL_MID', 'FACIAL_MAIN_L', 'FACIAL_MAIN_R', 'FACIAL_MAIN_MID']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -80,7 +80,7 @@ def show_lips(self, context):
 
     bones = []
     target_groups = ['STR_LIPS']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -95,7 +95,7 @@ def show_eyebrows(self, context):
 
     bones = []
     target_groups = ['STR_EYEBROWS']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -110,7 +110,7 @@ def show_face_mech(self, context):
     # FACE_MECH_EXTRA no existe como tal
     bones = []
     target_groups = ['STR_FACE_MECH', 'STR_FACE_MECH']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -125,7 +125,7 @@ def show_inner_mouth(self, context):
 
     bones = []
     target_groups = ['STR_INNER_MOUTH']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -139,7 +139,7 @@ def show_hands(self, context):
 
     bones = []
     target_groups = ['STR_HANDS']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -153,7 +153,7 @@ def show_body(self, context):
 
     bones = []
     target_groups = ['STR', 'BODY']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
@@ -168,7 +168,7 @@ def show_face_controls(self, context):
     bones = []
     # FACE_CONTROLS no existe como tal
     target_groups = ['FACE_CONTROLS']
-    with open('bones_from_bone_groups.json') as json_file:
+    with open('data_jsons/bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
         for bg in data['bone_groups']:
             if bg['name'] in target_groups:
