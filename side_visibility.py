@@ -24,20 +24,20 @@ def get_bones(target_groups):
 def toggle_bone_visibility(left_side, right_side, target, bones):
     for bone in bones:
         if target:
-            if not left_side and bone[-2:len(bone)] == '_L':
+            if not left_side and bone.endswith('_L'):
                 bpy.context.object.data.bones[bone].hide = False
-            if not right_side and bone[-2:len(bone)] == '_R':
+            if not right_side and bone.endswith('_R'):
                 bpy.context.object.data.bones[bone].hide = False
-            if not left_side and bone[-2:len(bone)] == '_mid':
+            if not left_side and bone.endswith('_mid'):
                 bpy.context.object.data.bones[bone].hide = False
-            if bone[-4:len(bone)] == '_mid':
+            if bone.endswith('_mid'):
                 bpy.context.object.data.bones[bone].hide = False
         else:
-            if not left_side and bone[-2:len(bone)] == '_L':
+            if not left_side and bone.endswith('_L'):
                 bpy.context.object.data.bones[bone].hide = True
-            if not right_side and bone[-2:len(bone)] == '_R':
+            if not right_side and bone.endswith('_R'):
                 bpy.context.object.data.bones[bone].hide = True
-            if bone[-4:len(bone)] == '_mid':
+            if bone.endswith('_mid'):
                 bpy.context.object.data.bones[bone].hide = True
 
 
