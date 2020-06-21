@@ -53,12 +53,12 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
         self.import_blenrig_biped(context)
 
+        # en el .blend el biped en modo objeto tiene q estar seleccionado para que lo siguiente no falle:
         context.view_layer.objects.active = context.selected_objects[0]
-
-        scenes = bpy.data.scenes
 
         # desactivamos las siguientes colecciones:
         # disable_cols = ['Mesh_Deform_Cage', 'GameModel', 'BoneShapes', 'Lattices']
+        # scenes = bpy.data.scenes
         # for scn in scenes:
         #     view_layers = scn.view_layers
         #     for vl in view_layers:
