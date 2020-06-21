@@ -62,15 +62,15 @@ class Operator_BlenRig5_Add_Biped(Operator):
         for scn in scenes:
             view_layers = scn.view_layers
             for vl in view_layers:
-                # print(vl.name)
-                # print(vl.layer_collection)
-                for child in vl.layer_collection.children:
-                    # print(child)
-                    if child.name in disable_cols:
-                        child.exclude = True
-                    for subchild in child.children:
-                        # print(subchild)
-                        if subchild.name in disable_cols:
-                            subchild.exclude = True
+                for child in reversed(vl.layer_collection.children):
+                    if len(disable_cols) < 1:
+                        break
+                    for subchild in reversed(child.children):
+                        if len(disable_cols) < 1:
+                            break
+                        else:
+                            if subchild.name in disable_cols:
+                                subchild.exclude = True
+                                disable_cols.remove(subchild.name)
 
         return{'FINISHED'}
