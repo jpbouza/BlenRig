@@ -128,7 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
-# Pycaches
+#Pycaches eliminar
 *.pyc
 __pycache__/
