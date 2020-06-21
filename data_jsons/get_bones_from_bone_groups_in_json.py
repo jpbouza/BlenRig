@@ -20,10 +20,12 @@ data['bone_groups'] = []
 for bg in bpy.context.active_object.pose.bone_groups:
     bones = get_bones_from_group(bg.name)
     data['bone_groups'].append({
-        bg.name: bones,
+        'name': bg.name,
+        'bones': bones,
     })
 
 
+# lo guardo en tmp y luego lo muevo a mano a data_jsons.
 with open('/tmp/bone_groups.json', 'w') as outfile:
     json.dump(data, outfile, indent=4)
 
