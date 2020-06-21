@@ -62,12 +62,7 @@ from .rig_functions import (
 )
 
 ######### Import all from side_visibility.py #########
-<<<<<<< HEAD
-from .side_visibility import side_visibility_props, SIDE_PT_visibility
-=======
 from .side_visibility import side_visibility_props
->>>>>>> zebus3d
-
 ######### Update Function for Properties ##########
 
 def prop_update(self, context):
@@ -2137,10 +2132,13 @@ def register():
 
     register_class(side_visibility_props)
 <<<<<<< HEAD
+<<<<<<< HEAD
     register_class(SIDE_PT_visibility)
 =======
 <<<<<<< HEAD
 >>>>>>> zebus3d
+=======
+>>>>>>> f96dfd057b77d46f058a632b033cc2eaa148206b
 
 =======
 >>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
@@ -2215,6 +2213,7 @@ def unregister():
 
     unregister_class(side_visibility_props)
 <<<<<<< HEAD
+<<<<<<< HEAD
     unregister_class(SIDE_PT_visibility)
 =======
 <<<<<<< HEAD
@@ -2222,6 +2221,8 @@ def unregister():
 =======
 >>>>>>> 8f720f5b4a59961e85a18b08166b81ca74342435
 >>>>>>> zebus3d
+=======
+>>>>>>> f96dfd057b77d46f058a632b033cc2eaa148206b
 
     # unload add-on dependencies
     import addon_utils
