@@ -2,7 +2,11 @@
 import bpy
 from bpy.props import BoolProperty, PointerProperty
 from bpy.types import Panel, Operator, PropertyGroup
+import json
 
+#################################################
+##### el ui esta en ui_panel_rigging_2_0.py #####
+#################################################
 
 def get_properties(context):
     ao = context.active_object
@@ -25,36 +29,34 @@ def get_bones_from_group(target):
 def show_eyes(self, context):
     side_visibility = get_properties(context)
 
-    if side_visibility.eyes:
-        huesos = get_bones_from_group(g_EYES)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-    else:
-        huesos = get_bones_from_group(g_EYES)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] == 'STR_EYES':
+                bones = bg['bones']
+
+    for bone in bones:
+        if not side_visibility.right_side and bone[-2:len(bone)] != '_L':
+            bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+        if not side_visibility.left_side and bone[-2:len(bone)] != '_R':
+            bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
 
 def show_face(self, context):
     side_visibility = get_properties(context)
-    
-    if side_visibility.face:
-        for g in g_FACIAL:
-            huesos = get_bones_from_group(g)
+    bones = []
+    target_groups = ['STR_FACE', 'FACIAL_L', 'FACIAL_R', 'FACIAL_MID', 'FACIAL_MAIN_L', 'FACIAL_MAIN_R', 'FACIAL_MAIN_MID']
+    with open('bones_from_bone_groups.json') as json_file:
+        data = json.load(json_file)
+        for bg in data['bone_groups']:
+            if bg['name'] in target_groups:
+                bones.append(bg['bones'])
 
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False
-
-        for h in g_FACIAL_EXTRAS:
-                bpy.context.object.data.bones[h].hide = False
-    else:
-        for g in g_FACIAL:
-            huesos = get_bones_from_group(g)
-
-            for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True
-
-        for h in g_FACIAL_EXTRAS:
-                bpy.context.object.data.bones[h].hide = True
+    for b in bones:
+        for bone in b:
+            if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
+            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
+                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
 
 def show_lips(self, context):
     side_visibility = get_properties(context)
@@ -72,7 +74,7 @@ def show_lips(self, context):
             huesos = get_bones_from_group(g)
             for h in huesos:
                 bpy.context.object.data.bones[h.name].hide = True
-            
+
         for h in g_LIPS_EXTRAS:
             bpy.context.object.data.bones[h].hide = True
 
@@ -142,7 +144,7 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = False 
+                bpy.context.object.data.bones[h.name].hide = False
 
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = False
@@ -151,8 +153,8 @@ def show_body(self, context):
             huesos = get_bones_from_group(g)
 
             for h in huesos:
-                bpy.context.object.data.bones[h.name].hide = True 
-        
+                bpy.context.object.data.bones[h.name].hide = True
+
         for h in g_BODY:
             bpy.context.object.data.bones[h].hide = True
 
@@ -290,7 +292,6 @@ g_LIPS_EXTRAS = ('lip_low_rim_ctrl_mid',
 )
 
 ############################## FACE CONTROLS ############################
-
 g_FACE_CONTROLS = ('mouth_corner_L',
                     'mouth_corner_R',
                     'mouth_frown_ctrl_L',
@@ -308,13 +309,7 @@ g_FACE_CONTROLS = ('mouth_corner_L',
                     'cheek_puff_ctrl_L',
                     'cheek_puff_ctrl_R',
                     'eyelid_up_rim_ctrl_L',
-                    'eyelid_up_rim_ctrl_R',
-                    'old_eyelid_up_ctrl_L',
-                    'old_eyelid_up_ctrl_R',
-                    'old_eyelid_low_rim_ctrl_L',
-                    'old_eyelid_low_rim_ctrl_R',
-                    'old_eyelid_low_ctrl_L',
-                    'old_eyelid_low_ctrl_R'
+                    'eyelid_up_rim_ctrl_R'
 )
 
 ############################## EYES #####################################
@@ -405,73 +400,3 @@ g_BODY = ('neck_1_def',
         'neck_2_def.001',
         'neck_3_def.001'
         )
-
-
-class SIDE_PT_visibility(Panel):
-    bl_label = "Side Visibility"
-    bl_space_type = "PROPERTIES"
-    bl_region_type = "WINDOW"
-    bl_context = "data"
-
-    @classmethod
-    def poll(cls, context):
-        if not bpy.context.active_object:
-            return False
-        else:
-            if context.object.mode == 'POSE':
-                if (bpy.context.active_object.type in ["ARMATURE"]):
-                    for prop in bpy.context.active_object.data.items():
-                        if prop[0] == 'rig_name' and prop[1] == 'BlenRig_5':
-                                return True
-            else:
-                return False
-
-    def draw(self, context):
-        layout = self.layout
-        scene = context.scene
-
-        ao = context.active_object
-        if ao.type == 'ARMATURE':
-            side_visibility = context.active_object.data.side_visibility
-
-            row = layout.row(align=True)
-
-            icon = 'HIDE_OFF' if not side_visibility.right_side else 'HIDE_ON'
-            row.prop(side_visibility, "right_side", text="R_Side", icon=icon, toggle=True)
-            icon = 'HIDE_OFF' if not side_visibility.left_side else 'HIDE_ON'
-            row.prop(side_visibility, "left_side", text="L_Side", icon=icon, toggle=True)
-
-            layout.use_property_split = True
-            layout.use_property_decorate = False
-
-            flow = layout.grid_flow(align=True)
-            col = flow.column()
-
-            if context.active_object.data.reproportion:
-
-                icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
-                col.prop(side_visibility, "eyes", icon=icon, text="EYES", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
-                col.prop(side_visibility, "face", icon=icon, text="FACE", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.face_controls else 'HIDE_OFF'
-                col.prop(side_visibility, "face_controls", icon=icon , text="FACE CONTROLS", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
-                col.prop(side_visibility, "eyebrows", icon=icon, text="EYEBROWS", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.lips else 'HIDE_OFF'
-                col.prop(side_visibility, "lips", icon=icon , text="LIPS", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
-                col.prop(side_visibility, "face_mech", icon=icon, text="FACE MECH", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
-                col.prop(side_visibility, "inner_mouth", icon=icon, text="INNER MOUTH", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
-                col.prop(side_visibility, "hands", icon=icon, text="HANDS", toggle=True)
-
-                icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
-                col.prop(side_visibility, "body", icon=icon, text="BODY", toggle=True)
