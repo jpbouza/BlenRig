@@ -1123,9 +1123,9 @@ class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
             row.operator("gui.blenrig_5_tabs", icon="PREFERENCES", emboss = 1).tab = "gui_rig_bake"
             row.label(text="RIGGING & BAKING")
             col.separator()
-            # box = col.box()
+            box = col.box()
 
-            col.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
+            box.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
 
             ################### side visibility ##########################
             if context.active_object.data.reproportion:
@@ -1133,17 +1133,17 @@ class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
                 if ao.type == 'ARMATURE':
                     side_visibility = context.active_object.data.side_visibility
 
-                row = layout.row(align=True)
+                row = box.row(align=True)
 
                 icon = 'HIDE_OFF' if not side_visibility.right_side else 'HIDE_ON'
                 row.prop(side_visibility, "right_side", text="R_Side", icon=icon, toggle=True)
                 icon = 'HIDE_OFF' if not side_visibility.left_side else 'HIDE_ON'
                 row.prop(side_visibility, "left_side", text="L_Side", icon=icon, toggle=True)
 
-                layout.use_property_split = True
-                layout.use_property_decorate = False
+                box.use_property_split = True
+                box.use_property_decorate = False
 
-                flow = layout.grid_flow(align=True)
+                flow = box.grid_flow(align=True)
                 col = flow.column()
 
                 icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
