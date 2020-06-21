@@ -288,7 +288,7 @@ listaDeEstados = []
 mode = []
 def reproportion_toggle(context):
     mode.append(context.active_object.mode)
-    print(mode)
+    # print(mode)
     if context.active_object.data.reproportion:
         bpy.ops.object.mode_set(mode='POSE')
     else:
