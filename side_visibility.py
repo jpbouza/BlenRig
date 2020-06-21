@@ -293,7 +293,6 @@ g_LIPS_EXTRAS = ('lip_low_rim_ctrl_mid',
 )
 
 ############################## FACE CONTROLS ############################
-
 g_FACE_CONTROLS = ('mouth_corner_L',
                     'mouth_corner_R',
                     'mouth_frown_ctrl_L',
