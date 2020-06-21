@@ -62,8 +62,7 @@ from .rig_functions import (
 )
 
 ######### Import all from side_visibility.py #########
-from .side_visibility import side_visibility_props, SIDE_PT_visibility
-
+from .side_visibility import side_visibility_props
 ######### Update Function for Properties ##########
 
 def prop_update(self, context):
@@ -2131,7 +2130,6 @@ def register():
         register_class(c)
 
     register_class(side_visibility_props)
-    register_class(SIDE_PT_visibility)
 
 
     # BlenRig Props
@@ -2203,7 +2201,6 @@ def unregister():
         unregister_class(c)
 
     unregister_class(side_visibility_props)
-    unregister_class(SIDE_PT_visibility)
 
     # unload add-on dependencies
     import addon_utils
