@@ -27,15 +27,12 @@ def get_bones_from_group(target):
 
 def show_eyes(self, context):
     side_visibility = get_properties(context)
-
-    if side_visibility.eyes:
-        huesos = get_bones_from_group(g_EYES)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = False
-    else:
-        huesos = get_bones_from_group(g_EYES)
-        for h in huesos:
-            bpy.context.object.data.bones[h.name].hide = True
+    huesos = get_bones_from_group(g_EYES)
+    for h in huesos:
+        if not side_visibility.right_side and h.name[-2:len(h.name)] != '_L':
+            bpy.context.object.data.bones[h.name].hide = not bpy.context.object.data.bones[h.name].hide
+        if not side_visibility.left_side and h.name[-2:len(h.name)] != '_R':
+            bpy.context.object.data.bones[h.name].hide = not bpy.context.object.data.bones[h.name].hide
 
 def show_face(self, context):
     side_visibility = get_properties(context)
