@@ -55,9 +55,7 @@ def show_face(self, context):
         for bone in b:
             if not side_visibility.right_side and bone[-2:len(bone)] == '_R':
                 bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
-            elif not side_visibility.left_side and bone[-2:len(bone)] == '_L':
-                bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
-            else:
+            if not side_visibility.left_side and bone[-2:len(bone)] == '_L':
                 bpy.context.object.data.bones[bone].hide = not bpy.context.object.data.bones[bone].hide
 
 def show_lips(self, context):
