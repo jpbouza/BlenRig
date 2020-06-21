@@ -166,6 +166,7 @@ def show_face_controls(self, context):
     side_visibility = get_properties(context)
 
     bones = []
+    # FACE_CONTROLS no existe como tal
     target_groups = ['FACE_CONTROLS']
     with open('bones_from_bone_groups.json') as json_file:
         data = json.load(json_file)
