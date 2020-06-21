@@ -13,7 +13,7 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
     @classmethod
     def poll(cls, context):                            #method called by blender to check if the operator can be run
-        return bpy.context.scene != None
+        return context.scene != None
 
     def import_blenrig_biped(self, context):
         CURRENT_DIR = os.path.dirname(__file__)
@@ -34,7 +34,7 @@ class Operator_BlenRig5_Add_Biped(Operator):
                 coll.hide_viewport = True
 
                 #Context Override
-                #areas  = [area for area in bpy.context.screen.areas if area.type == 'OUTLINER']
+                #areas  = [area for area in context.screen.areas if area.type == 'OUTLINER']
 
                 #if areas:
                     #regions = [region for region in areas[0].regions if region.type == 'VIEW_3D']
@@ -42,35 +42,42 @@ class Operator_BlenRig5_Add_Biped(Operator):
                     #if regions:
                         #override = {'area': areas[0],
                                     #'region': regions[0]}
-                #bpy.context.view_layer.active_layer_collection = context.view_layer.layer_collection.children[coll.name]
-                #bpy.ops.outliner.show_one_level(open=False)
+                #context.view_layer.active_layer_collection = context.view_layer.layer_collection.children[coll.name]
+                #ops.outliner.show_one_level(open=False)
 
     def execute(self, context):
-        if bpy.context.mode != 'OBJECT':
-            bpy.ops.object.mode_set(mode='OBJECT')
+        if context.mode != 'OBJECT':
+            ops.object.mode_set(mode='OBJECT')
 
         bpy.ops.object.select_all(action='DESELECT')
 
         self.import_blenrig_biped(context)
 
-        context.view_layer.objects.active = bpy.context.selected_objects[0]
+        context.view_layer.objects.active = context.selected_objects[0]
 
         scenes = bpy.data.scenes
 
         # desactivamos las siguientes colecciones:
-        disable_cols = ['Mesh_Deform_Cage', 'GameModel', 'BoneShapes', 'Lattices']
-        for scn in scenes:
-            view_layers = scn.view_layers
-            for vl in view_layers:
-                for child in reversed(vl.layer_collection.children):
-                    if len(disable_cols) < 1:
-                        break
-                    for subchild in reversed(child.children):
-                        if len(disable_cols) < 1:
-                            break
-                        else:
-                            if subchild.name in disable_cols:
-                                subchild.exclude = True
-                                disable_cols.remove(subchild.name)
+        # disable_cols = ['Mesh_Deform_Cage', 'GameModel', 'BoneShapes', 'Lattices']
+        # for scn in scenes:
+        #     view_layers = scn.view_layers
+        #     for vl in view_layers:
+        #         for child in reversed(vl.layer_collection.children):
+        #             if len(disable_cols) < 1:
+        #                 break
+        #             for subchild in reversed(child.children):
+        #                 if len(disable_cols) < 1:
+        #                     break
+        #                 else:
+        #                     if subchild.name in disable_cols:
+        #                         subchild.exclude = True
+        #                         disable_cols.remove(subchild.name)
+
+        # Desactivando colecciones de BlenRig de forma mas eficiente:
+        # IMPORTANTE Previamente en el .blend les hemos creaado el key 'BlenRig' a cada coleccion con el value de su nombre original.
+        mc = context.view_layer.layer_collection.children["BlenRig_Master_Collection"]
+        for lc in mc.children:
+            if 'BlenRig' in lc.collection and lc.collection['BlenRig'] != 'BlenRig_Biped':
+                lc.exclude = True
 
         return{'FINISHED'}
