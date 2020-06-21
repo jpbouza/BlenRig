@@ -24,26 +24,9 @@ class Operator_BlenRig5_Add_Biped(Operator):
         with bpy.data.libraries.load(filepath, link=False) as (data_from, data_to):
             data_to.collections = ["BlenRig_Master_Collection"]
 
-        # hide_collections = ['Mesh_Deform_Cage', 'Lattices', 'Proxy_Model', 'Bone_Shapes']
-
         # Add the collection(s) to the scene.
         for collection in data_to.collections:
             scene.collection.children.link(collection)
-        # for coll in collection.children:
-        #     if coll.name in hide_collections:
-        #         coll.hide_viewport = True
-
-                #Context Override
-                #areas  = [area for area in context.screen.areas if area.type == 'OUTLINER']
-
-                #if areas:
-                    #regions = [region for region in areas[0].regions if region.type == 'VIEW_3D']
-
-                    #if regions:
-                        #override = {'area': areas[0],
-                                    #'region': regions[0]}
-                #context.view_layer.active_layer_collection = context.view_layer.layer_collection.children[coll.name]
-                #bpy.ops.outliner.show_one_level(open=False)
 
     def execute(self, context):
         if context.mode != 'OBJECT':
