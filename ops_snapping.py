@@ -960,59 +960,60 @@ class Operator_Switch_Fing_Thumb_Space_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_thumb_L')
+                        insert_bkeys('fing_thumb_ik_L', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_thumb_L')
-                    insert_bkeys('fing_thumb_ik_L', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Thumb_world_mat = pbones['fing_thumb_ik_L'].id_data.matrix_world.copy()
+                Thumb_mat = pbones['fing_thumb_ik_L'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Thumb_world_mat = pbones['fing_thumb_ik_L'].id_data.matrix_world.copy()
-            Thumb_mat = pbones['fing_thumb_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 0.0
+                paste_visual_matrix('fing_thumb_ik_L', 'master_pivot', Thumb_world_mat, Thumb_mat, 'Location')
 
-            paste_visual_matrix('fing_thumb_ik_L', 'master_pivot', Thumb_world_mat, Thumb_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Thumb_world_mat = pbones['fing_thumb_ik_L'].id_data.matrix_world.copy()
+                Thumb_mat = pbones['fing_thumb_ik_L'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Thumb_world_mat = pbones['fing_thumb_ik_L'].id_data.matrix_world.copy()
-            Thumb_mat = pbones['fing_thumb_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 1.0
+                paste_visual_matrix('fing_thumb_ik_L', 'fing_thumb_ctrl_track_L', Thumb_world_mat, Thumb_mat, 'Location')
 
-            paste_visual_matrix('fing_thumb_ik_L', 'fing_thumb_ctrl_track_L', Thumb_world_mat, Thumb_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        ThumbLoc = pbones['fing_thumb_ik_L'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    ThumbLoc = pbones['fing_thumb_ik_L'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_thumb_L')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_thumb_ik_L'].location = ThumbLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_thumb_L = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_thumb_L')
 
-                    #Re-Paste Transforms
-                    pbones['fing_thumb_ik_L'].location = ThumbLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_thumb_ik_L', 'Loc')
-
+                        insert_bkeys('fing_thumb_ik_L', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -1061,59 +1062,60 @@ class Operator_Switch_Fing_Ind_Space_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ind_L')
+                        insert_bkeys('fing_ind_ik_L', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ind_L')
-                    insert_bkeys('fing_ind_ik_L', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Ind_world_mat = pbones['fing_ind_ik_L'].id_data.matrix_world.copy()
+                Ind_mat = pbones['fing_ind_ik_L'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Ind_world_mat = pbones['fing_ind_ik_L'].id_data.matrix_world.copy()
-            Ind_mat = pbones['fing_ind_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 0.0
+                paste_visual_matrix('fing_ind_ik_L', 'master_pivot', Ind_world_mat, Ind_mat, 'Location')
 
-            paste_visual_matrix('fing_ind_ik_L', 'master_pivot', Ind_world_mat, Ind_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Ind_world_mat = pbones['fing_ind_ik_L'].id_data.matrix_world.copy()
+                Ind_mat = pbones['fing_ind_ik_L'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Ind_world_mat = pbones['fing_ind_ik_L'].id_data.matrix_world.copy()
-            Ind_mat = pbones['fing_ind_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 1.0
+                paste_visual_matrix('fing_ind_ik_L', 'fing_ind_ctrl_track_L', Ind_world_mat, Ind_mat, 'Location')
 
-            paste_visual_matrix('fing_ind_ik_L', 'fing_ind_ctrl_track_L', Ind_world_mat, Ind_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        IndLoc = pbones['fing_ind_ik_L'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    IndLoc = pbones['fing_ind_ik_L'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ind_L')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_ind_ik_L'].location = IndLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ind_L = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ind_L')
 
-                    #Re-Paste Transforms
-                    pbones['fing_ind_ik_L'].location = IndLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_ind_ik_L', 'Loc')
-
+                        insert_bkeys('fing_ind_ik_L', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -1162,59 +1164,60 @@ class Operator_Switch_Fing_Mid_Space_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_mid_L')
+                        insert_bkeys('fing_mid_ik_L', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_mid_L')
-                    insert_bkeys('fing_mid_ik_L', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Mid_world_mat = pbones['fing_mid_ik_L'].id_data.matrix_world.copy()
+                Mid_mat = pbones['fing_mid_ik_L'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Mid_world_mat = pbones['fing_mid_ik_L'].id_data.matrix_world.copy()
-            Mid_mat = pbones['fing_mid_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 0.0
+                paste_visual_matrix('fing_mid_ik_L', 'master_pivot', Mid_world_mat, Mid_mat, 'Location')
 
-            paste_visual_matrix('fing_mid_ik_L', 'master_pivot', Mid_world_mat, Mid_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Mid_world_mat = pbones['fing_mid_ik_L'].id_data.matrix_world.copy()
+                Mid_mat = pbones['fing_mid_ik_L'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Mid_world_mat = pbones['fing_mid_ik_L'].id_data.matrix_world.copy()
-            Mid_mat = pbones['fing_mid_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 1.0
+                paste_visual_matrix('fing_mid_ik_L', 'fing_mid_ctrl_track_L', Mid_world_mat, Mid_mat, 'Location')
 
-            paste_visual_matrix('fing_mid_ik_L', 'fing_mid_ctrl_track_L', Mid_world_mat, Mid_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        MidLoc = pbones['fing_mid_ik_L'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    MidLoc = pbones['fing_mid_ik_L'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_mid_L')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_mid_ik_L'].location = MidLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_mid_L = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_mid_L')
 
-                    #Re-Paste Transforms
-                    pbones['fing_mid_ik_L'].location = MidLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_mid_ik_L', 'Loc')
-
+                        insert_bkeys('fing_mid_ik_L', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -1263,59 +1266,60 @@ class Operator_Switch_Fing_Ring_Space_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ring_L')
+                        insert_bkeys('fing_ring_ik_L', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ring_L')
-                    insert_bkeys('fing_ring_ik_L', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Ring_world_mat = pbones['fing_ring_ik_L'].id_data.matrix_world.copy()
+                Ring_mat = pbones['fing_ring_ik_L'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Ring_world_mat = pbones['fing_ring_ik_L'].id_data.matrix_world.copy()
-            Ring_mat = pbones['fing_ring_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 0.0
+                paste_visual_matrix('fing_ring_ik_L', 'master_pivot', Ring_world_mat, Ring_mat, 'Location')
 
-            paste_visual_matrix('fing_ring_ik_L', 'master_pivot', Ring_world_mat, Ring_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Ring_world_mat = pbones['fing_ring_ik_L'].id_data.matrix_world.copy()
+                Ring_mat = pbones['fing_ring_ik_L'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Ring_world_mat = pbones['fing_ring_ik_L'].id_data.matrix_world.copy()
-            Ring_mat = pbones['fing_ring_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 1.0
+                paste_visual_matrix('fing_ring_ik_L', 'fing_ring_ctrl_track_L', Ring_world_mat, Ring_mat, 'Location')
 
-            paste_visual_matrix('fing_ring_ik_L', 'fing_ring_ctrl_track_L', Ring_world_mat, Ring_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        RingLoc = pbones['fing_ring_ik_L'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    RingLoc = pbones['fing_ring_ik_L'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ring_L')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_ring_ik_L'].location = RingLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_ring_L = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_ring_L')
 
-                    #Re-Paste Transforms
-                    pbones['fing_ring_ik_L'].location = RingLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_ring_ik_L', 'Loc')
-
+                        insert_bkeys('fing_ring_ik_L', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -1364,59 +1368,60 @@ class Operator_Switch_Fing_Lit_Space_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_lit_L')
+                        insert_bkeys('fing_lit_ik_L', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_lit_L')
-                    insert_bkeys('fing_lit_ik_L', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Lit_world_mat = pbones['fing_lit_ik_L'].id_data.matrix_world.copy()
+                Lit_mat = pbones['fing_lit_ik_L'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Lit_world_mat = pbones['fing_lit_ik_L'].id_data.matrix_world.copy()
-            Lit_mat = pbones['fing_lit_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 0.0
+                paste_visual_matrix('fing_lit_ik_L', 'master_pivot', Lit_world_mat, Lit_mat, 'Location')
 
-            paste_visual_matrix('fing_lit_ik_L', 'master_pivot', Lit_world_mat, Lit_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Lit_world_mat = pbones['fing_lit_ik_L'].id_data.matrix_world.copy()
+                Lit_mat = pbones['fing_lit_ik_L'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Lit_world_mat = pbones['fing_lit_ik_L'].id_data.matrix_world.copy()
-            Lit_mat = pbones['fing_lit_ik_L'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 1.0
+                paste_visual_matrix('fing_lit_ik_L', 'fing_lit_ctrl_track_L', Lit_world_mat, Lit_mat, 'Location')
 
-            paste_visual_matrix('fing_lit_ik_L', 'fing_lit_ctrl_track_L', Lit_world_mat, Lit_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        LitLoc = pbones['fing_lit_ik_L'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    LitLoc = pbones['fing_lit_ik_L'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_lit_L')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_lit_ik_L'].location = LitLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_L"].space_fing_lit_L = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_L"].keyframe_insert(data_path='space_fing_lit_L')
 
-                    #Re-Paste Transforms
-                    pbones['fing_lit_ik_L'].location = LitLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_lit_ik_L', 'Loc')
-
+                        insert_bkeys('fing_lit_ik_L', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -2854,59 +2859,60 @@ class Operator_Switch_Fing_Thumb_Space_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_thumb_R')
+                        insert_bkeys('fing_thumb_ik_R', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_thumb_R')
-                    insert_bkeys('fing_thumb_ik_R', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Thumb_world_mat = pbones['fing_thumb_ik_R'].id_data.matrix_world.copy()
+                Thumb_mat = pbones['fing_thumb_ik_R'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Thumb_world_mat = pbones['fing_thumb_ik_R'].id_data.matrix_world.copy()
-            Thumb_mat = pbones['fing_thumb_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 0.0
+                paste_visual_matrix('fing_thumb_ik_R', 'master_pivot', Thumb_world_mat, Thumb_mat, 'Location')
 
-            paste_visual_matrix('fing_thumb_ik_R', 'master_pivot', Thumb_world_mat, Thumb_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Thumb_world_mat = pbones['fing_thumb_ik_R'].id_data.matrix_world.copy()
+                Thumb_mat = pbones['fing_thumb_ik_R'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Thumb_world_mat = pbones['fing_thumb_ik_R'].id_data.matrix_world.copy()
-            Thumb_mat = pbones['fing_thumb_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 1.0
+                paste_visual_matrix('fing_thumb_ik_R', 'fing_thumb_ctrl_track_R', Thumb_world_mat, Thumb_mat, 'Location')
 
-            paste_visual_matrix('fing_thumb_ik_R', 'fing_thumb_ctrl_track_R', Thumb_world_mat, Thumb_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        ThumbLoc = pbones['fing_thumb_ik_R'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    ThumbLoc = pbones['fing_thumb_ik_R'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_thumb_R')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_thumb_ik_R'].location = ThumbLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_thumb_R = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_thumb_R')
 
-                    #Re-Paste Transforms
-                    pbones['fing_thumb_ik_R'].location = ThumbLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_thumb_ik_R', 'Loc')
-
+                        insert_bkeys('fing_thumb_ik_R', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -2955,59 +2961,60 @@ class Operator_Switch_Fing_Ind_Space_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ind_R')
+                        insert_bkeys('fing_ind_ik_R', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ind_R')
-                    insert_bkeys('fing_ind_ik_R', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Ind_world_mat = pbones['fing_ind_ik_R'].id_data.matrix_world.copy()
+                Ind_mat = pbones['fing_ind_ik_R'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Ind_world_mat = pbones['fing_ind_ik_R'].id_data.matrix_world.copy()
-            Ind_mat = pbones['fing_ind_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 0.0
+                paste_visual_matrix('fing_ind_ik_R', 'master_pivot', Ind_world_mat, Ind_mat, 'Location')
 
-            paste_visual_matrix('fing_ind_ik_R', 'master_pivot', Ind_world_mat, Ind_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Ind_world_mat = pbones['fing_ind_ik_R'].id_data.matrix_world.copy()
+                Ind_mat = pbones['fing_ind_ik_R'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Ind_world_mat = pbones['fing_ind_ik_R'].id_data.matrix_world.copy()
-            Ind_mat = pbones['fing_ind_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 1.0
+                paste_visual_matrix('fing_ind_ik_R', 'fing_ind_ctrl_track_R', Ind_world_mat, Ind_mat, 'Location')
 
-            paste_visual_matrix('fing_ind_ik_R', 'fing_ind_ctrl_track_R', Ind_world_mat, Ind_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        IndLoc = pbones['fing_ind_ik_R'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    IndLoc = pbones['fing_ind_ik_R'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ind_R')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_ind_ik_R'].location = IndLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ind_R = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ind_R')
 
-                    #Re-Paste Transforms
-                    pbones['fing_ind_ik_R'].location = IndLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_ind_ik_R', 'Loc')
-
+                        insert_bkeys('fing_ind_ik_R', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -3056,59 +3063,60 @@ class Operator_Switch_Fing_Mid_Space_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_mid_R')
+                        insert_bkeys('fing_mid_ik_R', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_mid_R')
-                    insert_bkeys('fing_mid_ik_R', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Mid_world_mat = pbones['fing_mid_ik_R'].id_data.matrix_world.copy()
+                Mid_mat = pbones['fing_mid_ik_R'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Mid_world_mat = pbones['fing_mid_ik_R'].id_data.matrix_world.copy()
-            Mid_mat = pbones['fing_mid_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 0.0
+                paste_visual_matrix('fing_mid_ik_R', 'master_pivot', Mid_world_mat, Mid_mat, 'Location')
 
-            paste_visual_matrix('fing_mid_ik_R', 'master_pivot', Mid_world_mat, Mid_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Mid_world_mat = pbones['fing_mid_ik_R'].id_data.matrix_world.copy()
+                Mid_mat = pbones['fing_mid_ik_R'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Mid_world_mat = pbones['fing_mid_ik_R'].id_data.matrix_world.copy()
-            Mid_mat = pbones['fing_mid_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 1.0
+                paste_visual_matrix('fing_mid_ik_R', 'fing_mid_ctrl_track_R', Mid_world_mat, Mid_mat, 'Location')
 
-            paste_visual_matrix('fing_mid_ik_R', 'fing_mid_ctrl_track_R', Mid_world_mat, Mid_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        MidLoc = pbones['fing_mid_ik_R'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    MidLoc = pbones['fing_mid_ik_R'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_mid_R')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_mid_ik_R'].location = MidLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_mid_R = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_mid_R')
 
-                    #Re-Paste Transforms
-                    pbones['fing_mid_ik_R'].location = MidLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_mid_ik_R', 'Loc')
-
+                        insert_bkeys('fing_mid_ik_R', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -3157,59 +3165,60 @@ class Operator_Switch_Fing_Ring_Space_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ring_R')
+                        insert_bkeys('fing_ring_ik_R', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ring_R')
-                    insert_bkeys('fing_ring_ik_R', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Ring_world_mat = pbones['fing_ring_ik_R'].id_data.matrix_world.copy()
+                Ring_mat = pbones['fing_ring_ik_R'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Ring_world_mat = pbones['fing_ring_ik_R'].id_data.matrix_world.copy()
-            Ring_mat = pbones['fing_ring_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 0.0
+                paste_visual_matrix('fing_ring_ik_R', 'master_pivot', Ring_world_mat, Ring_mat, 'Location')
 
-            paste_visual_matrix('fing_ring_ik_R', 'master_pivot', Ring_world_mat, Ring_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Ring_world_mat = pbones['fing_ring_ik_R'].id_data.matrix_world.copy()
+                Ring_mat = pbones['fing_ring_ik_R'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Ring_world_mat = pbones['fing_ring_ik_R'].id_data.matrix_world.copy()
-            Ring_mat = pbones['fing_ring_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 1.0
+                paste_visual_matrix('fing_ring_ik_R', 'fing_ring_ctrl_track_R', Ring_world_mat, Ring_mat, 'Location')
 
-            paste_visual_matrix('fing_ring_ik_R', 'fing_ring_ctrl_track_R', Ring_world_mat, Ring_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        RingLoc = pbones['fing_ring_ik_R'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    RingLoc = pbones['fing_ring_ik_R'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ring_R')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_ring_ik_R'].location = RingLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_ring_R = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_ring_R')
 
-                    #Re-Paste Transforms
-                    pbones['fing_ring_ik_R'].location = RingLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_ring_ik_R', 'Loc')
-
+                        insert_bkeys('fing_ring_ik_R', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
@@ -3258,59 +3267,60 @@ class Operator_Switch_Fing_Lit_Space_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         dbones = armobj.data.bones
         anim_data = armobj.animation_data
+        try:
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_lit_R')
+                        insert_bkeys('fing_lit_ik_R', 'Loc')
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_lit_R')
-                    insert_bkeys('fing_lit_ik_R', 'Loc')
+            if self.space == 'Free':
+                #Get Matrix in previous space
+                Lit_world_mat = pbones['fing_lit_ik_R'].id_data.matrix_world.copy()
+                Lit_mat = pbones['fing_lit_ik_R'].matrix.copy()
 
-        if self.space == 'Free':
-            #Get Matrix in previous space
-            Lit_world_mat = pbones['fing_lit_ik_R'].id_data.matrix_world.copy()
-            Lit_mat = pbones['fing_lit_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 0.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 0.0
+                paste_visual_matrix('fing_lit_ik_R', 'master_pivot', Lit_world_mat, Lit_mat, 'Location')
 
-            paste_visual_matrix('fing_lit_ik_R', 'master_pivot', Lit_world_mat, Lit_mat, 'Location')
+            if self.space == 'Hand':
+                #Get Matrix in previous space
+                Lit_world_mat = pbones['fing_lit_ik_R'].id_data.matrix_world.copy()
+                Lit_mat = pbones['fing_lit_ik_R'].matrix.copy()
 
-        if self.space == 'Hand':
-            #Get Matrix in previous space
-            Lit_world_mat = pbones['fing_lit_ik_R'].id_data.matrix_world.copy()
-            Lit_mat = pbones['fing_lit_ik_R'].matrix.copy()
+                #Change Space
+                bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 1.0
 
-            #Change Space
-            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 1.0
+                paste_visual_matrix('fing_lit_ik_R', 'fing_lit_ctrl_track_R', Lit_world_mat, Lit_mat, 'Location')
 
-            paste_visual_matrix('fing_lit_ik_R', 'fing_lit_ctrl_track_R', Lit_world_mat, Lit_mat, 'Location')
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        LitLoc = pbones['fing_lit_ik_R'].location.copy()
 
-        #Insert Keyframes if Action present
-        if anim_data:
-            if anim_data.action:
-                if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                    #Collect Local Transforms
-                    LitLoc = pbones['fing_lit_ik_R'].location.copy()
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                    #Jump to next Frame
-                    bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                        #Key Property
+                        if self.space == 'Free':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 0.0
+                            refresh_hack()
+                        if self.space == 'Hand':
+                            bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 1.0
+                            refresh_hack()
+                        pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_lit_R')
 
-                    #Key Property
-                    if self.space == 'Free':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 0.0
+                        #Re-Paste Transforms
+                        pbones['fing_lit_ik_R'].location = LitLoc
                         refresh_hack()
-                    if self.space == 'Hand':
-                        bpy.context.active_object.pose.bones["properties_arm_R"].space_fing_lit_R = 1.0
-                        refresh_hack()
-                    pbones["properties_arm_R"].keyframe_insert(data_path='space_fing_lit_R')
 
-                    #Re-Paste Transforms
-                    pbones['fing_lit_ik_R'].location = LitLoc
-                    refresh_hack()
-
-                    insert_bkeys('fing_lit_ik_R', 'Loc')
-
+                        insert_bkeys('fing_lit_ik_R', 'Loc')
+        except:
+            pass
         return {"FINISHED"}
 
 #Create Space PopUp
