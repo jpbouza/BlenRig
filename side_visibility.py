@@ -4,7 +4,9 @@ from bpy.props import BoolProperty, PointerProperty
 from bpy.types import Panel, Operator, PropertyGroup
 import json, os
 
-json_path_file = os.path.join("data_jsons", "bones_from_bone_groups.json")
+script_file = os.path.realpath(__file__)
+directory = os.path.dirname(script_file)
+json_path_file = os.path.join(directory, "data_jsons", "bones_from_bone_groups.json")
 
 
 #################################################
