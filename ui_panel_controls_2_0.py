@@ -237,6 +237,7 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
 
 ######################### gui custom layers ##############################
 
+
             # if "gui_custom_layers" in props :
             #     box = layout.column()
             #     col = box.column()
@@ -289,7 +290,6 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
             #     row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
             #     row.label(text="ARMATURE CUSTOM LAYERS")
 
-
             box = layout.column()
             col = box.column()
             row = col.row()
@@ -340,7 +340,10 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
             else:
                 row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
                 row.label(text="ARMATURE CUSTOM LAYERS")
+
 ######################### gui custom layers ##############################
+
+############### Visualitation and Copy/paste pose ##############################################333
 
             # expanded box
             col.separator()
