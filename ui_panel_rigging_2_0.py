@@ -1124,45 +1124,94 @@ class BLENRIG_PT_BlenRig_5_rigging_panel_2_0(bpy.types.Panel):
             row.label(text="RIGGING & BAKING")
             col.separator()
             box = col.box()
+
             box.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
 
-            # col.label(text="Setup:")
-            # box = col.box()
-            # split = box.split()
-            # row = split.row()
-            # row.operator("blenrig5.reset_constraints", text="Paste Pose Flipped")
-            # row = box.row()
-            # row.prop(props,"align_selected_only",text="Hide Left Side")
-            # row = box.row()
-            # row.prop(props,"align_selected_only",text="Hide Rigth Side")
-            # scn = bpy.context.scene
-            # rs = row.split(factor=0.8, align=True)
-            # rs.prop(scn, "comboBox", text="")
-            # row = box.row()
+            ################### side visibility ##########################
+            if context.active_object.data.reproportion:
+                ao = context.active_object
+                if ao.type == 'ARMATURE':
+                    side_visibility = context.active_object.data.side_visibility
 
-            col.label(text="Baking:")
-            box = col.box()
-            row = box.row()
-            row.operator("blenrig5.armature_baker", text="Bake Armature")
-            box.label(text="Fix Alignment (Edit Mode):")
-            row = box.row()
-            row.operator("blenrig5.fix_misaligned_bones", text="Fix Joints")
-            row.operator("blenrig5.auto_bone_roll", text="Calc Rolls")
-            row.operator("blenrig5.custom_bone_roll", text="Custom Aligns")
-            row = box.row()
-            row.operator("blenrig5.store_roll_angles", text="Store Roll Angles")
-            row.operator("blenrig5.restore_roll_angles", text="Restore Roll Angles")
-            row = box.row()
-            row.prop(props, "align_selected_only")
-            row.prop(arm_data, "use_mirror_x")
-            row.prop(arm_data, "show_axes")
-            col.label(text="Extras:")
-            box = col.box()
-            split = box.split()
-            row = split.row()
-            row.operator("blenrig5.reset_constraints")
-            row.operator("blenrig5.reset_deformers", text="Reset Deformers")
-            col.separator()
+                row = box.row(align=True)
+
+                icon = 'HIDE_OFF' if not side_visibility.right_side else 'HIDE_ON'
+                row.prop(side_visibility, "right_side", text="R_Side", icon=icon, toggle=True)
+                icon = 'HIDE_OFF' if not side_visibility.left_side else 'HIDE_ON'
+                row.prop(side_visibility, "left_side", text="L_Side", icon=icon, toggle=True)
+
+                box.use_property_split = True
+                box.use_property_decorate = False
+
+                flow = box.grid_flow(align=True)
+                col = flow.column()
+
+                icon = 'HIDE_ON' if not side_visibility.eyes else 'HIDE_OFF'
+                col.prop(side_visibility, "eyes", icon=icon, text="Eyes", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.face else 'HIDE_OFF'
+                col.prop(side_visibility, "face", icon=icon, text="Face", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.face_controls else 'HIDE_OFF'
+                col.prop(side_visibility, "face_controls", icon=icon , text="Face Controls", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.eyebrows else 'HIDE_OFF'
+                col.prop(side_visibility, "eyebrows", icon=icon, text="Eyerbrows", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.lips else 'HIDE_OFF'
+                col.prop(side_visibility, "lips", icon=icon , text="Lips", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.face_mech else 'HIDE_OFF'
+                col.prop(side_visibility, "face_mech", icon=icon, text="Face Mech", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.inner_mouth else 'HIDE_OFF'
+                col.prop(side_visibility, "inner_mouth", icon=icon, text="Inner Mouth", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.hands else 'HIDE_OFF'
+                col.prop(side_visibility, "hands", icon=icon, text="Hands", toggle=True)
+
+                icon = 'HIDE_ON' if not side_visibility.body else 'HIDE_OFF'
+                col.prop(side_visibility, "body", icon=icon, text="Body", toggle=True)
+
+            ################### end side visibility ##########################
+
+                # col.label(text="Setup:")
+                # box = col.box()
+                # split = box.split()
+                # row = split.row()
+                # row.operator("blenrig5.reset_constraints", text="Paste Pose Flipped")
+                # row = box.row()
+                # row.prop(props,"align_selected_only",text="Hide Left Side")
+                # row = box.row()
+                # row.prop(props,"align_selected_only",text="Hide Rigth Side")
+                # scn = bpy.context.scene
+                # rs = row.split(factor=0.8, align=True)
+                # rs.prop(scn, "comboBox", text="")
+                # row = box.row()
+
+                col.label(text="Baking:")
+                box = col.box()
+                row = box.row()
+                row.operator("blenrig5.armature_baker", text="Bake Armature")
+                box.label(text="Fix Alignment (Edit Mode):")
+                row = box.row()
+                row.operator("blenrig5.fix_misaligned_bones", text="Fix Joints")
+                row.operator("blenrig5.auto_bone_roll", text="Calc Rolls")
+                row.operator("blenrig5.custom_bone_roll", text="Custom Aligns")
+                row = box.row()
+                row.operator("blenrig5.store_roll_angles", text="Store Roll Angles")
+                row.operator("blenrig5.restore_roll_angles", text="Restore Roll Angles")
+                row = box.row()
+                row.prop(props, "align_selected_only")
+                row.prop(arm_data, "use_mirror_x")
+                row.prop(arm_data, "show_axes")
+                col.label(text="Extras:")
+                box = col.box()
+                split = box.split()
+                row = split.row()
+                row.operator("blenrig5.reset_constraints")
+                row.operator("blenrig5.reset_deformers", text="Reset Deformers")
+                col.separator()
         else:
             row.operator("gui.blenrig_5_tabs", icon="PREFERENCES", emboss = 1).tab = "gui_rig_bake"
             row.label(text="RIGGING & BAKING")

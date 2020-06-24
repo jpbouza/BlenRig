@@ -285,7 +285,19 @@ def bone_auto_hide(context):
 
 ####### Reproportion Toggle #######
 listaDeEstados = []
+mode = []
 def reproportion_toggle(context):
+    if context:
+        mode.append(context.active_object.mode)
+        # print(mode)
+        if context.active_object.data.reproportion:
+            bpy.ops.object.mode_set(mode='POSE')
+        else:
+            if len(mode) > 1:
+                bpy.ops.object.mode_set(mode=mode[-2])
+        if len(mode) > 1:
+            del mode[0]
+
     if not bpy.context.screen:
         return False
     if bpy.context.screen.is_animation_playing == True:
@@ -302,30 +314,30 @@ def reproportion_toggle(context):
                     for layer in bpy.context.active_object.data.layers:
                         listaDeEstados.insert(contador, layer)
                         contador += 1
-                    
+
                     contador = 0
                     for layer in bpy.context.active_object.data.layers:
                         if layer:
                             bpy.context.active_object.data.layers[contador] = not bpy.context.active_object.data.layers[contador]
-                        
+
                         contador += 1
                         bpy.context.active_object.data.layers[31] = True
 
 
-                    for b in p_bones:      
+                    for b in p_bones:
                         for C in b.constraints:
                             if ('REPROP' in C.name):
-                                C.mute = False 
+                                C.mute = False
                             if ('NOREP' in C.name):
-                                C.mute = True   
+                                C.mute = True
 
                 else:
-                    contador = 0 
+                    contador = 0
                     try :
                         for layer in bpy.context.active_object.data.layers:
                             bpy.context.active_object.data.layers[contador] = listaDeEstados[contador]
                             contador += 1
-                    
+
                         for b in p_bones:
                             for C in b.constraints:
                                 if ('REPROP' in C.name):

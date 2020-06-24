@@ -237,6 +237,59 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
 
 ######################### gui custom layers ##############################
 
+
+            # if "gui_custom_layers" in props :
+            #     box = layout.column()
+            #     col = box.column()
+            #     row = col.row()
+            # if "gui_custom_layers" in props and props["gui_custom_layers"]:
+            #     row.operator("gui.blenrig_5_tabs", icon="RENDERLAYERS", emboss = 1).tab = "gui_custom_layers"
+            #     row.label(text="ARMATURE CUSTOM LAYERS")
+
+            #     #################### Custom Layers Panel #################
+
+            #     arm1 = context.object
+
+            #     row = layout.row()
+            #     row.enabled = (context.mode == 'POSE')
+
+            #     # UI list
+            #     rows = 4 if len(arm1.selection_sets) > 0 else 1
+            #     row.template_list(
+            #         "POSE_UL_selection_set", "",  # type and unique id
+            #         arm1, "selection_sets",  # pointer to the CollectionProperty
+            #         arm1, "active_selection_set",  # pointer to the active identifier
+            #         rows=rows
+            #     )
+
+            #     # add/remove/specials UI list Menu
+            #     col = row.column(align=True)
+            #     col.operator("pose.selection_set_add", icon='ADD', text="")
+            #     col.operator("pose.selection_set_remove", icon='REMOVE', text="")
+            #     col.menu("POSE_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
+
+            #     # move up/down arrows
+            #     if len(arm1.selection_sets) > 0:
+            #         col.separator()
+            #         col.operator("pose.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
+            #         col.operator("pose.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+
+            #     # buttons
+            #     row = layout.row()
+
+            #     sub = row.row(align=True)
+            #     sub.operator("pose.selection_set_assign", text="Assign")
+            #     sub.operator("pose.selection_set_unassign", text="Remove")
+
+            #     sub = row.row(align=True)
+            #     sub.operator("pose.selection_set_select", text="Select")
+            #     sub.operator("pose.selection_set_deselect", text="Deselect")
+
+
+            # elif "gui_custom_layers" in props:
+            #     row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
+            #     row.label(text="ARMATURE CUSTOM LAYERS")
+
             box = layout.column()
             col = box.column()
             row = col.row()
@@ -288,7 +341,10 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                 row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
                 row.label(text="ARMATURE CUSTOM LAYERS")
 
+######################### gui custom layers ##############################
+
 ############### Visualitation and Copy/paste pose ##############################################333
+
             # expanded box
             col.separator()
             box = layout.column()
