@@ -2152,10 +2152,6 @@ def register():
         register_class(c)
 
     register_class(side_visibility_props)
-        bpy.utils.register_class(c)
-    for c in bone_selecction_set_classes:
-        bpy.utils.register_class(c)
-
 
     # BlenRig Props
     bpy.types.WindowManager.blenrig_5_props = bpy.props.PointerProperty(type = Blenrig_5_Props)
@@ -2226,9 +2222,6 @@ def unregister():
         unregister_class(c)
 
     unregister_class(side_visibility_props)
-        bpy.utils.unregister_class(c)
-    for c in bone_selecction_set_classes:
-        bpy.utils.unregister_class(c)
 
     # unload add-on dependencies
     import addon_utils
