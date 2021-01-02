@@ -4,12 +4,18 @@ import bpy
 
 class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
     bl_label = "BlenRig 5 Rigging Control"
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "data"
+    bl_space_type = 'VIEW_3D'
+    bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
+    bl_idname = "BLENRIG_PT_BlenRig_5_rigging_panel"
+    bl_region_type = 'UI'
+    bl_category = "BlenRig 5"
 
     @classmethod
     def poll(cls, context):
+        BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
+        if not BlenRigPanelOptions.displayContext == 'RIGTOOLS':
+            return False
+            
         if not bpy.context.active_object:
             return False
         if (bpy.context.active_object.type in ["ARMATURE"]):
@@ -966,20 +972,6 @@ class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
             col.separator()
             box = col.box()
             box.prop(arm_data, 'reproportion', text="Reproportion Mode", toggle=True, icon_only=True, icon='SHADERFX')
-
-            # col.label(text="Setup:")
-            # box = col.box()
-            # split = box.split()
-            # row = split.row()
-            # row.operator("blenrig5.reset_constraints", text="Paste Pose Flipped")
-            # row = box.row()
-            # row.prop(props,"align_selected_only",text="Hide Left Side")
-            # row = box.row()
-            # row.prop(props,"align_selected_only",text="Hide Rigth Side")
-            # scn = bpy.context.scene
-            # rs = row.split(factor=0.8, align=True)
-            # rs.prop(scn, "comboBox", text="")
-            # row = box.row()
 
             col.label(text="Baking:")
             box = col.box()

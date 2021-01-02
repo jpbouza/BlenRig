@@ -1,7 +1,10 @@
 import bpy
 import os
 from bpy.types import Operator
-from ..side_visibility import side_visibility_props
+from ..visual_assistant import visual_assistant_props
+from ..visual_assistant import handle_panel_events
+
+
 
 class Operator_BlenRig5_Add_Biped(Operator):
 
@@ -10,6 +13,7 @@ class Operator_BlenRig5_Add_Biped(Operator):
     bl_description = "Generates BlenRig 5 biped rig"
     bl_options = {'REGISTER', 'UNDO',}
 
+    processed = []
 
     @classmethod
     def poll(cls, context):                            #method called by blender to check if the operator can be run
@@ -27,6 +31,15 @@ class Operator_BlenRig5_Add_Biped(Operator):
         # Add the collection(s) to the scene.
         for collection in data_to.collections:
             scene.collection.children.link(collection)
+            collection['BlenRig'] = collection.name
+            # Deactivating BlenRig collections (Improved):
+            vlayer = bpy.context.view_layer
+            for child in collection.children:
+                child['BlenRig'] = child.name
+                if not child.name.startswith('BlenRig_Biped'):
+                    vlayer.layer_collection.children[collection.name].children[child.name].exclude = True
+                    # print('Processing: ' + collection.name + ' > ' + child.name)
+
 
     def execute(self, context):
         if context.mode != 'OBJECT':
@@ -36,31 +49,9 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
         self.import_blenrig_biped(context)
 
-        # en el .blend el biped en modo objeto tiene q estar seleccionado para que lo siguiente no falle:
+        # in the .blend the biped in object mode has to be selected so that the following does not fail:
         context.view_layer.objects.active = context.selected_objects[0]
 
-        # desactivamos las siguientes colecciones:
-        # disable_cols = ['Mesh_Deform_Cage', 'GameModel', 'BoneShapes', 'Lattices']
-        # scenes = bpy.data.scenes
-        # for scn in scenes:
-        #     view_layers = scn.view_layers
-        #     for vl in view_layers:
-        #         for child in reversed(vl.layer_collection.children):
-        #             if len(disable_cols) < 1:
-        #                 break
-        #             for subchild in reversed(child.children):
-        #                 if len(disable_cols) < 1:
-        #                     break
-        #                 else:
-        #                     if subchild.name in disable_cols:
-        #                         subchild.exclude = True
-        #                         disable_cols.remove(subchild.name)
-
-        # Desactivando colecciones de BlenRig de forma mas eficiente:
-        # IMPORTANTE Previamente en el .blend les hemos creaado el key 'BlenRig' a cada coleccion con el value de su nombre original.
-        mc = context.view_layer.layer_collection.children["BlenRig_Master_Collection"]
-        for lc in mc.children:
-            if 'BlenRig' in lc.collection and lc.collection['BlenRig'] != 'BlenRig_Biped':
-                lc.exclude = True
+        handle_panel_events()
 
         return{'FINISHED'}

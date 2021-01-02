@@ -1,27 +1,27 @@
 import bpy
-from .snap_points import BLENRIG_OT_SnapPoints
-from .bone_selection_sets import *
+from ...custom_selection import *
 
 # global group lists
 all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = head = torso = []
 
-########### UI Controls
 
 class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_idname = "BLENRIG_PT_BlenRig_5_Interface_2_0"
+    bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_region_type = 'UI'
     bl_label = 'BlenRig 5 Controls 2.0'
     bl_category = "BlenRig 5"
 
-
-
-
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
+        if not BlenRigPanelOptions.displayContext == 'PICKER':
             return False
-        if (bpy.context.active_object.type in ["ARMATURE"]):
+
+        elif not bpy.context.active_object:
+            return False
+        elif (bpy.context.active_object.type in ["ARMATURE"]):
             for prop in bpy.context.active_object.data.items():
                 if prop[0] == 'rig_name' and prop[1] == 'BlenRig_5':
                     for prop in bpy.context.active_object.data.items():
@@ -34,35 +34,38 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                         if (mod.type in ["ARMATURE", "MESH_DEFORM"]):
                             return True
 
-
-
-    def draw(self, context):
-        if bpy.context.mode in ["POSE", "EDIT_ARMATURE"]:
-
+    def draw(self, context): 
+        if context.mode in ["POSE", "EDIT_ARMATURE"]:
+            layout = self.layout
             global all_bones, hand_l, hand_r, arm_l, arm_r, leg_l, leg_r, foot_l, foot_r, head, torso
-            layout = self.layout
             props = context.window_manager.blenrig_5_props
-            arm = bpy.context.active_object.data
-            armobj = bpy.context.active_object
-            arm_bones = bpy.context.active_object.pose.bones
-            act_bone = bpy.context.active_pose_bone
-
-######### Cage Setup
-        if bpy.context.mode in ["EDIT_MESH"]:
-            layout = self.layout
-            box = layout.column()
-            col = box.column()
-            row = col.row()
-            row.alignment = 'CENTER'
-            row.label(text="Setup Mdf Cage")
-            row = layout.row(align=True)
-            comb = row.row()
-            comb.operator("blenrig.snap_points", text="Ajust Cage", icon="NONE")
-
+            arm = context.active_object.data
+            armobj = context.active_object
+            arm_bones = context.active_object.pose.bones
+            act_bone = context.active_pose_bone
         try:
-            selected_bones = [bone.name for bone in bpy.context.selected_pose_bones]
+            selected_bones = [bone.name for bone in context.selected_pose_bones]
         except:
             selected_bones = []
+        else:
+            if context.mode in ["OBJECT","EDIT_MESH"]:
+                layout = self.layout
+
+                armobj = context.active_object
+                ovlay = context.space_data.overlay
+
+                box = layout.column()
+                col = box.column()
+                row = col.row()
+
+                picker_col = box.box()
+                picker_row = picker_col.row(align=True)            
+                col_3 = picker_row.row()
+                col_3.alignment = 'CENTER'
+                col_3.prop(armobj,"show_in_front")
+                col_3.prop(ovlay,"show_bones")
+                col_3.prop(ovlay,"show_overlays")
+                col_3.separator()
 
         def is_selected(names):
             for name in names:
@@ -70,10 +73,9 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                     return True
             return False
 
+        if context.mode in ["POSE", "EDIT_ARMATURE"]:
 
-        if bpy.context.mode in ["POSE", "EDIT_ARMATURE"]:
-
-######### Bone groups used for Inherit Scale Checkboxes & Sensible to Selection Sliders Display
+    ######### Bone groups used for Inherit Scale Checkboxes & Sensible to Selection Sliders Display
             if not all_bones:
                 all_bones = []
                 for bone in armobj.pose.bones:
@@ -136,9 +138,9 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                     if bone.count("spine") or bone.count("pelvis") or bone.count("torso") or bone.count("omoplate") or bone.count("chest") or bone.count("body") or bone.count("ball") or bone.count("dicky") or bone.count("butt") or bone.count("back") or bone.count("clavi") or bone.count("look") or bone.count("hip"):
                         torso.append(bone)
 
-########### PANEL #############################################################################
+    ########### PANEL #############################################################################
 
-########### Armature Layers
+    ########### Armature Layers
             if "gui_layers" in arm:
                 box = layout.column()
                 col = box.column()
@@ -146,6 +148,7 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
             if "gui_layers" in arm and arm["gui_layers"]:
                 row.operator("gui.blenrig_5_tabs", icon="RENDERLAYERS", emboss = 1).tab = "gui_layers"
                 row.label(text="ARMATURE LAYERS")
+                
                 # expanded box
                 col.separator()
                 col2 = box.column(align = 1)
@@ -235,60 +238,7 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                 row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_layers"
                 row.label(text="ARMATURE LAYERS")
 
-######################### gui custom layers ##############################
-
-
-            # if "gui_custom_layers" in props :
-            #     box = layout.column()
-            #     col = box.column()
-            #     row = col.row()
-            # if "gui_custom_layers" in props and props["gui_custom_layers"]:
-            #     row.operator("gui.blenrig_5_tabs", icon="RENDERLAYERS", emboss = 1).tab = "gui_custom_layers"
-            #     row.label(text="ARMATURE CUSTOM LAYERS")
-
-            #     #################### Custom Layers Panel #################
-
-            #     arm1 = context.object
-
-            #     row = layout.row()
-            #     row.enabled = (context.mode == 'POSE')
-
-            #     # UI list
-            #     rows = 4 if len(arm1.selection_sets) > 0 else 1
-            #     row.template_list(
-            #         "POSE_UL_selection_set", "",  # type and unique id
-            #         arm1, "selection_sets",  # pointer to the CollectionProperty
-            #         arm1, "active_selection_set",  # pointer to the active identifier
-            #         rows=rows
-            #     )
-
-            #     # add/remove/specials UI list Menu
-            #     col = row.column(align=True)
-            #     col.operator("pose.selection_set_add", icon='ADD', text="")
-            #     col.operator("pose.selection_set_remove", icon='REMOVE', text="")
-            #     col.menu("POSE_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
-
-            #     # move up/down arrows
-            #     if len(arm1.selection_sets) > 0:
-            #         col.separator()
-            #         col.operator("pose.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
-            #         col.operator("pose.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
-
-            #     # buttons
-            #     row = layout.row()
-
-            #     sub = row.row(align=True)
-            #     sub.operator("pose.selection_set_assign", text="Assign")
-            #     sub.operator("pose.selection_set_unassign", text="Remove")
-
-            #     sub = row.row(align=True)
-            #     sub.operator("pose.selection_set_select", text="Select")
-            #     sub.operator("pose.selection_set_deselect", text="Deselect")
-
-
-            # elif "gui_custom_layers" in props:
-            #     row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
-            #     row.label(text="ARMATURE CUSTOM LAYERS")
+    ######################### gui custom layers ##############################
 
             box = layout.column()
             col = box.column()
@@ -300,50 +250,47 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
 
                 #################### Custom Layers Panel #################
 
-                arm1 = context.object
+                arm2 = context.object
 
                 row = layout.row()
                 row.enabled = (context.mode == 'POSE')
 
                 # UI list
-                rows = 4 if len(arm1.selection_sets) > 0 else 1
+                rows = 4 if len(arm2.blenrig_selection_sets) > 0 else 1
                 row.template_list(
-                    "POSE_UL_selection_set", "",  # type and unique id
-                    arm1, "selection_sets",  # pointer to the CollectionProperty
-                    arm1, "active_selection_set",  # pointer to the active identifier
+                    "BLENRIG_UL_selection_set", "",  # type and unique id
+                    arm2, "blenrig_selection_sets",  # pointer to the CollectionProperty
+                    arm2, "blenrig_active_selection_set",  # pointer to the active identifier
                     rows=rows
                 )
 
                 # add/remove/specials UI list Menu
                 col = row.column(align=True)
-                col.operator("pose.selection_set_add", icon='ADD', text="")
-                col.operator("pose.selection_set_remove", icon='REMOVE', text="")
-                col.menu("POSE_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
+                col.operator("blenrig.selection_set_add", icon='ADD', text="")
+                col.operator("blenrig.selection_set_remove", icon='REMOVE', text="")
+                col.menu("BLENRIG_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
 
                 # move up/down arrows
-                if len(arm1.selection_sets) > 0:
+                if len(arm2.blenrig_selection_sets) > 0:
                     col.separator()
-                    col.operator("pose.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
-                    col.operator("pose.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+                    col.operator("blenrig.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
+                    col.operator("blenrig.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 
                 # buttons
                 row = layout.row()
 
                 sub = row.row(align=True)
-                sub.operator("pose.selection_set_assign", text="Assign")
-                sub.operator("pose.selection_set_unassign", text="Remove")
+                sub.operator("blenrig.selection_set_assign", text="Assign")
+                sub.operator("blenrig.selection_set_unassign", text="Remove")
 
                 sub = row.row(align=True)
-                sub.operator("pose.selection_set_select", text="Select")
-                sub.operator("pose.selection_set_deselect", text="Deselect")
+                sub.operator("blenrig.selection_set_select", text="Select")
+                sub.operator("blenrig.selection_set_deselect", text="Deselect")
 
             else:
                 row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
                 row.label(text="ARMATURE CUSTOM LAYERS")
-
-######################### gui custom layers ##############################
-
-############### Visualitation and Copy/paste pose ##############################################333
+    ######################### gui custom layers ##############################
 
             # expanded box
             col.separator()
@@ -373,7 +320,7 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
             col_2.alignment = 'LEFT'
             # col_2.operator("blenrig5.paste_pose_flipped", text="Quick Pose Flipped")
 
-            ovlay = bpy.context.space_data.overlay
+            ovlay = context.space_data.overlay
             col_3 = animation_row.column()
             col_3.scale_x = 1
             col_3.scale_y = 1
@@ -387,8 +334,8 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
             col_1.separator()
             col_1.separator()
 
-################# BLENRIG PICKER BODY #############################################
-            if bpy.context.mode == "POSE":
+    ################# BLENRIG PICKER BODY #############################################
+            if context.mode == "POSE":
 
                 if "gui_picker_body" in arm:
                     box = layout.column()
@@ -3038,8 +2985,8 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                     row.label(text="BODY PICKER & PROPERTIES")
 
 
-################ FACE #######################################
-            if bpy.context.mode == "POSE":
+    ################ FACE #######################################
+            if context.mode == "POSE":
 
                 if "gui_picker_face" in arm:
                     box = layout.column()
@@ -4055,8 +4002,8 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                     row.operator("gui.blenrig_5_tabs", icon="MOD_MASK", emboss = 1).tab = "gui_picker_face"
                     row.label(text="FACE PICKER")
 
-########### Extra Properties
-            if bpy.context.mode == "POSE":
+    ########### Extra Properties
+            if context.mode == "POSE":
 
                 if "gui_misc" in arm:
                     box = layout.column()
@@ -4323,8 +4270,8 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                     row.operator("gui.blenrig_5_tabs", icon="SETTINGS", emboss = 1).tab = "gui_misc"
                     row.label(text="EXTRA PROPERTIES")
 
-########### Custom Properties
-            if bpy.context.mode == "POSE":
+    ########### Custom Properties
+            if context.mode == "POSE":
 
                 if "gui_cust_props" in arm:
                     box = layout.column()
@@ -4378,8 +4325,8 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
                     row.operator("gui.blenrig_5_tabs", icon="SETTINGS", emboss = 1).tab = "gui_cust_props"
                     row.label(text="CUSTOM PROPERTIES")
 
-########### Muscle System box
-            if bpy.context.mode == "POSE":
+    ########### Muscle System box
+            if context.mode == "POSE":
 
                 if "gui_muscle" in arm:
                     box = layout.column()

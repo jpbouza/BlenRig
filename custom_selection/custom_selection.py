@@ -1,22 +1,5 @@
-# ##### BEGIN GPL LICENSE BLOCK #####
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software Foundation,
-# Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-#
-# ##### END GPL LICENCE BLOCK #####
-
 import bpy
+
 from bpy.types import (
     Operator,
     Menu,
@@ -48,19 +31,19 @@ class SelectionSet(PropertyGroup):
 
 # UI Panel w/ UIList ##########################################################
 
-class POSE_MT_selection_sets_context_menu(Menu):
+class BLENRIG_MT_selection_sets_context_menu(Menu):
     bl_label = "Selection Sets Specials"
 
     def draw(self, context):
         layout = self.layout
 
-        layout.operator("pose.selection_set_delete_all", icon='X')
-        layout.operator("pose.selection_set_remove_bones", icon='X')
-        layout.operator("pose.selection_set_copy", icon='COPYDOWN')
-        layout.operator("pose.selection_set_paste", icon='PASTEDOWN')
+        layout.operator("blenrig.selection_set_delete_all", icon='X')
+        layout.operator("blenrig.selection_set_remove_bones", icon='X')
+        layout.operator("blenrig.selection_set_copy", icon='COPYDOWN')
+        layout.operator("blenrig.selection_set_paste", icon='PASTEDOWN')
 
 
-class POSE_UL_selection_set(UIList):
+class BLENRIG_UL_selection_set(UIList):
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
         sel_set = item
         layout.prop(item, "name", text="", icon='GROUP_BONE', emboss=False)
@@ -68,27 +51,27 @@ class POSE_UL_selection_set(UIList):
             layout.prop(item, "is_selected", text="")
 
 
-class POSE_MT_selection_set_create(Menu):
+class BLENRIG_MT_selection_set_create(Menu):
     bl_label = "Choose Selection Set"
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("pose.selection_set_add_and_assign",
+        layout.operator("blenrig.selection_set_add_and_assign",
                         text="New Selection Set")
 
 
-class POSE_MT_selection_sets_select(Menu):
+class BLENRIG_MT_selection_sets_select(Menu):
     bl_label = 'Select Selection Set'
 
     @classmethod
     def poll(cls, context):
-        return POSE_OT_selection_set_select.poll(context)
+        return BLENRIG_OT_selection_set_select.poll(context)
 
     def draw(self, context):
         layout = self.layout
         layout.operator_context = 'EXEC_DEFAULT'
-        for idx, sel_set in enumerate(context.object.selection_sets):
-            props = layout.operator(POSE_OT_selection_set_select.bl_idname, text=sel_set.name)
+        for idx, sel_set in enumerate(context.object.blenrig_selection_sets):
+            props = layout.operator(BLENRIG_OT_selection_set_select.bl_idname, text=sel_set.name)
             props.selection_set_index = idx
 
 
@@ -110,23 +93,23 @@ class NeedSelSetPluginOperator(PluginOperator):
         if not super().poll(context):
             return False
         arm = context.object
-        return 0 <= arm.active_selection_set < len(arm.selection_sets)
+        return 0 <= arm.blenrig_active_selection_set < len(arm.blenrig_selection_sets)
 
 
-class POSE_OT_selection_set_delete_all(PluginOperator):
-    bl_idname = "pose.selection_set_delete_all"
+class BLENRIG_OT_selection_set_delete_all(PluginOperator):
+    bl_idname = "blenrig.selection_set_delete_all"
     bl_label = "Delete All Sets"
     bl_description = "Deletes All Selection Sets"
     bl_options = {'UNDO', 'REGISTER'}
 
     def execute(self, context):
         arm = context.object
-        arm.selection_sets.clear()
+        arm.blenrig_selection_sets.clear()
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_remove_bones(PluginOperator):
-    bl_idname = "pose.selection_set_remove_bones"
+class BLENRIG_OT_selection_set_remove_bones(PluginOperator):
+    bl_idname = "blenrig.selection_set_remove_bones"
     bl_label = "Remove Selected Bones from All Sets"
     bl_description = "Removes the Selected Bones from All Sets"
     bl_options = {'UNDO', 'REGISTER'}
@@ -136,7 +119,7 @@ class POSE_OT_selection_set_remove_bones(PluginOperator):
 
         # iterate only the selected bones in current pose that are not hidden
         for bone in context.selected_pose_bones:
-            for selset in arm.selection_sets:
+            for selset in arm.blenrig_selection_sets:
                 if bone.name in selset.bone_ids:
                     idx = selset.bone_ids.find(bone.name)
                     selset.bone_ids.remove(idx)
@@ -144,8 +127,8 @@ class POSE_OT_selection_set_remove_bones(PluginOperator):
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_move(NeedSelSetPluginOperator):
-    bl_idname = "pose.selection_set_move"
+class BLENRIG_OT_selection_set_move(NeedSelSetPluginOperator):
+    bl_idname = "blenrig.selection_set_move"
     bl_label = "Move Selection Set in List"
     bl_description = "Move the active Selection Set up/down the list of sets"
     bl_options = {'UNDO', 'REGISTER'}
@@ -166,43 +149,43 @@ class POSE_OT_selection_set_move(NeedSelSetPluginOperator):
         if not super().poll(context):
             return False
         arm = context.object
-        return len(arm.selection_sets) > 1
+        return len(arm.blenrig_selection_sets) > 1
 
     def execute(self, context):
         arm = context.object
 
-        active_idx = arm.active_selection_set
+        active_idx = arm.blenrig_active_selection_set
         new_idx = active_idx + (-1 if self.direction == 'UP' else 1)
 
-        if new_idx < 0 or new_idx >= len(arm.selection_sets):
+        if new_idx < 0 or new_idx >= len(arm.blenrig_selection_sets):
             return {'FINISHED'}
 
-        arm.selection_sets.move(active_idx, new_idx)
-        arm.active_selection_set = new_idx
+        arm.blenrig_selection_sets.move(active_idx, new_idx)
+        arm.blenrig_active_selection_set = new_idx
 
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_add(PluginOperator):
-    bl_idname = "pose.selection_set_add"
+class BLENRIG_OT_selection_set_add(PluginOperator):
+    bl_idname = "blenrig.selection_set_add"
     bl_label = "Create Selection Set"
     bl_description = "Creates a new empty Selection Set"
     bl_options = {'UNDO', 'REGISTER'}
 
     def execute(self, context):
         arm = context.object
-        sel_sets = arm.selection_sets
+        sel_sets = arm.blenrig_selection_sets
         new_sel_set = sel_sets.add()
         new_sel_set.name = uniqify("SelectionSet", sel_sets.keys())
 
         # select newly created set
-        arm.active_selection_set = len(sel_sets) - 1
+        arm.blenrig_active_selection_set = len(sel_sets) - 1
 
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_remove(NeedSelSetPluginOperator):
-    bl_idname = "pose.selection_set_remove"
+class BLENRIG_OT_selection_set_remove(NeedSelSetPluginOperator):
+    bl_idname = "blenrig.selection_set_remove"
     bl_label = "Delete Selection Set"
     bl_description = "Delete a Selection Set"
     bl_options = {'UNDO', 'REGISTER'}
@@ -210,18 +193,18 @@ class POSE_OT_selection_set_remove(NeedSelSetPluginOperator):
     def execute(self, context):
         arm = context.object
 
-        arm.selection_sets.remove(arm.active_selection_set)
+        arm.blenrig_selection_sets.remove(arm.blenrig_active_selection_set)
 
         # change currently active selection set
-        numsets = len(arm.selection_sets)
-        if (arm.active_selection_set > (numsets - 1) and numsets > 0):
-            arm.active_selection_set = len(arm.selection_sets) - 1
+        numsets = len(arm.blenrig_selection_sets)
+        if (arm.blenrig_active_selection_set > (numsets - 1) and numsets > 0):
+            arm.blenrig_active_selection_set = len(arm.blenrig_selection_sets) - 1
 
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_assign(PluginOperator):
-    bl_idname = "pose.selection_set_assign"
+class BLENRIG_OT_selection_set_assign(PluginOperator):
+    bl_idname = "blenrig.selection_set_assign"
     bl_label = "Add Bones to Selection Set"
     bl_description = "Add selected bones to Selection Set"
     bl_options = {'UNDO', 'REGISTER'}
@@ -229,17 +212,17 @@ class POSE_OT_selection_set_assign(PluginOperator):
     def invoke(self, context, event):
         arm = context.object
 
-        if not (arm.active_selection_set < len(arm.selection_sets)):
+        if not (arm.blenrig_active_selection_set < len(arm.blenrig_selection_sets)):
             bpy.ops.wm.call_menu("INVOKE_DEFAULT",
-                                 name="POSE_MT_selection_set_create")
+                                 name="BLENRIG_MT_selection_set_create")
         else:
-            bpy.ops.pose.selection_set_assign('EXEC_DEFAULT')
+            bpy.ops.blenrig.selection_set_assign('EXEC_DEFAULT')
 
         return {'FINISHED'}
 
     def execute(self, context):
         arm = context.object
-        act_sel_set = arm.selection_sets[arm.active_selection_set]
+        act_sel_set = arm.blenrig_selection_sets[arm.blenrig_active_selection_set]
 
         # iterate only the selected bones in current pose that are not hidden
         for bone in context.selected_pose_bones:
@@ -250,15 +233,15 @@ class POSE_OT_selection_set_assign(PluginOperator):
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_unassign(NeedSelSetPluginOperator):
-    bl_idname = "pose.selection_set_unassign"
+class BLENRIG_OT_selection_set_unassign(NeedSelSetPluginOperator):
+    bl_idname = "blenrig.selection_set_unassign"
     bl_label = "Remove Bones from Selection Set"
     bl_description = "Remove selected bones from Selection Set"
     bl_options = {'UNDO', 'REGISTER'}
 
     def execute(self, context):
         arm = context.object
-        act_sel_set = arm.selection_sets[arm.active_selection_set]
+        act_sel_set = arm.blenrig_selection_sets[arm.blenrig_active_selection_set]
 
         # iterate only the selected bones in current pose that are not hidden
         for bone in context.selected_pose_bones:
@@ -269,8 +252,8 @@ class POSE_OT_selection_set_unassign(NeedSelSetPluginOperator):
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_select(NeedSelSetPluginOperator):
-    bl_idname = "pose.selection_set_select"
+class BLENRIG_OT_selection_set_select(NeedSelSetPluginOperator):
+    bl_idname = "blenrig.selection_set_select"
     bl_label = "Select Selection Set"
     bl_description = "Add Selection Set bones to current selection"
     bl_options = {'UNDO', 'REGISTER'}
@@ -287,10 +270,10 @@ class POSE_OT_selection_set_select(NeedSelSetPluginOperator):
         bpy.ops.pose.reveal()
         bpy.ops.pose.select_all(action='DESELECT')
         if self.selection_set_index == -1:
-            idx = arm.active_selection_set
+            idx = arm.blenrig_active_selection_set
         else:
             idx = self.selection_set_index
-        sel_set = arm.selection_sets[idx]
+        sel_set = arm.blenrig_selection_sets[idx]
 
         for bone in context.visible_pose_bones:
             if bone.name in sel_set.bone_ids:
@@ -299,15 +282,15 @@ class POSE_OT_selection_set_select(NeedSelSetPluginOperator):
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_deselect(NeedSelSetPluginOperator):
-    bl_idname = "pose.selection_set_deselect"
+class BLENRIG_OT_selection_set_deselect(NeedSelSetPluginOperator):
+    bl_idname = "blenrig.selection_set_deselect"
     bl_label = "Deselect Selection Set"
     bl_description = "Remove Selection Set bones from current selection"
     bl_options = {'UNDO', 'REGISTER'}
 
     def execute(self, context):
         arm = context.object
-        act_sel_set = arm.selection_sets[arm.active_selection_set]
+        act_sel_set = arm.blenrig_selection_sets[arm.blenrig_active_selection_set]
 
         for bone in context.selected_pose_bones:
             if bone.name in act_sel_set.bone_ids:
@@ -316,20 +299,20 @@ class POSE_OT_selection_set_deselect(NeedSelSetPluginOperator):
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_add_and_assign(PluginOperator):
-    bl_idname = "pose.selection_set_add_and_assign"
+class BLENRIG_OT_selection_set_add_and_assign(PluginOperator):
+    bl_idname = "blenrig.selection_set_add_and_assign"
     bl_label = "Create and Add Bones to Selection Set"
     bl_description = "Creates a new Selection Set with the currently selected bones"
     bl_options = {'UNDO', 'REGISTER'}
 
     def execute(self, context):
-        bpy.ops.pose.selection_set_add('EXEC_DEFAULT')
-        bpy.ops.pose.selection_set_assign('EXEC_DEFAULT')
+        bpy.ops.blenrig.selection_set_add('EXEC_DEFAULT')
+        bpy.ops.blenrig.selection_set_assign('EXEC_DEFAULT')
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_copy(NeedSelSetPluginOperator):
-    bl_idname = "pose.selection_set_copy"
+class BLENRIG_OT_selection_set_copy(NeedSelSetPluginOperator):
+    bl_idname = "blenrig.selection_set_copy"
     bl_label = "Copy Selection Set(s)"
     bl_description = "Copies the selected Selection Set(s) to the clipboard"
     bl_options = {'UNDO', 'REGISTER'}
@@ -340,8 +323,8 @@ class POSE_OT_selection_set_copy(NeedSelSetPluginOperator):
         return {'FINISHED'}
 
 
-class POSE_OT_selection_set_paste(PluginOperator):
-    bl_idname = "pose.selection_set_paste"
+class BLENRIG_OT_selection_set_paste(PluginOperator):
+    bl_idname = "blenrig.selection_set_paste"
     bl_label = "Paste Selection Set(s)"
     bl_description = "Adds new Selection Set(s) from the Clipboard"
     bl_options = {'UNDO', 'REGISTER'}
@@ -355,7 +338,7 @@ class POSE_OT_selection_set_paste(PluginOperator):
             self.report({'ERROR'}, 'The clipboard does not contain a Selection Set')
         else:
             # Select the pasted Selection Set.
-            context.object.active_selection_set = len(context.object.selection_sets) - 1
+            context.object.blenrig_active_selection_set = len(context.object.blenrig_selection_sets) - 1
 
         return {'FINISHED'}
 
@@ -363,21 +346,21 @@ class POSE_OT_selection_set_paste(PluginOperator):
 # Helper Functions ############################################################
 
 def menu_func_select_selection_set(self, context):
-    self.layout.menu('POSE_MT_selection_sets_select', text="Bone Selection Set")
+    self.layout.menu('BLENRIG_MT_selection_sets_select', text="Bone Selection Set")
 
 
 def to_json(context) -> str:
     """Convert the selected Selection Sets of the current rig to JSON.
 
-    Selected Sets are the active_selection_set determined by the UIList
+    Selected Sets are the blenrig_active_selection_set determined by the UIList
     plus any with the is_selected checkbox on."""
     import json
 
     arm = context.object
-    active_idx = arm.active_selection_set
+    active_idx = arm.blenrig_active_selection_set
 
     json_obj = {}
-    for idx, sel_set in enumerate(context.object.selection_sets):
+    for idx, sel_set in enumerate(context.object.blenrig_selection_sets):
         if idx == active_idx or sel_set.is_selected:
             bones = [bone_id.name for bone_id in sel_set.bone_ids]
             json_obj[sel_set.name] = bones
@@ -390,7 +373,7 @@ def from_json(context, as_json: str):
     import json
 
     json_obj = json.loads(as_json)
-    arm_sel_sets = context.object.selection_sets
+    arm_sel_sets = context.object.blenrig_selection_sets
 
     for name, bones in json_obj.items():
         new_sel_set = arm_sel_sets.add()

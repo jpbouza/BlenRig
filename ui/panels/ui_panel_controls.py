@@ -1,20 +1,27 @@
 import bpy
+from ...custom_selection import *
+
+
+
 # global group lists
 all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = head = torso = []
 
 ########### UI Controls
 
 class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
     bl_label = 'BlenRig 5 Controls'
+    bl_space_type = 'VIEW_3D'
+    bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
+    bl_idname = "BLENRIG_PT_BlenRig_5_Interface"
+    bl_region_type = 'UI'
     bl_category = "BlenRig 5"
-
-
-
 
     @classmethod
     def poll(cls, context):
+        BlenRigPanelOptions = bpy.context.window_manager.BlenRigPanelSettings
+        if not BlenRigPanelOptions.displayContext == 'PICKER':
+            return False
+
         if not bpy.context.active_object:
             return False
         if (bpy.context.active_object.type in ["ARMATURE"]):
@@ -28,7 +35,7 @@ class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
         if bpy.context.mode in ["POSE", "EDIT_ARMATURE"]:
             global all_bones, hand_l, hand_r, arm_l, arm_r, leg_l, leg_r, foot_l, foot_r, head, torso
             layout = self.layout
-            props = context.window_manager.blenrig_5_props
+            props = bpy.context.window_manager.blenrig_5_props
             arm = bpy.context.active_object.data
             armobj = bpy.context.active_object
             arm_bones = bpy.context.active_object.pose.bones
@@ -38,6 +45,26 @@ class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
             selected_bones = [bone.name for bone in bpy.context.selected_pose_bones]
         except:
             selected_bones = []
+        else:
+            if context.mode in ["OBJECT","EDIT_MESH"]:
+                layout = self.layout
+
+                armobj = context.active_object
+                ovlay = context.space_data.overlay
+
+                box = layout.column()
+                col = box.column()
+                row = col.row()
+
+                picker_col = box.box()
+                picker_row = picker_col.row(align=True)            
+                col_3 = picker_row.row()
+                col_3.alignment = 'CENTER'
+                col_3.prop(armobj,"show_in_front")
+                col_3.prop(ovlay,"show_bones")
+                col_3.prop(ovlay,"show_overlays")
+                col_3.separator()
+
 
         def is_selected(names):
             for name in names:
@@ -231,46 +258,101 @@ class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
                             col_3.prop(arm, "layers", index=29 , toggle=True, text='{}'.format(names[29]))
                         col2.separator()
 
-                animation_col = box.box()
-                animation_col.scale_x = 1
-                animation_col.scale_y = 1
-                animation_col.alignment = 'CENTER'
-                animation_col.label(text='Pose Copy-Paste bottons')
-                animation_row = animation_col.row(align=True)
-                col_1 = animation_row.column()
-                col_1.scale_x = 1
-                col_1.scale_y = 1
-                col_1.alignment = 'LEFT'
-
-                animation_row.operator("pose.copy",icon="COPYDOWN", text="")
-                animation_row.operator("pose.paste", icon="PASTEDOWN", text="")
-                col_1.separator()
-                animation_row.operator('pose.paste',icon="PASTEFLIPDOWN", text="").flipped = True
-
-                col_2 = animation_row.column()
-                col_2.scale_x = 0.9
-                col_2.scale_y = 1
-                col_2.alignment = 'LEFT'
-                # col_2.operator("blenrig5.paste_pose_flipped", text="Quick Pose Flipped")
-
-                ovlay = bpy.context.space_data.overlay
-                col_3 = animation_row.column()
-                col_3.scale_x = 1
-                col_3.scale_y = 1
-                col_3 = animation_row.row(align=False)
-                col_3.alignment = 'RIGHT'
-
-                col_3.prop(armobj,"show_in_front")
-                col_3.prop(ovlay,"show_bones")
-                col_3.prop(ovlay,"show_overlays")
-                col_1.separator()
-                col_1.separator()
-                col_1.separator()
-
                 # collapsed box
             elif "gui_layers" in arm:
                 row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_layers"
                 row.label(text="ARMATURE LAYERS")
+
+    ######################### gui custom layers ##############################
+
+            box = layout.column()
+            col = box.column()
+            row = col.row()
+
+            if props.gui_custom_layers :
+                row.operator("gui.blenrig_5_tabs", icon="RENDERLAYERS", emboss = 1).tab = "gui_custom_layers"
+                row.label(text="ARMATURE CUSTOM LAYERS")
+
+                #################### Custom Layers Panel #################
+
+                arm1 = context.object
+
+                row = layout.row()
+                row.enabled = (context.mode == 'POSE')
+
+                # UI list
+                rows = 4 if len(arm1.blenrig_selection_sets) > 0 else 1
+                row.template_list(
+                    "BLENRIG_UL_selection_set", "",  # type and unique id
+                    arm1, "blenrig_selection_sets",  # pointer to the CollectionProperty
+                    arm1, "blenrig_active_selection_set",  # pointer to the active identifier
+                    rows=rows
+                )
+
+                # add/remove/specials UI list Menu
+                col = row.column(align=True)
+                col.operator("blenrig.selection_set_add", icon='ADD', text="")
+                col.operator("blenrig.selection_set_remove", icon='REMOVE', text="")
+                col.menu("BLENRIG_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
+
+                # move up/down arrows
+                if len(arm1.blenrig_selection_sets) > 0:
+                    col.separator()
+                    col.operator("blenrig.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
+                    col.operator("blenrig.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+
+                # buttons
+                row = layout.row()
+
+                sub = row.row(align=True)
+                sub.operator("blenrig.selection_set_assign", text="Assign")
+                sub.operator("blenrig.selection_set_unassign", text="Remove")
+
+                sub = row.row(align=True)
+                sub.operator("blenrig.selection_set_select", text="Select")
+                sub.operator("blenrig.selection_set_deselect", text="Deselect")
+
+            else:
+                row.operator("gui.blenrig_5_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_custom_layers"
+                row.label(text="ARMATURE CUSTOM LAYERS")
+    ######################### gui custom layers ##############################            
+
+
+            animation_col = box.box()
+            animation_col.scale_x = 1
+            animation_col.scale_y = 1
+            animation_col.alignment = 'CENTER'
+            animation_col.label(text='Pose Copy-Paste bottons')
+            animation_row = animation_col.row(align=True)
+            col_1 = animation_row.column()
+            col_1.scale_x = 1
+            col_1.scale_y = 1
+            col_1.alignment = 'LEFT'
+
+            animation_row.operator("pose.copy",icon="COPYDOWN", text="")
+            animation_row.operator("pose.paste", icon="PASTEDOWN", text="")
+            col_1.separator()
+            animation_row.operator('pose.paste',icon="PASTEFLIPDOWN", text="").flipped = True
+
+            col_2 = animation_row.column()
+            col_2.scale_x = 0.9
+            col_2.scale_y = 1
+            col_2.alignment = 'LEFT'
+            # col_2.operator("blenrig5.paste_pose_flipped", text="Quick Pose Flipped")
+
+            ovlay = bpy.context.space_data.overlay
+            col_3 = animation_row.column()
+            col_3.scale_x = 1
+            col_3.scale_y = 1
+            col_3 = animation_row.row(align=False)
+            col_3.alignment = 'RIGHT'
+
+            col_3.prop(armobj,"show_in_front")
+            col_3.prop(ovlay,"show_bones")
+            col_3.prop(ovlay,"show_overlays")
+            col_1.separator()
+            col_1.separator()
+            col_1.separator()
 
 ################# BLENRIG PICKER BODY #############################################
             if bpy.context.mode == "POSE":
