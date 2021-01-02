@@ -183,131 +183,346 @@ class Operator_Snap_ArmIKtoFK_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         anim_data = armobj.animation_data
 
-        if armobj.pose.bones["properties_arm_L"].ik_arm_L < 0.1:
+        #Biped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Biped':
 
-            #Collect Matrix
-            ArmFkMat = pbones['arm_fk_L'].matrix.copy()
-            ArmFkLoc = pbones['arm_fk_L'].location.copy()
-            ArmFkScale = pbones['arm_fk_L'].scale.copy()
-            ForearmFkMat = pbones['forearm_fk_L'].matrix.copy()
-            ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
-            ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
-            ShoulderMat = pbones['shoulder_L'].matrix.copy()
-            ShoulderLoc = pbones['shoulder_L'].location.copy()
-            ShoulderScale = pbones['shoulder_L'].scale.copy()
+                if armobj.pose.bones["properties_arm_L"].ik_arm_L < 0.1:
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
-                        insert_bkeys('arm_fk_L', 'LocRotScale')
-                        insert_bkeys('forearm_fk_L', 'LocRotScale')
-                        insert_bkeys('arm_ik_L', 'RotScale')
-                        insert_bkeys('forearm_ik_L', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
-                        insert_bkeys('shoulder_L', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
-                        insert_bkeys('hand_fk_L', 'LocRotScale')
-                        if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
-                            insert_bkeys('elbow_pole_L', 'Loc')
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_L'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                    ArmFkScale = pbones['arm_fk_L'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_L'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+                    ShoulderMat = pbones['shoulder_L'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_L'].location.copy()
+                    ShoulderScale = pbones['shoulder_L'].scale.copy()
 
-            armobj.pose.bones["properties_arm_L"].ik_arm_L = 1.0
-            refresh_hack()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
 
-            #Paste Matrix
-            pVisRotExec (pbones['arm_fk_ctrl_L'], pbones['arm_ik_L'])
-            pbones['arm_fk_ctrl_L'].scale[:] = (1.0, 1.0, 1.0)
-            refresh_hack()
-            pbones['shoulder_L'].matrix = ShoulderMat
-            pbones['shoulder_L'].location = ShoulderLoc
-            pbones['shoulder_L'].scale = ShoulderScale
-            refresh_hack()
-            pbones['arm_fk_L'].matrix = ArmFkMat
-            pbones['arm_fk_L'].location = ArmFkLoc
-            pbones['arm_fk_L'].scale = ArmFkScale
-            refresh_hack()
-            pbones['forearm_fk_L'].matrix = ForearmFkMat
-            pbones['forearm_fk_L'].location = ForearmFkLoc
-            pbones['forearm_fk_L'].scale = ForearmFkScale
-            refresh_hack()
+                    armobj.pose.bones["properties_arm_L"].ik_arm_L = 1.0
+                    refresh_hack()
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Collect Local Transforms
-                        ShoulderRotEuler = pbones['shoulder_L'].rotation_euler.copy()
-                        ShoulderRotQuat = pbones['shoulder_L'].rotation_quaternion.copy()
-                        ShoulderLoc = pbones['shoulder_L'].location.copy()
-                        ShoulderScale = pbones['shoulder_L'].scale.copy()
+                    #Paste Matrix
+                    pVisRotExec (pbones['arm_fk_ctrl_L'], pbones['arm_ik_L'])
+                    pbones['arm_fk_ctrl_L'].scale[:] = (1.0, 1.0, 1.0)
+                    refresh_hack()
+                    pbones['shoulder_L'].matrix = ShoulderMat
+                    pbones['shoulder_L'].location = ShoulderLoc
+                    pbones['shoulder_L'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_L'].matrix = ArmFkMat
+                    pbones['arm_fk_L'].location = ArmFkLoc
+                    pbones['arm_fk_L'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_L'].matrix = ForearmFkMat
+                    pbones['forearm_fk_L'].location = ForearmFkLoc
+                    pbones['forearm_fk_L'].scale = ForearmFkScale
+                    refresh_hack()
 
-                        ArmCtrlRotEuler = pbones['arm_fk_ctrl_L'].rotation_euler.copy()
-                        ArmCtrlRotQuat = pbones['arm_fk_ctrl_L'].rotation_quaternion.copy()
-                        ArmCtrlLoc = pbones['arm_fk_ctrl_L'].location.copy()
-                        ArmCtrlScale = pbones['arm_fk_ctrl_L'].scale.copy()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+                                ShoulderRotEuler = pbones['shoulder_L'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_L'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_L'].location.copy()
+                                ShoulderScale = pbones['shoulder_L'].scale.copy()
 
-                        ArmFkRotEuler = pbones['arm_fk_L'].rotation_euler.copy()
-                        ArmFkRotQuat = pbones['arm_fk_L'].rotation_quaternion.copy()
-                        ArmFkLoc = pbones['arm_fk_L'].location.copy()
-                        ArmFkScale = pbones['arm_fk_L'].scale.copy()
+                                ArmCtrlRotEuler = pbones['arm_fk_ctrl_L'].rotation_euler.copy()
+                                ArmCtrlRotQuat = pbones['arm_fk_ctrl_L'].rotation_quaternion.copy()
+                                ArmCtrlLoc = pbones['arm_fk_ctrl_L'].location.copy()
+                                ArmCtrlScale = pbones['arm_fk_ctrl_L'].scale.copy()
 
-                        ForearmFkRotEuler = pbones['forearm_fk_L'].rotation_euler.copy()
-                        ForearmFkRotQuat = pbones['forearm_fk_L'].rotation_quaternion.copy()
-                        ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
-                        ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+                                ArmFkRotEuler = pbones['arm_fk_L'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_L'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                                ArmFkScale = pbones['arm_fk_L'].scale.copy()
 
-                        #Jump to next Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                                ForearmFkRotEuler = pbones['forearm_fk_L'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_L'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
 
-                        #Key Property
-                        armobj.pose.bones["properties_arm_L"].ik_arm_L = 1.0
-                        refresh_hack()
-                        pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                        #Re-Paste Transforms
-                        pbones['shoulder_L'].rotation_euler = ShoulderRotEuler
-                        pbones['shoulder_L'].rotation_quaternion = ShoulderRotQuat
-                        pbones['shoulder_L'].location = ShoulderLoc
-                        pbones['shoulder_L'].scale = ShoulderScale
-                        refresh_hack()
-                        pbones['arm_fk_ctrl_L'].rotation_euler = ArmCtrlRotEuler
-                        pbones['arm_fk_ctrl_L'].rotation_quaternion = ArmCtrlRotQuat
-                        pbones['arm_fk_ctrl_L'].location = ArmCtrlLoc
-                        pbones['arm_fk_ctrl_L'].scale = ArmCtrlScale
-                        refresh_hack()
-                        pbones['arm_fk_L'].rotation_euler = ArmFkRotEuler
-                        pbones['arm_fk_L'].rotation_quaternion = ArmFkRotQuat
-                        pbones['arm_fk_L'].location = ArmFkLoc
-                        pbones['arm_fk_L'].scale = ArmFkScale
-                        refresh_hack()
-                        pbones['forearm_fk_L'].rotation_euler = ForearmFkRotEuler
-                        pbones['forearm_fk_L'].rotation_quaternion = ForearmFkRotQuat
-                        pbones['forearm_fk_L'].location = ForearmFkLoc
-                        pbones['forearm_fk_L'].scale = ForearmFkScale
-                        refresh_hack()
+                                #Key Property
+                                armobj.pose.bones["properties_arm_L"].ik_arm_L = 1.0
+                                refresh_hack()
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
 
-                        insert_bkeys('arm_fk_L', 'LocRotScale')
-                        insert_bkeys('forearm_fk_L', 'LocRotScale')
-                        insert_bkeys('arm_ik_L', 'RotScale')
-                        insert_bkeys('forearm_ik_L', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
-                        insert_bkeys('shoulder_L', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
-                        insert_bkeys('hand_fk_L', 'LocRotScale')
-                        if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
-                            insert_bkeys('elbow_pole_L', 'Loc')
+                                #Re-Paste Transforms
+                                pbones['shoulder_L'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_L'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_L'].location = ShoulderLoc
+                                pbones['shoulder_L'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_ctrl_L'].rotation_euler = ArmCtrlRotEuler
+                                pbones['arm_fk_ctrl_L'].rotation_quaternion = ArmCtrlRotQuat
+                                pbones['arm_fk_ctrl_L'].location = ArmCtrlLoc
+                                pbones['arm_fk_ctrl_L'].scale = ArmCtrlScale
+                                refresh_hack()
+                                pbones['arm_fk_L'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_L'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_L'].location = ArmFkLoc
+                                pbones['arm_fk_L'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_L'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_L'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_L'].location = ForearmFkLoc
+                                pbones['forearm_fk_L'].scale = ForearmFkScale
+                                refresh_hack()
 
-            #Switch Hand to Arm Space
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Jump to previous Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
+                                for prop in bpy.context.active_object.data.items():
+                                    if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                        insert_bkeys('carpal_ik_ctrl_L', 'LocRotScale')
+                                        insert_bkeys('carpal_fk_L', 'LocRotScale')
+                                        insert_bkeys('hand_fk_L', 'LocRotScale')
 
-            #Switch Hand to Arm Space
-            bpy.ops.switch.hand_space_l(space='Arm')
+                    #Switch Hand to Arm Space
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Jump to previous Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
 
+                    #Switch Hand to Arm Space
+                    bpy.ops.switch.hand_space_l(space='Arm')
+
+        #Quadruped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+
+                if armobj.pose.bones["properties_arm_L"].ik_arm_L < 0.1:
+
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_L'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                    ArmFkScale = pbones['arm_fk_L'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_L'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+                    ShoulderMat = pbones['shoulder_L'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_L'].location.copy()
+                    ShoulderScale = pbones['shoulder_L'].scale.copy()
+                    CarpalFkMat = pbones['carpal_fk_L'].matrix.copy()
+                    CarpalFkLoc = pbones['carpal_fk_L'].location.copy()
+                    CarpalFkScale = pbones['carpal_fk_L'].scale.copy()
+                    HandFkMat = pbones['hand_fk_L'].matrix.copy()
+                    HandFkLoc = pbones['hand_fk_L'].location.copy()
+                    HandFkScale = pbones['hand_fk_L'].scale.copy()
+                    HandFing1FkMat = pbones['hand_fing_1_fk_L'].matrix.copy()
+                    HandFing1FkLoc = pbones['hand_fing_1_fk_L'].location.copy()
+                    HandFing1FkScale = pbones['hand_fing_1_fk_L'].scale.copy()
+                    HandFing2FkMat = pbones['hand_fing_2_fk_L'].matrix.copy()
+                    HandFing2FkLoc = pbones['hand_fing_2_fk_L'].location.copy()
+                    HandFing2FkScale = pbones['hand_fing_2_fk_L'].scale.copy()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('carpal_fk_L', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_L', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_L', 'Rot')
+                                insert_bkeys('fing_roll_1_L', 'Rot')
+                                insert_bkeys('fing_roll_2_L', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
+
+                    bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L = 1.0
+                    refresh_hack()
+
+                    #Paste Matrix
+                    pVisRotExec (pbones['arm_fk_ctrl_L'], pbones['arm_ik_L'])
+                    pbones['arm_fk_ctrl_L'].scale[:] = (1.0, 1.0, 1.0)
+                    refresh_hack()
+                    pbones['shoulder_L'].matrix = ShoulderMat
+                    pbones['shoulder_L'].location = ShoulderLoc
+                    pbones['shoulder_L'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_L'].matrix = ArmFkMat
+                    pbones['arm_fk_L'].location = ArmFkLoc
+                    pbones['arm_fk_L'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_L'].matrix = ForearmFkMat
+                    pbones['forearm_fk_L'].location = ForearmFkLoc
+                    pbones['forearm_fk_L'].scale = ForearmFkScale
+                    refresh_hack()
+                    pbones['carpal_fk_L'].matrix = CarpalFkMat
+                    pbones['carpal_fk_L'].location = CarpalFkLoc
+                    pbones['carpal_fk_L'].scale = CarpalFkScale
+                    refresh_hack()
+                    pbones['hand_fk_L'].matrix = HandFkMat
+                    pbones['hand_fk_L'].location = HandFkLoc
+                    pbones['hand_fk_L'].scale = HandFkScale
+                    refresh_hack()
+                    pbones['hand_fing_1_fk_L'].matrix = HandFing1FkMat
+                    pbones['hand_fing_1_fk_L'].location = HandFing1FkLoc
+                    pbones['hand_fing_1_fk_L'].scale = HandFing1FkScale
+                    refresh_hack()
+                    pbones['hand_fing_2_fk_L'].matrix = HandFing2FkMat
+                    pbones['hand_fing_2_fk_L'].location = HandFing2FkLoc
+                    pbones['hand_fing_2_fk_L'].scale = HandFing2FkScale
+                    refresh_hack()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+                                ShoulderRotEuler = pbones['shoulder_L'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_L'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_L'].location.copy()
+                                ShoulderScale = pbones['shoulder_L'].scale.copy()
+
+                                ArmCtrlRotEuler = pbones['arm_fk_ctrl_L'].rotation_euler.copy()
+                                ArmCtrlRotQuat = pbones['arm_fk_ctrl_L'].rotation_quaternion.copy()
+                                ArmCtrlLoc = pbones['arm_fk_ctrl_L'].location.copy()
+                                ArmCtrlScale = pbones['arm_fk_ctrl_L'].scale.copy()
+
+                                ArmFkRotEuler = pbones['arm_fk_L'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_L'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                                ArmFkScale = pbones['arm_fk_L'].scale.copy()
+
+                                ForearmFkRotEuler = pbones['forearm_fk_L'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_L'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+
+                                CarpalFkRotEuler = pbones['carpal_fk_L'].rotation_euler.copy()
+                                CarpalFkRotQuat = pbones['carpal_fk_L'].rotation_quaternion.copy()
+                                CarpalFkLoc = pbones['carpal_fk_L'].location.copy()
+                                CarpalFkScale = pbones['carpal_fk_L'].scale.copy()
+
+                                HandFkRotEuler = pbones['hand_fk_L'].rotation_euler.copy()
+                                HandFkRotQuat = pbones['hand_fk_L'].rotation_quaternion.copy()
+                                HandFkLoc = pbones['hand_fk_L'].location.copy()
+                                HandFkScale = pbones['hand_fk_L'].scale.copy()
+
+                                HandFing1FkRotEuler = pbones['hand_fing_1_fk_L'].rotation_euler.copy()
+                                HandFing1FkRotQuat = pbones['hand_fing_1_fk_L'].rotation_quaternion.copy()
+                                HandFing1FkLoc = pbones['hand_fing_1_fk_L'].location.copy()
+                                HandFing1FkScale = pbones['hand_fing_1_fk_L'].scale.copy()
+
+                                HandFing2FkRotEuler = pbones['hand_fing_2_fk_L'].rotation_euler.copy()
+                                HandFing2FkRotQuat = pbones['hand_fing_2_fk_L'].rotation_quaternion.copy()
+                                HandFing2FkLoc = pbones['hand_fing_2_fk_L'].location.copy()
+                                HandFing2FkScale = pbones['hand_fing_2_fk_L'].scale.copy()
+
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+
+                                #Key Property
+                                armobj.pose.bones["properties_arm_L"].ik_arm_L = 1.0
+                                refresh_hack()
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+
+                                #Re-Paste Transforms
+                                pbones['shoulder_L'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_L'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_L'].location = ShoulderLoc
+                                pbones['shoulder_L'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_ctrl_L'].rotation_euler = ArmCtrlRotEuler
+                                pbones['arm_fk_ctrl_L'].rotation_quaternion = ArmCtrlRotQuat
+                                pbones['arm_fk_ctrl_L'].location = ArmCtrlLoc
+                                pbones['arm_fk_ctrl_L'].scale = ArmCtrlScale
+                                refresh_hack()
+                                pbones['arm_fk_L'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_L'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_L'].location = ArmFkLoc
+                                pbones['arm_fk_L'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_L'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_L'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_L'].location = ForearmFkLoc
+                                pbones['forearm_fk_L'].scale = ForearmFkScale
+                                refresh_hack()
+                                pbones['carpal_fk_L'].rotation_euler = CarpalFkRotEuler
+                                pbones['carpal_fk_L'].rotation_quaternion = CarpalFkRotQuat
+                                pbones['carpal_fk_L'].location = CarpalFkLoc
+                                pbones['carpal_fk_L'].scale = CarpalFkScale
+                                refresh_hack()
+                                pbones['hand_fk_L'].rotation_euler = HandFkRotEuler
+                                pbones['hand_fk_L'].rotation_quaternion = HandFkRotQuat
+                                pbones['hand_fk_L'].location = HandFkLoc
+                                pbones['hand_fk_L'].scale = HandFkScale
+                                refresh_hack()
+                                pbones['hand_fing_1_fk_L'].rotation_euler = HandFing1FkRotEuler
+                                pbones['hand_fing_1_fk_L'].rotation_quaternion = HandFing1FkRotQuat
+                                pbones['hand_fing_1_fk_L'].location = HandFing1FkLoc
+                                pbones['hand_fing_1_fk_L'].scale = HandFing1FkScale
+                                refresh_hack()
+                                pbones['hand_fing_2_fk_L'].rotation_euler = HandFing2FkRotEuler
+                                pbones['hand_fing_2_fk_L'].rotation_quaternion = HandFing2FkRotQuat
+                                pbones['hand_fing_2_fk_L'].location = HandFing2FkLoc
+                                pbones['hand_fing_2_fk_L'].scale = HandFing2FkScale
+                                refresh_hack()
+
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('carpal_fk_L', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_L', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_L', 'Rot')
+                                insert_bkeys('fing_roll_1_L', 'Rot')
+                                insert_bkeys('fing_roll_2_L', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
 
         return {"FINISHED"}
 
@@ -338,148 +553,401 @@ class Operator_Snap_ArmFKtoIK_L(bpy.types.Operator):
         pbones = armobj.pose.bones
         anim_data = armobj.animation_data
 
-        if bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L > 0.9:
-            #Collect Matrix
-            ArmFkMat = pbones['arm_fk_L'].matrix.copy()
-            ArmFkLoc = pbones['arm_fk_L'].location.copy()
-            ArmFkScale = pbones['arm_fk_L'].scale.copy()
-            ForearmFkMat = pbones['forearm_fk_L'].matrix.copy()
-            ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
-            ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
-            ArmFkCtrlMat = pbones['arm_fk_ctrl_L'].matrix.copy()
-            ShoulderMat = pbones['shoulder_L'].matrix.copy()
-            ShoulderLoc = pbones['shoulder_L'].location.copy()
-            ShoulderScale = pbones['shoulder_L'].scale.copy()
+        #Biped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Biped':
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
-                        insert_bkeys('arm_fk_L', 'LocRotScale')
-                        insert_bkeys('forearm_fk_L', 'LocRotScale')
-                        insert_bkeys('arm_ik_L', 'RotScale')
-                        insert_bkeys('forearm_ik_L', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
-                        insert_bkeys('shoulder_L', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
-                        insert_bkeys('hand_fk_L', 'LocRotScale')
-                        if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
-                            insert_bkeys('elbow_pole_L', 'Loc')
+                if bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L > 0.9:
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_L'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                    ArmFkScale = pbones['arm_fk_L'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_L'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+                    ArmFkCtrlMat = pbones['arm_fk_ctrl_L'].matrix.copy()
+                    ShoulderMat = pbones['shoulder_L'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_L'].location.copy()
+                    ShoulderScale = pbones['shoulder_L'].scale.copy()
 
-            #Paste Matrix
-            pVisLocExec(pbones['hand_ik_ctrl_L'], pbones['hand_fk_L'])
-            refresh_hack()
-            pVisLocExec(pbones['elbow_pole_L'], pbones['snap_elbow_pole_fk_L'])
-            refresh_hack()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
 
-            bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L = 0.0
-            refresh_hack()
+                    #Paste Matrix
+                    pVisLocExec(pbones['hand_ik_ctrl_L'], pbones['hand_fk_L'])
+                    refresh_hack()
+                    pVisLocExec(pbones['elbow_pole_L'], pbones['snap_elbow_pole_fk_L'])
+                    refresh_hack()
 
-            pVisRotExec (pbones['arm_ik_L'], pbones['arm_fk_ctrl_L'])
-            refresh_hack()
-            pbones['shoulder_L'].matrix = ShoulderMat
-            pbones['shoulder_L'].location = ShoulderLoc
-            pbones['shoulder_L'].scale = ShoulderScale
-            refresh_hack()
-            pbones['arm_fk_L'].matrix = ArmFkMat
-            pbones['arm_fk_L'].location = ArmFkLoc
-            pbones['arm_fk_L'].scale = ArmFkScale
-            refresh_hack()
-            pbones['forearm_fk_L'].matrix = ForearmFkMat
-            pbones['forearm_fk_L'].location = ForearmFkLoc
-            pbones['forearm_fk_L'].scale = ForearmFkScale
-            refresh_hack()
+                    bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L = 0.0
+                    refresh_hack()
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Collect Local Transforms
-                        HandIkCtrlRotEuler = pbones['hand_ik_ctrl_L'].rotation_euler.copy()
-                        HandIkCtrlRotQuat = pbones['hand_ik_ctrl_L'].rotation_quaternion.copy()
-                        HandIkCtrlLoc = pbones['hand_ik_ctrl_L'].location.copy()
-                        HandIkCtrlScale = pbones['hand_ik_ctrl_L'].scale.copy()
+                    pVisRotExec (pbones['arm_ik_L'], pbones['arm_fk_ctrl_L'])
+                    refresh_hack()
+                    pbones['shoulder_L'].matrix = ShoulderMat
+                    pbones['shoulder_L'].location = ShoulderLoc
+                    pbones['shoulder_L'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_L'].matrix = ArmFkMat
+                    pbones['arm_fk_L'].location = ArmFkLoc
+                    pbones['arm_fk_L'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_L'].matrix = ForearmFkMat
+                    pbones['forearm_fk_L'].location = ForearmFkLoc
+                    pbones['forearm_fk_L'].scale = ForearmFkScale
+                    refresh_hack()
 
-                        ArmIkRotEuler = pbones['arm_ik_L'].rotation_euler.copy()
-                        ArmIkRotQuat = pbones['arm_ik_L'].rotation_quaternion.copy()
-                        ArmIkLoc = pbones['arm_ik_L'].location.copy()
-                        ArmIkScale = pbones['arm_ik_L'].scale.copy()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+                                HandIkCtrlRotEuler = pbones['hand_ik_ctrl_L'].rotation_euler.copy()
+                                HandIkCtrlRotQuat = pbones['hand_ik_ctrl_L'].rotation_quaternion.copy()
+                                HandIkCtrlLoc = pbones['hand_ik_ctrl_L'].location.copy()
+                                HandIkCtrlScale = pbones['hand_ik_ctrl_L'].scale.copy()
 
-                        ElbowlLoc = pbones['elbow_pole_L'].location.copy()
+                                ArmIkRotEuler = pbones['arm_ik_L'].rotation_euler.copy()
+                                ArmIkRotQuat = pbones['arm_ik_L'].rotation_quaternion.copy()
+                                ArmIkLoc = pbones['arm_ik_L'].location.copy()
+                                ArmIkScale = pbones['arm_ik_L'].scale.copy()
 
-                        ShoulderRotEuler = pbones['shoulder_L'].rotation_euler.copy()
-                        ShoulderRotQuat = pbones['shoulder_L'].rotation_quaternion.copy()
-                        ShoulderLoc = pbones['shoulder_L'].location.copy()
-                        ShoulderScale = pbones['shoulder_L'].scale.copy()
+                                ElbowlLoc = pbones['elbow_pole_L'].location.copy()
 
-                        ArmFkRotEuler = pbones['arm_fk_L'].rotation_euler.copy()
-                        ArmFkRotQuat = pbones['arm_fk_L'].rotation_quaternion.copy()
-                        ArmFkLoc = pbones['arm_fk_L'].location.copy()
-                        ArmFkScale = pbones['arm_fk_L'].scale.copy()
+                                ShoulderRotEuler = pbones['shoulder_L'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_L'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_L'].location.copy()
+                                ShoulderScale = pbones['shoulder_L'].scale.copy()
 
-                        ForearmFkRotEuler = pbones['forearm_fk_L'].rotation_euler.copy()
-                        ForearmFkRotQuat = pbones['forearm_fk_L'].rotation_quaternion.copy()
-                        ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
-                        ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+                                ArmFkRotEuler = pbones['arm_fk_L'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_L'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                                ArmFkScale = pbones['arm_fk_L'].scale.copy()
 
-                        #Jump to next Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                                ForearmFkRotEuler = pbones['forearm_fk_L'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_L'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
 
-                        #Key Property
-                        armobj.pose.bones["properties_arm_L"].ik_arm_L = 0.0
-                        refresh_hack()
-                        pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                        #Re-Paste Transforms
-                        pbones['hand_ik_ctrl_L'].rotation_euler = HandIkCtrlRotEuler
-                        pbones['hand_ik_ctrl_L'].rotation_quaternion = HandIkCtrlRotQuat
-                        pbones['hand_ik_ctrl_L'].location = HandIkCtrlLoc
-                        pbones['hand_ik_ctrl_L'].scale = HandIkCtrlScale
-                        refresh_hack()
-                        pbones['elbow_pole_L'].location = ElbowlLoc
-                        refresh_hack()
-                        pbones['arm_ik_L'].rotation_euler = ArmIkRotEuler
-                        pbones['arm_ik_L'].rotation_quaternion = ArmIkRotQuat
-                        pbones['arm_ik_L'].location = ArmIkLoc
-                        pbones['arm_ik_L'].scale = ArmIkScale
-                        refresh_hack()
-                        pbones['shoulder_L'].rotation_euler = ShoulderRotEuler
-                        pbones['shoulder_L'].rotation_quaternion = ShoulderRotQuat
-                        pbones['shoulder_L'].location = ShoulderLoc
-                        pbones['shoulder_L'].scale = ShoulderScale
-                        refresh_hack()
-                        pbones['arm_fk_L'].rotation_euler = ArmFkRotEuler
-                        pbones['arm_fk_L'].rotation_quaternion = ArmFkRotQuat
-                        pbones['arm_fk_L'].location = ArmFkLoc
-                        pbones['arm_fk_L'].scale = ArmFkScale
-                        refresh_hack()
-                        pbones['forearm_fk_L'].rotation_euler = ForearmFkRotEuler
-                        pbones['forearm_fk_L'].rotation_quaternion = ForearmFkRotQuat
-                        pbones['forearm_fk_L'].location = ForearmFkLoc
-                        pbones['forearm_fk_L'].scale = ForearmFkScale
-                        refresh_hack()
+                                #Key Property
+                                armobj.pose.bones["properties_arm_L"].ik_arm_L = 0.0
+                                refresh_hack()
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
 
-                        insert_bkeys('arm_fk_L', 'LocRotScale')
-                        insert_bkeys('forearm_fk_L', 'LocRotScale')
-                        insert_bkeys('arm_ik_L', 'RotScale')
-                        insert_bkeys('forearm_ik_L', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
-                        insert_bkeys('shoulder_L', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
-                        insert_bkeys('hand_fk_L', 'LocRotScale')
-                        if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
-                            insert_bkeys('elbow_pole_L', 'Loc')
+                                #Re-Paste Transforms
+                                pbones['hand_ik_ctrl_L'].rotation_euler = HandIkCtrlRotEuler
+                                pbones['hand_ik_ctrl_L'].rotation_quaternion = HandIkCtrlRotQuat
+                                pbones['hand_ik_ctrl_L'].location = HandIkCtrlLoc
+                                pbones['hand_ik_ctrl_L'].scale = HandIkCtrlScale
+                                refresh_hack()
+                                pbones['elbow_pole_L'].location = ElbowlLoc
+                                refresh_hack()
+                                pbones['arm_ik_L'].rotation_euler = ArmIkRotEuler
+                                pbones['arm_ik_L'].rotation_quaternion = ArmIkRotQuat
+                                pbones['arm_ik_L'].location = ArmIkLoc
+                                pbones['arm_ik_L'].scale = ArmIkScale
+                                refresh_hack()
+                                pbones['shoulder_L'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_L'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_L'].location = ShoulderLoc
+                                pbones['shoulder_L'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_L'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_L'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_L'].location = ArmFkLoc
+                                pbones['arm_fk_L'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_L'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_L'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_L'].location = ForearmFkLoc
+                                pbones['forearm_fk_L'].scale = ForearmFkScale
+                                refresh_hack()
 
-            #Switch Hand to Arm Space
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Jump to previous Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
 
-            #Switch Hand to Free Space
-            bpy.ops.switch.hand_space_l(space='Free')
+                    #Switch Hand to Arm Space
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Jump to previous Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+
+                    #Switch Hand to Free Space
+                    bpy.ops.switch.hand_space_l(space='Free')
+
+        #Quadruped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+
+                if bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L > 0.9:
+
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_L'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                    ArmFkScale = pbones['arm_fk_L'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_L'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+                    CarpalFkMat = pbones['carpal_fk_L'].matrix.copy()
+                    CarpalFkLoc = pbones['carpal_fk_L'].location.copy()
+                    CarpalFkScale = pbones['carpal_fk_L'].scale.copy()
+                    HandFing1FkMat = pbones['hand_fing_1_fk_L'].matrix.copy()
+                    HandFing1FkLoc = pbones['hand_fing_1_fk_L'].location.copy()
+                    HandFing1FkScale = pbones['hand_fing_1_fk_L'].scale.copy()
+                    HandFing2FkMat = pbones['hand_fing_2_fk_L'].matrix.copy()
+                    HandFing2FkLoc = pbones['hand_fing_2_fk_L'].location.copy()
+                    HandFing2FkScale = pbones['hand_fing_2_fk_L'].scale.copy()
+                    ArmFkCtrlMat = pbones['arm_fk_ctrl_L'].matrix.copy()
+                    ShoulderMat = pbones['shoulder_L'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_L'].location.copy()
+                    ShoulderScale = pbones['shoulder_L'].scale.copy()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('carpal_fk_L', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_L', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_L', 'Rot')
+                                insert_bkeys('fing_roll_1_L', 'Rot')
+                                insert_bkeys('fing_roll_2_L', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
+
+                    #Paste Matrix
+                    pVisLocExec(pbones['hand_sole_ctrl_L'], pbones['snap_hand_sole_ctrl_fk_L'])
+                    pVisRotExec(pbones['hand_sole_ctrl_L'], pbones['snap_hand_sole_ctrl_fk_L'])
+                    refresh_hack()
+                    pbones['hand_roll_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_ik_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_ik_ctrl_L'].location[:] = (0.0, 0.0, 0.0)
+                    pbones['fing_roll_1_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['fing_roll_2_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_fing_ik_ctrl_mid_L'].location[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_fing_ik_ctrl_mid_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['fings_ik_ctrl_L'].location[:] = (0.0, 0.0, 0.0)
+                    pbones['fings_ik_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pVisLocExec(pbones['elbow_pole_L'], pbones['snap_elbow_pole_fk_L'])
+                    refresh_hack()
+                    pVisLocExec(pbones['carpal_ik_ctrl_L'], pbones['snap_carpal_fk_L'])
+                    pVisRotExec(pbones['carpal_ik_ctrl_L'], pbones['snap_carpal_fk_L'])
+                    refresh_hack()
+
+                    bpy.context.active_object.pose.bones["properties_arm_L"].ik_arm_L = 0.0
+                    refresh_hack()
+
+                    pVisRotExec (pbones['arm_ik_L'], pbones['arm_fk_ctrl_L'])
+                    refresh_hack()
+                    pbones['shoulder_L'].matrix = ShoulderMat
+                    pbones['shoulder_L'].location = ShoulderLoc
+                    pbones['shoulder_L'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_L'].matrix = ArmFkMat
+                    pbones['arm_fk_L'].location = ArmFkLoc
+                    pbones['arm_fk_L'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_L'].matrix = ForearmFkMat
+                    pbones['forearm_fk_L'].location = ForearmFkLoc
+                    pbones['forearm_fk_L'].scale = ForearmFkScale
+                    refresh_hack()
+                    pbones['carpal_fk_L'].matrix = CarpalFkMat
+                    pbones['carpal_fk_L'].location = CarpalFkLoc
+                    pbones['carpal_fk_L'].scale = CarpalFkScale
+                    refresh_hack()
+                    pbones['hand_fing_1_fk_L'].matrix = HandFing1FkMat
+                    pbones['hand_fing_1_fk_L'].location = HandFing1FkLoc
+                    pbones['hand_fing_1_fk_L'].scale = HandFing1FkScale
+                    refresh_hack()
+                    pbones['hand_fing_2_fk_L'].matrix = HandFing2FkMat
+                    pbones['hand_fing_2_fk_L'].location = HandFing2FkLoc
+                    pbones['hand_fing_2_fk_L'].scale = HandFing2FkScale
+                    refresh_hack()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+
+                                SoleCtrlRotEuler = pbones['hand_sole_ctrl_L'].rotation_euler.copy()
+                                SoleCtrlRotQuat = pbones['hand_sole_ctrl_L'].rotation_quaternion.copy()
+                                SoleCtrlLoc = pbones['hand_sole_ctrl_L'].location.copy()
+                                SoleCtrlScale = pbones['hand_sole_ctrl_L'].scale.copy()
+
+                                ElbowPoleRotEuler = pbones['elbow_pole_L'].rotation_euler.copy()
+                                ElbowPoleRotQuat = pbones['elbow_pole_L'].rotation_quaternion.copy()
+                                ElbowPoleLoc = pbones['elbow_pole_L'].location.copy()
+                                ElbowPoleScale = pbones['elbow_pole_L'].scale.copy()
+
+                                ShoulderRotEuler = pbones['shoulder_L'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_L'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_L'].location.copy()
+                                ShoulderScale = pbones['shoulder_L'].scale.copy()
+
+                                ArmIkRotEuler = pbones['arm_ik_L'].rotation_euler.copy()
+                                ArmIkRotQuat = pbones['arm_ik_L'].rotation_quaternion.copy()
+                                ArmIkLoc = pbones['arm_ik_L'].location.copy()
+                                ArmIkScale = pbones['arm_ik_L'].scale.copy()
+
+                                ArmFkRotEuler = pbones['arm_fk_L'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_L'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_L'].location.copy()
+                                ArmFkScale = pbones['arm_fk_L'].scale.copy()
+
+                                ForearmFkRotEuler = pbones['forearm_fk_L'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_L'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_L'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_L'].scale.copy()
+
+                                CarpalFkRotEuler = pbones['carpal_fk_L'].rotation_euler.copy()
+                                CarpalFkRotQuat = pbones['carpal_fk_L'].rotation_quaternion.copy()
+                                CarpalFkLoc = pbones['carpal_fk_L'].location.copy()
+                                CarpalFkScale = pbones['carpal_fk_L'].scale.copy()
+
+                                CarpalIkRotEuler = pbones['carpal_ik_ctrl_L'].rotation_euler.copy()
+                                CarpalIkRotQuat = pbones['carpal_ik_ctrl_L'].rotation_quaternion.copy()
+                                CarpalIkLoc = pbones['carpal_ik_ctrl_L'].location.copy()
+                                CarpalIkScale = pbones['carpal_ik_ctrl_L'].scale.copy()
+
+                                HandFing1FkRotEuler = pbones['hand_fing_1_fk_L'].rotation_euler.copy()
+                                HandFing1FkRotQuat = pbones['hand_fing_1_fk_L'].rotation_quaternion.copy()
+                                HandFing1FkLoc = pbones['hand_fing_1_fk_L'].location.copy()
+                                HandFing1FkScale = pbones['hand_fing_1_fk_L'].scale.copy()
+
+                                HandFing2FkRotEuler = pbones['hand_fing_2_fk_L'].rotation_euler.copy()
+                                HandFing2FkRotQuat = pbones['hand_fing_2_fk_L'].rotation_quaternion.copy()
+                                HandFing2FkLoc = pbones['hand_fing_2_fk_L'].location.copy()
+                                HandFing2FkScale = pbones['hand_fing_2_fk_L'].scale.copy()
+
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+
+                                #Key Property
+                                armobj.pose.bones["properties_arm_L"].ik_arm_L = 0.0
+                                refresh_hack()
+                                pbones["properties_arm_L"].keyframe_insert(data_path='ik_arm_L')
+
+                                #Re-Paste Transforms
+                                pbones['hand_sole_ctrl_L'].rotation_euler = SoleCtrlRotEuler
+                                pbones['hand_sole_ctrl_L'].rotation_quaternion = SoleCtrlRotQuat
+                                pbones['hand_sole_ctrl_L'].location = SoleCtrlLoc
+                                pbones['hand_sole_ctrl_L'].scale = SoleCtrlScale
+                                refresh_hack()
+                                pbones['elbow_pole_L'].rotation_euler = ElbowPoleRotEuler
+                                pbones['elbow_pole_L'].rotation_quaternion = ElbowPoleRotQuat
+                                pbones['elbow_pole_L'].location = ElbowPoleLoc
+                                pbones['elbow_pole_L'].scale = ElbowPoleScale
+                                refresh_hack()
+                                pbones['arm_ik_L'].rotation_euler = ArmIkRotEuler
+                                pbones['arm_ik_L'].rotation_quaternion = ArmIkRotQuat
+                                pbones['arm_ik_L'].location = ArmIkLoc
+                                pbones['arm_ik_L'].scale = ArmIkScale
+                                refresh_hack()
+                                pbones['shoulder_L'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_L'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_L'].location = ShoulderLoc
+                                pbones['shoulder_L'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_L'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_L'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_L'].location = ArmFkLoc
+                                pbones['arm_fk_L'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_L'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_L'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_L'].location = ForearmFkLoc
+                                pbones['forearm_fk_L'].scale = ForearmFkScale
+                                refresh_hack()
+                                pbones['carpal_ik_ctrl_L'].rotation_euler = CarpalIkRotEuler
+                                pbones['carpal_ik_ctrl_L'].rotation_quaternion = CarpalIkRotQuat
+                                pbones['carpal_ik_ctrl_L'].location = CarpalIkLoc
+                                pbones['carpal_ik_ctrl_L'].scale = CarpalIkScale
+                                refresh_hack()
+                                pbones['carpal_fk_L'].rotation_euler = CarpalFkRotEuler
+                                pbones['carpal_fk_L'].rotation_quaternion = CarpalFkRotQuat
+                                pbones['carpal_fk_L'].location = CarpalFkLoc
+                                pbones['carpal_fk_L'].scale = CarpalFkScale
+                                refresh_hack()
+                                pbones['hand_fing_1_fk_L'].rotation_euler = HandFing1FkRotEuler
+                                pbones['hand_fing_1_fk_L'].rotation_quaternion = HandFing1FkRotQuat
+                                pbones['hand_fing_1_fk_L'].location = HandFing1FkLoc
+                                pbones['hand_fing_1_fk_L'].scale = HandFing1FkScale
+                                refresh_hack()
+                                pbones['hand_fing_2_fk_L'].rotation_euler = HandFing2FkRotEuler
+                                pbones['hand_fing_2_fk_L'].rotation_quaternion = HandFing2FkRotQuat
+                                pbones['hand_fing_2_fk_L'].location = HandFing2FkLoc
+                                pbones['hand_fing_2_fk_L'].scale = HandFing2FkScale
+                                refresh_hack()
+                                pbones['hand_roll_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_ik_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_ik_ctrl_L'].location[:] = (0.0, 0.0, 0.0)
+                                pbones['fing_roll_1_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['fing_roll_2_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_fing_ik_ctrl_mid_L'].location[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_fing_ik_ctrl_mid_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['fings_ik_ctrl_L'].location[:] = (0.0, 0.0, 0.0)
+                                pbones['fings_ik_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
+
+                                insert_bkeys('arm_fk_L', 'LocRotScale')
+                                insert_bkeys('forearm_fk_L', 'LocRotScale')
+                                insert_bkeys('shoulder_L', 'LocRotScale')
+                                insert_bkeys('carpal_fk_L', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_L', 'LocRotScale')
+                                insert_bkeys('arm_ik_L', 'RotScale')
+                                insert_bkeys('forearm_ik_L', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_L', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_L', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_L', 'Rot')
+                                insert_bkeys('fing_roll_1_L', 'Rot')
+                                insert_bkeys('fing_roll_2_L', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_L', 'LocRotScale')
+                                if pbones["properties_arm_L"].toggle_arm_ik_pole_L == 1.0:
+                                    insert_bkeys('elbow_pole_L', 'Loc')
 
         return {"FINISHED"}
 
@@ -1485,6 +1953,11 @@ class Operator_Snap_LegIKtoFK_L(bpy.types.Operator):
             FootToe2FkMat = pbones['foot_toe_2_fk_L'].matrix.copy()
             FootToe2FkLoc = pbones['foot_toe_2_fk_L'].location.copy()
             FootToe2FkScale = pbones['foot_toe_2_fk_L'].scale.copy()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    TarsalFkMat = pbones['tarsal_fk_L'].matrix.copy()
+                    TarsalFkLoc = pbones['tarsal_fk_L'].location.copy()
+                    TarsalFkScale = pbones['tarsal_fk_L'].scale.copy()
 
             #Insert Keyframes if Action present
             if anim_data:
@@ -1505,9 +1978,13 @@ class Operator_Snap_LegIKtoFK_L(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_L', 'Rot')
                         insert_bkeys('toe_roll_1_L', 'Rot')
                         insert_bkeys('toe_roll_2_L', 'Rot')
-                        insert_bkeys('sole_ctrl_L', 'Rot')
+                        insert_bkeys('sole_ctrl_L', 'LocRotScale')
                         if pbones["properties_leg_L"].toggle_leg_ik_pole_L == 1.0:
                             insert_bkeys('knee_pole_L', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_L', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_L', 'LocRotScale')
 
             bpy.context.active_object.pose.bones["properties_leg_L"].ik_leg_L = 1.0
             refresh_hack()
@@ -1524,6 +2001,12 @@ class Operator_Snap_LegIKtoFK_L(bpy.types.Operator):
             pbones['shin_fk_L'].location = ShinFkLoc
             pbones['shin_fk_L'].scale = ShinFkScale
             refresh_hack()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    pbones['tarsal_fk_L'].matrix = TarsalFkMat
+                    pbones['tarsal_fk_L'].location = TarsalFkLoc
+                    pbones['tarsal_fk_L'].scale = TarsalFkScale
+                    refresh_hack()
             pbones['foot_fk_L'].matrix = FootFkMat
             pbones['foot_fk_L'].location = FootFkLoc
             pbones['foot_fk_L'].scale = FootFkScale
@@ -1557,6 +2040,13 @@ class Operator_Snap_LegIKtoFK_L(bpy.types.Operator):
                         ShinFkRotQuat = pbones['shin_fk_L'].rotation_quaternion.copy()
                         ShinFkLoc = pbones['shin_fk_L'].location.copy()
                         ShinFkScale = pbones['shin_fk_L'].scale.copy()
+
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                TarsalFkRotEuler = pbones['tarsal_fk_L'].rotation_euler.copy()
+                                TarsalFkRotQuat = pbones['tarsal_fk_L'].rotation_quaternion.copy()
+                                TarsalFkLoc = pbones['tarsal_fk_L'].location.copy()
+                                TarsalFkScale = pbones['tarsal_fk_L'].scale.copy()
 
                         FootFkRotEuler = pbones['foot_fk_L'].rotation_euler.copy()
                         FootFkRotQuat = pbones['foot_fk_L'].rotation_quaternion.copy()
@@ -1597,6 +2087,13 @@ class Operator_Snap_LegIKtoFK_L(bpy.types.Operator):
                         pbones['shin_fk_L'].location = ShinFkLoc
                         pbones['shin_fk_L'].scale = ShinFkScale
                         refresh_hack()
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                pbones['tarsal_fk_L'].rotation_euler = TarsalFkRotEuler
+                                pbones['tarsal_fk_L'].rotation_quaternion = TarsalFkRotQuat
+                                pbones['tarsal_fk_L'].location = TarsalFkLoc
+                                pbones['tarsal_fk_L'].scale = TarsalFkScale
+                                refresh_hack()
                         pbones['foot_fk_L'].rotation_euler = FootFkRotEuler
                         pbones['foot_fk_L'].rotation_quaternion = FootFkRotQuat
                         pbones['foot_fk_L'].location = FootFkLoc
@@ -1627,9 +2124,13 @@ class Operator_Snap_LegIKtoFK_L(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_L', 'Rot')
                         insert_bkeys('toe_roll_1_L', 'Rot')
                         insert_bkeys('toe_roll_2_L', 'Rot')
-                        insert_bkeys('sole_ctrl_L', 'Rot')
+                        insert_bkeys('sole_ctrl_L', 'LocRotScale')
                         if pbones["properties_leg_L"].toggle_leg_ik_pole_L == 1.0:
                             insert_bkeys('knee_pole_L', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_L', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_L', 'LocRotScale')
 
         return {"FINISHED"}
 
@@ -1670,6 +2171,11 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
             ShinFkMat = pbones['shin_fk_L'].matrix.copy()
             ShinFkLoc = pbones['shin_fk_L'].location.copy()
             ShinFkScale = pbones['shin_fk_L'].scale.copy()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    TarsalFkMat = pbones['tarsal_fk_L'].matrix.copy()
+                    TarsalFkLoc = pbones['tarsal_fk_L'].location.copy()
+                    TarsalFkScale = pbones['tarsal_fk_L'].scale.copy()
             FootToe1FkMat = pbones['foot_toe_1_fk_L'].matrix.copy()
             FootToe1FkLoc = pbones['foot_toe_1_fk_L'].location.copy()
             FootToe1FkScale = pbones['foot_toe_1_fk_L'].scale.copy()
@@ -1696,9 +2202,13 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_L', 'Rot')
                         insert_bkeys('toe_roll_1_L', 'Rot')
                         insert_bkeys('toe_roll_2_L', 'Rot')
-                        insert_bkeys('sole_ctrl_L', 'Rot')
+                        insert_bkeys('sole_ctrl_L', 'LocRotScale')
                         if pbones["properties_leg_L"].toggle_leg_ik_pole_L == 1.0:
                             insert_bkeys('knee_pole_L', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_L', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_L', 'LocRotScale')
 
             #Paste Matrix
             pVisLocExec(pbones['sole_ctrl_L'], pbones['snap_sole_ctrl_fk_L'])
@@ -1715,6 +2225,11 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
             pbones['toes_ik_ctrl_L'].rotation_euler[:] = (0.0, 0.0, 0.0)
             pVisLocExec(pbones['knee_pole_L'], pbones['snap_knee_fk_L'])
             refresh_hack()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    pVisLocExec(pbones['tarsal_ik_ctrl_L'], pbones['snap_tarsal_fk_L'])
+                    pVisRotExec(pbones['tarsal_ik_ctrl_L'], pbones['snap_tarsal_fk_L'])
+                    refresh_hack()
 
             bpy.context.active_object.pose.bones["properties_leg_L"].ik_leg_L = 0.0
             refresh_hack()
@@ -1729,6 +2244,12 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
             pbones['shin_fk_L'].location = ShinFkLoc
             pbones['shin_fk_L'].scale = ShinFkScale
             refresh_hack()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    pbones['tarsal_fk_L'].matrix = TarsalFkMat
+                    pbones['tarsal_fk_L'].location = TarsalFkLoc
+                    pbones['tarsal_fk_L'].scale = TarsalFkScale
+                    refresh_hack()
             pbones['foot_toe_1_fk_L'].matrix = FootToe1FkMat
             pbones['foot_toe_1_fk_L'].location = FootToe1FkLoc
             pbones['foot_toe_1_fk_L'].scale = FootToe1FkScale
@@ -1768,6 +2289,17 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
                         ShinFkRotQuat = pbones['shin_fk_L'].rotation_quaternion.copy()
                         ShinFkLoc = pbones['shin_fk_L'].location.copy()
                         ShinFkScale = pbones['shin_fk_L'].scale.copy()
+
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                TarsalFkRotEuler = pbones['tarsal_fk_L'].rotation_euler.copy()
+                                TarsalFkRotQuat = pbones['tarsal_fk_L'].rotation_quaternion.copy()
+                                TarsalFkLoc = pbones['tarsal_fk_L'].location.copy()
+                                TarsalFkScale = pbones['tarsal_fk_L'].scale.copy()
+                                TarsalIkRotEuler = pbones['tarsal_ik_ctrl_L'].rotation_euler.copy()
+                                TarsalIkRotQuat = pbones['tarsal_ik_ctrl_L'].rotation_quaternion.copy()
+                                TarsaIFkLoc = pbones['tarsal_ik_ctrl_L'].location.copy()
+                                TarsalIkScale = pbones['tarsal_ik_ctrl_L'].scale.copy()
 
                         FootToe1FkRotEuler = pbones['foot_toe_1_fk_L'].rotation_euler.copy()
                         FootToe1FkRotQuat = pbones['foot_toe_1_fk_L'].rotation_quaternion.copy()
@@ -1813,6 +2345,18 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
                         pbones['shin_fk_L'].location = ShinFkLoc
                         pbones['shin_fk_L'].scale = ShinFkScale
                         refresh_hack()
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                pbones['tarsal_ik_ctrl_L'].rotation_euler = TarsalIkRotEuler
+                                pbones['tarsal_ik_ctrl_L'].rotation_quaternion = TarsalIkRotQuat
+                                pbones['tarsal_ik_ctrl_L'].location = TarsaIFkLoc
+                                pbones['tarsal_ik_ctrl_L'].scale = TarsalIkScale
+                                refresh_hack()
+                                pbones['tarsal_fk_L'].rotation_euler = TarsalFkRotEuler
+                                pbones['tarsal_fk_L'].rotation_quaternion = TarsalFkRotQuat
+                                pbones['tarsal_fk_L'].location = TarsalFkLoc
+                                pbones['tarsal_fk_L'].scale = TarsalFkScale
+                                refresh_hack()
                         pbones['foot_toe_1_fk_L'].rotation_euler = FootToe1FkRotEuler
                         pbones['foot_toe_1_fk_L'].rotation_quaternion = FootToe1FkRotQuat
                         pbones['foot_toe_1_fk_L'].location = FootToe1FkLoc
@@ -1848,9 +2392,13 @@ class Operator_Snap_LegFKtoIK_L(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_L', 'Rot')
                         insert_bkeys('toe_roll_1_L', 'Rot')
                         insert_bkeys('toe_roll_2_L', 'Rot')
-                        insert_bkeys('sole_ctrl_L', 'Rot')
+                        insert_bkeys('sole_ctrl_L', 'LocRotScale')
                         if pbones["properties_leg_L"].toggle_leg_ik_pole_L == 1.0:
                             insert_bkeys('knee_pole_L', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_L', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_L', 'LocRotScale')
 
         return {"FINISHED"}
 
@@ -2082,130 +2630,346 @@ class Operator_Snap_ArmIKtoFK_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         anim_data = armobj.animation_data
 
-        if armobj.pose.bones["properties_arm_R"].ik_arm_R < 0.1:
+        #Biped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Biped':
 
-            #Collect Matrix
-            ArmFkMat = pbones['arm_fk_R'].matrix.copy()
-            ArmFkLoc = pbones['arm_fk_R'].location.copy()
-            ArmFkScale = pbones['arm_fk_R'].scale.copy()
-            ForearmFkMat = pbones['forearm_fk_R'].matrix.copy()
-            ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
-            ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
-            ShoulderMat = pbones['shoulder_R'].matrix.copy()
-            ShoulderLoc = pbones['shoulder_R'].location.copy()
-            ShoulderScale = pbones['shoulder_R'].scale.copy()
+                if armobj.pose.bones["properties_arm_R"].ik_arm_R < 0.1:
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
-                        insert_bkeys('arm_fk_R', 'LocRotScale')
-                        insert_bkeys('forearm_fk_R', 'LocRotScale')
-                        insert_bkeys('arm_ik_R', 'RotScale')
-                        insert_bkeys('forearm_ik_R', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
-                        insert_bkeys('shoulder_R', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
-                        insert_bkeys('hand_fk_R', 'LocRotScale')
-                        if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
-                            insert_bkeys('elbow_pole_R', 'Loc')
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_R'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                    ArmFkScale = pbones['arm_fk_R'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_R'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+                    ShoulderMat = pbones['shoulder_R'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_R'].location.copy()
+                    ShoulderScale = pbones['shoulder_R'].scale.copy()
 
-            armobj.pose.bones["properties_arm_R"].ik_arm_R = 1.0
-            refresh_hack()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
 
-            #Paste Matrix
-            pVisRotExec (pbones['arm_fk_ctrl_R'], pbones['arm_ik_R'])
-            pbones['arm_fk_ctrl_R'].scale[:] = (1.0, 1.0, 1.0)
-            refresh_hack()
-            pbones['shoulder_R'].matrix = ShoulderMat
-            pbones['shoulder_R'].location = ShoulderLoc
-            pbones['shoulder_R'].scale = ShoulderScale
-            refresh_hack()
-            pbones['arm_fk_R'].matrix = ArmFkMat
-            pbones['arm_fk_R'].location = ArmFkLoc
-            pbones['arm_fk_R'].scale = ArmFkScale
-            refresh_hack()
-            pbones['forearm_fk_R'].matrix = ForearmFkMat
-            pbones['forearm_fk_R'].location = ForearmFkLoc
-            pbones['forearm_fk_R'].scale = ForearmFkScale
-            refresh_hack()
+                    armobj.pose.bones["properties_arm_R"].ik_arm_R = 1.0
+                    refresh_hack()
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Collect Local Transforms
-                        ShoulderRotEuler = pbones['shoulder_R'].rotation_euler.copy()
-                        ShoulderRotQuat = pbones['shoulder_R'].rotation_quaternion.copy()
-                        ShoulderLoc = pbones['shoulder_R'].location.copy()
-                        ShoulderScale = pbones['shoulder_R'].scale.copy()
+                    #Paste Matrix
+                    pVisRotExec (pbones['arm_fk_ctrl_R'], pbones['arm_ik_R'])
+                    pbones['arm_fk_ctrl_R'].scale[:] = (1.0, 1.0, 1.0)
+                    refresh_hack()
+                    pbones['shoulder_R'].matrix = ShoulderMat
+                    pbones['shoulder_R'].location = ShoulderLoc
+                    pbones['shoulder_R'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_R'].matrix = ArmFkMat
+                    pbones['arm_fk_R'].location = ArmFkLoc
+                    pbones['arm_fk_R'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_R'].matrix = ForearmFkMat
+                    pbones['forearm_fk_R'].location = ForearmFkLoc
+                    pbones['forearm_fk_R'].scale = ForearmFkScale
+                    refresh_hack()
 
-                        ArmCtrlRotEuler = pbones['arm_fk_ctrl_R'].rotation_euler.copy()
-                        ArmCtrlRotQuat = pbones['arm_fk_ctrl_R'].rotation_quaternion.copy()
-                        ArmCtrlLoc = pbones['arm_fk_ctrl_R'].location.copy()
-                        ArmCtrlScale = pbones['arm_fk_ctrl_R'].scale.copy()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+                                ShoulderRotEuler = pbones['shoulder_R'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_R'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_R'].location.copy()
+                                ShoulderScale = pbones['shoulder_R'].scale.copy()
 
-                        ArmFkRotEuler = pbones['arm_fk_R'].rotation_euler.copy()
-                        ArmFkRotQuat = pbones['arm_fk_R'].rotation_quaternion.copy()
-                        ArmFkLoc = pbones['arm_fk_R'].location.copy()
-                        ArmFkScale = pbones['arm_fk_R'].scale.copy()
+                                ArmCtrlRotEuler = pbones['arm_fk_ctrl_R'].rotation_euler.copy()
+                                ArmCtrlRotQuat = pbones['arm_fk_ctrl_R'].rotation_quaternion.copy()
+                                ArmCtrlLoc = pbones['arm_fk_ctrl_R'].location.copy()
+                                ArmCtrlScale = pbones['arm_fk_ctrl_R'].scale.copy()
 
-                        ForearmFkRotEuler = pbones['forearm_fk_R'].rotation_euler.copy()
-                        ForearmFkRotQuat = pbones['forearm_fk_R'].rotation_quaternion.copy()
-                        ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
-                        ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+                                ArmFkRotEuler = pbones['arm_fk_R'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_R'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                                ArmFkScale = pbones['arm_fk_R'].scale.copy()
 
-                        #Jump to next Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                                ForearmFkRotEuler = pbones['forearm_fk_R'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_R'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
 
-                        #Key Property
-                        armobj.pose.bones["properties_arm_R"].ik_arm_R = 1.0
-                        refresh_hack()
-                        pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                        #Re-Paste Transforms
-                        pbones['shoulder_R'].rotation_euler = ShoulderRotEuler
-                        pbones['shoulder_R'].rotation_quaternion = ShoulderRotQuat
-                        pbones['shoulder_R'].location = ShoulderLoc
-                        pbones['shoulder_R'].scale = ShoulderScale
-                        refresh_hack()
-                        pbones['arm_fk_ctrl_R'].rotation_euler = ArmCtrlRotEuler
-                        pbones['arm_fk_ctrl_R'].rotation_quaternion = ArmCtrlRotQuat
-                        pbones['arm_fk_ctrl_R'].location = ArmCtrlLoc
-                        pbones['arm_fk_ctrl_R'].scale = ArmCtrlScale
-                        refresh_hack()
-                        pbones['arm_fk_R'].rotation_euler = ArmFkRotEuler
-                        pbones['arm_fk_R'].rotation_quaternion = ArmFkRotQuat
-                        pbones['arm_fk_R'].location = ArmFkLoc
-                        pbones['arm_fk_R'].scale = ArmFkScale
-                        refresh_hack()
-                        pbones['forearm_fk_R'].rotation_euler = ForearmFkRotEuler
-                        pbones['forearm_fk_R'].rotation_quaternion = ForearmFkRotQuat
-                        pbones['forearm_fk_R'].location = ForearmFkLoc
-                        pbones['forearm_fk_R'].scale = ForearmFkScale
-                        refresh_hack()
+                                #Key Property
+                                armobj.pose.bones["properties_arm_R"].ik_arm_R = 1.0
+                                refresh_hack()
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
 
-                        insert_bkeys('arm_fk_R', 'LocRotScale')
-                        insert_bkeys('forearm_fk_R', 'LocRotScale')
-                        insert_bkeys('arm_ik_R', 'RotScale')
-                        insert_bkeys('forearm_ik_R', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
-                        insert_bkeys('shoulder_R', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
-                        insert_bkeys('hand_fk_R', 'LocRotScale')
-                        if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
-                            insert_bkeys('elbow_pole_R', 'Loc')
+                                #Re-Paste Transforms
+                                pbones['shoulder_R'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_R'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_R'].location = ShoulderLoc
+                                pbones['shoulder_R'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_ctrl_R'].rotation_euler = ArmCtrlRotEuler
+                                pbones['arm_fk_ctrl_R'].rotation_quaternion = ArmCtrlRotQuat
+                                pbones['arm_fk_ctrl_R'].location = ArmCtrlLoc
+                                pbones['arm_fk_ctrl_R'].scale = ArmCtrlScale
+                                refresh_hack()
+                                pbones['arm_fk_R'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_R'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_R'].location = ArmFkLoc
+                                pbones['arm_fk_R'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_R'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_R'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_R'].location = ForearmFkLoc
+                                pbones['forearm_fk_R'].scale = ForearmFkScale
+                                refresh_hack()
 
-            #Switch Hand to Arm Space
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Jump to previous Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
+                                for prop in bpy.context.active_object.data.items():
+                                    if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                        insert_bkeys('carpal_ik_ctrl_R', 'LocRotScale')
+                                        insert_bkeys('carpal_fk_R', 'LocRotScale')
+                                        insert_bkeys('hand_fk_R', 'LocRotScale')
 
-            #Switch Hand to Arm Space
-            bpy.ops.switch.hand_space_r(space='Arm')
+                    #Switch Hand to Arm Space
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Jump to previous Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+
+                    #Switch Hand to Arm Space
+                    bpy.ops.switch.hand_space_r(space='Arm')
+
+        #Quadruped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+
+                if armobj.pose.bones["properties_arm_R"].ik_arm_R < 0.1:
+
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_R'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                    ArmFkScale = pbones['arm_fk_R'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_R'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+                    ShoulderMat = pbones['shoulder_R'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_R'].location.copy()
+                    ShoulderScale = pbones['shoulder_R'].scale.copy()
+                    CarpalFkMat = pbones['carpal_fk_R'].matrix.copy()
+                    CarpalFkLoc = pbones['carpal_fk_R'].location.copy()
+                    CarpalFkScale = pbones['carpal_fk_R'].scale.copy()
+                    HandFkMat = pbones['hand_fk_R'].matrix.copy()
+                    HandFkLoc = pbones['hand_fk_R'].location.copy()
+                    HandFkScale = pbones['hand_fk_R'].scale.copy()
+                    HandFing1FkMat = pbones['hand_fing_1_fk_R'].matrix.copy()
+                    HandFing1FkLoc = pbones['hand_fing_1_fk_R'].location.copy()
+                    HandFing1FkScale = pbones['hand_fing_1_fk_R'].scale.copy()
+                    HandFing2FkMat = pbones['hand_fing_2_fk_R'].matrix.copy()
+                    HandFing2FkLoc = pbones['hand_fing_2_fk_R'].location.copy()
+                    HandFing2FkScale = pbones['hand_fing_2_fk_R'].scale.copy()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('carpal_fk_R', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_R', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_R', 'Rot')
+                                insert_bkeys('fing_roll_1_R', 'Rot')
+                                insert_bkeys('fing_roll_2_R', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
+
+                    bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R = 1.0
+                    refresh_hack()
+
+                    #Paste Matrix
+                    pVisRotExec (pbones['arm_fk_ctrl_R'], pbones['arm_ik_R'])
+                    pbones['arm_fk_ctrl_R'].scale[:] = (1.0, 1.0, 1.0)
+                    refresh_hack()
+                    pbones['shoulder_R'].matrix = ShoulderMat
+                    pbones['shoulder_R'].location = ShoulderLoc
+                    pbones['shoulder_R'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_R'].matrix = ArmFkMat
+                    pbones['arm_fk_R'].location = ArmFkLoc
+                    pbones['arm_fk_R'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_R'].matrix = ForearmFkMat
+                    pbones['forearm_fk_R'].location = ForearmFkLoc
+                    pbones['forearm_fk_R'].scale = ForearmFkScale
+                    refresh_hack()
+                    pbones['carpal_fk_R'].matrix = CarpalFkMat
+                    pbones['carpal_fk_R'].location = CarpalFkLoc
+                    pbones['carpal_fk_R'].scale = CarpalFkScale
+                    refresh_hack()
+                    pbones['hand_fk_R'].matrix = HandFkMat
+                    pbones['hand_fk_R'].location = HandFkLoc
+                    pbones['hand_fk_R'].scale = HandFkScale
+                    refresh_hack()
+                    pbones['hand_fing_1_fk_R'].matrix = HandFing1FkMat
+                    pbones['hand_fing_1_fk_R'].location = HandFing1FkLoc
+                    pbones['hand_fing_1_fk_R'].scale = HandFing1FkScale
+                    refresh_hack()
+                    pbones['hand_fing_2_fk_R'].matrix = HandFing2FkMat
+                    pbones['hand_fing_2_fk_R'].location = HandFing2FkLoc
+                    pbones['hand_fing_2_fk_R'].scale = HandFing2FkScale
+                    refresh_hack()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+                                ShoulderRotEuler = pbones['shoulder_R'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_R'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_R'].location.copy()
+                                ShoulderScale = pbones['shoulder_R'].scale.copy()
+
+                                ArmCtrlRotEuler = pbones['arm_fk_ctrl_R'].rotation_euler.copy()
+                                ArmCtrlRotQuat = pbones['arm_fk_ctrl_R'].rotation_quaternion.copy()
+                                ArmCtrlLoc = pbones['arm_fk_ctrl_R'].location.copy()
+                                ArmCtrlScale = pbones['arm_fk_ctrl_R'].scale.copy()
+
+                                ArmFkRotEuler = pbones['arm_fk_R'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_R'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                                ArmFkScale = pbones['arm_fk_R'].scale.copy()
+
+                                ForearmFkRotEuler = pbones['forearm_fk_R'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_R'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+
+                                CarpalFkRotEuler = pbones['carpal_fk_R'].rotation_euler.copy()
+                                CarpalFkRotQuat = pbones['carpal_fk_R'].rotation_quaternion.copy()
+                                CarpalFkLoc = pbones['carpal_fk_R'].location.copy()
+                                CarpalFkScale = pbones['carpal_fk_R'].scale.copy()
+
+                                HandFkRotEuler = pbones['hand_fk_R'].rotation_euler.copy()
+                                HandFkRotQuat = pbones['hand_fk_R'].rotation_quaternion.copy()
+                                HandFkLoc = pbones['hand_fk_R'].location.copy()
+                                HandFkScale = pbones['hand_fk_R'].scale.copy()
+
+                                HandFing1FkRotEuler = pbones['hand_fing_1_fk_R'].rotation_euler.copy()
+                                HandFing1FkRotQuat = pbones['hand_fing_1_fk_R'].rotation_quaternion.copy()
+                                HandFing1FkLoc = pbones['hand_fing_1_fk_R'].location.copy()
+                                HandFing1FkScale = pbones['hand_fing_1_fk_R'].scale.copy()
+
+                                HandFing2FkRotEuler = pbones['hand_fing_2_fk_R'].rotation_euler.copy()
+                                HandFing2FkRotQuat = pbones['hand_fing_2_fk_R'].rotation_quaternion.copy()
+                                HandFing2FkLoc = pbones['hand_fing_2_fk_R'].location.copy()
+                                HandFing2FkScale = pbones['hand_fing_2_fk_R'].scale.copy()
+
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+
+                                #Key Property
+                                armobj.pose.bones["properties_arm_R"].ik_arm_R = 1.0
+                                refresh_hack()
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+
+                                #Re-Paste Transforms
+                                pbones['shoulder_R'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_R'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_R'].location = ShoulderLoc
+                                pbones['shoulder_R'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_ctrl_R'].rotation_euler = ArmCtrlRotEuler
+                                pbones['arm_fk_ctrl_R'].rotation_quaternion = ArmCtrlRotQuat
+                                pbones['arm_fk_ctrl_R'].location = ArmCtrlLoc
+                                pbones['arm_fk_ctrl_R'].scale = ArmCtrlScale
+                                refresh_hack()
+                                pbones['arm_fk_R'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_R'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_R'].location = ArmFkLoc
+                                pbones['arm_fk_R'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_R'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_R'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_R'].location = ForearmFkLoc
+                                pbones['forearm_fk_R'].scale = ForearmFkScale
+                                refresh_hack()
+                                pbones['carpal_fk_R'].rotation_euler = CarpalFkRotEuler
+                                pbones['carpal_fk_R'].rotation_quaternion = CarpalFkRotQuat
+                                pbones['carpal_fk_R'].location = CarpalFkLoc
+                                pbones['carpal_fk_R'].scale = CarpalFkScale
+                                refresh_hack()
+                                pbones['hand_fk_R'].rotation_euler = HandFkRotEuler
+                                pbones['hand_fk_R'].rotation_quaternion = HandFkRotQuat
+                                pbones['hand_fk_R'].location = HandFkLoc
+                                pbones['hand_fk_R'].scale = HandFkScale
+                                refresh_hack()
+                                pbones['hand_fing_1_fk_R'].rotation_euler = HandFing1FkRotEuler
+                                pbones['hand_fing_1_fk_R'].rotation_quaternion = HandFing1FkRotQuat
+                                pbones['hand_fing_1_fk_R'].location = HandFing1FkLoc
+                                pbones['hand_fing_1_fk_R'].scale = HandFing1FkScale
+                                refresh_hack()
+                                pbones['hand_fing_2_fk_R'].rotation_euler = HandFing2FkRotEuler
+                                pbones['hand_fing_2_fk_R'].rotation_quaternion = HandFing2FkRotQuat
+                                pbones['hand_fing_2_fk_R'].location = HandFing2FkLoc
+                                pbones['hand_fing_2_fk_R'].scale = HandFing2FkScale
+                                refresh_hack()
+
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('carpal_fk_R', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_R', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_R', 'Rot')
+                                insert_bkeys('fing_roll_1_R', 'Rot')
+                                insert_bkeys('fing_roll_2_R', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
 
         return {"FINISHED"}
 
@@ -2238,148 +3002,401 @@ class Operator_Snap_ArmFKtoIK_R(bpy.types.Operator):
         pbones = armobj.pose.bones
         anim_data = armobj.animation_data
 
-        if bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R > 0.9:
-            #Collect Matrix
-            ArmFkMat = pbones['arm_fk_R'].matrix.copy()
-            ArmFkLoc = pbones['arm_fk_R'].location.copy()
-            ArmFkScale = pbones['arm_fk_R'].scale.copy()
-            ForearmFkMat = pbones['forearm_fk_R'].matrix.copy()
-            ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
-            ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
-            ArmFkCtrlMat = pbones['arm_fk_ctrl_R'].matrix.copy()
-            ShoulderMat = pbones['shoulder_R'].matrix.copy()
-            ShoulderLoc = pbones['shoulder_R'].location.copy()
-            ShoulderScale = pbones['shoulder_R'].scale.copy()
+        #Biped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Biped':
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
-                        insert_bkeys('arm_fk_R', 'LocRotScale')
-                        insert_bkeys('forearm_fk_R', 'LocRotScale')
-                        insert_bkeys('arm_ik_R', 'RotScale')
-                        insert_bkeys('forearm_ik_R', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
-                        insert_bkeys('shoulder_R', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
-                        insert_bkeys('hand_fk_R', 'LocRotScale')
-                        if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
-                            insert_bkeys('elbow_pole_R', 'Loc')
+                if bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R > 0.9:
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_R'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                    ArmFkScale = pbones['arm_fk_R'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_R'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+                    ArmFkCtrlMat = pbones['arm_fk_ctrl_R'].matrix.copy()
+                    ShoulderMat = pbones['shoulder_R'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_R'].location.copy()
+                    ShoulderScale = pbones['shoulder_R'].scale.copy()
 
-            #Paste Matrix
-            pVisLocExec(pbones['hand_ik_ctrl_R'], pbones['hand_fk_R'])
-            refresh_hack()
-            pVisLocExec(pbones['elbow_pole_R'], pbones['snap_elbow_pole_fk_R'])
-            refresh_hack()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
 
-            bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R = 0.0
-            refresh_hack()
+                    #Paste Matrix
+                    pVisLocExec(pbones['hand_ik_ctrl_R'], pbones['hand_fk_R'])
+                    refresh_hack()
+                    pVisLocExec(pbones['elbow_pole_R'], pbones['snap_elbow_pole_fk_R'])
+                    refresh_hack()
 
-            pVisRotExec (pbones['arm_ik_R'], pbones['arm_fk_ctrl_R'])
-            refresh_hack()
-            pbones['shoulder_R'].matrix = ShoulderMat
-            pbones['shoulder_R'].location = ShoulderLoc
-            pbones['shoulder_R'].scale = ShoulderScale
-            refresh_hack()
-            pbones['arm_fk_R'].matrix = ArmFkMat
-            pbones['arm_fk_R'].location = ArmFkLoc
-            pbones['arm_fk_R'].scale = ArmFkScale
-            refresh_hack()
-            pbones['forearm_fk_R'].matrix = ForearmFkMat
-            pbones['forearm_fk_R'].location = ForearmFkLoc
-            pbones['forearm_fk_R'].scale = ForearmFkScale
-            refresh_hack()
+                    bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R = 0.0
+                    refresh_hack()
 
-            #Insert Keyframes if Action present
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Collect Local Transforms
-                        HandIkCtrlRotEuler = pbones['hand_ik_ctrl_R'].rotation_euler.copy()
-                        HandIkCtrlRotQuat = pbones['hand_ik_ctrl_R'].rotation_quaternion.copy()
-                        HandIkCtrlLoc = pbones['hand_ik_ctrl_R'].location.copy()
-                        HandIkCtrlScale = pbones['hand_ik_ctrl_R'].scale.copy()
+                    pVisRotExec (pbones['arm_ik_R'], pbones['arm_fk_ctrl_R'])
+                    refresh_hack()
+                    pbones['shoulder_R'].matrix = ShoulderMat
+                    pbones['shoulder_R'].location = ShoulderLoc
+                    pbones['shoulder_R'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_R'].matrix = ArmFkMat
+                    pbones['arm_fk_R'].location = ArmFkLoc
+                    pbones['arm_fk_R'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_R'].matrix = ForearmFkMat
+                    pbones['forearm_fk_R'].location = ForearmFkLoc
+                    pbones['forearm_fk_R'].scale = ForearmFkScale
+                    refresh_hack()
 
-                        ArmIkRotEuler = pbones['arm_ik_R'].rotation_euler.copy()
-                        ArmIkRotQuat = pbones['arm_ik_R'].rotation_quaternion.copy()
-                        ArmIkLoc = pbones['arm_ik_R'].location.copy()
-                        ArmIkScale = pbones['arm_ik_R'].scale.copy()
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+                                HandIkCtrlRotEuler = pbones['hand_ik_ctrl_R'].rotation_euler.copy()
+                                HandIkCtrlRotQuat = pbones['hand_ik_ctrl_R'].rotation_quaternion.copy()
+                                HandIkCtrlLoc = pbones['hand_ik_ctrl_R'].location.copy()
+                                HandIkCtrlScale = pbones['hand_ik_ctrl_R'].scale.copy()
 
-                        ElbowlLoc = pbones['elbow_pole_R'].location.copy()
+                                ArmIkRotEuler = pbones['arm_ik_R'].rotation_euler.copy()
+                                ArmIkRotQuat = pbones['arm_ik_R'].rotation_quaternion.copy()
+                                ArmIkLoc = pbones['arm_ik_R'].location.copy()
+                                ArmIkScale = pbones['arm_ik_R'].scale.copy()
 
-                        ShoulderRotEuler = pbones['shoulder_R'].rotation_euler.copy()
-                        ShoulderRotQuat = pbones['shoulder_R'].rotation_quaternion.copy()
-                        ShoulderLoc = pbones['shoulder_R'].location.copy()
-                        ShoulderScale = pbones['shoulder_R'].scale.copy()
+                                ElbowlLoc = pbones['elbow_pole_R'].location.copy()
 
-                        ArmFkRotEuler = pbones['arm_fk_R'].rotation_euler.copy()
-                        ArmFkRotQuat = pbones['arm_fk_R'].rotation_quaternion.copy()
-                        ArmFkLoc = pbones['arm_fk_R'].location.copy()
-                        ArmFkScale = pbones['arm_fk_R'].scale.copy()
+                                ShoulderRotEuler = pbones['shoulder_R'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_R'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_R'].location.copy()
+                                ShoulderScale = pbones['shoulder_R'].scale.copy()
 
-                        ForearmFkRotEuler = pbones['forearm_fk_R'].rotation_euler.copy()
-                        ForearmFkRotQuat = pbones['forearm_fk_R'].rotation_quaternion.copy()
-                        ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
-                        ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+                                ArmFkRotEuler = pbones['arm_fk_R'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_R'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                                ArmFkScale = pbones['arm_fk_R'].scale.copy()
 
-                        #Jump to next Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+                                ForearmFkRotEuler = pbones['forearm_fk_R'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_R'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
 
-                        #Key Property
-                        armobj.pose.bones["properties_arm_R"].ik_arm_R = 0.0
-                        refresh_hack()
-                        pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
 
-                        #Re-Paste Transforms
-                        pbones['hand_ik_ctrl_R'].rotation_euler = HandIkCtrlRotEuler
-                        pbones['hand_ik_ctrl_R'].rotation_quaternion = HandIkCtrlRotQuat
-                        pbones['hand_ik_ctrl_R'].location = HandIkCtrlLoc
-                        pbones['hand_ik_ctrl_R'].scale = HandIkCtrlScale
-                        refresh_hack()
-                        pbones['elbow_pole_R'].location = ElbowlLoc
-                        refresh_hack()
-                        pbones['arm_ik_R'].rotation_euler = ArmIkRotEuler
-                        pbones['arm_ik_R'].rotation_quaternion = ArmIkRotQuat
-                        pbones['arm_ik_R'].location = ArmIkLoc
-                        pbones['arm_ik_R'].scale = ArmIkScale
-                        refresh_hack()
-                        pbones['shoulder_R'].rotation_euler = ShoulderRotEuler
-                        pbones['shoulder_R'].rotation_quaternion = ShoulderRotQuat
-                        pbones['shoulder_R'].location = ShoulderLoc
-                        pbones['shoulder_R'].scale = ShoulderScale
-                        refresh_hack()
-                        pbones['arm_fk_R'].rotation_euler = ArmFkRotEuler
-                        pbones['arm_fk_R'].rotation_quaternion = ArmFkRotQuat
-                        pbones['arm_fk_R'].location = ArmFkLoc
-                        pbones['arm_fk_R'].scale = ArmFkScale
-                        refresh_hack()
-                        pbones['forearm_fk_R'].rotation_euler = ForearmFkRotEuler
-                        pbones['forearm_fk_R'].rotation_quaternion = ForearmFkRotQuat
-                        pbones['forearm_fk_R'].location = ForearmFkLoc
-                        pbones['forearm_fk_R'].scale = ForearmFkScale
-                        refresh_hack()
+                                #Key Property
+                                armobj.pose.bones["properties_arm_R"].ik_arm_R = 0.0
+                                refresh_hack()
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
 
-                        insert_bkeys('arm_fk_R', 'LocRotScale')
-                        insert_bkeys('forearm_fk_R', 'LocRotScale')
-                        insert_bkeys('arm_ik_R', 'RotScale')
-                        insert_bkeys('forearm_ik_R', 'RotScale')
-                        insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
-                        insert_bkeys('shoulder_R', 'LocRotScale')
-                        insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
-                        insert_bkeys('hand_fk_R', 'LocRotScale')
-                        if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
-                            insert_bkeys('elbow_pole_R', 'Loc')
+                                #Re-Paste Transforms
+                                pbones['hand_ik_ctrl_R'].rotation_euler = HandIkCtrlRotEuler
+                                pbones['hand_ik_ctrl_R'].rotation_quaternion = HandIkCtrlRotQuat
+                                pbones['hand_ik_ctrl_R'].location = HandIkCtrlLoc
+                                pbones['hand_ik_ctrl_R'].scale = HandIkCtrlScale
+                                refresh_hack()
+                                pbones['elbow_pole_R'].location = ElbowlLoc
+                                refresh_hack()
+                                pbones['arm_ik_R'].rotation_euler = ArmIkRotEuler
+                                pbones['arm_ik_R'].rotation_quaternion = ArmIkRotQuat
+                                pbones['arm_ik_R'].location = ArmIkLoc
+                                pbones['arm_ik_R'].scale = ArmIkScale
+                                refresh_hack()
+                                pbones['shoulder_R'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_R'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_R'].location = ShoulderLoc
+                                pbones['shoulder_R'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_R'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_R'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_R'].location = ArmFkLoc
+                                pbones['arm_fk_R'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_R'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_R'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_R'].location = ForearmFkLoc
+                                pbones['forearm_fk_R'].scale = ForearmFkScale
+                                refresh_hack()
 
-            #Switch Hand to Arm Space
-            if anim_data:
-                if anim_data.action:
-                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
-                        #Jump to previous Frame
-                        bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
 
-            #Switch Hand to Free Space
-            bpy.ops.switch.hand_space_r(space='Free')
+                    #Switch Hand to Arm Space
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Jump to previous Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current - 1)
+
+                    #Switch Hand to Free Space
+                    bpy.ops.switch.hand_space_r(space='Free')
+
+        #Quadruped
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+
+                if bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R > 0.9:
+
+                    #Collect Matrix
+                    ArmFkMat = pbones['arm_fk_R'].matrix.copy()
+                    ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                    ArmFkScale = pbones['arm_fk_R'].scale.copy()
+                    ForearmFkMat = pbones['forearm_fk_R'].matrix.copy()
+                    ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                    ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+                    CarpalFkMat = pbones['carpal_fk_R'].matrix.copy()
+                    CarpalFkLoc = pbones['carpal_fk_R'].location.copy()
+                    CarpalFkScale = pbones['carpal_fk_R'].scale.copy()
+                    HandFing1FkMat = pbones['hand_fing_1_fk_R'].matrix.copy()
+                    HandFing1FkLoc = pbones['hand_fing_1_fk_R'].location.copy()
+                    HandFing1FkScale = pbones['hand_fing_1_fk_R'].scale.copy()
+                    HandFing2FkMat = pbones['hand_fing_2_fk_R'].matrix.copy()
+                    HandFing2FkLoc = pbones['hand_fing_2_fk_R'].location.copy()
+                    HandFing2FkScale = pbones['hand_fing_2_fk_R'].scale.copy()
+                    ArmFkCtrlMat = pbones['arm_fk_ctrl_R'].matrix.copy()
+                    ShoulderMat = pbones['shoulder_R'].matrix.copy()
+                    ShoulderLoc = pbones['shoulder_R'].location.copy()
+                    ShoulderScale = pbones['shoulder_R'].scale.copy()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('carpal_fk_R', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_R', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_R', 'Rot')
+                                insert_bkeys('fing_roll_1_R', 'Rot')
+                                insert_bkeys('fing_roll_2_R', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
+
+                    #Paste Matrix
+                    pVisLocExec(pbones['hand_sole_ctrl_R'], pbones['snap_hand_sole_ctrl_fk_R'])
+                    pVisRotExec(pbones['hand_sole_ctrl_R'], pbones['snap_hand_sole_ctrl_fk_R'])
+                    refresh_hack()
+                    pbones['hand_roll_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_ik_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_ik_ctrl_R'].location[:] = (0.0, 0.0, 0.0)
+                    pbones['fing_roll_1_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['fing_roll_2_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_fing_ik_ctrl_mid_R'].location[:] = (0.0, 0.0, 0.0)
+                    pbones['hand_fing_ik_ctrl_mid_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pbones['fings_ik_ctrl_R'].location[:] = (0.0, 0.0, 0.0)
+                    pbones['fings_ik_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                    pVisLocExec(pbones['elbow_pole_R'], pbones['snap_elbow_pole_fk_R'])
+                    refresh_hack()
+                    pVisLocExec(pbones['carpal_ik_ctrl_R'], pbones['snap_carpal_fk_R'])
+                    pVisRotExec(pbones['carpal_ik_ctrl_R'], pbones['snap_carpal_fk_R'])
+                    refresh_hack()
+
+                    bpy.context.active_object.pose.bones["properties_arm_R"].ik_arm_R = 0.0
+                    refresh_hack()
+
+                    pVisRotExec (pbones['arm_ik_R'], pbones['arm_fk_ctrl_R'])
+                    refresh_hack()
+                    pbones['shoulder_R'].matrix = ShoulderMat
+                    pbones['shoulder_R'].location = ShoulderLoc
+                    pbones['shoulder_R'].scale = ShoulderScale
+                    refresh_hack()
+                    pbones['arm_fk_R'].matrix = ArmFkMat
+                    pbones['arm_fk_R'].location = ArmFkLoc
+                    pbones['arm_fk_R'].scale = ArmFkScale
+                    refresh_hack()
+                    pbones['forearm_fk_R'].matrix = ForearmFkMat
+                    pbones['forearm_fk_R'].location = ForearmFkLoc
+                    pbones['forearm_fk_R'].scale = ForearmFkScale
+                    refresh_hack()
+                    pbones['carpal_fk_R'].matrix = CarpalFkMat
+                    pbones['carpal_fk_R'].location = CarpalFkLoc
+                    pbones['carpal_fk_R'].scale = CarpalFkScale
+                    refresh_hack()
+                    pbones['hand_fing_1_fk_R'].matrix = HandFing1FkMat
+                    pbones['hand_fing_1_fk_R'].location = HandFing1FkLoc
+                    pbones['hand_fing_1_fk_R'].scale = HandFing1FkScale
+                    refresh_hack()
+                    pbones['hand_fing_2_fk_R'].matrix = HandFing2FkMat
+                    pbones['hand_fing_2_fk_R'].location = HandFing2FkLoc
+                    pbones['hand_fing_2_fk_R'].scale = HandFing2FkScale
+                    refresh_hack()
+
+                    #Insert Keyframes if Action present
+                    if anim_data:
+                        if anim_data.action:
+                            if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                                #Collect Local Transforms
+
+                                SoleCtrlRotEuler = pbones['hand_sole_ctrl_R'].rotation_euler.copy()
+                                SoleCtrlRotQuat = pbones['hand_sole_ctrl_R'].rotation_quaternion.copy()
+                                SoleCtrlLoc = pbones['hand_sole_ctrl_R'].location.copy()
+                                SoleCtrlScale = pbones['hand_sole_ctrl_R'].scale.copy()
+
+                                ElbowPoleRotEuler = pbones['elbow_pole_R'].rotation_euler.copy()
+                                ElbowPoleRotQuat = pbones['elbow_pole_R'].rotation_quaternion.copy()
+                                ElbowPoleLoc = pbones['elbow_pole_R'].location.copy()
+                                ElbowPoleScale = pbones['elbow_pole_R'].scale.copy()
+
+                                ShoulderRotEuler = pbones['shoulder_R'].rotation_euler.copy()
+                                ShoulderRotQuat = pbones['shoulder_R'].rotation_quaternion.copy()
+                                ShoulderLoc = pbones['shoulder_R'].location.copy()
+                                ShoulderScale = pbones['shoulder_R'].scale.copy()
+
+                                ArmIkRotEuler = pbones['arm_ik_R'].rotation_euler.copy()
+                                ArmIkRotQuat = pbones['arm_ik_R'].rotation_quaternion.copy()
+                                ArmIkLoc = pbones['arm_ik_R'].location.copy()
+                                ArmIkScale = pbones['arm_ik_R'].scale.copy()
+
+                                ArmFkRotEuler = pbones['arm_fk_R'].rotation_euler.copy()
+                                ArmFkRotQuat = pbones['arm_fk_R'].rotation_quaternion.copy()
+                                ArmFkLoc = pbones['arm_fk_R'].location.copy()
+                                ArmFkScale = pbones['arm_fk_R'].scale.copy()
+
+                                ForearmFkRotEuler = pbones['forearm_fk_R'].rotation_euler.copy()
+                                ForearmFkRotQuat = pbones['forearm_fk_R'].rotation_quaternion.copy()
+                                ForearmFkLoc = pbones['forearm_fk_R'].location.copy()
+                                ForearmFkScale = pbones['forearm_fk_R'].scale.copy()
+
+                                CarpalFkRotEuler = pbones['carpal_fk_R'].rotation_euler.copy()
+                                CarpalFkRotQuat = pbones['carpal_fk_R'].rotation_quaternion.copy()
+                                CarpalFkLoc = pbones['carpal_fk_R'].location.copy()
+                                CarpalFkScale = pbones['carpal_fk_R'].scale.copy()
+
+                                CarpalIkRotEuler = pbones['carpal_ik_ctrl_R'].rotation_euler.copy()
+                                CarpalIkRotQuat = pbones['carpal_ik_ctrl_R'].rotation_quaternion.copy()
+                                CarpalIkLoc = pbones['carpal_ik_ctrl_R'].location.copy()
+                                CarpalIkScale = pbones['carpal_ik_ctrl_R'].scale.copy()
+
+                                HandFing1FkRotEuler = pbones['hand_fing_1_fk_R'].rotation_euler.copy()
+                                HandFing1FkRotQuat = pbones['hand_fing_1_fk_R'].rotation_quaternion.copy()
+                                HandFing1FkLoc = pbones['hand_fing_1_fk_R'].location.copy()
+                                HandFing1FkScale = pbones['hand_fing_1_fk_R'].scale.copy()
+
+                                HandFing2FkRotEuler = pbones['hand_fing_2_fk_R'].rotation_euler.copy()
+                                HandFing2FkRotQuat = pbones['hand_fing_2_fk_R'].rotation_quaternion.copy()
+                                HandFing2FkLoc = pbones['hand_fing_2_fk_R'].location.copy()
+                                HandFing2FkScale = pbones['hand_fing_2_fk_R'].scale.copy()
+
+                                #Jump to next Frame
+                                bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+
+                                #Key Property
+                                armobj.pose.bones["properties_arm_R"].ik_arm_R = 0.0
+                                refresh_hack()
+                                pbones["properties_arm_R"].keyframe_insert(data_path='ik_arm_R')
+
+                                #Re-Paste Transforms
+                                pbones['hand_sole_ctrl_R'].rotation_euler = SoleCtrlRotEuler
+                                pbones['hand_sole_ctrl_R'].rotation_quaternion = SoleCtrlRotQuat
+                                pbones['hand_sole_ctrl_R'].location = SoleCtrlLoc
+                                pbones['hand_sole_ctrl_R'].scale = SoleCtrlScale
+                                refresh_hack()
+                                pbones['elbow_pole_R'].rotation_euler = ElbowPoleRotEuler
+                                pbones['elbow_pole_R'].rotation_quaternion = ElbowPoleRotQuat
+                                pbones['elbow_pole_R'].location = ElbowPoleLoc
+                                pbones['elbow_pole_R'].scale = ElbowPoleScale
+                                refresh_hack()
+                                pbones['arm_ik_R'].rotation_euler = ArmIkRotEuler
+                                pbones['arm_ik_R'].rotation_quaternion = ArmIkRotQuat
+                                pbones['arm_ik_R'].location = ArmIkLoc
+                                pbones['arm_ik_R'].scale = ArmIkScale
+                                refresh_hack()
+                                pbones['shoulder_R'].rotation_euler = ShoulderRotEuler
+                                pbones['shoulder_R'].rotation_quaternion = ShoulderRotQuat
+                                pbones['shoulder_R'].location = ShoulderLoc
+                                pbones['shoulder_R'].scale = ShoulderScale
+                                refresh_hack()
+                                pbones['arm_fk_R'].rotation_euler = ArmFkRotEuler
+                                pbones['arm_fk_R'].rotation_quaternion = ArmFkRotQuat
+                                pbones['arm_fk_R'].location = ArmFkLoc
+                                pbones['arm_fk_R'].scale = ArmFkScale
+                                refresh_hack()
+                                pbones['forearm_fk_R'].rotation_euler = ForearmFkRotEuler
+                                pbones['forearm_fk_R'].rotation_quaternion = ForearmFkRotQuat
+                                pbones['forearm_fk_R'].location = ForearmFkLoc
+                                pbones['forearm_fk_R'].scale = ForearmFkScale
+                                refresh_hack()
+                                pbones['carpal_ik_ctrl_R'].rotation_euler = CarpalIkRotEuler
+                                pbones['carpal_ik_ctrl_R'].rotation_quaternion = CarpalIkRotQuat
+                                pbones['carpal_ik_ctrl_R'].location = CarpalIkLoc
+                                pbones['carpal_ik_ctrl_R'].scale = CarpalIkScale
+                                refresh_hack()
+                                pbones['carpal_fk_R'].rotation_euler = CarpalFkRotEuler
+                                pbones['carpal_fk_R'].rotation_quaternion = CarpalFkRotQuat
+                                pbones['carpal_fk_R'].location = CarpalFkLoc
+                                pbones['carpal_fk_R'].scale = CarpalFkScale
+                                refresh_hack()
+                                pbones['hand_fing_1_fk_R'].rotation_euler = HandFing1FkRotEuler
+                                pbones['hand_fing_1_fk_R'].rotation_quaternion = HandFing1FkRotQuat
+                                pbones['hand_fing_1_fk_R'].location = HandFing1FkLoc
+                                pbones['hand_fing_1_fk_R'].scale = HandFing1FkScale
+                                refresh_hack()
+                                pbones['hand_fing_2_fk_R'].rotation_euler = HandFing2FkRotEuler
+                                pbones['hand_fing_2_fk_R'].rotation_quaternion = HandFing2FkRotQuat
+                                pbones['hand_fing_2_fk_R'].location = HandFing2FkLoc
+                                pbones['hand_fing_2_fk_R'].scale = HandFing2FkScale
+                                refresh_hack()
+                                pbones['hand_roll_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_ik_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_ik_ctrl_R'].location[:] = (0.0, 0.0, 0.0)
+                                pbones['fing_roll_1_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['fing_roll_2_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_fing_ik_ctrl_mid_R'].location[:] = (0.0, 0.0, 0.0)
+                                pbones['hand_fing_ik_ctrl_mid_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['fings_ik_ctrl_R'].location[:] = (0.0, 0.0, 0.0)
+                                pbones['fings_ik_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
+
+                                insert_bkeys('arm_fk_R', 'LocRotScale')
+                                insert_bkeys('forearm_fk_R', 'LocRotScale')
+                                insert_bkeys('shoulder_R', 'LocRotScale')
+                                insert_bkeys('carpal_fk_R', 'LocRotScale')
+                                insert_bkeys('carpal_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('arm_fk_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_1_fk_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_2_fk_R', 'LocRotScale')
+                                insert_bkeys('arm_ik_R', 'RotScale')
+                                insert_bkeys('forearm_ik_R', 'RotScale')
+                                insert_bkeys('hand_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_fing_ik_ctrl_mid_R', 'LocRotScale')
+                                insert_bkeys('fings_ik_ctrl_R', 'LocRotScale')
+                                insert_bkeys('hand_roll_ctrl_R', 'Rot')
+                                insert_bkeys('fing_roll_1_R', 'Rot')
+                                insert_bkeys('fing_roll_2_R', 'Rot')
+                                insert_bkeys('hand_sole_ctrl_R', 'LocRotScale')
+                                if pbones["properties_arm_R"].toggle_arm_ik_pole_R == 1.0:
+                                    insert_bkeys('elbow_pole_R', 'Loc')
 
         return {"FINISHED"}
 
@@ -3384,6 +4401,11 @@ class Operator_Snap_LegIKtoFK_R(bpy.types.Operator):
             FootToe2FkMat = pbones['foot_toe_2_fk_R'].matrix.copy()
             FootToe2FkLoc = pbones['foot_toe_2_fk_R'].location.copy()
             FootToe2FkScale = pbones['foot_toe_2_fk_R'].scale.copy()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    TarsalFkMat = pbones['tarsal_fk_R'].matrix.copy()
+                    TarsalFkLoc = pbones['tarsal_fk_R'].location.copy()
+                    TarsalFkScale = pbones['tarsal_fk_R'].scale.copy()
 
             #Insert Keyframes if Action present
             if anim_data:
@@ -3404,9 +4426,13 @@ class Operator_Snap_LegIKtoFK_R(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_R', 'Rot')
                         insert_bkeys('toe_roll_1_R', 'Rot')
                         insert_bkeys('toe_roll_2_R', 'Rot')
-                        insert_bkeys('sole_ctrl_R', 'Rot')
+                        insert_bkeys('sole_ctrl_R', 'LocRotScale')
                         if pbones["properties_leg_R"].toggle_leg_ik_pole_R == 1.0:
                             insert_bkeys('knee_pole_R', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_R', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_R', 'LocRotScale')
 
             bpy.context.active_object.pose.bones["properties_leg_R"].ik_leg_R = 1.0
             refresh_hack()
@@ -3423,6 +4449,12 @@ class Operator_Snap_LegIKtoFK_R(bpy.types.Operator):
             pbones['shin_fk_R'].location = ShinFkLoc
             pbones['shin_fk_R'].scale = ShinFkScale
             refresh_hack()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    pbones['tarsal_fk_R'].matrix = TarsalFkMat
+                    pbones['tarsal_fk_R'].location = TarsalFkLoc
+                    pbones['tarsal_fk_R'].scale = TarsalFkScale
+                    refresh_hack()
             pbones['foot_fk_R'].matrix = FootFkMat
             pbones['foot_fk_R'].location = FootFkLoc
             pbones['foot_fk_R'].scale = FootFkScale
@@ -3456,6 +4488,13 @@ class Operator_Snap_LegIKtoFK_R(bpy.types.Operator):
                         ShinFkRotQuat = pbones['shin_fk_R'].rotation_quaternion.copy()
                         ShinFkLoc = pbones['shin_fk_R'].location.copy()
                         ShinFkScale = pbones['shin_fk_R'].scale.copy()
+
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                TarsalFkRotEuler = pbones['tarsal_fk_R'].rotation_euler.copy()
+                                TarsalFkRotQuat = pbones['tarsal_fk_R'].rotation_quaternion.copy()
+                                TarsalFkLoc = pbones['tarsal_fk_R'].location.copy()
+                                TarsalFkScale = pbones['tarsal_fk_R'].scale.copy()
 
                         FootFkRotEuler = pbones['foot_fk_R'].rotation_euler.copy()
                         FootFkRotQuat = pbones['foot_fk_R'].rotation_quaternion.copy()
@@ -3496,6 +4535,13 @@ class Operator_Snap_LegIKtoFK_R(bpy.types.Operator):
                         pbones['shin_fk_R'].location = ShinFkLoc
                         pbones['shin_fk_R'].scale = ShinFkScale
                         refresh_hack()
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                pbones['tarsal_fk_R'].rotation_euler = TarsalFkRotEuler
+                                pbones['tarsal_fk_R'].rotation_quaternion = TarsalFkRotQuat
+                                pbones['tarsal_fk_R'].location = TarsalFkLoc
+                                pbones['tarsal_fk_R'].scale = TarsalFkScale
+                                refresh_hack()
                         pbones['foot_fk_R'].rotation_euler = FootFkRotEuler
                         pbones['foot_fk_R'].rotation_quaternion = FootFkRotQuat
                         pbones['foot_fk_R'].location = FootFkLoc
@@ -3526,9 +4572,13 @@ class Operator_Snap_LegIKtoFK_R(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_R', 'Rot')
                         insert_bkeys('toe_roll_1_R', 'Rot')
                         insert_bkeys('toe_roll_2_R', 'Rot')
-                        insert_bkeys('sole_ctrl_R', 'Rot')
+                        insert_bkeys('sole_ctrl_R', 'LocRotScale')
                         if pbones["properties_leg_R"].toggle_leg_ik_pole_R == 1.0:
                             insert_bkeys('knee_pole_R', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_R', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_R', 'LocRotScale')
 
         return {"FINISHED"}
 
@@ -3569,6 +4619,11 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
             ShinFkMat = pbones['shin_fk_R'].matrix.copy()
             ShinFkLoc = pbones['shin_fk_R'].location.copy()
             ShinFkScale = pbones['shin_fk_R'].scale.copy()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    TarsalFkMat = pbones['tarsal_fk_R'].matrix.copy()
+                    TarsalFkLoc = pbones['tarsal_fk_R'].location.copy()
+                    TarsalFkScale = pbones['tarsal_fk_R'].scale.copy()
             FootToe1FkMat = pbones['foot_toe_1_fk_R'].matrix.copy()
             FootToe1FkLoc = pbones['foot_toe_1_fk_R'].location.copy()
             FootToe1FkScale = pbones['foot_toe_1_fk_R'].scale.copy()
@@ -3595,9 +4650,13 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_R', 'Rot')
                         insert_bkeys('toe_roll_1_R', 'Rot')
                         insert_bkeys('toe_roll_2_R', 'Rot')
-                        insert_bkeys('sole_ctrl_R', 'Rot')
+                        insert_bkeys('sole_ctrl_R', 'LocRotScale')
                         if pbones["properties_leg_R"].toggle_leg_ik_pole_R == 1.0:
                             insert_bkeys('knee_pole_R', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_R', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_R', 'LocRotScale')
 
             #Paste Matrix
             pVisLocExec(pbones['sole_ctrl_R'], pbones['snap_sole_ctrl_fk_R'])
@@ -3614,6 +4673,11 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
             pbones['toes_ik_ctrl_R'].rotation_euler[:] = (0.0, 0.0, 0.0)
             pVisLocExec(pbones['knee_pole_R'], pbones['snap_knee_fk_R'])
             refresh_hack()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    pVisLocExec(pbones['tarsal_ik_ctrl_R'], pbones['snap_tarsal_fk_R'])
+                    pVisRotExec(pbones['tarsal_ik_ctrl_R'], pbones['snap_tarsal_fk_R'])
+                    refresh_hack()
 
             bpy.context.active_object.pose.bones["properties_leg_R"].ik_leg_R = 0.0
             refresh_hack()
@@ -3628,6 +4692,12 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
             pbones['shin_fk_R'].location = ShinFkLoc
             pbones['shin_fk_R'].scale = ShinFkScale
             refresh_hack()
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                    pbones['tarsal_fk_R'].matrix = TarsalFkMat
+                    pbones['tarsal_fk_R'].location = TarsalFkLoc
+                    pbones['tarsal_fk_R'].scale = TarsalFkScale
+                    refresh_hack()
             pbones['foot_toe_1_fk_R'].matrix = FootToe1FkMat
             pbones['foot_toe_1_fk_R'].location = FootToe1FkLoc
             pbones['foot_toe_1_fk_R'].scale = FootToe1FkScale
@@ -3667,6 +4737,17 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
                         ShinFkRotQuat = pbones['shin_fk_R'].rotation_quaternion.copy()
                         ShinFkLoc = pbones['shin_fk_R'].location.copy()
                         ShinFkScale = pbones['shin_fk_R'].scale.copy()
+
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                TarsalFkRotEuler = pbones['tarsal_fk_R'].rotation_euler.copy()
+                                TarsalFkRotQuat = pbones['tarsal_fk_R'].rotation_quaternion.copy()
+                                TarsalFkLoc = pbones['tarsal_fk_R'].location.copy()
+                                TarsalFkScale = pbones['tarsal_fk_R'].scale.copy()
+                                TarsalIkRotEuler = pbones['tarsal_ik_ctrl_R'].rotation_euler.copy()
+                                TarsalIkRotQuat = pbones['tarsal_ik_ctrl_R'].rotation_quaternion.copy()
+                                TarsaIFkLoc = pbones['tarsal_ik_ctrl_R'].location.copy()
+                                TarsalIkScale = pbones['tarsal_ik_ctrl_R'].scale.copy()
 
                         FootToe1FkRotEuler = pbones['foot_toe_1_fk_R'].rotation_euler.copy()
                         FootToe1FkRotQuat = pbones['foot_toe_1_fk_R'].rotation_quaternion.copy()
@@ -3712,6 +4793,18 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
                         pbones['shin_fk_R'].location = ShinFkLoc
                         pbones['shin_fk_R'].scale = ShinFkScale
                         refresh_hack()
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                pbones['tarsal_ik_ctrl_R'].rotation_euler = TarsalIkRotEuler
+                                pbones['tarsal_ik_ctrl_R'].rotation_quaternion = TarsalIkRotQuat
+                                pbones['tarsal_ik_ctrl_R'].location = TarsaIFkLoc
+                                pbones['tarsal_ik_ctrl_R'].scale = TarsalIkScale
+                                refresh_hack()
+                                pbones['tarsal_fk_R'].rotation_euler = TarsalFkRotEuler
+                                pbones['tarsal_fk_R'].rotation_quaternion = TarsalFkRotQuat
+                                pbones['tarsal_fk_R'].location = TarsalFkLoc
+                                pbones['tarsal_fk_R'].scale = TarsalFkScale
+                                refresh_hack()
                         pbones['foot_toe_1_fk_R'].rotation_euler = FootToe1FkRotEuler
                         pbones['foot_toe_1_fk_R'].rotation_quaternion = FootToe1FkRotQuat
                         pbones['foot_toe_1_fk_R'].location = FootToe1FkLoc
@@ -3747,9 +4840,13 @@ class Operator_Snap_LegFKtoIK_R(bpy.types.Operator):
                         insert_bkeys('foot_roll_ctrl_R', 'Rot')
                         insert_bkeys('toe_roll_1_R', 'Rot')
                         insert_bkeys('toe_roll_2_R', 'Rot')
-                        insert_bkeys('sole_ctrl_R', 'Rot')
+                        insert_bkeys('sole_ctrl_R', 'LocRotScale')
                         if pbones["properties_leg_R"].toggle_leg_ik_pole_R == 1.0:
                             insert_bkeys('knee_pole_R', 'Loc')
+                        for prop in bpy.context.active_object.data.items():
+                            if prop[0] == 'rig_type' and prop[1] == 'Quadruped':
+                                insert_bkeys('tarsal_fk_R', 'LocRotScale')
+                                insert_bkeys('tarsal_ik_ctrl_R', 'LocRotScale')
 
         return {"FINISHED"}
 

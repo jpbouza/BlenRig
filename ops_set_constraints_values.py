@@ -119,13 +119,13 @@ class Operator_Set_Eyelids(bpy.types.Operator):
         #Eyelid Up L
         Set_Movement_Ranges_Actions(self, context, 'eyelid_up_ctrl_L', 'EYELID_UP_LIMIT_L', 'Eyelid_Upper_Up_L_NOREP', 0, 1)
         Set_Movement_Ranges_Actions(self, context, 'eyelid_up_ctrl_L', 'EYELID_DOWN_LIMIT_L', 'Eyelid_Upper_Down_L_NOREP', 0, -1)
-         #Eyelid Up R
+        #Eyelid Up R
         Set_Movement_Ranges_Actions(self, context, 'eyelid_up_ctrl_R', 'EYELID_UP_LIMIT_R', 'Eyelid_Upper_Up_R_NOREP', 0, 1)
         Set_Movement_Ranges_Actions(self, context, 'eyelid_up_ctrl_R', 'EYELID_DOWN_LIMIT_R', 'Eyelid_Upper_Down_R_NOREP', 0, -1)
         #Eyelid Low L
         Set_Movement_Ranges_Actions(self, context, 'eyelid_low_ctrl_L', 'EYELID_UP_LIMIT_L', 'Eyelid_Lower_Up_L_NOREP', 0, 1)
         Set_Movement_Ranges_Actions(self, context, 'eyelid_low_ctrl_L', 'EYELID_DOWN_LIMIT_L', 'Eyelid_Lower_Down_L_NOREP', 0, -1)
-         #Eyelid Low R
+        #Eyelid Low R
         Set_Movement_Ranges_Actions(self, context, 'eyelid_low_ctrl_R', 'EYELID_UP_LIMIT_R', 'Eyelid_Lower_Up_R_NOREP', 0, 1)
         Set_Movement_Ranges_Actions(self, context, 'eyelid_low_ctrl_R', 'EYELID_DOWN_LIMIT_R', 'Eyelid_Lower_Down_R_NOREP', 0, -1)
         return {"FINISHED"}

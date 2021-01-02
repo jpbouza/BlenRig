@@ -285,18 +285,46 @@ def bone_auto_hide(context):
 
 ####### Reproportion Toggle #######
 listaDeEstados = []
+# Auto mode for reproportion now is in ARMATURE_OT_blenrig_5_gui in __init__.py for gui_rig_bake button.
+# from bpy.utils import register_class
+# from bpy.utils import unregister_class
+# from .ui.panels.rigging_and_baking import BLENRIG_PT_visual_assistant, BLENRIG_PT_baking
 mode = []
+layers = []
 def reproportion_toggle(context):
     if context:
         mode.append(context.active_object.mode)
+        layers.append(bpy.context.active_object.data.layers[:])
         # print(mode)
+        # print(layers)
         if context.active_object.data.reproportion:
             bpy.ops.object.mode_set(mode='POSE')
+
+            # try:
+            #     register_class(BLENRIG_PT_visual_assistant)
+            #     register_class(BLENRIG_PT_baking)
+            # except:
+            #     pass
+
         else:
-            if len(mode) > 1:
-                bpy.ops.object.mode_set(mode=mode[-2])
+            # if len(mode) > 1:
+            #     bpy.ops.object.mode_set(mode=mode[-2])
+            if len(layers) > 1:
+                bpy.context.active_object.data.layers = layers[-2]
+
+
+            # try:
+            #     unregister_class(BLENRIG_PT_visual_assistant)
+            #     unregister_class(BLENRIG_PT_baking)
+            # except:
+            #     pass
+
         if len(mode) > 1:
             del mode[0]
+        if len(layers) > 1:
+            del layers[0]
+
+
 
     if not bpy.context.screen:
         return False
@@ -958,3 +986,4 @@ def pole_toggles(context):
                                     bone.layers[23] = 0
                                 if bone.name == 'knee_line_R':
                                     bone.layers[23] = 0
+
