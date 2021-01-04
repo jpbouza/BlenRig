@@ -37,7 +37,7 @@ class BLENRIG_PT_BlenRig_5_mesh_panel(bpy.types.Panel):
     # expanded box
         col.separator
         row = col.row()
-        row.operator("blenrig5.mesh_pose_baker", text="Bake Mesh")
+        row.operator("blenrig.mesh_pose_baker", text="Bake Mesh")
         row.prop(props, "bake_to_shape")
 
 ####### Lattice & Curves Panel
@@ -69,9 +69,9 @@ class BLENRIG_PT_BlenRig_5_lattice_panel(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row(align=False)
-        row.operator("blenrig5.disable_hooks_modif", text="Modify Lattice Position")
+        row.operator("blenrig.disable_hooks_modif", text="Modify Lattice Position")
 
         sub = layout.row(align=False)
         sub = row.row()
         sub.scale_x = 0.6
-        sub.operator("blenrig5.reset_hooks", text="Apply Lattice Position")
+        sub.operator("blenrig.reset_hooks", text="Apply Lattice Position")

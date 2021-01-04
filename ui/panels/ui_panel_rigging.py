@@ -566,8 +566,8 @@ class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
                 row_props.operator("gui.blenrig_5_tabs",text = "  Bone Auto Hiding", icon="CHECKBOX_DEHLT", emboss = 0).tab = "bone_auto_hide"
             col_2.label(text='Layers Schemes:')
             row_schemes = col_2.row()
-            row_schemes.operator("blenrig5.layers_scheme_compact", text="Compact")
-            row_schemes.operator("blenrig5.layers_scheme_expanded", text="Expanded")
+            row_schemes.operator("blenrig.layers_scheme_compact", text="Compact")
+            row_schemes.operator("blenrig.layers_scheme_expanded", text="Expanded")
             col_2.label(text='Layers Names: (Always keep 32 items)')
             row_layers = col_2.row()
             row_layers.prop(arm_data, '["layer_list"]', text="", toggle=True)
@@ -749,7 +749,7 @@ class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
                     row_reset = box.row()
                     row_reset.alignment =  'CENTER'
                     row_reset.scale_x = 1
-                    row_reset.operator("blenrig5.reset_dynamic_shaping")
+                    row_reset.operator("blenrig.reset_dynamic_shaping")
 
                 else:
                     row.operator("gui.blenrig_5_tabs", icon="OUTLINER_DATA_ARMATURE", emboss = 1).tab = "gui_rig_flex"
@@ -928,7 +928,7 @@ class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
                     row_reset = box.row()
                     row_reset.alignment =  'CENTER'
                     row_reset.scale_x = 1
-                    row_reset.operator("blenrig5.reset_dynamic_shaping")
+                    row_reset.operator("blenrig.reset_dynamic_shaping")
 
                 else:
                     row.operator("gui.blenrig_5_tabs", icon="OUTLINER_DATA_ARMATURE", emboss = 1).tab = "gui_rig_dynamic"
@@ -976,15 +976,15 @@ class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
             col.label(text="Baking:")
             box = col.box()
             row = box.row()
-            row.operator("blenrig5.armature_baker", text="Bake Armature")
+            row.operator("blenrig.armature_baker", text="Bake Armature")
             box.label(text="Fix Alignment (Edit Mode):")
             row = box.row()
-            row.operator("blenrig5.fix_misaligned_bones", text="Fix Joints")
-            row.operator("blenrig5.auto_bone_roll", text="Calc Rolls")
-            row.operator("blenrig5.custom_bone_roll", text="Custom Aligns")
+            row.operator("blenrig.fix_misaligned_bones", text="Fix Joints")
+            row.operator("blenrig.auto_bone_roll", text="Calc Rolls")
+            row.operator("blenrig.custom_bone_roll", text="Custom Aligns")
             row = box.row()
-            row.operator("blenrig5.store_roll_angles", text="Store Roll Angles")
-            row.operator("blenrig5.restore_roll_angles", text="Restore Roll Angles")
+            row.operator("blenrig.store_roll_angles", text="Store Roll Angles")
+            row.operator("blenrig.restore_roll_angles", text="Restore Roll Angles")
             row = box.row()
             row.prop(props, "align_selected_only")
             row.prop(arm_data, "use_mirror_x")
@@ -992,8 +992,8 @@ class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
             box = col.box()
             split = box.split()
             row = split.row()
-            row.operator("blenrig5.reset_constraints")
-            row.operator("blenrig5.reset_deformers", text="Reset Deformers")
+            row.operator("blenrig.reset_constraints")
+            row.operator("blenrig.reset_deformers", text="Reset Deformers")
             col.separator()
         else:
             row.operator("gui.blenrig_5_tabs", icon="PREFERENCES", emboss = 1).tab = "gui_rig_bake"

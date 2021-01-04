@@ -318,7 +318,7 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
             col_2.scale_x = 0.9
             col_2.scale_y = 1
             col_2.alignment = 'LEFT'
-            # col_2.operator("blenrig5.paste_pose_flipped", text="Quick Pose Flipped")
+            # col_2.operator("blenrig.paste_pose_flipped", text="Quick Pose Flipped")
 
             ovlay = context.space_data.overlay
             col_3 = animation_row.column()

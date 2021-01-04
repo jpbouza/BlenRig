@@ -1875,7 +1875,7 @@ bpy.types.PoseBone.toggle_toes_R = BoolProperty(
 def biped_update_1005_layer_scheme(self, context): 
 
     ## Run Condensed Scheme ##
-    bpy.ops.blenrig5.layers_scheme_compact()
+    bpy.ops.blenrig.layers_scheme_compact()
 
 #### Update Rig version #### 
 

@@ -45,8 +45,8 @@ class BLENRIG_PT_Rigging_and_baking(bpy.types.Panel):
                 col.label(text="Extras:")
                 box = layout.column()
                 row = box.row()
-                row.operator("blenrig5.reset_constraints", text="BlenRig 5 Reset Constraints")
-                row.operator("blenrig5.reset_deformers", text="Reset Deformers")
+                row.operator("blenrig.reset_constraints", text="BlenRig 5 Reset Constraints")
+                row.operator("blenrig.reset_deformers", text="Reset Deformers")
 
         else:
             if not context.active_object.data.reproportion:
@@ -55,14 +55,14 @@ class BLENRIG_PT_Rigging_and_baking(bpy.types.Panel):
                 box = col.row()
 
                 row = box.row()
-                row.operator("blenrig5.fix_misaligned_bones", text="Fix Joints")
-                row.operator("blenrig5.auto_bone_roll", text="Calc Rolls")
-                row.operator("blenrig5.custom_bone_roll", text="Custom Aligns")
+                row.operator("blenrig.fix_misaligned_bones", text="Fix Joints")
+                row.operator("blenrig.auto_bone_roll", text="Calc Rolls")
+                row.operator("blenrig.custom_bone_roll", text="Custom Aligns")
 
                 box = col.row()
                 row = box.row()
-                row.operator("blenrig5.store_roll_angles", text="Store Roll Angles")
-                row.operator("blenrig5.restore_roll_angles", text="Restore Roll Angles")
+                row.operator("blenrig.store_roll_angles", text="Store Roll Angles")
+                row.operator("blenrig.restore_roll_angles", text="Restore Roll Angles")
 
                 box = col.row()
                 box.use_property_split = True
@@ -194,21 +194,21 @@ class BLENRIG_PT_baking(bpy.types.Panel):
 
             box = col.row()
             row = box.row()
-            row.operator("blenrig5.armature_baker", text="Bake Armature")
+            row.operator("blenrig.armature_baker", text="Bake Armature")
 
             box = col.row()
             box.label(text="Fix Alignment:")
             box = col.row()
 
             row = box.row()
-            row.operator("blenrig5.fix_misaligned_bones", text="Fix Joints")
-            row.operator("blenrig5.auto_bone_roll", text="Calc Rolls")
-            row.operator("blenrig5.custom_bone_roll", text="Custom Aligns")
+            row.operator("blenrig.fix_misaligned_bones", text="Fix Joints")
+            row.operator("blenrig.auto_bone_roll", text="Calc Rolls")
+            row.operator("blenrig.custom_bone_roll", text="Custom Aligns")
 
             box = col.row()
             row = box.row()
-            row.operator("blenrig5.store_roll_angles", text="Store Roll Angles")
-            row.operator("blenrig5.restore_roll_angles", text="Restore Roll Angles")
+            row.operator("blenrig.store_roll_angles", text="Store Roll Angles")
+            row.operator("blenrig.restore_roll_angles", text="Restore Roll Angles")
 
             box = col.row()
             box.use_property_split = True
@@ -224,7 +224,7 @@ class BLENRIG_PT_baking(bpy.types.Panel):
             col.label(text="Extras:")
             box = layout.column()
             row = box.row()
-            row.operator("blenrig5.reset_constraints", text="BlenRig 5 Reset Constraints")
-            row.operator("blenrig5.reset_deformers", text="Reset Deformers")
+            row.operator("blenrig.reset_constraints", text="BlenRig 5 Reset Constraints")
+            row.operator("blenrig.reset_deformers", text="Reset Deformers")
         else:
             box.enabled = False

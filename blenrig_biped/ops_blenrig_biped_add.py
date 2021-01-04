@@ -8,7 +8,7 @@ from ..visual_assistant import handle_panel_events
 
 class Operator_BlenRig5_Add_Biped(Operator):
 
-    bl_idname = "blenrig5.add_biped_rig"
+    bl_idname = "blenrig.add_biped_rig"
     bl_label = "BlenRig 5 Add Biped Rig"
     bl_description = "Generates BlenRig 5 biped rig"
     bl_options = {'REGISTER', 'UNDO',}

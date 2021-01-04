@@ -5,7 +5,7 @@ import bpy
 # Biped
 
 class Operator_Biped_Updater(bpy.types.Operator):
-    bl_idname = "blenrig5.biped_updater"
+    bl_idname = "blenrig.biped_updater"
     bl_label = "BlenRig 5 Biped Rig Updater"
     bl_description = "Update BlenRig 5 biped rig to the latest version"
     bl_options = {'REGISTER', 'UNDO'}

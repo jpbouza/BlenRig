@@ -204,7 +204,7 @@ class BLENRIG_PT_Dynamic_shaping(bpy.types.Panel):
                 row_reset = box.row()
                 row_reset.alignment =  'CENTER'
                 row_reset.scale_x = 1
-                row_reset.operator("blenrig5.reset_dynamic_shaping")
+                row_reset.operator("blenrig.reset_dynamic_shaping")
 
             else:
                 row.operator("gui.blenrig_5_tabs", icon="OUTLINER_DATA_ARMATURE", emboss = 1).tab = "gui_rig_dynamic"

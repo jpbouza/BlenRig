@@ -5,7 +5,7 @@ import bpy
 ######## Compact Scheme ########
 class Operator_BlenRig_Layers_Scheme_Compact(bpy.types.Operator):    
     
-    bl_idname = "blenrig5.layers_scheme_compact"   
+    bl_idname = "blenrig.layers_scheme_compact"   
     bl_label = "BlenRig Compact Layers Scheme"   
     bl_description = "Organize layers in a compact scheme relying on bone auto-hiding "    
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}      
@@ -2275,7 +2275,7 @@ class Operator_BlenRig_Layers_Scheme_Compact(bpy.types.Operator):
 ######## Expanded Scheme ########    
 class Operator_BlenRig_Layers_Scheme_Expanded(bpy.types.Operator):    
     
-    bl_idname = "blenrig5.layers_scheme_expanded"   
+    bl_idname = "blenrig.layers_scheme_expanded"   
     bl_label = "BlenRig Expanded Layers Scheme"   
     bl_description = "Organize layers by body parts and FK / IK "    
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}      

@@ -158,7 +158,7 @@ class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
                     row.label(text='Backup the file!')
                     row = col.row(align=1)
                     row.alignment = 'CENTER'
-                    row.operator("blenrig5.biped_updater", text="UPDATE ", icon = "ERROR", emboss = 1)
+                    row.operator("blenrig.biped_updater", text="UPDATE ", icon = "ERROR", emboss = 1)
                     row = col.row()
                     row.alignment = 'CENTER'
                     row.label(text='(To skip update, edit rig_version property in Armature Data)')
@@ -338,7 +338,7 @@ class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
             col_2.scale_x = 0.9
             col_2.scale_y = 1
             col_2.alignment = 'LEFT'
-            # col_2.operator("blenrig5.paste_pose_flipped", text="Quick Pose Flipped")
+            # col_2.operator("blenrig.paste_pose_flipped", text="Quick Pose Flipped")
 
             ovlay = bpy.context.space_data.overlay
             col_3 = animation_row.column()

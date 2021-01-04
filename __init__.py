@@ -1499,11 +1499,11 @@ class INFO_MT_blenrig5_add_rig(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_WIN'
-        layout.operator("blenrig5.add_biped_rig", text="BlenRig 5 Biped Rig", icon='POSE_HLT')
+        layout.operator("blenrig.add_biped_rig", text="BlenRig 5 Biped Rig", icon='POSE_HLT')
 
 # Define menu
 def blenrig5_add_menu_func(self, context):
-    self.layout.operator("blenrig5.add_biped_rig", text="BlenRig 5 Biped Rig", icon='POSE_HLT')
+    self.layout.operator("blenrig.add_biped_rig", text="BlenRig 5 Biped Rig", icon='POSE_HLT')
 
 ######### GUI OPERATORS ###########################################
 # Display or hide tabs (sets the appropriate id-property)

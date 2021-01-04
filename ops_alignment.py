@@ -4,7 +4,7 @@ import bpy
 
 class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
 
-    bl_idname = "blenrig5.fix_misaligned_bones"
+    bl_idname = "blenrig.fix_misaligned_bones"
     bl_label = "BlenRig Fix Misaligned Bones"
     bl_description = "Fixes misaligned bones after baking"
     bl_options = {'REGISTER', 'UNDO',}
@@ -264,7 +264,7 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
 
 class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
 
-    bl_idname = "blenrig5.auto_bone_roll"
+    bl_idname = "blenrig.auto_bone_roll"
     bl_label = "BlenRig Auto Calulate Roll Angles"
     bl_description = "Set roll angles to their predefined values"
     bl_options = {'REGISTER', 'UNDO',}
@@ -718,7 +718,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
 
 class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
 
-    bl_idname = "blenrig5.custom_bone_roll"
+    bl_idname = "blenrig.custom_bone_roll"
     bl_label = "BlenRig User Defined Roll Angles"
     bl_description = "Calulate roll angles and aligns defined by user"
     bl_options = {'REGISTER', 'UNDO',}
@@ -997,7 +997,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
 
 class Operator_BlenRig_Store_Roll_Angles(bpy.types.Operator):
 
-    bl_idname = "blenrig5.store_roll_angles"
+    bl_idname = "blenrig.store_roll_angles"
     bl_label = "BlenRig Store Roll Angles"
     bl_description = "Store current roll angles for each bone"
     bl_options = {'REGISTER', 'UNDO',}
@@ -1034,7 +1034,7 @@ class Operator_BlenRig_Store_Roll_Angles(bpy.types.Operator):
 
 class Operator_BlenRig_Restore_Roll_Angles(bpy.types.Operator):
 
-    bl_idname = "blenrig5.restore_roll_angles"
+    bl_idname = "blenrig.restore_roll_angles"
     bl_label = "BlenRig restore Roll Angles"
     bl_description = "Retore roll angles to the ones saved in each bone"
     bl_options = {'REGISTER', 'UNDO',}
@@ -1072,7 +1072,7 @@ class Operator_BlenRig_Restore_Roll_Angles(bpy.types.Operator):
 
 class Operator_BlenRig_Reset_Dynamic(bpy.types.Operator):
 
-    bl_idname = "blenrig5.reset_dynamic_shaping"
+    bl_idname = "blenrig.reset_dynamic_shaping"
     bl_label = "BlenRig Reset Dynamic Shaping"
     bl_description = "Reset Dynamic Shaping values"
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
