@@ -45,7 +45,7 @@ class BLENRIG_PT_Rigging_and_baking(bpy.types.Panel):
                 col.label(text="Extras:")
                 box = layout.column()
                 row = box.row()
-                row.operator("blenrig.reset_constraints", text="BlenRig 5 Reset Constraints")
+                row.operator("blenrig.reset_constraints", text="BlenRig 6 Reset Constraints")
                 row.operator("blenrig.reset_deformers", text="Reset Deformers")
 
         else:
@@ -224,7 +224,7 @@ class BLENRIG_PT_baking(bpy.types.Panel):
             col.label(text="Extras:")
             box = layout.column()
             row = box.row()
-            row.operator("blenrig.reset_constraints", text="BlenRig 5 Reset Constraints")
+            row.operator("blenrig.reset_constraints", text="BlenRig 6 Reset Constraints")
             row.operator("blenrig.reset_deformers", text="Reset Deformers")
         else:
             box.enabled = False

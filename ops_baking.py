@@ -5,7 +5,7 @@ import bpy
 
 # Mesh Proportions Baker operator
 class ARMATURE_OT_mesh_pose_baker(bpy.types.Operator):
-    bl_label = "BlenRig 5 Mesh Baker"
+    bl_label = "BlenRig 6 Mesh Baker"
     bl_idname = "blenrig.mesh_pose_baker"
     bl_description = "Bake current pose to mesh"
     bl_options = {'REGISTER', 'UNDO'}
@@ -126,7 +126,7 @@ class ARMATURE_OT_mesh_pose_baker(bpy.types.Operator):
 
 # Hook Reset operator
 class ARMATURE_OT_reset_hooks(bpy.types.Operator):
-    bl_label = "BlenRig 5 Reset Hooks"
+    bl_label = "BlenRig 6 Reset Hooks"
     bl_idname = "blenrig.reset_hooks"
     bl_description = "Reset Hooks on Lattices and Curves"
     bl_options = {'REGISTER', 'UNDO'}
@@ -181,7 +181,7 @@ class ARMATURE_OT_reset_hooks(bpy.types.Operator):
 
 # Hook Disable Hooks modifier
 class ARMATURE_OT_disable_hooks_modif(bpy.types.Operator):
-    bl_label = "BlenRig 5 Disable Hooks modifier"
+    bl_label = "BlenRig 6 Disable Hooks modifier"
     bl_idname = "blenrig.disable_hooks_modif"
     bl_description = "Disable Hooks modifier"
     bl_options = {'REGISTER', 'UNDO'}
@@ -203,7 +203,7 @@ class ARMATURE_OT_disable_hooks_modif(bpy.types.Operator):
 
 # Reset Armature related Lattices and Curves operator
 class ARMATURE_OT_reset_deformers(bpy.types.Operator):
-    bl_label = "BlenRig 5 Reset Deformers"
+    bl_label = "BlenRig 6 Reset Deformers"
     bl_idname = "blenrig.reset_deformers"
     bl_description = "Reset Armature related Lattices and Curves"
     bl_options = {'REGISTER', 'UNDO'}
@@ -316,7 +316,7 @@ def enable_disable_colleciton(mode, target_coll):
 
 # Armature Baker operator
 class ARMATURE_OT_armature_baker(bpy.types.Operator):
-    bl_label = "BlenRig 5 Armature Baker"
+    bl_label = "BlenRig 6 Armature Baker"
     bl_idname = "blenrig.armature_baker"
     bl_description = "Bake current pose to armature"
     bl_options = {'REGISTER', 'UNDO'}
@@ -439,7 +439,7 @@ class ARMATURE_OT_armature_baker(bpy.types.Operator):
 
 # Reset Constraints Operator
 class ARMATURE_OT_reset_constraints(bpy.types.Operator):
-    bl_label = "BlenRig 5 Reset Constraints"
+    bl_label = "BlenRig 6 Reset Constraints"
     bl_idname = "blenrig.reset_constraints"
     bl_description = "Reset all posebone constraints"
 

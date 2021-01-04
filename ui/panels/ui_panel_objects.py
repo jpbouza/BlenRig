@@ -8,8 +8,8 @@ class BLENRIG_PT_BlenRig_5_mesh_panel(bpy.types.Panel):
     bl_idname = "BLENRIG_PT_BlenRig_5_mesh_panel"
     bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_region_type = 'UI'
-    bl_label = 'BlenRig 5 Mesh Baking Panel'
-    bl_category = "BlenRig 5"
+    bl_label = 'BlenRig 6 Mesh Baking Panel'
+    bl_category = "BlenRig 6"
 
     @classmethod
     def poll(cls, context):
@@ -43,13 +43,13 @@ class BLENRIG_PT_BlenRig_5_mesh_panel(bpy.types.Panel):
 ####### Lattice & Curves Panel
 
 class BLENRIG_PT_BlenRig_5_lattice_panel(bpy.types.Panel):
-    bl_label = "BlenRig 5 Lattice & Curves Panel"
+    bl_label = "BlenRig 6 Lattice & Curves Panel"
     bl_idname = "BLENRIG_PT_BlenRig_5_lattice_panel"
     bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_region_type = 'WINDOW'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "BlenRig 5"
+    bl_category = "BlenRig 6"
 
     @classmethod
     def poll(cls, context):

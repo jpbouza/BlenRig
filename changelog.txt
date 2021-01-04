@@ -1,5 +1,5 @@
 ####################
-BlenRig 5 What's new
+BlenRig 6 What's new
 ####################
 
 

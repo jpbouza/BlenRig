@@ -3032,7 +3032,7 @@ class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
     bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_region_type = 'UI'
     bl_label = 'Shape Keys+'
-    bl_category = "BlenRig 5"
+    bl_category = "BlenRig 6"
     
     @classmethod
     def poll(cls, context):

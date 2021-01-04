@@ -9,12 +9,12 @@ all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = 
 ########### UI Controls
 
 class BLENRIG_PT_BlenRig_5_Interface(bpy.types.Panel):
-    bl_label = 'BlenRig 5 Controls'
+    bl_label = 'BlenRig 6 Controls'
     bl_space_type = 'VIEW_3D'
     bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_idname = "BLENRIG_PT_BlenRig_5_Interface"
     bl_region_type = 'UI'
-    bl_category = "BlenRig 5"
+    bl_category = "BlenRig 6"
 
     @classmethod
     def poll(cls, context):

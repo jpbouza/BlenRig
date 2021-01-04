@@ -1,14 +1,14 @@
 import bpy
 
-####### BlenRig 5 Rigging Panel
+####### BlenRig 6 Rigging Panel
 
 class BLENRIG_PT_BlenRig_5_rigging_panel(bpy.types.Panel):
-    bl_label = "BlenRig 5 Rigging Control"
+    bl_label = "BlenRig 6 Rigging Control"
     bl_space_type = 'VIEW_3D'
     bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_idname = "BLENRIG_PT_BlenRig_5_rigging_panel"
     bl_region_type = 'UI'
-    bl_category = "BlenRig 5"
+    bl_category = "BlenRig 6"
 
     @classmethod
     def poll(cls, context):

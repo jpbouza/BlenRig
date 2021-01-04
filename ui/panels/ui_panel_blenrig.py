@@ -4,8 +4,8 @@ class BLENRIG_PT_BlenRig_5_general(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_idname = "BLENRIG_PT_BlenRig_5_general"
     bl_region_type = 'UI'
-    bl_label = 'BlenRig 5 General Panel'
-    bl_category = "BlenRig 5"
+    bl_label = 'BlenRig 6 General Panel'
+    bl_category = "BlenRig 6"
 
     @classmethod
     def poll(cls, context):

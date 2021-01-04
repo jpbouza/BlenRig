@@ -10,8 +10,8 @@ class BLENRIG_PT_BlenRig_5_Interface_2_0(bpy.types.Panel):
     bl_idname = "BLENRIG_PT_BlenRig_5_Interface_2_0"
     bl_parent_id = "BLENRIG_PT_BlenRig_5_general"
     bl_region_type = 'UI'
-    bl_label = 'BlenRig 5 Controls 2.0'
-    bl_category = "BlenRig 5"
+    bl_label = 'BlenRig 6 Controls 2.0'
+    bl_category = "BlenRig 6"
 
     @classmethod
     def poll(cls, context):

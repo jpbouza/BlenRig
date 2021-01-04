@@ -32,12 +32,12 @@
 
 
 bl_info = {
-    'name': 'BlenRig 5',
+    'name': 'BlenRig 6',
     'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
     'version': (2,0,0),
     'blender': (2, 83, 0),
     'location': 'Armature, Object and Lattice properties, View3d tools panel, Armature Add menu',
-    'description': 'BlenRig 5 rigging system',
+    'description': 'BlenRig 6 rigging system',
     'wiki_url': 'https://cloud.blender.org/p/blenrig/56966411c379cf44546120e8',
     'tracker_url': 'https://gitlab.com/jpbouza/BlenRig/issues',
     'category': 'Rigging'
@@ -829,23 +829,23 @@ bpy.types.PoseBone.toggle_toes_R = BoolProperty(
     name="toggle_toes_R"
 )
 
-####### Load BlenRig 5 Controls Panel
+####### Load BlenRig 6 Controls Panel
 from .ui.panels.ui_panel_controls import BLENRIG_PT_BlenRig_5_Interface
 from .ui.panels.ui_panel_blenrig import BLENRIG_PT_BlenRig_5_general
 from .ui.panels.ui_panel_controls_2_0 import BLENRIG_PT_BlenRig_5_Interface_2_0
 from .snap_points import BLENRIG_OT_SnapPoints
 from .ui.panels.cage_snapping_panel import BLENRIG_PT_Cage_snapping_panel
 
-####### Load BlenRig 5 Rigging Panel
+####### Load BlenRig 6 Rigging Panel
 from .ui.panels.ui_panel_rigging import BLENRIG_PT_BlenRig_5_rigging_panel
 
-####### Load BlenRig 5 Objects Panel
+####### Load BlenRig 6 Objects Panel
 from .ui.panels.ui_panel_objects import (
     BLENRIG_PT_BlenRig_5_mesh_panel,
     BLENRIG_PT_BlenRig_5_lattice_panel
     )
 
-####### Load BlenRig 5 Boneshapes Operators and Preferences
+####### Load BlenRig 6 Boneshapes Operators and Preferences
 from .boneShapes.operators import (
     BLENRIG_OT_removeShapess,
     BLENRIG_OT_addShapess,
@@ -861,7 +861,7 @@ from .boneShapes.operators import (
 )
 from .boneShapes.prefs import (BoneShapesPreferences)
 
-####### Load BlenRig 5 Shape Keys+ Operators and Preferences 
+####### Load BlenRig 6 Shape Keys+ Operators and Preferences 
 
 from .shape_Keys.ui_shape_keys_plus import (
     Selection,
@@ -900,7 +900,7 @@ from .shape_Keys.ui_shape_keys_plus import (
     BLENRIG_PT_shape_keys_plus
 )
 
-####### Load BlenRig 5 Bake Operators
+####### Load BlenRig 6 Bake Operators
 from .ops_baking import (
     ARMATURE_OT_mesh_pose_baker,
     ARMATURE_OT_reset_hooks,
@@ -910,7 +910,7 @@ from .ops_baking import (
     ARMATURE_OT_reset_constraints
     )
 
-####### Load BlenRig 5 Alignment Operators
+####### Load BlenRig 6 Alignment Operators
 from .ops_alignment import (
     Operator_BlenRig_Fix_Misaligned_Bones,
     Operator_BlenRig_Auto_Bone_Roll,
@@ -920,7 +920,7 @@ from .ops_alignment import (
     Operator_BlenRig_Reset_Dynamic
     )
 
-####### Load BlenRig 5 Snapping Operators
+####### Load BlenRig 6 Snapping Operators
 from .ops_snapping import (
     Operator_Reset_Master_Pivot,
     Operator_Reset_Master_Body_Pivot,
@@ -1007,7 +1007,7 @@ from .ops_snapping import (
     Operator_Leg_R_Snap_IK_FK
     )
 
-####### Load BlenRig 5 Set Constraints Values Operators
+####### Load BlenRig 6 Set Constraints Values Operators
 from .ops_set_constraints_values import (
     Operator_Set_Eyelids,
     Operator_Set_Cheeks,
@@ -1018,7 +1018,7 @@ from .ops_set_constraints_values import (
     Operator_Set_Volume_Variation
 )
 
-####### Load BlenRig 5 Body Picker Operators
+####### Load BlenRig 6 Body Picker Operators
 # Biped
 from .ops_picker_body import (
     Operator_Keyframe_Main_Props,
@@ -1292,7 +1292,7 @@ from .ops_picker_body import (
     Operator_Hand_Sole_Pivot_Point_R
     )
 
-####### Load BlenRig 5 Face Picker Operators
+####### Load BlenRig 6 Face Picker Operators
 from .ops_picker_face import (
     Operator_Ear_Up_R,
     Operator_Ear_R,
@@ -1473,18 +1473,18 @@ from .ops_picker_face import (
     Operator_Tongue_Mstr
     )
 
-####### Load BlenRig 5 Layers Schemes Operators
+####### Load BlenRig 6 Layers Schemes Operators
 from .blenrig_biped.ops_biped_layers_scheme import (
     Operator_BlenRig_Layers_Scheme_Compact,
     Operator_BlenRig_Layers_Scheme_Expanded
 )
 
-####### Load BlenRig 5 Rig Updater Operators
+####### Load BlenRig 6 Rig Updater Operators
 from .ops_rig_updater import (
     Operator_Biped_Updater
 )
 
-####### Load BlenRig 5 Rig Presets Operators
+####### Load BlenRig 6 Rig Presets Operators
 from .blenrig_biped.ops_blenrig_biped_add import (
     Operator_BlenRig5_Add_Biped
 )
@@ -1493,17 +1493,17 @@ from .blenrig_biped.ops_blenrig_biped_add import (
 
 class INFO_MT_blenrig5_add_rig(bpy.types.Menu):
     # Define the menu
-    bl_idname = "BlenRig 5 add rigs"
-    bl_label = "BlenRig 5 add rigs"
+    bl_idname = "BlenRig 6 add rigs"
+    bl_label = "BlenRig 6 add rigs"
 
     def draw(self, context):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_WIN'
-        layout.operator("blenrig.add_biped_rig", text="BlenRig 5 Biped Rig", icon='POSE_HLT')
+        layout.operator("blenrig.add_biped_rig", text="BlenRig 6 Biped Rig", icon='POSE_HLT')
 
 # Define menu
 def blenrig5_add_menu_func(self, context):
-    self.layout.operator("blenrig.add_biped_rig", text="BlenRig 5 Biped Rig", icon='POSE_HLT')
+    self.layout.operator("blenrig.add_biped_rig", text="BlenRig 6 Biped Rig", icon='POSE_HLT')
 
 ######### GUI OPERATORS ###########################################
 # Display or hide tabs (sets the appropriate id-property)

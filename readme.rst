@@ -1,5 +1,5 @@
 ************************************
-BlenRig 5 Rigging System for Blender 2.8
+BlenRig 6 Rigging System for Blender 2.8
 ************************************
 
 **Author:** Juan Pablo Bouza
