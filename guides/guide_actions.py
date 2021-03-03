@@ -6,7 +6,7 @@ def reproportion_on(context):
     # 0. Make sure Armature is active and in Pose Mode.
     if context.mode != 'POSE':
         set_mode('OBJECT')
-        # set_active_object(context, operator.arm_obj)
+        set_active_object(context, get_armature_object(context))
         set_mode('POSE')
 
     # 1. Set Armature to Reproportion mode
@@ -18,7 +18,7 @@ def reproportion_off(context):
     # 0. Make sure Armature is active and in Pose Mode.
     if context.mode != 'POSE':
         set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
+        set_active_object(context, get_armature_object(context))
         set_mode('POSE')
 
     # 1. Set Armature to Reproportion mode
@@ -236,7 +236,7 @@ def step_40(operator, context):
     # 0. Asegurarse de estar en pose mode y armature activo.
     if context.mode != 'POSE':
         set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
+        set_active_object(context, get_armature_object(context))
         set_mode('POSE')
 
     # 1. Se ocultan todos los huesos menos “eye_socket_mstr_str_L” y “eye_socket_mstr_str_R”.
@@ -264,7 +264,7 @@ def step_41(operator, context):
     # 1. Seleccionar automáticamente el armature en el que estábamos antes.
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
+    set_active_object(context, get_armature_object(context))
     set_mode('POSE')
 
     # 2. Se ocultan todos los huesos menos.
@@ -385,7 +385,7 @@ def step_42(operator, context):
     # 0. Asegurarse de estar en pose mode y armature activo.
     if context.mode != 'POSE':
         set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
+        set_active_object(context, get_armature_object(context))
         set_mode('POSE')
 
     # 1. Se ocultan todos los huesos menos “master_torso”.

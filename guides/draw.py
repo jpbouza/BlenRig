@@ -7,13 +7,13 @@ from mathutils import Vector
 from . text import Draw_Text, Draw_Text_Wrap, SetSizeGetDim
 from . rectangle import Draw_Rectangle
 from . image import Draw_Image
-from . utils import spacecoordstoscreencoords
+from . utils import spacecoordstoscreencoords, get_armature_object
 
 
 def draw_callback_px(self, context):
     if self.area != context.area:
         return
-    mw = self.arm_obj.matrix_world
+    mw = get_armature_object(context).matrix_world
     color = (1, 0, 0, 1)
     for b in self.bones_to_display:
         # OLD: mw @ b.matrix @ b.location

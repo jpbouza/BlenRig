@@ -1,6 +1,10 @@
 import bpy
 from bpy_extras import view3d_utils
 
+# GET ARMATURE
+def get_armature_object(context):
+    return context.scene.blenrig_guide.arm_obj
+
 # REPROPORTION
 def set_reproportion_on(context=None):
     if context:
