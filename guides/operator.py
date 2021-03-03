@@ -79,10 +79,10 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
     
     def load_next_step(self, context) -> bool:
         return self.load_step(context, self.step+1)
-    
+
     def load_prev_step(self, context) -> bool:
         return self.load_step(context, self.step-1)
-    
+
     def load_step(self, context, step: int) -> bool:
         if step < 0 or step > self.max_step_index:
             return False
@@ -130,17 +130,15 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
         if context.mode != 'POSE':
             print("WARN: You are not in pose mode!")
         bones = get_armature_object(context).pose.bones
-        
+
         for name in bone_names:
             bone = bones.get(name, None)
             if bone:
                 self.bones_to_display.append(bone)
-    
-    
+
     def init(self, context):
         # Activar reproportion...
         context.object.data.reproportion = True
-
 
     def invoke(self, context, event):
         bpy.ops.object.mode_set(mode='POSE')
@@ -151,37 +149,37 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
         elif context.active_object.type != 'ARMATURE':
             self.report({'WARNING'}, "Active object must be an armature, cannot run operator")
             return {'CANCELLED'}
-        
+
         context.scene.blenrig_guide.arm_obj = context.pose_object
         self.obj = context.object
-        
+
         from . guide import GUIDE_STEPS, diccionario
         self.max_step_index = len(GUIDE_STEPS) - 1
-        
+
         data = context.scene.blenrig_guide
         self.dpi = data.dpi
         self.language = data.language
         self.image_scale = data.image_scale
 
         self.bones_to_display = []
-        
+
         # Textos.
         from . text import SetSizeGetDim
         self.button_text_size = 14
         self.step_text = diccionario['Step'][self.language]
-        
+
         self.next_button_text = diccionario['Next'][self.language]
         next_dim = SetSizeGetDim(0, self.button_text_size + 4, self.dpi, self.next_button_text)
-        
+
         self.prev_button_text = diccionario['Prev'][self.language]
         prev_dim = SetSizeGetDim(0, self.button_text_size + 4, self.dpi, self.prev_button_text)
-        
+
         max_button_width = max(next_dim[0], prev_dim[0])
 
         if not self.load_step(context, self.step):
             self.report({'WARNING'}, "Guide could not be loaded")
             return {'CANCELLED'}
-        
+
         factor_dpi = self.dpi / 72
         margin = 5 * factor_dpi
         self.widget_pos = Vector((50, 50)) * factor_dpi
@@ -192,19 +190,19 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
         self.button_size = Vector((max(int(max_button_width), 20), 20))
 
         self.x_button_pos = self.widget_pos + self.widget_size - Vector((margin + self.button_size[1], margin + self.button_size[1]))
-        
+
         self.next_button_pos = self.x_button_pos - Vector((margin + self.button_size[0], 0))
         self.prev_button_pos = self.next_button_pos - Vector((margin + self.button_size[0], 0))
-        
+
         self.area = context.area
         self.region = context.region
         self.scene = context.scene
         self.workspace = context.workspace
-        
+
         # Some temporal changes + Back-up.
         self.use_auto_perspective = context.preferences.inputs.use_auto_perspective
         context.preferences.inputs.use_auto_perspective = False
-        
+
         args = (self, context)
         self._handle = bpy.types.SpaceView3D.draw_handler_add(draw_callback_px, args, 'WINDOW', 'POST_PIXEL')
         context.window_manager.modal_handler_add(self)
