@@ -38,8 +38,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             self.finish(context)
             self.area.tag_redraw()
             return {'CANCELLED'}
-        # '''
-        
+
         if event.type == 'TIMER':
             if self.multi_image:
                 if self.image_index == self.max_image_index:
@@ -123,7 +122,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             self.image = load_image(image)
             if self.image:
                 hide_image(self.image)
-                self.image.gl_load()
+                self.image.gl_load()    
 
     def draw_bones(self, context, *bone_names):
         self.bones_to_display.clear()
