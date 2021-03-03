@@ -1,7 +1,7 @@
 import bpy
 from mathutils import Vector
 from . draw import draw_callback_px
-from . utils import inside
+from . utils import inside, get_armature_object
 from bpy.props import IntProperty
 
 
@@ -15,15 +15,22 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
 
     def modal(self, context, event):
         if context.area != self.area or context.scene != self.scene or self.workspace != context.workspace:
+            # On UNDO: queremos ver si el contexto es válido (no ha cambiado realmente) para actualizarlo.
+            if context.area and context.area.type == 'VIEW_3D' and context.scene and context.workspace:
+                self.area = context.area
+                self.scene = context.scene
+                self.workspace = context.workspace
+                from .guide import GUIDE_STEPS
+                self.load_step_image(GUIDE_STEPS[self.step]['image'])
+                return {'RUNNING_MODAL'}
             self.finish()
             print("[Blenrig Guide] Error: scene, workspace or editor was changed!")
             return {'CANCELLED'}
-        elif not self.arm_obj:
+        elif not get_armature_object(context):
             self.area.tag_redraw()
             self.finish(context)
             print("[Blenrig Guide] Error: target armature was removed!")
             return {'CANCELLED'}
-        
         self.region.tag_redraw()
 
         # ''' Escape para finalizar el operador?
@@ -88,11 +95,16 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             context.window_manager.event_timer_remove(self.timer)
             #print("Remove Timer")
         from .guide import GUIDE_STEPS
-        from .utils import load_image, hide_image
+
         step_data = GUIDE_STEPS[self.step]
         self.title = step_data['titulo'][self.language]
         self.text = step_data['texto'][self.language]
-        image = step_data['imagen']
+        self.load_step_image(context, step_data['imagen'])
+        step_data['accion'](self, context)
+        return True
+
+    def load_step_image(self, context, image):
+        from .utils import load_image, hide_image
         self.multi_image = isinstance(image, tuple)
         if self.multi_image:
             self.image = []
@@ -112,14 +124,12 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             if self.image:
                 hide_image(self.image)
                 self.image.gl_load()
-        step_data['accion'](self, context)
-        return True
 
     def draw_bones(self, context, *bone_names):
         self.bones_to_display.clear()
         if context.mode != 'POSE':
             print("WARN: You are not in pose mode!")
-        bones = self.arm_obj.pose.bones
+        bones = get_armature_object(context).pose.bones
         
         for name in bone_names:
             bone = bones.get(name, None)
@@ -142,7 +152,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             self.report({'WARNING'}, "Active object must be an armature, cannot run operator")
             return {'CANCELLED'}
         
-        self.arm_obj = context.pose_object
+        context.scene.blenrig_guide.arm_obj = context.pose_object
         self.obj = context.object
         
         from . guide import GUIDE_STEPS, diccionario
