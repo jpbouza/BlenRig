@@ -3,6 +3,7 @@ from mathutils import Vector
 from . draw import draw_callback_px
 from . utils import inside, get_armature_object
 from bpy.props import IntProperty
+from . guide import GUIDE_STEPS
 
 
 class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
@@ -21,7 +22,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
                 self.scene = context.scene
                 self.workspace = context.workspace
                 from .guide import GUIDE_STEPS
-                self.load_step_image(GUIDE_STEPS[self.step]['image'])
+                self.load_step_image(context,GUIDE_STEPS[self.step]['imagen'])
                 return {'RUNNING_MODAL'}
             self.finish()
             print("[Blenrig Guide] Error: scene, workspace or editor was changed!")
@@ -93,8 +94,6 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
         if hasattr(self, 'timer') and self.timer:
             context.window_manager.event_timer_remove(self.timer)
             #print("Remove Timer")
-        from .guide import GUIDE_STEPS
-
         step_data = GUIDE_STEPS[self.step]
         self.title = step_data['titulo'][self.language]
         self.text = step_data['texto'][self.language]
