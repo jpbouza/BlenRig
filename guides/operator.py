@@ -14,9 +14,9 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
     step : IntProperty(default=0)
 
     def modal(self, context, event):
-        if context.area != self.area or context.scene != self.scene or self.workspace != context.workspace and get_armature_object(context):
+        if context.area != self.area or context.scene != self.scene or self.workspace != context.workspace:
             # On UNDO: queremos ver si el contexto es válido (no ha cambiado realmente) para actualizarlo.
-            if context.area and context.area.type == 'VIEW_3D' and context.scene and context.workspace:
+            if context.area and context.area.type == 'VIEW_3D' and context.scene and context.workspace and get_armature_object(context):
                 self.area = context.area
                 self.scene = context.scene
                 self.workspace = context.workspace
