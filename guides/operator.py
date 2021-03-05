@@ -5,7 +5,6 @@ from . utils import inside, get_armature_object
 from bpy.props import IntProperty
 from . guide import GUIDE_STEPS
 
-
 class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
     bl_idname = "view3d.blenrig_guide"
     bl_label = "Show Blenrig Guide"
@@ -22,7 +21,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
                 self.scene = context.scene
                 self.workspace = context.workspace
                 from .guide import GUIDE_STEPS
-                self.load_step_image(context,GUIDE_STEPS[self.step]['imagen'])
+                self.load_step(context,self.step)
                 return {'RUNNING_MODAL'}
             self.finish()
             print("[Blenrig Guide] Error: scene, workspace or editor was changed!")
@@ -97,11 +96,11 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
         step_data = GUIDE_STEPS[self.step]
         self.title = step_data['titulo'][self.language]
         self.text = step_data['texto'][self.language]
-        self.load_step_image(context, step_data['imagen'])
+        self.load_step_imagen(context, step_data['imagen'])
         step_data['accion'](self, context)
         return True
 
-    def load_step_image(self, context, image):
+    def load_step_imagen(self, context, image):
         from .utils import load_image, hide_image
         self.multi_image = isinstance(image, tuple)
         if self.multi_image:
