@@ -114,7 +114,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             self.max_image_index = len(self.image) - 1
             if self.max_image_index != -1:
                 self.image[0].gl_load()
-            self.timer = context.window_manager.event_timer_add(4.0, window=context.window)
+            self.timer = context.window_manager.event_timer_add(2.0, window=context.window)
             #print("Create Timer")
         else:
             self.image = load_image(image)

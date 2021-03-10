@@ -48,4 +48,4 @@ class BlendrigGuidePanel(Panel):
         step_list = steps.box().column(align=True)
         
         for i, step in enumerate(GUIDE_STEPS):
-            step_list.operator("view3d.blenrig_guide", text=step['titulo'][guide.language]).step=i
+            step_list.operator("view3d.blenrig_guide", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
