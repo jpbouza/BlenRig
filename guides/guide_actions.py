@@ -680,7 +680,7 @@ def Reprop_Set_Eyes(operator, context):
     # Seleccionar automáticamente el armature en el que estábamos antes.
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
+    set_active_object(context, context.scene.blenrig_guide.arm_obj)
     set_mode('POSE')
 
     reproportion_on(context)

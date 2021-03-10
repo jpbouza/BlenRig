@@ -15,6 +15,10 @@ def set_reproportion_off(context=None):
     if context:
         context.pose_object.data.reproportion = False
 
+# Display Type
+def set_display_type(context, mode):
+    context.pose_object.data.display_type = mode
+
 # POSE
 def deselect_all_pose_bones(context=None, invert=False):
     if context:
@@ -47,6 +51,10 @@ def deselect_pose_bone(context, bone_name, invert=False):
 
 def select_pose_bone(context, bone_name):
     deselect_pose_bone(context, bone_name, True)
+    bones = context.pose_object.data.bones
+    bone = bones.get(bone_name, None)
+    if bone:
+        bones.active = bone
 
 # EDIT
 def deselect_edit_bone(context, bone_name, invert=False):
@@ -68,6 +76,7 @@ def select_pose_bones(context, *bone_names):
         bone = bones.get(name, None)
         if bone:
             bone.select = True
+            bones.active = bone
 
 def deselect_pose_bones(context, *bone_names):
     if not context:
@@ -233,7 +242,6 @@ def move_global_z():
 def snap_selected_to_cursor():
     bpy.ops.view3d.snap_selected_to_cursor(use_offset=False)
 
-##### añadido JP ##################
 def cursor_to_selected():
     for area in bpy.context.screen.areas:
         if area.type == 'VIEW_3D':
