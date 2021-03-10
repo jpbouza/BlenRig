@@ -232,3 +232,62 @@ def move_global_z():
 
 def snap_selected_to_cursor():
     bpy.ops.view3d.snap_selected_to_cursor(use_offset=False)
+
+##### añadido JP ##################
+def cursor_to_selected():
+    for area in bpy.context.screen.areas:
+        if area.type == 'VIEW_3D':
+            c = bpy.context.copy()
+            c['area'] = area
+        else:
+            print("No View3D, aborting.")
+
+    bpy.ops.view3d.snap_cursor_to_active(c)
+
+def mirror_pose():
+    bpy.ops.pose.copy()
+    bpy.ops.pose.paste(flipped=True)
+
+#######
+
+def blenrig_temp_link(object):
+    temp_collection = bpy.data.collections.get("BlenRig_temp")
+    temp_objects = object
+    if bpy.context.scene.collection.children.find("BlenRig_temp") == -1:
+        if temp_collection:
+                bpy.context.scene.collection.children.link(temp_collection)
+        else:
+            temp_collection = bpy.data.collections.new("BlenRig_temp")
+            bpy.context.scene.collection.children.link(temp_collection)
+        for ob in temp_objects:
+            try:
+                temp_collection.objects.link(ob)
+            except:
+                pass
+
+def blenrig_temp_unlink():
+    temp_collection = bpy.data.collections.get("BlenRig_temp")
+    if bpy.context.scene.collection.children.find("BlenRig_temp") != -1:
+        for ob in temp_collection.objects:
+            temp_collection.objects.unlink(ob)
+        bpy.context.scene.collection.children.unlink(temp_collection)
+
+face_rig_objects = []
+
+def collect_facemask():
+    face_rig_objects.clear()
+    for ob in bpy.data.objects:
+        if hasattr(ob, 'parent'):
+            if ob.parent == bpy.context.active_object:
+                if "FaceRigMesh" in ob.name:
+                    face_rig_objects.append(ob)
+    return face_rig_objects
+
+mdef_cage_objects = []
+
+def collect_cage():
+    mdef_cage_objects.clear()
+    for ob in bpy.data.objects:
+        if "MdefCage" in ob.name:
+            mdef_cage_objects.append(ob)
+    return mdef_cage_objects
