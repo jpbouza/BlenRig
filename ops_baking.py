@@ -450,7 +450,7 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
                         C.offset = abs(b.head[2] - armobj.pose.bones[b.custom_shape_transform.name].head[2])
     def sav(self, context):
         enable_disable_colleciton(False, 'MDef')
-        cage_select = bpy.context.view_layer.objects['BlenRig_mdef_cage']
+        cage_select = bpy.context.view_layer.objects['BlenRigMdefCage']
         bpy.context.view_layer.objects.active = cage_select
         bpy.ops.object.select_all(action='DESELECT')
         cage_select.select_set(1)
