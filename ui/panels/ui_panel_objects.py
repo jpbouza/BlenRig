@@ -16,7 +16,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
         if not BlenRigPanelOptions.displayContext == 'RIGTOOLS':
             return False
-        
+
         if context.mode in ["EDIT_MESH"]:
             return False
 
@@ -24,13 +24,13 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
             return False
         if (bpy.context.active_object.type in ["MESH"]):
             for mod in bpy.context.active_object.modifiers:
-                if (mod.type in ["ARMATURE", "MESH_DEFORM"]):
+                if (mod.type in ["ARMATURE", "MESH_DEFORM", "SURFACE_DEFORM"]):
                     return True
 
     def draw(self, context):
         props = context.window_manager.blenrig_6_props
         layout = self.layout
-        
+
         box = layout.column()
         col = box.column()
         row = col.row()
