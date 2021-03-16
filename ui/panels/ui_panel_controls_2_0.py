@@ -2622,8 +2622,6 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                             col_foot_R_props.alignment = 'CENTER'
                             col_foot_R_props.label(text="TOES")
                             col_sliders_R.prop(arm_bones['properties_leg_R'], 'ik_toes_all_R', text="{}".format("FK" if arm_bones['properties_leg_R']['ik_toes_all_R'] == 1 else "IK"), toggle=True, icon_only = 1, emboss = 1)
-                            col_sliders_R.prop(arm_bones['properties_leg_R'], 'space_toes_all_R', text="{}".format("Free" if arm_bones['properties_leg_R']['space_toes_all_R'] == 0 else "Follow Foot"), toggle=True, icon_only = 1, emboss = 1)
-
 
                         # Sliders_L
 
@@ -2828,7 +2826,6 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                             col_foot_L_props.alignment = 'CENTER'
                             col_foot_L_props.label(text="TOES")
                             col_sliders_L.prop(arm_bones['properties_leg_L'], 'ik_toes_all_L', text="{}".format("FK" if arm_bones['properties_leg_L']['ik_toes_all_L'] == 1 else "IK"), toggle=True, icon_only = 1, emboss = 1)
-                            col_sliders_L.prop(arm_bones['properties_leg_L'], 'space_toes_all_L', text="{}".format("Free" if arm_bones['properties_leg_L']['space_toes_all_L'] == 0 else "Follow Foot"), toggle=True, icon_only = 1, emboss = 1)
 
                     else:
                         #Properties Only GUI
@@ -2954,7 +2951,6 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                         col_foot_R_props.alignment = 'CENTER'
                         col_foot_R_props.label(text="TOES_R")
                         col_foot_R_props.prop(arm_bones['properties_leg_R'], 'ik_toes_all_R', text="{}".format("FK" if arm_bones['properties_leg_R']['ik_toes_all_R'] == 1 else "IK"), toggle=True, icon_only = 1, emboss = 1)
-                        col_foot_R_props.prop(arm_bones['properties_leg_R'], 'space_toes_all_R', text="{}".format("Free" if arm_bones['properties_leg_R']['space_toes_all_R'] == 0 else "Follow Foot"), toggle=True, icon_only = 1, emboss = 1)
 
                         # Body Sliders_L
 
@@ -3021,7 +3017,6 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                         col_foot_L_props.alignment = 'CENTER'
                         col_foot_L_props.label(text="TOES_L")
                         col_foot_L_props.prop(arm_bones['properties_leg_L'], 'ik_toes_all_L', text="{}".format("FK" if arm_bones['properties_leg_L']['ik_toes_all_L'] == 1 else "IK"), toggle=True, icon_only = 1, emboss = 1)
-                        col_foot_L_props.prop(arm_bones['properties_leg_L'], 'space_toes_all_L', text="{}".format("Free" if arm_bones['properties_leg_L']['space_toes_all_L'] == 0 else "Follow Foot"), toggle=True, icon_only = 1, emboss = 1)
 
                         #Model Resolution
 
