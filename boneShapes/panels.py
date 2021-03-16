@@ -1,5 +1,5 @@
 import bpy
-from .functions import (readShapess,getViewLayerCollection,)
+from .functions import (readShapess, getViewLayerCollection,)
 from bpy.types import Menu
 
 
@@ -19,7 +19,6 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
         else:
             return True
 
-
     items = []
     for key, value in readShapess().items():
         items.append(key)
@@ -32,10 +31,10 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
 
     bpy.types.Scene.widget_list = bpy.props.EnumProperty(
         name="Shape", items=itemsSort, description="Shape")
-    
+
     bpy.types.Scene.match_bone_transforms_toggle = bpy.props.BoolProperty(
         default=True, description="Automatic Match Bone Transforms")
-    
+
     bpy.types.Scene.symmetrize_shape_toggle = bpy.props.BoolProperty(
         default=False, description="Automatic Symmetrize Shape")
 
@@ -46,8 +45,9 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             if len(bpy.types.Scene.widget_list[1]['items']) < 6:
                 row.prop(context.scene, "widget_list", expand=True)
             else:
-                row.prop(context.scene, "widget_list", expand=False, text="Shapes Select")
-        if bpy.context.mode in {'POSE',"OBJECT"}:
+                row.prop(context.scene, "widget_list",
+                         expand=False, text="Shapes Select")
+        if bpy.context.mode in {'POSE', "OBJECT"}:
             row = layout.row(align=True)
             row.menu("BLENRIG_MT_bw_specials", icon='DOWNARROW_HLT', text="")
             row.operator("blenrig.create_widget", icon="OBJECT_DATAMODE")
@@ -55,30 +55,33 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
         if bpy.context.mode in {"POSE"}:
             row.operator("blenrig.edit_widget", icon="OUTLINER_DATA_MESH")
         else:
-            row.operator("blenrig.return_to_armature", icon="LOOP_BACK", text='To bone')
-        
-        if bpy.context.mode in {'POSE',"OBJECT","EDIT_MESH"}:
-            row.menu("BLENRIG_MT_bw_specials_edit", icon='DOWNARROW_HLT', text="")
+            row.operator("blenrig.return_to_armature",
+                         icon="LOOP_BACK", text='To bone')
+
+        if bpy.context.mode in {'POSE', "OBJECT", "EDIT_MESH"}:
+            row.menu("BLENRIG_MT_bw_specials_edit",
+                     icon='DOWNARROW_HLT', text="")
 
         if bpy.context.mode in {'POSE'}:
             layout = self.layout
-            layout.operator("blenrig.symmetrize_shape", icon='MOD_MIRROR', text="Symmetrize Shape")
+            layout.operator("blenrig.symmetrize_shape",
+                            icon='MOD_MIRROR', text="Symmetrize Shape")
 
-        if bpy.context.mode in {'POSE',"OBJECT"}:
+        if bpy.context.mode in {'POSE', "OBJECT"}:
             layout = self.layout
             layout.operator("blenrig.match_bone_transforms",
-                        icon='GROUP_BONE', text="Match Bone Transforms")
+                            icon='GROUP_BONE', text="Match Bone Transforms")
 
         if bpy.context.mode == "POSE":
             layout.operator("blenrig.resync_widget_names",
                             icon='FILE_REFRESH', text="Resync Shapes Names")
 
-        if bpy.context.mode == "POSE":  
+        if bpy.context.mode == "POSE":
             layout.separator()
             layout.operator("blenrig.clear_shapes",
                             icon='X', text="Clear Bone Shapes")
 
-        if bpy.context.mode in {'POSE',"EDIT_ARMATURE"}:
+        if bpy.context.mode in {'POSE', "EDIT_ARMATURE"}:
             layout.operator("blenrig.delete_unused_shapes",
                             icon='TRASH', text="Delete Unused Shapess")
 
@@ -98,7 +101,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
                 row.separator()
                 row = layout.row()
                 row.operator("blenrig.toggle_collection_visibilty",
-                            icon=icon, text=text)
+                             icon=icon, text=text)
 
 
 class BLENRIG_MT_bw_specials(Menu):
@@ -106,14 +109,18 @@ class BLENRIG_MT_bw_specials(Menu):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("blenrig.add_shapes", icon="ADD", text="Add Shapes to library")
+        layout.operator("blenrig.add_shapes", icon="ADD",
+                        text="Add Shapes to library")
         layout.operator("blenrig.remove_shapes", icon="REMOVE",
                         text="Remove Shapes from library")
+
 
 class BLENRIG_MT_bw_specials_edit(Menu):
     bl_label = "Bone Shapes Specials_edit"
 
     def draw(self, context):
         layout = self.layout
-        layout.prop(context.scene, "symmetrize_shape_toggle", text="Automatic Symmetrize Shape")
-        layout.prop(context.scene, "match_bone_transforms_toggle", text="Automatic Match Bone Transforms")
+        layout.prop(context.scene, "symmetrize_shape_toggle",
+                    text="Automatic Symmetrize Shape")
+        layout.prop(context.scene, "match_bone_transforms_toggle",
+                    text="Automatic Match Bone Transforms")
