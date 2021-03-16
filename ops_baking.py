@@ -116,6 +116,13 @@ class ARMATURE_OT_mesh_pose_baker(bpy.types.Operator):
                     if mod.is_bound == True:
                         bpy.ops.object.meshdeform_bind(modifier=mod.name)
 
+            # unbind sdef modifiers
+            for i in range(len(ob.modifiers)):
+                mod = ob.modifiers[i]
+                if mod.type in ['SURFACE_DEFORM']:
+                    if mod.is_bound == True:
+                        bpy.ops.object.surfacedeform_bind(modifier=mod.name)
+
         bpy.context.view_layer.objects.active = old_ob
 
     def execute(self, context):
@@ -448,6 +455,19 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
                         C.offset = abs((b.head[2] - armobj.pose.bones[C.subtarget].head[2]) * 0.9)
                     if 'Floor_Foot' in C.name:
                         C.offset = abs(b.head[2] - armobj.pose.bones[b.custom_shape_transform.name].head[2])
+        #Blink rate calculation
+        for b in armobj.pose.bones:
+            if b.name == 'blink_ctrl_L':
+                try:
+                    b['Blink_Rate_L'] = abs(armobj.pose.bones['eyelid_up_ctrl_L'].head[2] - armobj.pose.bones['eyelid_low_ctrl_L'].head[2])
+                except:
+                    pass
+            if b.name == 'blink_ctrl_R':
+                try:
+                    b['Blink_Rate_R'] = abs(armobj.pose.bones['eyelid_up_ctrl_R'].head[2] - armobj.pose.bones['eyelid_low_ctrl_R'].head[2])
+                except:
+                    pass
+
     def sav(self, context):
         enable_disable_colleciton(False, 'MDef')
         cage_select = bpy.context.view_layer.objects['BlenRigMdefCage']
@@ -459,7 +479,7 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
         bpy.ops.object.select_all(action='DESELECT')
         rig = bpy.context.view_layer.objects['biped_blenrig']
         bpy.context.view_layer.objects.active = rig
-        
+
     def execute(self, context):
         self.sav(context)
         self.bake_all(context)
@@ -618,6 +638,19 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
                         C.offset = abs((b.head[2] - armobj.pose.bones[C.subtarget].head[2]) * 0.9)
                     if 'Floor_Foot' in C.name:
                         C.offset = abs(b.head[2] - armobj.pose.bones[b.custom_shape_transform.name].head[2])
+
+        #Blink rate calculation
+        for b in armobj.pose.bones:
+            if b.name == 'blink_ctrl_L':
+                try:
+                    b['Blink_Rate_L'] = abs(armobj.pose.bones['eyelid_up_ctrl_L'].head[2] - armobj.pose.bones['eyelid_low_ctrl_L'].head[2])
+                except:
+                    pass
+            if b.name == 'blink_ctrl_R':
+                try:
+                    b['Blink_Rate_R'] = abs(armobj.pose.bones['eyelid_up_ctrl_R'].head[2] - armobj.pose.bones['eyelid_low_ctrl_R'].head[2])
+                except:
+                    pass
 
     def execute(self, context):
         self.bake_armature(context)
