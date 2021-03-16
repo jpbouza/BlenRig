@@ -113,7 +113,6 @@ class Operator_Keyframe_Main_Props(bpy.types.Operator):
         pbones["properties_leg_L"].keyframe_insert(data_path='space_leg_ik_pole_L')
         pbones["properties_leg_L"].keyframe_insert(data_path='pin_knee_L')
         pbones["properties_leg_L"].keyframe_insert(data_path='ik_toes_all_L')
-        pbones["properties_leg_L"].keyframe_insert(data_path='space_toes_all_L')
         #Leg_R
         pbones["properties_leg_R"].keyframe_insert(data_path='ik_leg_R')
         pbones["properties_leg_R"].keyframe_insert(data_path='space_leg_R')
@@ -122,7 +121,6 @@ class Operator_Keyframe_Main_Props(bpy.types.Operator):
         pbones["properties_leg_R"].keyframe_insert(data_path='space_leg_ik_pole_R')
         pbones["properties_leg_R"].keyframe_insert(data_path='pin_knee_R')
         pbones["properties_leg_R"].keyframe_insert(data_path='ik_toes_all_R')
-        pbones["properties_leg_R"].keyframe_insert(data_path='space_toes_all_R')
         #Extra Properties
         # pbones["properties_head"].keyframe_insert(data_path='hat_free')
         # pbones["properties_head"].keyframe_insert(data_path='glasses_free')
