@@ -48,7 +48,7 @@ import bpy
 import os
 import bl_ui
 
-from bpy.props import FloatProperty, IntProperty, BoolProperty,EnumProperty
+from bpy.props import FloatProperty, IntProperty, BoolProperty,EnumProperty, FloatVectorProperty
 
 # Import panels
 from .ui.panels.body_settings import BLENRIG_PT_Rig_Body_settings
@@ -63,16 +63,7 @@ from .ui.panels.actions_assistants_guide import BLENRIG_PT_actions_guide
 from .boneShapes.panels import *
 
 ######### Load Rig Functions ##########
-from .rig_functions import (
-    bone_auto_hide,
-    reproportion_toggle,
-    rig_toggles,
-    toggle_face_drivers,
-    toggle_flex_drivers,
-    toggle_dynamic_drivers,
-    toggle_body_drivers,
-    pole_toggles
-)
+from .rig_functions import *
 
 ######### Import all from visual_assistant.py #########
 from .visual_assistant import visual_assistant_props
@@ -112,6 +103,28 @@ def optimize_body(self, context):
 
 def pole_toggles_update(self, context):
     pole_toggles(context)
+
+def eyelids_update(self, context):
+    set_eyelids(context)
+
+def frowns_update(self, context):
+    set_frowns(context)
+
+def cheeks_update(self, context):
+    set_cheeks(context)
+
+def mouth_corners_update(self, context):
+    set_mouth_corners(context)
+
+def mouth_ctrl_update(self, context):
+    set_mouth_ctrl(context)
+
+def rj_transforms_update(self, context):
+    set_rj_transforms(context)
+
+def vol_variation_update(self, context):
+    set_vol_variation(context)
+
 ######### Handler for update on load and frame change #########
 
 # from bpy.app.handlers import persistent
@@ -881,6 +894,714 @@ bpy.types.PoseBone.toggle_toes_R = BoolProperty(
     name="toggle_toes_R"
 )
 
+#### FACIAL PROPERTIES ####
+
+# EYELIDS
+
+bpy.types.PoseBone.EYELID_DOWN_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upper Eyelid Downwards Movement Limit",
+    update=eyelids_update,
+    name="EYELID_DOWN_LIMIT_L"
+)
+
+bpy.types.PoseBone.EYELID_UP_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upper Eyelid Upwards Movement Limit",
+    update=eyelids_update,
+    name="EYELID_UP_LIMIT_L"
+)
+
+bpy.types.PoseBone.EYE_DOWN_FOLLOW_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Automatic movement for when eye looks down",
+    update=eyelids_update,
+    name="EYE_DOWN_FOLLOW_L"
+)
+
+bpy.types.PoseBone.EYE_UP_FOLLOW_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Automatic movement for when eye looks up",
+    update=eyelids_update,
+    name="EYE_UP_FOLLOW_L"
+)
+
+bpy.types.PoseBone.AUTO_CHEEK_L = IntProperty(
+    default=0,
+    min=0,
+    max=1000,
+    description="Automaic movement range for when cheek moves up",
+    update=eyelids_update,
+    name="AUTO_CHEEK_L"
+)
+
+bpy.types.PoseBone.EYELID_DOWN_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upper Eyelid Downwards Movement Limit",
+    update=eyelids_update,
+    name="EYELID_DOWN_LIMIT_R"
+)
+
+bpy.types.PoseBone.EYELID_UP_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upper Eyelid Upwards Movement Limit",
+    update=eyelids_update,
+    name="EYELID_UP_LIMIT_R"
+)
+
+bpy.types.PoseBone.EYE_DOWN_FOLLOW_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Automatic movement for when eye looks down",
+    update=eyelids_update,
+    name="EYE_DOWN_FOLLOW_R"
+)
+
+bpy.types.PoseBone.EYE_UP_FOLLOW_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Automatic movement for when eye looks up",
+    update=eyelids_update,
+    name="EYE_UP_FOLLOW_R"
+)
+
+bpy.types.PoseBone.AUTO_CHEEK_R = IntProperty(
+    default=0,
+    min=0,
+    max=1000,
+    description="Automaic movement range for when cheek moves up",
+    update=eyelids_update,
+    name="AUTO_CHEEK_R"
+)
+
+#FROWNS
+
+bpy.types.PoseBone.FROWN_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Transform range for frown action",
+    update=frowns_update,
+    name="FROWN_LIMIT_L"
+)
+
+bpy.types.PoseBone.FROWN_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Transform range for frown action",
+    update=frowns_update,
+    name="FROWN_LIMIT_R"
+)
+
+bpy.types.PoseBone.FROWN_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Transform range for frown action",
+    update=frowns_update,
+    name="FROWN_LIMIT"
+)
+
+#CHEEKS
+
+bpy.types.PoseBone.AUTO_SMILE_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=3,
+    description="Automaic movement range for when mouth corner moves up",
+    update=cheeks_update,
+    name="AUTO_SMILE_L"
+)
+
+bpy.types.PoseBone.CHEEK_DOWN_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Downwards movement limit",
+    update=cheeks_update,
+    name="CHEEK_DOWN_LIMIT_L"
+)
+
+bpy.types.PoseBone.CHEEK_UP_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upwards movement limit",
+    update=cheeks_update,
+    name="CHEEK_UP_LIMIT_L"
+)
+
+bpy.types.PoseBone.AUTO_SMILE_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=3,
+    description="Automaic movement range for when mouth corner moves up",
+    update=cheeks_update,
+    name="AUTO_SMILE_R"
+)
+
+bpy.types.PoseBone.CHEEK_DOWN_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Downwards movement limit",
+    update=cheeks_update,
+    name="CHEEK_DOWN_LIMIT_R"
+)
+
+bpy.types.PoseBone.CHEEK_UP_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upwards movement limit",
+    update=cheeks_update,
+    name="CHEEK_UP_LIMIT_R"
+)
+
+#MOUTH CORNERS
+
+bpy.types.PoseBone.AUTO_BACK_L = FloatProperty(
+    default=0.000,
+    min=-1000.000,
+    max=1000.000,
+    description="Automatic backwards movement when corner moves out",
+    update=mouth_corners_update,
+    name="AUTO_BACK_L"
+)
+
+bpy.types.PoseBone.IN_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Inwards movement limit",
+    update=mouth_corners_update,
+    name="IN_LIMIT_L"
+)
+
+bpy.types.PoseBone.OUT_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Outwards movement limit",
+    update=mouth_corners_update,
+    name="OUT_LIMIT_L"
+)
+
+bpy.types.PoseBone.UP_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upwards movement limit",
+    update=mouth_corners_update,
+    name="UP_LIMIT_L"
+)
+
+bpy.types.PoseBone.DOWN_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Downwards movement limit",
+    update=mouth_corners_update,
+    name="DOWN_LIMIT_L"
+)
+
+bpy.types.PoseBone.FORW_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Forwards movement limit",
+    update=mouth_corners_update,
+    name="FORW_LIMIT_L"
+)
+
+bpy.types.PoseBone.BACK_LIMIT_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Backwards movement limit",
+    update=mouth_corners_update,
+    name="BACK_LIMIT_L"
+)
+
+bpy.types.PoseBone.AUTO_BACK_R = FloatProperty(
+    default=0.000,
+    min=-1000.000,
+    max=1000.000,
+    description="Automatic backwards movement when corner moves out",
+    update=mouth_corners_update,
+    name="AUTO_BACK_R"
+)
+
+bpy.types.PoseBone.IN_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Inwards movement limit",
+    update=mouth_corners_update,
+    name="IN_LIMIT_R"
+)
+
+bpy.types.PoseBone.OUT_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Outwards movement limit",
+    update=mouth_corners_update,
+    name="OUT_LIMIT_R"
+)
+
+bpy.types.PoseBone.UP_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Upwards movement limit",
+    update=mouth_corners_update,
+    name="UP_LIMIT_R"
+)
+
+bpy.types.PoseBone.DOWN_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Downwards movement limit",
+    update=mouth_corners_update,
+    name="DOWN_LIMIT_R"
+)
+
+bpy.types.PoseBone.FORW_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Forwards movement limit",
+    update=mouth_corners_update,
+    name="FORW_LIMIT_R"
+)
+
+bpy.types.PoseBone.BACK_LIMIT_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Backwards movement limit",
+    update=mouth_corners_update,
+    name="BACK_LIMIT_R"
+)
+
+#MOUTH CTRL
+
+bpy.types.PoseBone.IN_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Inwards movement limit",
+    update=mouth_ctrl_update,
+    name="IN_LIMIT"
+)
+
+bpy.types.PoseBone.OUT_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Outwards movement limit",
+    update=mouth_ctrl_update,
+    name="OUT_LIMIT"
+)
+
+bpy.types.PoseBone.SMILE_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Smile rate for mouth_ctrl roatation",
+    update=mouth_ctrl_update,
+    name="SMILE_LIMIT"
+)
+
+bpy.types.PoseBone.U_M_CTRL_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=3,
+    description="Transformation amount for U_M controllers",
+    update=mouth_ctrl_update,
+    name="U_M_CTRL_LIMIT"
+)
+
+bpy.types.PoseBone.JAW_ROTATION = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="Jaw rotation rate for mouth_ctrl vertical movement",
+    update=mouth_ctrl_update,
+    name="JAW_ROTATION"
+)
+
+bpy.types.PoseBone.JAW_DOWN_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="Jaw downwards rotation limit",
+    update=mouth_ctrl_update,
+    name="JAW_DOWN_LIMIT"
+)
+
+bpy.types.PoseBone.JAW_UP_LIMIT = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="Jaw upwards rotation limit",
+    update=mouth_ctrl_update,
+    name="JAW_UP_LIMIT"
+)
+
+#REALISTIC JOINTS
+
+bpy.types.PoseBone.realistic_joints_fingers_rot_L = FloatVectorProperty(
+    default=(5.0, 5.0, 5.0),
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_fingers_rot_L",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_fingers_loc_L = FloatVectorProperty(
+    default=(0.004, 0.004, 0.004),
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_fingers_loc_L",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_toes_rot_L = FloatVectorProperty(
+    default=(4.0, 4.0, 4.0),
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_toes_rot_L",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_toes_loc_L = FloatVectorProperty(
+    default=(0.002, 0.002, 0.002),
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_toes_loc_L",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_elbow_loc_L = FloatProperty(
+    default=0.000,
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_elbow_loc_L"
+)
+
+bpy.types.PoseBone.realistic_joints_elbow_rot_L = FloatProperty(
+    default=0.000,
+    min=-0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_elbow_rot_L"
+)
+
+bpy.types.PoseBone.realistic_joints_wrist_rot_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_wrist_rot_L"
+)
+
+bpy.types.PoseBone.realistic_joints_ankle_rot_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_ankle_rot_L"
+)
+
+bpy.types.PoseBone.realistic_joints_knee_loc_L = FloatProperty(
+    default=0.000,
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_knee_loc_L"
+)
+
+bpy.types.PoseBone.realistic_joints_knee_rot_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_knee_rot_L"
+)
+
+bpy.types.PoseBone.realistic_joints_fingers_rot_R = FloatVectorProperty(
+    default=(5.0, 5.0, 5.0),
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_fingers_rot_R",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_fingers_loc_R = FloatVectorProperty(
+    default=(0.004, 0.004, 0.004),
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_fingers_loc_R",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_toes_rot_R = FloatVectorProperty(
+    default=(4.0, 4.0, 4.0),
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_toes_rot_R",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_toes_loc_R = FloatVectorProperty(
+    default=(0.002, 0.002, 0.002),
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_toes_loc_R",
+    subtype='NONE',
+    size=3
+)
+
+bpy.types.PoseBone.realistic_joints_elbow_loc_R = FloatProperty(
+    default=0.000,
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_elbow_loc_R"
+)
+
+bpy.types.PoseBone.realistic_joints_elbow_rot_R = FloatProperty(
+    default=0.000,
+    min=-0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_elbow_rot_R"
+)
+
+bpy.types.PoseBone.realistic_joints_wrist_rot_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_wrist_rot_R"
+)
+
+bpy.types.PoseBone.realistic_joints_ankle_rot_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_ankle_rot_R"
+)
+
+bpy.types.PoseBone.realistic_joints_knee_loc_R = FloatProperty(
+    default=0.000,
+    min=-10.000,
+    max=10.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_knee_loc_R"
+)
+
+bpy.types.PoseBone.realistic_joints_knee_rot_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=180.000,
+    precision=3,
+    description="joint displacement simulation",
+    update=rj_transforms_update,
+    name="realistic_joints_knee_rot_R"
+)
+
+# VOLUME VARIATION
+
+bpy.types.PoseBone.volume_variation_arm_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_arm_L"
+)
+
+bpy.types.PoseBone.volume_variation_fingers_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_fingers_L"
+)
+
+bpy.types.PoseBone.volume_variation_leg_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_leg_L"
+)
+
+bpy.types.PoseBone.volume_variation_toes_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_toes_L"
+)
+
+bpy.types.PoseBone.volume_variation_arm_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_arm_R"
+)
+
+bpy.types.PoseBone.volume_variation_fingers_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_fingers_R"
+)
+
+bpy.types.PoseBone.volume_variation_leg_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_leg_R"
+)
+
+bpy.types.PoseBone.volume_variation_toes_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_toes_R"
+)
+
 ####### Load BlenRig 6 Controls Panel
 from .ui.panels.ui_panel_controls import BLENRIG_PT_blenrig_6_Interface
 from .ui.panels.ui_panel_blenrig import BLENRIG_PT_blenrig_6_general
@@ -1068,17 +1789,6 @@ from .ops_snapping import (
     Operator_Leg_R_Snap_FK_IK,
     Operator_Leg_R_Snap_IK_FK
     )
-
-####### Load BlenRig 6 Set Constraints Values Operators
-from .ops_set_constraints_values import (
-    Operator_Set_Eyelids,
-    Operator_Set_Cheeks,
-    Operator_Set_Frowns,
-    Operator_Set_Mouth_Corners,
-    Operator_Set_Mouth_Ctrl,
-    Operator_Set_RJ_Transforms,
-    Operator_Set_Volume_Variation
-)
 
 ####### Load BlenRig 6 Body Picker Operators
 # Biped
@@ -1656,7 +2366,7 @@ armature_classes = [
     ARMATURE_OT_mesh_pose_baker,
     ARMATURE_OT_reset_hooks,
     ARMATURE_OT_disable_hooks_modif,
-    ARMATURE_OT_reset_deformers,    
+    ARMATURE_OT_reset_deformers,
     ARMATURE_OT_blenrig_6_gui
     ]
 
@@ -1813,16 +2523,6 @@ snapping_classes = [
     Operator_Leg_L_Snap_IK_FK,
     Operator_Leg_R_Snap_FK_IK,
     Operator_Leg_R_Snap_IK_FK
-]
-# BlenRig Rig Set Constraints Values Operators
-set_values_classes = [
-    Operator_Set_Eyelids,
-    Operator_Set_Cheeks,
-    Operator_Set_Frowns,
-    Operator_Set_Mouth_Corners,
-    Operator_Set_Mouth_Ctrl,
-    Operator_Set_RJ_Transforms,
-    Operator_Set_Volume_Variation
 ]
 # BlenRig Picker Operators
 body_picker_biped_classes = [
@@ -2302,7 +3002,7 @@ panels_classes = [
     BLENRIG_PT_posemode_panel,
     BLENRIG_MT_bw_specials_edit,
     BLENRIG_PT_reproportion_guide,
-    BLENRIG_PT_actions_guide    
+    BLENRIG_PT_actions_guide
 ]
 
 ############## Shape_Keys+ Classes ################
@@ -2354,13 +3054,13 @@ def register():
     from bpy.utils import register_class
 
     register_class(BLENRIG_PT_blenrig_6_general)
-    
+
     #######################register Guide ###################
     from .guides.register import register
     register()
     #########################################################
-    
-    
+
+
 
     # load dependency add-ons
     import addon_utils
@@ -2371,8 +3071,6 @@ def register():
 
     # load BlenRig internal classes
     for c in armature_classes:
-        register_class(c)
-    for c in set_values_classes:
         register_class(c)
     for c in alignment_classes:
         register_class(c)
@@ -2492,7 +3190,7 @@ def unregister():
     import addon_utils
     for addon_id in addon_dependencies:
         addon_utils.disable(addon_id, default_set=False)
-        
+
 #######################register Guide ###################
     from .guides.register import unregister
     unregister()
