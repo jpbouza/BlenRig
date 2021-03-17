@@ -3157,8 +3157,6 @@ def unregister():
     # unload BlenRig internal classes
     for c in armature_classes:
         unregister_class(c)
-    for c in set_values_classes:
-        unregister_class(c)
     for c in alignment_classes:
         unregister_class(c)
     for c in schemes_classes:
