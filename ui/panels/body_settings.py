@@ -185,6 +185,9 @@ class BLENRIG_PT_Rig_Body_settings(bpy.types.Panel):
             col_L.prop(p_bones['properties_arm_L'], 'volume_variation_fingers_L', text="Fingers_L", toggle=True)
             col_L.prop(p_bones['properties_leg_L'], 'volume_variation_leg_L', text="Leg_L", toggle=True)
             col_L.prop(p_bones['properties_leg_L'], 'volume_variation_toes_L', text="Toes_L", toggle=True)
+            col_R.prop(p_bones['properties_torso'], 'volume_variation_torso', text="Torso", toggle=True)
+            col_R.prop(p_bones['properties_head'], 'volume_variation_neck', text="Neck", toggle=True)
+            col_L.prop(p_bones['properties_head'], 'volume_variation_head', text="Head", toggle=True)
 
             box.label(text="Twist Rate")
             row_props = box.row()
