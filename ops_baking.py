@@ -469,6 +469,7 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
                     pass
 
     def sav(self, context):
+        arm = bpy.context.active_object
         enable_disable_colleciton(False, 'MDef')
         cage_select = bpy.context.view_layer.objects['BlenRigMdefCage']
         bpy.context.view_layer.objects.active = cage_select
@@ -477,8 +478,7 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
         bpy.ops.blenrig.mesh_pose_baker()
         enable_disable_colleciton(True, 'MDef')
         bpy.ops.object.select_all(action='DESELECT')
-        rig = bpy.context.view_layer.objects['biped_blenrig']
-        bpy.context.view_layer.objects.active = rig
+        bpy.context.view_layer.objects.active = arm
 
     def execute(self, context):
         self.sav(context)
