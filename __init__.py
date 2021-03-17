@@ -1602,6 +1602,36 @@ bpy.types.PoseBone.volume_variation_toes_R = FloatProperty(
     name="volume_variation_toes_R"
 )
 
+bpy.types.PoseBone.volume_variation_torso = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_torso"
+)
+
+bpy.types.PoseBone.volume_variation_head = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_head"
+)
+
+bpy.types.PoseBone.volume_variation_neck = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=100.000,
+    precision=3,
+    description="Volume Variation for stretch and squash",
+    update=vol_variation_update,
+    name="volume_variation_neck"
+)
+
 ####### Load BlenRig 6 Controls Panel
 from .ui.panels.ui_panel_controls import BLENRIG_PT_blenrig_6_Interface
 from .ui.panels.ui_panel_blenrig import BLENRIG_PT_blenrig_6_general
