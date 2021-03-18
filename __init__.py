@@ -1710,7 +1710,8 @@ from .ops_baking import (
     ARMATURE_OT_disable_hooks_modif,
     ARMATURE_OT_reset_deformers,
     ARMATURE_OT_advanced_armature_baker,
-    ARMATURE_OT_armature_baker_all,
+    ARMATURE_OT_armature_baker_all_part_1,
+    ARMATURE_OT_armature_baker_all_part_2,
     ARMATURE_OT_reset_constraints
     )
 
@@ -2392,7 +2393,8 @@ class blenrig_6_props(bpy.types.PropertyGroup):
 armature_classes = [
     ARMATURE_OT_reset_constraints,
     ARMATURE_OT_advanced_armature_baker,
-    ARMATURE_OT_armature_baker_all,
+    ARMATURE_OT_armature_baker_all_part_1,
+    ARMATURE_OT_armature_baker_all_part_2,
     ARMATURE_OT_mesh_pose_baker,
     ARMATURE_OT_reset_hooks,
     ARMATURE_OT_disable_hooks_modif,

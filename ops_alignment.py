@@ -992,9 +992,6 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
         self.blenrig_bone_align(context)
         #self.blenrig_update_mirrored(context)
         self.reset_layers(context)
-        bpy.context.object.data.show_axes = False #sav
-        bpy.context.object.data.layers[29] = False #sav
-        bpy.context.object.data.layers[31] = True #sav
         return {'FINISHED'}
 
 class Operator_BlenRig_Store_Roll_Angles(bpy.types.Operator):

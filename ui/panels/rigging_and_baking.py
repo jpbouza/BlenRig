@@ -52,7 +52,7 @@ class BLENRIG_PT_Rigging_and_baking(bpy.types.Panel):
                 row = box.row()
                 row.scale_x = 0.5
                 row.scale_y = 1.8
-                row.operator("blenrig.armature_baker_all", text="Bake All")
+                row.operator("blenrig.armature_baker_all_part_1", text="Bake All")
 
         elif context.mode in ['EDIT_ARMATURE']:
             if context.active_object.data.reproportion:
@@ -60,7 +60,7 @@ class BLENRIG_PT_Rigging_and_baking(bpy.types.Panel):
                 row = box.row()
                 row.scale_x = 0.5
                 row.scale_y = 1.8
-                row.operator("blenrig.custom_bone_roll", text="Custom Aligns")
+                row.operator("blenrig.armature_baker_all_part_2", text="Custom Aligns")
 
         else:
             if not context.active_object.data.reproportion:

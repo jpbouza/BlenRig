@@ -321,9 +321,9 @@ def enable_disable_colleciton(mode, target_coll):
         print("Error")
 
 # Armature Baker All operator
-class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
+class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
     bl_label = "BlenRig 6 Armature Baker"
-    bl_idname = "blenrig.armature_baker_all"
+    bl_idname = "blenrig.armature_baker_all_part_1"
     bl_description = "Bake current pose to armature"
     bl_options = {'REGISTER', 'UNDO'}
 
@@ -479,9 +479,6 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
         enable_disable_colleciton(True, 'MDef')
         bpy.ops.object.select_all(action='DESELECT')
         bpy.context.view_layer.objects.active = arm
-
-    def execute(self, context):
-        self.sav(context)
         self.bake_all(context)
         self.armature_update_values(context)
         bpy.ops.object.mode_set(mode='EDIT')
@@ -490,9 +487,42 @@ class ARMATURE_OT_armature_baker_all(bpy.types.Operator):
         bpy.context.object.data.layers[29] = True
         bpy.context.object.data.layers[31] = False
         bpy.context.object.data.show_axes = True
+
+    def execute(self, context):
+        self.sav(context)
         self.report({'INFO'}, "Baking done")
         return{'FINISHED'}
 
+class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
+    bl_label = "BlenRig 6 Armature Baker"
+    bl_idname = "blenrig.armature_baker_all_part_2"
+    bl_description = "Bake current pose to armature"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.object:
+            return False
+        else:
+            return (bpy.context.object.type=='ARMATURE' and \
+                context.mode=='EDIT_ARMATURE')
+
+    def after_custom_align(self, context):
+        bpy.ops.blenrig.custom_bone_roll()
+        bpy.context.object.data.show_axes = False 
+        bpy.context.object.data.layers[29] = False 
+        bpy.context.object.data.layers[31] = True 
+        bpy.ops.object.mode_set(mode='POSE')
+        bpy.context.object.data.pose_position = 'REST'
+        bpy.ops.blenrig.reset_constraints()
+        bpy.ops.blenrig.reset_deformers()
+        bpy.context.object.data.pose_position = 'POSE'
+        bpy.context.object.data.reproportion = False
+
+    def execute(self, context):
+        self.after_custom_align(context)
+        self.report({'INFO'}, "Baking done")
+        return{'FINISHED'}
 
 # Armature Advanced Baker operator
 class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
