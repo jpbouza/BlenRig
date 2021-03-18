@@ -518,6 +518,7 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
         bpy.ops.blenrig.reset_deformers()
         bpy.context.object.data.pose_position = 'POSE'
         bpy.context.object.data.reproportion = False
+        bpy.ops.view3d.snap_cursor_to_center()
 
     def execute(self, context):
         self.after_custom_align(context)
