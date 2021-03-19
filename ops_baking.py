@@ -518,7 +518,7 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
         bpy.ops.blenrig.reset_deformers()
         bpy.context.object.data.pose_position = 'POSE'
         bpy.context.object.data.reproportion = False
-        bpy.ops.view3d.snap_cursor_to_center()
+        bpy.context.scene.cursor.location = [0,0,0]
 
     def execute(self, context):
         self.after_custom_align(context)
@@ -703,7 +703,7 @@ class ARMATURE_OT_reset_constraints(bpy.types.Operator):
             return (bpy.context.object.type=='ARMATURE' and \
                 context.mode=='POSE')
 
-    def invoke(self, context, event):
+    def execute(self, context):
         pbones = context.active_object.pose.bones
         edit_bones = context.active_object.data.edit_bones
         if len(pbones) < 1:
