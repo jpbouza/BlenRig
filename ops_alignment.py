@@ -69,7 +69,7 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
     #Match Heads and Tails
     def match_heads_tails(self, context):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -337,7 +337,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
     #Assign Bone Rolls from Global Axes
     def global_roll(self, context, roll_type):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
@@ -418,7 +418,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
     #Assign Bone Roll for Bones that must have the same Roll of other Bone (Active Bone)
     def blenrig_bone_custom_roll(self, context):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
@@ -523,7 +523,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
     #Assign Rolls by Cursor position
     def blenrig_bone_cursor_roll(self, context):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
@@ -638,7 +638,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
     #Perform Bone Alignment for Bones that have to be aligned to other Bones
     def blenrig_bone_align(self, context):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
@@ -827,7 +827,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
     #Assign Bone Roll for Bones that must have the same Roll of other Bone (Active Bone)
     def blenrig_bone_custom_roll(self, context):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
@@ -935,7 +935,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
     #Perform Bone Alignment for Bones that have to be aligned to other Bones
     def blenrig_bone_align(self, context):
         win = bpy.context.window_manager
-        win.progress_begin(0, 100)
+        win.progress_begin(0, 1000)
         i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
