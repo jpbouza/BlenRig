@@ -487,10 +487,11 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         bpy.context.object.data.layers[29] = True
         bpy.context.object.data.layers[31] = False
         bpy.context.object.data.show_axes = True
+        bpy.context.scene.cursor.location = [0,0,0]
 
     def execute(self, context):
         self.sav(context)
-        self.report({'INFO'}, "Baking done")
+        self.report({'INFO'}, "1º Baking part done")
         return{'FINISHED'}
 
 class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
@@ -509,6 +510,7 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
 
     def after_custom_align(self, context):
         bpy.ops.blenrig.custom_bone_roll()
+        bpy.ops.blenrig.store_roll_angles()
         bpy.context.object.data.show_axes = False 
         bpy.context.object.data.layers[29] = False 
         bpy.context.object.data.layers[31] = True 
@@ -522,7 +524,7 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
 
     def execute(self, context):
         self.after_custom_align(context)
-        self.report({'INFO'}, "Baking done")
+        self.report({'INFO'}, "Baking Finish")
         return{'FINISHED'}
 
 # Armature Advanced Baker operator

@@ -1,5 +1,6 @@
 import bpy
 
+
 ##################################### Bone Alignment Operators #######################################
 
 class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
@@ -67,6 +68,9 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
 
     #Match Heads and Tails
     def match_heads_tails(self, context):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
         arm_data = arm.data
@@ -161,6 +165,8 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
                             print (b_sel.name)
 
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'HEADS', 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # #Create TAILS Dictionary
         # if arm_data.use_mirror_x == True:
@@ -238,6 +244,8 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
                             print (b_sel.name)
 
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'TAILS', 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -246,6 +254,8 @@ class Operator_BlenRig_Fix_Misaligned_Bones(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+
+        win.progress_end()
 
     def reset_layers(self, context):
         arm = bpy.context.active_object
@@ -326,6 +336,9 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
 
     #Assign Bone Rolls from Global Axes
     def global_roll(self, context, roll_type):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -349,12 +362,20 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     if 'b_roll' in b.keys():
                         if b['b_roll'][0] == roll_type:
                             B_List.append(b.name)
+                            i=i+1
+                            win.progress_update(i)
+        
+        win.progress_end()
 
         for B in B_List:
             for b in bones:
                 if b.name == B:
                     print (b.name)
                     b.select = 1
+                    i=i+1
+                    win.progress_update(i)
+        
+        win.progress_end()
 
         bpy.ops.armature.calculate_roll(type= roll_type, axis_flip=False, axis_only=False)
         bpy.ops.armature.select_all(action='DESELECT')
@@ -366,6 +387,10 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+                    i=i+1
+                    win.progress_update(i)
+
+            win.progress_end()
 
     def blenrig_bone_global_roll(self, context):
         print ('### Global Roll ###', '\n', '\n')
@@ -392,6 +417,9 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
 
     #Assign Bone Roll for Bones that must have the same Roll of other Bone (Active Bone)
     def blenrig_bone_custom_roll(self, context):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -479,6 +507,8 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
             arm.data.edit_bones.active = None
             bpy.ops.armature.select_all(action='DESELECT')
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -487,9 +517,14 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+                    
+        win.progress_end()
 
     #Assign Rolls by Cursor position
     def blenrig_bone_cursor_roll(self, context):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -587,6 +622,8 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
             arm.data.edit_bones.active = None
             bpy.ops.armature.select_all(action='DESELECT')
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -595,9 +632,14 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+        
+        win.progress_end()
 
     #Perform Bone Alignment for Bones that have to be aligned to other Bones
     def blenrig_bone_align(self, context):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -689,6 +731,8 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
             arm.data.edit_bones.active = None
             bpy.ops.armature.select_all(action='DESELECT')
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -697,6 +741,8 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+        
+        win.progress_end()
 
     #Reset layers to old state
     def reset_layers(self, context):
@@ -713,7 +759,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
         self.blenrig_bone_align(context)
         # self.blenrig_update_mirrored(context)
         self.reset_layers(context)
-
+        self.report({'INFO'}, "Calc Rolls done")
         return {'FINISHED'}
 
 class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
@@ -780,6 +826,9 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
 
     #Assign Bone Roll for Bones that must have the same Roll of other Bone (Active Bone)
     def blenrig_bone_custom_roll(self, context):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -867,6 +916,8 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
             arm.data.edit_bones.active = None
             bpy.ops.armature.select_all(action='DESELECT')
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -875,10 +926,17 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+                    i = i+1
+                    win.progress_update(i)
+                    
+        win.progress_end()
 
 
     #Perform Bone Alignment for Bones that have to be aligned to other Bones
     def blenrig_bone_align(self, context):
+        win = bpy.context.window_manager
+        win.progress_begin(0, 100)
+        i=0
         bpy.ops.object.mode_set(mode='EDIT')
         props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
@@ -970,6 +1028,8 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
             arm.data.edit_bones.active = None
             bpy.ops.armature.select_all(action='DESELECT')
             print ('XXXXXXXXXXXXXXXXXX', b_act, 'XXXXXXXXXXXXXXXXXX', '\n')
+            i = i+1
+            win.progress_update(i)
 
         # Restore selection
         if props.align_selected_only == 1:
@@ -978,6 +1038,10 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
+                    i = i+1
+                    win.progress_update(i)
+        
+        win.progress_end()
 
     #Reset layers to old state
     def reset_layers(self, context):
@@ -992,6 +1056,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
         self.blenrig_bone_align(context)
         #self.blenrig_update_mirrored(context)
         self.reset_layers(context)
+        self.report({'INFO'}, "Custom Aligns done")
         return {'FINISHED'}
 
 class Operator_BlenRig_Store_Roll_Angles(bpy.types.Operator):
@@ -1027,7 +1092,7 @@ class Operator_BlenRig_Store_Roll_Angles(bpy.types.Operator):
 
     def execute(self, context):
         self.blenrig_store_rolls(context)
-
+        self.report({'INFO'}, "Store Roll Angles Done")
         return {'FINISHED'}
 
 
