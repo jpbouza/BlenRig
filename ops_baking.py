@@ -469,12 +469,18 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
                     pass
 
     def bake_all_1(self, context):
+        props = context.window_manager.blenrig_6_props
         arm = bpy.context.active_object
         enable_disable_colleciton(False, 'MDef')
         cage_select = bpy.context.view_layer.objects['BlenRigMdefCage']
         bpy.context.view_layer.objects.active = cage_select
         bpy.ops.object.select_all(action='DESELECT')
         cage_select.select_set(1)
+        if bpy.context.active_object.data.shape_keys:
+            if not props.bake_to_shape:
+                props.bake_to_shape = True
+        else:
+            props.bake_to_shape = False
         bpy.ops.blenrig.mesh_pose_baker()
         enable_disable_colleciton(True, 'MDef')
         bpy.ops.object.select_all(action='DESELECT')
