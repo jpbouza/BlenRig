@@ -468,7 +468,7 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
                 except:
                     pass
 
-    def sav(self, context):
+    def bake_all_1(self, context):
         arm = bpy.context.active_object
         enable_disable_colleciton(False, 'MDef')
         cage_select = bpy.context.view_layer.objects['BlenRigMdefCage']
@@ -490,7 +490,7 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         bpy.context.scene.cursor.location = [0,0,0]
 
     def execute(self, context):
-        self.sav(context)
+        self.bake_all_1(context)
         self.report({'INFO'}, "1º Baking part done")
         return{'FINISHED'}
 
