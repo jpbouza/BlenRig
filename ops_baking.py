@@ -470,13 +470,13 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
 
     def bake_all_1(self, context):
         props = context.window_manager.blenrig_6_props
-        arm = bpy.context.active_object
+        arm = context.active_object
         enable_disable_colleciton(False, 'MDef')
-        cage_select = bpy.context.view_layer.objects['BlenRigMdefCage']
-        bpy.context.view_layer.objects.active = cage_select
+        cage_select = context.view_layer.objects['BlenRigMdefCage']
+        context.view_layer.objects.active = cage_select
         bpy.ops.object.select_all(action='DESELECT')
         cage_select.select_set(1)
-        if bpy.context.active_object.data.shape_keys:
+        if context.active_object.data.shape_keys:
             if not props.bake_to_shape:
                 props.bake_to_shape = True
         else:
@@ -484,16 +484,16 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         bpy.ops.blenrig.mesh_pose_baker()
         enable_disable_colleciton(True, 'MDef')
         bpy.ops.object.select_all(action='DESELECT')
-        bpy.context.view_layer.objects.active = arm
+        context.view_layer.objects.active = arm
         self.bake_all(context)
         self.armature_update_values(context)
         bpy.ops.object.mode_set(mode='EDIT')
         bpy.ops.blenrig.fix_misaligned_bones()
         bpy.ops.blenrig.auto_bone_roll()
-        bpy.context.object.data.layers[29] = True
-        bpy.context.object.data.layers[31] = False
-        bpy.context.object.data.show_axes = True
-        bpy.context.scene.cursor.location = [0,0,0]
+        context.object.data.layers[29] = True
+        context.object.data.layers[31] = False
+        context.object.data.show_axes = True
+        context.scene.cursor.location = [0,0,0]
 
     def execute(self, context):
         self.bake_all_1(context)
@@ -517,16 +517,16 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
     def after_custom_align(self, context):
         bpy.ops.blenrig.custom_bone_roll()
         bpy.ops.blenrig.store_roll_angles()
-        bpy.context.object.data.show_axes = False 
-        bpy.context.object.data.layers[29] = False 
-        bpy.context.object.data.layers[31] = True 
+        context.object.data.show_axes = False 
+        context.object.data.layers[29] = False 
+        context.object.data.layers[31] = True 
         bpy.ops.object.mode_set(mode='POSE')
-        bpy.context.object.data.pose_position = 'REST'
+        context.object.data.pose_position = 'REST'
         bpy.ops.blenrig.reset_constraints()
         bpy.ops.blenrig.reset_deformers()
-        bpy.context.object.data.pose_position = 'POSE'
-        bpy.context.object.data.reproportion = False
-        bpy.context.scene.cursor.location = [0,0,0]
+        context.object.data.pose_position = 'POSE'
+        context.object.data.reproportion = False
+        context.scene.cursor.location = [0,0,0]
 
     def execute(self, context):
         self.after_custom_align(context)
