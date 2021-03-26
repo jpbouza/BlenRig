@@ -521,8 +521,8 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
         context.object.data.layers[29] = False 
         context.object.data.layers[31] = True 
         bpy.ops.object.mode_set(mode='POSE')
-        context.object.data.pose_position = 'REST'
         bpy.ops.blenrig.reset_constraints()
+        context.object.data.pose_position = 'REST'
         bpy.ops.blenrig.reset_deformers()
         context.object.data.pose_position = 'POSE'
         context.object.data.reproportion = False
@@ -712,6 +712,7 @@ class ARMATURE_OT_reset_constraints(bpy.types.Operator):
                 context.mode=='POSE')
 
     def execute(self, context):
+        context.object.data.pose_position = 'REST'        
         pbones = context.active_object.pose.bones
         edit_bones = context.active_object.data.edit_bones
         if len(pbones) < 1:
@@ -741,6 +742,7 @@ class ARMATURE_OT_reset_constraints(bpy.types.Operator):
                     #bpy.ops.object.mode_set(mode='EDIT')
                     #arm.edit_bones[b.name].select = False
                     #bpy.ops.object.mode_set(mode='POSE')
+        context.object.data.pose_position = 'POSE'
         self.report({'INFO'}, str(amount) + " constraints reset")
 
         return{'FINISHED'}

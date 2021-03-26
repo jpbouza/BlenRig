@@ -35,7 +35,7 @@ bl_info = {
     'name': 'BlenRig 6',
     'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
     'version': (2,0,0),
-    'blender': (2, 83, 0),
+    'blender': (2, 92, 0),
     'location': 'Armature, Object and Lattice properties, View3d tools panel, Armature Add menu',
     'description': 'BlenRig 6 rigging system',
     'wiki_url': 'https://cloud.blender.org/p/blenrig/56966411c379cf44546120e8',
@@ -47,6 +47,7 @@ bl_info = {
 import bpy
 import os
 import bl_ui
+
 
 from bpy.props import FloatProperty, IntProperty, BoolProperty,EnumProperty, FloatVectorProperty
 
