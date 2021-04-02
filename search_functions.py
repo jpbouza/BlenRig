@@ -1,11 +1,21 @@
 import bpy
 
-
 armature=[]
 mesh_deform=[]
 surface_deform=[]
 lattices=[]
 boneshapes=[]
+
+###### Buscador del nombre del Cage  #####
+def mdef_search(type="MESH_DEFORM"):
+    arm = bpy.context.active_object.data.name    
+    for ob in bpy.data.objects:
+        if hasattr(ob,'modifiers'):
+            for ob_m in ob.modifiers:
+                if ob_m.type == type:                    
+                    if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
+                        #print(ob.modifiers[ob_m.name].object.name)
+                        return (ob.modifiers[ob_m.name].object.name)
 
 ###### Buscador de objetos con modificadores  #####
 def search_mod(type):
@@ -16,7 +26,7 @@ def search_mod(type):
                 if ob_m.type == type:
 
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        if ob.modifiers[ob_m.name].object.name == 'BlenRigMdefCage':
+                        if ob.modifiers[ob_m.name].object.name == mdef_search():
                             #print(ob.name,">  ",ob_m.name, "> ",ob.modifiers[ob_m.name].object.name)                           
                             mesh_deform.append(ob)
 
@@ -34,7 +44,7 @@ def search_mod(type):
     if type == "MESH_DEFORM":
         return mesh_deform
     if type =="SURFACE_DEFORM":
-        return surface_deform
+        return surface_deform 
 
 ###########  Togle linkeador de objetos con modificadores en BlenRig_temp #######
 def blenrig_temp(type,lnk = True):
@@ -60,8 +70,6 @@ def blenrig_temp(type,lnk = True):
             surface_deform = search_mod(type)
             unlink_objects(surface_deform)
 
-
-
 ###### Funcion de creacion y linkeo de objetos en BlenRig_temp #####
 def link_objects(objects):
     temp_collection = bpy.data.collections.get("BlenRig_temp")
@@ -74,8 +82,7 @@ def link_objects(objects):
                 bpy.context.scene.collection.children.link(temp_collection)
         for ob in objects:
             if not bpy.context.scene.collection.children[temp_collection.name].objects.get(ob.name):
-                temp_collection.objects.link(ob)
-
+                temp_collection.objects.link(ob)            
 
 ###### Funcion de creacion y des-linkeo de objetos en BlenRig_temp #####
 def unlink_objects(objects):
@@ -91,7 +98,6 @@ def unlink_objects(objects):
             if len(bpy.data.collections['BlenRig_temp'].objects) < 1:
                 bpy.context.scene.collection.children.unlink(temp_collection)
 
-
 ####### Buscador de objetos enparentados con biped_blenrig ######
 def search_parent():
     arm = bpy.context.active_object.data.name
@@ -100,8 +106,6 @@ def search_parent():
             if not ob.name.startswith('cs_') and ob.parent.name == arm:
                 lattices.append(ob)
     return lattices
-
-
 
 ####### Buscador de BoneShapes #####
 def search_boneshapes():
@@ -120,7 +124,6 @@ def blenrig_temp_boneshapes(lnk = True):
     elif not lnk:
         parent = search_boneshapes()
         unlink_objects(parent)
-
 
 ###########  Togle linkeador de objetos lattices y emparentados en BlenRig_temp #######
 def blenrig_temp_parent(lnk = True):
