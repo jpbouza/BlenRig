@@ -1,4 +1,5 @@
 import bpy
+from .search_functions import * 
 
 ################################# BAKING OPERATORS ##########################################################
 
@@ -228,7 +229,7 @@ class ARMATURE_OT_reset_deformers(bpy.types.Operator):
         # preparing scene
 
         # activating lattices collection:
-        enable_disable_colleciton(False, 'Lattices')
+        blenrig_temp_parent(1)
 
         bpy.ops.object.mode_set(mode='OBJECT')
         old_active = bpy.context.active_object
@@ -282,7 +283,7 @@ class ARMATURE_OT_reset_deformers(bpy.types.Operator):
         bpy.context.scene.frame_set(bpy.context.scene.frame_current)
 
         # deactivating lattices collection:
-        enable_disable_colleciton(True, 'Lattices')
+        blenrig_temp_parent(0)
 
     def execute(self, context):
         self.reset_deformers(context)
@@ -343,11 +344,11 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         old_selected = bpy.context.selected_objects
         old_visible_collections = [coll.name for coll in bpy.context.view_layer.layer_collection.children if coll.hide_viewport == False]
 
-        enable_disable_colleciton(False, 'Lattices')
-        enable_disable_colleciton(False, 'Mesh_Deform_Cage')
+        # activating lattices collection:
+        blenrig_temp_parent(1)
         enable_disable_colleciton(False, 'FaceRigMesh')
         enable_disable_colleciton(False, 'GameModel')
-        enable_disable_colleciton(False, 'MDef')
+
 
 
         for ob in old_selected:
@@ -427,11 +428,10 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='POSE')
 
         # deactivating lattices collection:
-        enable_disable_colleciton(True, 'Lattices')
-        enable_disable_colleciton(True, 'Mesh_Deform_Cage')
+        blenrig_temp_parent(0)        
         enable_disable_colleciton(True, 'FaceRigMesh')
         enable_disable_colleciton(True, 'GameModel')
-        enable_disable_colleciton(True, 'MDef')
+
 
 
     def armature_update_values(self, context):
@@ -471,8 +471,8 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
     def bake_all_1(self, context):
         props = context.window_manager.blenrig_6_props
         arm = context.active_object
-        enable_disable_colleciton(False, 'MDef')
-        cage_select = context.view_layer.objects['BlenRigMdefCage']
+        blenrig_temp_cage(1)
+        cage_select = context.view_layer.objects[mdef_search_name()]
         context.view_layer.objects.active = cage_select
         bpy.ops.object.select_all(action='DESELECT')
         cage_select.select_set(1)
@@ -482,9 +482,9 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         else:
             props.bake_to_shape = False
         bpy.ops.blenrig.mesh_pose_baker()
-        enable_disable_colleciton(True, 'MDef')
         bpy.ops.object.select_all(action='DESELECT')
         context.view_layer.objects.active = arm
+        blenrig_temp_cage(0)
         self.bake_all(context)
         self.armature_update_values(context)
         bpy.ops.object.mode_set(mode='EDIT')
@@ -556,8 +556,10 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         old_selected = bpy.context.selected_objects
         old_visible_collections = [coll.name for coll in bpy.context.view_layer.layer_collection.children if coll.hide_viewport == False]
 
-        enable_disable_colleciton(False, 'Lattices')
-        enable_disable_colleciton(False, 'Mesh_Deform_Cage')
+        # activating lattices collection:
+        blenrig_temp_parent(1)
+        # activating MDef_Cage collection:
+        blenrig_temp_cage(1)
         enable_disable_colleciton(False, 'FaceRigMesh')
         enable_disable_colleciton(False, 'GameModel')
 
@@ -650,8 +652,9 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='POSE')
 
         #deactivating lattices collection:
-        enable_disable_colleciton(True, 'Lattices')
-        enable_disable_colleciton(True, 'Mesh_Deform_Cage')
+        blenrig_temp_parent(0)
+        # deactivating MDef_Cage collection:
+        blenrig_temp_cage(0)
         enable_disable_colleciton(True, 'FaceRigMesh')
         enable_disable_colleciton(True, 'GameModel')
 
