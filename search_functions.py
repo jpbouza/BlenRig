@@ -5,9 +5,9 @@ mesh_deform=[]
 surface_deform=[]
 lattices=[]
 boneshapes=[]
-cage=[]
+mdef_cage=[]
 
-###### Buscador del nombre del Cage  #####
+###### Search name of MDef_cage  #####
 def mdef_search_name(type="MESH_DEFORM"):
     arm = bpy.context.active_object.data.name    
     for ob in bpy.data.objects:
@@ -17,13 +17,14 @@ def mdef_search_name(type="MESH_DEFORM"):
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
                         return (ob.modifiers[ob_m.name].object.name)
 
+###### Find object_name of MDef_cage  #####
 def mdef_find():
     for ob in bpy.data.objects:
         if ob.name == mdef_search_name():
-            cage.append(ob)
-            return cage
+            mdef_cage.append(ob)
+            return mdef_cage
 
-###### Buscador de objetos con modificadores  #####
+###### Search objets with modifiers  #####
 def search_mod(type):
     arm = bpy.context.active_object.data.name    
     for ob in bpy.data.objects:
@@ -49,7 +50,7 @@ def search_mod(type):
     if type =="SURFACE_DEFORM":
         return surface_deform 
 
-###########  Togle linkeador de objetos con modificadores en BlenRig_temp #######
+###########  Toggle link/unlink objets with modifiers in BlenRig_temp #######
 def blenrig_temp(type,lnk = True):
     if lnk:
         if type == "ARMATURE":
@@ -73,7 +74,7 @@ def blenrig_temp(type,lnk = True):
             surface_deform = search_mod(type)
             unlink_objects(surface_deform)
 
-###### Funcion de creacion y linkeo de objetos en BlenRig_temp #####
+###### link objets in BlenRig_temp #####
 def link_objects(objects):
     temp_collection = bpy.data.collections.get("BlenRig_temp")
     if objects:
@@ -87,7 +88,7 @@ def link_objects(objects):
             if not bpy.context.scene.collection.children[temp_collection.name].objects.get(ob.name):
                 temp_collection.objects.link(ob)            
 
-###### Funcion de creacion y des-linkeo de objetos en BlenRig_temp #####
+###### Unlink objets in BlenRig_temp #####
 def unlink_objects(objects):
     temp_collection = bpy.data.collections.get("BlenRig_temp")
     if objects:
@@ -101,7 +102,7 @@ def unlink_objects(objects):
             if len(bpy.data.collections['BlenRig_temp'].objects) < 1:
                 bpy.context.scene.collection.children.unlink(temp_collection)
 
-####### Buscador de objetos enparentados con biped_blenrig ######
+####### Search objets parent with  biped_blenrig (lattices) ######
 def search_parent():
     arm = bpy.context.active_object.data.name
     for ob in bpy.data.objects:
@@ -110,7 +111,7 @@ def search_parent():
                 lattices.append(ob)
     return lattices
 
-####### Buscador de BoneShapes #####
+####### Search BoneShapes #####
 def search_boneshapes():
     arm = bpy.context.active_object.data.name
     for ob in bpy.data.objects:
@@ -119,7 +120,7 @@ def search_boneshapes():
                 boneshapes.append(ob)
     return boneshapes
 
-###########  Togle linkeador de objetos BoneShapes en BlenRig_temp #######
+###########  Toggle linking objets BoneShapes in BlenRig_temp #######
 def blenrig_temp_boneshapes(lnk = True):
     if lnk:
         parent = search_boneshapes()
@@ -128,7 +129,7 @@ def blenrig_temp_boneshapes(lnk = True):
         parent = search_boneshapes()
         unlink_objects(parent)
 
-###########  Togle linkeador de objetos lattices y emparentados en BlenRig_temp #######
+###########  Toggle linking objets Lattices and Parenting objects in BlenRig_temp #######
 def blenrig_temp_parent(lnk = True):
     if lnk:
         parent = search_parent()
@@ -137,11 +138,11 @@ def blenrig_temp_parent(lnk = True):
         parent = search_parent()
         unlink_objects(parent)
 
-###########  Togle linkeador del Cage BlenRig_temp #######
+###########  Toggle linking MDef_Cage in BlenRig_temp #######
 def blenrig_temp_cage(lnk = True):
     if lnk:
-        cage = mdef_find()
-        link_objects(cage)        
+        mdef_cage = mdef_find()
+        link_objects(mdef_cage)        
     elif not lnk:
-        cage = mdef_find()
-        unlink_objects(cage)
+        mdef_cage = mdef_find()
+        unlink_objects(mdef_cage)
