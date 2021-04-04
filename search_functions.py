@@ -5,17 +5,23 @@ mesh_deform=[]
 surface_deform=[]
 lattices=[]
 boneshapes=[]
+cage=[]
 
 ###### Buscador del nombre del Cage  #####
-def mdef_search(type="MESH_DEFORM"):
+def mdef_search_name(type="MESH_DEFORM"):
     arm = bpy.context.active_object.data.name    
     for ob in bpy.data.objects:
         if hasattr(ob,'modifiers'):
             for ob_m in ob.modifiers:
                 if ob_m.type == type:                    
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        #print(ob.modifiers[ob_m.name].object.name)
                         return (ob.modifiers[ob_m.name].object.name)
+
+def mdef_find():
+    for ob in bpy.data.objects:
+        if ob.name == mdef_search_name():
+            cage.append(ob)
+            return cage
 
 ###### Buscador de objetos con modificadores  #####
 def search_mod(type):
@@ -26,17 +32,14 @@ def search_mod(type):
                 if ob_m.type == type:
 
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        if ob.modifiers[ob_m.name].object.name == mdef_search():
-                            #print(ob.name,">  ",ob_m.name, "> ",ob.modifiers[ob_m.name].object.name)                           
+                        if ob.modifiers[ob_m.name].object.name == mdef_search_name():
                             mesh_deform.append(ob)
 
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
                         if ob.modifiers[ob_m.name].object.name == arm:
-                            #print(ob.name,">  ",ob_m.name, "> ",ob.modifiers[ob_m.name].object.name)
                             armature.append(ob)
 
                     if hasattr(ob.modifiers[ob_m.name],'target') and hasattr(ob.modifiers[ob_m.name].target, 'name'):
-                        #print(ob.name,">  ",ob_m.name, "> ",ob.modifiers[ob_m.name].target.name)
                         surface_deform.append(ob)
 
     if type == "ARMATURE":
@@ -133,3 +136,12 @@ def blenrig_temp_parent(lnk = True):
     elif not lnk:
         parent = search_parent()
         unlink_objects(parent)
+
+###########  Togle linkeador del Cage BlenRig_temp #######
+def blenrig_temp_cage(lnk = True):
+    if lnk:
+        cage = mdef_find()
+        link_objects(cage)        
+    elif not lnk:
+        cage = mdef_find()
+        unlink_objects(cage)
