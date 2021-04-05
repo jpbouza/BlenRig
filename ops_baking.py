@@ -472,7 +472,7 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         props = context.window_manager.blenrig_6_props
         arm = context.active_object
         mdef_cage_name = mdef_search()
-        blenrig_temp_cage(1)
+        blenrig_temp_mdef_cage(True)
         cage_select = context.view_layer.objects[mdef_cage_name[0].name]
         context.view_layer.objects.active = cage_select
         bpy.ops.object.select_all(action='DESELECT')
@@ -485,7 +485,7 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         bpy.ops.blenrig.mesh_pose_baker()
         bpy.ops.object.select_all(action='DESELECT')
         context.view_layer.objects.active = arm
-        blenrig_temp_cage(0)
+        blenrig_temp_mdef_cage(False)
         self.bake_all(context)
         self.armature_update_values(context)
         bpy.ops.object.mode_set(mode='EDIT')
@@ -560,7 +560,7 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         # activating lattices collection:
         blenrig_temp_parent(1)
         # activating MDef_Cage collection:
-        blenrig_temp_cage(1)
+        blenrig_temp_mdef_cage(True)
         enable_disable_colleciton(False, 'FaceRigMesh')
         enable_disable_colleciton(False, 'GameModel')
 
@@ -655,7 +655,7 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         #deactivating lattices collection:
         blenrig_temp_parent(0)
         # deactivating MDef_Cage collection:
-        blenrig_temp_cage(0)
+        blenrig_temp_mdef_cage(False)
         enable_disable_colleciton(True, 'FaceRigMesh')
         enable_disable_colleciton(True, 'GameModel')
 

@@ -19,13 +19,6 @@ def mdef_search(type="MESH_DEFORM"):
                         mdef_cage.append(ob)
                         return mdef_cage
 
-# ###### Find object_name of MDef_cage  #####
-# def mdef_find():
-#     for ob in bpy.data.objects:
-#         if ob.name == mdef_search_name():
-#             mdef_cage.append(ob)
-#             return mdef_cage
-
 ###### Search objets with modifiers  #####
 def search_mod(type):
     arm = bpy.context.active_object.data.name
@@ -132,7 +125,7 @@ def blenrig_temp_parent(lnk = True):
         unlink_objects(search_parent())
 
 ###########  Toggle linking MDef_Cage in BlenRig_temp #######
-def blenrig_temp_cage(lnk = True):
+def blenrig_temp_mdef_cage(lnk = True):
     if lnk:
         link_objects(mdef_search())        
     elif not lnk:
