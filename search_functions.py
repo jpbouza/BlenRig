@@ -8,32 +8,35 @@ boneshapes=[]
 mdef_cage=[]
 
 ###### Search name of MDef_cage  #####
-def mdef_search_name(type="MESH_DEFORM"):
+def mdef_search(type="MESH_DEFORM"):
     arm = bpy.context.active_object.data.name    
     for ob in bpy.data.objects:
         if hasattr(ob,'modifiers'):
             for ob_m in ob.modifiers:
                 if ob_m.type == type:                    
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        return (ob.modifiers[ob_m.name].object.name)
+                        ob = bpy.data.objects.get(ob.modifiers[ob_m.name].object.name)
+                        mdef_cage.append(ob)
+                        return mdef_cage
 
-###### Find object_name of MDef_cage  #####
-def mdef_find():
-    for ob in bpy.data.objects:
-        if ob.name == mdef_search_name():
-            mdef_cage.append(ob)
-            return mdef_cage
+# ###### Find object_name of MDef_cage  #####
+# def mdef_find():
+#     for ob in bpy.data.objects:
+#         if ob.name == mdef_search_name():
+#             mdef_cage.append(ob)
+#             return mdef_cage
 
 ###### Search objets with modifiers  #####
 def search_mod(type):
-    arm = bpy.context.active_object.data.name    
+    arm = bpy.context.active_object.data.name
+    mdef_cage_name = mdef_search()    
     for ob in bpy.data.objects:
         if hasattr(ob,'modifiers'):
             for ob_m in ob.modifiers:
                 if ob_m.type == type:
 
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        if ob.modifiers[ob_m.name].object.name == mdef_search_name():
+                        if ob.modifiers[ob_m.name].object.name == mdef_cage_name[0].name:
                             mesh_deform.append(ob)
 
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
@@ -54,25 +57,19 @@ def search_mod(type):
 def blenrig_temp(type,lnk = True):
     if lnk:
         if type == "ARMATURE":
-            armature = search_mod(type)
-            link_objects(armature)                           
+            link_objects(search_mod(type))                           
         elif type == "MESH_DEFORM":
-            mesh_deform = search_mod(type)
-            link_objects(mesh_deform)        
+            link_objects(search_mod(type))        
         elif type == "SURFACE_DEFORM":
-            surface_deform = search_mod(type)
-            link_objects(surface_deform)
+            link_objects(search_mod(type))
 
     elif not lnk:
         if type == "ARMATURE":
-            armature = search_mod(type)
-            unlink_objects(armature)                            
+            unlink_objects(search_mod(type))                            
         elif type == "MESH_DEFORM":
-            mesh_deform = search_mod(type)
-            unlink_objects(mesh_deform)        
+            unlink_objects(search_mod(type))        
         elif type == "SURFACE_DEFORM":
-            surface_deform = search_mod(type)
-            unlink_objects(surface_deform)
+            unlink_objects(search_mod(type))
 
 ###### link objets in BlenRig_temp #####
 def link_objects(objects):
@@ -123,26 +120,20 @@ def search_boneshapes():
 ###########  Toggle linking objets BoneShapes in BlenRig_temp #######
 def blenrig_temp_boneshapes(lnk = True):
     if lnk:
-        parent = search_boneshapes()
-        link_objects(parent)        
+        link_objects(search_boneshapes())        
     elif not lnk:
-        parent = search_boneshapes()
-        unlink_objects(parent)
+        unlink_objects(search_boneshapes())
 
 ###########  Toggle linking objets Lattices and Parenting objects in BlenRig_temp #######
 def blenrig_temp_parent(lnk = True):
     if lnk:
-        parent = search_parent()
-        link_objects(parent)        
+        link_objects(search_parent())        
     elif not lnk:
-        parent = search_parent()
-        unlink_objects(parent)
+        unlink_objects(search_parent())
 
 ###########  Toggle linking MDef_Cage in BlenRig_temp #######
 def blenrig_temp_cage(lnk = True):
     if lnk:
-        mdef_cage = mdef_find()
-        link_objects(mdef_cage)        
+        link_objects(mdef_search())        
     elif not lnk:
-        mdef_cage = mdef_find()
-        unlink_objects(mdef_cage)
+        unlink_objects(mdef_search())
