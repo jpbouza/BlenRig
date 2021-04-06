@@ -3033,6 +3033,7 @@ class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_label = 'Shape Keys+'
     bl_category = "BlenRig 6"
+    bl_options = {'DEFAULT_CLOSED'}
     
     @classmethod
     def poll(cls, context):

@@ -201,31 +201,35 @@ def editShapes(active_bone):
 # check if automatic Match bone transforms is on and do it automatic before edit shape
     if props.match_bone_transforms_toggle:
         bpy.ops.blenrig.match_bone_transforms()
-    
-    widget = active_bone.custom_shape
+    try:
+        widget = active_bone.custom_shape
 
-    armature = active_bone.id_data
-    bpy.ops.object.mode_set(mode='OBJECT')
-    C.active_object.select_set(False)
+        armature = active_bone.id_data
+        bpy.ops.object.mode_set(mode='OBJECT')
+        C.active_object.select_set(False)
 
-    collection = getViewLayerCollection(C)
-    collection.exclude = False
-    collection.hide_viewport = False
+        collection = getViewLayerCollection(C)
+        collection.exclude = False
+        collection.hide_viewport = False
 
-    if C.space_data.local_view:
-        bpy.ops.view3d.localview()
+        if C.space_data.local_view:
+            bpy.ops.view3d.localview()
 
-    # select object and make it active
-    widget.select_set(True)
-    bpy.context.view_layer.objects.active = widget
-    
-    for ob in bpy.data.collections[collection.name].objects:
-        if ob == widget:
-            widget.hide_set(False)
-        else:
-            D.objects[ob.name].hide_set(True)
+        # select object and make it active
+        widget.select_set(True)
+        bpy.context.view_layer.objects.active = widget
+        
+        for ob in bpy.data.collections[collection.name].objects:
+            if ob == widget:
+                widget.hide_set(False)
+            else:
+                D.objects[ob.name].hide_set(True)
 
-    bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.object.mode_set(mode='EDIT')
+    except:
+        blenrig_temp_boneshapes(False)
+        print("No Active Bone Selected")
+
 
 
 def returnToArmature(widget):

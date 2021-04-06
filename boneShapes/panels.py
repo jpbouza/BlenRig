@@ -40,7 +40,10 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        row = layout.row(align=True)
+        box = layout.row()
+        col = box.column()
+        box = col.box()
+        row = box.row()
         if bpy.context.mode in {"POSE"}:
             if len(bpy.types.Scene.widget_list[1]['items']) < 6:
                 row.prop(context.scene, "widget_list", expand=True)
@@ -48,13 +51,16 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
                 row.prop(context.scene, "widget_list",
                          expand=False, text="Shapes Select")
         if bpy.context.mode in {'POSE', "OBJECT"}:
-            row = layout.row(align=True)
+            row = box.row()
             row.menu("BLENRIG_MT_bw_specials", icon='DOWNARROW_HLT', text="")
             row.operator("blenrig.create_widget", icon="OBJECT_DATAMODE")
 
         if bpy.context.mode in {"POSE"}:
             row.operator("blenrig.edit_widget", icon="OUTLINER_DATA_MESH")
         else:
+            layout.separator()
+            row.scale_x = 0.9
+            row.scale_y = 1.5
             row.operator("blenrig.return_to_armature",
                          icon="LOOP_BACK", text='To bone')
 
@@ -63,6 +69,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
                      icon='DOWNARROW_HLT', text="")
 
         if bpy.context.mode in {'POSE'}:
+            layout.separator()
             layout = self.layout
             layout.operator("blenrig.symmetrize_shape",
                             icon='MOD_MIRROR', text="Symmetrize Shape")
@@ -85,23 +92,23 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             layout.operator("blenrig.delete_unused_shapes",
                             icon='TRASH', text="Delete Unused Shapess")
 
-            try:
-                collection = getViewLayerCollection(context)
-            except:
-                collection = None
+            # try:
+            #     collection = getViewLayerCollection(context)
+            # except:
+            #     collection = None
 
-            if collection != None:
-                if collection.hide_viewport:
-                    icon = "HIDE_ON"
-                    text = "Unhide Collection"
-                else:
-                    icon = "HIDE_OFF"
-                    text = "Hide Collection"
-                row = layout.row()
-                row.separator()
-                row = layout.row()
-                row.operator("blenrig.toggle_collection_visibilty",
-                             icon=icon, text=text)
+            # if collection != None:
+            #     if collection.hide_viewport:
+            #         icon = "HIDE_ON"
+            #         text = "Unhide Collection"
+            #     else:
+            #         icon = "HIDE_OFF"
+            #         text = "Hide Collection"
+            #     row = layout.row()
+            #     row.separator()
+            #     row = layout.row()
+            #     row.operator("blenrig.toggle_collection_visibilty",
+            #                  icon=icon, text=text)
 
 
 class BLENRIG_MT_bw_specials(Menu):
