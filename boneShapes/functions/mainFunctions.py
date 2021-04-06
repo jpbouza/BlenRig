@@ -9,12 +9,12 @@ from ...search_functions import *
 
 def getCollection(context):
     bw_collection_name = context.preferences.addons[main_package].preferences.boneshape_collection_name
-    bw_collection_search_name = search_boneshapes()
-    collection = context.scene.collection.children.get(bw_collection_search_name[0].users_collection[0].name)
+    bw_collection_search_name = search_boneshapes()[0].users_collection[0].name
+    collection = context.scene.collection.children.get(bw_collection_search_name)
     if collection:  # if it already exists
         return collection
 
-    collection = bpy.data.collections.get(bw_collection_search_name[0].users_collection[0].name)
+    collection = bpy.data.collections.get(bw_collection_search_name)
 
     if collection:  # if it exists but not linked to scene
         blenrig_temp_boneshapes(True)
@@ -36,8 +36,8 @@ def UnlinkCollection(context):
 
 
 def getViewLayerCollection(context):
-    bw_collection_name = search_boneshapes()
-    collection = context.view_layer.layer_collection.children[bw_collection_name[0].users_collection[0].name]
+    bw_collection_name = search_boneshapes()[0].users_collection[0].name
+    collection = context.view_layer.layer_collection.children[bw_collection_name]
     return collection
 
 
@@ -168,7 +168,7 @@ def symmetrizeShapes(bone, collection):
 def deleteUnusedShapess():
     C = bpy.context
     D = bpy.data
-    bw_collection_search_name = search_boneshapes()
+    bw_collection_search_name = search_boneshapes()[0].users_collection[0].name
     try:
         widgetList = []
 
@@ -179,7 +179,7 @@ def deleteUnusedShapess():
                         widgetList.append(bone.custom_shape)
         
         unwantedList = [
-            ob for ob in C.scene.collection.children[bw_collection_search_name[0].users_collection[0].name].all_objects if ob not in widgetList]
+            ob for ob in C.scene.collection.children[bw_collection_search_name].all_objects if ob not in widgetList]
         
         # save the current context mode
         mode = C.mode

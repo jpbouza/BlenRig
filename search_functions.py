@@ -5,7 +5,7 @@ mesh_deform=[]
 surface_deform=[]
 lattices=[]
 boneshapes=[]
-mdef_cage=[]
+
 
 ###### Search name of MDef_cage  #####
 def mdef_search(type="MESH_DEFORM"):
@@ -15,9 +15,8 @@ def mdef_search(type="MESH_DEFORM"):
             for ob_m in ob.modifiers:
                 if ob_m.type == type:                    
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        ob = bpy.data.objects.get(ob.modifiers[ob_m.name].object.name)
-                        mdef_cage.append(ob)
-                        return mdef_cage
+                        mdef_cage = bpy.data.objects.get(ob.modifiers[ob_m.name].object.name)
+                        return mdef_cage , ob.modifiers[ob_m.name].object.name
 
 ###### Search objets with modifiers  #####
 def search_mod(type):
