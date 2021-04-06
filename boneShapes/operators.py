@@ -158,6 +158,7 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
         collection = getCollection(context)
         shapesAndBones = findMatchBones()[0]
         activeObject = findMatchBones()[1]
+        UnlinkCollection(context)
 
         if not activeObject:
             self.report({"INFO"}, "No active bone or object")
@@ -269,4 +270,5 @@ class BLENRIG_OT_resyncShapesNames(bpy.types.Operator):
 
     def execute(self, context):
         resyncShapesNames()
+        self.report({'INFO'},"Resync Shapes")
         return {'FINISHED'}

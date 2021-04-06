@@ -4,21 +4,22 @@ from math import pi
 from mathutils import Matrix
 from .jsonFunctions import objectDataToDico
 from ..prefs import main_package
+from ...search_functions import * 
 
 
 def getCollection(context):
     bw_collection_name = context.preferences.addons[main_package].preferences.boneshape_collection_name
-    collection = context.scene.collection.children.get(bw_collection_name)
+    bw_collection_search_name = search_boneshapes()
+    collection = context.scene.collection.children.get(bw_collection_search_name[0].users_collection[0].name)
     if collection:  # if it already exists
         return collection
 
-    collection = bpy.data.collections.get(bw_collection_name)
+    collection = bpy.data.collections.get(bw_collection_search_name[0].users_collection[0].name)
 
     if collection:  # if it exists but not linked to scene
-        context.scene.collection.children.link(collection)
-        viewlayer_collection = context.view_layer.layer_collection.children[collection.name]
-        viewlayer_collection.hide_viewport = True
-        bpy.data.collections[bw_collection_name].hide_viewport = False
+        blenrig_temp_boneshapes(True)
+        viewlayer_collection = context.view_layer.layer_collection.children['BlenRig_temp']
+        viewlayer_collection.exclude = True
         return collection
 
     else:  # create a new collection
@@ -31,17 +32,12 @@ def getCollection(context):
         return collection
 
 def UnlinkCollection(context):
-    bw_collection_name = context.preferences.addons[main_package].preferences.boneshape_collection_name
-    collection = context.scene.collection.children.get(bw_collection_name)
-    
-    if collection:  # if it exists but not linked to scene
-        context.scene.collection.children.unlink(collection)
-        return collection
+    blenrig_temp_boneshapes(False)
 
 
 def getViewLayerCollection(context):
-    bw_collection_name = context.preferences.addons[main_package].preferences.boneshape_collection_name
-    collection = context.view_layer.layer_collection.children[bw_collection_name]
+    bw_collection_name = search_boneshapes()
+    collection = context.view_layer.layer_collection.children[bw_collection_name[0].users_collection[0].name]
     return collection
 
 
@@ -172,9 +168,8 @@ def symmetrizeShapes(bone, collection):
 def deleteUnusedShapess():
     C = bpy.context
     D = bpy.data
+    bw_collection_search_name = search_boneshapes()
     try:
-        bw_collection_name = C.preferences.addons[main_package].preferences.boneshape_collection_name
-
         widgetList = []
 
         for ob in D.objects:
@@ -184,7 +179,7 @@ def deleteUnusedShapess():
                         widgetList.append(bone.custom_shape)
         
         unwantedList = [
-            ob for ob in C.scene.collection.children[bw_collection_name].all_objects if ob not in widgetList]
+            ob for ob in C.scene.collection.children[bw_collection_search_name[0].users_collection[0].name].all_objects if ob not in widgetList]
         
         # save the current context mode
         mode = C.mode
@@ -208,13 +203,13 @@ def editShapes(active_bone):
         bpy.ops.blenrig.match_bone_transforms()
     
     widget = active_bone.custom_shape
-    bw_collection_name = C.preferences.addons[main_package].preferences.boneshape_collection_name
 
     armature = active_bone.id_data
     bpy.ops.object.mode_set(mode='OBJECT')
     C.active_object.select_set(False)
 
     collection = getViewLayerCollection(C)
+    collection.exclude = False
     collection.hide_viewport = False
 
     if C.space_data.local_view:
@@ -224,7 +219,7 @@ def editShapes(active_bone):
     widget.select_set(True)
     bpy.context.view_layer.objects.active = widget
     
-    for ob in bpy.data.collections[bw_collection_name].objects:
+    for ob in bpy.data.collections[collection.name].objects:
         if ob == widget:
             widget.hide_set(False)
         else:
@@ -246,9 +241,8 @@ def returnToArmature(widget):
         widget = None
         bpy.ops.object.mode_set(mode='OBJECT')
 
-
     collection = getViewLayerCollection(C)
-    collection.hide_viewport = True
+    collection.exclude = True
     if C.space_data.local_view:
         bpy.ops.view3d.localview()
     bpy.context.view_layer.objects.active = armature
@@ -256,12 +250,10 @@ def returnToArmature(widget):
     bpy.ops.object.mode_set(mode='POSE')
     armature.data.bones[bone.name].select = True
     armature.data.bones.active = armature.data.bones[bone.name]
+
 # check if automatic Symmetrize Shape is on and do it automatic after edit shape
     if props.symmetrize_shape_toggle:
         bpy.ops.blenrig.symmetrize_shape()
-
-
-
 
 def findMirrorObject(object):
     if object.name.endswith("L"):
@@ -321,9 +313,7 @@ def resyncShapesNames():
     C = bpy.context
     D = bpy.data
 
-    bw_collection_name = C.preferences.addons[main_package].preferences.boneshape_collection_name
     bw_widget_prefix = C.preferences.addons[main_package].preferences.widget_prefix
-
 
     shapesAndBones = {}
 

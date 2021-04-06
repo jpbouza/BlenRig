@@ -2383,7 +2383,7 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     contextOptions = [('PICKER', 'Picker', "Display picker options", 'ARMATURE_DATA', 0),
                         ('RIGTOOLS', 'Rig Tools', "Display Rig Tools", 'BONE_DATA', 1),
                         # ('BONE_SHAPES', 'BoneShapes', "Display Bones Shapes Tools", 'CONSTRAINT_BONE', 2),
-                        ('TOOLS', 'Tools', "Display Tools options", 'AUTO', 3),
+                        ('TOOLS', 'Tools', "Display Tools options", 'TOOL_SETTINGS', 3),
                         ('GUIDES', 'Guides', "Display Guides options", 'HELP', 4)]
     displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
     ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object", min=0, max=100, default=2)
