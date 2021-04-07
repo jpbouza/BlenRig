@@ -44,8 +44,7 @@ def BlenRig_Panel_Options(layout, context):
 
         # TOOLS Menu.
         elif BlenRigPanelOptions.displayContext == 'TOOLS':
-            if context.mode == 'POSE':
-                column.separator()
+            column.separator()
 
         # GUIDES Menu.
         elif BlenRigPanelOptions.displayContext == 'GUIDES':

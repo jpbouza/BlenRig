@@ -62,7 +62,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             if bpy.context.mode in {"EDIT_MESH"}:
                 layout.separator()
                 row.scale_x = 0.9
-                row.scale_y = 1.5
+                row.scale_y = 2.4
                 row.operator("blenrig.return_to_armature",
                             icon="LOOP_BACK", text='To bone')
 
