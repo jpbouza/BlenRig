@@ -78,7 +78,7 @@ class BLENRIG_OT_createShapes(bpy.types.Operator):
         for bone in bpy.context.selected_pose_bones:
             createShapes(bone, wgts[context.scene.widget_list], self.relative_size, self.global_size, [
                         1, 1, 1], self.location, self.rotation, getCollection(context))
-
+        UnlinkCollection(context)
         return {'FINISHED'}
 
 
