@@ -9,13 +9,14 @@ boneshapes=[]
 
 ###### Search name of MDef_cage  #####
 def mdef_search(type="MESH_DEFORM"):
+    mdef_cage =[] 
     arm = bpy.context.active_object.data.name    
     for ob in bpy.data.objects:
         if hasattr(ob,'modifiers'):
             for ob_m in ob.modifiers:
                 if ob_m.type == type:                    
                     if hasattr(ob.modifiers[ob_m.name], 'object') and hasattr(ob.modifiers[ob_m.name].object, 'name'):
-                        mdef_cage = bpy.data.objects.get(ob.modifiers[ob_m.name].object.name)
+                        mdef_cage.append(bpy.data.objects.get(ob.modifiers[ob_m.name].object.name))
                         return mdef_cage , ob.modifiers[ob_m.name].object.name
 
 ###### Search objets with modifiers  #####
@@ -126,6 +127,6 @@ def blenrig_temp_parent(lnk = True):
 ###########  Toggle linking MDef_Cage in BlenRig_temp #######
 def blenrig_temp_mdef_cage(lnk = True):
     if lnk:
-        link_objects(mdef_search())        
+        link_objects(mdef_search()[0])      
     elif not lnk:
-        unlink_objects(mdef_search())
+        unlink_objects(mdef_search()[0])

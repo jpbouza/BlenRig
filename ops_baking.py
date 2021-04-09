@@ -471,9 +471,9 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
     def bake_all_1(self, context):
         props = context.window_manager.blenrig_6_props
         arm = context.active_object
-        mdef_cage_name = mdef_search()
+        mdef_cage_name = mdef_search()[1]
         blenrig_temp_mdef_cage(True)
-        cage_select = context.view_layer.objects[mdef_cage_name[0].name]
+        cage_select = context.view_layer.objects[mdef_cage_name]
         context.view_layer.objects.active = cage_select
         bpy.ops.object.select_all(action='DESELECT')
         cage_select.select_set(1)
