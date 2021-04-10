@@ -46,11 +46,19 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             box = col.box()
             row = box.row()
             if bpy.context.mode in {"POSE"}:
-                if len(bpy.types.Scene.widget_list[1]['items']) < 6:
-                    row.prop(context.scene, "widget_list", expand=True)
-                else:
-                    row.prop(context.scene, "widget_list",
+                if bpy.app.version_string.find("2.92") > -1:
+                    if len(bpy.types.Scene.widget_list[1]['items']) < 0:
+                        row.prop(context.scene, "widget_list", expand=True)
+                    else:
+                        row.prop(context.scene, "widget_list",
                             expand=False, text="Shapes Select")
+                if bpy.app.version_string.find("2.93") > -1:
+                    if len(bpy.types.Scene.widget_list.keywords['items']) < 6:
+                        row.prop(context.scene, "widget_list", expand=True)
+                    else:
+                        row.prop(context.scene, "widget_list",
+                            expand=False, text="Shapes Select")                
+
             if bpy.context.mode in {'POSE', "OBJECT"}:
                 row = box.row()
                 row.menu("BLENRIG_MT_bw_specials", icon='DOWNARROW_HLT', text="")
