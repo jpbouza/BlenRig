@@ -158,7 +158,7 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
         collection = getCollection(context)
         shapesAndBones = findMatchBones()[0]
         activeObject = findMatchBones()[1]
-        # UnlinkCollection(context)
+        UnlinkCollection(context)
 
         if not activeObject:
             self.report({"INFO"}, "No active bone or object")
@@ -175,7 +175,6 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
             elif activeObject.name.endswith("R"):
                 if bone.name.endswith("R") and shapesAndBones[bone]:
                     symmetrizeShapes(bone, collection)
-        UnlinkCollection(context)
         return {'FINISHED'}
 
 
