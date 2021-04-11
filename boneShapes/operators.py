@@ -166,7 +166,7 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
 
         if bpy.data.objects[activeObject.custom_shape.name].users > 2:
             self.report({"INFO"}, "Custom Shape in multiples bones, symmetrize not necesary")
-            return {'FINISHED'}
+
 
         for bone in shapesAndBones:
             if activeObject.name.endswith("L"):

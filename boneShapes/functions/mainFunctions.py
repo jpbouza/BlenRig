@@ -140,11 +140,14 @@ def symmetrizeShapes(bone, collection):
     mirrorShapes = mirrorBone.custom_shape
 
     if mirrorShapes:
-        mirrorShapes.name = mirrorShapes.name+"_old"
-        mirrorShapes.data.name = mirrorShapes.data.name+"_old"
-        # unlink/delete old widget
-        if C.scene.objects.get(mirrorShapes.name):
-            D.objects.remove(mirrorShapes)
+        if not bpy.data.objects[widget.name].users > 2:
+            mirrorShapes.name = mirrorShapes.name+"_old"
+            mirrorShapes.data.name = mirrorShapes.data.name+"_old"
+        # unlink/delete old widget        
+            if C.scene.objects.get(mirrorShapes.name):
+                D.objects.remove(mirrorShapes)
+            else:
+                pass
 
     newData = widget.data.copy()
     for vert in newData.vertices:

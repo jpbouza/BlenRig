@@ -104,6 +104,8 @@ def search_parent():
 ####### Search BoneShapes #####
 def search_boneshapes():
     arm = bpy.context.active_object.data.name
+    # for bone in bpy.context.selected_pose_bones:
+    #     return bone
     for ob in bpy.data.objects:
         if hasattr(ob,'parent'):
             if ob.name.startswith('cs_'):
