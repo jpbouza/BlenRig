@@ -990,7 +990,7 @@ def pole_toggles(context):
 
 #################################### BLENRIG SET CONSTRAINTS VALUES FUNCTIONS ####################################################
 
-################### SET FUNCTIONS ##################################
+################### MAIN FUNCTIONS ##################################
 
 #Function for setting values on Action Constraints
 
@@ -1081,6 +1081,37 @@ def Set_Volume_Variation_Stretch_To(b_name, prop_name, C_name):
                                     if C.name == C_name:
                                         C.bulge = constraint_value[0]
 
+#Functions for setting values on Volume Preservation bones Constraints
+
+def Set_VP_Transforms(b_name, prop_name, C_name, to_mapping, factor):
+
+        armobj = bpy.context.active_object
+        arm = bpy.context.active_object.data
+        p_bones = bpy.context.active_object.pose.bones
+        constraint_value = []
+
+        for b in p_bones:
+            if b.name == b_name:
+                for cust_prop in b.items():
+                    if cust_prop[0] == prop_name:
+                        constraint_value = []
+                        constraint_value.append(cust_prop[1])
+                        for b in p_bones:
+                            for C in b.constraints:
+                                if C.type == 'TRANSFORM':
+                                    if C.name == C_name:
+                                        if to_mapping == 'to_max_x':
+                                            C.to_max_x = constraint_value[0] * factor
+                                        if to_mapping == 'to_max_y':
+                                            C.to_max_y = constraint_value[0] * factor
+                                        if to_mapping == 'to_max_z':
+                                            C.to_max_z = constraint_value[0] * factor
+                                        if to_mapping == 'to_min_x':
+                                            C.to_min_x = constraint_value[0] * factor
+                                        if to_mapping == 'to_min_y':
+                                            C.to_min_y = constraint_value[0] * factor
+                                        if to_mapping == 'to_min_z':
+                                            C.to_min_z = constraint_value[0] * factor
 
 ######## SET FUNCTIONS ###########################################
 
@@ -1307,3 +1338,45 @@ def set_vol_variation(context):
                 Set_Volume_Variation_Stretch_To('properties_head', 'volume_variation_head', 'Vol_Var_Head_Stretch_To')
                 return {"FINISHED"}
 
+### VOLUME PRESERVATION CONSTRAINTS ####
+
+def set_vol_preservation(context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                #Fingers Down L
+                Set_VP_Transforms('properties_arm_L', 'volume_preservation_fingers_down_L', 'Fing_VP_Down_L_NOREP', 'to_max_y', 1)
+                #Kunckles Down L
+                Set_VP_Transforms('properties_arm_L', 'volume_preservation_knuckles_down_L', 'Fing_Knuckles_VP_Down_L_NOREP', 'to_max_z', -1)
+                #Kunckles Up L
+                Set_VP_Transforms('properties_arm_L', 'volume_preservation_knuckles_up_L', 'Fing_Knuckles_VP_Up_L_NOREP', 'to_min_y', 1)
+                #Palm Down L
+                Set_VP_Transforms('properties_arm_L', 'volume_preservation_palm_down_L', 'Fing_Palm_VP_Down_L_NOREP', 'to_max_y', 1)
+                #Fingers Down R
+                Set_VP_Transforms('properties_arm_R', 'volume_preservation_fingers_down_R', 'Fing_VP_Down_R_NOREP', 'to_max_y', 1)
+                #Kunckles Down R
+                Set_VP_Transforms('properties_arm_R', 'volume_preservation_knuckles_down_R', 'Fing_Knuckles_VP_Down_R_NOREP', 'to_max_z', -1)
+                #Kunckles Up R
+                Set_VP_Transforms('properties_arm_R', 'volume_preservation_knuckles_up_R', 'Fing_Knuckles_VP_Up_R_NOREP', 'to_min_y', 1)
+                #Palm Down R
+                Set_VP_Transforms('properties_arm_R', 'volume_preservation_palm_down_R', 'Fing_Palm_VP_Down_R_NOREP', 'to_max_y', 1)
+                #Sole Down L
+                Set_VP_Transforms('properties_leg_L', 'volume_preservation_sole_down_L', 'Toe_Sole_VP_Down_L_NOREP', 'to_max_y', 1)
+                #Toe Knuckles Up L
+                Set_VP_Transforms('properties_leg_L', 'volume_preservation_toe_knuckles_up_L', 'Toe_Knuckles_VP_Up_L_NOREP', 'to_min_y', 1)
+                #Toes Down L
+                Set_VP_Transforms('properties_leg_L', 'volume_preservation_toes_down_L', 'Toes_VP_Down_L_NOREP', 'to_max_y', 1)
+                #Sole Down R
+                Set_VP_Transforms('properties_leg_R', 'volume_preservation_sole_down_R', 'Toe_Sole_VP_Down_R_NOREP', 'to_max_y', 1)
+                #Toe Knuckles Up R
+                Set_VP_Transforms('properties_leg_R', 'volume_preservation_toe_knuckles_up_R', 'Toe_Knuckles_VP_Up_R_NOREP', 'to_min_y', 1)
+                #Toes Down R
+                Set_VP_Transforms('properties_leg_R', 'volume_preservation_toes_down_R', 'Toes_VP_Down_R_NOREP', 'to_max_y', 1)
+                return {"FINISHED"}
