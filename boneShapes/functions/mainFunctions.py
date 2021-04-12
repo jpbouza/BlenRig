@@ -144,10 +144,10 @@ def symmetrizeShapes(bone, collection):
             mirrorShapes.name = mirrorShapes.name+"_old"
             mirrorShapes.data.name = mirrorShapes.data.name+"_old"
         # unlink/delete old widget        
-            if C.scene.objects.get(mirrorShapes.name):
-                D.objects.remove(mirrorShapes)
-            else:
-                pass
+            # if C.scene.objects.get(mirrorShapes.name):
+            #     D.objects.remove(mirrorShapes)
+            # else:
+            #     pass
 
     newData = widget.data.copy()
     for vert in newData.vertices:
@@ -343,3 +343,6 @@ def clearBoneShapess():
             if bone.custom_shape:
                 bone.custom_shape = None
                 bone.custom_shape_transform = None
+                
+def shape_scale(self, context):
+    pass

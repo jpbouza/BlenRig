@@ -9,7 +9,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
     bl_idname = 'BLENRIG_PT_posemode_panel'
-    bl_options = {'DEFAULT_CLOSED'}
+    # bl_options = {'DEFAULT_CLOSED'}
 
     @classmethod
     def poll(cls, context):
@@ -47,7 +47,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             row = box.row()
             if bpy.context.mode in {"POSE"}:
                 if bpy.app.version_string.find("2.92") > -1:
-                    if len(bpy.types.Scene.widget_list[1]['items']) < 0:
+                    if len(bpy.types.Scene.widget_list[1]['items']) < 6:
                         row.prop(context.scene, "widget_list", expand=True)
                     else:
                         row.prop(context.scene, "widget_list",
@@ -92,6 +92,12 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             if bpy.context.mode in {'POSE'}:
                 layout.operator("blenrig.resync_widget_names",
                                 icon='FILE_REFRESH', text="Resync Shapes Names")
+            
+            if bpy.context.mode in {'POSE'}:
+                layout = self.layout
+                row = layout.row()
+                row.menu("BLENRIG_MT_shape_scale",
+                                icon='DRIVER_DISTANCE', text="Shapes Size/Scale")
 
             if bpy.context.mode in {'POSE'}:
                 layout.separator()
@@ -141,3 +147,11 @@ class BLENRIG_MT_bw_specials_edit(Menu):
                     text="Automatic Symmetrize Shape")
         layout.prop(context.scene, "match_bone_transforms_toggle",
                     text="Automatic Match Bone Transforms")
+
+class BLENRIG_MT_shape_scale(Menu):
+    bl_label = "Bone Shapes Size/Scale"
+
+    def draw(self, context):
+        col = self.layout.column()
+        col.operator("blenrig.shape_scale", text = "Free")
+        col.operator("blenrig.shape_scale", text = "Pelvis")

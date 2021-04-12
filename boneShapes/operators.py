@@ -18,7 +18,8 @@ from .functions import (
     deleteUnusedShapess,
     clearBoneShapess,
     resyncShapesNames,
-    UnlinkCollection
+    UnlinkCollection,
+    shape_scale
 )
 from bpy.types import Operator
 from bpy.props import FloatProperty, BoolProperty, FloatVectorProperty
@@ -270,4 +271,22 @@ class BLENRIG_OT_resyncShapesNames(bpy.types.Operator):
     def execute(self, context):
         resyncShapesNames()
         self.report({'INFO'},"Resync Shapes")
+        return {'FINISHED'}
+
+class BLENRIG_OT_shape_scale(bpy.types.Operator):
+    """unificate shapes scale and size from L/R in selected pose bones"""
+    bl_idname = "blenrig.shape_scale"
+    bl_label = "Shapes Size/Scale"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        return (context.object and context.object.type == 'ARMATURE' and context.object.pose)
+    itemsSort = ["R/L,""L/R"]
+    bpy.types.Scene.Size_option = bpy.props.EnumProperty(
+        name="Shape Size/Scale", items=itemsSort, description="Shape Size/Scale")
+
+    def invoke(self, context, event):
+        context.window_manager.popup_menu(shape_scale, title='Select Direction', icon='MOD_ARMATURE')
+        # context.window_manager.invoke_props_dialog(self)
         return {'FINISHED'}
