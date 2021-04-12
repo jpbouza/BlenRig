@@ -126,6 +126,8 @@ def rj_transforms_update(self, context):
 def vol_variation_update(self, context):
     set_vol_variation(context)
 
+def vol_prservation_update(self, context):
+    set_vol_preservation(context)
 ######### Handler for update on load and frame change #########
 
 # from bpy.app.handlers import persistent
@@ -1631,6 +1633,148 @@ bpy.types.PoseBone.volume_variation_neck = FloatProperty(
     description="Volume Variation for stretch and squash",
     update=vol_variation_update,
     name="volume_variation_neck"
+)
+
+# VOLUME PRESERVATION BONES MOVEMENT
+
+bpy.types.PoseBone.volume_preservation_fingers_down_L = FloatProperty(
+    default=0.025,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_fingers_down_L"
+)
+
+bpy.types.PoseBone.volume_preservation_knuckles_down_L = FloatProperty(
+    default=0.01,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_knuckles_down_L"
+)
+
+bpy.types.PoseBone.volume_preservation_knuckles_up_L = FloatProperty(
+    default=0.075,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_knuckles_up_L"
+)
+
+bpy.types.PoseBone.volume_preservation_palm_down_L = FloatProperty(
+    default=0.05,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_palm_down_L"
+)
+
+bpy.types.PoseBone.volume_preservation_fingers_down_R = FloatProperty(
+    default=0.025,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_fingers_down_R"
+)
+
+bpy.types.PoseBone.volume_preservation_knuckles_down_R = FloatProperty(
+    default=0.01,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_knuckles_down_R"
+)
+
+bpy.types.PoseBone.volume_preservation_knuckles_up_R = FloatProperty(
+    default=0.075,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_knuckles_up_R"
+)
+
+bpy.types.PoseBone.volume_preservation_palm_down_R = FloatProperty(
+    default=0.05,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_palm_down_R"
+)
+
+bpy.types.PoseBone.volume_preservation_sole_down_L = FloatProperty(
+    default=0.1,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_sole_down_L"
+)
+
+bpy.types.PoseBone.volume_preservation_toe_knuckles_up_L = FloatProperty(
+    default=0.1,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_toe_knuckles_up_L"
+)
+
+bpy.types.PoseBone.volume_preservation_toes_down_L = FloatProperty(
+    default=0.05,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_toes_down_L"
+)
+
+bpy.types.PoseBone.volume_preservation_sole_down_R = FloatProperty(
+    default=0.1,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_sole_down_R"
+)
+
+bpy.types.PoseBone.volume_preservation_toe_knuckles_up_R = FloatProperty(
+    default=0.1,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_toe_knuckles_up_R"
+)
+
+bpy.types.PoseBone.volume_preservation_toes_down_R = FloatProperty(
+    default=0.05,
+    min=0.000,
+    max=10.000,
+    precision=3,
+    description="Volume Preservation Bones Movement Rage",
+    update=vol_prservation_update,
+    name="volume_preservation_toes_down_R"
 )
 
 ####### Load BlenRig 6 Controls Panel
