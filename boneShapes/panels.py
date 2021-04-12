@@ -93,11 +93,11 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
                 layout.operator("blenrig.resync_widget_names",
                                 icon='FILE_REFRESH', text="Resync Shapes Names")
             
-            if bpy.context.mode in {'POSE'}:
-                layout = self.layout
-                row = layout.row()
-                row.menu("BLENRIG_MT_shape_scale",
-                                icon='DRIVER_DISTANCE', text="Shapes Size/Scale")
+            # if bpy.context.mode in {'POSE'}:
+            #     layout = self.layout
+            #     row = layout.row()
+            #     row.operator("BLENRIG_MT_shape_scale",
+            #                     icon='DRIVER_DISTANCE', text="Shapes Size/Scale")
 
             if bpy.context.mode in {'POSE'}:
                 layout.separator()
@@ -148,10 +148,10 @@ class BLENRIG_MT_bw_specials_edit(Menu):
         layout.prop(context.scene, "match_bone_transforms_toggle",
                     text="Automatic Match Bone Transforms")
 
-class BLENRIG_MT_shape_scale(Menu):
-    bl_label = "Bone Shapes Size/Scale"
+# class BLENRIG_MT_shape_scale(Menu):
+#     bl_label = "Bone Shapes Size/Scale"
 
-    def draw(self, context):
-        col = self.layout.column()
-        col.operator("blenrig.shape_scale", text = "Free")
-        col.operator("blenrig.shape_scale", text = "Pelvis")
+#     def draw(self, context):
+#         col = self.layout.column()
+#         col.operator("blenrig.shape_scale", text = "Free")
+#         col.operator("blenrig.shape_scale", text = "Pelvis")

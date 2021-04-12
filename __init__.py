@@ -1806,6 +1806,7 @@ from .boneShapes.operators import (
     BLENRIG_OT_deleteUnusedShapess,
     BLENRIG_OT_clearBoneShapess,
     BLENRIG_OT_resyncShapesNames,
+    BLENRIG_OT_shape_scale
 )
 from .boneShapes.prefs import (BoneShapesPreferences)
 
@@ -2527,7 +2528,6 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     gui_custom_layers: bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
     contextOptions = [('PICKER', 'Picker', "Display picker options", 'ARMATURE_DATA', 0),
                         ('RIGTOOLS', 'Rig Tools', "Display Rig Tools", 'BONE_DATA', 1),
-                        # ('BONE_SHAPES', 'BoneShapes', "Display Bones Shapes Tools", 'CONSTRAINT_BONE', 2),
                         ('TOOLS', 'Tools', "Display Tools options", 'TOOL_SETTINGS', 3),
                         ('GUIDES', 'Guides', "Display Guides options", 'HELP', 4)]
     displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
@@ -2586,6 +2586,7 @@ boneshapes_classes = [
     BLENRIG_OT_deleteUnusedShapess,
     BLENRIG_OT_clearBoneShapess,
     BLENRIG_OT_resyncShapesNames,
+    BLENRIG_OT_shape_scale,
     BoneShapesPreferences
 ]
 
