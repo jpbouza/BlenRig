@@ -2517,6 +2517,7 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     gui_body_ik_rot: bpy.props.BoolProperty(default=False, description="Set the initial rotation of IK bones")
     gui_body_auto_move: bpy.props.BoolProperty(default=False, description="Parameters for automated movement")
     gui_body_rj: bpy.props.BoolProperty(default=False, description="Simulate how bone thickness affects joint rotation")
+    gui_body_vp: bpy.props.BoolProperty(default=False, description="Volume Preservation Bones Movement Definition")
     gui_body_toggles: bpy.props.BoolProperty(default=False, description="Toggle body parts")
     gui_body_bbones: bpy.props.BoolProperty(default=False, description="Bendy Bones Settings")
     gui_body_collisions: bpy.props.BoolProperty(default=False, description="Body Collisions Offset")
