@@ -61,6 +61,7 @@ from .ui.panels.rigging_optimizations import BLENRIG_PT_Rigging_optimizations
 from .ui.panels.rigging_and_baking import BLENRIG_PT_Rigging_and_baking
 from .ui.panels.repoportion_assistant_guide import BLENRIG_PT_reproportion_guide
 from .ui.panels.actions_assistants_guide import BLENRIG_PT_actions_guide
+from .ui.panels.body_settings_volume_preservation import *
 from .boneShapes.panels import *
 
 ######### Load Rig Functions ##########
@@ -3181,7 +3182,15 @@ panels_classes = [
     BLENRIG_PT_posemode_panel,
     BLENRIG_MT_bw_specials_edit,
     BLENRIG_PT_reproportion_guide,
-    BLENRIG_PT_actions_guide
+    BLENRIG_PT_actions_guide,
+    BLENRIG_PT_forearm_upwards,
+    BLENRIG_PT_shoulder_volume,
+    BLENRIG_PT_arm_downwards,
+    BLENRIG_PT_arm_forwards,
+    BLENRIG_PT_arm_backwards,
+    BLENRIG_PT_shoulder_up,
+    BLENRIG_PT_hand_up,
+    BLENRIG_PT_hand_down
 ]
 
 ############## Shape_Keys+ Classes ################

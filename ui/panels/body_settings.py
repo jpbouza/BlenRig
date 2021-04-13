@@ -113,135 +113,6 @@ class BLENRIG_PT_Rig_Body_settings(bpy.types.Panel):
                         if 'ROLL' in cust_prop:
                             col_L.prop(b, '["{}"]'.format(cust_prop), text = "{}".format((cust_prop).replace('_L', '')),  toggle=True)
 
-        # Volume Preservation Bones Movement
-        col.prop(props, "gui_body_vp", text = 'Volume Preservation Bones Movement:')
-        if props.gui_body_vp:
-            box = col.box()
-            box.label(text="Forearm Upwards:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Forearm Volume:')
-            col_L.label(text='Elbow Volume:')
-            try:
-                col_R.prop(p_bones['forearm_fix_L'].constraints['Forearm_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_R.prop(p_bones['forearm_fix_L'].constraints['Forearm_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            except:
-                pass
-            try:
-                col_L.prop(p_bones['elbow_fix_L'].constraints['Elbow_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_L.prop(p_bones['elbow_fix_L'].constraints['Elbow_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Arm Upwards:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Shoulder Volume:')
-            col_L.label(text=' ')
-            try:
-                col_R.prop(p_bones['shoulder_fix_L'].constraints['Shoulder_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_L.prop(p_bones['shoulder_fix_L'].constraints['Shoulder_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Arm Downwards:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Armpit Volume:')
-            col_L.label(text='Chest Volume:')
-            try:
-                col_R.prop(p_bones['armpit_fix_L'].constraints['Armpit_VP_Down_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
-                col_R.prop(p_bones['armpit_fix_L'].constraints['Armpit_VP_Down_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-            except:
-                pass
-            try:
-                col_L.prop(p_bones['chest_fix_L'].constraints['Chest_VP_Down_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-                col_L.prop(p_bones['chest_fix_L'].constraints['Chest_VP_Down_L_NOREP'], 'to_min_x', text="Horizontal", toggle=True)
-            except:
-                pass
-
-
-            col_R.label(text='Back Volume:')
-            try:
-                col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Down_L_NOREP'], 'to_min_x', text="Horizontal", toggle=True)
-                col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Down_L_NOREP'], 'to_min_z', text="Verticañ", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Arm Forwards:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Chest Volume:')
-            col_L.label(text=' ')
-            try:
-                col_R.prop(p_bones['chest_fix_L'].constraints['Chest_VP_Forw_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_L.prop(p_bones['chest_fix_L'].constraints['Chest_VP_Forw_L_NOREP'], 'to_max_x', text="Horizontal", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Arm Backwards:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Back Volume:')
-            col_L.label(text=' ')
-            try:
-                col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Back_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
-                col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Back_L_NOREP'], 'to_min_x', text="Horizontal", toggle=True)
-                col_L.prop(p_bones['back_fix_L'].constraints['Back_VP_Back_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Shoulder Up:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Trap Volume:')
-            col_L.label(text=' ')
-            try:
-                col_R.prop(p_bones['trap_fix_L'].constraints['Trap_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_L.prop(p_bones['trap_fix_L'].constraints['Trap_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Hand Up:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Upper Wrist Volume:')
-            col_L.label(text='Lower Wrist Volume:')
-            try:
-                col_R.prop(p_bones['wrist_fix_up_L'].constraints['Wrist_Up_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
-                col_R.prop(p_bones['wrist_fix_up_L'].constraints['Wrist_Up_VP_Up_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-            except:
-                pass
-            try:
-                col_L.prop(p_bones['wrist_fix_low_L'].constraints['Wrist_Low_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
-                col_L.prop(p_bones['wrist_fix_low_L'].constraints['Wrist_Low_VP_Up_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-            except:
-                pass
-            box = col.box()
-            box.label(text="Hand Down:")
-            row_props = box.row()
-            col_R = row_props.column()
-            col_L = row_props.column()
-            col_R.label(text='Upper Wrist Volume:')
-            col_L.label(text='Lower Wrist Volume:')
-            try:
-                col_R.prop(p_bones['wrist_fix_up_L'].constraints['Wrist_Up_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_R.prop(p_bones['wrist_fix_up_L'].constraints['Wrist_Up_VP_Down_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            except:
-                pass
-            try:
-                col_L.prop(p_bones['wrist_fix_low_L'].constraints['Wrist_Low_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-                col_L.prop(p_bones['wrist_fix_low_L'].constraints['Wrist_Low_VP_Down_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            except:
-                pass
-
         # Realistic Joints
         col.prop(props, "gui_body_rj", text = 'Realistic Joints:')
         if props.gui_body_rj:
@@ -390,6 +261,9 @@ class BLENRIG_PT_Rig_Body_settings(bpy.types.Panel):
         # else:
         #     row.operator("gui.blenrig_6_tabs", icon="ARMATURE_DATA", emboss = 1).tab = "gui_rig_body"
         #     row.label(text="BODY SETTINGS")
+
+# Volume Preservation Bones Movement
+        col.prop(props, "gui_body_vp", text = 'Volume Preservation Bones Movement:')
 
     def draw_header(self, context):
         scene  = context.scene
