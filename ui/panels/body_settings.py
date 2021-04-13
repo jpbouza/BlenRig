@@ -264,6 +264,8 @@ class BLENRIG_PT_Rig_Body_settings(bpy.types.Panel):
 
 # Volume Preservation Bones Movement
         col.prop(props, "gui_body_vp", text = 'Volume Preservation Bones Movement:')
+        if props.gui_body_vp:
+            col.operator("mirror.vp_constraints", text="Mirror Values to the Right Side", icon='MOD_MIRROR')
 
     def draw_header(self, context):
         scene  = context.scene
