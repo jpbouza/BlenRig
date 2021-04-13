@@ -364,7 +364,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                             B_List.append(b.name)
                             i=i+1
                             win.progress_update(i)
-        
+
         win.progress_end()
 
         for B in B_List:
@@ -374,7 +374,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     i=i+1
                     win.progress_update(i)
-        
+
         win.progress_end()
 
         bpy.ops.armature.calculate_roll(type= roll_type, axis_flip=False, axis_only=False)
@@ -517,7 +517,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
-                    
+
         win.progress_end()
 
     #Assign Rolls by Cursor position
@@ -632,7 +632,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
-        
+
         win.progress_end()
 
     #Perform Bone Alignment for Bones that have to be aligned to other Bones
@@ -741,7 +741,7 @@ class Operator_BlenRig_Auto_Bone_Roll(bpy.types.Operator):
                     b.select = 1
                     b.select_head = 1
                     b.select_tail = 1
-        
+
         win.progress_end()
 
     #Reset layers to old state
@@ -928,7 +928,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
                     b.select_tail = 1
                     i = i+1
                     win.progress_update(i)
-                    
+
         win.progress_end()
 
 
@@ -1040,7 +1040,7 @@ class Operator_BlenRig_Custom_Bone_Roll(bpy.types.Operator):
                     b.select_tail = 1
                     i = i+1
                     win.progress_update(i)
-        
+
         win.progress_end()
 
     #Reset layers to old state
@@ -1243,3 +1243,85 @@ class Operator_BlenRig_Reset_Dynamic(bpy.types.Operator):
         self.update_scene(context)
 
         return {'FINISHED'}
+
+#### Mirror Volume Preservation Constraint Values Operator ####
+
+class Operator_Mirror_VP_Constraints(bpy.types.Operator):
+
+    bl_idname = "mirror.vp_constraints"
+    bl_label = "BlenRig Mirror Volume Preservation Constraints L to R"
+    bl_description = "Mirror Volume Preservation Constraints L to R"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if context.active_object is not None:
+            return (bpy.context.object.type=='ARMATURE' and context.mode=='POSE')
+        else:
+            return False
+
+    def execute(self, context):
+        pbones = bpy.context.active_object.pose.bones
+        for br in pbones:
+            if '_fix_' in br.name:
+                if '_R' in br.name:
+                    r_name = br.name.split("_R")
+                    for bl in pbones:
+                        if '_fix_' in bl.name:
+                            if '_L' in bl.name:
+                                l_name = bl.name.split("_L")
+                                if l_name[0] == r_name[0]:
+                                    #print (bl.name, br.name)
+                                    for CR in br.constraints:
+                                        if CR.type == 'TRANSFORM':
+                                            if '_R_' in CR.name:
+                                                cr_name = CR.name.split('_R_')
+                                                for CL in bl.constraints:
+                                                    if CL.type == 'TRANSFORM':
+                                                        if '_L_' in CL.name:
+                                                            cl_name = CL.name.split('_L_')
+                                                            if cr_name[0] == cl_name[0]:
+                                                                #print (CR.name, CL.name)
+                                                                if CR.map_to_x_from and CL.map_to_x_from == 'X':
+                                                                    CR.to_min_x = -(CL.to_min_x)
+                                                                    CR.to_max_x = -(CL.to_max_x)
+                                                                if CR.map_to_y_from and CL.map_to_y_from == 'X':
+                                                                    CR.to_min_y = CL.to_min_y
+                                                                    CR.to_max_y = CL.to_max_y
+                                                                if CR.map_to_z_from and CL.map_to_z_from == 'X':
+                                                                    CR.to_min_z = CL.to_min_z
+                                                                    CR.to_max_z = CL.to_max_z
+                                                                if CR.map_to_x_from and CL.map_to_x_from == 'Z':
+                                                                    CR.to_min_x = -(CL.to_max_x)
+                                                                    CR.to_max_x = -(CL.to_min_x)
+                                                                if CR.map_to_y_from and CL.map_to_y_from == 'Z':
+                                                                    CR.to_min_y = CL.to_max_y
+                                                                    CR.to_max_y = CL.to_min_y
+                                                                if CR.map_to_z_from and CL.map_to_z_from == 'Z':
+                                                                    CR.to_min_z = CL.to_max_z
+                                                                    CR.to_max_z = CL.to_min_z
+
+
+        for br in pbones:
+            if 'properties_' in br.name:
+                if '_R' in br.name:
+                    r_name = br.name.split("_R")
+                    for bl in pbones:
+                        if 'properties_' in bl.name:
+                            if '_L' in bl.name:
+                                l_name = bl.name.split("_L")
+                                if l_name[0] == r_name[0]:
+                                    if br.items() != '[]':
+                                        for Rprop in br.items():
+                                            if 'volume_preservation' in Rprop[0]:
+                                                r_prop = Rprop[0].split("_R")
+                                                if bl.items() != '[]':
+                                                    for Lprop in bl.items():
+                                                        if 'volume_preservation' in Lprop[0]:
+                                                            l_prop = Lprop[0].split("_L")
+                                                            if r_prop[0] == l_prop[0]:
+                                                                br[Rprop[0]] = bl[Lprop[0]]
+
+
+
+        return {"FINISHED"}

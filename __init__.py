@@ -1869,7 +1869,8 @@ from .ops_alignment import (
     Operator_BlenRig_Custom_Bone_Roll,
     Operator_BlenRig_Store_Roll_Angles,
     Operator_BlenRig_Restore_Roll_Angles,
-    Operator_BlenRig_Reset_Dynamic
+    Operator_BlenRig_Reset_Dynamic,
+    Operator_Mirror_VP_Constraints
     )
 
 ####### Load BlenRig 6 Snapping Operators
@@ -2598,7 +2599,8 @@ alignment_classes = [
     Operator_BlenRig_Custom_Bone_Roll,
     Operator_BlenRig_Store_Roll_Angles,
     Operator_BlenRig_Restore_Roll_Angles,
-    Operator_BlenRig_Reset_Dynamic
+    Operator_BlenRig_Reset_Dynamic,
+    Operator_Mirror_VP_Constraints
 ]
 # BlenRig Layers Schemes Operators
 schemes_classes = [
@@ -3183,14 +3185,26 @@ panels_classes = [
     BLENRIG_MT_bw_specials_edit,
     BLENRIG_PT_reproportion_guide,
     BLENRIG_PT_actions_guide,
-    BLENRIG_PT_forearm_upwards,
-    BLENRIG_PT_shoulder_volume,
-    BLENRIG_PT_arm_downwards,
-    BLENRIG_PT_arm_forwards,
-    BLENRIG_PT_arm_backwards,
-    BLENRIG_PT_shoulder_up,
-    BLENRIG_PT_hand_up,
-    BLENRIG_PT_hand_down
+    BLENRIG_PT_VP_forearm_upwards,
+    BLENRIG_PT_VP_arm_upwards,
+    BLENRIG_PT_VP_arm_downwards,
+    BLENRIG_PT_VP_arm_forwards,
+    BLENRIG_PT_VP_arm_backwards,
+    BLENRIG_PT_VP_shoulder_upwards,
+    BLENRIG_PT_VP_hand_upwards,
+    BLENRIG_PT_VP_hand_downwards,
+    BLENRIG_PT_VP_fingers_backwards,
+    BLENRIG_PT_VP_fingers_curl,
+    BLENRIG_PT_VP_leg_forwards,
+    BLENRIG_PT_VP_leg_outwards,
+    BLENRIG_PT_VP_leg_backwards,
+    BLENRIG_PT_VP_shin_upwards,
+    BLENRIG_PT_VP_foot_downwards,
+    BLENRIG_PT_VP_foot_upwards,
+    BLENRIG_PT_VP_foot_toe_curl_upwards,
+    BLENRIG_PT_VP_foot_toe_curl_downwards,
+    BLENRIG_PT_VP_toes_backwards,
+    BLENRIG_PT_VP_toes_curl,
 ]
 
 ############## Shape_Keys+ Classes ################
