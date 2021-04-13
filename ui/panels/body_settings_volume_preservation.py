@@ -1,13 +1,12 @@
 import bpy
 from bpy.types import Panel
 
-class BlenrigVolumePanel:
+class BlenrigVolumePanel():
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'WINDOW'
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    # bl_context = "scene"
 
     @classmethod
     def poll(cls, context):
@@ -16,21 +15,19 @@ class BlenrigVolumePanel:
             props = bpy.context.window_manager.blenrig_6_props
         if props.gui_body_vp:
             return True
-        
+
 class BLENRIG_PT_forearm_upwards(BlenrigVolumePanel, Panel):
     bl_label = "Forearm Upwards"
 
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-        
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
 
         box = col.box()
-        # box.label(text="Forearm Upwards:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
@@ -49,16 +46,15 @@ class BLENRIG_PT_forearm_upwards(BlenrigVolumePanel, Panel):
 
 class BLENRIG_PT_shoulder_volume(BlenrigVolumePanel, Panel):
     bl_label = "Shoulder Volume"
-    
+
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-        
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()     
-        
+
         box = col.box()
         row_props = box.row()
         col_R = row_props.column()
@@ -73,18 +69,16 @@ class BLENRIG_PT_shoulder_volume(BlenrigVolumePanel, Panel):
         
 class BLENRIG_PT_arm_downwards(BlenrigVolumePanel, Panel):
     bl_label = "Arm Downwards"
-    
+
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-        
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
-        
+
         box = col.box()
-        # box.label(text="Arm Downwards:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
@@ -110,18 +104,16 @@ class BLENRIG_PT_arm_downwards(BlenrigVolumePanel, Panel):
 
 class BLENRIG_PT_arm_forwards(BlenrigVolumePanel, Panel):
     bl_label = "Arm Forwards"
-    
+
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-        
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
 
         box = col.box()
-        # box.label(text="Arm Forwards:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
@@ -135,18 +127,16 @@ class BLENRIG_PT_arm_forwards(BlenrigVolumePanel, Panel):
 
 class BLENRIG_PT_arm_backwards(BlenrigVolumePanel, Panel):
     bl_label = "Arm Backwards"
-    
+
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
 
         box = col.box()
-        # box.label(text="Arm Backwards:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
@@ -165,14 +155,12 @@ class BLENRIG_PT_shoulder_up(BlenrigVolumePanel, Panel):
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
 
         box = col.box()
-        # box.label(text="Shoulder Up:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
@@ -186,18 +174,16 @@ class BLENRIG_PT_shoulder_up(BlenrigVolumePanel, Panel):
 
 class BLENRIG_PT_hand_up(BlenrigVolumePanel, Panel):
     bl_label = "Hand Up"
-    
+
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
 
         box = col.box()
-        # box.label(text="Hand Up:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
@@ -216,18 +202,16 @@ class BLENRIG_PT_hand_up(BlenrigVolumePanel, Panel):
 
 class BLENRIG_PT_hand_down(BlenrigVolumePanel, Panel):
     bl_label = "Hand Down"
-    
+
     def draw(self, context):
         arm = bpy.context.active_object        
         p_bones = arm.pose.bones
-
         layout = self.layout
         box = layout.column()
         col = box.column()
         row = col.row()
 
         box = col.box()
-        # box.label(text="Hand Down:")
         row_props = box.row()
         col_R = row_props.column()
         col_L = row_props.column()
