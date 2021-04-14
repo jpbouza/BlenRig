@@ -1,7 +1,7 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_body_collisions_offset(bpy.types.Panel):
-    bl_label = "Body Collisions Offset"
+    bl_label = "Body Collisions Offset:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_body_collisions_offset"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'

@@ -1,7 +1,7 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_automated_movement(bpy.types.Panel):
-    bl_label = "Automated Movement"
+    bl_label = "Automated Movement:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_automated_movement"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'

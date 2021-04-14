@@ -108,3 +108,7 @@ ui/panels/bodysettings/__pycache__/ik.cpython-37.pyc
 ui/panels/bodysettings/__pycache__/realistic_joints.cpython-37.pyc
 ui/panels/bodysettings/__pycache__/toggles.cpython-37.pyc
 ui/panels/bodysettings/__pycache__/volume_preservation_bones_movement.cpython-37.pyc
+ui/panels/facialsettings/__pycache__/facial_movement_ranges.cpython-37.pyc
+ui/panels/facialsettings/__pycache__/face_lip_shaping.cpython-37.pyc
+ui/panels/facialsettings/__pycache__/face_collisions.cpython-37.pyc
+ui/panels/facialsettings/__pycache__/face_action_toggles.cpython-37.pyc

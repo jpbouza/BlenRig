@@ -68,6 +68,11 @@ from .ui.panels.bodysettings.realistic_joints import BLENRIG_PT_Rig_Body_setting
 from .ui.panels.bodysettings.bendy_bones_settings import BLENRIG_PT_Rig_Body_settings_bendy_bones_settings
 from .ui.panels.bodysettings.body_collisions_offset import BLENRIG_PT_Rig_Body_settings_body_collisions_offset
 from .ui.panels.bodysettings.toggles import BLENRIG_PT_Rig_Body_settings_toggles
+from .ui.panels.facialsettings.facial_movement_ranges import BLENRIG_PT_Rig_Body_settings_facial_movement_ranges
+from .ui.panels.facialsettings.face_action_toggles import BLENRIG_PT_Rig_Body_settings_face_action_toggles
+from .ui.panels.facialsettings.face_lip_shaping import BLENRIG_PT_Rig_Body_settings_face_lip_shaping
+from .ui.panels.facialsettings.face_collisions import BLENRIG_PT_Rig_Body_settings_face_collisions
+
 from .boneShapes.panels import *
 
 ######### Load Rig Functions ##########
@@ -3173,6 +3178,10 @@ addon_dependencies = ["space_view3d_copy_attributes"]
 panels_classes = [
     BLENRIG_PT_Rig_Body_settings,
     BLENRIG_PT_Rig_Facial_settings,
+    BLENRIG_PT_Rig_Body_settings_facial_movement_ranges,
+    BLENRIG_PT_Rig_Body_settings_face_action_toggles,
+    BLENRIG_PT_Rig_Body_settings_face_lip_shaping,
+    BLENRIG_PT_Rig_Body_settings_face_collisions,
     BLENRIG_PT_Rig_Layers_settings,
     BLENRIG_PT_Dynamic_shaping,
     BLENRIG_PT_Rigging_optimizations,

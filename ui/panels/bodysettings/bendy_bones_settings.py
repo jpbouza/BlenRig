@@ -1,7 +1,7 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
-    bl_label = "Bendy Bones Settings"
+    bl_label = "Bendy Bones Settings:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_bendy_bones_settings"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'

@@ -1,7 +1,7 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_realistic_joints(bpy.types.Panel):
-    bl_label = "Realistic Joints"
+    bl_label = "Realistic Joints:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_realistic_joints"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'

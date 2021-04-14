@@ -1,7 +1,7 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_ik(bpy.types.Panel):
-    bl_label = "IK"
+    bl_label = "IK:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_ik"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'

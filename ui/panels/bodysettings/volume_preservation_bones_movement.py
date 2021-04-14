@@ -36,13 +36,13 @@ class BlenrigVolumePreservationPanel:
         col = box.column()
         row = box.row(align=False)
         
-    def draw_header(self, context):
-        scene  = context.scene
-        layout = self.layout
-        layout.emboss = 'NONE'
-        row = layout.row(align=True)
-        row = layout.row(align=True)
-        row.prop(scene, "name", icon='BLANK1', icon_only= True)
+    # def draw_header(self, context):
+    #     scene  = context.scene
+    #     layout = self.layout
+    #     layout.emboss = 'NONE'
+    #     row = layout.row(align=True)
+    #     row = layout.row(align=True)
+    #     row.prop(scene, "name", icon='BLANK1', icon_only= True)
 
 class BLENRIG_PT_VP_forearm_upwards(BlenrigVolumePreservationPanel,Panel):
     bl_label = "Forearm Upwards"
