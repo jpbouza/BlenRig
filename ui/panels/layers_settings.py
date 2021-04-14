@@ -34,10 +34,6 @@ class BLENRIG_PT_Rig_Layers_settings(bpy.types.Panel):
             box = layout.column()
             col = box.column()
             row = col.row()
-        # expanded box
-        # if "gui_rig_layers" in arm_data and arm_data["gui_rig_layers"]:
-            # row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss = 1).tab = "gui_rig_layers"
-            # row.label(text="LAYERS SETTING")
         col.separator
 
         row_props = col.row()
@@ -56,13 +52,10 @@ class BLENRIG_PT_Rig_Layers_settings(bpy.types.Panel):
         col.label(text='Layers Names: (Always keep 32 items)')
         row_layers = col.row()
         row_layers.prop(arm_data, '["layer_list"]', text="", toggle=True)
-        # else:
-        #     row.operator("gui.blenrig_6_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_rig_layers"
-        #     row.label(text="LAYERS SETTING")
 
-        def draw_header(self, context):
-            scene  = context.scene
-            layout = self.layout
-            layout.emboss = 'NONE'
-            row = layout.row(align=True)
-            row.prop(scene, "name", icon='RENDER_RESULT', icon_only= True)
+    def draw_header(self, context):
+        scene  = context.scene
+        layout = self.layout
+        layout.emboss = 'NONE'
+        row = layout.row(align=True)
+        row.prop(scene, "name", icon='OUTLINER_OB_LATTICE', icon_only= True)
