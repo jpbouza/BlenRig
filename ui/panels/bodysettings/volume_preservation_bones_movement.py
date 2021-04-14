@@ -1,10 +1,26 @@
 import bpy
 from bpy.types import Panel
 
-class BlenrigVolumePreservationPanel():
+class BLENRIG_PT_Rig_Body_settings_vp_bones_movement(Panel):
+    bl_label = "Volume Preservation Bones Movement:"
+    bl_idname = "BLENRIG_PT_Rig_Body_settings_vp_bones_movement"
+    bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_options = {'DEFAULT_CLOSED'}
+    
+    def draw(self, context):
+        layout = self.layout
+        box = layout.column()
+        col = box.column()
+        box = layout.box()
+        row = box.row(align=False)
+        row.operator("mirror.vp_constraints", text="Mirror Values to the Right Side", icon='MOD_MIRROR')
+
+class BlenrigVolumePreservationPanel:
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'WINDOW'
-    bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
+    bl_parent_id = "BLENRIG_PT_Rig_Body_settings_vp_bones_movement"
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
 
@@ -12,11 +28,14 @@ class BlenrigVolumePreservationPanel():
     def poll(cls, context):
         arm_data = bpy.context.active_object.data
         if "gui_rig_body" in arm_data:
-            props = bpy.context.window_manager.blenrig_6_props
-        if props.gui_body_vp:
             return True
 
-class BLENRIG_PT_VP_forearm_upwards(BlenrigVolumePreservationPanel, Panel):
+    def draw(self, context):
+        layout = self.layout
+        box = layout.column()
+        col = box.column()
+
+class BLENRIG_PT_VP_forearm_upwards(BlenrigVolumePreservationPanel,Panel):
     bl_label = "Forearm Upwards"
 
     def draw(self, context):

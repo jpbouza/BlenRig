@@ -61,7 +61,13 @@ from .ui.panels.rigging_optimizations import BLENRIG_PT_Rigging_optimizations
 from .ui.panels.rigging_and_baking import BLENRIG_PT_Rigging_and_baking
 from .ui.panels.repoportion_assistant_guide import BLENRIG_PT_reproportion_guide
 from .ui.panels.actions_assistants_guide import BLENRIG_PT_actions_guide
-from .ui.panels.body_settings_volume_preservation import *
+from .ui.panels.bodysettings.volume_preservation_bones_movement import *
+from .ui.panels.bodysettings.ik import BLENRIG_PT_Rig_Body_settings_ik
+from .ui.panels.bodysettings.automated_movement import BLENRIG_PT_Rig_Body_settings_automated_movement
+from .ui.panels.bodysettings.realistic_joints import BLENRIG_PT_Rig_Body_settings_realistic_joints
+from .ui.panels.bodysettings.bendy_bones_settings import BLENRIG_PT_Rig_Body_settings_bendy_bones_settings
+from .ui.panels.bodysettings.body_collisions_offset import BLENRIG_PT_Rig_Body_settings_body_collisions_offset
+from .ui.panels.bodysettings.toggles import BLENRIG_PT_Rig_Body_settings_toggles
 from .boneShapes.panels import *
 
 ######### Load Rig Functions ##########
@@ -3184,7 +3190,10 @@ panels_classes = [
     BLENRIG_PT_posemode_panel,
     BLENRIG_MT_bw_specials_edit,
     BLENRIG_PT_reproportion_guide,
-    BLENRIG_PT_actions_guide,
+    BLENRIG_PT_actions_guide,    
+    BLENRIG_PT_Rig_Body_settings_ik,
+    BLENRIG_PT_Rig_Body_settings_automated_movement,
+    BLENRIG_PT_Rig_Body_settings_vp_bones_movement,
     BLENRIG_PT_VP_forearm_upwards,
     BLENRIG_PT_VP_arm_upwards,
     BLENRIG_PT_VP_arm_downwards,
@@ -3205,6 +3214,10 @@ panels_classes = [
     BLENRIG_PT_VP_foot_toe_curl_downwards,
     BLENRIG_PT_VP_toes_backwards,
     BLENRIG_PT_VP_toes_curl,
+    BLENRIG_PT_Rig_Body_settings_realistic_joints,
+    BLENRIG_PT_Rig_Body_settings_bendy_bones_settings,
+    BLENRIG_PT_Rig_Body_settings_body_collisions_offset,
+    BLENRIG_PT_Rig_Body_settings_toggles
 ]
 
 ############## Shape_Keys+ Classes ################
