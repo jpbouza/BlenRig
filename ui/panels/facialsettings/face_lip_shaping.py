@@ -7,7 +7,7 @@ class BLENRIG_PT_Rig_Body_settings_face_lip_shaping(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm_data = context.active_object.data
         if "gui_rig_face" in arm_data:
@@ -18,7 +18,102 @@ class BLENRIG_PT_Rig_Body_settings_face_lip_shaping(bpy.types.Panel):
             col = box.column()
             row = col.row()
 
+            #### Lips Rigidity ####
             box = col.box()
+            row_label = box.row()
+            row_label.alignment = 'CENTER'
+            row_label.label(text='Lip Rigidity')
+            row_props = box.row()
+            col_R = row_props.column()
+            col_R.alignment = 'CENTER'
+            col_R.label(text = 'Right Side')
+            col_L = row_props.column()
+            col_L.alignment = 'CENTER'
+            col_L.label(text = 'Left Side')
+            row_props_R = col_R.row()
+            row_props_L = col_L.row()
+            #Right Side
+            try:
+                col_1 = row_props_R.column()
+                col_1.label(text="Lip Up 3 R")
+                col_1.prop(p_bones['lip_up_ctrl_3_str_R'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_2 = row_props_R.column()
+                col_2.label(text="Lip Up 2 R")
+                col_2.prop(p_bones['lip_up_ctrl_2_str_R'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_3 = row_props_R.column()
+                col_3.label(text="Lip Up 1 R")
+                col_3.prop(p_bones['lip_up_ctrl_1_str_R'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            row_props_R = col_R.row()
+            try:
+                col_1 = row_props_R.column()
+                col_1.label(text="Lip Low 3 R")
+                col_1.prop(p_bones['lip_low_ctrl_3_str_R'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_2 = row_props_R.column()
+                col_2.label(text="Lip Low 2 R")
+                col_2.prop(p_bones['lip_low_ctrl_2_str_R'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_3 = row_props_R.column()
+                col_3.label(text="Lip Low 1 R")
+                col_3.prop(p_bones['lip_low_ctrl_1_str_R'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            #Left Side
+            try:
+                col_1 = row_props_L.column()
+                col_1.label(text="Lip Up 1 L")
+                col_1.prop(p_bones['lip_up_ctrl_1_str_L'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_2 = row_props_L.column()
+                col_2.label(text="Lip Up 2 L")
+                col_2.prop(p_bones['lip_up_ctrl_2_str_L'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_3 = row_props_L.column()
+                col_3.label(text="Lip Up 3 L")
+                col_3.prop(p_bones['lip_up_ctrl_3_str_L'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            row_props_L = col_L.row()
+            try:
+                col_1 = row_props_L.column()
+                col_1.label(text="Lip Low 1 L")
+                col_1.prop(p_bones['lip_low_ctrl_1_str_L'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_2 = row_props_L.column()
+                col_2.label(text="Lip Low 2 L")
+                col_2.prop(p_bones['lip_low_ctrl_2_str_L'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+            try:
+                col_3 = row_props_L.column()
+                col_3.label(text="Lip Low 3 L")
+                col_3.prop(p_bones['lip_low_ctrl_3_str_L'].constraints["Limit Distance_NOREP"], 'influence', text = ' ')
+            except:
+                pass
+
+            #### Movement Override ####
+            box = col.box()
+            row_label = box.row()
+            row_label.alignment = 'CENTER'
+            row_label.label(text='Movement Override')
             row_props = box.row()
             col_1 = row_props.column()
             col_1.label(text="Follow Left Corner")
