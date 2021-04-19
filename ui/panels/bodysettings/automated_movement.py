@@ -7,7 +7,7 @@ class BLENRIG_PT_Rig_Body_settings_automated_movement(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm = context.active_object
         arm_data = context.active_object.data
@@ -34,6 +34,19 @@ class BLENRIG_PT_Rig_Body_settings_automated_movement(bpy.types.Panel):
             col_L.prop(p_bones['shoulder_L'], '["SHLDR_AUTO_UP_L"]', text="Shoulder_L Upwards", toggle=True)
             col_L.prop(p_bones['shoulder_L'], '["SHLDR_AUTO_DOWN_L"]', text="Shoulder_L Downwards", toggle=True)
             box = col.box()
+            box.label(text="Elbow Pin:")
+            row_props = box.row()
+            col_R = row_props.column()
+            col_L = row_props.column()
+            try:
+                col_R.prop(p_bones['shoulder_mstr_R'], 'ik_max_z', text="Shoulder L Down Limit", toggle=True)
+            except:
+                pass
+            try:
+                col_L.prop(p_bones['shoulder_mstr_L'], 'ik_min_z', text="Shoulder L Down Limit", toggle=True)
+            except:
+                pass
+            box = col.box()
             row_props = box.row()
             col_R = row_props.column()
             col_L = row_props.column()
@@ -49,6 +62,22 @@ class BLENRIG_PT_Rig_Body_settings_automated_movement(bpy.types.Panel):
             col_L.prop(p_bones['neck_1_fk'], '["fk_follow_main"]', text="Neck 1", toggle=True)
             col_L.prop(p_bones['neck_2_fk'], '["fk_follow_main"]', text="Neck 2", toggle=True)
             col_L.prop(p_bones['neck_3_fk'], '["fk_follow_main"]', text="Neck 3", toggle=True)
+            try:
+                col_L.label(text='Torso Stretching Curvature:')
+                col_L.prop(p_bones['properties_torso'], '["spine_mid_follow"]', text="Curve", toggle=True)
+            except:
+                pass
+            try:
+                col_L.label(text='Pelvis Compensation Movement:')
+                col_L.prop(p_bones['properties_torso'], '["pelvis_compensation"]', text="Rate", toggle=True)
+            except:
+                pass
+            try:
+                col_R.label(text='Organic Twisting:')
+                col_R.prop(p_bones['properties_torso'], '["organic_spine"]', text="Spine", toggle=True)
+                col_R.prop(p_bones['properties_head'], '["organic_neck"]', text="Neck", toggle=True)
+            except:
+                pass
 
             box = col.box()
             row_props = box.row()
