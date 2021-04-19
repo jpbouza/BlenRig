@@ -7,7 +7,7 @@ class BLENRIG_PT_Rig_Body_settings_face_collisions(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm_data = context.active_object.data
         if "gui_rig_face" in arm_data:
@@ -19,14 +19,58 @@ class BLENRIG_PT_Rig_Body_settings_face_collisions(bpy.types.Panel):
             row = col.row()
 
             box = col.box()
-            box.label(text="Eyelids Floor Offset")
+            row_label = box.row()
+            row_label.alignment = 'CENTER'
+            row_label.label(text='Eyelids Floor Offset')
             row_props = box.row()
             col_R = row_props.column()
+            col_R.alignment = 'CENTER'
             col_L = row_props.column()
-            col_R.prop(p_bones['properties_head'], '["floor_offset_eyelid_R"]', text="Eyelids_R", toggle=True)
-            col_L.prop(p_bones['properties_head'], '["floor_offset_eyelid_L"]', text="Eyelids_L", toggle=True)
+            col_L.alignment = 'CENTER'
+            row_props_R = col_R.row()
+            row_props_L = col_L.row()
+            #Right Side
+            try:
+                col_1 = row_props_R.column()
+                col_1.label(text="Eyelid 3 R")
+                col_1.prop(p_bones['eyelid_low_ctrl_3_mstr_R'].constraints["Floor_Eyelids_NOREP"], 'offset', text = ' ')
+            except:
+                pass
+            try:
+                col_2 = row_props_R.column()
+                col_2.label(text="Eyelid 2 R")
+                col_2.prop(p_bones['eyelid_low_ctrl_2_mstr_R'].constraints["Floor_Eyelids_NOREP"], 'offset', text = ' ')
+            except:
+                pass
+            try:
+                col_3 = row_props_R.column()
+                col_3.label(text="Eyelid 1 R")
+                col_3.prop(p_bones['eyelid_low_ctrl_1_mstr_R'].constraints["Floor_Eyelids_NOREP"], 'offset', text = ' ')
+            except:
+                pass
+            #Left Side
+            try:
+                col_1 = row_props_L.column()
+                col_1.label(text="Eyelid 3 L")
+                col_1.prop(p_bones['eyelid_low_ctrl_3_mstr_L'].constraints["Floor_Eyelids_NOREP"], 'offset', text = ' ')
+            except:
+                pass
+            try:
+                col_2 = row_props_L.column()
+                col_2.label(text="Eyelid 2 L")
+                col_2.prop(p_bones['eyelid_low_ctrl_2_mstr_L'].constraints["Floor_Eyelids_NOREP"], 'offset', text = ' ')
+            except:
+                pass
+            try:
+                col_3 = row_props_L.column()
+                col_3.label(text="Eyelid 1 L")
+                col_3.prop(p_bones['eyelid_low_ctrl_1_mstr_L'].constraints["Floor_Eyelids_NOREP"], 'offset', text = ' ')
+            except:
+                pass
 
-            box.label(text="Lips Floor Offset")
+            row_label = box.row()
+            row_label.alignment = 'CENTER'
+            row_label.label(text='Lips Floor Offset')
             row_label = box.row()
             row_label.scale_y = 0.5
             row_label.label(text="Lip_3_R")
@@ -35,7 +79,7 @@ class BLENRIG_PT_Rig_Body_settings_face_collisions(bpy.types.Panel):
             row_label.label(text="Lip_Mid")
             row_label.label(text="Lip_1_L")
             row_label.label(text="Lip_2_L")
-            row_label.label(text="Lip_1_L")
+            row_label.label(text="Lip_3_L")
             row_lips = box.row()
             for b in p_bones:
                 if b.name == 'lip_up_ctrl_3_mstr_R':
@@ -72,5 +116,17 @@ class BLENRIG_PT_Rig_Body_settings_face_collisions(bpy.types.Panel):
                     for C in b.constraints:
                         if C.name == 'Floor_Lips':
                             row_lips.prop(C, 'offset', icon_only=True, toggle=True)
-
+            row_lip_up = box.row()
+            col_1 = row_lip_up.column()
+            col_2 = row_lip_up.column()
+            col_3 = row_lip_up.column()
+            row_lip_up_ctrl = col_2.row()
+            row_lip_up_ctrl.alignment = 'CENTER'
+            row_lip_up_ctrl.scale_x = 0.33
+            row_props = row_lip_up_ctrl.column()
+            row_props.label(text='Lip Up Ctrl')
+            try:
+                row_props.prop(p_bones['lip_up_ctrl'].constraints["Floor_Lips_NOREP"], 'offset', text = ' ')
+            except:
+                pass
             col.separator()
