@@ -3,6 +3,14 @@
         {
             "name": "EYEBROWS",
             "bones": [
+                "brow_line_L",
+                "brow_ctrl_out_L",
+                "brow_ctrl_curve_L",
+                "brow_ctrl_in_L",
+                "brow_line_R",
+                "brow_ctrl_out_R",
+                "brow_ctrl_curve_R",
+                "brow_ctrl_in_R",
                 "brow_low_ctrl_5_R",
                 "frown_up_ctrl", 
                 "frown_low_ctrl", 
@@ -113,6 +121,14 @@
         {
             "name": "EYES",
             "bones": [
+                "eyelid_rim_ctrl_out_R",
+                "eyelid_rim_low_ctrl_3_R",
+                "eyelid_rim_low_ctrl_2_R",
+                "eyelid_rim_low_ctrl_1_R",
+                "eyelid_rim_ctrl_out_L",
+                "eyelid_rim_low_ctrl_3_L",
+                "eyelid_rim_low_ctrl_2_L",
+                "eyelid_rim_low_ctrl_1_L",
                 "eye_socket_mstr_str_L", 
                 "eyelid_up_def_2_bbone_out_L", 
                 "eyelid_up_line_def_3_L", 
@@ -230,6 +246,8 @@
             "name": "FACE",
             "bones": [
                 "nose_root_ctrl_mid",
+                "nose_bridge_1",
+                "nose_bridge_2",
                 "nose_up_str",
                 "cheekbone_line_def_1_R",
                 "cheekbone_line_def_2_R", 
@@ -527,6 +545,7 @@
         {
             "name": "FACE_MECH",
             "bones": [
+                "mouth_mstr_ik_pivot",
                 "mouth_str_loc_1",
                 "mouth_str",
                 "lip_low_loc",
@@ -546,6 +565,12 @@
         {
             "name": "INNER_MOUTH",
             "bones": [
+                "hard_palate",
+                "mouth_floor",
+                "larynx",
+                "soft_palate",
+                "uvula_1",
+                "uvula_2",
                 "tongue_1_def",
                 "tongue_2_def",
                 "tongue_3_def",
@@ -578,6 +603,8 @@
         {
             "name": "HANDS",
             "bones": [
+                "fing_spread_L",
+                "fing_spread_R",
                 "fing_lit_4_def_L",
                 "fing_lit_3_def_L",
                 "fing_lit_2_def_L",
@@ -669,6 +696,20 @@
         {
             "name": "LIPS",
             "bones": [
+                "mouth_corner_mstr_L",
+                "mouth_corner_mstr_R",
+                "lip_up_ctrl_curve_L",
+                "lip_low_ctrl_curve_L",
+                "lip_up_line_L",
+                "lip_zipper_line_L",
+                "lip_low_line_L",
+                "lip_up_ctrl_curve_R",
+                "lip_low_ctrl_curve_R",
+                "lip_up_line_R",
+                "lip_zipper_line_R",
+                "lip_low_line_R",
+                "lip_low_ctrl",
+                "lip_up_ctrl",
                 "lip_up_def_1_L", 
                 "lip_up_def_1_R", 
                 "lip_up_def_2_L", 
@@ -784,6 +825,9 @@
         {
             "name": "FACE_CONTROLS",
             "bones": [
+                "frown_ctrl_mstr",
+                "blink_ctrl_L",
+                "blink_ctrl_R",
                 "nose_tip_ctrl_mstr", 
                 "cheek_ctrl_L", 
                 "cheek_ctrl_R", 
@@ -828,6 +872,7 @@
         {
             "name": "BODY",
             "bones": [
+                "master_torso_str",
                 "neck_1_def", 
                 "neck_2_def", 
                 "neck_3_def", 
@@ -935,6 +980,12 @@
         {
             "name": "TOES",
             "bones": [
+                "foot_side_roll_in_L",
+                "foot_side_roll_in_R",
+                "foot_side_roll_out_L",
+                "foot_side_roll_out_R",
+                "toes_spread_L",
+                "toes_spread_R",
                 "toe_lit_1_def_L",
                 "toe_big_1_def_L",
                 "toe_fourth_1_def_L",
