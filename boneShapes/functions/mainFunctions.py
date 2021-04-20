@@ -10,6 +10,7 @@ from ...search_functions import *
 def getCollection(context):
     bw_collection_name = context.preferences.addons[main_package].preferences.boneshape_collection_name
     # bw_collection_search_name = search_boneshapes()[0].users_collection[0].name
+    LinkCollection(context)
     bw_collection_search_name = "BlenRig_temp"
     collection = context.scene.collection.children.get(bw_collection_search_name)
     if collection:  # if it already exists
