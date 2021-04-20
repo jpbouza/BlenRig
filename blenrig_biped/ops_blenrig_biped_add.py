@@ -2,9 +2,6 @@ import bpy
 import os
 from bpy.types import Operator
 from ..visual_assistant import visual_assistant_props
-from ..visual_assistant import handle_panel_events
-
-
 
 class Operator_BlenRig5_Add_Biped(Operator):
 
@@ -51,7 +48,5 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
         # in the .blend the biped in object mode has to be selected so that the following does not fail:
         context.view_layer.objects.active = context.selected_objects[0]
-
-        handle_panel_events()
 
         return{'FINISHED'}

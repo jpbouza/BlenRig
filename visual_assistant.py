@@ -13,66 +13,6 @@ json_path_file = os.path.join(directory, "data_jsons", "bones_from_bone_groups.j
 ##### the ui is in ui_panel_rigging_2_0.py #####
 #################################################
 
-
-## for register and unregister in the fly with blender events ##
-################################################################
-from bpy.utils import register_class
-from bpy.utils import unregister_class
-
-from bpy.app.handlers import persistent
-from .ui.panels.rigging_and_baking import BLENRIG_PT_visual_assistant, BLENRIG_PT_baking
-
-def register_panel(class_name):
-    try:
-        register_class(class_name)
-    except:
-        pass
-
-def unregister_panel(class_name):
-    try:
-        unregister_class(class_name)
-    except:
-        pass
-
-# handle panel events ################################################
-def handle_panel_events():
-    for arm in bpy.data.armatures:
-        owner = object()
-        subscribe_to = arm.layers
-
-        def msgbus_callback():
-            if bpy.context.active_object.data.layers[27]:
-                unregister_panel(BLENRIG_PT_visual_assistant)
-                register_panel(BLENRIG_PT_visual_assistant)
-
-                unregister_panel(BLENRIG_PT_baking)
-
-            elif bpy.context.active_object.data.reproportion:
-                unregister_panel(BLENRIG_PT_visual_assistant)
-                register_panel(BLENRIG_PT_visual_assistant)
-
-                unregister_panel(BLENRIG_PT_baking)                
-                register_class(BLENRIG_PT_baking)
-
-            else:
-                unregister_panel(BLENRIG_PT_visual_assistant)
-                unregister_panel(BLENRIG_PT_baking)
-
-        bpy.msgbus.subscribe_rna(
-            key=subscribe_to,
-            owner=owner,
-            args=(),
-            notify=msgbus_callback,
-        )
-
-################################################################
-
-
-
-
-
-
-
 def get_bones(target_groups):
     bones = []
     with open(json_path_file) as json_file:
@@ -101,15 +41,12 @@ def toggle_bone_visibility(left_side, right_side, target, bones):
                 else:
                     bpy.context.object.data.bones[bone].hide = True
 
-
-
 def get_properties(context):
     ao = context.active_object
     if ao.type == 'ARMATURE':
         visual_assistant = context.active_object.data.visual_assistant
     if visual_assistant:
         return visual_assistant
-
 
 def get_bones_from_group(target):
     arm_name = bpy.context.active_object.name

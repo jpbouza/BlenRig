@@ -58,7 +58,7 @@ from .ui.panels.layers_settings import BLENRIG_PT_Rig_Layers_settings
 from .ui.panels.dynamic_shaping import BLENRIG_PT_Dynamic_shaping
 from .ui.panels.rigging_version_info import BLENRIG_PT_Rig_version_info
 from .ui.panels.rigging_optimizations import BLENRIG_PT_Rigging_optimizations
-from .ui.panels.rigging_and_baking import BLENRIG_PT_Rigging_and_baking
+from .ui.panels.rigging_and_baking import BLENRIG_PT_Rigging_and_baking, BLENRIG_PT_baking,BLENRIG_PT_visual_assistant
 from .ui.panels.repoportion_assistant_guide import BLENRIG_PT_reproportion_guide
 from .ui.panels.actions_assistants_guide import BLENRIG_PT_actions_guide
 from .ui.panels.bodysettings.volume_preservation_bones_movement import *
@@ -72,7 +72,6 @@ from .ui.panels.facialsettings.facial_movement_ranges import BLENRIG_PT_Rig_Body
 from .ui.panels.facialsettings.face_action_toggles import BLENRIG_PT_Rig_Body_settings_face_action_toggles
 from .ui.panels.facialsettings.face_lip_shaping import BLENRIG_PT_Rig_Body_settings_face_lip_shaping
 from .ui.panels.facialsettings.face_collisions import BLENRIG_PT_Rig_Body_settings_face_collisions
-
 from .boneShapes.panels import *
 
 ######### Load Rig Functions ##########
@@ -80,15 +79,7 @@ from .rig_functions import *
 
 ######### Import all from visual_assistant.py #########
 from .visual_assistant import visual_assistant_props
-from .visual_assistant import handle_panel_events
 from bpy.app.handlers import persistent
-
-@persistent
-def load_handler(dummy):
-    handle_panel_events()
-
-
-bpy.app.handlers.load_post.append(load_handler)
 
 
 ######### Update Function for Properties ##########
@@ -3187,6 +3178,8 @@ panels_classes = [
     BLENRIG_PT_Rigging_optimizations,
     BLENRIG_PT_Rigging_and_baking,
     BLENRIG_PT_Cage_snapping_panel,
+    BLENRIG_PT_baking,
+    BLENRIG_PT_visual_assistant,
     BLENRIG_PT_Rig_version_info,
     BLENRIG_PT_blenrig_6_Interface_2_0,
     BLENRIG_PT_blenrig_6_Interface,
