@@ -159,7 +159,7 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
 
     def execute(self, context):
         # collection = getCollection(context)
-        collection = "BlenRig_temp"
+        collection = bpy.data.collections['BlenRig_temp']
         shapesAndBones = findMatchBones()[0]
         activeObject = findMatchBones()[1]
         UnlinkCollection(context)
