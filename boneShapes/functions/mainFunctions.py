@@ -31,6 +31,9 @@ def getCollection(context):
         bpy.data.collections[bw_collection_name].hide_viewport = False
         return collection
 
+def LinkCollection(context):
+    blenrig_temp_boneshapes(True)
+
 def UnlinkCollection(context):
     blenrig_temp_boneshapes(False)
 
@@ -171,7 +174,8 @@ def symmetrizeShapes(bone, collection):
 def deleteUnusedShapess():
     C = bpy.context
     D = bpy.data
-    bw_collection_search_name = search_boneshapes()[0].users_collection[0].name
+    # bw_collection_search_name = search_boneshapes()[0].users_collection[0].name
+    bw_collection_search_name = "BlenRig_temp"
     try:
         widgetList = []
 
@@ -211,9 +215,11 @@ def editShapes(active_bone):
         bpy.ops.object.mode_set(mode='OBJECT')
         C.active_object.select_set(False)
 
-        collection = getViewLayerCollection(C)
-        collection.exclude = False
-        collection.hide_viewport = False
+        LinkCollection(C)
+        collection = "BlenRig_temp"
+        # collection = getViewLayerCollection(C)
+        # collection.exclude = False
+        # collection.hide_viewport = False
 
         if C.space_data.local_view:
             bpy.ops.view3d.localview()
@@ -222,7 +228,7 @@ def editShapes(active_bone):
         widget.select_set(True)
         bpy.context.view_layer.objects.active = widget
         
-        for ob in bpy.data.collections[collection.name].objects:
+        for ob in bpy.data.collections[collection].objects:
             if ob == widget:
                 widget.hide_set(False)
             else:
@@ -248,8 +254,10 @@ def returnToArmature(widget):
         widget = None
         bpy.ops.object.mode_set(mode='OBJECT')
 
-    collection = getViewLayerCollection(C)
-    collection.exclude = True
+    # collection = getViewLayerCollection(C)
+    # collection.exclude = True
+    UnlinkCollection(C)
+
     if C.space_data.local_view:
         bpy.ops.view3d.localview()
     bpy.context.view_layer.objects.active = armature

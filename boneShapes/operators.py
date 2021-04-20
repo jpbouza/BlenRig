@@ -19,6 +19,7 @@ from .functions import (
     clearBoneShapess,
     resyncShapesNames,
     UnlinkCollection,
+    LinkCollection,
     shape_scale
 )
 from bpy.types import Operator
@@ -93,7 +94,8 @@ class BLENRIG_OT_editShapes(bpy.types.Operator):
         return (context.object and context.object.type == 'ARMATURE' and context.object.pose)
 
     def execute(self, context):
-        getCollection(context)
+        # getCollection(context)
+        LinkCollection(context)
         editShapes(context.active_pose_bone)
         return {'FINISHED'}
 
@@ -156,7 +158,8 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        collection = getCollection(context)
+        # collection = getCollection(context)
+        collection = "BlenRig_temp"
         shapesAndBones = findMatchBones()[0]
         activeObject = findMatchBones()[1]
         UnlinkCollection(context)
@@ -238,7 +241,8 @@ class BLENRIG_OT_deleteUnusedShapess(bpy.types.Operator):
         return (context.object and context.object.type == 'ARMATURE' and context.object.pose)
 
     def execute(self, context):
-        getCollection(context)
+        # getCollection(context)
+        LinkCollection(context)
         deleteUnusedShapess()
         UnlinkCollection(context)
         self.report({'INFO'},"Delete Unused Shapes")
