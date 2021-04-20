@@ -210,9 +210,6 @@ def editShapes(active_bone):
 
         LinkCollection(C)
         collection = "BlenRig_temp"
-        # collection = getViewLayerCollection(C)
-        # collection.exclude = False
-        # collection.hide_viewport = False
 
         if C.space_data.local_view:
             bpy.ops.view3d.localview()
@@ -229,7 +226,7 @@ def editShapes(active_bone):
 
         bpy.ops.object.mode_set(mode='EDIT')
     except:
-        blenrig_temp_boneshapes(False)
+        UnlinkCollection(context)
         print("No Active Bone Selected")
 
 
