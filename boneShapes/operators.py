@@ -20,7 +20,8 @@ from .functions import (
     resyncShapesNames,
     UnlinkCollection,
     LinkCollection,
-    shape_scale
+    shape_scale,
+    MakeUniqueShape
 )
 from bpy.types import Operator
 from bpy.props import FloatProperty, BoolProperty, FloatVectorProperty
@@ -290,4 +291,18 @@ class BLENRIG_OT_shape_scale(bpy.types.Operator):
     def invoke(self, context, event):
         context.window_manager.popup_menu(shape_scale, title='Select Direction', icon='MOD_ARMATURE')
         # context.window_manager.invoke_props_dialog(self)
+        return {'FINISHED'}
+    
+class BLENRIG_OT_Make_Unique(bpy.types.Operator):
+    """Make Unique Shape for Bone"""
+    bl_idname = "blenrig.make_unique"
+    bl_label = "Make Unique"
+
+    @classmethod
+    def poll(cls, context):
+        return (context.object and context.object.type == 'ARMATURE' and context.object.pose)
+
+    def execute(self, context):
+        MakeUniqueShape()
+        self.report({'INFO'},"Make Unique Shape")
         return {'FINISHED'}

@@ -1809,7 +1809,8 @@ from .boneShapes.operators import (
     BLENRIG_OT_deleteUnusedShapess,
     BLENRIG_OT_clearBoneShapess,
     BLENRIG_OT_resyncShapesNames,
-    BLENRIG_OT_shape_scale
+    BLENRIG_OT_shape_scale,
+    BLENRIG_OT_Make_Unique
 )
 from .boneShapes.prefs import (BoneShapesPreferences)
 
@@ -2591,6 +2592,8 @@ boneshapes_classes = [
     BLENRIG_OT_clearBoneShapess,
     BLENRIG_OT_resyncShapesNames,
     BLENRIG_OT_shape_scale,
+    BLENRIG_MT_shape_scale,
+    BLENRIG_OT_Make_Unique,
     BoneShapesPreferences
 ]
 

@@ -244,8 +244,6 @@ def returnToArmature(widget):
         widget = None
         bpy.ops.object.mode_set(mode='OBJECT')
 
-    # collection = getViewLayerCollection(C)
-    # collection.exclude = True
     UnlinkCollection(C)
 
     if C.space_data.local_view:
@@ -342,5 +340,26 @@ def clearBoneShapess():
                 bone.custom_shape = None
                 bone.custom_shape_transform = None
                 
-def shape_scale(self, context):
+def shape_scale():
     pass
+
+def MakeUniqueShape():
+    C = bpy.context
+    D = bpy.data
+    bw_widget_prefix = C.preferences.addons[main_package].preferences.widget_prefix
+    
+    bone = C.active_pose_bone
+    widget = bone.custom_shape
+    
+    newData = widget.data.copy()
+    newObject = widget.copy()
+    newObject.data = newData
+    newData.update()
+    print(newObject.name)
+    newObject = D.objects.get(newObject.name)
+    print(newObject)
+    newObject.name = bw_widget_prefix + bone.name
+    print(newObject.name)
+    widget.name = newObject.name
+    widget = newObject
+    print(widget)

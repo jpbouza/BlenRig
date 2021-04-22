@@ -2,5 +2,6 @@
     "files.exclude": {
         "**/__pycache__": true,
         "**/.pyc": true
-    }
+    },
+    "python.pythonPath": "/usr/bin/python3"
 }
