@@ -1,5 +1,5 @@
 import bpy
-from .search_functions import * 
+from .search_functions import *
 
 ################################# BAKING OPERATORS ##########################################################
 
@@ -336,158 +336,112 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
             return (bpy.context.object.type=='ARMATURE' and \
                 context.mode=='POSE' or 'EDIT_ARMATURE')
 
-    def bake_all(self, context):
-
-        # preparing scene
-        bpy.ops.object.mode_set(mode='OBJECT')
-        old_active = bpy.context.active_object
-        old_selected = bpy.context.selected_objects
-        old_visible_collections = [coll.name for coll in bpy.context.view_layer.layer_collection.children if coll.hide_viewport == False]
-
-        # activating lattices collection:
-        blenrig_temp_parent(1)
-        enable_disable_colleciton(False, 'FaceRigMesh')
-        enable_disable_colleciton(False, 'GameModel')
-
-
-
-        for ob in old_selected:
-            ob.select_set(False)
-
-
-        # unparenting external objects related to the armature
-        deformers_collection = []
-        parent_pairs = []
-        for ob in bpy.data.objects:
-            if ob.parent is not None:
-                if ob.parent.name == bpy.context.object.name:
-                    # Toggle on active collections
-                    for coll in bpy.context.collection.children:
-                        for coll_ob in coll.objects:
-                            if ob.name == coll_ob.name:
-                                deformers_collection.append(coll.name)
-                    for coll in bpy.context.view_layer.layer_collection.children:
-                        if coll.name in deformers_collection:
-                            coll.hide_viewport = False
-                    ob.select_set(True)
-                    parent_pairs.append([ob, ob.parent, ob.parent_bone])
-                    bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
-
-        #Back to Armature
-        for ob in bpy.context.selected_objects:
-            ob.select_set(False)
-        bpy.context.view_layer.objects.active = old_active
-        for ob in old_selected:
-            ob.select_set(True)
-
-        bpy.ops.object.mode_set(mode='POSE')
-        posebones = bpy.context.object.pose.bones
-
-        # Bake Armature
-        bpy.ops.pose.armature_apply()
-
-        arm = bpy.context.object.data
-
-        # Reset Constraints
-        for b in posebones:
-            for con in b.constraints:
-                if con.type not in ['LIMIT_DISTANCE', 'STRETCH_TO', 'CHILD_OF']:
-                    continue
-                if con.type == 'LIMIT_DISTANCE':
-                    con.distance = 0
-                elif con.type == 'STRETCH_TO':
-                    con.rest_length = 0
-
-        bpy.ops.object.mode_set(mode='OBJECT')
-        for ob in bpy.context.selected_objects:
-            ob.select_set(False)
-
-        # re-parenting external objects related to the armature
-        for pp in parent_pairs:
-            ob, parent, bone = pp
-            ob.parent = parent
-            ob.parent_type = 'BONE'
-            ob.parent_bone = bone
-            #Reseting Hooks
-            ob.select_set(True)
-            bpy.ops.blenrig.reset_hooks()
-
-        #Back to Armature
-        for ob in bpy.context.selected_objects:
-            ob.select_set(False)
-        #Set to visible collections back
-        for coll in bpy.context.view_layer.layer_collection.children:
-            coll.hide_viewport = True
-        for coll in bpy.context.view_layer.layer_collection.children:
-            if coll.name in old_visible_collections:
-                coll.hide_viewport = False
-        bpy.context.view_layer.objects.active = old_active
-        for ob in old_selected:
-            ob.select_set(True)
-
-        bpy.ops.object.mode_set(mode='POSE')
-
-        # deactivating lattices collection:
-        blenrig_temp_parent(0)        
-        enable_disable_colleciton(True, 'FaceRigMesh')
-        enable_disable_colleciton(True, 'GameModel')
-
-
-
-    def armature_update_values(self, context):
-
-        armobj = bpy.context.active_object
-
-        #Bone Length Properties Update
-        for b in armobj.pose.bones:
-            if b.keys() != '[]':
-                if 'b_length_L' in b.keys():
-                    b['b_length_L'] = b.bone.length
-                if 'b_length_R' in b.keys():
-                    b['b_length_R'] = b.bone.length
-                if 'b_length' in b.keys():
-                    b['b_length'] = b.bone.length
-        #Floor constraints distance calculation
-        for b in armobj.pose.bones:
-            for C in b.constraints:
-                if C.type == 'FLOOR':
-                    if 'Floor_Lips' in C.name:
-                        C.offset = abs((b.head[2] - armobj.pose.bones[C.subtarget].head[2]) * 0.9)
-                    if 'Floor_Foot' in C.name:
-                        C.offset = abs(b.head[2] - armobj.pose.bones[b.custom_shape_transform.name].head[2])
-        #Blink rate calculation
-        for b in armobj.pose.bones:
-            if b.name == 'blink_ctrl_L':
-                try:
-                    b['Blink_Rate_L'] = abs(armobj.pose.bones['eyelid_up_ctrl_L'].head[2] - armobj.pose.bones['eyelid_low_ctrl_L'].head[2])
-                except:
-                    pass
-            if b.name == 'blink_ctrl_R':
-                try:
-                    b['Blink_Rate_R'] = abs(armobj.pose.bones['eyelid_up_ctrl_R'].head[2] - armobj.pose.bones['eyelid_low_ctrl_R'].head[2])
-                except:
-                    pass
-
     def bake_all_1(self, context):
         props = context.window_manager.blenrig_6_props
         arm = context.active_object
-        mdef_cage_name = mdef_search()[1]
+        #Get Objects List
+        mdef_cage = mdef_search('MESH_DEFORM')[1]
+        sdef_cage = mdef_search('SURFACE_DEFORM')[1]
+        mdef_objects = search_mod('MESH_DEFORM')[1]
+        armature_objects = search_mod('ARMATURE')[1]
+        sdef_objects = search_mod('SURFACE_DEFORM')[1]
+        #Link Objects to Temp Collection
         blenrig_temp_mdef_cage(True)
-        cage_select = context.view_layer.objects[mdef_cage_name]
-        context.view_layer.objects.active = cage_select
+        blenrig_temp_sdef_cage(True)
+        blenrig_temp('MESH_DEFORM')
+        blenrig_temp('ARMATURE')
+        blenrig_temp('SURFACE_DEFORM')
+        #Bake Surface Deform First
+        bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.select_all(action='DESELECT')
-        cage_select.select_set(1)
-        if context.active_object.data.shape_keys:
-            if not props.bake_to_shape:
-                props.bake_to_shape = True
-        else:
-            props.bake_to_shape = False
-        bpy.ops.blenrig.mesh_pose_baker()
-        bpy.ops.object.select_all(action='DESELECT')
+        for ob in sdef_objects:
+            if ob not in mdef_cage and ob not in sdef_cage:
+                context.view_layer.objects.active = bpy.data.objects[ob]
+                bpy.data.objects[ob].select_set(1)
+                if hasattr(context.active_object, 'data'):
+                    if context.active_object.data.shape_keys:
+                        if not props.bake_to_shape:
+                            props.bake_to_shape = True
+                    else:
+                        props.bake_to_shape = False
+                    bpy.ops.blenrig.mesh_pose_baker()
+                    bpy.ops.object.select_all(action='DESELECT')
         context.view_layer.objects.active = arm
+        bpy.ops.object.mode_set(mode='POSE')
+        #Bake Mesh Deform Second
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        for ob in mdef_objects:
+            if ob not in mdef_cage and ob not in sdef_cage:
+                context.view_layer.objects.active = bpy.data.objects[ob]
+                bpy.data.objects[ob].select_set(1)
+                if hasattr(context.active_object, 'data'):
+                    if context.active_object.data.shape_keys:
+                        if not props.bake_to_shape:
+                            props.bake_to_shape = True
+                    else:
+                        props.bake_to_shape = False
+                    bpy.ops.blenrig.mesh_pose_baker()
+                    bpy.ops.object.select_all(action='DESELECT')
+        context.view_layer.objects.active = arm
+        bpy.ops.object.mode_set(mode='POSE')
+        #Bake Armature Third
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        for ob in armature_objects:
+            if ob not in mdef_cage and ob not in mdef_objects and ob not in sdef_objects:
+                context.view_layer.objects.active = bpy.data.objects[ob]
+                bpy.data.objects[ob].select_set(1)
+                if hasattr(context.active_object, 'data'):
+                    if context.active_object.data.shape_keys:
+                        if not props.bake_to_shape:
+                            props.bake_to_shape = True
+                    else:
+                        props.bake_to_shape = False
+                    bpy.ops.blenrig.mesh_pose_baker()
+                    bpy.ops.object.select_all(action='DESELECT')
+        context.view_layer.objects.active = arm
+        bpy.ops.object.mode_set(mode='POSE')
+        #Bake Sdef Cages Last
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        for ob in sdef_cage:
+            context.view_layer.objects.active = bpy.data.objects[ob]
+            bpy.data.objects[ob].select_set(1)
+            if hasattr(context.active_object, 'data'):
+                if context.active_object.data.shape_keys:
+                    if not props.bake_to_shape:
+                        props.bake_to_shape = True
+                else:
+                    props.bake_to_shape = False
+                bpy.ops.blenrig.mesh_pose_baker()
+                bpy.ops.object.select_all(action='DESELECT')
+        context.view_layer.objects.active = arm
+        bpy.ops.object.mode_set(mode='POSE')
+        #Bake Mdef Cages Last
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        for ob in mdef_cage:
+            context.view_layer.objects.active = bpy.data.objects[ob]
+            bpy.data.objects[ob].select_set(1)
+            if hasattr(context.active_object, 'data'):
+                if context.active_object.data.shape_keys:
+                    if not props.bake_to_shape:
+                        props.bake_to_shape = True
+                else:
+                    props.bake_to_shape = False
+                bpy.ops.blenrig.mesh_pose_baker()
+                bpy.ops.object.select_all(action='DESELECT')
+        context.view_layer.objects.active = arm
+        bpy.ops.object.mode_set(mode='POSE')
+        #Bake Armature
+        bpy.ops.blenrig.advanced_armature_baker()
+        #UnLink Objects to Temp Collection
         blenrig_temp_mdef_cage(False)
-        self.bake_all(context)
-        self.armature_update_values(context)
+        blenrig_temp_sdef_cage(False)
+        blenrig_temp('MESH_DEFORM', False)
+        blenrig_temp('ARMATURE', False)
+        blenrig_temp('SURFACE_DEFORM', False)
         bpy.ops.object.mode_set(mode='EDIT')
         bpy.ops.blenrig.fix_misaligned_bones()
         bpy.ops.blenrig.auto_bone_roll()
@@ -518,9 +472,9 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
     def after_custom_align(self, context):
         bpy.ops.blenrig.custom_bone_roll()
         bpy.ops.blenrig.store_roll_angles()
-        context.object.data.show_axes = False 
-        context.object.data.layers[29] = False 
-        context.object.data.layers[31] = True 
+        context.object.data.show_axes = False
+        context.object.data.layers[29] = False
+        context.object.data.layers[31] = True
         bpy.ops.object.mode_set(mode='POSE')
         bpy.ops.blenrig.reset_constraints()
         context.object.data.pose_position = 'REST'
@@ -555,16 +509,9 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='OBJECT')
         old_active = bpy.context.active_object
         old_selected = bpy.context.selected_objects
-        old_visible_collections = [coll.name for coll in bpy.context.view_layer.layer_collection.children if coll.hide_viewport == False]
 
         # activating lattices collection:
         blenrig_temp_parent(1)
-        # activating MDef_Cage collection:
-        blenrig_temp_mdef_cage(True)
-        enable_disable_colleciton(False, 'FaceRigMesh')
-        enable_disable_colleciton(False, 'GameModel')
-
-
 
         for ob in old_selected:
             ob.select_set(False)
@@ -576,14 +523,6 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         for ob in bpy.data.objects:
             if ob.parent is not None:
                 if ob.parent.name == bpy.context.object.name:
-                    # Toggle on active collections
-                    for coll in bpy.context.scene.collection.children:
-                        for coll_ob in coll.objects:
-                            if ob.name == coll_ob.name:
-                                deformers_collection.append(coll.name)
-                    for coll in bpy.context.view_layer.layer_collection.children:
-                        if coll.name in deformers_collection:
-                            coll.hide_viewport = False
                     ob.select_set(True)
                     parent_pairs.append([ob, ob.parent, ob.parent_bone])
                     bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
@@ -604,25 +543,8 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         arm = bpy.context.object.data
 
         # Reset Constraints
-        for b in posebones:
-            for con in b.constraints:
-                if con.type not in ['LIMIT_DISTANCE', 'STRETCH_TO', 'CHILD_OF']:
-                    continue
-                if con.type == 'LIMIT_DISTANCE':
-                    con.distance = 0
-                elif con.type == 'STRETCH_TO':
-                    con.rest_length = 0
-                #elif con.type == 'CHILD_OF':
-                    #bpy.ops.object.mode_set(mode='EDIT')
-                    #arm.edit_bones.active = arm.edit_bones[b.name]
-                    #bpy.ops.object.mode_set(mode='POSE')
-                    #print ('"{}"'.format(con.name))
-                    #bpy.ops.constraint.childof_clear_inverse(constraint=con.name, owner='BONE')
-                    #bpy.ops.constraint.childof_set_inverse(constraint=con.name, owner='BONE')
-                    ## somehow it only works if you run it twice
-                    #bpy.ops.constraint.childof_set_inverse(constraint=con.name, owner='BONE')
-                    #bpy.ops.object.mode_set(mode='EDIT')
-                    #arm.edit_bones[b.name].select = False
+        bpy.ops.blenrig.reset_constraints()
+
         bpy.ops.object.mode_set(mode='OBJECT')
         for ob in bpy.context.selected_objects:
             ob.select_set(False)
@@ -640,12 +562,6 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
         #Back to Armature
         for ob in bpy.context.selected_objects:
             ob.select_set(False)
-        #Set to visible collections back
-        for coll in bpy.context.view_layer.layer_collection.children:
-            coll.hide_viewport = True
-        for coll in bpy.context.view_layer.layer_collection.children:
-            if coll.name in old_visible_collections:
-                coll.hide_viewport = False
         bpy.context.view_layer.objects.active = old_active
         for ob in old_selected:
             ob.select_set(True)
@@ -654,11 +570,6 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
 
         #deactivating lattices collection:
         blenrig_temp_parent(0)
-        # deactivating MDef_Cage collection:
-        blenrig_temp_mdef_cage(False)
-        enable_disable_colleciton(True, 'FaceRigMesh')
-        enable_disable_colleciton(True, 'GameModel')
-
 
     def armature_update_values(self, context):
 
@@ -716,7 +627,7 @@ class ARMATURE_OT_reset_constraints(bpy.types.Operator):
                 context.mode=='POSE')
 
     def execute(self, context):
-        context.object.data.pose_position = 'REST'        
+        context.object.data.pose_position = 'REST'
         pbones = context.active_object.pose.bones
         edit_bones = context.active_object.data.edit_bones
         if len(pbones) < 1:
