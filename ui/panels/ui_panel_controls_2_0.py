@@ -4102,18 +4102,24 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                         except:
                             pass
                         # Fleshy Nose
-                        head_col.label(text='Fleshy Nose')
-                        teeth_row = head_col.row()
-                        col_1 = teeth_row.column()
+                        fleshy_row = head_col.row()
+                        col_1 = fleshy_row.column()
+                        col_1.label(text='Fleshy Nose')
                         col_1.scale_x = 1
                         col_1.scale_y = 1
                         col_1.alignment = 'CENTER'
-                        col_2 = teeth_row.column()
+                        try:
+                            col_1.prop(arm_bones['nose_ctrl'], '["FLESHY_NOSE"]', text="Rate", slider=True)
+                        except:
+                            pass
+                        # Fleshy Mouth
+                        col_2 = fleshy_row.column()
+                        col_2.label(text='Fleshy Mouth')
                         col_2.scale_x = 1
                         col_2.scale_y = 1
                         col_2.alignment = 'CENTER'
                         try:
-                            col_1.prop(arm_bones['nose_ctrl'], '["FLESHY_NOSE"]', text="Rate", slider=True)
+                            col_2.prop(arm_bones['mouth_ctrl'], '["FLESHY_MOUTH"]', text="Rate", slider=True)
                         except:
                             pass
                         # Fleshy Eyes
