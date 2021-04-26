@@ -357,5 +357,4 @@ def MakeUniqueShape():
     newData.update()
     newObject.name = bw_widget_prefix + bone.name
     newObject = D.objects.get(newObject.name)
-    bone.custom_shape = None
     bone.custom_shape = newObject
