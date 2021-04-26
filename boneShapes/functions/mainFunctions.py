@@ -347,14 +347,14 @@ def MakeUniqueShape():
     C = bpy.context
     D = bpy.data
     bw_widget_prefix = C.preferences.addons[main_package].preferences.widget_prefix
-    
-    bone = C.active_pose_bone
-    widget = bone.custom_shape
-    
-    newData = widget.data.copy()
-    newObject = widget.copy()
-    newObject.data = newData
-    newData.update()
-    newObject.name = bw_widget_prefix + bone.name
-    newObject = D.objects.get(newObject.name)
-    bone.custom_shape = newObject
+    bone = C.selected_pose_bones   
+
+    for bone in bone:
+        widget = bone.custom_shape
+        newData = widget.data.copy()
+        newObject = widget.copy()
+        newObject.data = newData
+        newData.update()
+        newObject.name = bw_widget_prefix + bone.name
+        newObject = D.objects.get(newObject.name)
+        bone.custom_shape = newObject
