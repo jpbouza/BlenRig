@@ -341,15 +341,29 @@ def clearBoneShapess():
                 bone.custom_shape_transform = None
                 
 def shape_scale():
-    pass
+    C = bpy.context
+    D = bpy.data
+    bones = C.selected_pose_bones 
+
+#Find mirrored bones
+    for br in bones:
+        if '_R' in br.name:
+            r_name = br.name.split("_R")
+            for bl in bones:
+                if '_L' in bl.name:
+                    l_name = bl.name.split("_L")
+                    if l_name[0] == r_name[0]:
+                        print (br.name, bl.name)
+                        br.custom_shape_scale = bl.custom_shape_scale
+                        br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
 
 def MakeUniqueShape():
     C = bpy.context
     D = bpy.data
     bw_widget_prefix = C.preferences.addons[main_package].preferences.widget_prefix
-    bone = C.selected_pose_bones   
+    bones = C.selected_pose_bones   
 
-    for bone in bone:
+    for bone in bones:
         widget = bone.custom_shape
         newData = widget.data.copy()
         newObject = widget.copy()
