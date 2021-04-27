@@ -284,13 +284,10 @@ class BLENRIG_OT_shape_scale(bpy.types.Operator):
     @classmethod
     def poll(cls, context):
         return (context.object and context.object.type == 'ARMATURE' and context.object.pose)
-    # itemsSort = ["R/L,""L/R"]
-    # bpy.types.Scene.Size_option = bpy.props.EnumProperty(
-    #     name="Shape Size/Scale", items=itemsSort, description="Shape Size/Scale")
 
-    def invoke(self, context, event):
-        context.window_manager.popup_menu(shape_scale, title='Select Direction', icon='MOD_ARMATURE')
-        # context.window_manager.invoke_props_dialog(self)
+    def execute(self, context):
+        shape_scale()
+        self.report({'INFO'},"Shape Scale")
         return {'FINISHED'}
     
 class BLENRIG_OT_Make_Unique(bpy.types.Operator):

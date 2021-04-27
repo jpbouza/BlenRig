@@ -102,7 +102,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             
             if bpy.context.mode in {'POSE'}:
                 layout = self.layout
-                layout.menu("BLENRIG_MT_shape_scale",
+                layout.operator("BLENRIG_OT_shape_scale",
                                 icon='DRIVER_DISTANCE', text="Shapes Size/Scale")
 
             if bpy.context.mode in {'POSE'}:
@@ -133,11 +133,3 @@ class BLENRIG_MT_bw_specials_edit(Menu):
                     text="Automatic Symmetrize Shape")
         layout.prop(context.scene, "match_bone_transforms_toggle",
                     text="Automatic Match Bone Transforms")
-
-class BLENRIG_MT_shape_scale(Menu):
-    bl_label = "Bone Shapes Size/Scale"
-
-    def draw(self, context):
-        col = self.layout.column()
-        col.operator("blenrig.shape_scale", text = "L / R")
-        col.operator("blenrig.shape_scale", text = "R / L")
