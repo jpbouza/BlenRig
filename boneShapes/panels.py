@@ -103,7 +103,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             if bpy.context.mode in {'POSE'}:
                 layout = self.layout
                 layout.operator("BLENRIG_OT_shape_scale",
-                                icon='DRIVER_DISTANCE', text="Shapes Size/Scale")
+                                icon='DRIVER_DISTANCE', text="Symmetrize Shapes Size/Scale")
 
             if bpy.context.mode in {'POSE'}:
                 layout.separator()

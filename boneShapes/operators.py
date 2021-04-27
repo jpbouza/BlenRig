@@ -278,7 +278,7 @@ class BLENRIG_OT_resyncShapesNames(bpy.types.Operator):
 class BLENRIG_OT_shape_scale(bpy.types.Operator):
     """unificate shapes scale and size from L/R in selected pose bones"""
     bl_idname = "blenrig.shape_scale"
-    bl_label = "Shapes Size/Scale"
+    bl_label = "Symmetrize Shapes Size/Scale"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -287,7 +287,7 @@ class BLENRIG_OT_shape_scale(bpy.types.Operator):
 
     def execute(self, context):
         shape_scale()
-        self.report({'INFO'},"Shape Scale")
+        self.report({'INFO'},"Symmetrize Shapes Size/Scale")
         return {'FINISHED'}
     
 class BLENRIG_OT_Make_Unique(bpy.types.Operator):
