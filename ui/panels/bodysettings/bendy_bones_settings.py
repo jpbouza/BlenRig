@@ -1,13 +1,13 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
-    bl_label = "Bendy Bones Settings:"
+    bl_label = "Body BBones Settings:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_bendy_bones_settings"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm = context.active_object
         arm_data = context.active_object.data
@@ -19,7 +19,7 @@ class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
             box = layout.column()
             col = box.column()
             row = col.row()
-            
+
             # Bbones options
 
             box = col.box()
@@ -38,7 +38,9 @@ class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
             col_R.prop(p_bones['properties_torso'], 'volume_variation_torso', text="Torso", toggle=True)
             col_R.prop(p_bones['properties_head'], 'volume_variation_neck', text="Neck", toggle=True)
             col_L.prop(p_bones['properties_head'], 'volume_variation_head', text="Head", toggle=True)
+            box.separator()
 
+            box = col.box()
             box.label(text="Twist Rate")
             row_props = box.row()
             col_R = row_props.column()
@@ -51,5 +53,17 @@ class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
             col_L.prop(p_bones['properties_arm_L'], '["twist_rate_forearm_L"]', text="Forearm_L", toggle=True)
             col_L.prop(p_bones['properties_leg_L'], '["twist_rate_thigh_L"]', text="Thigh_L", toggle=True)
             col_L.prop(p_bones['properties_leg_L'], '["twist_rate_shin_L"]', text="Shin_L", toggle=True)
+
+            box.separator()
+
+            box = col.box()
+            box.label(text="Spine Curvature")
+            row_props = box.row()
+            col = row_props.column()
+            try:
+                col.prop(p_bones['spine_line'].bone, "bbone_curveouty", text="Upper Curvature")
+                col.prop(p_bones['spine_line'].bone, "bbone_curveiny",  text="Lower Curvature")
+            except:
+                pass
 
             box.separator()

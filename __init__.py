@@ -72,6 +72,7 @@ from .ui.panels.facialsettings.facial_movement_ranges import BLENRIG_PT_Rig_Body
 from .ui.panels.facialsettings.face_action_toggles import BLENRIG_PT_Rig_Body_settings_face_action_toggles
 from .ui.panels.facialsettings.face_lip_shaping import BLENRIG_PT_Rig_Body_settings_face_lip_shaping
 from .ui.panels.facialsettings.face_collisions import BLENRIG_PT_Rig_Body_settings_face_collisions
+from .ui.panels.facialsettings.face_bendy_bones_settings import BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings
 from .boneShapes.panels import *
 
 ######### Load Rig Functions ##########
@@ -2520,12 +2521,13 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     gui_face_lip_shaping: bpy.props.BoolProperty(default=False, description="Parameters to define lips curvature")
     gui_face_action_toggles: bpy.props.BoolProperty(default=False, description="Toggle facial actions off for editing")
     gui_face_collisions: bpy.props.BoolProperty(default=False, description="Face Collisions Offset")
+    gui_face_bbones: bpy.props.BoolProperty(default=False, description="Face Bendy Bones Settings")
     gui_body_ik_rot: bpy.props.BoolProperty(default=False, description="Set the initial rotation of IK bones")
     gui_body_auto_move: bpy.props.BoolProperty(default=False, description="Parameters for automated movement")
     gui_body_rj: bpy.props.BoolProperty(default=False, description="Simulate how bone thickness affects joint rotation")
     gui_body_vp: bpy.props.BoolProperty(default=False, description="Volume Preservation Bones Movement Definition")
     gui_body_toggles: bpy.props.BoolProperty(default=False, description="Toggle body parts")
-    gui_body_bbones: bpy.props.BoolProperty(default=False, description="Bendy Bones Settings")
+    gui_body_bbones: bpy.props.BoolProperty(default=False, description="Body Bendy Bones Settings")
     gui_body_collisions: bpy.props.BoolProperty(default=False, description="Body Collisions Offset")
     bake_to_shape: bpy.props.BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
     enable_to_move: bpy.props.BoolProperty(name="Enable to Move Lattice", default=False, description="Let move Lattice disabling modif hoocks")
@@ -3195,7 +3197,7 @@ panels_classes = [
     BLENRIG_PT_posemode_panel,
     BLENRIG_MT_bw_specials_edit,
     BLENRIG_PT_reproportion_guide,
-    BLENRIG_PT_actions_guide,    
+    BLENRIG_PT_actions_guide,
     BLENRIG_PT_Rig_Body_settings_ik,
     BLENRIG_PT_Rig_Body_settings_automated_movement,
     BLENRIG_PT_Rig_Body_settings_vp_bones_movement,
@@ -3222,7 +3224,8 @@ panels_classes = [
     BLENRIG_PT_Rig_Body_settings_realistic_joints,
     BLENRIG_PT_Rig_Body_settings_bendy_bones_settings,
     BLENRIG_PT_Rig_Body_settings_body_collisions_offset,
-    BLENRIG_PT_Rig_Body_settings_toggles
+    BLENRIG_PT_Rig_Body_settings_toggles,
+    BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings
 ]
 
 ############## Shape_Keys+ Classes ################
