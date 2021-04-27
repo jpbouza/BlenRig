@@ -23,7 +23,7 @@ class Operator_BlenRig5_Add_Biped(Operator):
 
         # Link the top-level collection into the file.
         with bpy.data.libraries.load(filepath, link=False) as (data_from, data_to):
-            data_to.collections = ["BlenRig_Master_Collection"]
+            data_to.collections = ["BlenRig"]
 
         # Add the collection(s) to the scene.
         for collection in data_to.collections:
@@ -33,7 +33,7 @@ class Operator_BlenRig5_Add_Biped(Operator):
             vlayer = bpy.context.view_layer
             for child in collection.children:
                 child['BlenRig'] = child.name
-                if not child.name.startswith('BlenRig_Biped'):
+                if not child.name.startswith('Biped_BlenRig'):
                     vlayer.layer_collection.children[collection.name].children[child.name].exclude = True
                     # print('Processing: ' + collection.name + ' > ' + child.name)
 
