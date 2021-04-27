@@ -1,13 +1,13 @@
 import bpy
 
 class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
-    bl_label = "Bendy Bones Settings:"
+    bl_label = "Body BBones Settings:"
     bl_idname = "BLENRIG_PT_Rig_Body_settings_bendy_bones_settings"
     bl_parent_id = "BLENRIG_PT_Rig_Body_settings"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm = context.active_object
         arm_data = context.active_object.data
@@ -19,7 +19,7 @@ class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
             box = layout.column()
             col = box.column()
             row = col.row()
-            
+
             # Bbones options
 
             box = col.box()
