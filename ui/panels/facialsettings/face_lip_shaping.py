@@ -109,6 +109,46 @@ class BLENRIG_PT_Rig_Body_settings_face_lip_shaping(bpy.types.Panel):
             except:
                 pass
 
+            #### Lips Curvature ####
+            box = col.box()
+            row_label = box.row()
+            row_label.alignment = 'CENTER'
+            row_label.label(text='Lip Curvature')
+            row_props = box.row()
+            col_R = row_props.column()
+            col_R.alignment = 'CENTER'
+            col_R.label(text = 'Right Side')
+            col_L = row_props.column()
+            col_L.alignment = 'CENTER'
+            col_L.label(text = 'Left Side')
+            row_props_R = col_R.column()
+            row_props_L = col_L.column()
+            #Right Side
+            try:
+                row_props_R.prop(p_bones['lip_up_line_R'].bone, "bbone_easeout", text="Upper Lip R Curve Roundness")
+            except:
+                pass
+            try:
+                row_props_R.prop(p_bones['lip_zipper_line_R'].bone, "bbone_easeout", text="Zipper Lip R Curve Roundness")
+            except:
+                pass
+            try:
+                row_props_R.prop(p_bones['lip_low_line_R'].bone, "bbone_easeout", text="Lower Lip R Curve Roundness")
+            except:
+                pass
+            #Left Side
+            try:
+                row_props_L.prop(p_bones['lip_up_line_L'].bone, "bbone_easeout", text="Upper Lip L Curve Roundness")
+            except:
+                pass
+            try:
+                row_props_L.prop(p_bones['lip_zipper_line_L'].bone, "bbone_easeout", text="Zipper Lip L Curve Roundness")
+            except:
+                pass
+            try:
+                row_props_L.prop(p_bones['lip_low_line_L'].bone, "bbone_easeout", text="Lower Lip L Curve Roundness")
+            except:
+                pass
             #### Movement Override ####
             box = col.box()
             row_label = box.row()
