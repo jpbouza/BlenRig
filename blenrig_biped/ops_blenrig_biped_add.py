@@ -37,6 +37,10 @@ class Operator_BlenRig5_Add_Biped(Operator):
                     vlayer.layer_collection.children[collection.name].children[child.name].exclude = True
                     # print('Processing: ' + collection.name + ' > ' + child.name)
 
+    def viewport_toggle(self, context):
+        for area in bpy.context.screen.areas:
+            if area.type == 'OUTLINER':
+                area.spaces[0].show_restrict_column_viewport = True
 
     def execute(self, context):
         if context.mode != 'OBJECT':
@@ -45,7 +49,7 @@ class Operator_BlenRig5_Add_Biped(Operator):
         bpy.ops.object.select_all(action='DESELECT')
 
         self.import_blenrig_biped(context)
-
+        self.viewport_toggle(context)
         # in the .blend the biped in object mode has to be selected so that the following does not fail:
         context.view_layer.objects.active = context.selected_objects[0]
 
