@@ -29,7 +29,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
         #         return True
 
         obj = context.object
-        valid_types = {'POSE','ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE'}
+        valid_types = {'POSE','ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE', 'EDIT_ARMATURE'}
 
         return obj or obj.type in valid_types
 
@@ -47,8 +47,21 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
             box = steps.box()
             box.prop(pose, "use_mirror_x")
 
+        # Set Spine Curve Values Step
+        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 4:
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.label(text="Spine Curvature")
+            row_props = box.row()
+            col = row_props.column()
+            try:
+                col.prop(p_bones['spine_line'].bone, "bbone_curveouty", text="Upper Curvature")
+                col.prop(p_bones['spine_line'].bone, "bbone_curveiny",  text="Lower Curvature")
+            except:
+                pass
+
         # Set Eyebrow Curve Values Step
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 24:
+        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 27:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Curve Values")
@@ -88,7 +101,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                 pass
 
         # Set Mouth Curve Values Step
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 36:
+        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 40:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Curve Values")
@@ -167,7 +180,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                 curveoutx.prop(p_bones['lip_up_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
             except:
                 pass
-            # Lip Zipper
+             # Lip Zipper
             lipup = curvex.row()
             lipup.alignment = 'LEFT'
             lipup.label(text="Zipper")
@@ -199,9 +212,32 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                 curveoutx.prop(p_bones['lip_low_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
             except:
                 pass
+
         # Diplay Mode for Face Mask
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 19:
+        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 22:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Display As")
             box.prop(arm, "display_type")
+
+        # Diplay Bake Button
+        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 50:
+            if context.mode in ['POSE','OBJECT']:
+                if context.active_object.data.reproportion:
+                    steps = layout.column(align=True)
+                    box = steps.box()
+                    row = box.row()
+                    row.scale_x = 0.5
+                    row.scale_y = 1.8
+                    row.operator("blenrig.armature_baker_all_part_1", text="Bake All")
+
+        # Diplay Bake Button
+        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 51:
+            if context.mode in ['EDIT_ARMATURE']:
+                if context.active_object.data.reproportion:
+                    steps = layout.column(align=True)
+                    box = steps.box()
+                    row = box.row()
+                    row.scale_x = 0.5
+                    row.scale_y = 1.8
+                    row.operator("blenrig.armature_baker_all_part_2", text="Custom Alignments")
