@@ -79,7 +79,7 @@ GUIDE_STEPS = (
     },
     # Spine Line
     {
-        'imagen': 'Reprop_Spine.jpg',
+        'imagen': ('Reprop_Spine_Line_A.jpg', 'Reprop_Spine_Line_B.jpg', 'Reprop_Spine_Line_C.jpg'),
         'titulo': {
             'EN': 'Spine Line Curvature',
             'ES': 'Paso 2'
@@ -118,7 +118,7 @@ GUIDE_STEPS = (
     },
     # Breasts / Pecs
     {
-        'imagen': 'Reprop_Spine.jpg',
+        'imagen': 'Reprop_Breasts_Pecs.jpg',
         'titulo': {
             'EN': 'Breasts / Pecs',
             'ES': 'Paso 2'
@@ -131,7 +131,7 @@ GUIDE_STEPS = (
     },
     # Body Lattice
     {
-        'imagen': 'Reprop_Spine.jpg',
+        'imagen': 'Reprop_Body_Lattice.jpg',
         'titulo': {
             'EN': 'Body Lattice',
             'ES': 'Paso 2'
@@ -371,7 +371,7 @@ GUIDE_STEPS = (
             'ES': 'Paso 5'
             },
         'texto': {
-            'EN': 'Use the inner and outer controls of the Eyebrow to place the curve along the Eyebrow arch. Finally, place the middle controller.',
+            'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the middle controller.",
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Eyebrows_Curve_Ctrls
@@ -508,7 +508,7 @@ GUIDE_STEPS = (
     },
     # Upper & Lower Lips Centers
     {
-        'imagen': 'Reprop_Mouth_IK.jpg',
+        'imagen': 'Reprop_Lips_Centers.jpg',
         'titulo': {
             'EN': 'Upper & Lower Lips Centers',
             'ES': 'Paso 5'
@@ -677,7 +677,7 @@ GUIDE_STEPS = (
     },
     # Bake
     {
-        'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
+        'imagen': 'Reprop_Bake.jpg',
         'titulo': {
             'EN': 'Bake Rig',
             'ES': 'Paso 5'
@@ -690,7 +690,7 @@ GUIDE_STEPS = (
     },
     # Custom Alignments
     {
-        'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
+        'imagen': 'Reprop_Custom_Alignments.jpg',
         'titulo': {
             'EN': 'Custom Alignments',
             'ES': 'Paso 5'
@@ -703,7 +703,7 @@ GUIDE_STEPS = (
     },
     # Reproportion Finish
     {
-        'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
+        'imagen': 'Reprop_Finish.jpg',
         'titulo': {
             'EN': 'Reproportion Finish',
             'ES': 'Paso 5'

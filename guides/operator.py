@@ -7,9 +7,9 @@ from . guide import GUIDE_STEPS
 
 class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
     bl_idname = "view3d.blenrig_guide"
-    bl_label = "Show Blenrig Guide"
+    bl_label = "Show Reproportion Guide"
     bl_description = "Run Blenrig interactive guide and show it inside 3d viewport"
-    
+
     instance = None
     step : IntProperty(default=0)
 
@@ -67,7 +67,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
                     return {'FINISHED'}
                 return {'RUNNING_MODAL'}
         return {'PASS_THROUGH'}
-    
+
     def finish(self, context=bpy.context):
         VIEW3D_OT_blenrig_guide.instance = None
         if hasattr(self, 'timer') and self.timer:
@@ -75,7 +75,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
         bpy.types.SpaceView3D.draw_handler_remove(self._handle, 'WINDOW')
         # Recover temporal changes.
         context.preferences.inputs.use_auto_perspective = self.use_auto_perspective
-    
+
     def load_next_step(self, context) -> bool:
         return self.load_step(context, self.step+1)
 
@@ -120,7 +120,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
             self.image = load_image(image)
             if self.image:
                 hide_image(self.image)
-                self.image.gl_load()    
+                self.image.gl_load()
 
     def draw_bones(self, context, *bone_names):
         self.bones_to_display.clear()
@@ -139,7 +139,7 @@ class VIEW3D_OT_blenrig_guide(bpy.types.Operator):
 
     def invoke(self, context, event):
         bpy.ops.object.mode_set(mode='POSE')
-        
+
         if context.area.type != 'VIEW_3D':
             self.report({'WARNING'}, "View3D not found, cannot run operator")
             return {'CANCELLED'}
