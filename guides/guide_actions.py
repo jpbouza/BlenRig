@@ -21,7 +21,7 @@ def reproportion_off(context):
         set_mode('POSE')
 
     # Set Armature to Reproportion mode
-    set_reproportion_ff(context)
+    set_reproportion_off(context)
     unhide_all_bones(context)
 
 def frame_bones(context, *bone_names):
@@ -113,6 +113,9 @@ def Reprop_Spine(operator, context):
     set_view_perspective(context, False)
     set_viewpoint('RIGHT')
 
+    # Set Armature to Bbone Display
+    set_display_type(context, 'BBONE')
+
     # Adjust view to Bones.
     frame_bones(context, "pelvis_str", "head_str")
 
@@ -129,6 +132,36 @@ def Reprop_Spine(operator, context):
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "pelvis_str", "spine_ctrl_1_str", "spine_ctrl_2_str", "spine_ctrl_3_str", "spine_ctrl_4_str")
+
+def Reprop_Spine_Line(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Spine_Line')
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('RIGHT')
+
+    # Set Armature to Bbone Display
+    set_display_type(context, 'BBONE')
+
+    # Adjust view to Bones.
+    frame_bones(context, "spine_line")
+
+    #
+    bones = (
+        "spine_1_def", "spine_2_def", "spine_3_def", 'spine_line'
+    )
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, "spine_line")
 
 def Reprop_Neck(operator, context):
     #Perform end of step action and set current step name
@@ -185,6 +218,61 @@ def Reprop_Head(operator, context):
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "head_mid_1_str", "head_mid_2_str")
+
+def Reprop_Breasts_Pecs(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Breasts_Pecs')
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "breast_ctrl_L", "breast_ctrl_R")
+
+    #
+    bones = (
+        "breast_ctrl_L", "breast_ctrl_R", "breast_tip_L", "breast_tip_R"
+    )
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, "breast_ctrl_L", "breast_ctrl_R", "breast_tip_L", "breast_tip_R")
+
+def Reprop_Body_Lattice(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Body_Lattice')
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('RIGHT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "chest_ctrl", "belly_ctrl", "butt_ctrl")
+
+    #
+    bones = (
+        "chest_ctrl", "belly_ctrl", "butt_ctrl"
+    )
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, "chest_ctrl", "belly_ctrl", "butt_ctrl")
+
 
 def Reprop_Sole_Side(operator, context):
     #Perform end of step action and set current step name
@@ -417,7 +505,8 @@ def Reprop_Toes(operator, context):
         'toe_lit_1_def_R', 'toe_big_1_def_R', 'toe_fourth_1_def_R', 'toe_mid_1_def_R', 'toe_ind_1_def_R', 'toe_big_3_def_R', 'toe_big_2_def_R', 'toe_lit_3_def_R', 'toe_lit_2_def_R', 'toe_fourth_4_def_R',
         'toe_fourth_3_def_R', 'toe_fourth_2_def_R', 'toe_mid_4_def_R', 'toe_mid_3_def_R', 'toe_mid_2_def_R', 'toe_ind_4_def_R', 'toe_ind_3_def_R', 'toe_ind_2_def_R', 'toe_lit_1_def_L', 'toe_big_1_def_L',
         'toe_fourth_1_def_L', 'toe_mid_1_def_L', 'toe_ind_1_def_L', 'toe_lit_3_def_L', 'toe_lit_2_def_L', 'toe_big_3_def_L', 'toe_big_2_def_L', 'toe_fourth_4_def_L', 'toe_fourth_3_def_L', 'toe_fourth_2_def_L',
-        'toe_mid_4_def_L', 'toe_mid_3_def_L', 'toe_mid_2_def_L', 'toe_ind_4_def_L', 'toe_ind_3_def_L', 'toe_ind_2_def_L'
+        'toe_mid_4_def_L', 'toe_mid_3_def_L', 'toe_mid_2_def_L', 'toe_ind_4_def_L', 'toe_ind_3_def_L', 'toe_ind_2_def_L',
+        'toes_spread_L', 'toes_spread_R', 'toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L', 'toes_str_1_R', 'toes_str_2_R', 'toes_str_3_R'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -428,8 +517,19 @@ def Reprop_Toes(operator, context):
     operator.draw_bones(context, 'toe_lit_str_1_L', 'toe_fourth_str_1_L', 'toe_mid_str_1_L', 'toe_big_str_1_L', 'toe_ind_str_1_L', 'toe_big_str_2_L', 'toe_mid_str_2_L', 'toe_fourth_str_2_L', 'toe_lit_str_2_L', 'toe_ind_str_2_L',
         'toe_big_str_3_L', 'toe_mid_str_3_L', 'toe_mid_str_4_L', 'toe_fourth_str_3_L', 'toe_fourth_str_4_L', 'toe_lit_str_3_L', 'toe_ind_str_3_L', 'toe_ind_str_4_L', 'toe_lit_str_4_L', 'toe_fourth_str_5_L', 'toe_mid_str_5_L',
         'toe_big_str_4_L', 'toe_ind_str_5_L', 'toe_lit_str_1_R', 'toe_fourth_str_1_R', 'toe_mid_str_1_R', 'toe_big_str_1_R', 'toe_ind_str_1_R', 'toe_big_str_2_R', 'toe_mid_str_2_R', 'toe_fourth_str_2_R', 'toe_lit_str_2_R', 'toe_ind_str_2_R',
-        'toe_big_str_3_R', 'toe_mid_str_3_R', 'toe_mid_str_4_R', 'toe_fourth_str_3_R', 'toe_fourth_str_4_R', 'toe_lit_str_3_R', 'toe_ind_str_3_R', 'toe_ind_str_4_R', 'toe_lit_str_4_R', 'toe_big_str_4_R','toe_fourth_str_5_R', 'toe_mid_str_5_R', 'toe_ind_str_5_R'
+        'toe_big_str_3_R', 'toe_mid_str_3_R', 'toe_mid_str_4_R', 'toe_fourth_str_3_R', 'toe_fourth_str_4_R', 'toe_lit_str_3_R', 'toe_ind_str_3_R', 'toe_ind_str_4_R', 'toe_lit_str_4_R', 'toe_big_str_4_R','toe_fourth_str_5_R', 'toe_mid_str_5_R', 'toe_ind_str_5_R',
+        'toes_spread_L', 'toes_spread_R', 'toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L', 'toes_str_1_R', 'toes_str_2_R', 'toes_str_3_R'
     )
+
+    #Unlock Toes Spread Location
+    context.pose_object.pose.bones['toes_spread_L'].lock_location[0] = False
+    context.pose_object.pose.bones['toes_spread_L'].lock_location[1] = False
+    context.pose_object.pose.bones['toes_spread_L'].lock_location[2] = False
+    context.pose_object.pose.bones['toes_spread_L'].lock_rotation[1] = False
+    context.pose_object.pose.bones['toes_spread_R'].lock_location[0] = False
+    context.pose_object.pose.bones['toes_spread_R'].lock_location[1] = False
+    context.pose_object.pose.bones['toes_spread_R'].lock_location[2] = False
+    context.pose_object.pose.bones['toes_spread_R'].lock_rotation[1] = False
 
 def Reprop_Arms_Front(operator, context):
     #Perform end of step action and set current step name
@@ -541,7 +641,7 @@ def Reprop_Fingers(operator, context):
         'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L', 'fing_lit_4_def_R', 'fing_lit_3_def_R', 'fing_lit_2_def_R', 'fing_ring_4_def_R', 'fing_ring_3_def_R', 'fing_ring_2_def_R', 'fing_ind_4_def_R',
         'fing_ind_3_def_R', 'fing_ind_2_def_R', 'fing_mid_4_def_R', 'fing_mid_3_def_R', 'fing_mid_2_def_R', 'fing_ind_1_def_R', 'fing_ring_1_def_R', 'fing_lit_1_def_R', 'fing_mid_1_def_R', 'fing_thumb_3_def_R', 'fing_thumb_2_def_R',
         'fing_thumb_1_def_R', 'fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_2_def_L', 'fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_2_def_L', 'fing_ind_4_def_L', 'fing_ind_3_def_L', 'fing_ind_2_def_L', 'fing_mid_4_def_L',
-        'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L'
+        'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -553,8 +653,22 @@ def Reprop_Fingers(operator, context):
         'fing_lit_str_5_R', 'fing_ring_str_2_R', 'fing_ring_str_3_R', 'fing_ring_str_4_R', 'fing_ring_str_5_R', 'fing_ind_str_2_R', 'fing_ind_str_3_R', 'fing_ind_str_4_R', 'fing_ind_str_5_R', 'fing_mid_str_2_R', 'fing_mid_str_3_R',
         'fing_mid_str_4_R', 'fing_mid_str_5_R', 'fing_lit_str_1_L', 'fing_ring_str_1_L', 'fing_ind_str_1_L', 'fing_mid_str_1_L', 'fing_thumb_str_1_L', 'fing_thumb_str_2_L', 'fing_thumb_str_3_L', 'fing_thumb_str_4_L', 'fing_lit_str_2_L',
         'fing_lit_str_3_L', 'fing_lit_str_4_L', 'fing_lit_str_5_L', 'fing_ring_str_2_L', 'fing_ring_str_3_L', 'fing_ring_str_4_L', 'fing_ring_str_5_L', 'fing_ind_str_2_L', 'fing_ind_str_3_L', 'fing_ind_str_4_L', 'fing_ind_str_5_L',
-        'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L'
+        'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L','fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R'
     )
+
+    #Unlock Toes Spread Location
+    context.pose_object.pose.bones['fing_spread_L'].lock_location[0] = False
+    context.pose_object.pose.bones['fing_spread_L'].lock_location[1] = False
+    context.pose_object.pose.bones['fing_spread_L'].lock_location[2] = False
+    context.pose_object.pose.bones['fing_spread_L'].lock_rotation[1] = False
+    context.pose_object.pose.bones['fing_spread_L'].lock_scale[0] = False
+    context.pose_object.pose.bones['fing_spread_L'].lock_scale[2] = False
+    context.pose_object.pose.bones['fing_spread_R'].lock_location[0] = False
+    context.pose_object.pose.bones['fing_spread_R'].lock_location[1] = False
+    context.pose_object.pose.bones['fing_spread_R'].lock_location[2] = False
+    context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = False
+    context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = False
+    context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = False
 
 def Reprop_Toon_Scale(operator, context):
     #Perform end of step action and set current step name
@@ -604,6 +718,12 @@ def Reprop_Face_Mstr(operator, context):
     end_of_step_action(context)
     current_step.clear()
     current_step.append('Reprop_Face_Mstr')
+
+    # Seleccionar automáticamente el armature en el que estábamos antes.
+    if context.mode != 'OBJECT':
+        set_mode('OBJECT')
+    set_active_object(context, context.scene.blenrig_guide.arm_obj)
+    set_mode('POSE')
 
     reproportion_on(context)
 
@@ -677,11 +797,11 @@ def Reprop_Set_Eyes(operator, context):
     current_step.clear()
     current_step.append('Reprop_Set_Eyes')
 
-    # Seleccionar automáticamente el armature en el que estábamos antes.
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, context.scene.blenrig_guide.arm_obj)
-    set_mode('POSE')
+    # # Select Armature object
+    # if context.mode != 'OBJECT':
+    #     set_mode('OBJECT')
+    # set_active_object(context, context.scene.blenrig_guide.arm_obj)
+    # set_mode('POSE')
 
     reproportion_on(context)
 
@@ -700,11 +820,11 @@ def Reprop_Set_Eyes(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
-    select_pose_bone(context, "eye_socket_mstr_str_L")
-    snap_selected_to_cursor()
-    mirror_pose()
+    # select_pose_bone(context, "eye_socket_mstr_str_L")
+    # snap_selected_to_cursor()
+    # mirror_pose()
 
-    #
+    # #
     deselect_all_pose_bones(context)
 
 def Reprop_Eyebrows_Main_Ctrl(operator, context):
@@ -1090,6 +1210,32 @@ def Reprop_Mouth_IK(operator, context):
     operator.draw_bones(context, 'mouth_mstr_ik_pivot', 'mouth_mstr_str')
 
     select_pose_bone(context, 'mouth_mstr_ik_pivot')
+
+def Reprop_Lips_Centers(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Lips_Centers')
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('RIGHT')
+
+    # Adjust view to Bones.
+    frame_bones(context, 'head_str', 'neck_ctrl_4_str')
+
+    #
+    bones = ('mouth_mstr_up_str', 'mouth_mstr_low_str')
+
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, 'mouth_mstr_up_str', 'mouth_mstr_low_str')
 
 def Reprop_Mouth_Ctrl(operator, context):
     #Perform end of step action and set current step name
@@ -1492,47 +1638,139 @@ def Reprop_Look(operator, context):
     # Se selecciona “master_torso”.
     select_pose_bone(context, 'look_str_loc')
 
+def Reprop_Bake(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Bake')
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+
+    #Ensure Symmetry
+    unhide_all_bones(context)
+    #Left Side
+    for b in context.pose_object.data.bones:
+        if b.name.endswith('_L'):
+            b.select = True
+
+    if bpy.context.active_object.pose.use_mirror_x == True:
+        mirror_pose()
+    deselect_all_pose_bones(context)
+
+def Reprop_Custom_Alignments(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Custom_Alignments')
+
+def Reprop_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    current_step.clear()
+    current_step.append('Reprop_Finish')
+
+    reproportion_off(context)
+
+    #Turn Layers on
+    on_layers = [0, 1, 3, 4, 5, 6, 7, 9, 16, 17, 18, 20, 22, 23]
+    off_layers = [2, 8, 10, 11, 12, 13, 14, 15, 19, 21, 24, 25, 26, 27, 28, 29, 30, 31]
+    for l in on_layers:
+        context.object.data.layers[l] = True
+    for l in off_layers:
+        context.object.data.layers[l] = False
+
+
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
 
 current_step = []
 
 def end_of_step_action(context):
-    if context.mode != 'POSE':
-        pass
-    else:
-        if current_step == ['Reprop_Sole_Side']:
-            context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
-            context.pose_object.pose.bones['foot_roll_ctrl_R'].lock_location[1] = True
-        if current_step == ['Reprop_Cheek_Ctrls']:
-            context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[0] = True
-            context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[0] = True
-            context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[1] = True
-            context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[1] = True
-        if current_step == ['Reprop_Toon_Scale']:
-            #Erase Temp Collection
-            blenrig_temp_unlink()
-        if current_step == ['Reprop_Face_Mstr']:
-            #Erase Temp Collection
-            blenrig_temp_unlink()
-        if current_step == ['Reprop_Edit_Face']:
-            #Erase Temp Collection
-            try:
-                set_mode('OBJECT')
-            except:
-                pass
-            blenrig_temp_unlink()
-        if current_step == ['Reprop_Sole_Bottom']:
-            #Lock Foot Ctrl Frame
-            context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[0] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[0] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[1] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[1] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[2] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[2] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[0] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[0] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[1] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[1] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[2] = True
-            context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[2] = True
+    if current_step == ['Reprop_Sole_Side']:
+        context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
+        context.pose_object.pose.bones['foot_roll_ctrl_R'].lock_location[1] = True
+    if current_step == ['Reprop_Toes']:
+        context.pose_object.pose.bones['toes_spread_L'].lock_location[0] = True
+        context.pose_object.pose.bones['toes_spread_L'].lock_location[1] = True
+        context.pose_object.pose.bones['toes_spread_L'].lock_location[2] = True
+        context.pose_object.pose.bones['toes_spread_L'].lock_rotation[1] = True
+        context.pose_object.pose.bones['toes_spread_R'].lock_location[0] = True
+        context.pose_object.pose.bones['toes_spread_R'].lock_location[1] = True
+        context.pose_object.pose.bones['toes_spread_R'].lock_location[2] = True
+        context.pose_object.pose.bones['toes_spread_R'].lock_rotation[1] = True
+    if current_step == ['Reprop_Fingers']:
+        context.pose_object.pose.bones['fing_spread_L'].lock_location[0] = True
+        context.pose_object.pose.bones['fing_spread_L'].lock_location[1] = True
+        context.pose_object.pose.bones['fing_spread_L'].lock_location[2] = True
+        context.pose_object.pose.bones['fing_spread_L'].lock_rotation[1] = True
+        context.pose_object.pose.bones['fing_spread_L'].lock_scale[0] = True
+        context.pose_object.pose.bones['fing_spread_L'].lock_scale[2] = True
+        context.pose_object.pose.bones['fing_spread_R'].lock_location[0] = True
+        context.pose_object.pose.bones['fing_spread_R'].lock_location[1] = True
+        context.pose_object.pose.bones['fing_spread_R'].lock_location[2] = True
+        context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = True
+        context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = True
+        context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = True
+    if current_step == ['Reprop_Eye_Loop']:
+        # Select Armature object
+        if context.mode != 'OBJECT':
+            set_mode('OBJECT')
+        set_active_object(context, context.scene.blenrig_guide.arm_obj)
+        set_mode('POSE')
+
+        reproportion_on(context)
+        #Snap Eye_Mstr to Cursor
+        bones = ('eye_socket_mstr_str_L', 'eye_socket_mstr_str_R')
+        unhide_all_bones(context)
+        deselect_all_pose_bones(context)
+        select_pose_bone(context, "eye_socket_mstr_str_L")
+        snap_selected_to_cursor()
+        mirror_pose()
+        #
+        deselect_all_pose_bones(context)
+    if current_step == ['Reprop_Cheek_Ctrls']:
+        context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[0] = True
+        context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[0] = True
+        context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[1] = True
+        context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[1] = True
+    if current_step == ['Reprop_Toon_Scale']:
+        #Erase Temp Collection
+        blenrig_temp_unlink()
+    if current_step == ['Reprop_Face_Mstr']:
+        #Erase Temp Collection
+        blenrig_temp_unlink()
+    if current_step == ['Reprop_Edit_Face']:
+        #Erase Temp Collection
+        # try:
+        #     set_mode('OBJECT')
+        # except:
+            # pass
+        blenrig_temp_unlink()
+    if current_step == ['Reprop_Sole_Bottom']:
+        #Lock Foot Ctrl Frame
+        context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[0] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[0] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[1] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[1] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[2] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[2] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[0] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[0] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[1] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[1] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[2] = True
+        context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[2] = True
+    if current_step == ['Reprop_Custom_Alignments']:
+        if context.mode != 'POSE':
+            set_mode('POSE')

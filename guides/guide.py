@@ -77,6 +77,19 @@ GUIDE_STEPS = (
             },
         'accion': Reprop_Spine
     },
+    # Spine Line
+    {
+        'imagen': 'Reprop_Spine.jpg',
+        'titulo': {
+            'EN': 'Spine Line Curvature',
+            'ES': 'Paso 2'
+            },
+        'texto': {
+            'EN': 'Adjust the curve of the Spine Line so that it best matches the shape of the spine bones.',
+            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            },
+        'accion': Reprop_Spine_Line
+    },
     # 3 Neck Joints
     {
         'imagen': 'Reprop_Neck.jpg',
@@ -102,6 +115,32 @@ GUIDE_STEPS = (
             'ES': 'Posiciona los controles de los ojos como se muestra en la imagen.'
             },
         'accion': Reprop_Head
+    },
+    # Breasts / Pecs
+    {
+        'imagen': 'Reprop_Spine.jpg',
+        'titulo': {
+            'EN': 'Breasts / Pecs',
+            'ES': 'Paso 2'
+            },
+        'texto': {
+            'EN': 'Place the Beasts bones',
+            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            },
+        'accion': Reprop_Breasts_Pecs
+    },
+    # Body Lattice
+    {
+        'imagen': 'Reprop_Spine.jpg',
+        'titulo': {
+            'EN': 'Body Lattice',
+            'ES': 'Paso 2'
+            },
+        'texto': {
+            'EN': 'Place the Lattice controllers for the body',
+            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            },
+        'accion': Reprop_Body_Lattice
     },
     # Heel Side
     {
@@ -467,6 +506,19 @@ GUIDE_STEPS = (
             },
         'accion': Reprop_Mouth_IK
     },
+    # Upper & Lower Lips Centers
+    {
+        'imagen': 'Reprop_Mouth_IK.jpg',
+        'titulo': {
+            'EN': 'Upper & Lower Lips Centers',
+            'ES': 'Paso 5'
+            },
+        'texto': {
+            'EN': 'Place the upper and lower lips centers',
+            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            },
+        'accion': Reprop_Lips_Centers
+    },
     # Mouth Ctrl
     {
         'imagen': 'Reprop_Mouth_Ctrl.jpg',
@@ -622,5 +674,44 @@ GUIDE_STEPS = (
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Look
+    },
+    # Bake
+    {
+        'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
+        'titulo': {
+            'EN': 'Bake Rig',
+            'ES': 'Paso 5'
+            },
+        'texto': {
+            'EN': 'Press the Bake button to bake the current state of the rig and the deformation objects.',
+            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            },
+        'accion': Reprop_Bake
+    },
+    # Custom Alignments
+    {
+        'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
+        'titulo': {
+            'EN': 'Custom Alignments',
+            'ES': 'Paso 5'
+            },
+        'texto': {
+            'EN': 'Check the bone roll orientations and press the Custom Alignments Button.',
+            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            },
+        'accion': Reprop_Custom_Alignments
+    },
+    # Reproportion Finish
+    {
+        'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
+        'titulo': {
+            'EN': 'Reproportion Finish',
+            'ES': 'Paso 5'
+            },
+        'texto': {
+            'EN': 'End of Reproportion process. You can now start the deformation setup process',
+            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            },
+        'accion': Reprop_Finish
     }
 )

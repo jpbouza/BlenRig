@@ -14,6 +14,7 @@ def set_reproportion_on(context=None):
 def set_reproportion_off(context=None):
     if context:
         context.pose_object.data.reproportion = False
+        context.pose_object.show_in_front = False
 
 # Display Type
 def set_display_type(context, mode):
