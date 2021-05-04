@@ -21,19 +21,20 @@ def register():
     scn.blenrig_guide = Pointer(type=BlenrigGuideData, name="Blenrig Guide")
     
     from .panel import BlendrigGuidePanel,BlendrigGuidePanel_options
-    from .operator import VIEW3D_OT_blenrig_guide
-    register_class(VIEW3D_OT_blenrig_guide)    
+    from .operator import VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer
+    register_class(VIEW3D_OT_blenrig_guide_reproportion)    
+    register_class(VIEW3D_OT_blenrig_guide_datatransfer)
     register_class(BlendrigGuidePanel_options)
     register_class(BlendrigGuidePanel)
 
 def unregister():
     from .panel import BlendrigGuidePanel, BlendrigGuidePanel_options
-    from .operator import VIEW3D_OT_blenrig_guide
+    from .operator import VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer
     from bpy.utils import unregister_class    
     unregister_class(BlendrigGuidePanel_options)
     unregister_class(BlendrigGuidePanel)
-    unregister_class(VIEW3D_OT_blenrig_guide)
-
+    unregister_class(VIEW3D_OT_blenrig_guide_reproportion)
+    unregister_class(VIEW3D_OT_blenrig_guide_datatransfer)
     from .properties import BlenrigGuideData
     from bpy.types import Scene as scn
     del scn.blenrig_guide

@@ -167,7 +167,6 @@ def symmetrizeShapes(bone, collection):
 def deleteUnusedShapess():
     C = bpy.context
     D = bpy.data
-    # bw_collection_search_name = search_boneshapes()[0].users_collection[0].name
     bw_collection_search_name = "BlenRig_temp"
     try:
         widgetList = []

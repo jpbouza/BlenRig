@@ -1,5 +1,5 @@
 import bpy
-from ...guides.operator import VIEW3D_OT_blenrig_guide
+from ...guides.operator import VIEW3D_OT_blenrig_guide_reproportion
 
 ####### Repoportion assistant Guide
 
@@ -42,13 +42,13 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
         layout = self.layout
 
         # Step 0 X-Mirror
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 0:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 0:
             steps = layout.column(align=True)
             box = steps.box()
             box.prop(pose, "use_mirror_x")
 
         # Set Spine Curve Values Step
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 4:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 4:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Spine Curvature")
@@ -61,7 +61,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                 pass
 
         # Set Eyebrow Curve Values Step
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 27:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 27:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Curve Values")
@@ -101,7 +101,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                 pass
 
         # Set Mouth Curve Values Step
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 40:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 40:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Curve Values")
@@ -214,14 +214,14 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                 pass
 
         # Diplay Mode for Face Mask
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 22:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 22:
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Display As")
             box.prop(arm, "display_type")
 
         # Diplay Bake Button
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 50:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 50:
             if context.mode in ['POSE','OBJECT']:
                 if context.active_object.data.reproportion:
                     steps = layout.column(align=True)
@@ -232,7 +232,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                     row.operator("blenrig.armature_baker_all_part_1", text="Bake All")
 
         # Diplay Bake Button
-        if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 51:
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and VIEW3D_OT_blenrig_guide_reproportion.instance.step == 51:
             if context.mode in ['EDIT_ARMATURE']:
                 if context.active_object.data.reproportion:
                     steps = layout.column(align=True)

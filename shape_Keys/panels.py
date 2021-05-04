@@ -1440,8 +1440,8 @@ class OBJECT_MT_blenrig_folder_icons_misc(bpy.types.Menu):
             if i < len(utils.icon_pairs_misc) - 1:
                 layout.separator(factor=0.5)
                 
-class MESH_MT_blenrig_shape_key_(bpy.types.Menu):
-    bl_label = "Shape Key Copy Specials"
+class MESH_MT_blenrig_shape_key_generic_shapekeys(bpy.types.Menu):
+    bl_label = "Generic BlenRig Shape Keys"
     
     def draw(self, context):
         selections = utils.selected_shape_keys()

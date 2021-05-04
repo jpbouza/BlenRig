@@ -1,5 +1,5 @@
 import bpy
-from ...guides.operator import VIEW3D_OT_blenrig_guide
+from ...guides.operator import VIEW3D_OT_blenrig_guide_reproportion
 ####### Actions assistant Guide
 
 class BLENRIG_PT_actions_guide(bpy.types.Panel):
@@ -34,7 +34,3 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
         props = context.window_manager.blenrig_6_props
         layout = self.layout
 
-        # if VIEW3D_OT_blenrig_guide.instance and VIEW3D_OT_blenrig_guide.instance.step == 3:
-        #     steps = layout.column(align=True)
-        #     box = steps.box()
-        #     box.label(text = "Opciones de los Acctions")
