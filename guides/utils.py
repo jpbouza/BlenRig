@@ -199,8 +199,16 @@ def frame_selected():
 def frame_points(*points):
     return
 
-def load_image(img_name: str):
-    from . guide import images_dir
+def load_reproportion_image(img_name: str):
+    from . reproportion.guide_reproportion import images_dir
+    from os.path import exists, isfile, join
+    path = join(images_dir, img_name)
+    if not exists(path) or not isfile(path):
+        return None
+    return bpy.data.images.load(path, check_existing=True)
+
+def load_datatransfer_image(img_name: str):
+    from . datatransfer.guide_datatransfer import images_dir
     from os.path import exists, isfile, join
     path = join(images_dir, img_name)
     if not exists(path) or not isfile(path):
@@ -257,7 +265,7 @@ def mirror_pose():
     bpy.ops.pose.copy()
     bpy.ops.pose.paste(flipped=True)
 
-#######
+#### Object to Temp Collection
 
 def blenrig_temp_link(object):
     temp_collection = bpy.data.collections.get("BlenRig_temp")
@@ -300,3 +308,66 @@ def collect_cage():
         if "MdefCage" in ob.name:
             mdef_cage_objects.append(ob)
     return mdef_cage_objects
+
+mdef_weights_model_objects = []
+
+def collect_mdef_weights_model():
+    mdef_weights_model_objects.clear()
+    for ob in bpy.data.objects:
+        if "MDefWeightsModel" in ob.name:
+            mdef_weights_model_objects.append(ob)
+    return mdef_weights_model_objects
+
+#### Local View
+
+def switch_out_local_view():
+    for area in bpy.context.screen.areas:
+        if area.type == 'VIEW_3D':
+            space = area.spaces[0]
+            bpy.ops.view3d.localview()
+            if space.local_view: #check if using local view
+                for region in area.regions:
+                    if region.type == 'WINDOW':
+                        override = {'area': area, 'region': region} #override context
+                        bpy.ops.view3d.localview(override) #switch to global view
+
+#### Deselect all objects
+def deselect_all_objects(context):
+    if context.mode != 'OBJECT':
+        set_mode('OBJECT')
+    bpy.ops.object.select_all(action='DESELECT')
+
+#### Deselect all objects
+def add_shapekey(context, shape_name):
+    ob=bpy.context.object
+    if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
+        if hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            if shapekeys.find('Basis') == -1:
+                Basis = ob.shape_key_add(from_mix=False)
+                Basis.name = 'Basis'
+            if shape_name in shapekeys:
+                index = ob.data.shape_keys.key_blocks.find(shape_name)
+                ob.active_shape_key_index = index
+                ob.data.shape_keys.key_blocks[index].value = 1.0
+                ob.use_shape_key_edit_mode = True
+            else:
+                new_shape = ob.shape_key_add(from_mix=False)
+                new_shape.name = shape_name
+                if shape_name in shapekeys:
+                    index = ob.data.shape_keys.key_blocks.find(shape_name)
+                    ob.active_shape_key_index = index
+                    ob.data.shape_keys.key_blocks[index].value = 1.0
+                    ob.use_shape_key_edit_mode = True
+        #If no Shapekeys present
+        else:
+            Basis = ob.shape_key_add(from_mix=False)
+            Basis.name = 'Basis'
+            shapekeys = ob.data.shape_keys.key_blocks
+            new_shape = ob.shape_key_add(from_mix=False)
+            new_shape.name = shape_name
+            if shape_name in shapekeys:
+                index = ob.data.shape_keys.key_blocks.find(shape_name)
+                ob.active_shape_key_index = index
+                ob.data.shape_keys.key_blocks[index].value = 1.0
+                ob.use_shape_key_edit_mode = True

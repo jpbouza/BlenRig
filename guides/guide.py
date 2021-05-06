@@ -1,5 +1,5 @@
 from os.path import dirname, join
-from . guide_actions import *
+from . reproportion.guide_reproportion_actions import *
 
 images_dir = join(dirname(__file__), 'images')
 
@@ -9,7 +9,7 @@ languages = (
     ('ES', 'Spanish', "")
 )
 
-diccionario = {
+texts_dict = {
     'Step' : {
         'EN': 'Step',
         'ES': 'Paso'

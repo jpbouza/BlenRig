@@ -3,7 +3,7 @@ from mathutils import Vector
 from . draw import draw_callback_px
 from . utils import inside, get_armature_object
 from bpy.props import IntProperty
-from . guide import diccionario
+from . guide import texts_dict
 from . reproportion.guide_reproportion import GUIDE_STEPS_REPROPORTION
 from . datatransfer.guide_datatransfer import GUIDE_STEPS_DATATRANSFER
 
@@ -11,6 +11,13 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
     bl_idname = "view3d.blenrig_guide_reproportion"
     bl_label = "Show Reproportion Guide"
     bl_description = "Run Blenrig interactive guide and show it inside 3d viewport"
+
+    @classmethod
+    def poll(cls, context):
+        if context.active_object is not None:
+            return (bpy.context.object.type=='ARMATURE' and context.mode=='POSE')
+        else:
+            return False
 
     instance = None
     step : IntProperty(default=0)
@@ -103,12 +110,12 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
         return True
 
     def load_step_imagen(self, context, image):
-        from .utils import load_image, hide_image
+        from .utils import load_reproportion_image, hide_image
         self.multi_image = isinstance(image, tuple)
         if self.multi_image:
             self.image = []
             for name in image:
-                img = load_image(name)
+                img = load_reproportion_image(name)
                 if img:
                     hide_image(img)
                     self.image.append(img)
@@ -119,7 +126,7 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
             self.timer = context.window_manager.event_timer_add(2.0, window=context.window)
             #print("Create Timer")
         else:
-            self.image = load_image(image)
+            self.image = load_reproportion_image(image)
             if self.image:
                 hide_image(self.image)
                 self.image.gl_load()
@@ -152,7 +159,6 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
         context.scene.blenrig_guide.arm_obj = context.pose_object
         self.obj = context.object
 
-        # from . guide import diccionario
         self.max_step_index = len(GUIDE_STEPS_REPROPORTION) - 1
 
         data = context.scene.blenrig_guide
@@ -165,12 +171,12 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
         # Textos.
         from . text import SetSizeGetDim
         self.button_text_size = 14
-        self.step_text = diccionario['Step'][self.language]
+        self.step_text = texts_dict['Step'][self.language]
 
-        self.next_button_text = diccionario['Next'][self.language]
+        self.next_button_text = texts_dict['Next'][self.language]
         next_dim = SetSizeGetDim(0, self.button_text_size + 4, self.dpi, self.next_button_text)
 
-        self.prev_button_text = diccionario['Prev'][self.language]
+        self.prev_button_text = texts_dict['Prev'][self.language]
         prev_dim = SetSizeGetDim(0, self.button_text_size + 4, self.dpi, self.prev_button_text)
 
         max_button_width = max(next_dim[0], prev_dim[0])
@@ -207,7 +213,7 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
         context.window_manager.modal_handler_add(self)
         VIEW3D_OT_blenrig_guide_reproportion.instance = self
         return {'RUNNING_MODAL'}
-    
+
 class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
     bl_idname = "view3d.blenrig_guide_datatransfer"
     bl_label = "Show Data Transfer Guide"
@@ -304,12 +310,12 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
         return True
 
     def load_step_imagen(self, context, image):
-        from .utils import load_image, hide_image
+        from .utils import load_datatransfer_image, hide_image
         self.multi_image = isinstance(image, tuple)
         if self.multi_image:
             self.image = []
             for name in image:
-                img = load_image(name)
+                img = load_datatransfer_image(name)
                 if img:
                     hide_image(img)
                     self.image.append(img)
@@ -320,7 +326,7 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
             self.timer = context.window_manager.event_timer_add(2.0, window=context.window)
             #print("Create Timer")
         else:
-            self.image = load_image(image)
+            self.image = load_datatransfer_image(image)
             if self.image:
                 hide_image(self.image)
                 self.image.gl_load()
@@ -341,19 +347,18 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
     #     # context.object.data.reproportion = True
 
     def invoke(self, context, event):
-        bpy.ops.object.mode_set(mode='POSE')
+        # bpy.ops.object.mode_set(mode='POSE')
 
         if context.area.type != 'VIEW_3D':
             self.report({'WARNING'}, "View3D not found, cannot run operator")
             return {'CANCELLED'}
-        elif context.active_object.type != 'ARMATURE':
-            self.report({'WARNING'}, "Active object must be an armature, cannot run operator")
-            return {'CANCELLED'}
+        # elif context.active_object.type != 'ARMATURE':
+        #     self.report({'WARNING'}, "Active object must be an armature, cannot run operator")
+        #     return {'CANCELLED'}
 
-        context.scene.blenrig_guide.arm_obj = context.pose_object
-        self.obj = context.object
+        # context.scene.blenrig_guide.arm_obj = context.pose_object
+        # self.obj = context.object
 
-        from . guide import diccionario
         self.max_step_index = len(GUIDE_STEPS_DATATRANSFER) - 1
 
         data = context.scene.blenrig_guide
@@ -366,12 +371,12 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
         # Textos.
         from . text import SetSizeGetDim
         self.button_text_size = 14
-        self.step_text = diccionario['Step'][self.language]
+        self.step_text = texts_dict['Step'][self.language]
 
-        self.next_button_text = diccionario['Next'][self.language]
+        self.next_button_text = texts_dict['Next'][self.language]
         next_dim = SetSizeGetDim(0, self.button_text_size + 4, self.dpi, self.next_button_text)
 
-        self.prev_button_text = diccionario['Prev'][self.language]
+        self.prev_button_text = texts_dict['Prev'][self.language]
         prev_dim = SetSizeGetDim(0, self.button_text_size + 4, self.dpi, self.prev_button_text)
 
         max_button_width = max(next_dim[0], prev_dim[0])
