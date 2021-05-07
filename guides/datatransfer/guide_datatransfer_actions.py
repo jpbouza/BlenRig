@@ -42,8 +42,7 @@ def select_armature(operator, context):
 def DT_Weight_Mesh_Shapekey_Face(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('DT_Weight_Mesh_Shapekey_Face')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Weight_Mesh_Shapekey_Face'
 
     deselect_all_objects(context)
 
@@ -52,8 +51,11 @@ def DT_Weight_Mesh_Shapekey_Face(operator, context):
     collect_mdef_weights_model()
     blenrig_temp_link(mdef_weights_model_objects)
 
+    context.scene.blenrig_guide.mdef_weights_obj = bpy.context.object
+
     for ob in mdef_weights_model_objects:
         set_active_object(context, ob)
+        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
         set_mode('EDIT')
 
     #Add and Edit Face Shapekey
@@ -69,8 +71,7 @@ def DT_Weight_Mesh_Shapekey_Face(operator, context):
 def DT_Weight_Mesh_Shapekey_Fingers(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('DT_Weight_Mesh_Shapekey_Fingers')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Weight_Mesh_Shapekey_Fingers'
 
     # Show MDefWeightsModel
     mdef_weights_model_objects = collect_mdef_weights_model()
@@ -94,8 +95,7 @@ def DT_Weight_Mesh_Shapekey_Fingers(operator, context):
 def DT_Select_Face(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('DT_Select_Face')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Face'
 
     deselect_all_objects(context)
 
@@ -109,8 +109,7 @@ def DT_Select_Face(operator, context):
 def DT_Edit_Face(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('DT_Edit_Face')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Edit_Face'
 
     # Show MDefWeightsModel
     mdef_weights_model_objects = collect_mdef_weights_model()
@@ -128,8 +127,7 @@ def DT_Edit_Face(operator, context):
 def DT_Select_Fingers(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('DT_Select_Fingers')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Fingers'
 
     deselect_all_objects(context)
 
@@ -143,8 +141,7 @@ def DT_Select_Fingers(operator, context):
 def DT_Edit_Fingers(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('DT_Edit_Fingers')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Edit_Fingers'
 
     # Show MDefWeightsModel
     mdef_weights_model_objects = collect_mdef_weights_model()
@@ -161,19 +158,19 @@ def DT_Edit_Fingers(operator, context):
 
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
-
-current_step = []
-
 def end_of_step_action(context):
-    if current_step == ['DT_Weight_Mesh_Shapekey_Face']:
+    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    if current_step == 'DT_Weight_Mesh_Shapekey_Face':
         #Set back Object Mode
         if context.mode != 'OBJECT':
             set_mode('OBJECT')
         #Switch Local_View off
         switch_out_local_view()
-    if current_step == ['DT_Weight_Mesh_Shapekey_Fingers']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'DT_Weight_Mesh_Shapekey_Fingers':
         #Set back Object Mode
         if context.mode != 'OBJECT':
             set_mode('OBJECT')
         #Switch Local_View off
         switch_out_local_view()
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
