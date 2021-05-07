@@ -42,8 +42,7 @@ def select_armature(operator, context):
 def Reprop_Symmetry(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Symmetry')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Symmetry'
 
     reproportion_on(context)
 
@@ -57,8 +56,7 @@ def Reprop_Symmetry(operator, context):
 def Reprop_Master(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Master')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Master'
 
     reproportion_on(context)
 
@@ -78,8 +76,7 @@ def Reprop_Master(operator, context):
 def Reprop_Master_Torso(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Master_Torso')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Master_Torso'
 
     reproportion_on(context)
 
@@ -104,8 +101,7 @@ def Reprop_Master_Torso(operator, context):
 def Reprop_Spine(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Spine')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Spine'
 
     reproportion_on(context)
 
@@ -136,8 +132,7 @@ def Reprop_Spine(operator, context):
 def Reprop_Spine_Line(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Spine_Line')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Spine_Line'
 
     reproportion_on(context)
 
@@ -166,8 +161,7 @@ def Reprop_Spine_Line(operator, context):
 def Reprop_Neck(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Neck')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Neck'
 
     reproportion_on(context)
 
@@ -194,8 +188,7 @@ def Reprop_Neck(operator, context):
 def Reprop_Head(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Head')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Head'
 
     reproportion_on(context)
 
@@ -222,8 +215,7 @@ def Reprop_Head(operator, context):
 def Reprop_Breasts_Pecs(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Breasts_Pecs')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Breasts_Pecs'
 
     reproportion_on(context)
 
@@ -249,8 +241,7 @@ def Reprop_Breasts_Pecs(operator, context):
 def Reprop_Body_Lattice(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Body_Lattice')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Body_Lattice'
 
     reproportion_on(context)
 
@@ -277,8 +268,7 @@ def Reprop_Body_Lattice(operator, context):
 def Reprop_Sole_Side(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Sole_Side')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Sole_Side'
 
     reproportion_on(context)
 
@@ -312,8 +302,7 @@ def Reprop_Sole_Side(operator, context):
 def Reprop_Sole_Bottom(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Sole_Bottom')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Sole_Bottom'
 
     reproportion_on(context)
 
@@ -357,8 +346,7 @@ def Reprop_Sole_Bottom(operator, context):
 def Reprop_Foot_Side_Rolls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Foot_Side_Rolls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Foot_Side_Rolls'
 
     reproportion_on(context)
 
@@ -387,8 +375,7 @@ def Reprop_Foot_Side_Rolls(operator, context):
 def Reprop_Legs_Front(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Legs_Front')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Legs_Front'
 
     reproportion_on(context)
 
@@ -421,8 +408,7 @@ def Reprop_Legs_Front(operator, context):
 def Reprop_Legs_Side(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Legs_Side')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Legs_Side'
 
     reproportion_on(context)
 
@@ -455,8 +441,7 @@ def Reprop_Legs_Side(operator, context):
 def Reprop_Feet(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Feet')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Feet'
 
     reproportion_on(context)
 
@@ -484,8 +469,7 @@ def Reprop_Feet(operator, context):
 def Reprop_Toes(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Toes')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Toes'
 
     reproportion_on(context)
 
@@ -534,8 +518,7 @@ def Reprop_Toes(operator, context):
 def Reprop_Arms_Front(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Arms_Front')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Arms_Front'
 
     reproportion_on(context)
 
@@ -563,8 +546,7 @@ def Reprop_Arms_Front(operator, context):
 def Reprop_Arms_Side(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Arms_Side')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Arms_Side'
 
     reproportion_on(context)
 
@@ -592,8 +574,7 @@ def Reprop_Arms_Side(operator, context):
 def Reprop_Hands(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Hands')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Hands'
 
     reproportion_on(context)
 
@@ -620,8 +601,7 @@ def Reprop_Hands(operator, context):
 def Reprop_Fingers(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Fingers')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Fingers'
 
     reproportion_on(context)
 
@@ -673,8 +653,7 @@ def Reprop_Fingers(operator, context):
 def Reprop_Toon_Scale(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Toon_Scale')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Toon_Scale'
 
     reproportion_on(context)
 
@@ -716,8 +695,7 @@ def Reprop_Toon_Scale(operator, context):
 def Reprop_Face_Mstr(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Face_Mstr')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Face_Mstr'
 
     # Seleccionar automáticamente el armature en el que estábamos antes.
     if context.mode != 'OBJECT':
@@ -753,8 +731,7 @@ def Reprop_Face_Mstr(operator, context):
 def Reprop_Edit_Face(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Edit_Face')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Edit_Face'
 
     # Set View.
     set_view_perspective(context, False)
@@ -784,8 +761,7 @@ def Reprop_Edit_Face(operator, context):
 def Reprop_Eye_Loop(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eye_Loop')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eye_Loop'
 
     # Set View.
     set_view_perspective(context, False)
@@ -794,8 +770,7 @@ def Reprop_Eye_Loop(operator, context):
 def Reprop_Set_Eyes(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Set_Eyes')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Set_Eyes'
 
     # # Select Armature object
     # if context.mode != 'OBJECT':
@@ -830,8 +805,7 @@ def Reprop_Set_Eyes(operator, context):
 def Reprop_Eyebrows_Main_Ctrl(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eyebrows_Main_Ctrl')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyebrows_Main_Ctrl'
 
     reproportion_on(context)
 
@@ -865,9 +839,7 @@ def Reprop_Eyebrows_Main_Ctrl(operator, context):
 def Reprop_Eyebrows_Curve_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eyebrows_Curve_Ctrls')
-
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyebrows_Curve_Ctrls'
 
     reproportion_on(context)
 
@@ -900,9 +872,7 @@ def Reprop_Eyebrows_Curve_Ctrls(operator, context):
 def Reprop_Eyebrows_Curve(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eyebrows_Curve')
-
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyebrows_Curve'
 
     reproportion_on(context)
 
@@ -934,8 +904,7 @@ def Reprop_Eyebrows_Curve(operator, context):
 def Reprop_Eyebrows_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eyebrows_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyebrows_Ctrls'
 
     reproportion_on(context)
 
@@ -968,8 +937,7 @@ def Reprop_Eyebrows_Ctrls(operator, context):
 def Reprop_Eyelids_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eyelids_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyelids_Ctrls'
 
     reproportion_on(context)
 
@@ -1000,8 +968,7 @@ def Reprop_Eyelids_Ctrls(operator, context):
 def Reprop_Eyelids_Rim_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Eyelids_Rim_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyelids_Rim_Ctrls'
 
     reproportion_on(context)
 
@@ -1032,8 +999,7 @@ def Reprop_Eyelids_Rim_Ctrls(operator, context):
 def Reprop_Face_Toon(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Face_Toon')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Face_Toon'
 
     reproportion_on(context)
 
@@ -1062,8 +1028,7 @@ def Reprop_Face_Toon(operator, context):
 def Reprop_Cheek_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Cheek_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Cheek_Ctrls'
 
     reproportion_on(context)
 
@@ -1095,8 +1060,7 @@ def Reprop_Cheek_Ctrls(operator, context):
 def Reprop_Nose(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Nose')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Nose'
 
     reproportion_on(context)
 
@@ -1125,8 +1089,7 @@ def Reprop_Nose(operator, context):
 def Reprop_Jaw(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Jaw')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Jaw'
 
     reproportion_on(context)
 
@@ -1154,8 +1117,7 @@ def Reprop_Jaw(operator, context):
 def Reprop_Face_Low(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Face_Low')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Face_Low'
 
     reproportion_on(context)
 
@@ -1183,8 +1145,7 @@ def Reprop_Face_Low(operator, context):
 def Reprop_Mouth_IK(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Mouth_IK')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_IK'
 
     reproportion_on(context)
 
@@ -1214,8 +1175,7 @@ def Reprop_Mouth_IK(operator, context):
 def Reprop_Lips_Centers(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Lips_Centers')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Lips_Centers'
 
     reproportion_on(context)
 
@@ -1240,8 +1200,7 @@ def Reprop_Lips_Centers(operator, context):
 def Reprop_Mouth_Ctrl(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Mouth_Ctrl')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_Ctrl'
 
     reproportion_on(context)
 
@@ -1269,8 +1228,7 @@ def Reprop_Mouth_Ctrl(operator, context):
 def Reprop_Mouth_Curves_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Mouth_Curves_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_Curves_Ctrls'
 
     reproportion_on(context)
 
@@ -1305,8 +1263,7 @@ def Reprop_Mouth_Curves_Ctrls(operator, context):
 def Reprop_Mouth_Curves(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Mouth_Curves')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_Curves'
 
     reproportion_on(context)
 
@@ -1340,8 +1297,7 @@ def Reprop_Mouth_Curves(operator, context):
 def Reprop_Mouth_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Mouth_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_Ctrls'
 
     reproportion_on(context)
 
@@ -1380,8 +1336,7 @@ def Reprop_Mouth_Ctrls(operator, context):
 def Reprop_Mouth_Outer_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Mouth_Outer_Ctrls')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_Outer_Ctrls'
 
     reproportion_on(context)
 
@@ -1418,8 +1373,7 @@ def Reprop_Mouth_Outer_Ctrls(operator, context):
 def Reprop_Teeth_Up(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Teeth_Up')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Teeth_Up'
 
     reproportion_on(context)
 
@@ -1453,8 +1407,7 @@ def Reprop_Teeth_Up(operator, context):
 def Reprop_Teeth_Low(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Teeth_Low')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Teeth_Low'
 
     reproportion_on(context)
 
@@ -1488,8 +1441,7 @@ def Reprop_Teeth_Low(operator, context):
 def Reprop_Tongue(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Tongue')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Tongue'
 
     reproportion_on(context)
 
@@ -1521,8 +1473,7 @@ def Reprop_Tongue(operator, context):
 def Reprop_Inner_Mouth(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Inner_Mouth')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Inner_Mouth'
 
     reproportion_on(context)
 
@@ -1552,8 +1503,7 @@ def Reprop_Inner_Mouth(operator, context):
 def Reprop_Ears(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Ears')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Ears'
 
     reproportion_on(context)
 
@@ -1583,8 +1533,7 @@ def Reprop_Ears(operator, context):
 def Reprop_Hat_Glasses(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Hat_Glasses')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Hat_Glasses'
 
     reproportion_on(context)
 
@@ -1612,8 +1561,7 @@ def Reprop_Hat_Glasses(operator, context):
 def Reprop_Look(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Look')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Look'
 
     reproportion_on(context)
 
@@ -1641,8 +1589,7 @@ def Reprop_Look(operator, context):
 def Reprop_Bake(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Bake')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Bake'
 
     reproportion_on(context)
 
@@ -1671,14 +1618,12 @@ def Reprop_Bake(operator, context):
 def Reprop_Custom_Alignments(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Custom_Alignments')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Custom_Alignments'
 
 def Reprop_Finish(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    current_step.clear()
-    current_step.append('Reprop_Finish')
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Finish'
 
     reproportion_off(context)
 
@@ -1693,14 +1638,13 @@ def Reprop_Finish(operator, context):
 
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
-
-current_step = []
-
 def end_of_step_action(context):
-    if current_step == ['Reprop_Sole_Side']:
+    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    if current_step == 'Reprop_Sole_Side':
         context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
         context.pose_object.pose.bones['foot_roll_ctrl_R'].lock_location[1] = True
-    if current_step == ['Reprop_Toes']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Toes':
         context.pose_object.pose.bones['toes_spread_L'].lock_location[0] = True
         context.pose_object.pose.bones['toes_spread_L'].lock_location[1] = True
         context.pose_object.pose.bones['toes_spread_L'].lock_location[2] = True
@@ -1709,7 +1653,8 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['toes_spread_R'].lock_location[1] = True
         context.pose_object.pose.bones['toes_spread_R'].lock_location[2] = True
         context.pose_object.pose.bones['toes_spread_R'].lock_rotation[1] = True
-    if current_step == ['Reprop_Fingers']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Fingers':
         context.pose_object.pose.bones['fing_spread_L'].lock_location[0] = True
         context.pose_object.pose.bones['fing_spread_L'].lock_location[1] = True
         context.pose_object.pose.bones['fing_spread_L'].lock_location[2] = True
@@ -1722,7 +1667,8 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = True
-    if current_step == ['Reprop_Eye_Loop']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Eye_Loop':
         # Select Armature object
         if context.mode != 'OBJECT':
             set_mode('OBJECT')
@@ -1739,25 +1685,30 @@ def end_of_step_action(context):
         mirror_pose()
         #
         deselect_all_pose_bones(context)
-    if current_step == ['Reprop_Cheek_Ctrls']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Cheek_Ctrls':
         context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[0] = True
         context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[0] = True
         context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[1] = True
         context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[1] = True
-    if current_step == ['Reprop_Toon_Scale']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Toon_Scale':
         #Erase Temp Collection
         blenrig_temp_unlink()
-    if current_step == ['Reprop_Face_Mstr']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Face_Mstr':
         #Erase Temp Collection
         blenrig_temp_unlink()
-    if current_step == ['Reprop_Edit_Face']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Edit_Face':
         #Erase Temp Collection
         # try:
         #     set_mode('OBJECT')
         # except:
             # pass
         blenrig_temp_unlink()
-    if current_step == ['Reprop_Sole_Bottom']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Sole_Bottom':
         #Lock Foot Ctrl Frame
         context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[0] = True
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_location[0] = True
@@ -1771,6 +1722,8 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[1] = True
         context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[2] = True
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[2] = True
-    if current_step == ['Reprop_Custom_Alignments']:
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Custom_Alignments':
         if context.mode != 'POSE':
             set_mode('POSE')
+        bpy.context.scene.blenrig_guide.guide_current_step = ''
