@@ -1,5 +1,6 @@
 import bpy
 from mathutils import Vector
+from bpy.props import StringProperty, FloatProperty, BoolProperty, EnumProperty
 from . draw import draw_callback_px
 from . utils import inside, get_armature_object
 from bpy.props import IntProperty
@@ -413,3 +414,45 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
         context.window_manager.modal_handler_add(self)
         VIEW3D_OT_blenrig_guide_datatransfer.instance = self
         return {'RUNNING_MODAL'}
+
+class Operator_Transfer_VGroups(bpy.types.Operator):
+
+    bl_idname = "blenrig.transfer_vgroups"
+    bl_label = "BlenRig Transfer Vgroups"
+    bl_description = "Transfer Vertex Groups from selected object to active object"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if len(bpy.context.selected_objects) != 2:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+    # Property to change the max_distance value on the fly
+    distance : bpy.props.FloatProperty()
+
+    def execute(self, context):
+        # Define objects
+        active = bpy.context.active_object
+        for ob in bpy.context.selected_objects:
+            if ob != active:
+                selected = ob
+
+        # add modifier on active object
+        mod = active.modifiers.new("DataTransfer", 'DATA_TRANSFER')
+        # set modifier properties
+        mod.object = selected
+        mod.use_vert_data = True
+        mod.data_types_verts = {'VGROUP_WEIGHTS'}
+        mod.vert_mapping = 'POLYINTERP_VNORPROJ'
+        mod.use_max_distance = True
+        self.distance = 0.05
+        mod.max_distance = self.distance
+        bpy.ops.object.datalayout_transfer(modifier=mod.name, data_type='VGROUP_WEIGHTS', use_delete=False, layers_select_src='ALL', layers_select_dst='NAME')
+        bpy.ops.object.modifier_apply(modifier=mod.name)
+        bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0.01, keep_single=False)
+        return {"FINISHED"}
