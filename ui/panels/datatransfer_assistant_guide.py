@@ -24,15 +24,13 @@ class BLENRIG_PT_datatransfer_guide(bpy.types.Panel):
         return obj or obj.type in valid_types
 
     def draw(self, context):
-        arm = context.active_object
-        arm_data = context.active_object.data
-        pose = arm.pose
-        p_bones = arm.pose.bones
         layout = self.layout
 
-        # Step 0 X-Mirror
-        if VIEW3D_OT_blenrig_guide_datatransfer.instance and VIEW3D_OT_blenrig_guide_datatransfer.instance.step == 0:
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and VIEW3D_OT_blenrig_guide_datatransfer.instance.step == 3:
             steps = layout.column(align=True)
             box = steps.box()
-            # box.prop(pose, "use_mirror_x")
-            box.label(text= "Data Transfer")
+            box.operator("blenrig.transfer_vgroups")
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and VIEW3D_OT_blenrig_guide_datatransfer.instance.step == 5:
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.operator("blenrig.transfer_vgroups")
