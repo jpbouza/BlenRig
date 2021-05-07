@@ -26,11 +26,11 @@ class BLENRIG_PT_datatransfer_guide(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        if VIEW3D_OT_blenrig_guide_datatransfer.instance and VIEW3D_OT_blenrig_guide_datatransfer.instance.step == 3:
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Face':
             steps = layout.column(align=True)
             box = steps.box()
             box.operator("blenrig.transfer_vgroups")
-        if VIEW3D_OT_blenrig_guide_datatransfer.instance and VIEW3D_OT_blenrig_guide_datatransfer.instance.step == 5:
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Fingers':
             steps = layout.column(align=True)
             box = steps.box()
             box.operator("blenrig.transfer_vgroups")
