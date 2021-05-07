@@ -353,12 +353,6 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
         if context.area.type != 'VIEW_3D':
             self.report({'WARNING'}, "View3D not found, cannot run operator")
             return {'CANCELLED'}
-        # elif context.active_object.type != 'ARMATURE':
-        #     self.report({'WARNING'}, "Active object must be an armature, cannot run operator")
-        #     return {'CANCELLED'}
-
-        # context.scene.blenrig_guide.arm_obj = context.pose_object
-        # self.obj = context.object
 
         self.max_step_index = len(GUIDE_STEPS_DATATRANSFER) - 1
 

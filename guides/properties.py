@@ -12,3 +12,6 @@ class BlenrigGuideData(PropertyGroup):
     image_scale : FloatProperty(default=1, min=0.5, max=2, name="Image Scale")
     show_steps : BoolProperty(default=False, name="Show Steps")
     arm_obj : PointerProperty(type=Object)
+    mdef_weights_transfer_obj : PointerProperty(type=Object)
+    mdef_cage_obj : PointerProperty(type=Object)
+    guide_current_step : StringProperty('')
