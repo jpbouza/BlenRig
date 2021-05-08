@@ -426,8 +426,6 @@ class Operator_Transfer_VGroups(bpy.types.Operator):
             return True
         else:
             return False
-    # Property to change the max_distance value on the fly
-    distance : bpy.props.FloatProperty()
 
     def execute(self, context):
         # Define objects
@@ -442,11 +440,77 @@ class Operator_Transfer_VGroups(bpy.types.Operator):
         mod.object = selected
         mod.use_vert_data = True
         mod.data_types_verts = {'VGROUP_WEIGHTS'}
-        mod.vert_mapping = 'POLYINTERP_VNORPROJ'
+        mod.vert_mapping = bpy.context.scene.blenrig_guide.transfer_mapping
         mod.use_max_distance = True
-        self.distance = 0.05
-        mod.max_distance = self.distance
+        mod.max_distance = bpy.context.scene.blenrig_guide.transfer_ray_distance
         bpy.ops.object.datalayout_transfer(modifier=mod.name, data_type='VGROUP_WEIGHTS', use_delete=False, layers_select_src='ALL', layers_select_dst='NAME')
         bpy.ops.object.modifier_apply(modifier=mod.name)
         bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0.01, keep_single=False)
+        return {"FINISHED"}
+
+class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
+
+    bl_idname = "blenrig.guide_transfer_vgroups"
+    bl_label = "BlenRig Transfer Vgroups for Transfer Guide"
+    bl_description = "Transfer Vertex Groups from selected object to active object within the guide "
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    body_area : bpy.props.StringProperty()
+
+    def execute(self, context):
+
+        from . utils import deselect_all_objects, set_mode
+
+        #Set back Object Mode
+        if context.mode != 'OBJECT':
+            set_mode('OBJECT')
+
+        deselect_all_objects(context)
+
+        #Select Mdef Weight Transfer Model
+        transfer_obj = bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj
+        transfer_obj.select_set(state=True)
+
+        if self.body_area == 'head':
+            #Select Head Object
+            head_object = bpy.context.scene.blenrig_guide.character_head_obj
+            head_object.select_set(state=True)
+            bpy.context.view_layer.objects.active = head_object
+
+        if self.body_area == 'hands':
+            #Select Fingers Object
+            fingers_object = bpy.context.scene.blenrig_guide.character_fingers_obj
+            fingers_object.select_set(state=True)
+            bpy.context.view_layer.objects.active = fingers_object
+
+        #Transfer Weights
+        bpy.ops.blenrig.transfer_vgroups()
+
+        #Go back to Edit Mode
+        deselect_all_objects(context)
+
+        if self.body_area == 'head':
+            #Select Head Object
+            head_object = bpy.context.scene.blenrig_guide.character_head_obj
+            head_object.select_set(state=True)
+            bpy.context.view_layer.objects.active = head_object
+
+        if self.body_area == 'hands':
+            #Select Fingers Object
+            fingers_object = bpy.context.scene.blenrig_guide.character_fingers_obj
+            fingers_object.select_set(state=True)
+            bpy.context.view_layer.objects.active = fingers_object
+
+        #Set back Object Mode
+        if context.mode != 'EDIT':
+            set_mode('EDIT')
         return {"FINISHED"}

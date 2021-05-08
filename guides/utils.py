@@ -337,7 +337,7 @@ def deselect_all_objects(context):
         set_mode('OBJECT')
     bpy.ops.object.select_all(action='DESELECT')
 
-#### Deselect all objects
+#### Shapekey Creation
 def add_shapekey(context, shape_name):
     ob=bpy.context.object
     if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
