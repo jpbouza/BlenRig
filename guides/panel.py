@@ -33,7 +33,7 @@ class BlendrigGuidePanel(BlendrigGuidePanel_menu,Panel):
         button.scale_y = 1.5
         button.operator("view3d.blenrig_guide_reproportion")
         layout = self.layout
-        button.operator("view3d.blenrig_guide_datatransfer")
+        button.operator("view3d.blenrig_guide_datatransfer", text = 'Show Weights Transfer Guide')
 
         layout.separator()
 
