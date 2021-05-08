@@ -79,6 +79,8 @@ class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
     def finish(self, context=bpy.context):
+        from . reproportion.guide_reproportion_actions import end_of_step_action
+        end_of_step_action(context)
         VIEW3D_OT_blenrig_guide_reproportion.instance = None
         if hasattr(self, 'timer') and self.timer:
             context.window_manager.event_timer_remove(self.timer)
@@ -279,6 +281,9 @@ class VIEW3D_OT_blenrig_guide_datatransfer(bpy.types.Operator):
         return {'PASS_THROUGH'}
 
     def finish(self, context=bpy.context):
+        from . datatransfer.guide_datatransfer_actions import end_of_step_action
+        end_of_step_action(context)
+
         VIEW3D_OT_blenrig_guide_datatransfer.instance = None
         if hasattr(self, 'timer') and self.timer:
             context.window_manager.event_timer_remove(self.timer)
