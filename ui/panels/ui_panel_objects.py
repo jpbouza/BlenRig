@@ -35,15 +35,25 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col = box.column()
         row = col.row()
     # expanded box
-        col.separator
-        row = col.row()
-        row.operator("blenrig.mesh_pose_baker", text="Bake Mesh")
-        row.prop(props, "bake_to_shape")
-        box.separator()
+        col_buttons = row.column()
+        box_bake = col_buttons.box()
+        box_bake.label(text='Baking')
+        col_bake = box_bake.column()
+        row_bake = col_bake.row()
+        row_bake.operator("blenrig.mesh_pose_baker", text="Bake Mesh")
+        row_bake.prop(props, "bake_to_shape")
+        col_buttons.separator()
 
-        box = layout.column()
-        box.operator("blenrig.transfer_vgroups", text = 'Transfer Weights')
-        box.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance")
+        box_transfer = col_buttons.box()
+        box_transfer.label(text='Weights Transfer')
+        box_transfer.operator("blenrig.transfer_vgroups", text = 'Transfer Weights')
+        row_options = box_transfer.row()
+        col_ray = row_options.column()
+        col_ray.label(text = 'Ray Distance:')
+        col_ray.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance", text = '')
+        col_mapping = row_options.column()
+        col_mapping.label(text = 'Mapping:')
+        col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
 
 ####### Lattice & Curves Panel
 
