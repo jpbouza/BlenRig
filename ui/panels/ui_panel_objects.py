@@ -39,6 +39,11 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row = col.row()
         row.operator("blenrig.mesh_pose_baker", text="Bake Mesh")
         row.prop(props, "bake_to_shape")
+        box.separator()
+
+        box = layout.column()
+        box.operator("blenrig.transfer_vgroups", text = 'Transfer Weights')
+        box.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance")
 
 ####### Lattice & Curves Panel
 
