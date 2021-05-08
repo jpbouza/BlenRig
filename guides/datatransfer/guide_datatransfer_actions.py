@@ -255,6 +255,7 @@ def end_of_step_action(context):
             set_mode('OBJECT')
         #Switch Local_View off
         switch_out_local_view()
+        blenrig_temp_unlink()
         bpy.context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'DT_Weight_Mesh_Shapekey_Hands':
         #Set back Object Mode
@@ -262,6 +263,7 @@ def end_of_step_action(context):
             set_mode('OBJECT')
         #Switch Local_View off
         switch_out_local_view()
+        blenrig_temp_unlink()
         bpy.context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'DT_Edit_Head':
         #Set back Object Mode
