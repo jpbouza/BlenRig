@@ -52,5 +52,5 @@ class Operator_BlenRig5_Add_Biped(Operator):
         self.viewport_toggle(context)
         # in the .blend the biped in object mode has to be selected so that the following does not fail:
         context.view_layer.objects.active = context.selected_objects[0]
-
+        context.scene.blenrig_guide.arm_obj = context.view_layer.objects.active
         return{'FINISHED'}
