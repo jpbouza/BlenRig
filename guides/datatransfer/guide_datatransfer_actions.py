@@ -61,11 +61,10 @@ def DT_Weight_Mesh_Shapekey_Head(operator, context):
     collect_mdef_weights_model()
     blenrig_temp_link(mdef_weights_model_objects)
 
-    context.scene.blenrig_guide.mdef_weights_obj = bpy.context.object
-
     for ob in mdef_weights_model_objects:
         set_active_object(context, ob)
         bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
+        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj.hide_viewport = False
         set_mode('EDIT')
 
     #Add and Edit Face Shapekey
@@ -91,6 +90,7 @@ def DT_Weight_Mesh_Shapekey_Hands(operator, context):
     for ob in mdef_weights_model_objects:
         set_active_object(context, ob)
         bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
+        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj.hide_viewport = False
         set_mode('EDIT')
 
     #Add and Edit Fingers Shapekey
