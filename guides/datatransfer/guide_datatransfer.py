@@ -6,7 +6,7 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_DATATRANSFER = (
     #Edit Weith Transfer Model Head Shape
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': ('DT_Weight_Mesh_Shapekey_Head_A.jpg', 'DT_Weight_Mesh_Shapekey_Head_B.jpg', 'DT_Weight_Mesh_Shapekey_Head_C.jpg', 'DT_Weight_Mesh_Shapekey_Head_D.jpg'),
         'titulo': {
             'EN': ' Edit Weight Transfer Model Head Shape',
             'ES': 'Paso 1'
@@ -19,7 +19,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Edit Weith Transfer Model Hands Shape
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': ('DT_Weight_Mesh_Shapekey_Hands_A.jpg', 'DT_Weight_Mesh_Shapekey_Hands_B.jpg'),
         'titulo': {
             'EN': 'Edit Weith Transfer Model Hands Shape',
             'ES': 'Paso 1'
@@ -32,7 +32,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Select Character's Head
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': 'DT_Select_Head.jpg',
         'titulo': {
             'EN': "Select Character's Head Object",
             'ES': 'Paso 1'
@@ -45,7 +45,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Edit Character's Head
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': ('DT_Edit_Head_A.jpg', 'DT_Edit_Head_B.jpg', 'DT_Edit_Head_C.jpg'),
         'titulo': {
             'EN': "Edit Character's Head",
             'ES': 'Paso 1'
@@ -58,7 +58,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Select Character's Hands
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': 'DT_Select_Hands.jpg',
         'titulo': {
             'EN': "Select Character's Hands Object",
             'ES': 'Paso 1'
@@ -71,7 +71,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Edit Character's Hands
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': ('DT_Edit_Hands_A.jpg', 'DT_Edit_Hands_B.jpg', 'DT_Edit_Hands_C.jpg'),
         'titulo': {
             'EN': "Edit Character's Hands",
             'ES': 'Paso 1'
