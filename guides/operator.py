@@ -493,7 +493,7 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
 
         if self.body_area == 'hands':
             #Select Fingers Object
-            fingers_object = bpy.context.scene.blenrig_guide.character_fingers_obj
+            fingers_object = bpy.context.scene.blenrig_guide.character_hands_obj
             fingers_object.select_set(state=True)
             bpy.context.view_layer.objects.active = fingers_object
 
@@ -511,7 +511,7 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
 
         if self.body_area == 'hands':
             #Select Fingers Object
-            fingers_object = bpy.context.scene.blenrig_guide.character_fingers_obj
+            fingers_object = bpy.context.scene.blenrig_guide.character_hands_obj
             fingers_object.select_set(state=True)
             bpy.context.view_layer.objects.active = fingers_object
 
