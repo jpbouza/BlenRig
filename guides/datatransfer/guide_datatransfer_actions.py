@@ -214,7 +214,7 @@ def DT_Edit_Hands(operator, context):
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Edit_Hands'
 
     #SaveHead Object
-    bpy.context.scene.blenrig_guide.character_fingers_obj = bpy.context.active_object
+    bpy.context.scene.blenrig_guide.character_hands_obj = bpy.context.active_object
 
     # Show MDefWeightsModel
     mdef_weights_model_objects = collect_mdef_weights_model()
@@ -244,7 +244,7 @@ def DT_Finish(operator, context):
 
     #Turn off Tranfer Shapekeys on Character's Objects
     try:
-        bpy.context.scene.blenrig_guide.character_fingers_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 0.0
+        bpy.context.scene.blenrig_guide.character_hands_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 0.0
     except:
         pass
     try:
@@ -383,6 +383,57 @@ def DT_Finish(operator, context):
                     if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
                         mod.object = ob
         mod.vertex_group = 'lattice_head'
+        mod.show_expanded = False
+
+    #Subsurf
+    subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+    if subsurf_mods:
+        active.modifiers.remove(subsurf_mods[-1])
+    mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+    # set modifier properties
+    mod.subdivision_type = 'CATMULL_CLARK'
+    mod.levels = 0
+    mod.render_levels = 3
+    mod.show_expanded = True
+
+    #Add Deform Modifiers to Character's hands
+    bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_hands_obj
+    active = bpy.context.active_object
+
+    #Armature
+    if check_mod_type('ARMATURE'):
+        pass
+    else:
+        mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+        # set modifier properties
+        mod.object = bpy.context.scene.blenrig_guide.arm_obj
+        mod.use_deform_preserve_volume = True
+        mod.vertex_group = 'no_mdef'
+        mod.show_expanded = True
+        mod.show_in_editmode = True
+        mod.show_on_cage = True
+    #Mesh Deform
+    if check_mod_type('MESH_DEFORM'):
+        pass
+    else:
+        mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
+        # set modifier properties
+        mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+        mod.invert_vertex_group = True
+        mod.vertex_group = 'no_mdef'
+        mod.show_expanded = True
+        mod.show_in_editmode = True
+        mod.show_on_cage = True
+
+    #Corrective Smooth
+    if check_mod_type('CORRECTIVE_SMOOTH'):
+        pass
+    else:
+        mod = active.modifiers.new(name= "CorrectiveSmooth",type= 'CORRECTIVE_SMOOTH')
+        # set modifier properties
+        mod.smooth_type = 'SIMPLE'
+        mod.rest_source = 'ORCO'
+        mod.vertex_group = 'corrective_smooth'
         mod.show_expanded = False
 
     #Subsurf

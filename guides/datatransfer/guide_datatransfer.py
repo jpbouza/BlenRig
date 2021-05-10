@@ -84,7 +84,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Weights Transfer Finish
     {
-        'imagen': ('Reprop_Tongue.jpg', 'Reprop_Finish.jpg'),
+        'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),
         'titulo': {
             'EN': "Weights Transfer Finish",
             'ES': 'Paso 1'
