@@ -371,3 +371,56 @@ def add_shapekey(context, shape_name):
                 ob.active_shape_key_index = index
                 ob.data.shape_keys.key_blocks[index].value = 1.0
                 ob.use_shape_key_edit_mode = True
+
+### Add Drivers
+driver_data_path = []
+driver_array_index = []
+
+def add_drivers(object_item,d_data_path, d_array_index, array_check, d_extrapolation, d_hide, d_lock, d_mute, d_expression, d_type):
+    driver_data_path[:] = []
+    driver_array_index[:] = []
+    if array_check == 'no_array':
+        fcurve = object_item.driver_add(d_data_path)
+    if array_check == 'array':
+        fcurve = object_item.driver_add(d_data_path, d_array_index)
+    fcurve.extrapolation = d_extrapolation
+    fcurve.hide = d_hide
+    fcurve.lock = d_lock
+    fcurve.mute = d_mute
+    if d_type == 'SCRIPTED':
+        fcurve.driver.expression = d_expression
+    fcurve.driver.type = d_type
+    for m in fcurve.modifiers:
+        fcurve.modifiers.remove(m)
+    driver_data_path.append(fcurve.data_path)
+    driver_array_index.append(fcurve.array_index)
+    return (fcurve)
+
+def add_vars(current_driver, v_name, v_type, t_id, t_bone_target, t_data_path, t_transform_space, t_transform_type, t_rotation_mode):
+    var = current_driver.driver.variables.new()
+    var.name = v_name
+    var.type = v_type
+    target = var.targets[0]
+    target.id = t_id
+    if v_type == 'SINGLE_PROP':
+        target.data_path = t_data_path
+    if v_type == 'TRANSFORMS':
+        target.bone_target = t_bone_target
+        target.transform_space = t_transform_space
+        target.transform_type = t_transform_type
+        target.rotation_mode = t_rotation_mode
+
+def add_mod_generator(current_driver, m_type, m_blend_in, m_blend_out, m_frame_start, m_frame_end, m_mode, m_mute, m_poly_order, m_use_additive, m_use_influence, m_use_restricted_range, m_co_0, m_co_1):
+    mod = current_driver.modifiers.new(m_type)
+    mod.blend_in = m_blend_in
+    mod.blend_out = m_blend_out
+    mod.frame_start = m_frame_start
+    mod.frame_end = m_frame_end
+    mod.mode = m_mode
+    mod.mute = m_mute
+    mod.poly_order = m_poly_order
+    mod.use_additive = m_use_additive
+    mod.use_influence = m_use_influence
+    mod.use_restricted_range = m_use_restricted_range
+    mod.coefficients[0] = m_co_0
+    mod.coefficients[1] = m_co_1
