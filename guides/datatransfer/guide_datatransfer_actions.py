@@ -396,6 +396,24 @@ def DT_Finish(operator, context):
     mod.render_levels = 3
     mod.show_expanded = True
 
+    #Add Drivers
+    #Delete Drivers if present
+    if hasattr(active, 'modifiers') and hasattr(active.modifiers, 'data') and hasattr(active.modifiers.data, 'animation_data') and hasattr(active.modifiers.data.animation_data, 'drivers'):
+        fcurves = active.modifiers.data.animation_data.drivers
+        for fc in fcurves:
+            if fc.data_path == 'modifiers["Cheek_Puff_L"].falloff_radius':
+                fcurves.remove(fcurves[0])
+            if fc.data_path == 'modifiers["Cheek_Puff_R"].falloff_radius':
+                fcurves.remove(fcurves[0])
+    #Cheek_Puff_L
+    active_driver = add_drivers(active.modifiers["Cheek_Puff_L"], 'falloff_radius', 0, 'no_array', 'CONSTANT', False, False, False, '1.000', 'MAX')
+    add_vars(active_driver, 'var', 'SINGLE_PROP', bpy.context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_L', 'pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
+    add_mod_generator(active_driver, 'GENERATOR', 0.0, 0.0, 0.0, 0.0, 'POLYNOMIAL', False, 1, False, False, False, 0.0, 1.0)
+    #Cheek_Puff_R
+    active_driver = add_drivers(active.modifiers["Cheek_Puff_R"], 'falloff_radius', 0, 'no_array', 'CONSTANT', False, False, False, '1.000', 'MAX')
+    add_vars(active_driver, 'var', 'SINGLE_PROP', bpy.context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_R', 'pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
+    add_mod_generator(active_driver, 'GENERATOR', 0.0, 0.0, 0.0, 0.0, 'POLYNOMIAL', False, 1, False, False, False, 0.0, 1.0)
+
     #Add Deform Modifiers to Character's hands
     bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_hands_obj
     active = bpy.context.active_object
