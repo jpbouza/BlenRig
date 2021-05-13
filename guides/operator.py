@@ -519,3 +519,259 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
         if context.mode != 'EDIT':
             set_mode('EDIT')
         return {"FINISHED"}
+
+class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_head_modifiers"
+    bl_label = "BlenRig add Head Modifiers"
+    bl_description = "Add commonly used modifiers for Head Deformation based on Mesh Deform"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+
+        #Add Deform Modifiers to Character's head
+        active = bpy.context.active_object
+
+        #Armature
+        if check_mod_type('ARMATURE'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+            # set modifier properties
+            mod.object = bpy.context.scene.blenrig_guide.arm_obj
+            mod.use_deform_preserve_volume = True
+            mod.vertex_group = 'no_mdef'
+            mod.show_expanded = True
+            mod.show_in_editmode = True
+            mod.show_on_cage = True
+        #Mesh Deform
+        if check_mod_type('MESH_DEFORM'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
+            # set modifier properties
+            mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+            mod.invert_vertex_group = True
+            mod.vertex_group = 'no_mdef'
+            mod.show_expanded = True
+            mod.show_in_editmode = True
+            mod.show_on_cage = True
+
+        #Corrective Smooth
+        if check_mod_type('CORRECTIVE_SMOOTH'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "CorrectiveSmooth",type= 'CORRECTIVE_SMOOTH')
+            # set modifier properties
+            mod.smooth_type = 'SIMPLE'
+            mod.rest_source = 'ORCO'
+            mod.vertex_group = 'corrective_smooth'
+            mod.show_expanded = False
+
+        #Cheek Puffs
+        if check_mod_type_name('WARP', 'Cheek_Puff_L'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "Cheek_Puff_L",type= 'WARP')
+            # set modifier properties
+            mod.object_from = bpy.context.scene.blenrig_guide.arm_obj
+            mod.bone_from = 'cheek_puff_mstr_L'
+            mod.object_to = bpy.context.scene.blenrig_guide.arm_obj
+            mod.bone_to = 'cheek_puff_ctrl_L'
+            mod.vertex_group = 'no_mdef'
+            mod.falloff_radius = bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]
+            mod.show_expanded = False
+
+        if check_mod_type_name('WARP', 'Cheek_Puff_R'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "Cheek_Puff_R",type= 'WARP')
+            # set modifier properties
+            mod.object_from = bpy.context.scene.blenrig_guide.arm_obj
+            mod.bone_from = 'cheek_puff_mstr_R'
+            mod.object_to = bpy.context.scene.blenrig_guide.arm_obj
+            mod.bone_to = 'cheek_puff_ctrl_R'
+            mod.vertex_group = 'no_mdef'
+            mod.falloff_radius = bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]
+            mod.show_expanded = False
+
+        #Lattices
+        if check_mod_type_name('LATTICE', 'LATTICE_EYE_L'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_EYE_L",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_EYE_L' in ob.name:
+                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_eye_L'
+            mod.show_expanded = False
+
+        if check_mod_type_name('LATTICE', 'LATTICE_EYE_R'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_EYE_R",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_EYE_R' in ob.name:
+                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_eye_R'
+            mod.show_expanded = False
+
+        if check_mod_type_name('LATTICE', 'LATTICE_BROW'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_BROW",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_BROW' in ob.name:
+                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_brow'
+            mod.show_expanded = False
+
+        if check_mod_type_name('LATTICE', 'LATTICE_MOUTH'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_MOUTH",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_MOUTH' in ob.name:
+                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_mouth'
+            mod.show_expanded = False
+
+        if check_mod_type_name('LATTICE', 'LATTICE_HEAD'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_HEAD' in ob.name:
+                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_head'
+            mod.show_expanded = False
+
+        #Subsurf
+        subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+        if subsurf_mods:
+            active.modifiers.remove(subsurf_mods[-1])
+        mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+        # set modifier properties
+        mod.subdivision_type = 'CATMULL_CLARK'
+        mod.levels = 0
+        mod.render_levels = 3
+        mod.show_expanded = True
+
+        #Add Drivers
+        #Delete Drivers if present
+        if hasattr(active, 'modifiers') and hasattr(active.modifiers, 'data') and hasattr(active.modifiers.data, 'animation_data') and hasattr(active.modifiers.data.animation_data, 'drivers'):
+            fcurves = active.modifiers.data.animation_data.drivers
+            for fc in fcurves:
+                if fc.data_path == 'modifiers["Cheek_Puff_L"].falloff_radius':
+                    fcurves.remove(fcurves[0])
+                if fc.data_path == 'modifiers["Cheek_Puff_R"].falloff_radius':
+                    fcurves.remove(fcurves[0])
+        #Cheek_Puff_L
+        active_driver = add_drivers(active.modifiers["Cheek_Puff_L"], 'falloff_radius', 0, 'no_array', 'CONSTANT', False, False, False, '1.000', 'MAX')
+        add_vars(active_driver, 'var', 'SINGLE_PROP', bpy.context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_L', 'pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
+        add_mod_generator(active_driver, 'GENERATOR', 0.0, 0.0, 0.0, 0.0, 'POLYNOMIAL', False, 1, False, False, False, 0.0, 1.0)
+        #Cheek_Puff_R
+        active_driver = add_drivers(active.modifiers["Cheek_Puff_R"], 'falloff_radius', 0, 'no_array', 'CONSTANT', False, False, False, '1.000', 'MAX')
+        add_vars(active_driver, 'var', 'SINGLE_PROP', bpy.context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_R', 'pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
+        add_mod_generator(active_driver, 'GENERATOR', 0.0, 0.0, 0.0, 0.0, 'POLYNOMIAL', False, 1, False, False, False, 0.0, 1.0)
+
+        return {"FINISHED"}
+
+class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_hands_modifiers"
+    bl_label = "BlenRig add Hands Modifiers"
+    bl_description = "Add commonly used modifiers for Hands Deformation based on Mesh Deform"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+
+        #Add Deform Modifiers to Character's hands
+        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_hands_obj
+        active = bpy.context.active_object
+
+        #Armature
+        if check_mod_type('ARMATURE'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+            # set modifier properties
+            mod.object = bpy.context.scene.blenrig_guide.arm_obj
+            mod.use_deform_preserve_volume = True
+            mod.vertex_group = 'no_mdef'
+            mod.show_expanded = True
+            mod.show_in_editmode = True
+            mod.show_on_cage = True
+        #Mesh Deform
+        if check_mod_type('MESH_DEFORM'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
+            # set modifier properties
+            mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+            mod.invert_vertex_group = True
+            mod.vertex_group = 'no_mdef'
+            mod.show_expanded = True
+            mod.show_in_editmode = True
+            mod.show_on_cage = True
+
+        #Corrective Smooth
+        if check_mod_type('CORRECTIVE_SMOOTH'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "CorrectiveSmooth",type= 'CORRECTIVE_SMOOTH')
+            # set modifier properties
+            mod.smooth_type = 'SIMPLE'
+            mod.rest_source = 'ORCO'
+            mod.vertex_group = 'corrective_smooth'
+            mod.show_expanded = False
+
+        #Subsurf
+        subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+        if subsurf_mods:
+            active.modifiers.remove(subsurf_mods[-1])
+        mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+        # set modifier properties
+        mod.subdivision_type = 'CATMULL_CLARK'
+        mod.levels = 0
+        mod.render_levels = 3
+        mod.show_expanded = True
+
+        return {"FINISHED"}

@@ -337,6 +337,24 @@ def deselect_all_objects(context):
         set_mode('OBJECT')
     bpy.ops.object.select_all(action='DESELECT')
 
+### Check if object has modifiers
+def check_mod_type(mod_type):
+    active = bpy.context.active_object
+    if hasattr(active, 'modifiers'):
+        for mod in active.modifiers:
+            if hasattr(mod, 'type'):
+                if mod.type == mod_type:
+                    return True
+
+def check_mod_type_name(mod_type, mod_name):
+    active = bpy.context.active_object
+    if hasattr(active, 'modifiers'):
+        for mod in active.modifiers:
+            if hasattr(mod, 'type'):
+                if mod.type == mod_type:
+                    if mod.name == mod_name:
+                        return True
+
 #### Shapekey Creation
 def add_shapekey(context, shape_name):
     ob=bpy.context.object
