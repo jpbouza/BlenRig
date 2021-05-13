@@ -35,6 +35,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col = box.column()
         row = col.row()
     # expanded box
+        # Bake Buttons
         col_buttons = row.column()
         box_bake = col_buttons.box()
         box_bake.label(text='Baking')
@@ -43,7 +44,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row_bake.operator("blenrig.mesh_pose_baker", text="Bake Mesh")
         row_bake.prop(props, "bake_to_shape")
         col_buttons.separator()
-
+        #Weights Transfer Buttons
         box_transfer = col_buttons.box()
         box_transfer.label(text='Weights Transfer')
         box_transfer.operator("blenrig.transfer_vgroups", text = 'Transfer Weights')
@@ -54,6 +55,12 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col_mapping = row_options.column()
         col_mapping.label(text = 'Mapping:')
         col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
+        #Add Modiifers Buttons
+        box_modifiers = col_buttons.box()
+        box_modifiers.label(text='Add Modifiers')
+        box_modifiers.operator("blenrig.add_head_modifiers", text = 'Add Head Mofiiers')
+        box_modifiers.operator("blenrig.add_hands_modifiers", text = 'Add Hands Mofiiers')
+
 
 ####### Lattice & Curves Panel
 
