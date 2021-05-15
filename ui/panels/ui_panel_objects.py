@@ -60,7 +60,10 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         box_modifiers.label(text='Add Modifiers')
         box_modifiers.operator("blenrig.add_head_modifiers", text = 'Add Head Mofiiers')
         box_modifiers.operator("blenrig.add_hands_modifiers", text = 'Add Hands Mofiiers')
-
+        #Add Shapekeys Buttons
+        box_modifiers = col_buttons.box()
+        box_modifiers.label(text='Add Shapekeys')
+        box_modifiers.operator("blenrig.add_body_shapekeys", text = 'Add Body Shapekeys')
 
 ####### Lattice & Curves Panel
 
