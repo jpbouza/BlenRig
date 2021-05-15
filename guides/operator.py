@@ -1,4 +1,5 @@
 import bpy
+from math import radians
 from mathutils import Vector
 from bpy.props import StringProperty, FloatProperty, BoolProperty, EnumProperty
 from . draw import draw_callback_px
@@ -773,5 +774,430 @@ class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
         mod.levels = 0
         mod.render_levels = 3
         mod.show_expanded = True
+
+        return {"FINISHED"}
+
+class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_body_shapekeys"
+    bl_label = "BlenRig add Body Shapkeys"
+    bl_description = "Add commonly used shapekeys for the body. Typically used in the Mdef Cage"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    #Neck
+    def neck(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle
+
+        #Add Shapekeys
+        #Head
+        add_shapekey(context, 'head_L')
+        add_shapekey(context, 'head_R')
+        add_shapekey(context, 'head_forw')
+        add_shapekey(context, 'head_back')
+        add_shapekey(context, 'head_twist_L')
+        add_shapekey(context, 'head_twist_R')
+        #Neck 1
+        add_shapekey(context, 'neck_1_L')
+        add_shapekey(context, 'neck_1_R')
+        add_shapekey(context, 'neck_1_forw')
+        add_shapekey(context, 'neck_1_back')
+        add_shapekey(context, 'neck_1_twist_L')
+        add_shapekey(context, 'neck_1_twist_R')
+        #Neck 2
+        add_shapekey(context, 'neck_2_L')
+        add_shapekey(context, 'neck_2_R')
+        add_shapekey(context, 'neck_2_forw')
+        add_shapekey(context, 'neck_2_back')
+        add_shapekey(context, 'neck_2_twist_L')
+        add_shapekey(context, 'neck_2_twist_R')
+        #Neck 3
+        add_shapekey(context, 'neck_3_L')
+        add_shapekey(context, 'neck_3_R')
+        add_shapekey(context, 'neck_3_forw')
+        add_shapekey(context, 'neck_3_back')
+        add_shapekey(context, 'neck_3_twist_L')
+        add_shapekey(context, 'neck_3_twist_R')
+
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+
+            #Skip if Driver already present
+            #Head
+            #head_L
+            if check_shapekey_driver('head_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['head_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'head_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #head_R
+            if check_shapekey_driver('head_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['head_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'head_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #head_forw
+            if check_shapekey_driver('head_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['head_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'head_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #head_back
+            if check_shapekey_driver('head_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['head_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'head_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #head_twist_L
+            if check_shapekey_driver('head_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['head_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'head_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #head_twist_R
+            if check_shapekey_driver('head_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['head_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'head_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+            #Neck_1
+            #neck_1_L
+            if check_shapekey_driver('neck_1_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_1_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #neck_1_R
+            if check_shapekey_driver('neck_1_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_1_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #neck_1_forw
+            if check_shapekey_driver('neck_1_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_1_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #neck_1_back
+            if check_shapekey_driver('neck_1_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_1_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #neck_1_twist_L
+            if check_shapekey_driver('neck_1_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_1_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_1_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #neck_1_twist_R
+            if check_shapekey_driver('neck_1_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_1_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_1_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+            #Neck_2
+            #neck_2_L
+            if check_shapekey_driver('neck_2_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_2_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #neck_2_R
+            if check_shapekey_driver('neck_2_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_2_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #neck_2_forw
+            if check_shapekey_driver('neck_2_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_2_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #neck_2_back
+            if check_shapekey_driver('neck_2_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_2_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #neck_2_twist_L
+            if check_shapekey_driver('neck_2_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_2_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_2_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #neck_2_twist_R
+            if check_shapekey_driver('neck_2_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_2_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_2_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+            #Neck_3
+            #neck_3_L
+            if check_shapekey_driver('neck_3_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_3_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #neck_3_R
+            if check_shapekey_driver('neck_3_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_3_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #neck_3_forw
+            if check_shapekey_driver('neck_3_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_3_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #neck_3_back
+            if check_shapekey_driver('neck_3_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_3_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #neck_3_twist_L
+            if check_shapekey_driver('neck_3_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_3_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_3_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #neck_3_twist_R
+            if check_shapekey_driver('neck_3_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['neck_3_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'neck_3_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+
+    #Spine
+    def spine(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle
+
+        #Add Shapekeys
+        #Spine_3
+        add_shapekey(context, 'spine_3_L')
+        add_shapekey(context, 'spine_3_R')
+        add_shapekey(context, 'spine_3_forw')
+        add_shapekey(context, 'spine_3_back')
+        add_shapekey(context, 'spine_3_twist_L')
+        add_shapekey(context, 'spine_3_twist_R')
+        #Spine_2
+        add_shapekey(context, 'spine_2_L')
+        add_shapekey(context, 'spine_2_R')
+        add_shapekey(context, 'spine_2_forw')
+        add_shapekey(context, 'spine_2_back')
+        add_shapekey(context, 'spine_2_twist_L')
+        add_shapekey(context, 'spine_2_twist_R')
+        #Spine_1
+        add_shapekey(context, 'spine_1_L')
+        add_shapekey(context, 'spine_1_R')
+        add_shapekey(context, 'spine_1_forw')
+        add_shapekey(context, 'spine_1_back')
+        add_shapekey(context, 'spine_1_twist_L')
+        add_shapekey(context, 'spine_1_twist_R')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+
+            #Skip if Driver already present
+            #Spine_3
+            #spine_3_L
+            if check_shapekey_driver('spine_3_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_3_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #spine_3_R
+            if check_shapekey_driver('spine_3_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_3_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #spine_3_forw
+            if check_shapekey_driver('spine_3_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_3_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #spine_3_back
+            if check_shapekey_driver('spine_3_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_3_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_3_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #spine_3_twist_L
+            if check_shapekey_driver('spine_3_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_3_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_3_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #spine_3_twist_R
+            if check_shapekey_driver('spine_3_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_3_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_3_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+            #Spine_2
+            #spine_2_L
+            if check_shapekey_driver('spine_2_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_2_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #spine_2_R
+            if check_shapekey_driver('spine_2_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_2_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #spine_2_forw
+            if check_shapekey_driver('spine_2_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_2_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #spine_2_back
+            if check_shapekey_driver('spine_2_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_2_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_2_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #spine_2_twist_L
+            if check_shapekey_driver('spine_2_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_2_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_2_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #spine_2_twist_R
+            if check_shapekey_driver('spine_2_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_2_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_2_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+            #Spine_1
+            #spine_1_L
+            if check_shapekey_driver('spine_1_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_1_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #spine_1_R
+            if check_shapekey_driver('spine_1_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_1_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #spine_1_forw
+            if check_shapekey_driver('spine_1_forw'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_1_forw'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 45)
+            #spine_1_back
+            if check_shapekey_driver('spine_1_back'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_1_back'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_xz_drv', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -45)
+            #spine_1_twist_L
+            if check_shapekey_driver('spine_1_twist_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_1_twist_L'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, 90)
+            #spine_1_twist_R
+            if check_shapekey_driver('spine_1_twist_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['spine_1_twist_R'], 'value')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
+                add_mod_generator_angle(active_driver, -90)
+
+    def execute(self, context):
+        self.neck(context)
+        self.spine(context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         return {"FINISHED"}

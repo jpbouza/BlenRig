@@ -1,5 +1,6 @@
 import bpy
 from bpy_extras import view3d_utils
+from math import radians
 
 # GET ARMATURE
 def get_armature_object(context):
@@ -414,6 +415,22 @@ def add_drivers(object_item,d_data_path, d_array_index, array_check, d_extrapola
     driver_array_index.append(fcurve.array_index)
     return (fcurve)
 
+def add_shapekeys_driver(object_item,d_data_path):
+    driver_data_path[:] = []
+    driver_array_index[:] = []
+    fcurve = object_item.driver_add(d_data_path)
+    fcurve.extrapolation = 'CONSTANT'
+    fcurve.hide = False
+    fcurve.lock = False
+    fcurve.mute = False
+    fcurve.driver.type = 'MAX'
+    for m in fcurve.modifiers:
+        fcurve.modifiers.remove(m)
+    driver_data_path.append(fcurve.data_path)
+    driver_array_index.append(fcurve.array_index)
+    return (fcurve)
+
+
 def add_vars(current_driver, v_name, v_type, t_id, t_bone_target, t_data_path, t_transform_space, t_transform_type, t_rotation_mode):
     var = current_driver.driver.variables.new()
     var.name = v_name
@@ -442,3 +459,28 @@ def add_mod_generator(current_driver, m_type, m_blend_in, m_blend_out, m_frame_s
     mod.use_restricted_range = m_use_restricted_range
     mod.coefficients[0] = m_co_0
     mod.coefficients[1] = m_co_1
+
+def add_mod_generator_angle(current_driver, angle):
+    mod = current_driver.modifiers.new('GENERATOR')
+    mod.blend_in = 0.0
+    mod.blend_out = 0.0
+    mod.frame_start = 0.0
+    mod.frame_end = 0.0
+    mod.mode = 'POLYNOMIAL'
+    mod.mute = False
+    mod.poly_order = 1
+    mod.use_additive = False
+    mod.use_influence = False
+    mod.use_restricted_range = False
+    mod.coefficients[0] = 0.0
+    mod.coefficients[1] = 1.0/radians(angle)
+
+### Check if Shapekey has a Driver
+def check_shapekey_driver(shape_name):
+    active = bpy.context.active_object
+    if hasattr(active, 'data') and hasattr(active.data, 'shape_keys') and hasattr(active.data.shape_keys, 'key_blocks'):
+        if hasattr(active.data.shape_keys.key_blocks, 'data') and hasattr(active.data.shape_keys.key_blocks.data, 'animation_data'):
+            if hasattr(active.data.shape_keys.key_blocks.data.animation_data, 'drivers'):
+                for driver in active.data.shape_keys.key_blocks.data.animation_data.drivers:
+                    if shape_name in driver.data_path:
+                        return True
