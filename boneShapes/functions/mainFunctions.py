@@ -43,7 +43,11 @@ def boneMatrix(widget, matchBone):
     widget.data.update()
 
 def boneScaleObject(machtBone,widget):
-    b_scale =  bpy.context.object.pose.bones[machtBone].custom_shape_scale
+    try:
+        b_scale =  bpy.context.object.pose.bones[machtBone].custom_shape_scale
+    except:
+        b_scale =  bpy.context.object.pose.bones[machtBone].custom_shape_scale_xyz
+
     b_size = bpy.context.object.pose.bones[machtBone].use_custom_shape_bone_size
     Length = bpy.context.object.pose.bones[machtBone].length
 
