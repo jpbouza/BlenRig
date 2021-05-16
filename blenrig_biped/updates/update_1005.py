@@ -164,12 +164,21 @@ def biped_update_1005_bone_shapes(self, context):
     for b in pbones:
         if b.name == 'lattice_eye_L':
             b.custom_shape = bpy.data.objects['cs_toon_eye_low_L']
-            b.custom_shape_scale = 5
+            try:
+                b.custom_shape_scale = 5
+            except:
+                b.custom_shape_scale_xyz = 5
         if b.name == 'lattice_eye_R':
             b.custom_shape = bpy.data.objects['cs_toon_eye_low_R'] 
-            b.custom_shape_scale = 5
+            try:
+                b.custom_shape_scale = 5
+            except:
+                b.custom_shape_scale_xyz = 5
         if b.name == 'head_toon':
-            b.custom_shape_scale = b.custom_shape_scale + 0.1
+            try:
+                b.custom_shape_scale = b.custom_shape_scale + 0.1
+            except:
+                b.custom_shape_scale_xyz = b.custom_shape_scale_xyz + 0.1
 
 #### New Bones for Lattice_eye #### 
 
