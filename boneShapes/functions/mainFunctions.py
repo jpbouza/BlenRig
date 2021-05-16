@@ -357,7 +357,10 @@ def shape_scale():
                     l_name = bl.name.split("_L")
                     if l_name[0] == r_name[0]:
                         print (br.name, bl.name)
-                        br.custom_shape_scale = bl.custom_shape_scale
+                        try:
+                            br.custom_shape_scale = bl.custom_shape_scale
+                        except:
+                            br.custom_shape_scale_xyz = bl.custom_shape_scale_xyz
                         br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
 
 def MakeUniqueShape():
