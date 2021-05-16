@@ -48,5 +48,12 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
             row.prop(mesh, "use_mirror_topology")
             col.operator("blenrig.snap_points", text="Ajust Cage", icon="NONE")
             row = layout.row(heading="Distance Cage")
-            row.prop(props,"ajust_distance_cage",text="%", slider=True)
+            row.prop(props,"ajust_distance_cage",text="value")
+            # row =layout.column()
+            # row =layout.row()
+            # row = layout.row(heading="Smooth Cage")            
+            # row.prop(props,"smooth_repeat",text="Repiter Smooth")
+            # row =layout.row(heading="Smooth Factor")
+            # row.prop(props,"smooth_factor",text="Factor Smooth", slider=True)
+            
             

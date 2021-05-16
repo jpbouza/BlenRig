@@ -133,6 +133,9 @@ def vol_variation_update(self, context):
 
 def vol_prservation_update(self, context):
     set_vol_preservation(context)
+    
+def snap_points_update(self, context):
+    bpy.ops.blenrig.snap_points()
 ######### Handler for update on load and frame change #########
 
 # from bpy.app.handlers import persistent
@@ -2541,9 +2544,7 @@ class blenrig_6_props(bpy.types.PropertyGroup):
                         ('TOOLS', 'Tools', "Display Tools options", 'TOOL_SETTINGS', 3),
                         ('GUIDES', 'Guides', "Display Guides options", 'HELP', 4)]
     displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
-    ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object", min=0, max=100, default=2)
-
-
+    ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=5, max=50, default=8)
 
 # BlenRig Armature Tools Operator
 armature_classes = [

@@ -17,6 +17,7 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
             bpy.ops.mesh.select_mirror(extend=True)
 
         active_obj = context.active_object
+        props = context.window_manager.blenrig_6_props.ajust_distance_cage
 
         bm = bmesh.from_edit_mesh(active_obj.data)
         bm.verts.ensure_lookup_table()
@@ -48,8 +49,8 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
 
             for vert in sel_verts:
                 vert.co = vert_pose_list[vert]
-
                 bm.normal_update()
+                vert.co += vert.normal/props 
                 bmesh.update_edit_mesh(active_obj.data)
 
         return {'FINISHED'}
