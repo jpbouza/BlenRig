@@ -65,6 +65,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         box_modifiers.label(text='Add Shapekeys')
         box_modifiers.operator("blenrig.add_body_shapekeys", text = 'Add Body Shapekeys')
         box_modifiers.operator("blenrig.add_fingers_shapekeys", text = 'Add Fingers Shapekeys')
+        box_modifiers.operator("blenrig.add_toes_shapekeys", text = 'Add Toes Shapekeys')
 
 ####### Lattice & Curves Panel
 
