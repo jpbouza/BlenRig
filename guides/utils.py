@@ -415,7 +415,7 @@ def add_drivers(object_item,d_data_path, d_array_index, array_check, d_extrapola
     driver_array_index.append(fcurve.array_index)
     return (fcurve)
 
-def add_shapekeys_driver(object_item,d_data_path):
+def add_shapekeys_driver(object_item,d_data_path, type):
     driver_data_path[:] = []
     driver_array_index[:] = []
     fcurve = object_item.driver_add(d_data_path)
@@ -423,7 +423,7 @@ def add_shapekeys_driver(object_item,d_data_path):
     fcurve.hide = False
     fcurve.lock = False
     fcurve.mute = False
-    fcurve.driver.type = 'MAX'
+    fcurve.driver.type = type
     for m in fcurve.modifiers:
         fcurve.modifiers.remove(m)
     driver_data_path.append(fcurve.data_path)
