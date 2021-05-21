@@ -475,6 +475,36 @@ def add_mod_generator_angle(current_driver, angle):
     mod.coefficients[0] = 0.0
     mod.coefficients[1] = 1.0/radians(angle)
 
+def add_mod_generator_location(current_driver, loc):
+    mod = current_driver.modifiers.new('GENERATOR')
+    mod.blend_in = 0.0
+    mod.blend_out = 0.0
+    mod.frame_start = 0.0
+    mod.frame_end = 0.0
+    mod.mode = 'POLYNOMIAL'
+    mod.mute = False
+    mod.poly_order = 1
+    mod.use_additive = False
+    mod.use_influence = False
+    mod.use_restricted_range = False
+    mod.coefficients[0] = 0.0
+    mod.coefficients[1] = 1.0/loc
+
+def add_mod_generator_location_offset(current_driver, x_offset, loc):
+    mod = current_driver.modifiers.new('GENERATOR')
+    mod.blend_in = 0.0
+    mod.blend_out = 0.0
+    mod.frame_start = 0.0
+    mod.frame_end = 0.0
+    mod.mode = 'POLYNOMIAL'
+    mod.mute = False
+    mod.poly_order = 1
+    mod.use_additive = False
+    mod.use_influence = False
+    mod.use_restricted_range = False
+    mod.coefficients[0] = x_offset
+    mod.coefficients[1] = 1.0/loc
+
 ### Check if Shapekey has a Driver
 def check_shapekey_driver(shape_name):
     active = bpy.context.active_object

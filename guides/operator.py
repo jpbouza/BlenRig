@@ -3094,3 +3094,374 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         self.toe_little_R(context)
         self.toe_big_R(context)
         return {"FINISHED"}
+
+class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_face_shapekeys"
+    bl_label = "BlenRig add Face Shapkeys"
+    bl_description = "Add shapekeys for the Face"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    #Frown
+    def frown(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location
+
+        #Add Shapekeys
+        add_shapekey(context, 'frown_up_L')
+        add_shapekey(context, 'frown_down_L')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #frown_up_L
+            if check_shapekey_driver('frown_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['frown_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'frown_ctrl', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_mid'].bone.length * 0.75)
+            #frown_down_L
+            if check_shapekey_driver('frown_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['frown_down_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'frown_ctrl', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['nose_def_1_mid'].bone.length * 0.75))
+
+    #Eyebrows_L
+    def eyebrows_L(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location
+
+        #Add Shapekeys
+        add_shapekey(context, 'brow_1_up_L')
+        add_shapekey(context, 'brow_1_down_L')
+        add_shapekey(context, 'brow_1_in_L')
+        add_shapekey(context, 'brow_2_up_L')
+        add_shapekey(context, 'brow_2_down_L')
+        add_shapekey(context, 'brow_3_up_L')
+        add_shapekey(context, 'brow_3_down_L')
+        add_shapekey(context, 'brow_4_up_L')
+        add_shapekey(context, 'brow_4_down_L')
+        add_shapekey(context, 'brow_5_up_L')
+        add_shapekey(context, 'brow_5_down_L')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #brow_1_up_L
+            if check_shapekey_driver('brow_1_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_1_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_1_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_1_L'].bone.length * 0.75)
+            #brow_1_down_L
+            if check_shapekey_driver('brow_1_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_1_down_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_1_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['nose_side_def_1_L'].bone.length * 0.75))
+            #brow_1_in_L
+            if check_shapekey_driver('brow_1_in_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_1_in_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_1_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['frown_low_def_L'].bone.length * 0.75)
+            #brow_2_up_L
+            if check_shapekey_driver('brow_2_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_2_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_2_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_2_L'].bone.length * 0.75)
+            #brow_2_down_L
+            if check_shapekey_driver('brow_2_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_2_down_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_2_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_2_L'].bone.length * 0.75))
+            #brow_3_up_L
+            if check_shapekey_driver('brow_3_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_3_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_3_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_3_L'].bone.length * 0.75)
+            #brow_3_down_L
+            if check_shapekey_driver('brow_3_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_3_down_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_3_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_3_L'].bone.length * 0.75))
+            #brow_4_up_L
+            if check_shapekey_driver('brow_4_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_4_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_4_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_4_L'].bone.length * 0.75)
+            #brow_4_down_L
+            if check_shapekey_driver('brow_4_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_4_down_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_4_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_4_L'].bone.length * 0.75))
+            #brow_5_up_L
+            if check_shapekey_driver('brow_5_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_5_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_5_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_5_L'].bone.length * 0.75)
+            #brow_5_down_L
+            if check_shapekey_driver('brow_5_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_5_down_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_5_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_5_L'].bone.length * 0.75))
+
+    #Eyebrows_R
+    def eyebrows_R(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location
+
+        #Add Shapekeys
+        add_shapekey(context, 'brow_1_up_R')
+        add_shapekey(context, 'brow_1_down_R')
+        add_shapekey(context, 'brow_1_in_R')
+        add_shapekey(context, 'brow_2_up_R')
+        add_shapekey(context, 'brow_2_down_R')
+        add_shapekey(context, 'brow_3_up_R')
+        add_shapekey(context, 'brow_3_down_R')
+        add_shapekey(context, 'brow_4_up_R')
+        add_shapekey(context, 'brow_4_down_R')
+        add_shapekey(context, 'brow_5_up_R')
+        add_shapekey(context, 'brow_5_down_R')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #brow_1_up_R
+            if check_shapekey_driver('brow_1_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_1_up_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_1_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_1_R'].bone.length * 0.75)
+            #brow_1_down_R
+            if check_shapekey_driver('brow_1_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_1_down_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_1_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['nose_side_def_1_R'].bone.length * 0.75))
+            #brow_1_in_R
+            if check_shapekey_driver('brow_1_in_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_1_in_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_1_R', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['frown_low_def_R'].bone.length * 0.75))
+            #brow_2_up_R
+            if check_shapekey_driver('brow_2_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_2_up_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_2_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_2_R'].bone.length * 0.75)
+            #brow_2_down_R
+            if check_shapekey_driver('brow_2_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_2_down_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_2_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_2_R'].bone.length * 0.75))
+            #brow_3_up_R
+            if check_shapekey_driver('brow_3_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_3_up_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_3_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_3_R'].bone.length * 0.75)
+            #brow_3_down_R
+            if check_shapekey_driver('brow_3_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_3_down_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_3_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_3_R'].bone.length * 0.75))
+            #brow_4_up_R
+            if check_shapekey_driver('brow_4_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_4_up_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_4_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_4_R'].bone.length * 0.75)
+            #brow_4_down_R
+            if check_shapekey_driver('brow_4_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_4_down_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_4_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_4_R'].bone.length * 0.75))
+            #brow_5_up_R
+            if check_shapekey_driver('brow_5_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_5_up_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_5_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones['forehead_def_5_R'].bone.length * 0.75)
+            #brow_5_down_R
+            if check_shapekey_driver('brow_5_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['brow_5_down_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_5_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones['brow_arch_def_5_R'].bone.length * 0.75))
+
+    #Upper_Eyelid_L
+    def eyelid_up_L(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location, add_mod_generator_location_offset
+
+        #Add Shapekeys
+        add_shapekey(context, 'eyelid_up_up_L')
+        add_shapekey(context, 'eyelid_up_down_1_L')
+        add_shapekey(context, 'eyelid_up_down_2_L')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #eyelid_up_up_L
+            if check_shapekey_driver('eyelid_up_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['eyelid_up_up_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'eyelid_up_ctrl_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones["eyelid_up_ctrl_L"].EYELID_UP_LIMIT_L)
+            #eyelid_up_down_1_L
+            if check_shapekey_driver('eyelid_up_down_1_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['eyelid_up_down_1_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'eyelid_up_ctrl_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L / 2))
+            #eyelid_up_down_2_L
+            if check_shapekey_driver('eyelid_up_down_2_L'):
+                pass
+            else:
+                #Get eyelid_up_down_1_L value
+                eyelid_up_down_1_L_value = []
+                for driver in ob.data.shape_keys.animation_data.drivers:
+                    if 'eyelid_up_down_1_L' in driver.data_path:
+                        for mod in driver.modifiers:
+                            if mod.type == 'GENERATOR':
+                                value = 1 / mod.coefficients[1]
+                                eyelid_up_down_1_L_value.append(value)
+                #Coefficient_1 equals the movement range between eyelid_up_down_1_L and EYELID_DOWN_LIMIT_L
+                coefficient_1 = pbones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L - abs(eyelid_up_down_1_L_value[0])
+                #Coefficient_0 represents the size of eyelid_up_down_1_L compared to the range of motion of eyelid_up_down_2_L(coefficient_1)
+                coefficient_0 = coefficient_1 / abs(eyelid_up_down_1_L_value[0])
+                active_driver = add_shapekeys_driver(shapekeys['eyelid_up_down_2_L'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'eyelid_up_ctrl_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                #Add generator taking eyelid_up_down_1_L value into account
+                add_mod_generator_location_offset(active_driver, -(coefficient_0), -(coefficient_1))
+
+    #Upper_Eyelid_R
+    def eyelid_up_R(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location, add_mod_generator_location_offset
+
+        #Add Shapekeys
+        add_shapekey(context, 'eyelid_up_up_R')
+        add_shapekey(context, 'eyelid_up_down_1_R')
+        add_shapekey(context, 'eyelid_up_down_2_R')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #eyelid_up_up_R
+            if check_shapekey_driver('eyelid_up_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['eyelid_up_up_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'eyelid_up_ctrl_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, pbones["eyelid_up_ctrl_R"].EYELID_UP_RIMIT_R)
+            #eyelid_up_down_1_R
+            if check_shapekey_driver('eyelid_up_down_1_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['eyelid_up_down_1_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'eyelid_up_ctrl_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones["eyelid_up_ctrl_R"].EYELID_DOWN_LIMIT_R / 2))
+            #eyelid_up_down_2_R
+            if check_shapekey_driver('eyelid_up_down_2_R'):
+                pass
+            else:
+                #Get eyelid_up_down_1_R value
+                eyelid_up_down_1_R_value = []
+                for driver in ob.data.shape_keys.animation_data.drivers:
+                    if 'eyelid_up_down_1_R' in driver.data_path:
+                        for mod in driver.modifiers:
+                            if mod.type == 'GENERATOR':
+                                value = 1 / mod.coefficients[1]
+                                eyelid_up_down_1_R_value.append(value)
+                #Coefficient_1 equals the movement range between eyelid_up_down_1_R and EYELID_DOWN_RIMIT_R
+                coefficient_1 = pbones["eyelid_up_ctrl_R"].EYELID_DOWN_LIMIT_R - abs(eyelid_up_down_1_R_value[0])
+                #Coefficient_0 represents the size of eyelid_up_down_1_R compared to the range of motion of eyelid_up_down_2_R(coefficient_1)
+                coefficient_0 = coefficient_1 / abs(eyelid_up_down_1_R_value[0])
+                active_driver = add_shapekeys_driver(shapekeys['eyelid_up_down_2_R'], 'value', 'MAX')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'eyelid_up_ctrl_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                #Add generator taking eyelid_up_down_1_R value into account
+                add_mod_generator_location_offset(active_driver, -(coefficient_0), -(coefficient_1))
+
+
+    def execute(self, context):
+        self.frown(context)
+        self.eyebrows_L(context)
+        self.eyebrows_R(context)
+        self.eyelid_up_L(context)
+        self.eyelid_up_R(context)
+        return {"FINISHED"}
