@@ -1774,13 +1774,22 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_twist_drv_R', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
                 add_mod_generator_angle(active_driver, 45)
 
+    Neck_Shapekeys: bpy.props.BoolProperty(default=True)
+    Spine_Shapekeys: bpy.props.BoolProperty(default=True)
+    Arms_Shapekeys: bpy.props.BoolProperty(default=True)
+    Legs_Shapekeys: bpy.props.BoolProperty(default=True)
+
     def execute(self, context):
-        self.neck(context)
-        self.spine(context)
-        self.arm_L(context)
-        self.arm_R(context)
-        self.leg_L(context)
-        self.leg_R(context)
+        if self.Neck_Shapekeys:
+            self.neck(context)
+        if self.Spine_Shapekeys:
+            self.spine(context)
+        if self.Arms_Shapekeys:
+            self.arm_L(context)
+            self.arm_R(context)
+        if self.Legs_Shapekeys:
+            self.leg_L(context)
+            self.leg_R(context)
         return {"FINISHED"}
 
 class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
@@ -2485,18 +2494,33 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'fing_thumb_3_R', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
                 add_mod_generator_angle(active_driver, 90)
 
+    Index_Shapekeys: bpy.props.BoolProperty(default=True)
+    Middle_Shapekeys: bpy.props.BoolProperty(default=True)
+    Ring_Shapekeys: bpy.props.BoolProperty(default=True)
+    Little_Shapekeys: bpy.props.BoolProperty(default=True)
+    Thumb_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
-        self.index_L(context)
-        self.middle_L(context)
-        self.ring_L(context)
-        self.little_L(context)
-        self.thumb_L(context)
-        self.index_R(context)
-        self.middle_R(context)
-        self.ring_R(context)
-        self.little_R(context)
-        self.thumb_R(context)
+        if self.Index_Shapekeys:
+            self.index_L(context)
+        if self.Middle_Shapekeys:
+            self.middle_L(context)
+        if self.Ring_Shapekeys:
+            self.ring_L(context)
+        if self.Little_Shapekeys:
+            self.little_L(context)
+        if self.Thumb_Shapekeys:
+            self.thumb_L(context)
+        if self.Index_Shapekeys:
+            self.index_R(context)
+        if self.Middle_Shapekeys:
+            self.middle_R(context)
+        if self.Ring_Shapekeys:
+            self.ring_R(context)
+        if self.Little_Shapekeys:
+            self.little_R(context)
+        if self.Thumb_Shapekeys:
+            self.thumb_R(context)
         return {"FINISHED"}
 
 class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
@@ -3081,18 +3105,33 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'toe_big_3_R', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
                 add_mod_generator_angle(active_driver, 90)
 
+    Toe_Big_Shapekeys: bpy.props.BoolProperty(default=True)
+    Toe_Index_Shapekeys: bpy.props.BoolProperty(default=True)
+    Toe_Middle_Shapekeys: bpy.props.BoolProperty(default=True)
+    Toe_Fourth_Shapekeys: bpy.props.BoolProperty(default=True)
+    Toe_Little_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
-        self.toe_index_L(context)
-        self.toe_middle_L(context)
-        self.toe_fourth_L(context)
-        self.toe_little_L(context)
-        self.toe_big_L(context)
-        self.toe_index_R(context)
-        self.toe_middle_R(context)
-        self.toe_fourth_R(context)
-        self.toe_little_R(context)
-        self.toe_big_R(context)
+        if self.Toe_Big_Shapekeys:
+            self.toe_big_L(context)
+        if self.Toe_Index_Shapekeys:
+            self.toe_index_L(context)
+        if self.Toe_Middle_Shapekeys:
+            self.toe_middle_L(context)
+        if self.Toe_Fourth_Shapekeys:
+            self.toe_fourth_L(context)
+        if self.Toe_Little_Shapekeys:
+            self.toe_little_L(context)
+        if self.Toe_Big_Shapekeys:
+            self.toe_big_R(context)
+        if self.Toe_Index_Shapekeys:
+            self.toe_index_R(context)
+        if self.Toe_Middle_Shapekeys:
+            self.toe_middle_R(context)
+        if self.Toe_Fourth_Shapekeys:
+            self.toe_fourth_R(context)
+        if self.Toe_Little_Shapekeys:
+            self.toe_little_R(context)
         return {"FINISHED"}
 
 class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
@@ -3117,8 +3156,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location
 
         #Add Shapekeys
-        add_shapekey(context, 'frown_up_L')
-        add_shapekey(context, 'frown_down_L')
+        add_shapekey(context, 'frown_up')
+        add_shapekey(context, 'frown_down')
 
         #Add Drivers
         ob = bpy.context.active_object
@@ -3128,18 +3167,18 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
-            #frown_up_L
-            if check_shapekey_driver('frown_up_L'):
+            #frown_up
+            if check_shapekey_driver('frown_up'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['frown_up_L'], 'value', 'MAX', '')
+                active_driver = add_shapekeys_driver(shapekeys['frown_up'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'frown_ctrl', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, pbones['forehead_def_mid'].bone.length * 0.75)
-            #frown_down_L
-            if check_shapekey_driver('frown_down_L'):
+            #frown_down
+            if check_shapekey_driver('frown_down'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['frown_down_L'], 'value', 'MAX', '')
+                active_driver = add_shapekeys_driver(shapekeys['frown_down'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'frown_ctrl', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, -(pbones['nose_def_1_mid'].bone.length * 0.75))
 
@@ -3627,7 +3666,6 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'cheek_ctrl_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, -(pbones["cheek_ctrl_R"].CHEEK_DOWN_LIMIT_R))
 
-
     #Nose_L
     def nose_L(self, context):
 
@@ -3739,10 +3777,6 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_corner_out_back_fix_L')
         add_shapekey(context, 'mouth_corner_out_back_up_fix_L')
         add_shapekey(context, 'mouth_corner_out_back_down_fix_L')
-        add_shapekey(context, 'mouth_corner_forw_L')
-        add_shapekey(context, 'mouth_corner_out_forw_fix_L')
-        add_shapekey(context, 'mouth_corner_out_forw_up_fix_L')
-        add_shapekey(context, 'mouth_corner_out_forw_down_fix_L')
 
         #Add Drivers
         ob = bpy.context.active_object
@@ -3825,41 +3859,6 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var_back', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
                 add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * -(pbones["mouth_corner_L"].DOWN_LIMIT_L) * -(pbones["mouth_corner_L"].BACK_LIMIT_L) * 1000)
 
-            #Mostly used in Quadruped faces
-            #mouth_corner_forw_L
-            if check_shapekey_driver('mouth_corner_forw_L'):
-                pass
-            else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_forw_L'], 'value', 'MAX', '')
-                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, pbones["mouth_corner_L"].FORW_LIMIT_L)
-            #mouth_corner_out_forw_fix_L
-            if check_shapekey_driver('mouth_corner_out_forw_fix_L'):
-                pass
-            else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_fix_L'], 'value', 'SCRIPTED', '100 * var_out * var_forw if var_out < 0 else 0')
-                add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
-                add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * pbones["mouth_corner_L"].FORW_LIMIT_L * 100)
-            #mouth_corner_out_forw_up_fix_L
-            if check_shapekey_driver('mouth_corner_out_forw_up_fix_L'):
-                pass
-            else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_up_fix_L'], 'value', 'SCRIPTED', '1000 * var_out * var_up * var_forw if var_out < 0 and var_up > 0 else 0')
-                add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
-                add_vars(active_driver, 'var_up', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
-                add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * pbones["mouth_corner_L"].UP_LIMIT_L * pbones["mouth_corner_L"].FORW_LIMIT_L * 1000)
-            #mouth_corner_out_forw_down_fix_L
-            if check_shapekey_driver('mouth_corner_out_forw_down_fix_L'):
-                pass
-            else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_down_fix_L'], 'value', 'SCRIPTED', '1000 * var_out * var_down * var_forw if var_out < 0 and var_down < 0 else 0')
-                add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
-                add_vars(active_driver, 'var_down', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
-                add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * -(pbones["mouth_corner_L"].DOWN_LIMIT_L) * pbones["mouth_corner_L"].FORW_LIMIT_L * 1000)
-
     #Mouth_R
     def mouth_R(self, context):
 
@@ -3875,10 +3874,6 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_corner_out_back_fix_R')
         add_shapekey(context, 'mouth_corner_out_back_up_fix_R')
         add_shapekey(context, 'mouth_corner_out_back_down_fix_R')
-        add_shapekey(context, 'mouth_corner_forw_R')
-        add_shapekey(context, 'mouth_corner_out_forw_fix_R')
-        add_shapekey(context, 'mouth_corner_out_forw_up_fix_R')
-        add_shapekey(context, 'mouth_corner_out_forw_down_fix_R')
 
         #Add Drivers
         ob = bpy.context.active_object
@@ -3961,6 +3956,79 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var_back', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
                 add_mod_generator_location(active_driver, pbones["mouth_corner_R"].OUT_LIMIT_R * -(pbones["mouth_corner_R"].DOWN_LIMIT_R) * -(pbones["mouth_corner_R"].BACK_LIMIT_R) * 1000)
 
+     #Mouth_Extra_L
+    def mouth_extra_L(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location, add_mod_generator_location_offset
+
+        #Add Shapekeys
+        add_shapekey(context, 'mouth_corner_forw_L')
+        add_shapekey(context, 'mouth_corner_out_forw_fix_L')
+        add_shapekey(context, 'mouth_corner_out_forw_up_fix_L')
+        add_shapekey(context, 'mouth_corner_out_forw_down_fix_L')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #Mostly used in Quadruped faces
+            #mouth_corner_forw_L
+            if check_shapekey_driver('mouth_corner_forw_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_forw_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
+                add_mod_generator_location(active_driver, pbones["mouth_corner_L"].FORW_LIMIT_L)
+            #mouth_corner_out_forw_fix_L
+            if check_shapekey_driver('mouth_corner_out_forw_fix_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_fix_L'], 'value', 'SCRIPTED', '100 * var_out * var_forw if var_out < 0 else 0')
+                add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
+                add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * pbones["mouth_corner_L"].FORW_LIMIT_L * 100)
+            #mouth_corner_out_forw_up_fix_L
+            if check_shapekey_driver('mouth_corner_out_forw_up_fix_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_up_fix_L'], 'value', 'SCRIPTED', '1000 * var_out * var_up * var_forw if var_out < 0 and var_up > 0 else 0')
+                add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
+                add_vars(active_driver, 'var_up', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * pbones["mouth_corner_L"].UP_LIMIT_L * pbones["mouth_corner_L"].FORW_LIMIT_L * 1000)
+            #mouth_corner_out_forw_down_fix_L
+            if check_shapekey_driver('mouth_corner_out_forw_down_fix_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_down_fix_L'], 'value', 'SCRIPTED', '1000 * var_out * var_down * var_forw if var_out < 0 and var_down < 0 else 0')
+                add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
+                add_vars(active_driver, 'var_down', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
+                add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_L', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_L"].OUT_LIMIT_L) * -(pbones["mouth_corner_L"].DOWN_LIMIT_L) * pbones["mouth_corner_L"].FORW_LIMIT_L * 1000)
+
+    #Mouth_Extra_R
+    def mouth_extra_R(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location, add_mod_generator_location_offset
+
+        #Add Shapekeys
+        add_shapekey(context, 'mouth_corner_forw_R')
+        add_shapekey(context, 'mouth_corner_out_forw_fix_R')
+        add_shapekey(context, 'mouth_corner_out_forw_up_fix_R')
+        add_shapekey(context, 'mouth_corner_out_forw_down_fix_R')
+
+        #Add Drivers
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = bpy.context.active_object.data.shape_keys.key_blocks
+            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
             #Mostly used in Quadruped faces
             #mouth_corner_forw_R
             if check_shapekey_driver('mouth_corner_forw_R'):
@@ -3973,28 +4041,28 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             if check_shapekey_driver('mouth_corner_out_forw_fix_R'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_fix_R'], 'value', 'SCRIPTED', '100 * var_out * var_forw if var_out > 0 else 0')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_fix_R'], 'value', 'SCRIPTED', '100 * var_out * var_forw if var_out < 0 else 0')
                 add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
                 add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, pbones["mouth_corner_R"].OUT_LIMIT_R * pbones["mouth_corner_R"].FORW_LIMIT_R * 100)
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_R"].OUT_LIMIT_R) * pbones["mouth_corner_R"].FORW_LIMIT_R * 100)
             #mouth_corner_out_forw_up_fix_R
             if check_shapekey_driver('mouth_corner_out_forw_up_fix_R'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_up_fix_R'], 'value', 'SCRIPTED', '1000 * var_out * var_up * var_forw if var_out > 0 and var_up > 0 else 0')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_up_fix_R'], 'value', 'SCRIPTED', '1000 * var_out * var_up * var_forw if var_out < 0 and var_up > 0 else 0')
                 add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
                 add_vars(active_driver, 'var_up', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, pbones["mouth_corner_R"].OUT_LIMIT_R * pbones["mouth_corner_R"].UP_LIMIT_R * pbones["mouth_corner_R"].FORW_LIMIT_R * 1000)
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_R"].OUT_LIMIT_R) * pbones["mouth_corner_R"].UP_LIMIT_R * pbones["mouth_corner_R"].FORW_LIMIT_R * 1000)
             #mouth_corner_out_forw_down_fix_R
             if check_shapekey_driver('mouth_corner_out_forw_down_fix_R'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_down_fix_R'], 'value', 'SCRIPTED', '1000 * var_out * var_down * var_forw if var_out > 0 and var_down < 0 else 0')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_forw_down_fix_R'], 'value', 'SCRIPTED', '1000 * var_out * var_down * var_forw if var_out < 0 and var_down < 0 else 0')
                 add_vars(active_driver, 'var_out', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
                 add_vars(active_driver, 'var_down', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_vars(active_driver, 'var_forw', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
-                add_mod_generator_location(active_driver, pbones["mouth_corner_R"].OUT_LIMIT_R * -(pbones["mouth_corner_R"].DOWN_LIMIT_R) * pbones["mouth_corner_R"].FORW_LIMIT_R * 1000)
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_R"].OUT_LIMIT_R) * -(pbones["mouth_corner_R"].DOWN_LIMIT_R) * pbones["mouth_corner_R"].FORW_LIMIT_R * 1000)
 
     #U_L
     def U_L(self, context):
@@ -4152,23 +4220,43 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             #Turn M Sculpting Shapes Off
             shapekeys['M'].value = 0.0
 
+    Forehead_Frown_Shapekeys: bpy.props.BoolProperty(default=True)
+    Eyebrows_Shapekeys: bpy.props.BoolProperty(default=True)
+    Eyelids_Shapekeys: bpy.props.BoolProperty(default=True)
+    Cheeks_Shapekeys: bpy.props.BoolProperty(default=True)
+    Nose_Shapekeys: bpy.props.BoolProperty(default=True)
+    Mouth_Corners_Shapekeys: bpy.props.BoolProperty(default=True)
+    Mouth_Corners_Quadruped_Extra_Shapekeys: bpy.props.BoolProperty(default=False)
+    Mouth_U_Shapekeys: bpy.props.BoolProperty(default=True)
+    Mouth_M_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
-        self.frown(context)
-        self.eyebrows_L(context)
-        self.eyebrows_R(context)
-        self.eyelid_up_L(context)
-        self.eyelid_up_R(context)
-        self.eyelid_low_L(context)
-        self.eyelid_low_R(context)
-        self.cheek_L(context)
-        self.cheek_R(context)
-        self.nose_L(context)
-        self.nose_R(context)
-        self.mouth_L(context)
-        self.mouth_R(context)
-        self.U_L(context)
-        self.U_R(context)
-        self.U(context)
-        self.M(context)
+        if self.Forehead_Frown_Shapekeys:
+            self.frown(context)
+        if self.Eyebrows_Shapekeys:
+            self.eyebrows_L(context)
+            self.eyebrows_R(context)
+        if self.Eyelids_Shapekeys:
+            self.eyelid_up_L(context)
+            self.eyelid_up_R(context)
+            self.eyelid_low_L(context)
+            self.eyelid_low_R(context)
+        if self.Cheeks_Shapekeys:
+            self.cheek_L(context)
+            self.cheek_R(context)
+        if self.Nose_Shapekeys:
+            self.nose_L(context)
+            self.nose_R(context)
+        if self.Mouth_Corners_Shapekeys:
+            self.mouth_L(context)
+            self.mouth_R(context)
+        if self.Mouth_Corners_Quadruped_Extra_Shapekeys:
+            self.mouth_extra_L(context)
+            self.mouth_extra_R(context)
+        if self.Mouth_U_Shapekeys:
+            self.U_L(context)
+            self.U_R(context)
+            self.U(context)
+        if self.Mouth_M_Shapekeys:
+            self.M(context)
         return {"FINISHED"}
