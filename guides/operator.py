@@ -4309,18 +4309,42 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
                     #Update Driver Value with current Bone Transform
                     for mod in driver.modifiers:
                         if mod.type == 'GENERATOR':
+                            #X ROTATION
                             if driver_transform_type[0] == 'ROT_X':
-                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_x')
+                                if round(bone_local_transforms(driver_target[0], driver_bone[0], 'rot_x'), 1) == 0.0:
+                                    self.report({'ERROR'}, "Bone has no X Rotation")
+                                else:
+                                    mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_x')
+                            #Y ROTATION
                             if driver_transform_type[0] == 'ROT_Y':
-                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_y')
+                                if round(bone_local_transforms(driver_target[0], driver_bone[0], 'rot_y'), 1) == 0.0:
+                                    self.report({'ERROR'}, "Bone has no Y Rotation")
+                                else:
+                                    mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_y')
+                            #Z ROTATION
                             if driver_transform_type[0] == 'ROT_Z':
-                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_z')
+                                if round(bone_local_transforms(driver_target[0], driver_bone[0], 'rot_z'), 1) == 0.0:
+                                    self.report({'ERROR'}, "Bone has no Z Rotation")
+                                else:
+                                    mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_z')
+                            #X LOCATION
                             if driver_transform_type[0] == 'LOC_X':
-                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_x')
+                                if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_x'), 3) == 0.000:
+                                    self.report({'ERROR'}, "Bone has no X Location")
+                                else:
+                                    mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_x')
+                            #Y LOCATION
                             if driver_transform_type[0] == 'LOC_Y':
-                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_y')
+                                if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_y'), 3) == 0.000:
+                                    self.report({'ERROR'}, "Bone has no Y Location")
+                                else:
+                                    mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_y')
+                            #Z LOCATION
                             if driver_transform_type[0] == 'LOC_Z':
-                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z')
+                                if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z'), 3) == 0.000:
+                                    self.report({'ERROR'}, "Bone has no Z Location")
+                                else:
+                                    mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z')
 
 
     def execute(self, context):
