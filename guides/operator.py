@@ -4260,3 +4260,69 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         if self.Mouth_M_Shapekeys:
             self.M(context)
         return {"FINISHED"}
+
+class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
+
+    bl_idname = "blenrig.update_shapekey_driver"
+    bl_label = "BlenRig Update Shapkey Driver"
+    bl_description = "Update Active Shapkey Driver based on the current Pose and Values of the Rig"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            ob = bpy.context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    #Get Bone transformation to update driver
+    def update_trasnform(self, context):
+
+        from . utils import bone_local_transforms
+
+        ob = bpy.context.active_object
+        active_shapekey = ob.active_shape_key.name
+
+        driver_target = []
+        driver_bone = []
+        driver_transform_type = []
+
+        #Get Active Shapekey Driver
+        for driver in ob.data.shape_keys.animation_data.drivers:
+            d_path = driver.data_path
+            driver_target[:] = []
+            driver_bone[:] = []
+            driver_transform_type[:] = []
+            if d_path == 'key_blocks["' + active_shapekey + '"].value':
+                #For MAX type
+                if driver.driver.type == 'MAX':
+                    for var in driver.driver.variables:
+                        if var.type == 'TRANSFORMS':
+                            driver_target.append(var.targets[0].id)
+                            driver_bone.append(var.targets[0].bone_target)
+                            driver_transform_type.append(var.targets[0].transform_type)
+                            print (driver_target, driver_bone, driver_transform_type)
+                    #Update Driver Value with current Bone Transform
+                    for mod in driver.modifiers:
+                        if mod.type == 'GENERATOR':
+                            if driver_transform_type[0] == 'ROT_X':
+                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_x')
+                            if driver_transform_type[0] == 'ROT_Y':
+                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_y')
+                            if driver_transform_type[0] == 'ROT_Z':
+                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_z')
+                            if driver_transform_type[0] == 'LOC_X':
+                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_x')
+                            if driver_transform_type[0] == 'LOC_Y':
+                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_y')
+                            if driver_transform_type[0] == 'LOC_Z':
+                                mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z')
+
+
+    def execute(self, context):
+        self.update_trasnform(context)
+        return {"FINISHED"}

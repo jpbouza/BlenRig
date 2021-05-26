@@ -1,6 +1,7 @@
 import bpy
 from bpy_extras import view3d_utils
 from math import radians
+from mathutils import Matrix, Vector
 
 # GET ARMATURE
 def get_armature_object(context):
@@ -516,3 +517,45 @@ def check_shapekey_driver(shape_name):
                 for driver in active.data.shape_keys.key_blocks.data.animation_data.drivers:
                     if shape_name in driver.data_path:
                         return True
+
+### Get Local Transforms of Bone For Driver Updater (Code by Niabot)
+def bone_local_transforms(armature, bname, transform_type):
+    bone        = armature.data.bones[bname]
+    bone_ml     = bone.matrix_local
+    bone_pose   = armature.pose.bones[bname]
+    bone_pose_m = bone_pose.matrix
+
+    if bone.parent:
+
+        parent        = bone.parent
+        parent_ml     = parent.matrix_local
+        parent_pose   = bone_pose.parent
+        parent_pose_m = parent_pose.matrix
+
+        object_diff = parent_ml.inverted() @ bone_ml
+        pose_diff   = parent_pose_m.inverted() @ bone_pose_m
+        local_diff  = object_diff.inverted() @ pose_diff
+
+    else:
+
+        local_diff = bone_ml.inverted() @ bone_pose_m
+
+    if transform_type == 'rot_x':
+        transform = local_diff.to_euler('ZYX')[0]
+    if transform_type == 'rot_y':
+        transform = local_diff.to_euler('XZY')[1]
+    if transform_type == 'rot_z':
+        transform = local_diff.to_euler('XYZ')[2]
+    if transform_type == 'loc_x':
+        transform = local_diff.to_translation()[0]
+    if transform_type == 'loc_y':
+        transform = local_diff.to_translation()[1]
+    if transform_type == 'loc_z':
+        transform = local_diff.to_translation()[2]
+    if transform_type == 'scale_x':
+        transform = local_diff.to_scale()[0]
+    if transform_type == 'scale_y':
+        transform = local_diff.to_scale()[1]
+    if transform_type == 'scale_z':
+        transform = local_diff.to_scale()[2]
+    return transform
