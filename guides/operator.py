@@ -4297,6 +4297,7 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
             driver_target[:] = []
             driver_bone[:] = []
             driver_transform_type[:] = []
+            #Facial Drivers exception
             if d_path == 'key_blocks["' + active_shapekey + '"].value':
                 #For MAX type
                 if driver.driver.type == 'MAX':
@@ -4312,41 +4313,58 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
                             #X ROTATION
                             if driver_transform_type[0] == 'ROT_X':
                                 if round(bone_local_transforms(driver_target[0], driver_bone[0], 'rot_x'), 1) == 0.0:
-                                    self.report({'ERROR'}, "Bone has no X Rotation")
+                                    self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' X Rotation is 0.0. Driver won't be updated")
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_x')
                             #Y ROTATION
                             if driver_transform_type[0] == 'ROT_Y':
                                 if round(bone_local_transforms(driver_target[0], driver_bone[0], 'rot_y'), 1) == 0.0:
-                                    self.report({'ERROR'}, "Bone has no Y Rotation")
+                                    self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Y Rotation is 0.0. Driver won't be updated")
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_y')
                             #Z ROTATION
                             if driver_transform_type[0] == 'ROT_Z':
                                 if round(bone_local_transforms(driver_target[0], driver_bone[0], 'rot_z'), 1) == 0.0:
-                                    self.report({'ERROR'}, "Bone has no Z Rotation")
+                                    self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Z Rotation is 0.0. Driver won't be updated")
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'rot_z')
                             #X LOCATION
                             if driver_transform_type[0] == 'LOC_X':
                                 if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_x'), 3) == 0.000:
-                                    self.report({'ERROR'}, "Bone has no X Location")
+                                    self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' X Location is 0.0. Driver won't be updated")
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_x')
                             #Y LOCATION
                             if driver_transform_type[0] == 'LOC_Y':
                                 if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_y'), 3) == 0.000:
-                                    self.report({'ERROR'}, "Bone has no Y Location")
+                                    self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Y Location is 0.0. Driver won't be updated")
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_y')
                             #Z LOCATION
                             if driver_transform_type[0] == 'LOC_Z':
                                 if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z'), 3) == 0.000:
-                                    self.report({'ERROR'}, "Bone has no Z Location")
+                                    self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Z Location is 0.0. Driver won't be updated")
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z')
 
+    #Facial Shapekeys Exception. These must be updated with the Update Facial Shapekeys Operator
+    facial_shapekeys = ['eyelid_up_up_L', 'eyelid_up_down_1_L', 'eyelid_up_down_2_L', 'eyelid_up_up_R',
+    'eyelid_up_down_1_R', 'eyelid_up_down_2_R', 'eyelid_low_down_L', 'eyelid_low_up_1_L', 'eyelid_low_up_2_L', 'eyelid_low_down_R', 'eyelid_low_up_1_R', 'eyelid_low_up_2_R',
+    'cheek_up_L', 'cheek_down_L', 'cheek_up_R', 'cheek_down_R', 'nose_frown_L', 'nostril_expand_L', 'nostril_collapse_L', 'nostril_frown_L', 'nose_frown_R', 'nostril_expand_R',
+    'nostril_collapse_R', 'nostril_frown_R', 'mouth_corner_out_L', 'mouth_corner_up_L', 'mouth_corner_down_L', 'mouth_corner_back_L', 'mouth_corner_out_up_fix_L', 'mouth_corner_out_down_fix_L',
+    'mouth_corner_out_back_fix_L', 'mouth_corner_out_back_up_fix_L', 'mouth_corner_out_back_down_fix_L', 'mouth_corner_out_R', 'mouth_corner_up_R', 'mouth_corner_down_R', 'mouth_corner_back_R',
+    'mouth_corner_out_up_fix_R', 'mouth_corner_out_down_fix_R', 'mouth_corner_out_back_fix_R', 'mouth_corner_out_back_up_fix_R', 'mouth_corner_out_back_down_fix_R', 'mouth_corner_in_L', 'U_up_L', 'U_low_L',
+    'mouth_corner_in_R', 'U_up_R', 'U_low_R', 'U_thickness_up', 'U_thickness_low', 'U_thickness', 'U', 'M_up', 'M_low', 'M', 'mouth_corner_forw_L', 'mouth_corner_out_forw_fix_L', 'mouth_corner_out_forw_up_fix_L',
+    'mouth_corner_out_forw_down_fix_L', 'mouth_corner_forw_R', 'mouth_corner_out_forw_fix_R', 'mouth_corner_out_forw_up_fix_R', 'mouth_corner_out_forw_down_fix_R']
+
+    eyelid_shapekeys = []
 
     def execute(self, context):
-        self.update_trasnform(context)
+        ob = bpy.context.active_object
+        active_shapekey = ob.active_shape_key.name
+        #Facial Shapkeys Exception
+        if active_shapekey in self.facial_shapekeys:
+            self.report({'ERROR'}, "'" + str(active_shapekey) + "' must be updated with the Update Facial Drivers Button")
+        else:
+            self.update_trasnform(context)
         return {"FINISHED"}
