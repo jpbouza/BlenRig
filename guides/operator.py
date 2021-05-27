@@ -4297,7 +4297,6 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
             driver_target[:] = []
             driver_bone[:] = []
             driver_transform_type[:] = []
-            #Facial Drivers exception
             if d_path == 'key_blocks["' + active_shapekey + '"].value':
                 #For MAX type
                 if driver.driver.type == 'MAX':
@@ -4306,7 +4305,7 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
                             driver_target.append(var.targets[0].id)
                             driver_bone.append(var.targets[0].bone_target)
                             driver_transform_type.append(var.targets[0].transform_type)
-                            print (driver_target, driver_bone, driver_transform_type)
+                            # print (driver_target, driver_bone, driver_transform_type)
                     #Update Driver Value with current Bone Transform
                     for mod in driver.modifiers:
                         if mod.type == 'GENERATOR':
@@ -4347,17 +4346,121 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
                                 else:
                                     mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z')
 
+    #Get Bone transformation to update driver
+    def update_eyelids(self, context):
+
+        from . utils import bone_local_transforms
+
+        ob = bpy.context.active_object
+        active_shapekey = ob.active_shape_key.name
+        blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+        pbones = blenrig_arm.pose.bones
+
+        driver_target = []
+        driver_bone = []
+        driver_transform_type = []
+        eyelid_1 = []
+        eyelid_2 = []
+        movement_range = []
+
+        if active_shapekey == 'eyelid_up_down_1_L' or active_shapekey == 'eyelid_up_down_2_L':
+            eyelid_1[:] = []
+            eyelid_2[:] = []
+            movement_range[:] = []
+            eyelid_1.append('eyelid_up_down_1_L')
+            eyelid_2.append('eyelid_up_down_2_L')
+            movement_range.append(pbones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L)
+        elif active_shapekey == 'eyelid_up_down_1_R' or active_shapekey == 'eyelid_up_down_2_R':
+            eyelid_1[:] = []
+            eyelid_2[:] = []
+            movement_range[:] = []
+            eyelid_1.append('eyelid_up_down_1_R')
+            eyelid_2.append('eyelid_up_down_2_R')
+            movement_range.append(pbones["eyelid_up_ctrl_R"].EYELID_DOWN_LIMIT_R)
+        elif active_shapekey == 'eyelid_low_up_1_L' or active_shapekey == 'eyelid_low_up_2_L':
+            eyelid_1[:] = []
+            eyelid_2[:] = []
+            movement_range[:] = []
+            eyelid_1.append('eyelid_low_up_1_L')
+            eyelid_2.append('eyelid_low_up_2_L')
+            movement_range.append(pbones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L)
+        elif active_shapekey == 'eyelid_low_up_1_R' or active_shapekey == 'eyelid_low_up_2_R':
+            eyelid_1[:] = []
+            eyelid_2[:] = []
+            movement_range[:] = []
+            eyelid_1.append('eyelid_low_up_1_R')
+            eyelid_2.append('eyelid_low_up_2_R')
+            movement_range.append(pbones["eyelid_low_ctrl_R"].EYELID_UP_LIMIT_R)
+
+        #Get Active Shapekey Driver
+        for driver in ob.data.shape_keys.animation_data.drivers:
+            d_path = driver.data_path
+            driver_target[:] = []
+            driver_bone[:] = []
+            driver_transform_type[:] = []
+            #If Updating eyelid_1 movement shapekey
+            if active_shapekey == eyelid_1[0]:
+                if d_path == 'key_blocks["' + active_shapekey + '"].value':
+                    #For MAX type
+                    if driver.driver.type == 'MAX':
+                        for var in driver.driver.variables:
+                            if var.type == 'TRANSFORMS':
+                                driver_target.append(var.targets[0].id)
+                                driver_bone.append(var.targets[0].bone_target)
+                                driver_transform_type.append(var.targets[0].transform_type)
+                                # print (driver_target, driver_bone, driver_transform_type)
+                        #Update Driver Value with current Bone Transform
+                        for mod in driver.modifiers:
+                            if mod.type == 'GENERATOR':
+                                #Z LOCATION
+                                if driver_transform_type[0] == 'LOC_Z':
+                                    if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z'), 4) == 0.0000:
+                                        self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Z Location is 0.0. Driver won't be updated")
+                                    else:
+                                        mod.coefficients[1] = 1 / bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z')
+                                        #Update eyelid_2
+                                        for driver2 in ob.data.shape_keys.animation_data.drivers:
+                                            if driver2.data_path == 'key_blocks["' + eyelid_2[0] + '"].value':
+                                                for mod2 in driver2.modifiers:
+                                                    if mod2.type == 'GENERATOR':
+                                                        #Coefficient_1 equals the movement range between eyelid_up_down_1_L and EYELID_DOWN_LIMIT_L
+                                                        mod2.coefficients[1] = 1 / (movement_range[0] - abs(1 / mod.coefficients[1]))
+                                                        #Coefficient_0 represents the size of eyelid_up_down_1_L compared to the range of motion of eyelid_up_down_2_L(coefficient_1)
+                                                        mod2.coefficients[0] = -(mod2.coefficients[1] / abs(mod.coefficients[1]))
+                                                        self.report({'WARNING'}, "'" + str(eyelid_2[0]) + "' shapekey driver has also been updated")
+                                                        if 'eyelid_up' in eyelid_2[0]:
+                                                            mod2.coefficients[1] = -(mod2.coefficients[1])
+            #If Updating eyelid_2 movement shapekey
+            if active_shapekey == eyelid_2[0]:
+                if driver.data_path == 'key_blocks["' + eyelid_1[0] + '"].value':
+                    #Get eyelid_1 coefficient[1]
+                    for mod in driver.modifiers:
+                        if mod.type == 'GENERATOR':
+                            eyelid_1_co_1 = mod.coefficients[1]
+                            #Update eyelid_2
+                            for driver2 in ob.data.shape_keys.animation_data.drivers:
+                                if driver2.data_path == 'key_blocks["' + eyelid_2[0] + '"].value':
+                                    for mod2 in driver2.modifiers:
+                                        if mod2.type == 'GENERATOR':
+                                            #Coefficient_1 equals the movement range between eyelid_up_down_1_L and EYELID_DOWN_LIMIT_L
+                                            mod2.coefficients[1] = 1 / (movement_range[0] - abs(1 / eyelid_1_co_1))
+                                            #Coefficient_0 represents the size of eyelid_up_down_1_L compared to the range of motion of eyelid_up_down_2_L(coefficient_1)
+                                            mod2.coefficients[0] = -(mod2.coefficients[1] / abs(eyelid_1_co_1))
+                                            self.report({'WARNING'}, "'" + str(eyelid_2[0]) + "' shapekey driver has also been updated")
+                                            if 'eyelid_up' in eyelid_2[0]:
+                                                mod2.coefficients[1] = -(mod2.coefficients[1])
+
     #Facial Shapekeys Exception. These must be updated with the Update Facial Shapekeys Operator
-    facial_shapekeys = ['eyelid_up_up_L', 'eyelid_up_down_1_L', 'eyelid_up_down_2_L', 'eyelid_up_up_R',
-    'eyelid_up_down_1_R', 'eyelid_up_down_2_R', 'eyelid_low_down_L', 'eyelid_low_up_1_L', 'eyelid_low_up_2_L', 'eyelid_low_down_R', 'eyelid_low_up_1_R', 'eyelid_low_up_2_R',
-    'cheek_up_L', 'cheek_down_L', 'cheek_up_R', 'cheek_down_R', 'nose_frown_L', 'nostril_expand_L', 'nostril_collapse_L', 'nostril_frown_L', 'nose_frown_R', 'nostril_expand_R',
-    'nostril_collapse_R', 'nostril_frown_R', 'mouth_corner_out_L', 'mouth_corner_up_L', 'mouth_corner_down_L', 'mouth_corner_back_L', 'mouth_corner_out_up_fix_L', 'mouth_corner_out_down_fix_L',
+    facial_shapekeys = ['eyelid_up_up_L', 'eyelid_up_up_R', 'eyelid_low_down_L', 'eyelid_low_down_R', 'cheek_up_L', 'cheek_down_L', 'cheek_up_R', 'cheek_down_R', 'nose_frown_L',
+    'nostril_expand_L', 'nostril_collapse_L', 'nostril_frown_L', 'nose_frown_R', 'nostril_expand_R', 'nostril_collapse_R', 'nostril_frown_R',
+    'mouth_corner_out_L', 'mouth_corner_up_L', 'mouth_corner_down_L', 'mouth_corner_back_L', 'mouth_corner_out_up_fix_L', 'mouth_corner_out_down_fix_L',
     'mouth_corner_out_back_fix_L', 'mouth_corner_out_back_up_fix_L', 'mouth_corner_out_back_down_fix_L', 'mouth_corner_out_R', 'mouth_corner_up_R', 'mouth_corner_down_R', 'mouth_corner_back_R',
     'mouth_corner_out_up_fix_R', 'mouth_corner_out_down_fix_R', 'mouth_corner_out_back_fix_R', 'mouth_corner_out_back_up_fix_R', 'mouth_corner_out_back_down_fix_R', 'mouth_corner_in_L', 'U_up_L', 'U_low_L',
     'mouth_corner_in_R', 'U_up_R', 'U_low_R', 'U_thickness_up', 'U_thickness_low', 'U_thickness', 'U', 'M_up', 'M_low', 'M', 'mouth_corner_forw_L', 'mouth_corner_out_forw_fix_L', 'mouth_corner_out_forw_up_fix_L',
     'mouth_corner_out_forw_down_fix_L', 'mouth_corner_forw_R', 'mouth_corner_out_forw_fix_R', 'mouth_corner_out_forw_up_fix_R', 'mouth_corner_out_forw_down_fix_R']
 
-    eyelid_shapekeys = []
+    #Eyelid Shapekeys are updated separately
+    eyelid_shapekeys = ['eyelid_up_down_1_L', 'eyelid_up_down_2_L', 'eyelid_up_down_1_R', 'eyelid_up_down_2_R', 'eyelid_low_up_1_L', 'eyelid_low_up_2_L', 'eyelid_low_up_1_R', 'eyelid_low_up_2_R']
 
     def execute(self, context):
         ob = bpy.context.active_object
@@ -4365,6 +4468,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
         #Facial Shapkeys Exception
         if active_shapekey in self.facial_shapekeys:
             self.report({'ERROR'}, "'" + str(active_shapekey) + "' must be updated with the Update Facial Drivers Button")
+        elif active_shapekey in self.eyelid_shapekeys:
+            print ('eyelids')
+            self.update_eyelids(context)
         else:
+            print ('others')
             self.update_trasnform(context)
         return {"FINISHED"}
