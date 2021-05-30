@@ -23,7 +23,8 @@ def register():
     from .panel import BlendrigGuidePanel,BlendrigGuidePanel_options
     from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
-    Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver)
+    Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
+    Operator_blenrig_update_face_shapekeys_drivers)
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
     register_class(Operator_Transfer_VGroups)
@@ -35,6 +36,7 @@ def register():
     register_class(Operator_blenrig_add_toes_shapekeys)
     register_class(Operator_blenrig_add_face_shapekeys)
     register_class(Operator_blenrig_update_shapekey_driver)
+    register_class(Operator_blenrig_update_face_shapekeys_drivers)
     register_class(BlendrigGuidePanel_options)
     register_class(BlendrigGuidePanel)
 
@@ -42,7 +44,8 @@ def unregister():
     from .panel import BlendrigGuidePanel, BlendrigGuidePanel_options
     from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
-    Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver)
+    Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
+    Operator_blenrig_update_face_shapekeys_drivers)
     from bpy.utils import unregister_class
     unregister_class(BlendrigGuidePanel_options)
     unregister_class(BlendrigGuidePanel)
@@ -57,6 +60,7 @@ def unregister():
     unregister_class(Operator_blenrig_add_toes_shapekeys)
     unregister_class(Operator_blenrig_add_face_shapekeys)
     unregister_class(Operator_blenrig_update_shapekey_driver)
+    unregister_class(Operator_blenrig_update_face_shapekeys_drivers)
     from .properties import BlenrigGuideData
     from bpy.types import Scene as scn
     del scn.blenrig_guide

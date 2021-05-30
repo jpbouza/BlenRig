@@ -371,6 +371,8 @@ def add_shapekey(context, shape_name):
                 ob.active_shape_key_index = index
                 ob.data.shape_keys.key_blocks[index].value = 1.0
                 ob.use_shape_key_edit_mode = True
+                #Rename Shapekeys Datablock
+                ob.data.shape_keys.name = 'ShapeKeys'
             else:
                 new_shape = ob.shape_key_add(from_mix=False)
                 new_shape.name = shape_name
@@ -379,6 +381,8 @@ def add_shapekey(context, shape_name):
                     ob.active_shape_key_index = index
                     ob.data.shape_keys.key_blocks[index].value = 1.0
                     ob.use_shape_key_edit_mode = True
+                    #Rename Shapekeys Datablock
+                    ob.data.shape_keys.name = 'ShapeKeys'
         #If no Shapekeys present
         else:
             Basis = ob.shape_key_add(from_mix=False)
@@ -386,6 +390,8 @@ def add_shapekey(context, shape_name):
             shapekeys = ob.data.shape_keys.key_blocks
             new_shape = ob.shape_key_add(from_mix=False)
             new_shape.name = shape_name
+            #Rename Shapekeys Datablock
+            ob.data.shape_keys.name = 'ShapeKeys'
             if shape_name in shapekeys:
                 index = ob.data.shape_keys.key_blocks.find(shape_name)
                 ob.active_shape_key_index = index
@@ -447,6 +453,16 @@ def add_vars(current_driver, v_name, v_type, t_id, t_bone_target, t_data_path, t
         target.transform_space = t_transform_space
         target.transform_type = t_transform_type
         target.rotation_mode = t_rotation_mode
+
+def add_vars_shapekeys(current_driver, v_name, ob_shapkeys, shape_name):
+    var = current_driver.driver.variables.new()
+    var.name = v_name
+    var.type = 'SINGLE_PROP'
+    target = var.targets[0]
+    target.id_type = 'KEY'
+    target.id = bpy.data.shape_keys[ob_shapkeys]
+    target.data_path = 'key_blocks["' + shape_name + '"].value'
+
 
 def add_mod_generator(current_driver, m_type, m_blend_in, m_blend_out, m_frame_start, m_frame_end, m_mode, m_mute, m_poly_order, m_use_additive, m_use_influence, m_use_restricted_range, m_co_0, m_co_1):
     mod = current_driver.modifiers.new(m_type)
