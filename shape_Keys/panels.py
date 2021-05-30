@@ -52,6 +52,7 @@ class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
         box.scale_x = 5.35
         col = box.column()
         col.operator("blenrig.update_shapekey_driver", text = 'Update Driver with Current Pose')
+        col.operator("blenrig.update_face_shapekeys_drivers", text = 'Update All Facial Drivers')
         # col.separator()
 
         # prop_data = skp.bl_rna.properties['shape_key_add_placement']
