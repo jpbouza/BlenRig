@@ -4325,6 +4325,10 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var_lip', 'TRANSFORMS', blenrig_arm, 'mouth_low_ctrl', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
                 add_mod_generator_location(active_driver, pbones["mouth_ctrl"].U_M_CTRL_LIMIT)
 
+        #Assign Vgroups
+        shapekeys['U_up_L'].vertex_group = 'mouth_up_L'
+        shapekeys['U_low_L'].vertex_group = 'mouth_low_L'
+
     #U_R
     def U_R(self, context):
 
@@ -4387,6 +4391,10 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var_lip', 'TRANSFORMS', blenrig_arm, 'mouth_low_ctrl', "''", 'LOCAL_SPACE', 'LOC_Y', 'AUTO')
                 add_mod_generator_location(active_driver, pbones["mouth_ctrl"].U_M_CTRL_LIMIT)
 
+        #Assign Vgroups
+        shapekeys['U_up_R'].vertex_group = 'mouth_up_R'
+        shapekeys['U_low_R'].vertex_group = 'mouth_low_R'
+
     #U
     def U(self, context):
 
@@ -4425,6 +4433,10 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             shapekeys['U'].value = 0.0
             shapekeys['U_thickness'].value = 0.0
 
+        #Assign Vgroups
+        shapekeys['U_thickness_up'].vertex_group = 'mouth_up'
+        shapekeys['U_thickness_low'].vertex_group = 'mouth_low'
+
     #M
     def M(self, context):
 
@@ -4460,6 +4472,10 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_mod_generator_location(active_driver, -(pbones["mouth_ctrl"].U_M_CTRL_LIMIT))
             #Turn M Sculpting Shapes Off
             shapekeys['M'].value = 0.0
+
+        #Assign Vgroups
+        shapekeys['M_up'].vertex_group = 'mouth_up'
+        shapekeys['M_low'].vertex_group = 'mouth_low'
 
     #Mouth Open
     def mouth_open(self, context):
