@@ -4467,8 +4467,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         from . utils import add_shapekey, add_drivers, add_vars, add_vars_shapekeys, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location, add_mod_generator_location_offset
 
         #Add Shapekeys
-        add_shapekey(context, 'mouth_open')
-        add_shapekey(context, 'mouth_close')
+        add_shapekey(context, 'mouth_open_down')
+        add_shapekey(context, 'mouth_close_up')
         add_shapekey(context, 'mouth_open_corner_out_L')
         add_shapekey(context, 'mouth_open_corner_in_L')
         add_shapekey(context, 'mouth_close_corner_out_L')
@@ -4487,19 +4487,19 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
-            #mouth_open
-            if check_shapekey_driver('mouth_open'):
+            #mouth_open_down
+            if check_shapekey_driver('mouth_open_down'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_open'], 'value', 'SCRIPTED', '-(var_rot / ' + str(round(radians(-(pbones["maxi"].JAW_DOWN_LIMIT)), 4)) + ') + -(var_loc / ' + str(-(round(pbones['maxi'].bone.length * 0.33, 4))) + ')')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_open_down'], 'value', 'SCRIPTED', '-(var_rot / ' + str(round(radians(-(pbones["maxi"].JAW_DOWN_LIMIT)), 4)) + ') + -(var_loc / ' + str(-(round(pbones['maxi'].bone.length * 0.33, 4))) + ')')
                 add_vars(active_driver, 'var_rot', 'TRANSFORMS', blenrig_arm, 'maxi', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
                 add_vars(active_driver, 'var_loc', 'TRANSFORMS', blenrig_arm, 'maxi', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, -1)
-            #mouth_close
-            if check_shapekey_driver('mouth_close'):
+            #mouth_close_up
+            if check_shapekey_driver('mouth_close_up'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_close'], 'value', 'SCRIPTED', 'var_rot / ' + str(round(radians(pbones["maxi"].JAW_UP_LIMIT), 4)) + ' + var_loc / ' + str(round(pbones['maxi'].bone.length * 0.1, 4)))
+                active_driver = add_shapekeys_driver(shapekeys['mouth_close_up'], 'value', 'SCRIPTED', 'var_rot / ' + str(round(radians(pbones["maxi"].JAW_UP_LIMIT), 4)) + ' + var_loc / ' + str(round(pbones['maxi'].bone.length * 0.1, 4)))
                 add_vars(active_driver, 'var_rot', 'TRANSFORMS', blenrig_arm, 'maxi', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
                 add_vars(active_driver, 'var_loc', 'TRANSFORMS', blenrig_arm, 'maxi', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, 1)
@@ -4798,9 +4798,49 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
                                             mod2.coefficients[1] = 1 / (movement_range[0] - abs(1 / eyelid_1_co_1))
                                             #Coefficient_0 represents the size of eyelid_up_down_1_L compared to the range of motion of eyelid_up_down_2_L(coefficient_1)
                                             mod2.coefficients[0] = -(mod2.coefficients[1] / abs(eyelid_1_co_1))
-                                            self.report({'WARNING'}, "'" + str(eyelid_2[0]) + "' shapekey driver has also been updated")
                                             if 'eyelid_up' in eyelid_2[0]:
                                                 mod2.coefficients[1] = -(mod2.coefficients[1])
+
+    #Get Bone transformation to update driver
+    def update_mouth_open(self, context):
+
+        from . utils import bone_local_transforms
+
+        ob = bpy.context.active_object
+        active_shapekey = ob.active_shape_key.name
+        blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+        pbones = blenrig_arm.pose.bones
+
+        driver_target = []
+        driver_bone = []
+        driver_transform_type = []
+
+        #Get Active Shapekey Driver
+        for driver in ob.data.shape_keys.animation_data.drivers:
+            d_path = driver.data_path
+            driver_target[:] = []
+            driver_bone[:] = []
+            driver_transform_type[:] = []
+            if d_path == 'key_blocks["' + active_shapekey + '"].value':
+                #For SCRIPTED type
+                if driver.driver.type == 'SCRIPTED':
+                    for var in driver.driver.variables:
+                        if var.type == 'TRANSFORMS':
+                            driver_target.append(var.targets[0].id)
+                            driver_bone.append(var.targets[0].bone_target)
+                            driver_transform_type.append(var.targets[0].transform_type)
+                    #Mouth Open
+                    if active_shapekey == 'mouth_open_down':
+                        if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z'), 3) == 0.000:
+                            self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Z Rotation is 0.0. Driver won't be updated")
+                        else:
+                            driver.driver.expression = '-(var_rot / ' + str(round(radians(-(pbones["maxi"].JAW_DOWN_LIMIT)), 4)) + ') + -(var_loc / ' + str(round(driver_target[0].pose.bones[driver_bone[0]].location[2], 4)) + ')'
+                    #Mouth Close
+                    if active_shapekey == 'mouth_close_up':
+                        if round(bone_local_transforms(driver_target[0], driver_bone[0], 'loc_z'), 3) == 0.000:
+                            self.report({'ERROR'}, "'" + str(driver_bone[0]) + "' Z Rotation is 0.0. Driver won't be updated")
+                        else:
+                            driver.driver.expression = 'var_rot / ' + str(round(radians(pbones["maxi"].JAW_UP_LIMIT), 4)) + ' + var_loc / ' + str(round(driver_target[0].pose.bones[driver_bone[0]].location[2], 4))
 
     #Facial Shapekeys Exception. These must be updated with the Update Facial Shapekeys Operator
     facial_shapekeys = ['eyelid_up_up_L', 'eyelid_up_up_R', 'eyelid_low_down_L', 'eyelid_low_down_R', 'cheek_up_L', 'cheek_down_L', 'cheek_up_R', 'cheek_down_R', 'nose_frown_L',
@@ -4809,10 +4849,14 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
     'mouth_corner_out_back_fix_L', 'mouth_corner_out_back_up_fix_L', 'mouth_corner_out_back_down_fix_L', 'mouth_corner_out_R', 'mouth_corner_up_R', 'mouth_corner_down_R', 'mouth_corner_back_R',
     'mouth_corner_out_up_fix_R', 'mouth_corner_out_down_fix_R', 'mouth_corner_out_back_fix_R', 'mouth_corner_out_back_up_fix_R', 'mouth_corner_out_back_down_fix_R', 'mouth_corner_in_L', 'U_up_L', 'U_low_L',
     'mouth_corner_in_R', 'U_up_R', 'U_low_R', 'U_thickness_up', 'U_thickness_low', 'U_thickness', 'U', 'M_up', 'M_low', 'M', 'mouth_corner_forw_L', 'mouth_corner_out_forw_fix_L', 'mouth_corner_out_forw_up_fix_L',
-    'mouth_corner_out_forw_down_fix_L', 'mouth_corner_forw_R', 'mouth_corner_out_forw_fix_R', 'mouth_corner_out_forw_up_fix_R', 'mouth_corner_out_forw_down_fix_R']
+    'mouth_corner_out_forw_down_fix_L', 'mouth_corner_forw_R', 'mouth_corner_out_forw_fix_R', 'mouth_corner_out_forw_up_fix_R', 'mouth_corner_out_forw_down_fix_R',
+    'mouth_open_corner_out_L', 'mouth_open_corner_in_L', 'mouth_close_corner_out_L', 'mouth_close_corner_in_L', 'mouth_open_corner_out_R', 'mouth_open_corner_in_R', 'mouth_close_corner_out_R', 'mouth_close_corner_in_R']
 
     #Eyelid Shapekeys are updated separately
     eyelid_shapekeys = ['eyelid_up_down_1_L', 'eyelid_up_down_2_L', 'eyelid_up_down_1_R', 'eyelid_up_down_2_R', 'eyelid_low_up_1_L', 'eyelid_low_up_2_L', 'eyelid_low_up_1_R', 'eyelid_low_up_2_R']
+
+    #Mouth Open Shapekeys are updated separately
+    mouth_open_shapekeys = ['mouth_open_down', 'mouth_close_up']
 
     def execute(self, context):
         ob = bpy.context.active_object
@@ -4821,10 +4865,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
         if active_shapekey in self.facial_shapekeys:
             self.report({'ERROR'}, "'" + str(active_shapekey) + "' must be updated with the Update Facial Drivers Button")
         elif active_shapekey in self.eyelid_shapekeys:
-            print ('eyelids')
             self.update_eyelids(context)
+        elif active_shapekey in self.mouth_open_shapekeys:
+            self.update_mouth_open(context)
         else:
-            print ('others')
             self.update_trasnform(context)
         return {"FINISHED"}
 
