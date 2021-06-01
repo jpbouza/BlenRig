@@ -48,11 +48,23 @@ class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
 
 
         row = layout.row()
-        box = row.box()
+        col = row.column()
+        box = col.box()
         box.scale_x = 5.35
         col = box.column()
         col.operator("blenrig.update_shapekey_driver", text = 'Update Driver with Current Pose')
         col.operator("blenrig.update_face_shapekeys_drivers", text = 'Update All Facial Drivers')
+        box2 = col.box()
+        box2.scale_x = 5.35
+        col = box2.column()
+        col.label(text='Add Predefined Shapekeys')
+        row_main = col.row()
+        row_main.operator("blenrig.add_body_shapekeys", text = 'Add Body Shapekeys')
+        row_main.operator("blenrig.add_face_shapekeys", text = 'Add Face Shapekeys')
+        row_fingers = col.row()
+        row_fingers.operator("blenrig.add_fingers_shapekeys", text = 'Add Fingers Shapekeys')
+        row_fingers.operator("blenrig.add_toes_shapekeys", text = 'Add Toes Shapekeys')
+
         # col.separator()
 
         # prop_data = skp.bl_rna.properties['shape_key_add_placement']
