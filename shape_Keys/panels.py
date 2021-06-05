@@ -54,6 +54,9 @@ class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
         col = box.column()
         col.operator("blenrig.update_shapekey_driver", text = 'Update Driver with Current Pose')
         col.operator("blenrig.update_face_shapekeys_drivers", text = 'Update All Facial Drivers')
+        row_mirror = col.row()
+        row_mirror.operator("blenrig.mirror_active_shapekey_driver", text = 'Mirror Active Shapekey Driver')
+        row_mirror.operator("blenrig.mirror_shapekeys_drivers", text = 'Mirror All Shapekeys Drivers')
         box2 = col.box()
         box2.scale_x = 5.35
         col = box2.column()
