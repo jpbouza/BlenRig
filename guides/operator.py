@@ -4064,7 +4064,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_corner_out_R'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
-                add_mod_generator_location(active_driver, -(pbones["mouth_corner_R"].OUT_LIMIT_R))
+                add_mod_generator_location(active_driver, pbones["mouth_corner_R"].OUT_LIMIT_R)
             #mouth_corner_up_R
             if check_shapekey_driver('mouth_corner_up_R'):
                 pass
@@ -4354,7 +4354,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_corner_in_R'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_corner_R', "''", 'LOCAL_SPACE', 'LOC_X', 'AUTO')
-                add_mod_generator_location(active_driver, pbones["mouth_corner_R"].IN_LIMIT_R)
+                add_mod_generator_location(active_driver, -(pbones["mouth_corner_R"].IN_LIMIT_R))
 
             # #Legacy Transforms Based Drivers
             # #U_up_R
@@ -4525,7 +4525,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_open_corner_out_L'], 'value', 'SCRIPTED', 'var_out * var_open')
                 add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_L')
-                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open')
+                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open_down')
                 add_mod_generator_location(active_driver, 1)
             #mouth_open_corner_in_L
             if check_shapekey_driver('mouth_open_corner_in_L'):
@@ -4533,7 +4533,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_open_corner_in_L'], 'value', 'SCRIPTED', 'var_in * var_open')
                 add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_L')
-                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open')
+                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open_down')
                 add_mod_generator_location(active_driver, 1)
              #mouth_close_corner_out_L
             if check_shapekey_driver('mouth_close_corner_out_L'):
@@ -4541,7 +4541,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_close_corner_out_L'], 'value', 'SCRIPTED', 'var_out * var_close')
                 add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_L')
-                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close')
+                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close_up')
                 add_mod_generator_location(active_driver, 1)
             #mouth_close_corner_in_L
             if check_shapekey_driver('mouth_close_corner_in_L'):
@@ -4549,7 +4549,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_close_corner_in_L'], 'value', 'SCRIPTED', 'var_in * var_close')
                 add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_L')
-                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close')
+                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close_up')
                 add_mod_generator_location(active_driver, 1)
 
             #mouth_open_corner_out_R
@@ -4558,7 +4558,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_open_corner_out_R'], 'value', 'SCRIPTED', 'var_out * var_open')
                 add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_R')
-                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open')
+                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open_down')
                 add_mod_generator_location(active_driver, 1)
             #mouth_open_corner_in_R
             if check_shapekey_driver('mouth_open_corner_in_R'):
@@ -4566,7 +4566,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_open_corner_in_R'], 'value', 'SCRIPTED', 'var_in * var_open')
                 add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_R')
-                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open')
+                add_vars_shapekeys(active_driver, 'var_open', keys_name, 'mouth_open_down')
                 add_mod_generator_location(active_driver, 1)
              #mouth_close_corner_out_R
             if check_shapekey_driver('mouth_close_corner_out_R'):
@@ -4574,7 +4574,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_close_corner_out_R'], 'value', 'SCRIPTED', 'var_out * var_close')
                 add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_R')
-                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close')
+                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close_up')
                 add_mod_generator_location(active_driver, 1)
             #mouth_close_corner_in_R
             if check_shapekey_driver('mouth_close_corner_in_R'):
@@ -4582,7 +4582,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             else:
                 active_driver = add_shapekeys_driver(shapekeys['mouth_close_corner_in_R'], 'value', 'SCRIPTED', 'var_in * var_close')
                 add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_R')
-                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close')
+                add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close_up')
                 add_mod_generator_location(active_driver, 1)
 
     Forehead_Frown_Shapekeys: bpy.props.BoolProperty(default=True)
@@ -4981,4 +4981,141 @@ class Operator_blenrig_update_face_shapekeys_drivers(bpy.types.Operator):
         self.update_curve(context, 'U_low_R', pbones["mouth_ctrl"].U_M_CTRL_LIMIT)
         self.update_curve(context, 'M_up', -(pbones["mouth_ctrl"].U_M_CTRL_LIMIT))
         self.update_curve(context, 'M_low', -(pbones["mouth_ctrl"].U_M_CTRL_LIMIT))
+        return {"FINISHED"}
+
+class Operator_blenrig_mirror_shapekeys_drivers(bpy.types.Operator):
+
+    bl_idname = "blenrig.mirror_shapekeys_drivers"
+    bl_label = "BlenRig Mirror Shapkeys Drivers"
+    bl_description = "Mirror the values of all drivers"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            ob = bpy.context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    #Mirror Drivers Values
+    def mirror_coefficient(self, context, transform, factor, side_1, side_2):
+        ob = bpy.context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+
+            for shape_L in shapekeys:
+                if shape_L.name.endswith(side_1):
+                    for driver in ob.data.shape_keys.animation_data.drivers:
+                        d_path = driver.data_path
+                        if d_path == 'key_blocks["' + shape_L.name + '"].value':
+                            for var in driver.driver.variables:
+                                if var.type == 'TRANSFORMS':
+                                    target = var.targets[0]
+                                    #Transform
+                                    if target.transform_type == transform:
+                                        for mod in driver.modifiers:
+                                            if mod.type == 'GENERATOR':
+                                                co_1_L = mod.coefficients[1]
+                                                #Look for _R
+                                                for shape_R in shapekeys:
+                                                    if shape_R.name.endswith(side_2):
+                                                        if shape_R.name[0:-2] == shape_L.name[0:-2]:
+                                                            for driver in ob.data.shape_keys.animation_data.drivers:
+                                                                d_path = driver.data_path
+                                                                if d_path == 'key_blocks["' + shape_R.name + '"].value':
+                                                                    for mod_R in driver.modifiers:
+                                                                        if mod_R.type == 'GENERATOR':
+                                                                            mod_R.coefficients[1] = factor * co_1_L
+
+    #Choose Side Property
+    Side : EnumProperty(
+        items = (
+            ('L to R', 'Left to Right', '', 0),
+            ('R to L', 'Right to Left', '', 1),
+            ),
+            name="Choose Side", default='L to R')
+
+    def execute(self, context):
+        if self.Side == 'L to R':
+            self.mirror_coefficient(context, 'LOC_Y', 1, '_L', '_R')
+            self.mirror_coefficient(context, 'LOC_Z', 1, '_L', '_R')
+            self.mirror_coefficient(context, 'LOC_X', -1, '_L', '_R')
+            self.mirror_coefficient(context, 'ROT_X', 1, '_L', '_R')
+            self.mirror_coefficient(context, 'ROT_Z', -1, '_L', '_R')
+            self.mirror_coefficient(context, 'ROT_Y', -1, '_L', '_R')
+            self.mirror_coefficient(context, 'SCALE_X', 1, '_L', '_R')
+            self.mirror_coefficient(context, 'SCALE_y', 1, '_L', '_R')
+            self.mirror_coefficient(context, 'SCALE_Z', 1, '_L', '_R')
+        else:
+            self.mirror_coefficient(context, 'LOC_Y', 1, '_R', '_L')
+            self.mirror_coefficient(context, 'LOC_Z', 1, '_R', '_L')
+            self.mirror_coefficient(context, 'LOC_X', -1, '_R', '_L')
+            self.mirror_coefficient(context, 'ROT_X', 1, '_R', '_L')
+            self.mirror_coefficient(context, 'ROT_Z', -1, '_R', '_L')
+            self.mirror_coefficient(context, 'ROT_Y', -1, '_R', '_L')
+            self.mirror_coefficient(context, 'SCALE_X', 1, '_R', '_L')
+            self.mirror_coefficient(context, 'SCALE_y', 1, '_R', '_L')
+            self.mirror_coefficient(context, 'SCALE_Z', 1, '_R', '_L')
+        return {"FINISHED"}
+
+class Operator_blenrig_mirror_active_shapekey_driver(bpy.types.Operator):
+
+    bl_idname = "blenrig.mirror_active_shapekey_driver"
+    bl_label = "BlenRig Mirror Active Shapkey Driver"
+    bl_description = "Mirror the driver of the active shapekey to its opposite side"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            ob = bpy.context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    #Mirror Drivers Values
+    def mirror_coefficient(self, context, transform, factor):
+        ob = bpy.context.active_object
+        active_shapekey = ob.active_shape_key.name
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+
+            for driver in ob.data.shape_keys.animation_data.drivers:
+                d_path = driver.data_path
+                if d_path == 'key_blocks["' + active_shapekey + '"].value':
+                    for var in driver.driver.variables:
+                        if var.type == 'TRANSFORMS':
+                            target = var.targets[0]
+                            #Transform
+                            if target.transform_type == transform:
+                                for mod in driver.modifiers:
+                                    if mod.type == 'GENERATOR':
+                                        co_1_L = mod.coefficients[1]
+                                        #Look for _R
+                                        for shape_R in shapekeys:
+                                            if shape_R.name[0:-2] == active_shapekey[0:-2]:
+                                                for driver in ob.data.shape_keys.animation_data.drivers:
+                                                    d_path = driver.data_path
+                                                    if d_path == 'key_blocks["' + shape_R.name + '"].value':
+                                                        for mod_R in driver.modifiers:
+                                                            if mod_R.type == 'GENERATOR':
+                                                                mod_R.coefficients[1] = factor * co_1_L
+
+    def execute(self, context):
+        self.mirror_coefficient(context, 'LOC_Y', 1)
+        self.mirror_coefficient(context, 'LOC_Z', 1)
+        self.mirror_coefficient(context, 'LOC_X', -1)
+        self.mirror_coefficient(context, 'ROT_X', 1)
+        self.mirror_coefficient(context, 'ROT_Z', -1)
+        self.mirror_coefficient(context, 'ROT_Y', -1)
+        self.mirror_coefficient(context, 'SCALE_X', 1)
+        self.mirror_coefficient(context, 'SCALE_y', 1)
+        self.mirror_coefficient(context, 'SCALE_Z', 1)
         return {"FINISHED"}
