@@ -11,14 +11,19 @@ class BlenrigGuideData(PropertyGroup):
     dpi : IntProperty(default=72, min=72, max=300, name="Screen DPI")
     image_scale : FloatProperty(default=1, min=0.5, max=2, name="Image Scale")
     show_steps : BoolProperty(default=False, name="Show Steps")
-    arm_obj : PointerProperty(type=Object)
-    mdef_weights_transfer_obj : PointerProperty(type=Object)
-    mdef_cage_obj : PointerProperty(type=Object)
     guide_current_step : StringProperty('')
+    #BlenRig Armature
+    arm_obj : PointerProperty(type=Object)
+    #BlenRig Weights Transfer Mesh
+    mdef_weights_transfer_obj : PointerProperty(type=Object)
+    #BlenRig Mdef Cage
+    mdef_cage_obj : PointerProperty(type=Object)
+    #Character Objects
     character_head_obj : PointerProperty(type=Object)
     character_hands_obj : PointerProperty(type=Object)
+    character_body_obj = []
+    #Weight Transfer Parameters
     transfer_ray_distance : FloatProperty(default=0.05, min=0.0, max=100.0, name="Transfer Ray Distance")
-    # transfer_mapping : EnumProperty(items=(('1','one','','X', 0),('1','two','','TRIA_UP', 1)))
     transfer_mapping : EnumProperty(
         items = (
             ('TOPOLOGY', 'Topology', '', 0),
