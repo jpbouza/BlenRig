@@ -133,7 +133,7 @@ def vol_variation_update(self, context):
 
 def vol_prservation_update(self, context):
     set_vol_preservation(context)
-    
+
 def snap_points_update(self, context):
     bpy.ops.blenrig.snap_points()
 ######### Handler for update on load and frame change #########
@@ -2539,10 +2539,10 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     enable_to_move: bpy.props.BoolProperty(name="Enable to Move Lattice", default=False, description="Let move Lattice disabling modif hoocks")
     align_selected_only: bpy.props.BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
     gui_custom_layers: bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
-    contextOptions = [('PICKER', 'Picker', "Display picker options", 'ARMATURE_DATA', 0),
-                        ('RIGTOOLS', 'Rig Tools', "Display Rig Tools", 'BONE_DATA', 1),
-                        ('TOOLS', 'Tools', "Display Tools options", 'TOOL_SETTINGS', 3),
-                        ('GUIDES', 'Guides', "Display Guides options", 'HELP', 4)]
+    contextOptions = [('PICKER', 'Picker', "Display Rig Picker", 'ARMATURE_DATA', 0),
+                        ('RIGTOOLS', 'Rig Tools', "Rig Options and Tools", 'BONE_DATA', 1),
+                        ('TOOLS', 'Tools', "Workflow Tools", 'TOOL_SETTINGS', 3),
+                        ('GUIDES', 'Rigging Assistant', "Automatic Rigging Assistant Guides", 'HELP', 4)]
     displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
     ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=5, max=50, default=8)
 
