@@ -59,7 +59,7 @@ from .ui.panels.dynamic_shaping import BLENRIG_PT_Dynamic_shaping
 from .ui.panels.rigging_version_info import BLENRIG_PT_Rig_version_info
 from .ui.panels.rigging_optimizations import BLENRIG_PT_Rigging_optimizations
 from .ui.panels.rigging_and_baking import BLENRIG_PT_Rigging_and_baking, BLENRIG_PT_baking,BLENRIG_PT_visual_assistant
-from .ui.panels.guide_repoportion_assistant import BLENRIG_PT_reproportion_guide
+from .ui.panels.guide_reproportion_assistant import BLENRIG_PT_reproportion_guide
 from .ui.panels.guide_datatransfer_assistant import BLENRIG_PT_datatransfer_guide
 from .ui.panels.actions_assistants_guide import BLENRIG_PT_actions_guide
 from .ui.panels.bodysettings.volume_preservation_bones_movement import *
