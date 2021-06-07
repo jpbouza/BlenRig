@@ -2,7 +2,7 @@ from bpy.types import Panel
 from .reproportion.guide_reproportion import GUIDE_STEPS_REPROPORTION
 from .datatransfer.guide_datatransfer import GUIDE_STEPS_DATATRANSFER
 
-class BlendrigGuidePanel_menu:
+class BlenRigGuidePanel_menu:
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
@@ -19,8 +19,8 @@ class BlendrigGuidePanel_menu:
 
         return obj or obj.type in valid_types
 
-class BlendrigGuidePanel(BlendrigGuidePanel_menu,Panel):
-    bl_label = "Blendrig Guide"
+class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
+    bl_label = "BlenRig Guide"
     bl_idname = "BLENRIG_PT_guide_panel"
     bl_space_type = 'VIEW_3D'
     bl_options = {"HIDE_HEADER",}
@@ -49,7 +49,7 @@ class BlendrigGuidePanel(BlendrigGuidePanel_menu,Panel):
         for i, step in enumerate(GUIDE_STEPS_REPROPORTION):
             step_list.operator("view3d.blenrig_guide_reproportion", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-class BlendrigGuidePanel_options(BlendrigGuidePanel_menu,Panel):
+class BlenRigGuidePanel_options(BlenRigGuidePanel_menu,Panel):
     bl_label = "Options"
     bl_idname = "BLENRIG_PT_guide_panel_sub"
     bl_space_type = 'VIEW_3D'

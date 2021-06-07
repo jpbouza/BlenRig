@@ -20,7 +20,7 @@ def register():
     register_class(BlenrigGuideData)
     scn.blenrig_guide = Pointer(type=BlenrigGuideData, name="Blenrig Guide")
 
-    from .panel import BlendrigGuidePanel,BlendrigGuidePanel_options
+    from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
     from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
@@ -39,18 +39,18 @@ def register():
     register_class(Operator_blenrig_update_face_shapekeys_drivers)
     register_class(Operator_blenrig_mirror_shapekeys_drivers)
     register_class(Operator_blenrig_mirror_active_shapekey_driver)
-    register_class(BlendrigGuidePanel_options)
-    register_class(BlendrigGuidePanel)
+    register_class(BlenRigGuidePanel_options)
+    register_class(BlenRigGuidePanel)
 
 def unregister():
-    from .panel import BlendrigGuidePanel, BlendrigGuidePanel_options
+    from .panel import BlenRigGuidePanel, BlenRigGuidePanel_options
     from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver)
     from bpy.utils import unregister_class
-    unregister_class(BlendrigGuidePanel_options)
-    unregister_class(BlendrigGuidePanel)
+    unregister_class(BlenRigGuidePanel_options)
+    unregister_class(BlenRigGuidePanel)
     unregister_class(VIEW3D_OT_blenrig_guide_reproportion)
     unregister_class(VIEW3D_OT_blenrig_guide_datatransfer)
     unregister_class(Operator_Transfer_VGroups)
