@@ -29,11 +29,13 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
     def draw(self, context):
         guide = context.scene.blenrig_guide
         layout = self.layout
-        button = layout.row()
+        col = layout.column()
+        col.label(text="Rigging Assistants")
+        button = col.row()
         button.scale_y = 1.5
-        button.operator("view3d.blenrig_guide_reproportion")
-        layout = self.layout
-        button.operator("view3d.blenrig_guide_datatransfer", text = 'Show Weights Transfer Guide')
+        button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Weights Reproportion Guide')
+        button.operator("view3d.blenrig_guide_datatransfer", text = '2 - Show Weights Transfer Guide')
+        button.operator("view3d.blenrig_guide_mdef", text = '3 - Show Mesh Deform Guide')
 
         layout.separator()
 

@@ -217,6 +217,14 @@ def load_datatransfer_image(img_name: str):
         return None
     return bpy.data.images.load(path, check_existing=True)
 
+def load_mdef_image(img_name: str):
+    from . mdef.guide_mdef import images_dir
+    from os.path import exists, isfile, join
+    path = join(images_dir, img_name)
+    if not exists(path) or not isfile(path):
+        return None
+    return bpy.data.images.load(path, check_existing=True)
+
 def hide_image(image):
     if image.name.startswith('.'):
         return
