@@ -613,7 +613,6 @@ class VIEW3D_OT_blenrig_guide_mdef(bpy.types.Operator):
         VIEW3D_OT_blenrig_guide_mdef.instance = self
         return {'RUNNING_MODAL'}
 
-
 class Operator_Transfer_VGroups(bpy.types.Operator):
 
     bl_idname = "blenrig.transfer_vgroups"
@@ -974,6 +973,162 @@ class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
         mod.render_levels = 3
         mod.show_expanded = True
 
+        return {"FINISHED"}
+
+class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_body_modifiers"
+    bl_label = "BlenRig add Body Modifiers"
+    bl_description = "Add Mesh Deform modifier"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+
+        #Clear List
+        bpy.context.scene.blenrig_guide.character_body_obj = []
+
+        #Define Body Objects
+        for ob in bpy.context.selected_objects:
+            bpy.context.scene.blenrig_guide.character_body_obj.append(ob)
+
+        #Add Deform Modifiers to defined Character's body object
+        for ob in bpy.context.scene.blenrig_guide.character_body_obj:
+            bpy.context.view_layer.objects.active = ob
+            active = bpy.context.active_object
+
+            #Mesh Deform
+            if check_mod_type('MESH_DEFORM'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
+                # set modifier properties
+                mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+                mod.invert_vertex_group = True
+                mod.vertex_group = 'no_mdef'
+                mod.show_expanded = True
+                mod.show_in_editmode = True
+                mod.show_on_cage = True
+
+            #Subsurf
+            subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+            if subsurf_mods:
+                active.modifiers.remove(subsurf_mods[-1])
+            mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+            # set modifier properties
+            mod.subdivision_type = 'CATMULL_CLARK'
+            mod.levels = 0
+            mod.render_levels = 3
+            mod.show_expanded = True
+
+        return {"FINISHED"}
+
+class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.bind_mdef_modifiers"
+    bl_label = "BlenRig Bind Mdef Modifiers"
+    bl_description = "Binds or Unbinds Mesh Deform modifier"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            if hasattr(bpy.context.active_object, 'modifiers'):
+                for mod in bpy.context.active_object.modifiers:
+                    if mod.type == 'MESH_DEFORM':
+                        return True
+        else:
+            return False
+
+
+    #Bind Modifiers
+    def bind_mdef(self, context, mdef_precision):
+        from .utils import set_active_object, deselect_all_objects
+
+        for ob in bpy.context.selected_objects:
+            set_active_object(context, ob)
+            if hasattr(ob, 'modifiers'):
+                for mod in ob.modifiers:
+                    if mod.type == 'MESH_DEFORM':
+                        if mod.is_bound == False:
+                            mod.precision = mdef_precision
+                            bpy.ops.object.meshdeform_bind(modifier=mod.name)
+                            #Save file
+                            bpy.ops.wm.save_mainfile()
+
+    Bind_Type: bpy.props.BoolProperty(default=True, name='Fast Binding')
+
+    def execute(self, context):
+        if self.Bind_Type == True:
+            self.bind_mdef(context, 5)
+        else:
+            self.bind_mdef(context, 6)
+        return {"FINISHED"}
+
+class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.guide_bind_mdef_modifiers"
+    bl_label = "BlenRig Guide Bind Mdef Modifiers"
+    bl_description = "Binds or Unbinds Mesh Deform modifier"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    Guide_Bind_Type: bpy.props.BoolProperty(default=True, name = 'Fast Binding' )
+
+    def execute(self, context):
+        from .utils import set_active_object, deselect_all_objects
+
+        if self.Guide_Bind_Type == True:
+            try:
+                deselect_all_objects(context)
+                set_active_object(context, bpy.context.scene.blenrig_guide.character_head_obj)
+                bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
+            except:
+                pass
+            try:
+                deselect_all_objects(context)
+                set_active_object(context, bpy.context.scene.blenrig_guide.character_hands_obj)
+                bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
+            except:
+                pass
+            try:
+                deselect_all_objects(context)
+                for ob in bpy.context.scene.blenrig_guide.character_body_obj:
+                    set_active_object(context, ob)
+                    bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
+            except:
+                pass
+        if self.Guide_Bind_Type == False:
+            try:
+                deselect_all_objects(context)
+                set_active_object(context, bpy.context.scene.blenrig_guide.character_head_obj)
+                bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
+            except:
+                pass
+            try:
+                deselect_all_objects(context)
+                set_active_object(context, bpy.context.scene.blenrig_guide.character_hands_obj)
+                bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
+            except:
+                pass
+            try:
+                deselect_all_objects(context)
+                for ob in bpy.context.scene.blenrig_guide.character_body_obj:
+                    set_active_object(context, ob)
+                    bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
+            except:
+                pass
         return {"FINISHED"}
 
 class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
