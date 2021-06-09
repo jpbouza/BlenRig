@@ -289,6 +289,7 @@ def end_of_step_action(context):
             set_mode('OBJECT')
         #Switch Local_View off
         switch_out_local_view()
+        blenrig_temp_unlink()
         bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
         bpy.context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'DT_Edit_Hands':
@@ -297,5 +298,6 @@ def end_of_step_action(context):
             set_mode('OBJECT')
         #Switch Local_View off
         switch_out_local_view()
+        blenrig_temp_unlink()
         bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
         bpy.context.scene.blenrig_guide.guide_current_step = ''
