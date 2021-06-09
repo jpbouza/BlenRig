@@ -1,5 +1,5 @@
 import bpy
-from ...guides.operator import VIEW3D_OT_blenrig_guide_datatransfer
+from ...guides.operator import VIEW3D_OT_blenrig_guide_mdef
 
 ####### Mesh Deform assistant Guide
 
@@ -26,27 +26,37 @@ class BLENRIG_PT_mdef_guide(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-    #     if VIEW3D_OT_blenrig_guide_datatransfer.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Head':
-    #         steps = layout.column(align=True)
-    #         box_transfer = steps.box()
-    #         box_transfer.label(text='Weights Transfer')
-    #         box_transfer.operator("blenrig.guide_transfer_vgroups", text = 'Transfer Head Weights').body_area = 'head'
-    #         row_options = box_transfer.row()
-    #         col_ray = row_options.column()
-    #         col_ray.label(text = 'Ray Distance:')
-    #         col_ray.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance", text = '')
-    #         col_mapping = row_options.column()
-    #         col_mapping.label(text = 'Mapping:')
-    #         col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
-    #     if VIEW3D_OT_blenrig_guide_datatransfer.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Hands':
-    #         steps = layout.column(align=True)
-    #         box_transfer = steps.box()
-    #         box_transfer.label(text='Weights Transfer')
-    #         box_transfer.operator("blenrig.guide_transfer_vgroups", text = 'Transfer Hand Weights').body_area = 'hands'
-    #         row_options = box_transfer.row()
-    #         col_ray = row_options.column()
-    #         col_ray.label(text = 'Ray Distance:')
-    #         col_ray.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance", text = '')
-    #         col_mapping = row_options.column()
-    #         col_mapping.label(text = 'Mapping:')
-    #         col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
+        if VIEW3D_OT_blenrig_guide_mdef.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Object tha use Mesh Deform')
+            box_set.operator("blenrig.add_body_modifiers", text = 'Set Body Objects')
+        if VIEW3D_OT_blenrig_guide_mdef.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Edit_Mdef_Cage':
+            props = context.window_manager.blenrig_6_props
+            ob = context.active_object
+            mesh = ob.data
+            # Cage Setup
+            if context.mode in ["EDIT_MESH"]:
+                box = layout.column()
+                box.label(text='Mdef Cage Automatic Wrapping')
+                col = box.column()
+                row = col.row()
+                # row.alignment = 'CENTER'
+                row = layout.row(align=True)
+                comb = row.row()
+                # row = layout.row(heading="Mirror")
+                sub = row.row(align=True)
+                sub.prop(mesh, "use_mirror_x",text= "X-Mirror")
+                row.prop(mesh, "use_mirror_topology")
+                col.operator("blenrig.snap_points", text="Ajust Cage", icon="NONE")
+                row = layout.row(heading="Distance Cage")
+                row.prop(props,"ajust_distance_cage",text="value")
+        if VIEW3D_OT_blenrig_guide_mdef.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Binding_Check':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Bind Mesh Deform (Fast)')
+            box_set.operator("blenrig.guide_bind_mdef_modifiers", text = 'Bind Mesh Deform (Fast)')
+
+
+
+
