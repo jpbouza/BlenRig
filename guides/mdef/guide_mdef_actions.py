@@ -1,29 +1,6 @@
 import bpy
 from .. utils import *
 
-def reproportion_on(context):
-    # 0. Make sure Armature is active and in Pose Mode.
-    if context.mode != 'POSE':
-        set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
-        set_mode('POSE')
-
-    # Set Armature to Reproportion mode
-    set_reproportion_on(context)
-    unhide_all_bones(context)
-
-
-def reproportion_off(context):
-    # 0. Make sure Armature is active and in Pose Mode.
-    if context.mode != 'POSE':
-        set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
-        set_mode('POSE')
-
-    # Set Armature to Reproportion mode
-    set_reproportion_off(context)
-    unhide_all_bones(context)
-
 def frame_bones(context, *bone_names):
     deselect_all_pose_bones(context)
     select_pose_bones(context, *bone_names)
@@ -37,77 +14,17 @@ def select_armature(operator, context):
     set_active_object(context, operator.arm_obj)
     set_mode('POSE')
 
-#### DATATRANSFER STEPS ####
+#### MDEF STEPS ####
 
-def DT_Weight_Mesh_Shapekey_Head(operator, context):
+def MDEF_Select_Body_Objects(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Weight_Mesh_Shapekey_Head'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Select_Body_Objects'
 
-    # #Select Armature
-    # armature = bpy.context.scene.blenrig_guide.arm_obj
-    # armature.select_set(state=True)
-    # bpy.context.view_layer.objects.active = armature
-    # if context.mode != 'POSE':
-    #     set_mode('POSE')
-
-    # # Adjust view to Bones.
-    # frame_bones(context, "head_str", "neck_ctrl_4_str")
-
+    #Set Mdef Cage
     deselect_all_objects(context)
 
-    # Show MDefWeightsModel
-    mdef_weights_model_objects = collect_mdef_weights_model()
-    collect_mdef_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
-
-    for ob in mdef_weights_model_objects:
-        set_active_object(context, ob)
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj.hide_viewport = False
-        set_mode('EDIT')
-
-    #Add and Edit Face Shapekey
-    add_shapekey(context, 'Weights_Transfer_Head')
-
-    #Set to Local_View
-    switch_out_local_view()
-    for area in bpy.context.screen.areas:
-        if area.type == 'VIEW_3D':
-            space = area.spaces[0]
-            bpy.ops.view3d.localview()
-
-def DT_Weight_Mesh_Shapekey_Hands(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Weight_Mesh_Shapekey_Hands'
-
-    # Show MDefWeightsModel
-    mdef_weights_model_objects = collect_mdef_weights_model()
-    collect_mdef_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
-
-    for ob in mdef_weights_model_objects:
-        set_active_object(context, ob)
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj.hide_viewport = False
-        set_mode('EDIT')
-
-    #Add and Edit Fingers Shapekey
-    add_shapekey(context, 'Weights_Transfer_Hands')
-
-    #Set to Local_View
-    switch_out_local_view()
-    for area in bpy.context.screen.areas:
-        if area.type == 'VIEW_3D':
-            space = area.spaces[0]
-            bpy.ops.view3d.localview()
-
-def DT_Select_Head(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Head'
-
+    #Armature for setting view
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
@@ -118,7 +35,7 @@ def DT_Select_Head(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_str", "neck_1_fk")
+    frame_bones(context, "head_str", "master")
 
     #Set back Object Mode
     if context.mode != 'OBJECT':
@@ -128,42 +45,43 @@ def DT_Select_Head(operator, context):
 
     deselect_all_objects(context)
 
-    # Hide MDefWeightsModel
-    blenrig_temp_unlink()
-
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
 
-def DT_Edit_Head(operator, context):
+    #Select Head object
+    try:
+        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
+    except:
+        pass
+
+def MDEF_Edit_Mdef_Cage(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Edit_Head'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Edit_Mdef_Cage'
 
-    #SaveHead Object
-    bpy.context.scene.blenrig_guide.character_head_obj = bpy.context.active_object
+    deselect_all_objects(context)
 
-    # Show MDefWeightsModel
-    mdef_weights_model_objects = collect_mdef_weights_model()
-    collect_mdef_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
-    for ob in mdef_weights_model_objects:
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj.hide_viewport = False
+    # Show Mdef
+    mdef_cage_objects = collect_cage()
+    collect_cage()
+    blenrig_temp_link(mdef_cage_objects)
 
-    set_mode('EDIT')
+    for ob in mdef_cage_objects:
+        set_active_object(context, ob)
+        bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
+        bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
+        set_mode('EDIT')
 
-    #Add and Edit Fingers Shapekey
-    add_shapekey(context, 'Weights_Transfer_Head')
-
-    #Set to Local_View
-    switch_out_local_view()
-
-def DT_Select_Hands(operator, context):
+def MDEF_Binding_Check(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Hands'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Binding_Check'
 
+    #Set Mdef Cage
+    deselect_all_objects(context)
+
+    #Armature for setting view
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
@@ -174,7 +92,7 @@ def DT_Select_Hands(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "hand_fk_L", "hand_fk_R")
+    frame_bones(context, "head_str", "master")
 
     #Set back Object Mode
     if context.mode != 'OBJECT':
@@ -184,36 +102,17 @@ def DT_Select_Hands(operator, context):
 
     deselect_all_objects(context)
 
-    # Hide MDefWeightsModel
-    blenrig_temp_unlink()
-
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
 
-def DT_Edit_Hands(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Edit_Hands'
+    #Select Head object
+    try:
+        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
+    except:
+        pass
 
-    #SaveHead Object
-    bpy.context.scene.blenrig_guide.character_hands_obj = bpy.context.active_object
 
-    # Show MDefWeightsModel
-    mdef_weights_model_objects = collect_mdef_weights_model()
-    collect_mdef_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
-    for ob in mdef_weights_model_objects:
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj.hide_viewport = False
-
-    set_mode('EDIT')
-
-    #Add and Edit Fingers Shapekey
-    add_shapekey(context, 'Weights_Transfer_Hands')
-
-    #Set to Local_View
-    switch_out_local_view()
 
 def DT_Finish(operator, context):
     #Perform end of step action and set current step name
@@ -267,35 +166,9 @@ def DT_Finish(operator, context):
 #Property for action to be performed after steps
 def end_of_step_action(context):
     current_step = bpy.context.scene.blenrig_guide.guide_current_step
-    if current_step == 'DT_Weight_Mesh_Shapekey_Head':
+    if current_step == 'MDEF_Edit_Mdef_Cage':
         #Set back Object Mode
         if context.mode != 'OBJECT':
             set_mode('OBJECT')
-        #Switch Local_View off
-        switch_out_local_view()
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
-    if current_step == 'DT_Weight_Mesh_Shapekey_Hands':
-        #Set back Object Mode
-        if context.mode != 'OBJECT':
-            set_mode('OBJECT')
-        #Switch Local_View off
-        switch_out_local_view()
-        blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
-    if current_step == 'DT_Edit_Head':
-        #Set back Object Mode
-        if context.mode != 'OBJECT':
-            set_mode('OBJECT')
-        #Switch Local_View off
-        switch_out_local_view()
-        bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
-    if current_step == 'DT_Edit_Hands':
-        #Set back Object Mode
-        if context.mode != 'OBJECT':
-            set_mode('OBJECT')
-        #Switch Local_View off
-        switch_out_local_view()
-        bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
         bpy.context.scene.blenrig_guide.guide_current_step = ''
