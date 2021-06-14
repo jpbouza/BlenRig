@@ -69,11 +69,12 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         box_modifiers.operator("blenrig.add_face_shapekeys", text = 'Add Face Shapekeys')
         #Bind Mesh Deform
         box_modifiers = col_buttons.box()
-        box_modifiers.label(text='Add Shapekeys')
-        box_modifiers.operator("blenrig.bind_mdef_modifiers", text = 'Fast').Bind_Type = True
-        box_modifiers.operator("blenrig.bind_mdef_modifiers", text = 'Final').Bind_Type = False
-        box_modifiers.operator("blenrig.guide_bind_mdef_modifiers", text = 'Guide Fast').Guide_Bind_Type = True
-        box_modifiers.operator("blenrig.guide_bind_mdef_modifiers", text = 'Guide Final').Guide_Bind_Type = False
+        box_modifiers.label(text='Bind Mesh Deform')
+        row_mdef = box.row()
+        row_mdef.operator("blenrig.bind_mdef_modifiers", text = 'Bind Mesh Deform (Fast)').Bind_Type = True
+        row_mdef.operator("blenrig.bind_mdef_modifiers", text = 'Bind Mesh Deform (Final)').Bind_Type = False
+        col_mdef = box.column()
+        col_mdef.operator("blenrig.guide_unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
 
 ####### Lattice & Curves Panel
 
