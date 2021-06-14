@@ -114,41 +114,18 @@ def MDEF_Binding_Check(operator, context):
 
 
 
-def DT_Finish(operator, context):
+def MDEF_Final_Binding(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Finish'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Final_Binding'
 
+    #Set Mdef Cage
     deselect_all_objects(context)
 
-    # Hide MDefWeightsModel
-    blenrig_temp_unlink()
-
-    #Turn off Tranfer Shapekeys on Character's Objects
-    try:
-        bpy.context.scene.blenrig_guide.character_hands_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 0.0
-    except:
-        pass
-    try:
-        bpy.context.scene.blenrig_guide.character_head_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].value = 0.0
-    except:
-        pass
-
-    #Add Deform Modifiers to Character's head
-    bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
-    active = bpy.context.active_object
-
-    bpy.ops.blenrig.add_head_modifiers()
-
-    #Add Deform Modifiers to Character's hands
-    bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_hands_obj
-    active = bpy.context.active_object
-
-    bpy.ops.blenrig.add_hands_modifiers()
+    #Armature for setting view
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
-    deselect_all_objects(context)
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
     armature = bpy.context.scene.blenrig_guide.arm_obj
     armature.select_set(state=True)
     bpy.context.view_layer.objects.active = armature
@@ -156,11 +133,25 @@ def DT_Finish(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_fk", "master_torso")
+    frame_bones(context, "head_str", "master")
+
+    #Set back Object Mode
+    if context.mode != 'OBJECT':
+        set_mode('OBJECT')
+
+    armature.hide_viewport = True
+
+    deselect_all_objects(context)
 
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+
+    #Select Head object
+    try:
+        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
+    except:
+        pass
 
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps

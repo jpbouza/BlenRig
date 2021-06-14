@@ -8,7 +8,7 @@ GUIDE_STEPS_MDEF = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': ' Edit Weight Transfer Model Head Shape',
+            'EN': 'Define Character Body Objects',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -17,11 +17,11 @@ GUIDE_STEPS_MDEF = (
             },
         'accion': MDEF_Select_Body_Objects
     },
-    #Edit Weith Transfer Model Hands Shape
+    #Edit the Mesh Deform Cage
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit Weith Transfer Model Hands Shape',
+            'EN': 'Edit the Mesh Deform Cage',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -42,6 +42,19 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Binding_Check
+},
+    #Mesh Deform Final Binding
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Mesh Deform Final Binding',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Press the Bind Mesh Deform Button. Go grab a cup of coffee because depending on how many objects you are binding, this can take long.",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': MDEF_Final_Binding
 }
 )
 
