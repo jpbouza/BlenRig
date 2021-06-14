@@ -55,8 +55,13 @@ class BLENRIG_PT_mdef_guide(bpy.types.Panel):
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Bind Mesh Deform (Fast)')
-            box_set.operator("blenrig.guide_bind_mdef_modifiers", text = 'Bind Mesh Deform (Fast)')
-
-
+            box_set.operator("blenrig.guide_bind_mdef_modifiers", text = 'Bind Mesh Deform (Fast)').Guide_Bind_Type = True
+            box_set.operator("blenrig.guide_unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
+        if VIEW3D_OT_blenrig_guide_mdef.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Final_Binding':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Bind Mesh Deform (Final)')
+            box_set.operator("blenrig.guide_bind_mdef_modifiers", text = 'Bind Mesh Deform (Final)').Guide_Bind_Type = False
+            box_set.operator("blenrig.guide_unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
 
 
