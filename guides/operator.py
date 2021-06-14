@@ -1055,7 +1055,6 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
         else:
             return False
 
-
     #Bind Modifiers
     def bind_mdef(self, context, mdef_precision):
         from .utils import set_active_object, deselect_all_objects
@@ -1077,7 +1076,7 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
         if self.Bind_Type == True:
             self.bind_mdef(context, 5)
         else:
-            self.bind_mdef(context, 6)
+            self.bind_mdef(context, 7)
         return {"FINISHED"}
 
 class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
