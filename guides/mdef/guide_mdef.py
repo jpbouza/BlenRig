@@ -38,7 +38,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Press the Bind Mesh Deform Button. Move the character away and check hat all of its vertices are moving along with the rig, otherwise, press the button again and Edit the cage until all the vertices move",
+            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the Unbind button, Edit the cage and Bind again until all the vertices move with the rig",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Binding_Check
@@ -51,7 +51,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Press the Bind Mesh Deform Button. Go grab a cup of coffee because depending on how many objects you are binding, this can take long.",
+            'EN': "If all vertices are moving along, press the Unbind button and then the Bind Mesh Deform(Final) Button. Go grab a cup of coffee because depending on how many objects you are binding, this can take long.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Final_Binding
