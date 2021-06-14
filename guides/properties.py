@@ -3,6 +3,10 @@ from bpy.types import PropertyGroup, Object
 from bpy.props import *
 from . guide import languages
 
+class BlenRigBodyObj(bpy.types.PropertyGroup):
+    character_body_obj : PointerProperty(type=Object)
+
+
 class BlenrigGuideData(PropertyGroup):
     language : EnumProperty(
         items=languages,
@@ -21,7 +25,6 @@ class BlenrigGuideData(PropertyGroup):
     #Character Objects
     character_head_obj : PointerProperty(type=Object)
     character_hands_obj : PointerProperty(type=Object)
-    character_body_obj = []
     #Weight Transfer Parameters
     transfer_ray_distance : FloatProperty(default=0.05, min=0.0, max=100.0, name="Transfer Ray Distance")
     transfer_mapping : EnumProperty(
@@ -32,6 +35,6 @@ class BlenrigGuideData(PropertyGroup):
             ('EDGEINTERP_NEAREST', 'Nearest Edge Interpolated', '', 3),
             ('POLY_NEAREST', 'Nearest Face Vertex', '', 4),
             ('POLYINTERP_NEAREST', 'Nearest Face Interpolated', '', 5),
-            ('POLYINTERP_VNORPROJ', 'Projected Face Interpolated', '', 6),
+            ('POLYINTERP_VNORPROJ', 'Projected Face Interpolated', '', 6)
             ),
             name="Mapping", default='POLYINTERP_VNORPROJ')

@@ -13,19 +13,21 @@
 import bpy
 
 def register():
-    from .properties import BlenrigGuideData
+    from .properties import BlenrigGuideData, BlenRigBodyObj
     from bpy.types import Scene as scn
     from bpy.props import PointerProperty as Pointer
     from bpy.utils import register_class
     register_class(BlenrigGuideData)
     scn.blenrig_guide = Pointer(type=BlenrigGuideData, name="Blenrig Guide")
+    register_class(BlenRigBodyObj)
+    scn.blenrig_character_body_obj = bpy.props.CollectionProperty(type=BlenRigBodyObj, name='BlenRig Character Body Objects')
 
     from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
     from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, VIEW3D_OT_blenrig_guide_mdef, Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver, Operator_blenrig_add_body_modifiers,
-    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers)
+    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers)
 
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
@@ -45,6 +47,8 @@ def register():
     register_class(Operator_blenrig_add_body_modifiers)
     register_class(Operator_blenrig_bind_mdef_modifiers)
     register_class(Operator_blenrig_guide_bind_mdef_modifiers)
+    register_class(Operator_blenrig_unbind_mdef_modifiers)
+    register_class(Operator_blenrig_guide_unbind_mdef_modifiers)
     register_class(BlenRigGuidePanel_options)
     register_class(BlenRigGuidePanel)
 
@@ -54,7 +58,7 @@ def unregister():
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver, Operator_blenrig_add_body_modifiers,
-    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers)
+    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers)
 
     from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
@@ -77,7 +81,11 @@ def unregister():
     unregister_class(Operator_blenrig_add_body_modifiers)
     unregister_class(Operator_blenrig_bind_mdef_modifiers)
     unregister_class(Operator_blenrig_guide_bind_mdef_modifiers)
-    from .properties import BlenrigGuideData
+    unregister_class(Operator_blenrig_unbind_mdef_modifiers)
+    unregister_class(Operator_blenrig_guide_unbind_mdef_modifiers)
+    from .properties import BlenrigGuideData, BlenRigBodyObj
     from bpy.types import Scene as scn
     del scn.blenrig_guide
+    del scn.blenrig_character_body_obj
     unregister_class(BlenrigGuideData)
+    unregister_class(BlenRigBodyObj)
