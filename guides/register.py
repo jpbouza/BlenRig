@@ -27,11 +27,16 @@ def register():
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver, Operator_blenrig_add_body_modifiers,
-    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers)
+    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
+    VIEW3D_OT_blenrig_guide_lattices, VIEW3D_OT_blenrig_guide_actions, VIEW3D_OT_blenrig_guide_weights, VIEW3D_OT_blenrig_guide_shapekeys)
 
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
     register_class(VIEW3D_OT_blenrig_guide_mdef)
+    register_class(VIEW3D_OT_blenrig_guide_lattices)
+    register_class(VIEW3D_OT_blenrig_guide_actions)
+    register_class(VIEW3D_OT_blenrig_guide_weights)
+    register_class(VIEW3D_OT_blenrig_guide_shapekeys)
     register_class(Operator_Transfer_VGroups)
     register_class(Operator_Guide_Transfer_VGroups)
     register_class(Operator_blenrig_add_head_modifiers)
@@ -58,7 +63,8 @@ def unregister():
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver, Operator_blenrig_add_body_modifiers,
-    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers)
+    Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
+    VIEW3D_OT_blenrig_guide_lattices, VIEW3D_OT_blenrig_guide_actions, VIEW3D_OT_blenrig_guide_weights, VIEW3D_OT_blenrig_guide_shapekeys)
 
     from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
@@ -66,6 +72,10 @@ def unregister():
     unregister_class(VIEW3D_OT_blenrig_guide_reproportion)
     unregister_class(VIEW3D_OT_blenrig_guide_datatransfer)
     unregister_class(VIEW3D_OT_blenrig_guide_mdef)
+    unregister_class(VIEW3D_OT_blenrig_guide_lattices)
+    unregister_class(VIEW3D_OT_blenrig_guide_actions)
+    unregister_class(VIEW3D_OT_blenrig_guide_weights)
+    unregister_class(VIEW3D_OT_blenrig_guide_shapekeys)
     unregister_class(Operator_Transfer_VGroups)
     unregister_class(Operator_Guide_Transfer_VGroups)
     unregister_class(Operator_blenrig_add_head_modifiers)

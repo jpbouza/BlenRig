@@ -1,6 +1,11 @@
 from bpy.types import Panel
 from .reproportion.guide_reproportion import GUIDE_STEPS_REPROPORTION
 from .datatransfer.guide_datatransfer import GUIDE_STEPS_DATATRANSFER
+from .mdef.guide_mdef import GUIDE_STEPS_MDEF
+from .lattices.guide_lattices import GUIDE_STEPS_LATTICES
+from .actions.guide_actions import GUIDE_STEPS_ACTIONS
+from .weights.guide_weights import GUIDE_STEPS_WEIGHTS
+from .shapekeys.guide_shapekeys import GUIDE_STEPS_SHAPEKEYS
 
 class BlenRigGuidePanel_menu:
     bl_space_type = 'VIEW_3D'
@@ -32,11 +37,16 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         col = layout.column()
         col.label(text="Rigging Assistants")
         button = col.row()
+        button_2 = col.row()
         button.scale_y = 1.5
+        button_2.scale_y = 1.5
         button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Weights Reproportion Guide')
         button.operator("view3d.blenrig_guide_datatransfer", text = '2 - Show Weights Transfer Guide')
         button.operator("view3d.blenrig_guide_mdef", text = '3 - Show Mesh Deform Guide')
-
+        button_2.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
+        button_2.operator("view3d.blenrig_guide_actions", text = '5 - Show Actions Guide')
+        button_2.operator("view3d.blenrig_guide_weights", text = '6 - Show Weight Painting Guide')
+        button_2.operator("view3d.blenrig_guide_shapekeys", text = '7 - Show Shapekeys Guide')
         layout.separator()
 
         steps = layout.column(align=True)

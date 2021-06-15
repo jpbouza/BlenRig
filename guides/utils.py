@@ -225,6 +225,38 @@ def load_mdef_image(img_name: str):
         return None
     return bpy.data.images.load(path, check_existing=True)
 
+def load_lattices_image(img_name: str):
+    from . lattices.guide_lattices import images_dir
+    from os.path import exists, isfile, join
+    path = join(images_dir, img_name)
+    if not exists(path) or not isfile(path):
+        return None
+    return bpy.data.images.load(path, check_existing=True)
+
+def load_actions_image(img_name: str):
+    from . actions.guide_actions import images_dir
+    from os.path import exists, isfile, join
+    path = join(images_dir, img_name)
+    if not exists(path) or not isfile(path):
+        return None
+    return bpy.data.images.load(path, check_existing=True)
+
+def load_weights_image(img_name: str):
+    from . weights.guide_weights import images_dir
+    from os.path import exists, isfile, join
+    path = join(images_dir, img_name)
+    if not exists(path) or not isfile(path):
+        return None
+    return bpy.data.images.load(path, check_existing=True)
+
+def load_shapekeys_image(img_name: str):
+    from . shapekeys.guide_shapekeys import images_dir
+    from os.path import exists, isfile, join
+    path = join(images_dir, img_name)
+    if not exists(path) or not isfile(path):
+        return None
+    return bpy.data.images.load(path, check_existing=True)
+
 def hide_image(image):
     if image.name.startswith('.'):
         return
