@@ -105,7 +105,7 @@ class BLENRIG_PT_blenrig_6_lattice_panel(bpy.types.Panel):
         layout = self.layout
 
         row = layout.row(align=False)
-        row.operator("blenrig.disable_hooks_modif", text="Modify Lattice Position")
+        row.operator("blenrig.disable_hooks_modif", text="Edit Lattice Position")
 
         sub = layout.row(align=False)
         sub = row.row()
