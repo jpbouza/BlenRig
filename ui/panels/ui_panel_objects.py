@@ -74,7 +74,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row_mdef.operator("blenrig.bind_mdef_modifiers", text = 'Bind Mesh Deform (Fast)').Bind_Type = True
         row_mdef.operator("blenrig.bind_mdef_modifiers", text = 'Bind Mesh Deform (Final)').Bind_Type = False
         col_mdef = box.column()
-        col_mdef.operator("blenrig.guide_unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
+        col_mdef.operator("blenrig.unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
 
 ####### Lattice & Curves Panel
 
