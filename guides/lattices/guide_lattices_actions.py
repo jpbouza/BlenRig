@@ -93,7 +93,7 @@ def LATTICES_Adjust_Head(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
+    frame_bones(context, "head_str", "spine_3_fk")
 
     #Set back Object Mode
     if context.mode != 'OBJECT':
@@ -147,7 +147,7 @@ def LATTICES_Adjust_Brow(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
+    frame_bones(context, "head_str", "neck_3_fk")
 
     #Set back Object Mode
     if context.mode != 'OBJECT':
@@ -159,7 +159,7 @@ def LATTICES_Adjust_Brow(operator, context):
 
     # Front View.
     set_view_perspective(context, False)
-    set_viewpoint('FRONT')
+    set_viewpoint('RIGHT')
 
     # Show Lattices
     lattice_objects = collect_lattice_objects()
@@ -201,7 +201,7 @@ def LATTICES_Adjust_Mouth(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
+    frame_bones(context, "head_str", "neck_3_fk")
 
     #Set back Object Mode
     if context.mode != 'OBJECT':
@@ -213,7 +213,7 @@ def LATTICES_Adjust_Mouth(operator, context):
 
     # Front View.
     set_view_perspective(context, False)
-    set_viewpoint('FRONT')
+    set_viewpoint('RIGHT')
 
     # Show Lattices
     lattice_objects = collect_lattice_objects()
@@ -255,7 +255,7 @@ def LATTICES_Adjust_Eyes(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
+    frame_bones(context, "head_str", "neck_3_fk")
 
     #Set back Object Mode
     if context.mode != 'OBJECT':
