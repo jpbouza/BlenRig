@@ -26,11 +26,27 @@ class BLENRIG_PT_lattices_guide(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        # if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
-        #     steps = layout.column(align=True)
-        #     box_set = steps.box()
-        #     box_set.label(text='Define Object tha use Mesh Deform')
-        #     box_set.operator("blenrig.add_body_modifiers", text = 'Set Body Objects')
+        STEPS = ['LATTICES_Adjust_Body', 'LATTICES_Adjust_Head', 'LATTICES_Adjust_Brow', 'LATTICES_Adjust_Mouth']
 
-
-
+        if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step in STEPS:
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Lattice Position')
+            row = box_set.row()
+            row.operator("blenrig.disable_hooks_modif", text="Edit Lattice Position")
+            sub = row.row(align=False)
+            sub = row.row()
+            sub.scale_x = 0.6
+            sub.operator("blenrig.reset_hooks", text="Apply Lattice Position")
+        if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'LATTICES_Adjust_Eyes':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Lattice Position')
+            row = box_set.row()
+            row.operator("blenrig.disable_hooks_modif", text="Edit Lattice Position")
+            sub = row.row(align=False)
+            sub = row.row()
+            sub.scale_x = 0.6
+            sub.operator("blenrig.reset_hooks", text="Apply Lattice Position")
+            row_mirror = box_set.row()
+            row_mirror.operator("blenrig.mirror_lattice_transforms", text="Mirror Lattice Transforms")
