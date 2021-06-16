@@ -14,6 +14,8 @@ from . actions.guide_actions import GUIDE_STEPS_ACTIONS
 from . weights.guide_weights import GUIDE_STEPS_WEIGHTS
 from . shapekeys.guide_shapekeys import GUIDE_STEPS_SHAPEKEYS
 
+#Guide Operators
+
 class VIEW3D_OT_blenrig_guide_reproportion(bpy.types.Operator):
     bl_idname = "view3d.blenrig_guide_reproportion"
     bl_label = "Show Reproportion Guide"
@@ -1405,6 +1407,8 @@ class VIEW3D_OT_blenrig_guide_shapekeys(bpy.types.Operator):
         VIEW3D_OT_blenrig_guide_shapekeys.instance = self
         return {'RUNNING_MODAL'}
 
+#Weights Transfer Operators
+
 class Operator_Transfer_VGroups(bpy.types.Operator):
 
     bl_idname = "blenrig.transfer_vgroups"
@@ -1510,6 +1514,8 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
         if context.mode != 'EDIT':
             set_mode('EDIT')
         return {"FINISHED"}
+
+#Add Modifiers Operators
 
 class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
 
@@ -1828,6 +1834,8 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
 
         return {"FINISHED"}
 
+#Mesh Deform Binding Operators
+
 class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
 
     bl_idname = "blenrig.bind_mdef_modifiers"
@@ -1997,6 +2005,8 @@ class Operator_blenrig_guide_unbind_mdef_modifiers(bpy.types.Operator):
         except:
             pass
         return {"FINISHED"}
+
+#Shapekeys Operators
 
 class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
 
@@ -6339,4 +6349,47 @@ class Operator_blenrig_mirror_active_shapekey_driver(bpy.types.Operator):
         self.mirror_coefficient(context, 'SCALE_X', 1)
         self.mirror_coefficient(context, 'SCALE_y', 1)
         self.mirror_coefficient(context, 'SCALE_Z', 1)
+        return {"FINISHED"}
+
+#Mirror Lattices Transforms Operator
+
+class Operator_blenrig_mirror_lattice_transforms(bpy.types.Operator):
+
+    bl_idname = "blenrig.mirror_lattice_transforms"
+    bl_label = "BlenRig Mirror Lattice Transforms from L to R"
+    bl_description = "Mirror Mirror the LATTICE_EYE_L transforms to LATTICE_EYE_R"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["LATTICE"]):
+            return True
+        else:
+            return False
+
+    #Mirror Transforms Values
+    def mirror_transforms(self, context):
+        from . utils import deselect_all_objects, set_active_object
+        try:
+            eye_R = bpy.data.objects['LATTICE_EYE_R']
+            eye_L = bpy.data.objects['LATTICE_EYE_L']
+            eye_R.location[0] =  -(eye_L.location[0])
+            eye_R.location[1] =  eye_L.location[1]
+            eye_R.location[2] =  eye_L.location[2]
+            eye_R.rotation_euler[0] =  eye_L.rotation_euler[0]
+            eye_R.rotation_euler[1] =  -(eye_L.rotation_euler[1])
+            eye_R.rotation_euler[2] =  -(eye_L.rotation_euler[2])
+            eye_R.scale[0] =  eye_L.scale[0]
+            eye_R.scale[1] =  eye_L.scale[1]
+            eye_R.scale[2] =  eye_L.scale[2]
+            deselect_all_objects(context)
+            set_active_object(context, eye_R)
+            bpy.ops.blenrig.disable_hooks_modif()
+        except:
+            pass
+
+    def execute(self, context):
+        self.mirror_transforms(context)
         return {"FINISHED"}
