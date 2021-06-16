@@ -619,7 +619,7 @@ class VIEW3D_OT_blenrig_guide_mdef(bpy.types.Operator):
 
 class VIEW3D_OT_blenrig_guide_lattices(bpy.types.Operator):
     bl_idname = "view3d.blenrig_guide_lattices"
-    bl_label = "Show Lattices Guide"
+    bl_label = "Show Mesh Deform Guide"
     bl_description = "Run Blenrig interactive guide and show it inside 3d viewport"
 
     instance = None

@@ -360,6 +360,16 @@ def collect_mdef_weights_model():
             mdef_weights_model_objects.append(ob)
     return mdef_weights_model_objects
 
+lattice_objects = []
+
+def collect_lattice_objects():
+    lattice_objects.clear()
+    for ob in bpy.data.objects:
+        if hasattr(ob, 'type') and hasattr(ob, 'parent'):
+            if ob.type == 'LATTICE' and ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                lattice_objects.append(ob)
+    return lattice_objects
+
 #### Local View
 
 def switch_out_local_view():
