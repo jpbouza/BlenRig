@@ -62,7 +62,10 @@ from .ui.panels.rigging_and_baking import BLENRIG_PT_Rigging_and_baking, BLENRIG
 from .ui.panels.guide_reproportion_assistant import BLENRIG_PT_reproportion_guide
 from .ui.panels.guide_datatransfer_assistant import BLENRIG_PT_datatransfer_guide
 from .ui.panels.guide_mdef_assistant import BLENRIG_PT_mdef_guide
-from .ui.panels.actions_assistants_guide import BLENRIG_PT_actions_guide
+from .ui.panels.guide_lattices_assistant import BLENRIG_PT_lattices_guide
+from .ui.panels.guide_actions_assistant import BLENRIG_PT_actions_guide
+from .ui.panels.guide_weights_assistant import BLENRIG_PT_weights_guide
+from .ui.panels.guide_shapekeys_assistant import BLENRIG_PT_shapekeys_guide
 from .ui.panels.bodysettings.volume_preservation_bones_movement import *
 from .ui.panels.bodysettings.ik import BLENRIG_PT_Rig_Body_settings_ik
 from .ui.panels.bodysettings.automated_movement import BLENRIG_PT_Rig_Body_settings_automated_movement
@@ -3203,7 +3206,10 @@ panels_classes = [
     BLENRIG_PT_reproportion_guide,
     BLENRIG_PT_datatransfer_guide,
     BLENRIG_PT_mdef_guide,
+    BLENRIG_PT_lattices_guide,
     BLENRIG_PT_actions_guide,
+    BLENRIG_PT_weights_guide,
+    BLENRIG_PT_shapekeys_guide,
     BLENRIG_PT_Rig_Body_settings_ik,
     BLENRIG_PT_Rig_Body_settings_automated_movement,
     BLENRIG_PT_Rig_Body_settings_vp_bones_movement,
