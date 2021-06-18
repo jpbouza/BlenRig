@@ -625,3 +625,403 @@ def bone_local_transforms(armature, bname, transform_type):
     if transform_type == 'scale_z':
         transform = local_diff.to_scale()[2]
     return transform
+
+#Guide Actions Properties Functions
+
+#Mouth Corners
+def corner_out_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_out
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].OUT_LIMIT_L = prop_value
+                pbones["mouth_corner_R"].OUT_LIMIT_R = prop_value
+                pbones["mouth_ctrl"].OUT_LIMIT = prop_value
+                #Apply Bone Transform
+                pbones["mouth_corner_L"].location[0] = -(prop_value)
+                pbones["mouth_corner_R"].location[0] = prop_value
+
+def corner_in_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_in
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].IN_LIMIT_L = prop_value
+                pbones["mouth_corner_R"].IN_LIMIT_R = prop_value
+                pbones["mouth_ctrl"].IN_LIMIT = prop_value
+                #Apply Bone Transform
+                pbones["mouth_corner_L"].location[0] = prop_value
+                pbones["mouth_corner_R"].location[0] = -(prop_value)
+
+def corner_up_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_up
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].UP_LIMIT_L = prop_value
+                pbones["mouth_corner_R"].UP_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["mouth_corner_L"].location[2] = prop_value
+                pbones["mouth_corner_R"].location[2] = prop_value
+
+def corner_down_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_down
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].DOWN_LIMIT_L = prop_value
+                pbones["mouth_corner_R"].DOWN_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["mouth_corner_L"].location[2] = -(prop_value)
+                pbones["mouth_corner_R"].location[2] = -(prop_value)
+
+def corner_back_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_back
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].BACK_LIMIT_L = prop_value
+                pbones["mouth_corner_R"].BACK_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["mouth_corner_L"].location[1] = -(prop_value)
+                pbones["mouth_corner_R"].location[1] = -(prop_value)
+
+def corner_forw_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_forw
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].FORW_LIMIT_L = prop_value
+                pbones["mouth_corner_R"].FORW_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["mouth_corner_L"].location[1] = prop_value
+                pbones["mouth_corner_R"].location[1] = prop_value
+
+def auto_back_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_auto_back
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].AUTO_BACK_L = prop_value
+                pbones["mouth_corner_R"].AUTO_BACK_R = prop_value
+
+#Jaw
+def jaw_up_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_jaw_up
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["maxi"].JAW_UP_LIMIT = prop_value
+                #Apply Bone Transform
+                pbones["maxi"].rotation_euler[0] = prop_value
+
+def jaw_down_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_jaw_down
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["maxi"].JAW_DOWN_LIMIT = prop_value
+                #Apply Bone Transform
+                pbones["maxi"].rotation_euler[0] = -(prop_value)
+
+#Cheeks
+def cheek_up_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_cheek_up
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L = prop_value
+                pbones["cheek_ctrl_R"].CHEEK_UP_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["cheek_ctrl_L"].location[2] = prop_value
+                pbones["cheek_ctrl_R"].location[2] = prop_value
+
+def cheek_down_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_cheek_down
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["cheek_ctrl_L"].CHEEK_DOWN_LIMIT_L = prop_value
+                pbones["cheek_ctrl_R"].CHEEK_DOWN_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["cheek_ctrl_L"].location[2] = -(prop_value)
+                pbones["cheek_ctrl_R"].location[2] = -(prop_value)
+
+#Nose Frown
+def nose_frown_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_nose_forwn
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["nose_frown_ctrl_L"].FROWN_LIMIT_L = prop_value
+                pbones["nose_frown_ctrl_R"].FROWN_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["nose_frown_ctrl_L"].location[2] = prop_value
+                pbones["nose_frown_ctrl_R"].location[2] = prop_value
+
+#Mouth Frown
+def mouth_frown_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_forwn
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_frown_ctrl_L"].FROWN_LIMIT_L = prop_value
+                pbones["mouth_frown_ctrl_R"].FROWN_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["mouth_frown_ctrl_L"].location[2] = -(prop_value)
+                pbones["mouth_frown_ctrl_R"].location[2] = -(prop_value)
+
+#Chin Frown
+def chin_frown_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_chin_forwn
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["chin_frown_ctrl"].FROWN_LIMIT = prop_value
+                #Apply Bone Transform
+                pbones["chin_frown_ctrl"].location[2] = -(prop_value)
+
+#Upper Eyelids
+def eyelid_up_up_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_eyelid_up_up
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_up_ctrl_L"].EYELID_UP_LIMIT_L = prop_value
+                pbones["eyelid_up_ctrl_R"].EYELID_UP_LIMIT_R= prop_value
+                #Apply Bone Transform
+                pbones["eyelid_up_ctrl_L"].location[2] = prop_value
+                pbones["eyelid_up_ctrl_R"].location[2] = prop_value
+
+def eyelid_up_down_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_eyelid_up_down
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L = prop_value
+                pbones["eyelid_up_ctrl_R"].EYELID_DOWN_LIMIT_R= prop_value
+                #Apply Bone Transform
+                pbones["eyelid_up_ctrl_L"].location[2] = -(prop_value)
+                pbones["eyelid_up_ctrl_R"].location[2] = -(prop_value)
+
+#Lower Eyelids
+def eyelid_low_down_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_eyelid_low_down
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_low_ctrl_L"].EYELID_DOWN_LIMIT_L = prop_value
+                pbones["eyelid_low_ctrl_R"].EYELID_DOWN_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["eyelid_low_ctrl_L"].location[2] = -(prop_value)
+                pbones["eyelid_low_ctrl_R"].location[2] = -(prop_value)
+
+def eyelid_low_up_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_eyelid_low_up
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L = prop_value
+                pbones["eyelid_low_ctrl_R"].EYELID_UP_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["eyelid_low_ctrl_L"].location[2] = prop_value
+                pbones["eyelid_low_ctrl_R"].location[2] = prop_value
+
