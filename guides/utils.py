@@ -285,7 +285,7 @@ def set_active_object(context, _object):
 
 def toggle_pose_x_mirror(context, state):
     if context.mode == 'POSE':
-        context.pose_object.data.use_mirror_x = state
+        context.pose_object.pose.use_mirror_x = state
 
 def move_global_z():
     bpy.ops.transform.translate('INVOKE_DEFAULT', orient_type ='GLOBAL', constraint_axis=(False, False, True), release_confirm=True)
@@ -1025,3 +1025,59 @@ def eyelid_low_up_update(self, context):
                 pbones["eyelid_low_ctrl_L"].location[2] = prop_value
                 pbones["eyelid_low_ctrl_R"].location[2] = prop_value
 
+# Assign Actions
+
+def assign_action(action_name, frame):
+
+    #Get Armature
+    def get_armature():
+        if hasattr(bpy.context.active_object, 'type'):
+            if bpy.context.active_object.type == 'ARMATURE':
+                return bpy.context.active_object
+
+    #Get Action
+    def get_action():
+        armature = get_armature()
+        print (armature)
+        for b in armature.pose.bones:
+            for C in b.constraints:
+                if C.type == 'ACTION':
+                    if action_name in C.action.name:
+                        return C.action
+
+    armature = get_armature()
+    print (armature.name)
+    action = get_action()
+    print(action)
+
+    armature.animation_data.action = action
+
+    #Set Frame
+    bpy.context.scene.frame_set(frame)
+
+    #Enable Auto-Key
+    bpy.context.scene.tool_settings.use_keyframe_insert_auto = True
+
+def clear_action():
+
+    #Get Armature
+    def get_armature():
+        if hasattr(bpy.context.active_object, 'type'):
+            if bpy.context.active_object.type == 'ARMATURE':
+                return bpy.context.active_object
+
+    #Remove Action
+    armature = get_armature()
+    armature.animation_data.action = None
+
+    #Disable Auto-Key
+    bpy.context.scene.tool_settings.use_keyframe_insert_auto = False
+
+def reset_all_bones_transforms():
+
+    #Reset Transforms
+    if hasattr(bpy.context.active_object, 'type'):
+        if bpy.context.active_object.type == 'ARMATURE':
+            armature = bpy.context.active_object
+            for b in armature.pose.bones:
+                b.matrix_basis = Matrix()
