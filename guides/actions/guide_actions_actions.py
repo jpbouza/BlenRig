@@ -16,10 +16,58 @@ def select_armature(operator, context):
 
 #### ACTIONS STEPS ####
 
-def ACTIONS_Select_Body_Objects(operator, context):
+def ACTIONS_Fingers_Spread_X_Up(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'ACTIONS_Select_Body_Objects'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'ACTIONS_Fingers_Spread_X_Up'
+
+    #Set Mdef Cage
+    deselect_all_objects(context)
+
+    #Armature for setting view
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+
+    #Select Armature
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.select_set(state=True)
+    bpy.context.view_layer.objects.active = armature
+    if context.mode != 'POSE':
+        set_mode('POSE')
+
+    #Toggle Pose X-Mirror
+    toggle_pose_x_mirror(context, True)
+
+    #Reset Transforms
+    reset_all_bones_transforms()
+
+    # Adjust view to Bones.
+    frame_bones(context, "hand_ik_ctrl_L", "hand_close_L")
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    #Assign Action
+    assign_action('zrig_fing_spread_x', 1)
+
+    #Turn On Actions Layer
+    on_layers = [28]
+    for l in on_layers:
+        bpy.context.object.data.layers[l] = True
+
+    #Bones
+    bones = ('fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L')
+
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+    deselect_all_pose_bones(context)
+
+def ACTIONS_Fingers_Spread_X_Down(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'ACTIONS_Fingers_Spread_X_Up'
 
     #Set Mdef Cage
     deselect_all_objects(context)
@@ -35,117 +83,48 @@ def ACTIONS_Select_Body_Objects(operator, context):
         set_mode('POSE')
 
     # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
+    frame_bones(context, "hand_ik_ctrl_L", "hand_close_L")
 
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
 
-def MDEF_Edit_Mdef_Cage(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Edit_Mdef_Cage'
+    assign_action('zrig_fing_spread_x', -1)
 
-    deselect_all_objects(context)
-
-    # Show Mdef
-    mdef_cage_objects = collect_cage()
-    collect_cage()
-    blenrig_temp_link(mdef_cage_objects)
-
-    for ob in mdef_cage_objects:
-        set_active_object(context, ob)
-        bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
-        set_mode('EDIT')
-
-def MDEF_Binding_Check(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Binding_Check'
-
-    #Set Mdef Cage
-    deselect_all_objects(context)
-
-    #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-
-    #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
-
-    # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
-
-    #Set back Object Mode
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-
-    armature.hide_viewport = True
-
-    deselect_all_objects(context)
-
-    # Front View.
-    set_view_perspective(context, False)
-    set_viewpoint('FRONT')
-
-    #Select Head object
-    try:
-        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
-    except:
-        pass
-
-
-
-def MDEF_Final_Binding(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Final_Binding'
-
-    #Set Mdef Cage
-    deselect_all_objects(context)
-
-    #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-
-    #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
-
-    # Adjust view to Bones.
-    frame_bones(context, "head_str", "master")
-
-    #Set back Object Mode
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-
-    armature.hide_viewport = True
-
-    deselect_all_objects(context)
-
-    # Front View.
-    set_view_perspective(context, False)
-    set_viewpoint('FRONT')
-
-    #Select Head object
-    try:
-        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
-    except:
-        pass
 
 #### END OF STEP ACTIONS ####
+
+def actions_end_generic(context):
+    #Ensure Symmetry
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+    #Left Side
+    for b in context.pose_object.data.bones:
+        if b.name.endswith('_L'):
+            b.select = True
+
+    if bpy.context.active_object.pose.use_mirror_x == True:
+        mirror_pose()
+    deselect_all_pose_bones(context)
+
+    #Clear Action and Transforms
+    clear_action()
+
+    #Reset Transforms
+    reset_all_bones_transforms()
+
+    #Toggle Pose X-Mirror
+    toggle_pose_x_mirror(context, False)
+
+    #Turn Layers on
+    off_layers = [28]
+    for l in off_layers:
+        bpy.context.object.data.layers[l] = False
+
 #Property for action to be performed after steps
 def end_of_step_action(context):
     current_step = bpy.context.scene.blenrig_guide.guide_current_step
-    if current_step == 'MDEF_Edit_Mdef_Cage':
-        #Set back Object Mode
-        if context.mode != 'OBJECT':
-            set_mode('OBJECT')
-        blenrig_temp_unlink()
+    if current_step == 'ACTIONS_Fingers_Spread_X_Up':
+        actions_end_generic(context)
         bpy.context.scene.blenrig_guide.guide_current_step = ''

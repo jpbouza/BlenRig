@@ -15,7 +15,7 @@ GUIDE_STEPS_ACTIONS = (
             'EN': "Corner",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
-        'accion': ACTIONS_Select_Body_Objects
+        'accion': ACTIONS_Fingers_Spread_X_Up
     },
     #Edit the Mesh Deform Cage
     {
@@ -28,34 +28,8 @@ GUIDE_STEPS_ACTIONS = (
             'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
-        'accion': MDEF_Edit_Mdef_Cage
-},
-    #Check Mesh Deform Binding
-    {
-        'imagen': 'DT_Finish_A.jpg',
-        'titulo': {
-            'EN': 'Check Mesh Deform Binding',
-            'ES': 'Paso 1'
-            },
-        'texto': {
-            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the Unbind button, Edit the cage and Bind again until all the vertices move with the rig",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
-            },
-        'accion': MDEF_Binding_Check
-},
-    #Mesh Deform Final Binding
-    {
-        'imagen': 'DT_Finish_A.jpg',
-        'titulo': {
-            'EN': 'Mesh Deform Final Binding',
-            'ES': 'Paso 1'
-            },
-        'texto': {
-            'EN': "If all vertices are moving along, press the Unbind button and then the Bind Mesh Deform(Final) Button. Go grab a cup of coffee because depending on how many objects you are binding, this can take long.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
-            },
-        'accion': MDEF_Final_Binding
-}
+        'accion': ACTIONS_Fingers_Spread_X_Down
+    }
 )
 
 
