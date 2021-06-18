@@ -8,14 +8,14 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Corner',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Corner",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
-        'accion': MDEF_Select_Body_Objects
+        'accion': ACTIONS_Select_Body_Objects
     },
     #Edit the Mesh Deform Cage
     {

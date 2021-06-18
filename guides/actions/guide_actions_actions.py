@@ -14,12 +14,12 @@ def select_armature(operator, context):
     set_active_object(context, operator.arm_obj)
     set_mode('POSE')
 
-#### MDEF STEPS ####
+#### ACTIONS STEPS ####
 
-def MDEF_Select_Body_Objects(operator, context):
+def ACTIONS_Select_Body_Objects(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Select_Body_Objects'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'ACTIONS_Select_Body_Objects'
 
     #Set Mdef Cage
     deselect_all_objects(context)
@@ -37,23 +37,9 @@ def MDEF_Select_Body_Objects(operator, context):
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
 
-    #Set back Object Mode
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-
-    armature.hide_viewport = True
-
-    deselect_all_objects(context)
-
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
-
-    #Select Head object
-    try:
-        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
-    except:
-        pass
 
 def MDEF_Edit_Mdef_Cage(operator, context):
     #Perform end of step action and set current step name
