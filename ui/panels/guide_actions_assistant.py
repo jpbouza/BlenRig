@@ -24,10 +24,18 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
         return obj or obj.type in valid_types
 
     def draw(self, context):
-        arm_obj_props = bpy.context.scene.blenrig_guide
+        arm = context.active_object
+        if hasattr(arm, 'pose'):
+            pose = arm.pose
+
         layout = self.layout
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Select_Body_Objects':
+        if VIEW3D_OT_blenrig_guide_actions.instance:
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.prop(pose, "use_mirror_x")
+
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Fingers_Spread_X_Up':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Object tha use Mesh Deform')
