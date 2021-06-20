@@ -101,19 +101,19 @@ class BlenrigGuideData(PropertyGroup):
     name="Cheek Downwards Limit"
     )
     #Nose Frown
-    guide_nose_forwn : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
+    guide_nose_ : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
     description="Define the maximum amount of Upwards movement for when Frowning the Nose",
     update=nose_frown_update,
     name="Nose Frown Limit"
     )
     #Mouth Frown
-    guide_mouth_forwn : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
+    guide_mouth_frown : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
     description="Define the maximum amount of Downwards movement for when Frowning the Mouth",
     update=mouth_frown_update,
     name="Mouth Frown Limit"
     )
     #Mouth Frown
-    guide_chin_forwn : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
+    guide_chin_frown : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
     description="Define the maximum amount of Downwards movement for when Frowning the Chin",
     update=chin_frown_update,
     name="Chin Frown Limit"
@@ -139,4 +139,14 @@ class BlenrigGuideData(PropertyGroup):
     description="Define the maximum amount of Upwards movement of the Lower Eyelid",
     update=eyelid_low_up_update,
     name="Lower Eyelid Up Limit"
+    )
+    guide_eyelid_out : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Define the maximum amount of Outwards Rotation of the Eye",
+    update=eyelid_out_update,
+    name="Eyelid Out Limit"
+    )
+    guide_eyelid_in : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Define the maximum amount of Inwards Rotation of the Eye",
+    update=eyelid_in_update,
+    name="Eyelid In Limit"
     )

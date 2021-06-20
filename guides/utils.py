@@ -881,7 +881,7 @@ def nose_frown_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_nose_forwn
+                prop_value = bpy.context.scene.blenrig_guide.guide_nose_
                 pbones = arm.pose.bones
 
                 #Update Properties
@@ -904,7 +904,7 @@ def mouth_frown_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_forwn
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_
                 pbones = arm.pose.bones
 
                 #Update Properties
@@ -927,7 +927,7 @@ def chin_frown_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_chin_forwn
+                prop_value = bpy.context.scene.blenrig_guide.guide_chin_
                 pbones = arm.pose.bones
 
                 #Update Properties
@@ -1024,6 +1024,50 @@ def eyelid_low_up_update(self, context):
                 #Apply Bone Transform
                 pbones["eyelid_low_ctrl_L"].location[2] = prop_value
                 pbones["eyelid_low_ctrl_R"].location[2] = prop_value
+
+def eyelid_out_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_eyelid_out
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_up_ctrl_L"].EYELID_OUT_LIMIT_L = prop_value
+                pbones["eyelid_up_ctrl_R"].EYELID_OUT_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["eye_def_L"].rotation_euler[2] = radians(prop_value)
+                pbones["eye_def_R"].rotation_euler[2] = radians(-(prop_value))
+
+def eyelid_in_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_eyelid_in
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_up_ctrl_L"].EYELID_IN_LIMIT_L = prop_value
+                pbones["eyelid_up_ctrl_R"].EYELID_IN_LIMIT_R = prop_value
+                #Apply Bone Transform
+                pbones["eye_def_L"].rotation_euler[2] = radians(-(prop_value))
+                pbones["eye_def_R"].rotation_euler[2] = radians(prop_value)
 
 # Assign Actions
 
