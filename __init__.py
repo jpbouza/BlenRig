@@ -935,7 +935,7 @@ bpy.types.PoseBone.EYELID_UP_LIMIT_L = FloatProperty(
 
 bpy.types.PoseBone.EYELID_OUT_LIMIT_L = FloatProperty(
     default=60.000,
-    min=-180.000,
+    min=0.000,
     max=180.000,
     precision=3,
     description="Eyelid Outwards Movement Limit",
@@ -945,7 +945,7 @@ bpy.types.PoseBone.EYELID_OUT_LIMIT_L = FloatProperty(
 
 bpy.types.PoseBone.EYELID_IN_LIMIT_L = FloatProperty(
     default=60.000,
-    min=-180.000,
+    min=0.000,
     max=180.000,
     precision=3,
     description="Eyelid Inwards Movement Limit",
@@ -1004,7 +1004,7 @@ bpy.types.PoseBone.EYELID_UP_LIMIT_R = FloatProperty(
 
 bpy.types.PoseBone.EYELID_OUT_LIMIT_R = FloatProperty(
     default=60.000,
-    min=-180.000,
+    min=0.000,
     max=180.000,
     precision=3,
     description="Eyelid Outwards Movement Limit",
@@ -1014,7 +1014,7 @@ bpy.types.PoseBone.EYELID_OUT_LIMIT_R = FloatProperty(
 
 bpy.types.PoseBone.EYELID_IN_LIMIT_R = FloatProperty(
     default=60.000,
-    min=-180.000,
+    min=0.000,
     max=180.000,
     precision=3,
     description="Eyelid Inwards Movement Limit",
