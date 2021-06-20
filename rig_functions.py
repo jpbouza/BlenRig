@@ -1125,6 +1125,12 @@ def set_eyelids(context):
                 #Eyelid Low R
                 Set_Movement_Ranges_Actions('eyelid_low_ctrl_R', 'EYELID_UP_LIMIT_R', 'Eyelid_Lower_Up_R_NOREP', 0, 1)
                 Set_Movement_Ranges_Actions('eyelid_low_ctrl_R', 'EYELID_DOWN_LIMIT_R', 'Eyelid_Lower_Down_R_NOREP', 0, -1)
+                #Eyelid Sides L
+                Set_Movement_Ranges_Actions('eyelid_up_ctrl_L', 'EYELID_OUT_LIMIT_L', 'Eyelid_Out_L_NOREP', 0, 1)
+                Set_Movement_Ranges_Actions('eyelid_up_ctrl_L', 'EYELID_IN_LIMIT_L', 'Eyelid_In_L_NOREP', 0, -1)
+                #Eyelid Sides R
+                Set_Movement_Ranges_Actions('eyelid_up_ctrl_R', 'EYELID_OUT_LIMIT_R', 'Eyelid_Out_R_NOREP', 0, -1)
+                Set_Movement_Ranges_Actions('eyelid_up_ctrl_R', 'EYELID_IN_LIMIT_R', 'Eyelid_In_R_NOREP', 0, 1)
                 return {"FINISHED"}
 
 #FROWNS
