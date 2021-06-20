@@ -62,6 +62,13 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     hide_selected_pose_bones(context)
     deselect_all_pose_bones(context)
 
+def mute_constraints(constraint_name, c_mute):
+    guide_props = bpy.context.scene.blenrig_guide
+    for b in guide_props.arm_obj.pose.bones:
+        for C in b.constraints:
+            if C.type == 'ACTION':
+                if constraint_name in C.name:
+                    C.mute = c_mute
 
 #### ACTIONS STEPS ####
 
@@ -168,6 +175,9 @@ def ACTIONS_Eyelids_Up_Up_Range(operator, context):
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_eyelid_up_up = guide_props.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_UP_LIMIT_L
 
+    #Diable Action Constraints
+    mute_constraints('Eyelid_Upper_Up', True)
+
 def ACTIONS_Eyelids_Up_Up(operator, context):
     edit_action(operator, context,
     'ACTIONS_Eyelids_Up_Up',
@@ -176,6 +186,202 @@ def ACTIONS_Eyelids_Up_Up(operator, context):
     'zrig_eyelids_upper', -1,
     ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L']
     )
+
+def ACTIONS_Eyelids_Up_Down_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Up_Down_Range',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['eyelid_up_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_eyelid_up_down = guide_props.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L
+
+    #Diable Action Constraints
+    mute_constraints('Eyelid_Upper_Down', True)
+
+def ACTIONS_Eyelids_Up_Down_1(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Up_Down_1',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'zrig_eyelids_upper', 1,
+    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L']
+    )
+
+def ACTIONS_Eyelids_Up_Down_2(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Up_Down_2',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'zrig_eyelids_upper', 2,
+    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L']
+    )
+
+def ACTIONS_Eyelids_Low_Down_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Low_Down_Range',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['eyelid_low_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_eyelid_low_down = guide_props.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_DOWN_LIMIT_L
+
+    #Diable Action Constraints
+    mute_constraints('Eyelid_Lower_Down', True)
+
+def ACTIONS_Eyelids_Low_Down(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Low_Down',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'zrig_eyelids_lower', -1,
+    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    )
+
+def ACTIONS_Eyelids_Low_Up_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Low_Up_Range',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['eyelid_low_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_eyelid_low_up = guide_props.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L
+
+    #Diable Action Constraints
+    mute_constraints('Eyelid_Lower_Up', True)
+
+def ACTIONS_Eyelids_Low_Up_1(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Low_Up_1',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'zrig_eyelids_lower', 1,
+    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    )
+
+def ACTIONS_Eyelids_Low_Up_2(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Low_Up_2',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'zrig_eyelids_lower', 2,
+    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    )
+
+def ACTIONS_Eyelids_Out(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Eyelids_Out',
+    'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
+    'FRONT',
+    'zrig_eyelids_sides', 1,
+    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L',
+    'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    )
+
+    #Diable Action Constraints
+    mute_constraints('Eyelid_Out', True)
+
+    #Disable Eye Constraint
+    guide_props = bpy.context.scene.blenrig_guide
+    for C in guide_props.arm_obj.pose.bones["eye_def_L"].constraints:
+        C.mute = True
+    for C in guide_props.arm_obj.pose.bones["eye_def_R"].constraints:
+        C.mute = True
+
+    #Change Rotation Mode
+    guide_props.arm_obj.pose.bones["eye_def_L"].rotation_mode = 'XYZ'
+    guide_props.arm_obj.pose.bones["eye_def_R"].rotation_mode = 'XYZ'
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_eyelid_out = guide_props.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_OUT_LIMIT_L
+
+def ACTIONS_Cheek_Up_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Cheek_Up_Range',
+    'brow_ctrl_curve_L', 'nostril_ctrl_L',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['cheek_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_cheek_up = guide_props.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L
+
+def ACTIONS_Cheek_Up(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Cheek_Up',
+    'brow_ctrl_curve_L', 'nostril_ctrl_L',
+    'FRONT',
+    'zrig_cheeks', 1,
+    ['cheek_line_ctrl_1_L', 'cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_cheek_up = guide_props.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["cheek_ctrl_L"]["ACTION_CHEEK_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["cheek_ctrl_R"]["ACTION_CHEEK_TOGGLE_R"] = 0
+
+def ACTIONS_Cheek_Down_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Cheek_Down_Range',
+    'brow_ctrl_curve_L', 'nostril_ctrl_L',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['cheek_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_cheek_down = guide_props.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_DOWN_LIMIT_L
+
+def ACTIONS_Cheek_Down(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Cheek_Down',
+    'brow_ctrl_curve_L', 'nostril_ctrl_L',
+    'FRONT',
+    'zrig_cheeks', -1,
+    ['cheek_line_ctrl_1_L', 'cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_cheek_down = guide_props.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_DOWN_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["cheek_ctrl_L"]["ACTION_CHEEK_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["cheek_ctrl_R"]["ACTION_CHEEK_TOGGLE_R"] = 0
+
+def ACTIONS_Cheek_Frown(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Cheek_Frown',
+    'brow_ctrl_curve_L', 'nostril_ctrl_L',
+    'FRONT',
+    'zrig_cheeks_frown', 1,
+    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_out_mstr_L',
+    'eyelid_up_ctrl_3_mstr_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_ctrl_3_mstr_L', 'brow_low_ctrl_5_L', 'brow_low_ctrl_2_L', 'brow_low_ctrl_3_L',
+    'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_cheek_up = guide_props.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L
 
 #### END OF STEP ACTIONS ####
 
@@ -203,16 +409,48 @@ def actions_end_generic(context):
     toggle_pose_x_mirror(context, False)
 
     #Turn Layers on
-    off_layers = [28]
+    off_layers = [27, 28]
     for l in off_layers:
         bpy.context.object.data.layers[l] = False
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
+    guide_props = bpy.context.scene.blenrig_guide
     current_step = bpy.context.scene.blenrig_guide.guide_current_step
     steps = ['ACTIONS_Fingers_Spread_X_Up', 'ACTIONS_Fingers_Spread_X_Down', 'ACTIONS_Fingers_Spread_Z_Out', 'ACTIONS_Fingers_Spread_Z_In',
-    'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out', 'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up']
+    'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out',
+    'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_Range', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2',
+    'ACTIONS_Eyelids_Low_Down_Range', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_Range', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2',
+    'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In']
     for step in steps:
         if current_step == step:
             actions_end_generic(context)
             bpy.context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'ACTIONS_Eyelids_Up_Up_Range':
+        #Enable Action Constraints
+        mute_constraints('Eyelid_Upper_Up', False)
+    if current_step == 'ACTIONS_Eyelids_Up_Down_Range':
+        #Enable Action Constraints
+        mute_constraints('Eyelid_Upper_Down', False)
+    if current_step == 'ACTIONS_Eyelids_Low_Down_Range':
+        #Enable Action Constraints
+        mute_constraints('Eyelid_Lower_Down', False)
+    if current_step == 'ACTIONS_Eyelids_Low_Up_Range':
+        #Enable Action Constraints
+        mute_constraints('Eyelid_Lower_Up', False)
+    if current_step == 'ACTIONS_Eyelids_Out':
+        #Enable Action Constraints
+        mute_constraints('Eyelid_Out', False)
+        #Rotate Eye
+        guide_props = bpy.context.scene.blenrig_guide
+        for C in guide_props.arm_obj.pose.bones["eye_def_L"].constraints:
+            C.mute = False
+        for C in guide_props.arm_obj.pose.bones["eye_def_R"].constraints:
+            C.mute = False
+        #Change Rotation Mode
+        guide_props.arm_obj.pose.bones["eye_def_L"].rotation_mode = 'QUATERNION'
+        guide_props.arm_obj.pose.bones["eye_def_R"].rotation_mode = 'QUATERNION'
+    if current_step == 'ACTIONS_Cheek_Up' or current_step == 'ACTIONS_Cheek_Down':
+        #Turn Action Constraint back On
+        guide_props.arm_obj.pose.bones["cheek_ctrl_L"]["ACTION_CHEEK_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["cheek_ctrl_R"]["ACTION_CHEEK_TOGGLE_R"] = 1
