@@ -101,7 +101,7 @@ class BlenrigGuideData(PropertyGroup):
     name="Cheek Downwards Limit"
     )
     #Nose Frown
-    guide_nose_ : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
+    guide_nose_frown : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
     description="Define the maximum amount of Upwards movement for when Frowning the Nose",
     update=nose_frown_update,
     name="Nose Frown Limit"

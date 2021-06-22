@@ -881,7 +881,7 @@ def nose_frown_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_nose_
+                prop_value = bpy.context.scene.blenrig_guide.guide_nose_frown
                 pbones = arm.pose.bones
 
                 #Update Properties
@@ -904,7 +904,7 @@ def mouth_frown_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_
+                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_frown
                 pbones = arm.pose.bones
 
                 #Update Properties
@@ -927,7 +927,7 @@ def chin_frown_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_chin_
+                prop_value = bpy.context.scene.blenrig_guide.guide_chin_frown
                 pbones = arm.pose.bones
 
                 #Update Properties
