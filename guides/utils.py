@@ -801,7 +801,7 @@ def jaw_up_update(self, context):
                 #Update Properties
                 pbones["maxi"].JAW_UP_LIMIT = prop_value
                 #Apply Bone Transform
-                pbones["maxi"].rotation_euler[0] = prop_value
+                pbones["maxi"].rotation_euler[0] = radians(prop_value)
 
 def jaw_down_update(self, context):
     if not bpy.context.screen:
@@ -821,7 +821,7 @@ def jaw_down_update(self, context):
                 #Update Properties
                 pbones["maxi"].JAW_DOWN_LIMIT = prop_value
                 #Apply Bone Transform
-                pbones["maxi"].rotation_euler[0] = -(prop_value)
+                pbones["maxi"].rotation_euler[0] = radians(-(prop_value))
 
 #Cheeks
 def cheek_up_update(self, context):
