@@ -32,7 +32,8 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
         layout = self.layout
 
         Face_Steps = ['ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In',
-        'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Nose_Frown', 'ACTIONS_Nose_Frown_Max', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up']
+        'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Nose_Frown', 'ACTIONS_Nose_Frown_Max', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up', 'ACTIONS_Mouth_Corner_Out', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up',
+        'ACTIONS_Mouth_Corner_Down', 'ACTIONS_Mouth_Corner_Back', 'ACTIONS_Mouth_Corner_Forw', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective']
 
         if VIEW3D_OT_blenrig_guide_actions.instance:
             steps = layout.column(align=True)
@@ -109,12 +110,49 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_jaw_up")
 
-            # box_set.prop(arm_obj_props, "guide_mouth_corner_out")
-            # box_set.prop(arm_obj_props, "guide_mouth_corner_in")
-            # box_set.prop(arm_obj_props, "guide_mouth_corner_up")
-            # box_set.prop(arm_obj_props, "guide_mouth_corner_down")
-            # box_set.prop(arm_obj_props, "guide_mouth_corner_back")
-            # box_set.prop(arm_obj_props, "guide_mouth_corner_forw")
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Out_Range':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Range of Motion')
+            box_set.prop(arm_obj_props, "guide_mouth_corner_out")
+
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Up_Range':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Range of Motion')
+            box_set.prop(arm_obj_props, "guide_mouth_corner_up")
+
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Down_Range':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Range of Motion')
+            box_set.prop(arm_obj_props, "guide_mouth_corner_down")
+
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Back_Range':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Range of Motion')
+            box_set.prop(arm_obj_props, "guide_mouth_corner_back")
+
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Forw_Range':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Range of Motion')
+            box_set.prop(arm_obj_props, "guide_mouth_corner_forw")
+
+        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_In_Range':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Define Range of Motion')
+            box_set.prop(arm_obj_props, "guide_mouth_corner_in")
+
+
+            # box_set.prop(arm_obj_props, "")
+            # box_set.prop(arm_obj_props, "")
+            # box_set.prop(arm_obj_props, "")
+            # box_set.prop(arm_obj_props, "")
+            # box_set.prop(arm_obj_props, "")
+            # box_set.prop(arm_obj_props, "")
             # box_set.prop(arm_obj_props, "")
             # box_set.prop(arm_obj_props, "")
             # box_set.prop(arm_obj_props, "")
