@@ -449,6 +449,81 @@ def ACTIONS_Nose_Frown_Max(operator, context):
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_nose_frown = guide_props.arm_obj.pose.bones["nose_frown_ctrl_L"].FROWN_LIMIT_L
 
+def ACTIONS_Jaw_Down_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Jaw_Down_Range',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'No_Action_For_This_Step', 0,
+    ['maxi']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_jaw_down = guide_props.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT
+
+def ACTIONS_Jaw_Down(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Jaw_Down',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_maxi_up_down', -1,
+    ['mouth_low', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'mouth_up', 'smile_line_ctrl_2_L', 'teeth_low', 'teeth_up', 'lip_low_ctrl_3_mstr_L',
+    'lip_up_ctrl_4_mstr_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_3_mstr_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_jaw_down = guide_props.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 0
+
+def ACTIONS_Jaw_Up_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Jaw_Up_Range',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'No_Action_For_This_Step', 0,
+    ['maxi']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_jaw_up = guide_props.arm_obj.pose.bones["maxi"].JAW_UP_LIMIT
+
+def ACTIONS_Jaw_Up(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Jaw_Up',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_maxi_up_down', 1,
+    ['mouth_low', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'mouth_up','lip_up_outer_ctrl', 'smile_line_ctrl_2_L', 'teeth_low', 'teeth_up',
+    'lip_up_ctrl_4_mstr_L', 'smile_line_ctrl_1_L', 'nose_base_ctrl']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_jaw_up = guide_props.arm_obj.pose.bones["maxi"].JAW_UP_LIMIT
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 0
+
+def ACTIONS_Mouth_Corner_Out(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Out',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'zrig_mouth_corner_out', 1,
+    ['mouth_corner_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_jaw_down = guide_props.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 0
 
 #### END OF STEP ACTIONS ####
 
@@ -491,7 +566,7 @@ def end_of_step_action(context):
     'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out',
     'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_Range', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2',
     'ACTIONS_Eyelids_Low_Down_Range', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_Range', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2',
-    'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In']
+    'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In', 'ACTIONS_Jaw_Down_Range', 'ACTIONS_Jaw_Up_Range', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up']
     for step in steps:
         if current_step == step:
             actions_end_generic(context)
@@ -536,3 +611,6 @@ def end_of_step_action(context):
         #Turn Action Constraint back On
         guide_props.arm_obj.pose.bones["cheek_ctrl_L"]["ACTION_CHEEK_TOGGLE_L"] = 1
         guide_props.arm_obj.pose.bones["cheek_ctrl_R"]["ACTION_CHEEK_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Jaw_Up' or current_step == 'ACTIONS_Jaw_Down':
+        #Turn Action Constraint back On
+        guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 1
