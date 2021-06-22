@@ -509,21 +509,245 @@ def ACTIONS_Jaw_Up(operator, context):
     #Turn off Action Constraint for Editting
     guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 0
 
+def ACTIONS_Mouth_Corner_Out_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Out_Range',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['mouth_corner_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_out = guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+
 def ACTIONS_Mouth_Corner_Out(operator, context):
     edit_action(operator, context,
     'ACTIONS_Mouth_Corner_Out',
     'head_stretch', 'head_fk',
     'FRONT',
     'zrig_mouth_corner_out', 1,
+    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L',
+    'jaw_line_ctrl_4_L', 'lip_low_outer_ctrl_4_L', 'cheek_line_ctrl_4_L', 'smile_line_ctrl_3_L', 'cheek_side_ctrl_L', 'chin_ctrl_3_L',
+    'chin_ctrl_2_L', 'chin_ctrl_1_L', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L',
+    'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
+    'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L',
+    'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L',
+    'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_out = guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_OUT_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_OUT_TOGGLE_R"] = 0
+
+def ACTIONS_Mouth_Corner_Up_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Up_Range',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
     ['mouth_corner_L']
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
     guide_props = bpy.context.scene.blenrig_guide
-    guide_props.guide_jaw_down = guide_props.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT
+    guide_props.guide_mouth_corner_up = guide_props.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L
+
+def ACTIONS_Mouth_Corner_Up(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Up',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'zrig_mouth_corner_up', 1,
+    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'jaw_line_ctrl_4_L', 'lip_low_outer_ctrl_4_L',
+    'cheek_line_ctrl_4_L', 'smile_line_ctrl_3_L', 'cheek_side_ctrl_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'chin_ctrl_1_L', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L',
+    'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L',
+    'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L',
+    'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L',
+    'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_up = guide_props.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L
 
     #Turn off Action Constraint for Editting
-    guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_UP_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_UP_TOGGLE_R"] = 0
+
+def ACTIONS_Mouth_Corner_Down_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Down_Range',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['mouth_corner_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_down = guide_props.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L
+
+def ACTIONS_Mouth_Corner_Down(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Down',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'zrig_mouth_corner_down', 1,
+    ['lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'jaw_line_ctrl_4_L', 'lip_low_outer_ctrl_4_L', 'cheek_line_ctrl_4_L',
+    'smile_line_ctrl_3_L', 'cheek_side_ctrl_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'chin_ctrl_1_L', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L',
+    'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
+    'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L',
+    'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_down = guide_props.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_DOWN_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_DOWN_TOGGLE_R"] = 0
+
+def ACTIONS_Mouth_Corner_Back_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Back_Range',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'No_Action_For_This_Step', 0,
+    ['mouth_corner_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_back = guide_props.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L
+
+def ACTIONS_Mouth_Corner_Back(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Back',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_mouth_corner_back', 1,
+    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'jaw_line_ctrl_4_L',
+    'lip_low_outer_ctrl_4_L', 'cheek_line_ctrl_4_L', 'smile_line_ctrl_3_L', 'cheek_side_ctrl_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'chin_ctrl_1_L', 'lip_up_outer_ctrl_1_L',
+    'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L',
+    'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L',
+    'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L',
+    'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_back = guide_props.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_BACK_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_BACK_TOGGLE_R"] = 0
+
+def ACTIONS_Mouth_Corner_Forw_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Forw_Range',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'No_Action_For_This_Step', 0,
+    ['mouth_corner_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_forw = guide_props.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L
+
+def ACTIONS_Mouth_Corner_Forw(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Forw',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_mouth_corner_forw', 1,
+    ['lip_up_ctrl_4_mstr_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_forw = guide_props.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_FORW_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_FORW_TOGGLE_R"] = 0
+
+def ACTIONS_Mouth_Corner_In_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_In_Range',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'No_Action_For_This_Step', 0,
+    ['mouth_corner_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_in = guide_props.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L
+
+def ACTIONS_Mouth_Corner_In(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_In',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'zrig_mouth_corner_in', 1,
+    ['lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl_4_L', 'cheek_line_ctrl_4_L', 'smile_line_ctrl_3_L',
+    'chin_ctrl_3_L', 'chin_ctrl_2_L', 'chin_ctrl_1_L', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
+    'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
+    'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L',
+    'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L',
+    'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_in = guide_props.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_IN_TOGGLE_L"] = 0
+    guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_IN_TOGGLE_R"] = 0
+
+def ACTIONS_Mouth_Corner_Up_Out_Corrective(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Up_Out_Corrective',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'zrig_mouth_up_out_corrective', 1,
+    ['lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'smile_line_ctrl_1_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_out = guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.guide_mouth_corner_up = guide_props.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_ctrl"]["CORRECTIVE_ACTIONS_TOGGLE"] = 0
+
+def ACTIONS_Mouth_Corner_Down_Out_Corrective(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_Mouth_Corner_Down_Out_Corrective',
+    'head_stretch', 'head_fk',
+    'FRONT',
+    'zrig_mouth_down_out_corrective', 1,
+    ['smile_line_ctrl_3_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'smile_line_ctrl_2_L', 'smile_line_ctrl_1_L']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_mouth_corner_out = guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.guide_mouth_corner_down = guide_props.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L
+
+    #Turn off Action Constraint for Editting
+    guide_props.arm_obj.pose.bones["mouth_ctrl"]["CORRECTIVE_ACTIONS_TOGGLE"] = 0
 
 #### END OF STEP ACTIONS ####
 
@@ -566,7 +790,10 @@ def end_of_step_action(context):
     'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out',
     'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_Range', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2',
     'ACTIONS_Eyelids_Low_Down_Range', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_Range', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2',
-    'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In', 'ACTIONS_Jaw_Down_Range', 'ACTIONS_Jaw_Up_Range', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up']
+    'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In',
+    'ACTIONS_Jaw_Down_Range', 'ACTIONS_Jaw_Up_Range', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up', 'ACTIONS_Mouth_Corner_Out_Range', 'ACTIONS_Mouth_Corner_Out', 'ACTIONS_Mouth_Corner_Up_Range', 'ACTIONS_Mouth_Corner_Up',
+    'ACTIONS_Mouth_Corner_Down_Range', 'ACTIONS_Mouth_Corner_Down', 'ACTIONS_Mouth_Corner_Back_Range', 'ACTIONS_Mouth_Corner_Back', 'ACTIONS_Mouth_Corner_Forw_Range', 'ACTIONS_Mouth_Corner_Forw',
+    'ACTIONS_Mouth_Corner_In_Range', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective']
     for step in steps:
         if current_step == step:
             actions_end_generic(context)
@@ -614,3 +841,23 @@ def end_of_step_action(context):
     if current_step == 'ACTIONS_Jaw_Up' or current_step == 'ACTIONS_Jaw_Down':
         #Turn Action Constraint back On
         guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_Out':
+        guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_OUT_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_OUT_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_Up':
+        guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_UP_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_UP_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_Down':
+        guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_DOWN_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_DOWN_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_Back':
+        guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_BACK_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_BACK_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_Forw':
+        guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_FORW_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_FORW_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_In':
+        guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_IN_TOGGLE_L"] = 1
+        guide_props.arm_obj.pose.bones["mouth_corner_R"]["ACTION_IN_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Mouth_Corner_Up_Out_Corrective' or current_step == 'ACTIONS_Mouth_Corner_Down_Out_Corrective':
+        guide_props.arm_obj.pose.bones["mouth_ctrl"]["CORRECTIVE_ACTIONS_TOGGLE"] = 1
