@@ -628,6 +628,58 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_Mouth_Corner_Down_Out_Corrective
     },
+    #U_O_M Range
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_O_M_Range
+    },
+        #U
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U
+    },
+    #O
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_O
+    },
+        #M
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_M
+    },
 )
 
 

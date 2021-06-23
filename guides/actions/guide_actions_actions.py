@@ -557,6 +557,8 @@ def ACTIONS_Mouth_Corner_Up_Range(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_mouth_corner_up = guide_props.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_L"].location[0] = -0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_R"].location[0] = 0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
 
 def ACTIONS_Mouth_Corner_Up(operator, context):
     edit_action(operator, context,
@@ -575,6 +577,8 @@ def ACTIONS_Mouth_Corner_Up(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_mouth_corner_up = guide_props.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_L"].location[0] = -0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_R"].location[0] = 0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
 
     #Turn off Action Constraint for Editting
     guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_UP_TOGGLE_L"] = 0
@@ -592,6 +596,8 @@ def ACTIONS_Mouth_Corner_Down_Range(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_mouth_corner_down = guide_props.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_L"].location[0] = -0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_R"].location[0] = 0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
 
 def ACTIONS_Mouth_Corner_Down(operator, context):
     edit_action(operator, context,
@@ -610,6 +616,8 @@ def ACTIONS_Mouth_Corner_Down(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_mouth_corner_down = guide_props.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_L"].location[0] = -0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_R"].location[0] = 0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
 
     #Turn off Action Constraint for Editting
     guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_DOWN_TOGGLE_L"] = 0
@@ -627,6 +635,8 @@ def ACTIONS_Mouth_Corner_Back_Range(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_mouth_corner_back = guide_props.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_L"].location[0] = -0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_R"].location[0] = 0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
 
 def ACTIONS_Mouth_Corner_Back(operator, context):
     edit_action(operator, context,
@@ -645,6 +655,8 @@ def ACTIONS_Mouth_Corner_Back(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_mouth_corner_back = guide_props.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_L"].location[0] = -0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
+    guide_props.arm_obj.pose.bones["mouth_corner_R"].location[0] = 0.25 * guide_props.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L
 
     #Turn off Action Constraint for Editting
     guide_props.arm_obj.pose.bones["mouth_corner_L"]["ACTION_BACK_TOGGLE_L"] = 0
@@ -749,6 +761,67 @@ def ACTIONS_Mouth_Corner_Down_Out_Corrective(operator, context):
     #Turn off Action Constraint for Editting
     guide_props.arm_obj.pose.bones["mouth_ctrl"]["CORRECTIVE_ACTIONS_TOGGLE"] = 0
 
+def ACTIONS_U_O_M_Range(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_U_O_M_Range',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'No_Action_For_This_Step', 0,
+    ['mouth_up_ctrl', 'mouth_low_ctrl']
+    )
+
+    #Assign value from Facial Movement Ranges to Guide Property so that controller moves
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_u_o_m = guide_props.arm_obj.pose.bones["mouth_ctrl"].U_M_CTRL_LIMIT
+
+def ACTIONS_U(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_U',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_U_O_M', 1,
+    ['lip_up_outer_ctrl_mid', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_mid', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl',
+    'chin_ctrl', 'lip_low_ctrl', 'lip_low_ctrl_collision_override', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'lip_up_ctrl', 'lip_up_ctrl_collision_override',
+    'lip_up_outer_ctrl', 'lip_zipper_ctrl_mid', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
+    'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
+    'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid',
+    'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid',
+    'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl']
+    )
+
+def ACTIONS_O(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_O',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_U_O_M', 2,
+    ['lip_up_outer_ctrl_mid', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_mid', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl',
+    'chin_ctrl', 'lip_low_ctrl', 'lip_low_ctrl_collision_override', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'lip_up_ctrl', 'lip_up_ctrl_collision_override',
+    'lip_up_outer_ctrl', 'lip_zipper_ctrl_mid', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
+    'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
+    'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid',
+    'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid',
+    'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl']
+    )
+
+def ACTIONS_M(operator, context):
+    edit_action(operator, context,
+    'ACTIONS_M',
+    'head_stretch', 'head_fk',
+    'RIGHT',
+    'zrig_U_O_M', -2,
+    ['lip_up_outer_ctrl_mid', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_mid', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl',
+    'chin_ctrl', 'lip_low_ctrl_collision_override', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'lip_up_ctrl_collision_override',
+    'lip_up_outer_ctrl', 'lip_zipper_ctrl_mid', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
+    'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
+    'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid',
+    'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid',
+    'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl']
+    )
+
 #### END OF STEP ACTIONS ####
 
 def actions_end_generic(context):
@@ -793,7 +866,8 @@ def end_of_step_action(context):
     'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In',
     'ACTIONS_Jaw_Down_Range', 'ACTIONS_Jaw_Up_Range', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up', 'ACTIONS_Mouth_Corner_Out_Range', 'ACTIONS_Mouth_Corner_Out', 'ACTIONS_Mouth_Corner_Up_Range', 'ACTIONS_Mouth_Corner_Up',
     'ACTIONS_Mouth_Corner_Down_Range', 'ACTIONS_Mouth_Corner_Down', 'ACTIONS_Mouth_Corner_Back_Range', 'ACTIONS_Mouth_Corner_Back', 'ACTIONS_Mouth_Corner_Forw_Range', 'ACTIONS_Mouth_Corner_Forw',
-    'ACTIONS_Mouth_Corner_In_Range', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective']
+    'ACTIONS_Mouth_Corner_In_Range', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective'
+    'ACTIONS_U_O_M_Range', 'ACTIONS_U', 'ACTIONS_O', 'ACTIONS_M']
     for step in steps:
         if current_step == step:
             actions_end_generic(context)
