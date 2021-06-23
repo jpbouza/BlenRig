@@ -891,6 +891,28 @@ def nose_frown_update(self, context):
                 pbones["nose_frown_ctrl_L"].location[2] = prop_value
                 pbones["nose_frown_ctrl_R"].location[2] = prop_value
 
+#U_O_M
+def u_o_m_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.guide_u_o_m
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_ctrl"].U_M_CTRL_LIMIT = prop_value
+                #Apply Bone Transform
+                pbones["mouth_up_ctrl"].location[1] = prop_value
+                pbones["mouth_low_ctrl"].location[1] = prop_value
+
 #Mouth Frown
 def mouth_frown_update(self, context):
     if not bpy.context.screen:
