@@ -602,6 +602,19 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_Mouth_Corner_In
     },
+        #Mouth Corner In Zipper
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_Mouth_Corner_In_Zipper
+    },
     #Mouth Corner Up Out Corrective
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -654,6 +667,19 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_U
     },
+        #U Zipper
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_Zipper
+    },
     #O
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -667,6 +693,19 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_O
     },
+    #O Zipper
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_O_Zipper
+    },
         #U Narrow Corrective
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -679,6 +718,19 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U_Narrow_Corrective
+    },
+        #U Narrow Corrective Zipper
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_Narrow_Corrective_Zipper
     },
     #Thicker Lips
     {
