@@ -667,6 +667,45 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_O
     },
+        #U Narrow Corrective
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_Narrow_Corrective
+    },
+    #Thicker Lips
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_Thicker_Lips
+    },
+        #Thinner Lips
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_Thinner_Lips
+    },
         #M
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -680,6 +719,73 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_M
     },
+    #Mouth Frown Range
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_Mouth_Frown_Range
+    },
+    #Mouth Frown
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_Mouth_Frown
+    },
+        #Chin Frown Range
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_Chin_Frown_Range
+    },
+        #Chin Frown Up
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_Chin_Frown_Up
+    },
+        #Chin Frown Down
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Edit the Mesh Deform Cage',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_Chin_Frown_Down
+    },
 )
+
+
 
 
