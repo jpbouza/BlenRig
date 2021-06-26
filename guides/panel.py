@@ -40,7 +40,7 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         button_2 = col.row()
         button.scale_y = 1.5
         button_2.scale_y = 1.5
-        button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Weights Reproportion Guide')
+        button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Reproportion Guide')
         button.operator("view3d.blenrig_guide_datatransfer", text = '2 - Show Weights Transfer Guide')
         button.operator("view3d.blenrig_guide_mdef", text = '3 - Show Mesh Deform Guide')
         button_2.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
