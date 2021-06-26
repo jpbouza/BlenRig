@@ -8,7 +8,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Corner',
+            'EN': 'Fingers Spread Up',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -21,7 +21,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Fingers Spread Down',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -34,7 +34,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Corner',
+            'EN': 'Fingers Spread Out',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -47,7 +47,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Fingers Spread In',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -60,7 +60,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Corner',
+            'EN': 'Fingers Curl In',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -69,11 +69,11 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_Fingers_Curl_In
     },
-    #Fingers Curl In
+    #Fingers Curl Out
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Fingers Curl Out',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -86,7 +86,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Corner',
+            'EN': 'Hand Close',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -99,7 +99,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Hand Open',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -112,7 +112,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Corner',
+            'EN': 'Breathe In',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -125,7 +125,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Breathe Out',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -138,7 +138,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Upper Eyelids Upwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -151,7 +151,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Upper Eyelids Up',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -164,7 +164,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Upper Eyelids Downwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -177,7 +177,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Upper Eyelids Down to Middle',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -190,7 +190,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Upper Eyelids Down to Bottom',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -203,7 +203,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Lower Eyelids Downwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -216,7 +216,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Lower Eyelids Down',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -229,7 +229,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Lower Eyelids Upwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -242,7 +242,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Lower Eyelids Up to Middle',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -255,7 +255,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Lower Eyelids Up to Top',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -268,7 +268,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Eyelids Out',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -281,7 +281,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Eyelids Out',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -294,7 +294,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Cheek Upwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -307,7 +307,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Cheek Up',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -320,7 +320,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Cheek Frown',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -333,7 +333,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Cheek Downwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -346,7 +346,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Cheek Down',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -359,7 +359,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Nose Frown Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -372,7 +372,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Nose Frown',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -385,7 +385,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Nose Frown Max',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -398,7 +398,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Jaw Down Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -411,7 +411,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Jaw Down',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -424,7 +424,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Jaw Up Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -437,7 +437,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Jaw Up',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -450,7 +450,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Out Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -463,7 +463,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Out',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -476,7 +476,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Up Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -489,7 +489,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Up',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -502,7 +502,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Down Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -515,7 +515,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Down',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -528,7 +528,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Back Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -541,7 +541,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Back',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -550,11 +550,11 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_Mouth_Corner_Back
     },
-    #Mouth Corner Forw Range
+    #Mouth Corner Forwards Range
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Forwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -563,11 +563,11 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_Mouth_Corner_Forw_Range
     },
-        #Mouth Corner Forw
+        #Mouth Corner Forwards
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Forwards',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -580,7 +580,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner In Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -593,7 +593,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner In',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -606,7 +606,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner In Zipper',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -619,7 +619,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Up Out Corrective',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -632,7 +632,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Corner Down Out Corrective',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -645,7 +645,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'U_O_M Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -658,7 +658,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'U',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -671,7 +671,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'U Zipper',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -684,7 +684,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'O',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -697,7 +697,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'O Zipper',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -710,7 +710,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'U Narrow Corrective',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -723,7 +723,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'U Narrow Corrective Zipper',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -736,7 +736,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Thicker Lips',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -749,7 +749,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Thinner Lips',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -762,7 +762,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'M',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -775,7 +775,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Frown Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -788,7 +788,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Mouth Frown',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -801,7 +801,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Chin Frown Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -814,7 +814,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Chin Frown Up',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -827,7 +827,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit the Mesh Deform Cage',
+            'EN': 'Chin Frown Down',
             'ES': 'Paso 1'
             },
         'texto': {
