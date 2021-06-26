@@ -14,7 +14,7 @@ class BlenrigGuideData(PropertyGroup):
         name="Language"
     )
     dpi : IntProperty(default=72, min=72, max=300, name="Screen DPI")
-    image_scale : FloatProperty(default=1, min=0.5, max=2, name="Image Scale")
+    image_scale : FloatProperty(default=1, min=0.5, max=4, name="Image Scale")
     show_steps : BoolProperty(default=False, name="Show Steps")
     guide_current_step : StringProperty('')
     #BlenRig Armature
