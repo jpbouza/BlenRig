@@ -359,9 +359,10 @@ def shape_scale():
                         print (br.name, bl.name)
                         try:
                             br.custom_shape_scale = bl.custom_shape_scale
+                            br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
                         except:
                             br.custom_shape_scale_xyz = bl.custom_shape_scale_xyz
-                        br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
+                            br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
 
 def MakeUniqueShape():
     C = bpy.context
