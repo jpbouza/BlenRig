@@ -89,12 +89,14 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
                 layout.operator("blenrig.resync_widget_names",
                                 icon='FILE_REFRESH', text="Resync Shapes Names")
             
-            if bpy.context.mode in {'POSE'} and bpy.context.active_pose_bone.custom_shape.users > 2:
-                layout = self.layout
-                box = layout.row()
-                row = box.row()
-                row.operator("blenrig.make_unique",
-                                icon='CON_ROTLIMIT', text="Make Unique")
+            if bpy.context.mode in {'POSE'}:
+                if hasattr(bpy.context.active_pose_bone.custom_shape, 'users'):
+                    if bpy.context.active_pose_bone.custom_shape.users > 2:
+                        layout = self.layout
+                        box = layout.row()
+                        row = box.row()
+                        row.operator("blenrig.make_unique",
+                                        icon='CON_ROTLIMIT', text="Make Unique")
             
             if bpy.context.mode in {'POSE'}:
                 layout = self.layout
