@@ -38,10 +38,9 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
         layout = self.layout
         arm = context.active_object
         arm_data = context.active_object.data
-        if hasattr(arm, 'pose'):
+        if hasattr(arm, 'pose') and hasattr(arm.pose, 'bones'):
             pose = arm.pose
             p_bones = arm.pose.bones
-
 
             # Step 0 X-Mirror
             if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
