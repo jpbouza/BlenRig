@@ -40,7 +40,7 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
             steps = layout.column(align=True)
             box = steps.box()
             box.prop(pose, "use_mirror_x")
-            box.prop(bpy.context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose')
+            layout.row().prop(bpy.context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
             for step in Face_Steps:
                 if step == bpy.context.scene.blenrig_guide.guide_current_step:
                     box.prop(bpy.context.scene.blenrig_guide.arm_obj.data, "layers", index=27, text='Show Deformation Bones')
