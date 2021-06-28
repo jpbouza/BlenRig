@@ -348,21 +348,15 @@ def shape_scale():
     D = bpy.data
     bones = C.selected_pose_bones 
 
-#Find mirrored bones
-    for br in bones:
-        if '_R' in br.name:
-            r_name = br.name.split("_R")
-            for bl in bones:
-                if '_L' in bl.name:
-                    l_name = bl.name.split("_L")
-                    if l_name[0] == r_name[0]:
-                        print (br.name, bl.name)
-                        try:
-                            br.custom_shape_scale = bl.custom_shape_scale
-                            br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
-                        except:
-                            br.custom_shape_scale_xyz = bl.custom_shape_scale_xyz
-                            br.use_custom_shape_bone_size = bl.use_custom_shape_bone_size
+    #Find mirrored bones
+    for bone in bones:
+        mirrorBone = findMirrorObject(bone)
+        try:
+            mirrorBone.custom_shape_scale = bone.custom_shape_scale
+            mirrorBone.use_custom_shape_bone_size = bone.use_custom_shape_bone_size
+        except:
+            mirrorBone.custom_shape_scale_xyz = bone.custom_shape_scale_xyz
+            mirrorBone.use_custom_shape_bone_size = bone.use_custom_shape_bone_size
 
 def MakeUniqueShape():
     C = bpy.context
