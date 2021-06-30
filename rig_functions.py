@@ -1002,9 +1002,11 @@ def Set_Movement_Ranges_Actions(b_name, prop_name, C_name, min_factor, max_facto
 
 def Set_RJ_Transforms_Limbs(b_name, prop_name, C_name, x_loc_factor, z_loc_factor, x_rot_factor, z_rot_factor):
 
-        armobj = bpy.context.active_object
-        arm = bpy.context.active_object.data
-        p_bones = bpy.context.active_object.pose.bones
+        if bpy.context.active_object.type=='ARMATURE':
+            armobj = bpy.context.active_object
+        else:
+            armobj = bpy.context.scene.blenrig_guide.arm_obj
+        p_bones = armobj.pose.bones
         constraint_value = []
 
         for b in p_bones:
@@ -1024,9 +1026,11 @@ def Set_RJ_Transforms_Limbs(b_name, prop_name, C_name, x_loc_factor, z_loc_facto
 
 def Set_RJ_Transforms_Fing_Toes(b_name, prop_name, C_name, z_loc_factor, x_rot_factor, Loc_Array_n, Rot_Array_n):
 
-        armobj = bpy.context.active_object
-        arm = bpy.context.active_object.data
-        p_bones = bpy.context.active_object.pose.bones
+        if bpy.context.active_object.type=='ARMATURE':
+            armobj = bpy.context.active_object
+        else:
+            armobj = bpy.context.scene.blenrig_guide.arm_obj
+        p_bones = armobj.pose.bones
         constraint_value = []
 
         for b in p_bones:
@@ -1069,9 +1073,11 @@ def Set_Volume_Variation_Stretch_To(b_name, prop_name, C_name):
 
 def Set_VP_Transforms(b_name, prop_name, C_name, to_mapping, factor):
 
-        armobj = bpy.context.active_object
-        arm = bpy.context.active_object.data
-        p_bones = bpy.context.active_object.pose.bones
+        if bpy.context.active_object.type=='ARMATURE':
+            armobj = bpy.context.active_object
+        else:
+            armobj = bpy.context.scene.blenrig_guide.arm_obj
+        p_bones = armobj.pose.bones
         constraint_value = []
 
         for b in p_bones:
@@ -1245,55 +1251,55 @@ def set_rj_transforms(context):
         return False
     if not bpy.context.active_object:
         return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
-            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+    # if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+    #     for prop in bpy.context.active_object.data.items():
+    #         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
-                #Arms L
-                Set_RJ_Transforms_Limbs('properties_arm_L', 'realistic_joints_elbow_loc_L', 'Elbow_RJ_Loc_L_NOREP', 0, 1, 0, 0)
-                Set_RJ_Transforms_Limbs('properties_arm_L', 'realistic_joints_elbow_rot_L', 'Elbow_RJ_Rot_L_NOREP', 0, 0, -1, 0)
-                Set_RJ_Transforms_Limbs('properties_arm_L', 'realistic_joints_wrist_rot_L', 'Wrist_RJ_Rot_L_NOREP', 0, 0, -1, 1)
-                #Arms R
-                Set_RJ_Transforms_Limbs('properties_arm_R', 'realistic_joints_elbow_loc_R', 'Elbow_RJ_Loc_R_NOREP', 0, 1, 0, 0)
-                Set_RJ_Transforms_Limbs('properties_arm_R', 'realistic_joints_elbow_rot_R', 'Elbow_RJ_Rot_R_NOREP', 0, 0, -1, 0)
-                Set_RJ_Transforms_Limbs('properties_arm_R', 'realistic_joints_wrist_rot_R', 'Wrist_RJ_Rot_R_NOREP', 0, 0, 1, -1)
-                #Legs L
-                Set_RJ_Transforms_Limbs('properties_leg_L', 'realistic_joints_knee_loc_L', 'Knee_RJ_Loc_L_NOREP', 0, 1, 0, 0)
-                Set_RJ_Transforms_Limbs('properties_leg_L', 'realistic_joints_knee_rot_L', 'Knee_RJ_Rot_L_NOREP', 0, 0, -1, 0)
-                Set_RJ_Transforms_Limbs('properties_leg_L', 'realistic_joints_ankle_rot_L', 'Ankle_RJ_Rot_L_NOREP', 0, 0, -1, -1)
-                #Legs R
-                Set_RJ_Transforms_Limbs('properties_leg_R', 'realistic_joints_knee_loc_R', 'Knee_RJ_Loc_R_NOREP', 0, 1, 0, 0)
-                Set_RJ_Transforms_Limbs('properties_leg_R', 'realistic_joints_knee_rot_R', 'Knee_RJ_Rot_R_NOREP', 0, 0, -1, 0)
-                Set_RJ_Transforms_Limbs('properties_leg_R', 'realistic_joints_ankle_rot_R', 'Ankle_RJ_Rot_R_NOREP', 0, 0, -1, -1)
-                #Fingers L
-                Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_rot_L', 'Fing_1_RJ_Rot_L_NOREP', 0, -1, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_rot_L', 'Fing_2_RJ_Rot_L_NOREP', 0, -1, 0, 1)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_rot_L', 'Fing_3_RJ_Rot_L_NOREP', 0, -1, 0, 2)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_loc_L', 'Fing_2_RJ_Loc_L_NOREP', 1, 0, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_loc_L', 'Fing_3_RJ_Loc_L_NOREP', 1, 0, 1, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_loc_L', 'Fing_4_RJ_Loc_L_NOREP', 1, 0, 2, 0)
-                #Fingers R
-                Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_rot_R', 'Fing_1_RJ_Rot_R_NOREP', 0, -1, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_rot_R', 'Fing_2_RJ_Rot_R_NOREP', 0, -1, 0, 1)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_rot_R', 'Fing_3_RJ_Rot_R_NOREP', 0, -1, 0, 2)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_loc_R', 'Fing_2_RJ_Loc_R_NOREP', 1, 0, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_loc_R', 'Fing_3_RJ_Loc_R_NOREP', 1, 0, 1, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_loc_R', 'Fing_4_RJ_Loc_R_NOREP', 1, 0, 2, 0)
-                #Toes L
-                Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_rot_L', 'Toes_1_RJ_Rot_L_NOREP', 0, -1, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_rot_L', 'Toes_2_RJ_Rot_L_NOREP', 0, -1, 0, 1)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_rot_L', 'Toes_3_RJ_Rot_L_NOREP', 0, -1, 0, 2)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_loc_L', 'Toes_2_RJ_Loc_L_NOREP', 1, 0, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_loc_L', 'Toes_3_RJ_Loc_L_NOREP', 1, 0, 1, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_loc_L', 'Toes_4_RJ_Loc_L_NOREP', 1, 0, 2, 0)
-                #Toes R
-                Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_rot_R', 'Toes_1_RJ_Rot_R_NOREP', 0, -1, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_rot_R', 'Toes_2_RJ_Rot_R_NOREP', 0, -1, 0, 1)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_rot_R', 'Toes_3_RJ_Rot_R_NOREP', 0, -1, 0, 2)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_loc_R', 'Toes_2_RJ_Loc_R_NOREP', 1, 0, 0, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_loc_R', 'Toes_3_RJ_Loc_R_NOREP', 1, 0, 1, 0)
-                Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_loc_R', 'Toes_4_RJ_Loc_R_NOREP', 1, 0, 2, 0)
-                return {"FINISHED"}
+    #Arms L
+    Set_RJ_Transforms_Limbs('properties_arm_L', 'realistic_joints_elbow_loc_L', 'Elbow_RJ_Loc_L_NOREP', 0, 1, 0, 0)
+    Set_RJ_Transforms_Limbs('properties_arm_L', 'realistic_joints_elbow_rot_L', 'Elbow_RJ_Rot_L_NOREP', 0, 0, -1, 0)
+    Set_RJ_Transforms_Limbs('properties_arm_L', 'realistic_joints_wrist_rot_L', 'Wrist_RJ_Rot_L_NOREP', 0, 0, -1, 1)
+    #Arms R
+    Set_RJ_Transforms_Limbs('properties_arm_R', 'realistic_joints_elbow_loc_R', 'Elbow_RJ_Loc_R_NOREP', 0, 1, 0, 0)
+    Set_RJ_Transforms_Limbs('properties_arm_R', 'realistic_joints_elbow_rot_R', 'Elbow_RJ_Rot_R_NOREP', 0, 0, -1, 0)
+    Set_RJ_Transforms_Limbs('properties_arm_R', 'realistic_joints_wrist_rot_R', 'Wrist_RJ_Rot_R_NOREP', 0, 0, 1, -1)
+    #Legs L
+    Set_RJ_Transforms_Limbs('properties_leg_L', 'realistic_joints_knee_loc_L', 'Knee_RJ_Loc_L_NOREP', 0, 1, 0, 0)
+    Set_RJ_Transforms_Limbs('properties_leg_L', 'realistic_joints_knee_rot_L', 'Knee_RJ_Rot_L_NOREP', 0, 0, -1, 0)
+    Set_RJ_Transforms_Limbs('properties_leg_L', 'realistic_joints_ankle_rot_L', 'Ankle_RJ_Rot_L_NOREP', 0, 0, -1, -1)
+    #Legs R
+    Set_RJ_Transforms_Limbs('properties_leg_R', 'realistic_joints_knee_loc_R', 'Knee_RJ_Loc_R_NOREP', 0, 1, 0, 0)
+    Set_RJ_Transforms_Limbs('properties_leg_R', 'realistic_joints_knee_rot_R', 'Knee_RJ_Rot_R_NOREP', 0, 0, -1, 0)
+    Set_RJ_Transforms_Limbs('properties_leg_R', 'realistic_joints_ankle_rot_R', 'Ankle_RJ_Rot_R_NOREP', 0, 0, -1, -1)
+    #Fingers L
+    Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_rot_L', 'Fing_1_RJ_Rot_L_NOREP', 0, -1, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_rot_L', 'Fing_2_RJ_Rot_L_NOREP', 0, -1, 0, 1)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_rot_L', 'Fing_3_RJ_Rot_L_NOREP', 0, -1, 0, 2)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_loc_L', 'Fing_2_RJ_Loc_L_NOREP', 1, 0, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_loc_L', 'Fing_3_RJ_Loc_L_NOREP', 1, 0, 1, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_L', 'realistic_joints_fingers_loc_L', 'Fing_4_RJ_Loc_L_NOREP', 1, 0, 2, 0)
+    #Fingers R
+    Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_rot_R', 'Fing_1_RJ_Rot_R_NOREP', 0, -1, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_rot_R', 'Fing_2_RJ_Rot_R_NOREP', 0, -1, 0, 1)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_rot_R', 'Fing_3_RJ_Rot_R_NOREP', 0, -1, 0, 2)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_loc_R', 'Fing_2_RJ_Loc_R_NOREP', 1, 0, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_loc_R', 'Fing_3_RJ_Loc_R_NOREP', 1, 0, 1, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_arm_R', 'realistic_joints_fingers_loc_R', 'Fing_4_RJ_Loc_R_NOREP', 1, 0, 2, 0)
+    #Toes L
+    Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_rot_L', 'Toes_1_RJ_Rot_L_NOREP', 0, -1, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_rot_L', 'Toes_2_RJ_Rot_L_NOREP', 0, -1, 0, 1)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_rot_L', 'Toes_3_RJ_Rot_L_NOREP', 0, -1, 0, 2)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_loc_L', 'Toes_2_RJ_Loc_L_NOREP', 1, 0, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_loc_L', 'Toes_3_RJ_Loc_L_NOREP', 1, 0, 1, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_L', 'realistic_joints_toes_loc_L', 'Toes_4_RJ_Loc_L_NOREP', 1, 0, 2, 0)
+    #Toes R
+    Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_rot_R', 'Toes_1_RJ_Rot_R_NOREP', 0, -1, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_rot_R', 'Toes_2_RJ_Rot_R_NOREP', 0, -1, 0, 1)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_rot_R', 'Toes_3_RJ_Rot_R_NOREP', 0, -1, 0, 2)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_loc_R', 'Toes_2_RJ_Loc_R_NOREP', 1, 0, 0, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_loc_R', 'Toes_3_RJ_Loc_R_NOREP', 1, 0, 1, 0)
+    Set_RJ_Transforms_Fing_Toes('properties_leg_R', 'realistic_joints_toes_loc_R', 'Toes_4_RJ_Loc_R_NOREP', 1, 0, 2, 0)
+    return {"FINISHED"}
 
 ### VOLUME VARIATION CONSTRAINTS ####
 
@@ -1337,36 +1343,36 @@ def set_vol_preservation(context):
         return False
     if not bpy.context.active_object:
         return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
-            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+    # if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+    #     for prop in bpy.context.active_object.data.items():
+    #         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
-                #Fingers Down L
-                Set_VP_Transforms('properties_arm_L', 'volume_preservation_fingers_down_L', 'Fing_VP_Down_L_NOREP', 'to_max_y', 1)
-                #Kunckles Down L
-                Set_VP_Transforms('properties_arm_L', 'volume_preservation_knuckles_down_L', 'Fing_Knuckles_VP_Down_L_NOREP', 'to_max_z', -1)
-                #Kunckles Up L
-                Set_VP_Transforms('properties_arm_L', 'volume_preservation_knuckles_up_L', 'Fing_Knuckles_VP_Up_L_NOREP', 'to_min_y', 1)
-                #Palm Down L
-                Set_VP_Transforms('properties_arm_L', 'volume_preservation_palm_down_L', 'Fing_Palm_VP_Down_L_NOREP', 'to_max_y', 1)
-                #Fingers Down R
-                Set_VP_Transforms('properties_arm_R', 'volume_preservation_fingers_down_R', 'Fing_VP_Down_R_NOREP', 'to_max_y', 1)
-                #Kunckles Down R
-                Set_VP_Transforms('properties_arm_R', 'volume_preservation_knuckles_down_R', 'Fing_Knuckles_VP_Down_R_NOREP', 'to_max_z', -1)
-                #Kunckles Up R
-                Set_VP_Transforms('properties_arm_R', 'volume_preservation_knuckles_up_R', 'Fing_Knuckles_VP_Up_R_NOREP', 'to_min_y', 1)
-                #Palm Down R
-                Set_VP_Transforms('properties_arm_R', 'volume_preservation_palm_down_R', 'Fing_Palm_VP_Down_R_NOREP', 'to_max_y', 1)
-                #Sole Down L
-                Set_VP_Transforms('properties_leg_L', 'volume_preservation_sole_down_L', 'Toe_Sole_VP_Down_L_NOREP', 'to_max_y', 1)
-                #Toe Knuckles Up L
-                Set_VP_Transforms('properties_leg_L', 'volume_preservation_toe_knuckles_up_L', 'Toe_Knuckles_VP_Up_L_NOREP', 'to_min_y', 1)
-                #Toes Down L
-                Set_VP_Transforms('properties_leg_L', 'volume_preservation_toes_down_L', 'Toes_VP_Down_L_NOREP', 'to_max_y', 1)
-                #Sole Down R
-                Set_VP_Transforms('properties_leg_R', 'volume_preservation_sole_down_R', 'Toe_Sole_VP_Down_R_NOREP', 'to_max_y', 1)
-                #Toe Knuckles Up R
-                Set_VP_Transforms('properties_leg_R', 'volume_preservation_toe_knuckles_up_R', 'Toe_Knuckles_VP_Up_R_NOREP', 'to_min_y', 1)
-                #Toes Down R
-                Set_VP_Transforms('properties_leg_R', 'volume_preservation_toes_down_R', 'Toes_VP_Down_R_NOREP', 'to_max_y', 1)
-                return {"FINISHED"}
+    #Fingers Down L
+    Set_VP_Transforms('properties_arm_L', 'volume_preservation_fingers_down_L', 'Fing_VP_Down_L_NOREP', 'to_max_y', 1)
+    #Kunckles Down L
+    Set_VP_Transforms('properties_arm_L', 'volume_preservation_knuckles_down_L', 'Fing_Knuckles_VP_Down_L_NOREP', 'to_max_z', -1)
+    #Kunckles Up L
+    Set_VP_Transforms('properties_arm_L', 'volume_preservation_knuckles_up_L', 'Fing_Knuckles_VP_Up_L_NOREP', 'to_min_y', 1)
+    #Palm Down L
+    Set_VP_Transforms('properties_arm_L', 'volume_preservation_palm_down_L', 'Fing_Palm_VP_Down_L_NOREP', 'to_max_y', 1)
+    #Fingers Down R
+    Set_VP_Transforms('properties_arm_R', 'volume_preservation_fingers_down_R', 'Fing_VP_Down_R_NOREP', 'to_max_y', 1)
+    #Kunckles Down R
+    Set_VP_Transforms('properties_arm_R', 'volume_preservation_knuckles_down_R', 'Fing_Knuckles_VP_Down_R_NOREP', 'to_max_z', -1)
+    #Kunckles Up R
+    Set_VP_Transforms('properties_arm_R', 'volume_preservation_knuckles_up_R', 'Fing_Knuckles_VP_Up_R_NOREP', 'to_min_y', 1)
+    #Palm Down R
+    Set_VP_Transforms('properties_arm_R', 'volume_preservation_palm_down_R', 'Fing_Palm_VP_Down_R_NOREP', 'to_max_y', 1)
+    #Sole Down L
+    Set_VP_Transforms('properties_leg_L', 'volume_preservation_sole_down_L', 'Toe_Sole_VP_Down_L_NOREP', 'to_max_y', 1)
+    #Toe Knuckles Up L
+    Set_VP_Transforms('properties_leg_L', 'volume_preservation_toe_knuckles_up_L', 'Toe_Knuckles_VP_Up_L_NOREP', 'to_min_y', 1)
+    #Toes Down L
+    Set_VP_Transforms('properties_leg_L', 'volume_preservation_toes_down_L', 'Toes_VP_Down_L_NOREP', 'to_max_y', 1)
+    #Sole Down R
+    Set_VP_Transforms('properties_leg_R', 'volume_preservation_sole_down_R', 'Toe_Sole_VP_Down_R_NOREP', 'to_max_y', 1)
+    #Toe Knuckles Up R
+    Set_VP_Transforms('properties_leg_R', 'volume_preservation_toe_knuckles_up_R', 'Toe_Knuckles_VP_Up_R_NOREP', 'to_min_y', 1)
+    #Toes Down R
+    Set_VP_Transforms('properties_leg_R', 'volume_preservation_toes_down_R', 'Toes_VP_Down_R_NOREP', 'to_max_y', 1)
+    return {"FINISHED"}
