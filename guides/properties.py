@@ -27,6 +27,8 @@ class BlenrigGuideData(PropertyGroup):
     character_head_obj : PointerProperty(type=Object)
     character_hands_obj : PointerProperty(type=Object)
     character_toes_obj : PointerProperty(type=Object)
+    #Weight Paint Object
+    active_wp_obj : PointerProperty(type=Object)
     #Weight Transfer Parameters
     transfer_ray_distance : FloatProperty(default=0.05, min=0.0, max=100.0, name="Transfer Ray Distance")
     transfer_mapping : EnumProperty(

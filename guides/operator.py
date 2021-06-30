@@ -6441,13 +6441,10 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
                 set_active_object(context, arm_obj)
                 set_mode('POSE')
         else:
-            if self.paint_object == 'head':
-                obj = bpy.context.scene.blenrig_guide.character_head_obj
-            elif self.paint_object == 'hands':
-                obj = bpy.context.scene.blenrig_guide.character_hands_obj
-            elif self.paint_object == 'toes':
-                obj = bpy.context.scene.blenrig_guide.character_toes_obj
+            if bpy.context.active_object.type == 'MESH':
+                bpy.context.scene.blenrig_guide.active_wp_obj = bpy.context.active_object
 
+            obj = bpy.context.scene.blenrig_guide.active_wp_obj
             arm_obj = bpy.context.scene.blenrig_guide.arm_obj
 
             if obj.mode != 'WEIGHT_PAINT':
@@ -6470,4 +6467,35 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
 
     def execute(self, context):
         self.toggle_mode(context)
+        return {"FINISHED"}
+
+#Mirror VP and RJ Values
+
+class Operator_blenrig_mirror_vp_rj_values(bpy.types.Operator):
+
+    bl_idname = "blenrig._mirror_vp_rj_values"
+    bl_label = "BlenRig Mirror VP & RJ Values"
+    bl_description = "BlenRig Mirror Volume Preservation and Realistic Joints Values"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH", "ARMATURE"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+        #Pose Mode
+        if bpy.context.active_object.type == "ARMATURE":
+                bpy.ops.mirror.rj_constraints(to_side="L to R")
+                bpy.ops.mirror.vp_constraints()
+        #Weight Paint
+        if bpy.context.active_object.type =='MESH' and bpy.context.active_object.mode=='WEIGHT_PAINT':
+            bpy.ops.blenrig.toggle_weight_painting(paint_object="mesh")
+            bpy.ops.mirror.rj_constraints(to_side="L to R")
+            bpy.ops.mirror.vp_constraints()
+            bpy.ops.blenrig.toggle_weight_painting(paint_object="mesh")
         return {"FINISHED"}
