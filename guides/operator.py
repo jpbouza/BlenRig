@@ -6393,3 +6393,81 @@ class Operator_blenrig_mirror_lattice_transforms(bpy.types.Operator):
     def execute(self, context):
         self.mirror_transforms(context)
         return {"FINISHED"}
+
+#Toggle Weight Painting Mode
+
+class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
+
+    bl_idname = "blenrig.toggle_weight_painting"
+    bl_label = "BlenRig Toggle Weight Painting Mode"
+    bl_description = "Toggle Weight Painting in BlenRig Guide"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH", "ARMATURE"]):
+            return True
+        else:
+            return False
+
+    paint_object : bpy.props.StringProperty()
+
+    #Set Weight Paint Mode
+    def toggle_mode(self, context):
+        from .utils import set_active_object, set_mode, deselect_all_objects
+
+        #Mdef Cage State
+        if self.paint_object == 'mdef_cage':
+            obj = bpy.context.scene.blenrig_guide.mdef_cage_obj
+            arm_obj = bpy.context.scene.blenrig_guide.arm_obj
+
+            if obj.mode != 'WEIGHT_PAINT':
+                obj.show_wire = True
+                obj.hide_viewport = False
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+                set_active_object(context, obj)
+                set_mode('WEIGHT_PAINT')
+            else:
+                deselect_all_objects(context)
+                set_active_object(context, obj)
+                set_mode('OBJECT')
+                obj.show_wire = False
+                obj.hide_viewport = True
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+        else:
+            if self.paint_object == 'head':
+                obj = bpy.context.scene.blenrig_guide.character_head_obj
+            elif self.paint_object == 'hands':
+                obj = bpy.context.scene.blenrig_guide.character_hands_obj
+            elif self.paint_object == 'toes':
+                obj = bpy.context.scene.blenrig_guide.character_toes_obj
+
+            arm_obj = bpy.context.scene.blenrig_guide.arm_obj
+
+            if obj.mode != 'WEIGHT_PAINT':
+                obj.show_wire = True
+                obj.hide_viewport = False
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+                set_active_object(context, obj)
+                set_mode('WEIGHT_PAINT')
+            else:
+                deselect_all_objects(context)
+                set_active_object(context, obj)
+                set_mode('OBJECT')
+                obj.show_wire = False
+                obj.hide_viewport = False
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+
+    def execute(self, context):
+        self.toggle_mode(context)
+        return {"FINISHED"}

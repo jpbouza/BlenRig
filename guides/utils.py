@@ -171,6 +171,18 @@ def hide_selected_pose_bones(context):
     else:
         bpy.ops.pose.hide(unselected=False)
 
+def hide_bones_in_layer(context, *layer_numbers, state=True):
+    if not context:
+        return
+    pbones = context.pose_object.pose.bones
+    for layer in layer_numbers:
+        for b in pbones:
+            if b.bone.layers[layer] == True:
+                if state == True:
+                    b.bone.hide = True
+                if state == False:
+                    b.bone.hide = False
+
 # EDIT
 def hide_all_edit_bones(context):
     for bone in context.active_object.data.edit_bones:
@@ -626,7 +638,7 @@ def bone_local_transforms(armature, bname, transform_type):
         transform = local_diff.to_scale()[2]
     return transform
 
-#Guide Actions Properties Functions
+#Actions Guide Properties Functions
 
 #Mouth Corners
 def corner_out_update(self, context):
@@ -1147,3 +1159,64 @@ def reset_all_bones_transforms():
             armature = bpy.context.active_object
             for b in armature.pose.bones:
                 b.matrix_basis = Matrix()
+
+#Weights Guide Joint Rotation Functions
+def ball_joint_update(self, context):
+    arm = bpy.context.scene.blenrig_guide.arm_obj
+    prop_value = bpy.context.scene.blenrig_guide.guide_ball_joint_rotate
+    x_rot_value = bpy.context.scene.blenrig_guide.guide_x_rotation
+    y_rot_value = bpy.context.scene.blenrig_guide.guide_y_rotation
+    z_rot_value = bpy.context.scene.blenrig_guide.guide_z_rotation
+    x_neg_rot_value = bpy.context.scene.blenrig_guide.guide_x_rotation_neg
+    y_neg_rot_value = bpy.context.scene.blenrig_guide.guide_y_rotation_neg
+    z_neg_rot_value = bpy.context.scene.blenrig_guide.guide_z_rotation_neg
+    t_bone = bpy.context.scene.blenrig_guide.guide_transformation_bone
+    pbones = arm.pose.bones
+
+    #Apply Bone Transform
+    if prop_value == 0:
+        try:
+            pbones[t_bone].matrix_basis = Matrix()
+        except:
+            pass
+    if prop_value == 1:
+        try:
+            pbones[t_bone].rotation_euler = (radians(x_rot_value), 0, 0)
+        except:
+            pass
+    if prop_value == 2:
+        try:
+            pbones[t_bone].rotation_euler = (radians(x_neg_rot_value), 0, 0)
+        except:
+            pass
+    if prop_value == 3:
+        try:
+            pbones[t_bone].rotation_euler = (0, 0, radians(z_rot_value))
+        except:
+            pass
+    if prop_value == 4:
+        try:
+            pbones[t_bone].rotation_euler = (0, 0, radians(z_neg_rot_value))
+        except:
+            pass
+    if prop_value == 5:
+        try:
+            pbones[t_bone].rotation_euler = (0, radians(y_rot_value), 0)
+        except:
+            pass
+    if prop_value == 6:
+        try:
+            pbones[t_bone].rotation_euler = (0, radians(y_neg_rot_value), 0)
+        except:
+            pass
+
+def set_active_vgroup(v_group):
+    active = bpy.context.active_object
+    if not active:
+        return False
+    if active.type == 'MESH':
+        try:
+            index = active.vertex_groups[v_group].index
+            active.vertex_groups.active_index = index
+        except:
+            pass

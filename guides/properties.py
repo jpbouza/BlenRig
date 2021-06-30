@@ -26,6 +26,7 @@ class BlenrigGuideData(PropertyGroup):
     #Character Objects
     character_head_obj : PointerProperty(type=Object)
     character_hands_obj : PointerProperty(type=Object)
+    character_toes_obj : PointerProperty(type=Object)
     #Weight Transfer Parameters
     transfer_ray_distance : FloatProperty(default=0.05, min=0.0, max=100.0, name="Transfer Ray Distance")
     transfer_mapping : EnumProperty(
@@ -155,4 +156,43 @@ class BlenrigGuideData(PropertyGroup):
     description="Define the maximum amount of Inwards Rotation of the Eye",
     update=eyelid_in_update,
     name="Eyelid In Limit"
+    )
+## Weights Properties ##
+    #Bone to Rotate
+    guide_transformation_bone: StringProperty('')
+    #X_Rotation
+    guide_x_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="X Rotation"
+    )
+    #Y_Rotation
+    guide_y_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="Y Rotation"
+    )
+    #Z_Rotation
+    guide_z_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="Z Rotation"
+    )
+    #X_Rotation_Neg
+    guide_x_rotation_neg : FloatProperty(default=0.000, min=-180.000, max=0.000, precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="X Negative Rotation"
+    )
+    #Y_Rotation_Neg
+    guide_y_rotation_neg : FloatProperty(default=0.000, min=-180.000, max=0.000, precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="Y Negative Rotation"
+    )
+    #Z_Rotation_Neg
+    guide_z_rotation_neg : FloatProperty(default=0.000, min=-180.000, max=0.000, precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="Z Negative Rotation"
+    )
+    #Ball Joint_Neg
+    guide_ball_joint_rotate : IntProperty(default=0, min=0, max=6,
+    description="Scroll through the different rotations of the joint",
+    update=ball_joint_update,
+    name="Ball Joint Rotate"
     )
