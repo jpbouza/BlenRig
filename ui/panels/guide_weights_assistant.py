@@ -24,13 +24,22 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
         return obj or obj.type in valid_types
 
     def draw(self, context):
+        guide_props = bpy.context.scene.blenrig_guide
+        active = bpy.context.active_object.mode
         layout = self.layout
 
-        # if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
-        #     steps = layout.column(align=True)
-        #     box_set = steps.box()
-        #     box_set.label(text='Define Object tha use Mesh Deform')
-        #     box_set.operator("blenrig.add_body_modifiers", text = 'Set Body Objects')
+        if VIEW3D_OT_blenrig_guide_weights.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Ankle':
+            steps = layout.column(align=True)
+            box_set = steps.box()
+            box_set.label(text='Set Joint Angle')
+            box_set.prop(guide_props.arm_obj.pose, "use_mirror_x")
+            box_set.prop(guide_props, "guide_ball_joint_rotate")
+            box_set.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
+            if active == 'WEIGHT_PAINT':
+                box_set.prop(guide_props.mdef_cage_obj.data, "use_mirror_vertex_groups")
+                box_set.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
+
+
 
 
 
