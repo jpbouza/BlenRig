@@ -1325,3 +1325,48 @@ class Operator_Mirror_VP_Constraints(bpy.types.Operator):
 
 
         return {"FINISHED"}
+
+#### Mirror Realistic Joints Values Operator ####
+
+class Operator_Mirror_RJ_Constraints(bpy.types.Operator):
+
+    bl_idname = "mirror.rj_constraints"
+    bl_label = "BlenRig Mirror Realistic Joints Constraints L to R"
+    bl_description = "Mirror Realistic Joints Constraints L to R"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if context.active_object is not None:
+            return (bpy.context.object.type=='ARMATURE' and context.mode=='POSE')
+        else:
+            return False
+
+    to_side : bpy.props.StringProperty()
+
+    def execute(self, context):
+        pbones = bpy.context.active_object.pose.bones
+        for br in pbones:
+            if 'properties_' in br.name:
+                if '_R' in br.name:
+                    r_name = br.name.split("_R")
+                    for bl in pbones:
+                        if 'properties_' in bl.name:
+                            if '_L' in bl.name:
+                                l_name = bl.name.split("_L")
+                                if l_name[0] == r_name[0]:
+                                    if br.items() != '[]':
+                                        for Rprop in br.items():
+                                            if 'realistic_joints' in Rprop[0]:
+                                                r_prop = Rprop[0].split("_R")
+                                                if bl.items() != '[]':
+                                                    for Lprop in bl.items():
+                                                        if 'realistic_joints' in Lprop[0]:
+                                                            l_prop = Lprop[0].split("_L")
+                                                            if r_prop[0] == l_prop[0]:
+                                                                if self.to_side == 'L to R':
+                                                                    br[Rprop[0]] = bl[Lprop[0]]
+                                                                if self.to_side == 'R to L':
+                                                                    bl[Lprop[0]] = br[Rprop[0]]
+
+        return {"FINISHED"}

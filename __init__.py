@@ -1924,7 +1924,8 @@ from .ops_alignment import (
     Operator_BlenRig_Store_Roll_Angles,
     Operator_BlenRig_Restore_Roll_Angles,
     Operator_BlenRig_Reset_Dynamic,
-    Operator_Mirror_VP_Constraints
+    Operator_Mirror_VP_Constraints,
+    Operator_Mirror_RJ_Constraints
     )
 
 ####### Load BlenRig 6 Snapping Operators
@@ -2654,7 +2655,8 @@ alignment_classes = [
     Operator_BlenRig_Store_Roll_Angles,
     Operator_BlenRig_Restore_Roll_Angles,
     Operator_BlenRig_Reset_Dynamic,
-    Operator_Mirror_VP_Constraints
+    Operator_Mirror_VP_Constraints,
+    Operator_Mirror_RJ_Constraints
 ]
 # BlenRig Layers Schemes Operators
 schemes_classes = [
