@@ -7,7 +7,7 @@ class BLENRIG_PT_Rig_Body_settings_realistic_joints(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm = context.active_object
         arm_data = context.active_object.data
@@ -52,6 +52,10 @@ class BLENRIG_PT_Rig_Body_settings_realistic_joints(bpy.types.Panel):
 
             col_R.separator()
 
+            col_R.operator("mirror.rj_constraints", text="Mirror Values to the Left Side", icon='MOD_MIRROR').to_side = 'R to L'
+
+            col_R.separator()
+
             col_L.label(text="Arm_L")
             col_L.prop(p_bones['properties_arm_L'], 'realistic_joints_elbow_loc_L', text="Elbow_L Displacement 1", toggle=True)
             col_L.prop(p_bones['properties_arm_L'], 'realistic_joints_elbow_rot_L', text="Elbow_L Displacement 2", toggle=True)
@@ -73,3 +77,9 @@ class BLENRIG_PT_Rig_Body_settings_realistic_joints(bpy.types.Panel):
             row_1_L.prop(p_bones['properties_leg_L'], 'realistic_joints_toes_loc_L', toggle=True, icon_only=True)
             row_2_L = col_L.row()
             row_2_L.prop(p_bones['properties_leg_L'], 'realistic_joints_toes_rot_L', toggle=True, icon_only=True)
+
+            col_L.separator()
+
+            col_L.operator("mirror.rj_constraints", text="Mirror Values to the Right Side", icon='MOD_MIRROR').to_side = 'L to R'
+
+            col_L.separator()
