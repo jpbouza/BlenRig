@@ -38,6 +38,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             if active == 'WEIGHT_PAINT':
                 box_set.prop(guide_props.mdef_cage_obj.data, "use_mirror_vertex_groups")
                 box_set.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
+            box_set.operator("blenrig._mirror_vp_rj_values", text='Mirror Values')
+
 
 
 
