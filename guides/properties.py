@@ -162,6 +162,8 @@ class BlenrigGuideData(PropertyGroup):
 ## Weights Properties ##
     #Bone to Rotate
     guide_transformation_bone: StringProperty('')
+    #Rotation Order
+    guide_rotation_order: StringProperty('')
     #X_Rotation
     guide_x_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
     description="Angle for Bone in Weight Painting Guide",
@@ -192,9 +194,21 @@ class BlenrigGuideData(PropertyGroup):
     description="Angle for Bone in Weight Painting Guide",
     name="Z Negative Rotation"
     )
-    #Ball Joint_Neg
-    guide_ball_joint_rotate : IntProperty(default=0, min=0, max=6,
+    #Joint 6 Way Rotation
+    guide_joint_rotate_X6 : IntProperty(default=0, min=0, max=6,
     description="Scroll through the different rotations of the joint",
-    update=ball_joint_update,
+    update=joint_x6_update,
+    name="Ball Joint Rotate"
+    )
+    #Joint 4 Way Rotation
+    guide_joint_rotate_X4 : IntProperty(default=0, min=0, max=4,
+    description="Scroll through the different rotations of the joint",
+    update=joint_x6_update,
+    name="Ball Joint Rotate"
+    )
+    #Joint 2 Way Rotation
+    guide_joint_rotate_X2 : IntProperty(default=0, min=0, max=2,
+    description="Scroll through the different rotations of the joint",
+    update=joint_x6_update,
     name="Ball Joint Rotate"
     )
