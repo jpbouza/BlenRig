@@ -7,6 +7,9 @@ from . utils import *
 class BlenRigBodyObj(bpy.types.PropertyGroup):
     character_body_obj : PointerProperty(type=Object)
 
+class BlenRigJointChain(bpy.types.PropertyGroup):
+    joint : StringProperty('')
+
 
 class BlenrigGuideData(PropertyGroup):
     language : EnumProperty(

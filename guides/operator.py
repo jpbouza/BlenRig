@@ -6471,9 +6471,9 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
 
 #Mirror VP and RJ Values
 
-class Operator_blenrig_mirror_vp_rj_values(bpy.types.Operator):
+class Operator_blenrigmirror_vp_rj_values(bpy.types.Operator):
 
-    bl_idname = "blenrig._mirror_vp_rj_values"
+    bl_idname = "blenrig.mirror_vp_rj_values"
     bl_label = "BlenRig Mirror VP & RJ Values"
     bl_description = "BlenRig Mirror Volume Preservation and Realistic Joints Values"
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
@@ -6488,14 +6488,71 @@ class Operator_blenrig_mirror_vp_rj_values(bpy.types.Operator):
             return False
 
     def execute(self, context):
+        guide_props = bpy.context.scene.blenrig_guide
+        armobj = guide_props.arm_obj
+        p_bones = armobj.pose.bones
         #Pose Mode
         if bpy.context.active_object.type == "ARMATURE":
-                bpy.ops.mirror.rj_constraints(to_side="L to R")
-                bpy.ops.mirror.vp_constraints()
+            bpy.ops.mirror.rj_constraints(to_side="L to R")
+            bpy.ops.mirror.vp_constraints()
+            try:
+                p_bones["properties_arm_R"]["twist_rate_arm_R"] = p_bones["properties_arm_L"]["twist_rate_arm_L"]
+                p_bones["properties_arm_R"]["twist_rate_forearm_R"] = p_bones["properties_arm_L"]["twist_rate_forearm_L"]
+                p_bones["properties_leg_R"]["twist_rate_thigh_R"] = p_bones["properties_leg_L"]["twist_rate_thigh_L"]
+                p_bones["properties_leg_R"]["twist_rate_shin_R"] = p_bones["properties_leg_L"]["twist_rate_shin_L"]
+            except:
+                pass
         #Weight Paint
         if bpy.context.active_object.type =='MESH' and bpy.context.active_object.mode=='WEIGHT_PAINT':
             bpy.ops.blenrig.toggle_weight_painting(paint_object="mesh")
             bpy.ops.mirror.rj_constraints(to_side="L to R")
             bpy.ops.mirror.vp_constraints()
+            try:
+                p_bones["properties_arm_R"]["twist_rate_arm_R"] = p_bones["properties_arm_L"]["twist_rate_arm_L"]
+                p_bones["properties_arm_R"]["twist_rate_forearm_R"] = p_bones["properties_arm_L"]["twist_rate_forearm_L"]
+                p_bones["properties_leg_R"]["twist_rate_thigh_R"] = p_bones["properties_leg_L"]["twist_rate_thigh_L"]
+                p_bones["properties_leg_R"]["twist_rate_shin_R"] = p_bones["properties_leg_L"]["twist_rate_shin_L"]
+            except:
+                pass
             bpy.ops.blenrig.toggle_weight_painting(paint_object="mesh")
+        return {"FINISHED"}
+
+class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
+
+    bl_idname = "blenrig.wp_joint_chain_up"
+    bl_label = "BlenRig Joint Select"
+    bl_description = "Scroll through the joints list"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    def execute(self, context):
+        guide_props = bpy.context.scene.blenrig_guide
+        joint_list = bpy.context.scene.blenrig_joint_chain_list
+        index = []
+
+        for i in range(len(joint_list)):
+            if joint_list[i].joint == guide_props.guide_transformation_bone:
+                index[:] = []
+                index.append(i)
+        if (index[0] + 1) < len(joint_list):
+            guide_props.guide_transformation_bone = joint_list[index[0] + 1].joint
+        return {"FINISHED"}
+
+class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
+
+    bl_idname = "blenrig.wp_joint_chain_down"
+    bl_label = "BlenRig Joint Select"
+    bl_description = "Scroll through the joints list"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    def execute(self, context):
+        guide_props = bpy.context.scene.blenrig_guide
+        joint_list = bpy.context.scene.blenrig_joint_chain_list
+        index = []
+
+        for i in range(len(joint_list)):
+            if joint_list[i].joint == guide_props.guide_transformation_bone:
+                index[:] = []
+                index.append(i)
+        if index[0] > 0:
+            guide_props.guide_transformation_bone = joint_list[index[0] - 1].joint
         return {"FINISHED"}
