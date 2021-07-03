@@ -34,9 +34,6 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             box_weight = steps.box()
             box_weight.label(text='Weight Painting Options')
             box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
-            box_weight.operator("blenrig.wp_joint_chain_up", text='>')
-            box_weight.operator("blenrig.wp_joint_chain_down", text='<')
-            box_weight.label(text=guide_props.guide_transformation_bone)
             mirror_row = box_weight.row()
             mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
             if active == 'WEIGHT_PAINT':
@@ -46,7 +43,7 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
 
         if VIEW3D_OT_blenrig_guide_weights.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Ankle':
             box_pose = steps.box()
-            box_pose.label(text='Set Joint Transforms')
+            box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
             box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Ankle Pose')
             if guide_props.guide_joint_rotate_X6 != 0:
                 box_pose.label(text='Realistic Joints Parameters')
@@ -79,6 +76,49 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             if guide_props.guide_joint_rotate_X6 != 0:
                 box_pose.separator()
                 box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+
+        if VIEW3D_OT_blenrig_guide_weights.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Foot_Toe':
+            box_pose = steps.box()
+            box_pose.label(text='Select Joint Number', icon='BONE_DATA')
+            joint_row = box_pose.row()
+            joint_row.alignment = 'CENTER'
+            joint_row.scale_x = 0.9
+            joint_col_1 = joint_row.column()
+            joint_col_1.alignment = 'CENTER'
+            joint_col_2 = joint_row.column()
+            joint_col_2.alignment = 'CENTER'
+            joint_col_3 = joint_row.column()
+            joint_col_3.alignment = 'CENTER'
+            joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+            joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
+            joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
+            box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+            box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Foot Toe Pose')
+            if guide_props.guide_joint_rotate_X4 == 1:
+                row_props = box_pose.row()
+                col_R = row_props.column()
+                col_L = row_props.column()
+                col_R.label(text='Volume Preservation: Toe Curl Up')
+                col_L.label(text=' ')
+                try:
+                    col_R.prop(p_bones['foot_toe_fix_up_1_L'].constraints['Foot_Toe_1_Up_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                except:
+                    pass
+            if guide_props.guide_joint_rotate_X4 == 2:
+                row_props = box_pose.row()
+                col_R = row_props.column()
+                col_L = row_props.column()
+                col_R.label(text='Volume Preservation: Toe Curl Up')
+                col_L.label(text=' ')
+                try:
+                    col_R.prop(p_bones['foot_toe_fix_low_1_L'].constraints['Foot_Toe_1_Low_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                except:
+                    pass
+            if guide_props.guide_joint_rotate_X4 != 0:
+                box_pose.separator()
+                box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+
+
 
 
 
