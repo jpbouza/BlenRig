@@ -1159,6 +1159,10 @@ def reset_all_bones_transforms():
             armature = bpy.context.active_object
             for b in armature.pose.bones:
                 b.matrix_basis = Matrix()
+        if bpy.context.active_object.type == 'MESH':
+            armature = bpy.context.scene.blenrig_guide.arm_obj
+            for b in armature.pose.bones:
+                b.matrix_basis = Matrix()
 
 #Weights Guide Joint Rotation Functions
 def joint_x6_update(self, context):
@@ -1174,6 +1178,8 @@ def joint_x6_update(self, context):
     t_bone = guide_props.guide_transformation_bone
     rot_order = guide_props.guide_rotation_order
     pbones = arm.pose.bones
+
+    reset_all_bones_transforms()
 
     #Apply Bone Transform
 
@@ -1248,6 +1254,180 @@ def joint_x6_update(self, context):
             except:
                 pass
         if prop_value == 6:
+            try:
+                pbones[t_bone].rotation_euler = (0, 0, radians(z_neg_rot_value))
+            except:
+                pass
+
+def joint_x4_update(self, context):
+    guide_props = bpy.context.scene.blenrig_guide
+    arm = guide_props.arm_obj
+    prop_value = guide_props.guide_joint_rotate_X4
+    x_rot_value = guide_props.guide_x_rotation
+    y_rot_value = guide_props.guide_y_rotation
+    z_rot_value = guide_props.guide_z_rotation
+    x_neg_rot_value = guide_props.guide_x_rotation_neg
+    y_neg_rot_value = guide_props.guide_y_rotation_neg
+    z_neg_rot_value = guide_props.guide_z_rotation_neg
+    t_bone = guide_props.guide_transformation_bone
+    rot_order = guide_props.guide_rotation_order
+    pbones = arm.pose.bones
+
+    reset_all_bones_transforms()
+
+    #Apply Bone Transform
+
+    if rot_order == 'XY':
+
+        if prop_value == 0:
+            try:
+                pbones[t_bone].matrix_basis = Matrix()
+            except:
+                pass
+        if prop_value == 1:
+            try:
+                pbones[t_bone].rotation_euler = (radians(x_rot_value), 0, 0)
+            except:
+                pass
+        if prop_value == 2:
+            try:
+                pbones[t_bone].rotation_euler = (radians(x_neg_rot_value), 0, 0)
+            except:
+                pass
+        if prop_value == 3:
+            try:
+                pbones[t_bone].rotation_euler = (0, radians(y_rot_value), 0)
+            except:
+                pass
+        if prop_value == 4:
+            try:
+                pbones[t_bone].rotation_euler = (0, radians(y_neg_rot_value), 0)
+            except:
+                pass
+
+    if rot_order == 'XZ':
+
+        if prop_value == 0:
+            try:
+                pbones[t_bone].matrix_basis = Matrix()
+            except:
+                pass
+        if prop_value == 1:
+            try:
+                pbones[t_bone].rotation_euler = (radians(x_rot_value), 0, 0)
+            except:
+                pass
+        if prop_value == 2:
+            try:
+                pbones[t_bone].rotation_euler = (radians(x_neg_rot_value), 0, 0)
+            except:
+                pass
+        if prop_value == 3:
+            try:
+                pbones[t_bone].rotation_euler = (0, 0, radians(z_rot_value))
+            except:
+                pass
+        if prop_value == 4:
+            try:
+                pbones[t_bone].rotation_euler = (0, 0, radians(z_neg_rot_value))
+            except:
+                pass
+
+    if rot_order == 'YZ':
+
+        if prop_value == 0:
+            try:
+                pbones[t_bone].matrix_basis = Matrix()
+            except:
+                pass
+        if prop_value == 1:
+            try:
+                pbones[t_bone].rotation_euler = (0, radians(y_rot_value), 0)
+            except:
+                pass
+        if prop_value == 2:
+            try:
+                pbones[t_bone].rotation_euler = (0, radians(y_neg_rot_value), 0)
+            except:
+                pass
+        if prop_value == 3:
+            try:
+                pbones[t_bone].rotation_euler = (0, 0, radians(z_rot_value))
+            except:
+                pass
+        if prop_value == 4:
+            try:
+                pbones[t_bone].rotation_euler = (0, 0, radians(z_neg_rot_value))
+            except:
+                pass
+
+def joint_x2_update(self, context):
+    guide_props = bpy.context.scene.blenrig_guide
+    arm = guide_props.arm_obj
+    prop_value = guide_props.guide_joint_rotate_X6
+    x_rot_value = guide_props.guide_x_rotation
+    y_rot_value = guide_props.guide_y_rotation
+    z_rot_value = guide_props.guide_z_rotation
+    x_neg_rot_value = guide_props.guide_x_rotation_neg
+    y_neg_rot_value = guide_props.guide_y_rotation_neg
+    z_neg_rot_value = guide_props.guide_z_rotation_neg
+    t_bone = guide_props.guide_transformation_bone
+    rot_order = guide_props.guide_rotation_order
+    pbones = arm.pose.bones
+
+    reset_all_bones_transforms()
+
+    #Apply Bone Transform
+
+    if rot_order == 'X':
+
+        if prop_value == 0:
+            try:
+                pbones[t_bone].matrix_basis = Matrix()
+            except:
+                pass
+        if prop_value == 1:
+            try:
+                pbones[t_bone].rotation_euler = (radians(x_rot_value), 0, 0)
+            except:
+                pass
+        if prop_value == 2:
+            try:
+                pbones[t_bone].rotation_euler = (radians(x_neg_rot_value), 0, 0)
+            except:
+                pass
+
+    if rot_order == 'Y':
+
+        if prop_value == 0:
+            try:
+                pbones[t_bone].matrix_basis = Matrix()
+            except:
+                pass
+        if prop_value == 1:
+            try:
+                pbones[t_bone].rotation_euler = (0, radians(y_rot_value), 0)
+            except:
+                pass
+        if prop_value == 2:
+            try:
+                pbones[t_bone].rotation_euler = (0, radians(y_neg_rot_value), 0)
+            except:
+                pass
+
+    if rot_order == 'Z':
+
+        if prop_value == 0:
+            try:
+                pbones[t_bone].matrix_basis = Matrix()
+            except:
+                pass
+        if prop_value == 1:
+            try:
+                pbones[t_bone].rotation_euler = (0, 0, radians(z_rot_value))
+            except:
+                pass
+        if prop_value == 2:
             try:
                 pbones[t_bone].rotation_euler = (0, 0, radians(z_neg_rot_value))
             except:
