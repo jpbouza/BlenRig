@@ -37,7 +37,7 @@ def show_mdef_cage(context):
         bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
         bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
 
-def joint_x6_rotations(BONE, X, X_NEG, Y, Y_NEG, Z, Z_NEG, PROP_VALUE):
+def joint_rotations(BONE, X, X_NEG, Y, Y_NEG, Z, Z_NEG, PROP_VALUE):
     #Set Bone and Angles
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_transformation_bone = BONE
@@ -47,8 +47,13 @@ def joint_x6_rotations(BONE, X, X_NEG, Y, Y_NEG, Z, Z_NEG, PROP_VALUE):
     guide_props.guide_x_rotation_neg = X_NEG
     guide_props.guide_y_rotation_neg = Y_NEG
     guide_props.guide_z_rotation_neg = Z_NEG
-    #Reset rotation property
-    guide_props.guide_joint_rotate_X6 = PROP_VALUE
+    #Set Pose property
+    if guide_props.guide_rotation_type == 'x6':
+        guide_props.guide_joint_rotate_X6 = PROP_VALUE
+    elif guide_props.guide_rotation_type == 'x4':
+        guide_props.guide_joint_rotate_X4 = PROP_VALUE
+    elif guide_props.guide_rotation_type == 'x2'   :
+        guide_props.guide_joint_rotate_X2 = PROP_VALUE
 
 def weight_step(operator, context, step_name, wp_obj,
 joint_type, joint_parameters, rot_order,
@@ -84,9 +89,9 @@ bone_list, layers_list, active_bone, wp_active_group, mode):
 
     #Set Bone and Angles
     guide_props.guide_rotation_order = rot_order
+    guide_props.guide_rotation_type = joint_type
     param_list = joint_parameters
-    if joint_type == 'ball':
-        joint_x6_rotations(*param_list)
+    joint_rotations(*param_list)
 
     deselect_all_objects(context)
 
@@ -136,7 +141,7 @@ bone_list, layers_list, active_bone, wp_active_group, mode):
 
 def WEIGHTS_Cage_Ankle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Ankle', 'mdef_cage',
-    'ball', ['foot_fk_L', 60, -60, 45, -45, 60, -60, 1], 'XZY',
+    'x6', ['foot_fk_L', 60, -60, 45, -45, 60, -60, 1], 'XZY',
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_fk_L', 'foot_fk_R'], [27], 'foot_fk_L', 'foot_def_L', 'mdef_mesh',)
 
@@ -144,12 +149,23 @@ def WEIGHTS_Cage_Ankle(operator, context):
     bpy.ops.snap.leg_ik_to_fk_l()
     bpy.ops.snap.leg_ik_to_fk_r()
 
-    joint_list = ['foot_fk_L', 'foot_def_L', 'foot_def_R']
+def WEIGHTS_Cage_Foot_Toe(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Foot_Toe', 'mdef_cage',
+    'x4', ['foot_toe_1_fk_L', 60, -60, 0, 0, 60, -60, 1], 'XZ',
+    'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
+    ['foot_toe_1_fk_L', 'foot_toe_2_fk_L'], [27], 'foot_toe_1_fk_L', 'foot_toe_1_def_L', 'mdef_mesh',)
+
+    #Set Rig Control Properties
+    bpy.ops.snap.leg_ik_to_fk_l()
+    bpy.ops.snap.leg_ik_to_fk_r()
+
+    #Create Joint List for Scrolling through joints within step
+    joint_list = ['foot_toe_1_fk_L', 'foot_toe_2_fk_L']
 
     #Clear List
     bpy.context.scene.blenrig_joint_chain_list.clear()
 
-    #Define Body Objects
+    #Add bones to list
     for b in joint_list:
         add_item = bpy.context.scene.blenrig_joint_chain_list.add()
         add_item.joint = b
@@ -157,39 +173,25 @@ def WEIGHTS_Cage_Ankle(operator, context):
 #### END OF STEP ACTIONS ####
 
 def weights_end_generic(context):
-    #Force Pose Position
-    bpy.context.active_object.data.pose_position = 'POSE'
 
-    #Ensure Symmetry
+    guide_props = bpy.context.scene.blenrig_guide
+
+    #Ensure Properties Symmetry
+    bpy.ops.blenrig.mirror_vp_rj_values()
     unhide_all_bones(context)
     deselect_all_pose_bones(context)
-
-    #Left Side
-    for b in context.pose_object.data.bones:
-        if b.name.endswith('_L'):
-            b.select = True
-
-    if bpy.context.active_object.pose.use_mirror_x == True:
-        mirror_pose()
-    deselect_all_pose_bones(context)
-
-    #Clear Action and Transforms
-    clear_action()
 
     #Reset Transforms
     reset_all_bones_transforms()
 
-    #Toggle Pose X-Mirror
-    toggle_pose_x_mirror(context, False)
-
     #Turn Layers on
-    off_layers = [27, 28]
+    off_layers = [27]
     for l in off_layers:
-        bpy.context.object.data.layers[l] = False
+        guide_props.arm_obj.data.layers[l] = False
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    print ('kk')
+    weights_end_generic(context)
     # guide_props = bpy.context.scene.blenrig_guide
     # current_step = bpy.context.scene.blenrig_guide.guide_current_step
     # steps = ['ACTIONS_Fingers_Spread_X_Up', 'ACTIONS_Fingers_Spread_X_Down', 'ACTIONS_Fingers_Spread_Z_Out', 'ACTIONS_Fingers_Spread_Z_In',
