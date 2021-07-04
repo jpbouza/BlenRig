@@ -9,7 +9,10 @@ class BlenRigBodyObj(bpy.types.PropertyGroup):
 
 class BlenRigJointChain(bpy.types.PropertyGroup):
     joint : StringProperty('')
+    vgroup : StringProperty('')
 
+class BlenRigWPBones(bpy.types.PropertyGroup):
+    bone : StringProperty('')
 
 class BlenrigGuideData(PropertyGroup):
     language : EnumProperty(
@@ -165,6 +168,8 @@ class BlenrigGuideData(PropertyGroup):
 ## Weights Properties ##
     #Bone to Rotate
     guide_transformation_bone: StringProperty('')
+    #Bone to Rotate
+    guide_active_wp_group: StringProperty('')
     #Rotation Order
     guide_rotation_order: StringProperty('')
     #Joint Rotation type
@@ -216,4 +221,9 @@ class BlenrigGuideData(PropertyGroup):
     description="Scroll through the different rotations of the joint",
     update=joint_x2_update,
     name="2 Way Rotation"
+    )
+    guide_show_wp_bones : BoolProperty(default=0,
+    description="Toggle Bone Visibility in BlenRig Weight Painting Guide",
+    update=show_wp_bones_update,
+    name="Show Bones"
     )

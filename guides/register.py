@@ -13,7 +13,7 @@
 import bpy
 
 def register():
-    from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain
+    from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
     from bpy.types import Scene as scn
     from bpy.props import PointerProperty as Pointer
     from bpy.utils import register_class
@@ -23,6 +23,8 @@ def register():
     scn.blenrig_character_body_obj = bpy.props.CollectionProperty(type=BlenRigBodyObj, name='BlenRig Character Body Objects')
     register_class(BlenRigJointChain)
     scn.blenrig_joint_chain_list = bpy.props.CollectionProperty(type=BlenRigJointChain, name='Joint List for Weight Painting Guide')
+    register_class(BlenRigWPBones)
+    scn.blenrig_wp_bones = bpy.props.CollectionProperty(type=BlenRigWPBones, name='Visible bones list for Weight Painting')
 
 
     from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
@@ -108,11 +110,12 @@ def unregister():
     unregister_class(Operator_blenrigmirror_vp_rj_values)
     unregister_class(Operator_blenrig_wp_joint_chain_up)
     unregister_class(Operator_blenrig_wp_joint_chain_down)
-    from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain
+    from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
     from bpy.types import Scene as scn
     del scn.blenrig_guide
     del scn.blenrig_character_body_obj
     del scn.blenrig_joint_chain_list
+    del scn.blenrig_wp_bones
     unregister_class(BlenrigGuideData)
     unregister_class(BlenRigBodyObj)
     unregister_class(BlenRigJointChain)

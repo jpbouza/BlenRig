@@ -1444,3 +1444,21 @@ def set_active_vgroup(v_group):
             active.vertex_groups.active_index = index
         except:
             pass
+
+#Show All Bones in Weight Painting
+def show_wp_bones_update(self, context):
+    scn = bpy.context.scene
+    guide_props = scn.blenrig_guide
+    arm = guide_props.arm_obj
+    pbones = arm.pose.bones
+    prop_value = guide_props.guide_show_wp_bones
+
+    if prop_value == True:
+        for b in pbones:
+            b.bone.hide = False
+    else:
+        bones = [b.bone for b in scn.blenrig_wp_bones]
+        unhide_all_bones(context)
+        select_all_pose_bones(context)
+        deselect_pose_bones(context, *bones)
+        hide_selected_pose_bones(context)
