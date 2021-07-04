@@ -58,9 +58,10 @@ def joint_rotations(BONE, X, X_NEG, Y, Y_NEG, Z, Z_NEG, PROP_VALUE):
 def weight_step(operator, context, step_name, wp_obj,
 joint_type, joint_parameters, rot_order,
 frame_bone_1, frame_bone_2, view,
-bone_list, layers_list, active_bone, wp_active_group, mode):
+bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
 
-    guide_props = bpy.context.scene.blenrig_guide
+    scn = bpy.context.scene
+    guide_props = scn.blenrig_guide
     #Perform end of step action and set current step name
     end_of_step_action(context)
     guide_props.guide_current_step = step_name
@@ -84,8 +85,23 @@ bone_list, layers_list, active_bone, wp_active_group, mode):
         paint_obj = guide_props.character_head_obj
         set_active_object(context, paint_obj)
 
+    #Create Joint List and Vgroup List for Scrolling through joints within the step
+    joint_list = active_bone_list
+    vgroup_list = wp_active_group_list
+
+    #Clear List
+    bpy.context.scene.blenrig_joint_chain_list.clear()
+
+    #Add bones to list
+    for i in range(len(joint_list)):
+        joint_item = joint_list[i]
+        vgroup_item = vgroup_list[i]
+        add_item = bpy.context.scene.blenrig_joint_chain_list.add()
+        add_item.joint = joint_item
+        bpy.context.scene.blenrig_joint_chain_list[i].vgroup = vgroup_item
+
     #Active VGroup
-    set_active_vgroup(wp_active_group)
+    set_active_vgroup(vgroup_list[0])
 
     #Set Bone and Angles
     guide_props.guide_rotation_order = rot_order
@@ -104,24 +120,32 @@ bone_list, layers_list, active_bone, wp_active_group, mode):
     set_view_perspective(context, False)
     set_viewpoint(view)
 
-    bones = bone_list
+    #Turn On Deformation Layer
+    on_layers = layers_list
+    for l in on_layers:
+        bpy.context.object.data.layers[l] = True
+
+    #Clear Bone List
+    scn.blenrig_wp_bones.clear()
+
+    #Add bones to list
+    for b in bone_list:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
+    bones = [b.bone for b in scn.blenrig_wp_bones]
 
     unhide_all_bones(context)
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
-    #Turn On Deformation Layer
-    on_layers = layers_list
-    for l in on_layers:
-        bpy.context.object.data.layers[l] = True
-
-    #Unhide Bones in Deformation Layer
-    hide_bones_in_layer(context, *on_layers, state=False)
-    deselect_all_pose_bones(context, invert=False)
+    # #Unhide Bones in Deformation Layer
+    # hide_bones_in_layer(context, *on_layers, state=False)
+    # deselect_all_pose_bones(context, invert=False)
 
     #Set Active Bone
-    select_pose_bone(context, active_bone)
+    select_pose_bone(context, joint_list[0])
 
     if mode == 'weight_paint':
         #Set Weight Paint Mode
@@ -143,7 +167,11 @@ def WEIGHTS_Cage_Ankle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Ankle', 'mdef_cage',
     'x6', ['foot_fk_L', 60, -60, 45, -45, 60, -60, 1], 'XZY',
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
-    ['foot_fk_L', 'foot_fk_R'], [27], 'foot_fk_L', 'foot_def_L', 'mdef_mesh',)
+    ['foot_fk_L', 'foot_def_L', 'shin_twist_def_L', 'instep_fix_L', 'ankle_fix_L'],
+    [27],
+    ['foot_fk_L'],
+    ['foot_def_L'],
+    'mdef_mesh',)
 
     #Set Rig Control Properties
     bpy.ops.snap.leg_ik_to_fk_l()
@@ -153,22 +181,15 @@ def WEIGHTS_Cage_Foot_Toe(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Foot_Toe', 'mdef_cage',
     'x4', ['foot_toe_1_fk_L', 60, -60, 0, 0, 60, -60, 1], 'XZ',
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
-    ['foot_toe_1_fk_L', 'foot_toe_2_fk_L'], [27], 'foot_toe_1_fk_L', 'foot_toe_1_def_L', 'mdef_mesh',)
+    ['foot_toe_fix_up_1_L', 'foot_toe_1_fk_L', 'foot_toe_2_fk_L', 'foot_toe_fix_up_2_L', 'foot_toe_fix_low_2_L', 'foot_toe_fix_low_1_L', 'foot_def_L', 'foot_toe_1_def_L', 'foot_toe_2_def_L'],
+    [27],
+    ['foot_toe_1_fk_L', 'foot_toe_2_fk_L'],
+    ['foot_toe_1_def_L', 'foot_toe_2_def_L'],
+    'mdef_mesh',)
 
     #Set Rig Control Properties
     bpy.ops.snap.leg_ik_to_fk_l()
     bpy.ops.snap.leg_ik_to_fk_r()
-
-    #Create Joint List for Scrolling through joints within step
-    joint_list = ['foot_toe_1_fk_L', 'foot_toe_2_fk_L']
-
-    #Clear List
-    bpy.context.scene.blenrig_joint_chain_list.clear()
-
-    #Add bones to list
-    for b in joint_list:
-        add_item = bpy.context.scene.blenrig_joint_chain_list.add()
-        add_item.joint = b
 
 #### END OF STEP ACTIONS ####
 
