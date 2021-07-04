@@ -39,6 +39,7 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             if active == 'WEIGHT_PAINT':
                 mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_vertex_groups")
                 mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
+            box_weight.prop(guide_props, 'guide_show_wp_bones')
             steps.separator()
 
         if VIEW3D_OT_blenrig_guide_weights.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Ankle':
