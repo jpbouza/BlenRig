@@ -8,7 +8,7 @@ class BLENRIG_PT_Rig_Body_settings_vp_bones_movement(Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         layout = self.layout
         box = layout.column()
@@ -35,7 +35,7 @@ class BlenrigVolumePreservationPanel:
         box = layout.column()
         col = box.column()
         row = box.row(align=False)
-        
+
     # def draw_header(self, context):
     #     scene  = context.scene
     #     layout = self.layout
@@ -125,7 +125,7 @@ class BLENRIG_PT_VP_arm_downwards(BlenrigVolumePreservationPanel, Panel):
         col_R.label(text='Back Volume:')
         try:
             col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Down_L_NOREP'], 'to_min_x', text="Horizontal", toggle=True)
-            col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Down_L_NOREP'], 'to_min_z', text="Verticañ", toggle=True)
+            col_R.prop(p_bones['back_fix_L'].constraints['Back_VP_Down_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
         except:
             pass
 
