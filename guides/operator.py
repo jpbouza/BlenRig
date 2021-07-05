@@ -6536,7 +6536,7 @@ class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
                 index.append(i)
         if (index[0] + 1) < len(joint_list):
             guide_props.guide_transformation_bone = joint_list[index[0] + 1].joint
-            guide_props.guide_active_wp_group = joint_list[index[0] - 1].vgroup
+            guide_props.guide_active_wp_group = joint_list[index[0] + 1].vgroup
             if guide_props.guide_rotation_type == 'x6':
                 guide_props.guide_joint_rotate_X6 = guide_props.guide_joint_rotate_X6
             elif guide_props.guide_rotation_type == 'x4':
