@@ -7,11 +7,11 @@ def frame_bones(context, *bone_names):
     frame_selected()
     deselect_all_pose_bones(context)
 
-def select_armature(operator, context):
+def select_armature(context):
     # Select previously active Armature
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
+    set_active_object(context, bpy.context.scene.blenrig_guide.arm_obj)
     set_mode('POSE')
 
 def show_armature(context):
@@ -151,7 +151,7 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
         #Set Weight Paint Mode
         set_active_object(context, paint_obj)
         if context.mode != 'WEIGHT_PAINT':
-            set_mode('WEIGHT_PAINT')
+            bpy.ops.blenrig.toggle_weight_painting(paint_object='mdef_cage')
 
     if mode == 'mdef_mesh':
         #Set Weight Paint Mode
@@ -165,7 +165,7 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
 
 def WEIGHTS_Cage_Ankle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Ankle', 'mdef_cage',
-    'x6', ['foot_fk_L', 60, -60, 45, -45, 60, -60, 1], 'XZY',
+    'x6', ['foot_fk_L', 60, -60, 60, -60, 60, -60, 1], 'XZY',
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_fk_L', 'foot_def_L', 'shin_twist_def_L', 'instep_fix_L', 'ankle_fix_L'],
     [27],
@@ -173,13 +173,15 @@ def WEIGHTS_Cage_Ankle(operator, context):
     ['foot_def_L'],
     'mdef_mesh',)
 
+    guide_props = bpy.context.scene.blenrig_guide
     #Set Rig Control Properties
-    bpy.ops.snap.leg_ik_to_fk_l()
-    bpy.ops.snap.leg_ik_to_fk_r()
+    guide_props.arm_obj.pose.bones["properties_leg_L"].ik_leg_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_leg_R"].ik_leg_R =  1.0
+
 
 def WEIGHTS_Cage_Foot_Toe(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Foot_Toe', 'mdef_cage',
-    'x4', ['foot_toe_1_fk_L', 60, -60, 0, 0, 60, -60, 1], 'XZ',
+    'x4', ['foot_toe_1_fk_L', 60, -60, 0, 0, 45, -45, 1], 'XZ',
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_toe_fix_up_1_L', 'foot_toe_1_fk_L', 'foot_toe_2_fk_L', 'foot_toe_fix_up_2_L', 'foot_toe_fix_low_2_L', 'foot_toe_fix_low_1_L', 'foot_def_L', 'foot_toe_1_def_L', 'foot_toe_2_def_L'],
     [27],
@@ -187,9 +189,118 @@ def WEIGHTS_Cage_Foot_Toe(operator, context):
     ['foot_toe_1_def_L', 'foot_toe_2_def_L'],
     'mdef_mesh',)
 
+    guide_props = bpy.context.scene.blenrig_guide
     #Set Rig Control Properties
-    bpy.ops.snap.leg_ik_to_fk_l()
-    bpy.ops.snap.leg_ik_to_fk_r()
+    guide_props.arm_obj.pose.bones["properties_leg_L"].ik_leg_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_leg_R"].ik_leg_R =  1.0
+
+
+def WEIGHTS_Cage_Knee(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Knee', 'mdef_cage',
+    'x4', ['shin_fk_L', 90, -20, 90, -90, 0, 0, 1], 'XY',
+    'foot_fk_L', 'thigh_fk_L', 'RIGHT',
+    ['thigh_def_L', 'thigh_twist_def_L', 'knee_fix_L', 'shin_fix_L', 'shin_fk_L', 'shin_def_L', 'shin_twist_def_L'],
+    [27],
+    ['shin_fk_L'],
+    ['thigh_twist_def_L'],
+    'mdef_mesh',)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Rig Control Properties
+    guide_props.arm_obj.pose.bones["properties_leg_L"].ik_leg_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_leg_R"].ik_leg_R =  1.0
+
+def WEIGHTS_Cage_Thigh(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Thigh', 'mdef_cage',
+    'x4', ['thigh_fk_L', 60, -80, 0, 0, 20, -80, 1], 'XZ',
+    'foot_fk_L', 'thigh_fk_L', 'RIGHT',
+    ['pelvis_def', 'pelvis_def_L', 'hip_fix_L', 'thigh_fix_L', 'thigh_def_L', 'buttock_fix_L', 'thigh_fk_L', 'thigh_twist_def_L'],
+    [27],
+    ['thigh_fk_L'],
+    ['thigh_def_L'],
+    'mdef_mesh',)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Rig Control Properties
+    guide_props.arm_obj.pose.bones["properties_leg_L"].ik_leg_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_leg_R"].ik_leg_R =  1.0
+
+
+def WEIGHTS_Cage_Torso(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Torso', 'mdef_cage',
+    'x6', ['pelvis_ctrl', 45, -45, 90, -90, 35, -35, 1], 'XZY',
+    'pelvis_ctrl', 'neck_1_fk', 'FRONT',
+    ['spine_1_fk', 'spine_2_fk', 'spine_3_fk', 'spine_3_def', 'spine_1_def', 'spine_2_def', 'pelvis_ctrl', 'pelvis_def', 'pelvis_def_L', 'pelvis_def_R',
+    'breast_ctrl_L', 'breast_tip_L', 'breast_def_L', 'breast_ctrl_R', 'breast_tip_R', 'breast_def_R'],
+    [27],
+    ['pelvis_ctrl', 'spine_2_fk', 'spine_3_fk'],
+    ['spine_1_def', 'spine_2_def', 'spine_3_def'],
+    'weight_paint',)
+
+    #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
+    bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 0
+
+def WEIGHTS_Cage_Clavicle(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Clavicle', 'mdef_cage',
+    'x4', ['shoulder_L', 35, -35, 0, 0, 35, -15, 1], 'XZ',
+    'spine_2_fk', 'shoulder_L', 'TOP',
+    ['neck_1_def', 'spine_3_def', 'clavi_def_L', 'shoulder_L'],
+    [27],
+    ['shoulder_L'],
+    ['clavi_def_L'],
+    'weight_paint',)
+
+def WEIGHTS_Cage_Shoulder(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Shoulder', 'mdef_cage',
+    'x4', ['arm_fk_L', 90, -90, 0, 0, 90, -20, 1], 'XZ',
+    'arm_fk_L', 'spine_3_fk', 'FRONT',
+    ['spine_3_def', 'clavi_def_L', 'back_fix_L', 'chest_fix_L', 'arm_def_L', 'shoulder_fix_L', 'armpit_fix_L', 'arm_fk_L', 'arm_twist_def_L'],
+    [27],
+    ['arm_fk_L'],
+    ['arm_def_L'],
+    'mdef_mesh',)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Rig Control Properties
+    guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  1.0
+
+
+def WEIGHTS_Cage_Elbow(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Elbow', 'mdef_cage',
+    'x4', ['forearm_fk_L', 90, -20, 90, -90, 0, 0, 1], 'XY',
+    'arm_fk_L', 'hand_fk_L', 'RIGHT',
+    ['arm_def_L', 'arm_twist_def_L', 'elbow_fix_L', 'forearm_fix_L', 'forearm_fk_L', 'forearm_twist_def_L', 'forearm_def_L'],
+    [27],
+    ['forearm_fk_L'],
+    ['forearm_def_L'],
+    'mdef_mesh',)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Rig Control Properties
+    guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  1.0
+
+def WEIGHTS_Cage_Wrist(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Wrist', 'mdef_cage',
+    'x6', ['hand_fk_L', 90, -90, 90, -90, 35, -35, 1], 'XZY',
+    'forearm_fk_L', 'hand_fk_L', 'FRONT',
+    ['hand_fk_L', 'hand_def_L', 'wrist_fix_up_L', 'wrist_fix_low_L', 'forearm_twist_def_L', 'forearm_def_L'],
+    [27],
+    ['hand_fk_L'],
+    ['hand_def_L'],
+    'mdef_mesh',)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Rig Control Properties
+    guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  1.0
 
 #### END OF STEP ACTIONS ####
 
@@ -210,26 +321,30 @@ def weights_end_generic(context):
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
 
+    #Turn Off Wire in Weight Paint Object
+    if guide_props.active_wp_obj != None:
+        guide_props.active_wp_obj.show_wire = False
+
+    if bpy.context.active_object.type == 'MESH':
+        deselect_all_objects(context)
+        select_armature(context)
+
+    #Unlink Temp Collection
+    blenrig_temp_unlink()
+
 #Property for action to be performed after steps
 def end_of_step_action(context):
     weights_end_generic(context)
-    # guide_props = bpy.context.scene.blenrig_guide
-    # current_step = bpy.context.scene.blenrig_guide.guide_current_step
-    # steps = ['ACTIONS_Fingers_Spread_X_Up', 'ACTIONS_Fingers_Spread_X_Down', 'ACTIONS_Fingers_Spread_Z_Out', 'ACTIONS_Fingers_Spread_Z_In',
-    # 'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out',
-    # 'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_Range', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2',
-    # 'ACTIONS_Eyelids_Low_Down_Range', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_Range', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2',
-    # 'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In',
-    # 'ACTIONS_Jaw_Down_Range', 'ACTIONS_Jaw_Up_Range', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up', 'ACTIONS_Mouth_Corner_Out_Range', 'ACTIONS_Mouth_Corner_Out', 'ACTIONS_Mouth_Corner_Up_Range', 'ACTIONS_Mouth_Corner_Up',
-    # 'ACTIONS_Mouth_Corner_Down_Range', 'ACTIONS_Mouth_Corner_Down', 'ACTIONS_Mouth_Corner_Back_Range', 'ACTIONS_Mouth_Corner_Back', 'ACTIONS_Mouth_Corner_Forw_Range', 'ACTIONS_Mouth_Corner_Forw',
-    # 'ACTIONS_Mouth_Corner_In_Range', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective'
-    # 'ACTIONS_U_O_M_Range', 'ACTIONS_U', 'ACTIONS_O', 'ACTIONS_M', 'ACTIONS_U_Narrow_Corrective', 'ACTIONS_U_Thicker_Lips', 'ACTIONS_U_Thinner_Lips',
-    # 'ACTIONS_Mouth_Frown_Range', 'ACTIONS_Mouth_Frown', 'ACTIONS_Chin_Frown_Range','ACTIONS_Chin_Frown_Up', 'ACTIONS_Chin_Frown_Down',
-    # 'ACTIONS_Mouth_Corner_In_Zipper', 'ACTIONS_U_Zipper', 'ACTIONS_O_Zipper', 'ACTIONS_U_Narrow_Corrective_Zipper']
-    # for step in steps:
-    #     if current_step == step:
-    #         actions_end_generic(context)
-    #         bpy.context.scene.blenrig_guide.guide_current_step = ''
-    # if current_step == 'ACTIONS_Eyelids_Up_Up_Range':
-    #     #Enable Action Constraints
-    #     mute_constraints('Eyelid_Upper_Up', False)
+    guide_props = bpy.context.scene.blenrig_guide
+    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    Leg_Steps = ['WEIGHTS_Cage_Ankle', 'WEIGHTS_Cage_Foot_Toe', 'WEIGHTS_Cage_Knee', 'WEIGHTS_Cage_Thigh']
+    #Leg IK Switch
+    for step in Leg_Steps:
+        if current_step == step:
+            #Set Rig Control Properties
+            guide_props.arm_obj.pose.bones["properties_leg_L"].ik_leg_L =  0.0
+            guide_props.arm_obj.pose.bones["properties_leg_R"].ik_leg_R =  0.0
+            guide_props.guide_current_step = ''
+    if current_step == 'WEIGHTS_Cage_Torso':
+        #Turn Organic Spine Back On
+        guide_props.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 1
