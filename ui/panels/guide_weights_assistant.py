@@ -47,7 +47,7 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                     mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
                     mirror_row.prop(guide_props.active_wp_obj.data, "use_mirror_vertex_groups")
                     mirror_row.prop(guide_props.active_wp_obj.data, "use_mirror_topology")
-
+                    box_weight.operator("blenrig.select_vgroup", text='Select Mesh Deform Vgroup').vgroup = 'no_mdef'
             box_weight.prop(guide_props, 'guide_show_wp_bones')
             steps.separator()
             #Cage Ankle

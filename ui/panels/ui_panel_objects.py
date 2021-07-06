@@ -78,10 +78,18 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         #Define Body Areas
         box_area = col_buttons.box()
         box_area.label(text='Define Body Area')
-        box_area.operator("blenrig.define_body_area", text = 'Define selected as Body Objects').area = 'Body'
-        box_area.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
-        box_area.operator("blenrig.define_body_area", text = 'Define selected as Toes Object').area = 'Toes'
-        box_area.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
+        row = box_area.row()
+        col_1 = row.column()
+        col_1.scale_x = 1.5
+        col_2 = row.column()
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Body Objects').area = 'Body'
+        col_2.label(text= str([b.character_body_obj.name for b in bpy.context.scene.blenrig_character_body_obj]))
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
+        col_2.label(text=bpy.context.scene.blenrig_guide.character_hands_obj.name)
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Toes Object').area = 'Toes'
+        col_2.label(text=bpy.context.scene.blenrig_guide.character_toes_obj.name)
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
+        col_2.label(text=bpy.context.scene.blenrig_guide.character_head_obj.name)
 
 ####### Lattice & Curves Panel
 
