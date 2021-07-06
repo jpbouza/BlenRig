@@ -69,6 +69,19 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'accion': WEIGHTS_Cage_Torso
     },
+    #Neck Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Cage_Neck
+    },
     #Clavicle Poses
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -120,6 +133,19 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Wrist
+    },
+    #Character Mesh Wrist Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Wrist
     },
 )
 

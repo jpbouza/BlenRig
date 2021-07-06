@@ -147,19 +147,33 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
     #Set Active Bone
     select_pose_bone(context, joint_list[0])
 
-    if mode == 'weight_paint':
-        #Set Weight Paint Mode
-        set_active_object(context, paint_obj)
-        if context.mode != 'WEIGHT_PAINT':
-            bpy.ops.blenrig.toggle_weight_painting(paint_object='mdef_cage')
+    if wp_obj == 'mdef_cage':
+        if mode == 'weight_paint':
+            #Set Weight Paint Mode
+            set_active_object(context, paint_obj)
+            if context.mode != 'WEIGHT_PAINT':
+                bpy.ops.blenrig.toggle_weight_painting(paint_object='mdef_cage')
 
-    if mode == 'mdef_mesh':
-        #Set Weight Paint Mode
-        set_active_object(context, paint_obj)
-        if context.mode != 'WEIGHT_PAINT':
-            set_mode('WEIGHT_PAINT')
-            bpy.ops.blenrig.toggle_weight_painting(paint_object='mdef_cage')
+        if mode == 'mdef_mesh':
+            #Set Weight Paint Mode
+            set_active_object(context, paint_obj)
+            if context.mode != 'WEIGHT_PAINT':
+                set_mode('WEIGHT_PAINT')
+                bpy.ops.blenrig.toggle_weight_painting(paint_object='mdef_cage')
 
+    else:
+        if mode == 'weight_paint':
+            #Set Weight Paint Mode
+            set_active_object(context, paint_obj)
+            if context.mode != 'WEIGHT_PAINT':
+                bpy.ops.blenrig.toggle_weight_painting(paint_object='char')
+
+        if mode == 'char_mesh':
+            #Set Weight Paint Mode
+            set_active_object(context, paint_obj)
+            if context.mode != 'WEIGHT_PAINT':
+                set_mode('WEIGHT_PAINT')
+                bpy.ops.blenrig.toggle_weight_painting(paint_object='char')
 
 #### WEIGHTS STEPS ####
 
@@ -228,7 +242,7 @@ def WEIGHTS_Cage_Thigh(operator, context):
 
 def WEIGHTS_Cage_Torso(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Torso', 'mdef_cage',
-    'x6', ['pelvis_ctrl', 45, -45, 90, -90, 35, -35, 1], 'XZY',
+    'x6', ['pelvis_ctrl', 45, -45, 45, -45, 35, -35, 1], 'XZY',
     'pelvis_ctrl', 'neck_1_fk', 'FRONT',
     ['spine_1_fk', 'spine_2_fk', 'spine_3_fk', 'spine_3_def', 'spine_1_def', 'spine_2_def', 'pelvis_ctrl', 'pelvis_def', 'pelvis_def_L', 'pelvis_def_R',
     'breast_ctrl_L', 'breast_tip_L', 'breast_def_L', 'breast_ctrl_R', 'breast_tip_R', 'breast_def_R'],
@@ -239,6 +253,20 @@ def WEIGHTS_Cage_Torso(operator, context):
 
     #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
     bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 0
+
+def WEIGHTS_Cage_Neck(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Cage_Neck', 'mdef_cage',
+    'x6', ['neck_1_fk', 45, -45, 45, -45, 35, -35, 1], 'XZY',
+    'neck_1_fk', 'head_stretch', 'FRONT',
+    ['neck_1_fk', 'neck_2_fk', 'neck_3_fk', 'head_def_2', 'head_def_3', 'head_def_1', 'maxi', 'head_fk',
+    'neck_1_def', 'neck_2_def', 'neck_3_def', 'spine_3_def', 'clavi_def_R', 'shoulder_R', 'clavi_def_L', 'shoulder_L'],
+    [27],
+    ['neck_1_fk', 'neck_2_fk', 'neck_3_fk', 'head_fk'],
+    ['neck_1_def', 'neck_2_def', 'neck_3_def', 'head_def_1'],
+    'weight_paint',)
+
+    #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
+    bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_head"]["organic_neck"] = 0
 
 def WEIGHTS_Cage_Clavicle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Clavicle', 'mdef_cage',
@@ -302,6 +330,23 @@ def WEIGHTS_Cage_Wrist(operator, context):
     guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  1.0
     guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  1.0
 
+def WEIGHTS_Char_Wrist(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Wrist', 'hands',
+    'x4', ['hand_fk_L', 90, -90, 90, -90, 35, -35, 1], 'XZ',
+    'forearm_fk_L', 'hand_fk_L', 'FRONT',
+    ['hand_fk_L', 'hand_def_L'],
+    [27],
+    ['hand_fk_L'],
+    ['no_mdef'],
+    'weight_paint',)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Rig Control Properties
+    guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  1.0
+
 #### END OF STEP ACTIONS ####
 
 def weights_end_generic(context):
@@ -337,7 +382,7 @@ def end_of_step_action(context):
     weights_end_generic(context)
     guide_props = bpy.context.scene.blenrig_guide
     current_step = bpy.context.scene.blenrig_guide.guide_current_step
-    Leg_Steps = ['WEIGHTS_Cage_Ankle', 'WEIGHTS_Cage_Foot_Toe', 'WEIGHTS_Cage_Knee', 'WEIGHTS_Cage_Thigh']
+    Leg_Steps = ['WEIGHTS_Cage_Shoulder', 'WEIGHTS_Cage_Foot_Toe', 'WEIGHTS_Cage_Knee', 'WEIGHTS_Cage_Thigh']
     #Leg IK Switch
     for step in Leg_Steps:
         if current_step == step:
@@ -348,3 +393,14 @@ def end_of_step_action(context):
     if current_step == 'WEIGHTS_Cage_Torso':
         #Turn Organic Spine Back On
         guide_props.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 1
+    if current_step == 'WEIGHTS_Cage_Neck':
+        #Turn Organic Spine Back On
+        guide_props.arm_obj.pose.bones["properties_head"]["organic_neck"] = 1
+    Arm_Steps = ['WEIGHTS_Cage_Ankle', 'WEIGHTS_Cage_Elbow', 'WEIGHTS_Cage_Wrist', 'WEIGHTS_Char_Wrist']
+    for step in Arm_Steps:
+        if current_step == step:
+            #Set Rig Control Properties
+            guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  0.0
+            guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  0.0
+            guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  0.0
+            guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  0.0
