@@ -6614,3 +6614,50 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
         select_pose_bone(context, guide_props.guide_transformation_bone)
         set_active_vgroup(guide_props.guide_active_wp_group)
         return {"FINISHED"}
+
+class Operator_blenrig_select_vgroup(bpy.types.Operator):
+
+    bl_idname = "blenrig.select_vgroup"
+    bl_label = "BlenRig Select Mdef VGroup"
+    bl_description = "Select Mesh Deform Vertex Group"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    vgroup : bpy.props.StringProperty()
+
+    def execute(self, context):
+        from .utils import set_active_vgroup
+        set_active_vgroup(self.vgroup)
+        return {"FINISHED"}
+
+class Operator_blenrig_edit_corrective_smooth_vgroup(bpy.types.Operator):
+
+    bl_idname = "blenrig.edit_corrective_smooth_vgroup"
+    bl_label = "BlenRig Edit Corrective Smooth VGroup"
+    bl_description = "Edit Corrective Smooth Vertex Group on Selected Object"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+        from .utils import set_active_vgroup, set_mode
+        #Set Weight Paint Mode
+        if context.mode != 'WEIGHT_PAINT':
+            bpy.ops.blenrig.toggle_weight_painting(paint_object='char')
+        set_active_vgroup('corrective_smooth')
+        return {"FINISHED"}
