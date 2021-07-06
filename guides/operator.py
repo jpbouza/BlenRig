@@ -1834,6 +1834,41 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
 
         return {"FINISHED"}
 
+class Operator_blenrig_define_body_area(bpy.types.Operator):
+
+    bl_idname = "blenrig.define_body_area"
+    bl_label = "BlenRig Define Character Body part for Guide"
+    bl_description = "Define Character Body part for Guide"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    area : bpy.props.StringProperty()
+
+    def execute(self, context):
+        if self.area == 'Body':
+            #Clear List
+            bpy.context.scene.blenrig_character_body_obj.clear()
+
+            #Define Body Objects
+            for ob in bpy.context.selected_objects:
+                add_item = bpy.context.scene.blenrig_character_body_obj.add()
+                add_item.character_body_obj = ob
+        if self.area == 'Hands':
+            bpy.context.scene.blenrig_guide.character_hands_obj = bpy.context.active_object
+        if self.area == 'Toes':
+            bpy.context.scene.blenrig_guide.character_toes_obj = bpy.context.active_object
+        if self.area == 'Head':
+            bpy.context.scene.blenrig_guide.character_head_obj = bpy.context.active_object
+        return {"FINISHED"}
+
 #Mesh Deform Binding Operators
 
 class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
@@ -6467,6 +6502,7 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
 
     def execute(self, context):
         self.toggle_mode(context)
+        bpy.ops.ed.undo_push()
         return {"FINISHED"}
 
 #Mirror VP and RJ Values
