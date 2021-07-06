@@ -33,7 +33,10 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             steps = layout.column(align=True)
             box_weight = steps.box()
             box_weight.label(text='Weight Painting Options')
-            box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
+            if '_Cage_' in guide_props.guide_current_step:
+                box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
+            else:
+                box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'char'
             mirror_row = box_weight.row()
             mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
             if active == 'WEIGHT_PAINT':
@@ -41,8 +44,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
             box_weight.prop(guide_props, 'guide_show_wp_bones')
             steps.separator()
-            #Ankle
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Ankle':
+            #Cage Ankle
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Ankle':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Ankle Pose')
@@ -77,8 +80,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X6 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            #Foot Toe
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Foot_Toe':
+            #Cage Foot Toe
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Foot_Toe':
                 box_pose = steps.box()
                 box_pose.label(text='Select Joint Number', icon='BONE_DATA')
                 joint_row = box_pose.row()
@@ -143,8 +146,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X4 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            #Knee
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Knee':
+            #Cage Knee
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Knee':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Knee Pose')
@@ -174,8 +177,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X4 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            #Thigh
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Thigh':
+            #Cage Thigh
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Thigh':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Thigh Pose')
@@ -217,8 +220,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X4 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            #Torso
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Torso':
+            #Cage Torso
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Torso':
                 box_pose = steps.box()
                 box_pose.label(text='Select Joint Number', icon='BONE_DATA')
                 joint_row = box_pose.row()
@@ -245,14 +248,44 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 #Spine 3
                 if guide_props.guide_transformation_bone == 'spine_3_fk':
                     box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Spine 3 Pose')
+            #Cage Neck
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Neck':
                 box_pose = steps.box()
-            #Clavicle
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Clavicle':
+                box_pose.label(text='Select Joint Number', icon='BONE_DATA')
+                joint_row = box_pose.row()
+                joint_row.alignment = 'CENTER'
+                joint_row.scale_x = 0.9
+                joint_col_1 = joint_row.column()
+                joint_col_1.alignment = 'CENTER'
+                joint_col_2 = joint_row.column()
+                joint_col_2.alignment = 'CENTER'
+                joint_col_3 = joint_row.column()
+                joint_col_3.alignment = 'CENTER'
+                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+                joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
+                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                #Neck 1
+                if guide_props.guide_transformation_bone == 'neck_1_fk':
+                    box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Neck 1 Pose')
+                box_pose = steps.box()
+                #Neck 2
+                if guide_props.guide_transformation_bone == 'neck_2_fk':
+                    box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Neck 2 Pose')
+                box_pose = steps.box()
+                #Neck 3
+                if guide_props.guide_transformation_bone == 'neck_3_fk':
+                    box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Neck 3 Pose')
+                #Head
+                if guide_props.guide_transformation_bone == 'head_fk':
+                    box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Head Pose')
+            #Cage Clavicle
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Clavicle':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Collarbone Pose')
-            #Shoulder
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Shoulder':
+            #Cage Shoulder
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Shoulder':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Arm Pose')
@@ -315,8 +348,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X4 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            #Elbow
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Elbow':
+            #Cage Elbow
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Elbow':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Forearm Pose')
@@ -345,8 +378,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X4 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            #Wrist
-            if bpy.context.scene.blenrig_guide.guide_current_step == 'WEIGHTS_Cage_Wrist':
+            #Cage Wrist
+            if guide_props.guide_current_step == 'WEIGHTS_Cage_Wrist':
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_rotate_X6", text='Wrist Pose')
@@ -391,7 +424,11 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 if guide_props.guide_joint_rotate_X4 != 0:
                     box_pose.separator()
                     box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-
+            #Wrist
+            if guide_props.guide_current_step == 'WEIGHTS_Char_Wrist':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_rotate_X4", text='Wrist Pose')
 
 
 

@@ -70,11 +70,18 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         #Bind Mesh Deform
         box_modifiers = col_buttons.box()
         box_modifiers.label(text='Bind Mesh Deform')
-        row_mdef = box.row()
+        row_mdef = box_modifiers.row()
         row_mdef.operator("blenrig.bind_mdef_modifiers", text = 'Bind Mesh Deform (Fast)').Bind_Type = True
         row_mdef.operator("blenrig.bind_mdef_modifiers", text = 'Bind Mesh Deform (Final)').Bind_Type = False
-        col_mdef = box.column()
+        col_mdef = box_modifiers.column()
         col_mdef.operator("blenrig.unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
+        #Define Body Areas
+        box_area = col_buttons.box()
+        box_area.label(text='Define Body Area')
+        box_area.operator("blenrig.define_body_area", text = 'Define selected as Body Objects').area = 'Body'
+        box_area.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
+        box_area.operator("blenrig.define_body_area", text = 'Define selected as Toes Object').area = 'Toes'
+        box_area.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
 
 ####### Lattice & Curves Panel
 
