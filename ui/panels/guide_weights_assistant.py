@@ -35,13 +35,19 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             box_weight.label(text='Weight Painting Options')
             if '_Cage_' in guide_props.guide_current_step:
                 box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
+                if active == 'WEIGHT_PAINT':
+                    mirror_row = box_weight.row()
+                    mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
+                    mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_vertex_groups")
+                    mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
             else:
                 box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'char'
-            mirror_row = box_weight.row()
-            mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
-            if active == 'WEIGHT_PAINT':
-                mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_vertex_groups")
-                mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
+                if active == 'WEIGHT_PAINT':
+                    mirror_row = box_weight.row()
+                    mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
+                    mirror_row.prop(guide_props.active_wp_obj.data, "use_mirror_vertex_groups")
+                    mirror_row.prop(guide_props.active_wp_obj.data, "use_mirror_topology")
+
             box_weight.prop(guide_props, 'guide_show_wp_bones')
             steps.separator()
             #Cage Ankle
