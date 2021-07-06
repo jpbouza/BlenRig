@@ -353,6 +353,15 @@ def weights_end_generic(context):
 
     guide_props = bpy.context.scene.blenrig_guide
 
+    #Select Armature
+    if bpy.context.active_object.type == 'MESH':
+        deselect_all_objects(context)
+        select_armature(context)
+
+    #Ensure POSE Mode
+    set_active_object(context, guide_props.arm_obj)
+    set_mode('POSE')
+
     #Ensure Properties Symmetry
     bpy.ops.blenrig.mirror_vp_rj_values()
     unhide_all_bones(context)
@@ -369,10 +378,6 @@ def weights_end_generic(context):
     #Turn Off Wire in Weight Paint Object
     if guide_props.active_wp_obj != None:
         guide_props.active_wp_obj.show_wire = False
-
-    if bpy.context.active_object.type == 'MESH':
-        deselect_all_objects(context)
-        select_armature(context)
 
     #Unlink Temp Collection
     blenrig_temp_unlink()
