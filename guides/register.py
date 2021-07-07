@@ -35,7 +35,7 @@ def register():
     Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
     VIEW3D_OT_blenrig_guide_lattices, VIEW3D_OT_blenrig_guide_actions, VIEW3D_OT_blenrig_guide_weights, VIEW3D_OT_blenrig_guide_shapekeys, Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
-    Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup)
+    Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup)
 
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
@@ -68,6 +68,7 @@ def register():
     register_class(Operator_blenrig_wp_joint_chain_up)
     register_class(Operator_blenrig_wp_joint_chain_down)
     register_class(Operator_blenrig_select_vgroup)
+    register_class(Operator_blenrig_edit_corrective_smooth_vgroup)
     register_class(BlenRigGuidePanel_options)
     register_class(BlenRigGuidePanel)
 
@@ -80,7 +81,7 @@ def unregister():
     Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
     VIEW3D_OT_blenrig_guide_lattices, VIEW3D_OT_blenrig_guide_actions, VIEW3D_OT_blenrig_guide_weights, VIEW3D_OT_blenrig_guide_shapekeys, Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
-    Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup)
+    Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup)
 
     from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
@@ -116,6 +117,7 @@ def unregister():
     unregister_class(Operator_blenrig_wp_joint_chain_up)
     unregister_class(Operator_blenrig_wp_joint_chain_down)
     unregister_class(Operator_blenrig_select_vgroup)
+    unregister_class(Operator_blenrig_edit_corrective_smooth_vgroup)
     from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
     from bpy.types import Scene as scn
     del scn.blenrig_guide
