@@ -25,7 +25,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
 
     def draw(self, context):
         guide_props = bpy.context.scene.blenrig_guide
-        active = bpy.context.active_object.mode
+        active = bpy.context.active_object
+        active_mode = active.mode
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout
 
@@ -35,19 +36,19 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             box_weight.label(text='Weight Painting Options')
             if '_Cage_' in guide_props.guide_current_step:
                 box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
-                if active == 'WEIGHT_PAINT':
-                    mirror_row = box_weight.row()
-                    mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
-                    mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_vertex_groups")
-                    mirror_row.prop(guide_props.mdef_cage_obj.data, "use_mirror_topology")
             else:
                 box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'char'
-                if active == 'WEIGHT_PAINT':
-                    mirror_row = box_weight.row()
-                    mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
-                    mirror_row.prop(guide_props.active_wp_obj.data, "use_mirror_vertex_groups")
-                    mirror_row.prop(guide_props.active_wp_obj.data, "use_mirror_topology")
+            mirror_row = box_weight.row()
+            mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
+            if active_mode == 'WEIGHT_PAINT':
+                mirror_row.prop(active.data, "use_mirror_vertex_groups")
+                mirror_row.prop(active.data, "use_mirror_topology")
+                if '_Char_' in guide_props.guide_current_step:
                     box_weight.operator("blenrig.select_vgroup", text='Select Mesh Deform Vgroup').vgroup = 'no_mdef'
+            if active_mode != 'WEIGHT_PAINT':
+                box_weight.operator("blenrig.edit_corrective_smooth_vgroup", text='Edit Corrective Smooth Vgroup')
+            else:
+                box_weight.operator("blenrig.select_vgroup", text='Select Corrective Smooth Vgroup').vgroup = 'corrective_smooth'
             box_weight.prop(guide_props, 'guide_show_wp_bones')
             steps.separator()
             #Cage Ankle
