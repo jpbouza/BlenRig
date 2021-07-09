@@ -6573,12 +6573,12 @@ class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
         if (index[0] + 1) < len(joint_list):
             guide_props.guide_transformation_bone = joint_list[index[0] + 1].joint
             guide_props.guide_active_wp_group = joint_list[index[0] + 1].vgroup
-            if guide_props.guide_rotation_type == 'x6':
-                guide_props.guide_joint_rotate_X6 = guide_props.guide_joint_rotate_X6
-            elif guide_props.guide_rotation_type == 'x4':
-                guide_props.guide_joint_rotate_X4 = guide_props.guide_joint_rotate_X4
-            elif guide_props.guide_rotation_type == 'x2':
-                guide_props.guide_joint_rotate_X2 = guide_props.guide_joint_rotate_X2
+            if guide_props.guide_transform_steps == 'x6':
+                guide_props.guide_joint_transforms_X6 = guide_props.guide_joint_transforms_X6
+            elif guide_props.guide_transform_steps == 'x4':
+                guide_props.guide_joint_transforms_X4 = guide_props.guide_joint_transforms_X4
+            elif guide_props.guide_transform_steps == 'x2':
+                guide_props.guide_joint_transforms_X2 = guide_props.guide_joint_transforms_X2
         deselect_all_pose_bones(context)
         select_pose_bone(context, guide_props.guide_transformation_bone)
         set_active_vgroup(guide_props.guide_active_wp_group)
@@ -6604,12 +6604,12 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
         if index[0] > 0:
             guide_props.guide_transformation_bone = joint_list[index[0] - 1].joint
             guide_props.guide_active_wp_group = joint_list[index[0] - 1].vgroup
-            if guide_props.guide_rotation_type == 'x6':
-                guide_props.guide_joint_rotate_X6 = guide_props.guide_joint_rotate_X6
-            elif guide_props.guide_rotation_type == 'x4':
-                guide_props.guide_joint_rotate_X4 = guide_props.guide_joint_rotate_X4
-            elif guide_props.guide_rotation_type == 'x2':
-                guide_props.guide_joint_rotate_X2 = guide_props.guide_joint_rotate_X2
+            if guide_props.guide_transform_steps == 'x6':
+                guide_props.guide_joint_transforms_X6 = guide_props.guide_joint_transforms_X6
+            elif guide_props.guide_transform_steps == 'x4':
+                guide_props.guide_joint_transforms_X4 = guide_props.guide_joint_transforms_X4
+            elif guide_props.guide_transform_steps == 'x2':
+                guide_props.guide_joint_transforms_X2 = guide_props.guide_joint_transforms_X2
         deselect_all_pose_bones(context)
         select_pose_bone(context, guide_props.guide_transformation_bone)
         set_active_vgroup(guide_props.guide_active_wp_group)

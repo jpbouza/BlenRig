@@ -166,62 +166,109 @@ class BlenrigGuideData(PropertyGroup):
     name="Eyelid In Limit"
     )
 ## Weights Properties ##
-    #Bone to Rotate
+    #Bone to transform
     guide_transformation_bone: StringProperty('')
-    #Bone to Rotate
+    #Weight Painting Active Vgroup
     guide_active_wp_group: StringProperty('')
     #Rotation Order
-    guide_rotation_order: StringProperty('')
+    guide_axis_order: StringProperty('')
     #Joint Rotation type
-    guide_rotation_type: StringProperty('')
-    #X_Rotation
-    guide_x_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    guide_transform_steps: StringProperty('')
+    #Roatations for each Step
+    guide_rotation_1 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
     description="Angle for Bone in Weight Painting Guide",
     name="X Rotation"
     )
-    #Y_Rotation
-    guide_y_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
-    description="Angle for Bone in Weight Painting Guide",
-    name="Y Rotation"
-    )
-    #Z_Rotation
-    guide_z_rotation : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
-    description="Angle for Bone in Weight Painting Guide",
-    name="Z Rotation"
-    )
-    #X_Rotation_Neg
-    guide_x_rotation_neg : FloatProperty(default=0.000, min=-180.000, max=0.000, precision=3,
+    guide_rotation_2 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
     description="Angle for Bone in Weight Painting Guide",
     name="X Negative Rotation"
     )
-    #Y_Rotation_Neg
-    guide_y_rotation_neg : FloatProperty(default=0.000, min=-180.000, max=0.000, precision=3,
+    guide_rotation_3 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="Y Rotation"
+    )
+    guide_rotation_4 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
     description="Angle for Bone in Weight Painting Guide",
     name="Y Negative Rotation"
     )
-    #Z_Rotation_Neg
-    guide_z_rotation_neg : FloatProperty(default=0.000, min=-180.000, max=0.000, precision=3,
+    guide_rotation_5 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Angle for Bone in Weight Painting Guide",
+    name="Z Rotation"
+    )
+    guide_rotation_6 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
     description="Angle for Bone in Weight Painting Guide",
     name="Z Negative Rotation"
     )
-    #Joint 6 Way Rotation
-    guide_joint_rotate_X6 : IntProperty(default=0, min=0, max=6,
+    #Locations for each Step
+    guide_location_1 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Location for Bone in Weight Painting Guide",
+    name="X Location"
+    )
+    guide_location_2 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Location for Bone in Weight Painting Guide",
+    name="Y Location"
+    )
+    guide_location_3 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Location for Bone in Weight Painting Guide",
+    name="Z Location"
+    )
+    guide_location_4 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Location for Bone in Weight Painting Guide",
+    name="X Location"
+    )
+    guide_location_5 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Location for Bone in Weight Painting Guide",
+    name="Y Location"
+    )
+    guide_location_6 : FloatVectorProperty(default=(0.0, 0.0, 0.0), precision=3,
+    description="Location for Bone in Weight Painting Guide",
+    name="Z Location"
+    )
+    #Scales for each Step
+    guide_scale_1 : FloatVectorProperty(default=(1.0, 1.0, 1.0), precision=3,
+    description="Scale for Bone in Weight Painting Guide",
+    name="X Scale"
+    )
+    guide_scale_2 : FloatVectorProperty(default=(1.0, 1.0, 1.0), precision=3,
+    description="Scale for Bone in Weight Painting Guide",
+    name="Y Scale"
+    )
+    guide_scale_3 : FloatVectorProperty(default=(1.0, 1.0, 1.0), precision=3,
+    description="Scale for Bone in Weight Painting Guide",
+    name="Z Scale"
+    )
+    guide_scale_4 : FloatVectorProperty(default=(1.0, 1.0, 1.0), precision=3,
+    description="Scale for Bone in Weight Painting Guide",
+    name="X Scale"
+    )
+    guide_scale_5 : FloatVectorProperty(default=(1.0, 1.0, 1.0), precision=3,
+    description="Scale for Bone in Weight Painting Guide",
+    name="Y Scale"
+    )
+    guide_scale_6 : FloatVectorProperty(default=(1.0, 1.0, 1.0), precision=3,
+    description="Scale for Bone in Weight Painting Guide",
+    name="Z Scale"
+    )
+    #Steps amount properties
+    #Joint 6 Steps
+    guide_joint_transforms_X6 : IntProperty(default=0, min=0, max=6,
     description="Scroll through the different rotations of the joint",
     update=joint_x6_update,
-    name="6 Way rotation"
+    name="6 Steps"
     )
-    #Joint 4 Way Rotation
-    guide_joint_rotate_X4 : IntProperty(default=0, min=0, max=4,
+    #Joint 4 Steps
+    guide_joint_transforms_X4 : IntProperty(default=0, min=0, max=4,
     description="Scroll through the different rotations of the joint",
     update=joint_x4_update,
-    name="4 Way Rotation"
+    name="4 Steps"
     )
-    #Joint 2 Way Rotation
-    guide_joint_rotate_X2 : IntProperty(default=0, min=0, max=2,
+    #Joint 2 Steps
+    guide_joint_transforms_X2 : IntProperty(default=0, min=0, max=2,
     description="Scroll through the different rotations of the joint",
     update=joint_x2_update,
-    name="2 Way Rotation"
+    name="2 Steps"
     )
+    #Toggle All Bones
     guide_show_wp_bones : BoolProperty(default=0,
     description="Toggle Bone Visibility in BlenRig Weight Painting Guide",
     update=show_wp_bones_update,
