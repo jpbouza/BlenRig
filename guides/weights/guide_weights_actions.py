@@ -37,26 +37,38 @@ def show_mdef_cage(context):
         bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
         bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
 
-def joint_rotations(BONE, X, X_NEG, Y, Y_NEG, Z, Z_NEG, PROP_VALUE):
+def joint_rotations(BONE, LOC_1, ROT_1, SCALE_1, LOC_2, ROT_2, SCALE_2, LOC_3, ROT_3, SCALE_3, LOC_4, ROT_4, SCALE_4, LOC_5, ROT_5, SCALE_5, LOC_6, ROT_6, SCALE_6, PROP_VALUE):
     #Set Bone and Angles
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_transformation_bone = BONE
-    guide_props.guide_x_rotation = X
-    guide_props.guide_y_rotation = Y
-    guide_props.guide_z_rotation = Z
-    guide_props.guide_x_rotation_neg = X_NEG
-    guide_props.guide_y_rotation_neg = Y_NEG
-    guide_props.guide_z_rotation_neg = Z_NEG
+    guide_props.guide_rotation_1 = ROT_1
+    guide_props.guide_rotation_2 = ROT_2
+    guide_props.guide_rotation_3 = ROT_3
+    guide_props.guide_rotation_4 = ROT_4
+    guide_props.guide_rotation_5 = ROT_5
+    guide_props.guide_rotation_6 = ROT_6
+    guide_props.guide_location_1 = LOC_1
+    guide_props.guide_location_2 = LOC_2
+    guide_props.guide_location_3 = LOC_3
+    guide_props.guide_location_4 = LOC_4
+    guide_props.guide_location_5 = LOC_5
+    guide_props.guide_location_6 = LOC_6
+    guide_props.guide_scale_1 = SCALE_1
+    guide_props.guide_scale_2 = SCALE_2
+    guide_props.guide_scale_3 = SCALE_3
+    guide_props.guide_scale_4 = SCALE_4
+    guide_props.guide_scale_5 = SCALE_5
+    guide_props.guide_scale_6 = SCALE_6
     #Set Pose property
-    if guide_props.guide_rotation_type == 'x6':
-        guide_props.guide_joint_rotate_X6 = PROP_VALUE
-    elif guide_props.guide_rotation_type == 'x4':
-        guide_props.guide_joint_rotate_X4 = PROP_VALUE
-    elif guide_props.guide_rotation_type == 'x2'   :
-        guide_props.guide_joint_rotate_X2 = PROP_VALUE
+    if guide_props.guide_transform_steps == 'x6':
+        guide_props.guide_joint_transforms_X6 = PROP_VALUE
+    elif guide_props.guide_transform_steps == 'x4':
+        guide_props.guide_joint_transforms_X4 = PROP_VALUE
+    elif guide_props.guide_transform_steps == 'x2'   :
+        guide_props.guide_joint_transforms_X2 = PROP_VALUE
 
 def weight_step(operator, context, step_name, wp_obj,
-joint_type, joint_parameters, rot_order,
+joint_type, joint_parameters,
 frame_bone_1, frame_bone_2, view,
 bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
 
@@ -104,8 +116,7 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
     set_active_vgroup(vgroup_list[0])
 
     #Set Bone and Angles
-    guide_props.guide_rotation_order = rot_order
-    guide_props.guide_rotation_type = joint_type
+    guide_props.guide_transform_steps = joint_type
     param_list = joint_parameters
     joint_rotations(*param_list)
 
@@ -179,7 +190,14 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
 
 def WEIGHTS_Cage_Ankle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Ankle', 'mdef_cage',
-    'x6', ['foot_fk_L', 60, -60, 60, -60, 60, -60, 1], 'XZY',
+    'x6', ['foot_fk_L',
+    (0.0, 0.0, 0.0), (60, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-60, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 60, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -60, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 60), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -60), (1.0, 1.0, 1.0),
+    1],
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_fk_L', 'foot_def_L', 'shin_twist_def_L', 'instep_fix_L', 'ankle_fix_L'],
     [27],
@@ -195,7 +213,14 @@ def WEIGHTS_Cage_Ankle(operator, context):
 
 def WEIGHTS_Cage_Foot_Toe(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Foot_Toe', 'mdef_cage',
-    'x4', ['foot_toe_1_fk_L', 60, -60, 0, 0, 45, -45, 1], 'XZ',
+    'x4', ['foot_toe_1_fk_L',
+    (0.0, 0.0, 0.0), (60, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-60, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 00, -45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_toe_fix_up_1_L', 'foot_toe_1_fk_L', 'foot_toe_2_fk_L', 'foot_toe_fix_up_2_L', 'foot_toe_fix_low_2_L', 'foot_toe_fix_low_1_L', 'foot_def_L', 'foot_toe_1_def_L', 'foot_toe_2_def_L'],
     [27],
@@ -211,7 +236,14 @@ def WEIGHTS_Cage_Foot_Toe(operator, context):
 
 def WEIGHTS_Cage_Knee(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Knee', 'mdef_cage',
-    'x4', ['shin_fk_L', 90, -20, 90, -90, 0, 0, 1], 'XY',
+    'x4', ['shin_fk_L',
+    (0.0, 0.0, 0.0), (90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-20, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
     'foot_fk_L', 'thigh_fk_L', 'RIGHT',
     ['thigh_def_L', 'thigh_twist_def_L', 'knee_fix_L', 'shin_fix_L', 'shin_fk_L', 'shin_def_L', 'shin_twist_def_L'],
     [27],
@@ -226,7 +258,14 @@ def WEIGHTS_Cage_Knee(operator, context):
 
 def WEIGHTS_Cage_Thigh(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Thigh', 'mdef_cage',
-    'x4', ['thigh_fk_L', 60, -80, 0, 0, 20, -80, 1], 'XZ',
+    'x4', ['thigh_fk_L',
+    (0.0, 0.0, 0.0), (60, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-80, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 20), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -80), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
     'foot_fk_L', 'thigh_fk_L', 'RIGHT',
     ['pelvis_def', 'pelvis_def_L', 'hip_fix_L', 'thigh_fix_L', 'thigh_def_L', 'buttock_fix_L', 'thigh_fk_L', 'thigh_twist_def_L'],
     [27],
@@ -242,7 +281,14 @@ def WEIGHTS_Cage_Thigh(operator, context):
 
 def WEIGHTS_Cage_Torso(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Torso', 'mdef_cage',
-    'x6', ['pelvis_ctrl', 45, -45, 45, -45, 35, -35, 1], 'XZY',
+    'x6', ['pelvis_ctrl',
+    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 45, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -45, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
+    1],
     'pelvis_ctrl', 'neck_1_fk', 'FRONT',
     ['spine_1_fk', 'spine_2_fk', 'spine_3_fk', 'spine_3_def', 'spine_1_def', 'spine_2_def', 'pelvis_ctrl', 'pelvis_def', 'pelvis_def_L', 'pelvis_def_R',
     'breast_ctrl_L', 'breast_tip_L', 'breast_def_L', 'breast_ctrl_R', 'breast_tip_R', 'breast_def_R'],
@@ -256,7 +302,14 @@ def WEIGHTS_Cage_Torso(operator, context):
 
 def WEIGHTS_Cage_Neck(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Neck', 'mdef_cage',
-    'x6', ['neck_1_fk', 45, -45, 45, -45, 35, -35, 1], 'XZY',
+    'x6', ['neck_1_fk',
+    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 45, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -45, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
+    1],
     'neck_1_fk', 'head_stretch', 'FRONT',
     ['neck_1_fk', 'neck_2_fk', 'neck_3_fk', 'head_def_2', 'head_def_3', 'head_def_1', 'maxi', 'head_fk',
     'neck_1_def', 'neck_2_def', 'neck_3_def', 'spine_3_def', 'clavi_def_R', 'shoulder_R', 'clavi_def_L', 'shoulder_L'],
@@ -270,7 +323,14 @@ def WEIGHTS_Cage_Neck(operator, context):
 
 def WEIGHTS_Cage_Clavicle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Clavicle', 'mdef_cage',
-    'x4', ['shoulder_L', 35, -35, 0, 0, 35, -15, 1], 'XZ',
+    'x4', ['shoulder_L',
+    (0.0, 0.0, 0.0), (35, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-35, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -15), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1 ],
     'spine_2_fk', 'shoulder_L', 'TOP',
     ['neck_1_def', 'spine_3_def', 'clavi_def_L', 'shoulder_L'],
     [27],
@@ -280,7 +340,14 @@ def WEIGHTS_Cage_Clavicle(operator, context):
 
 def WEIGHTS_Cage_Shoulder(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Shoulder', 'mdef_cage',
-    'x4', ['arm_fk_L', 90, -90, 0, 0, 90, -20, 1], 'XZ',
+    'x4', ['arm_fk_L',
+    (0.0, 0.0, 0.0), (90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 90), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -20), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
     'arm_fk_L', 'spine_3_fk', 'FRONT',
     ['spine_3_def', 'clavi_def_L', 'back_fix_L', 'chest_fix_L', 'arm_def_L', 'shoulder_fix_L', 'armpit_fix_L', 'arm_fk_L', 'arm_twist_def_L'],
     [27],
@@ -298,7 +365,14 @@ def WEIGHTS_Cage_Shoulder(operator, context):
 
 def WEIGHTS_Cage_Elbow(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Elbow', 'mdef_cage',
-    'x4', ['forearm_fk_L', 90, -20, 90, -90, 0, 0, 1], 'XY',
+    'x4', ['forearm_fk_L',
+    (0.0, 0.0, 0.0), (90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-20, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
     'arm_fk_L', 'hand_fk_L', 'RIGHT',
     ['arm_def_L', 'arm_twist_def_L', 'elbow_fix_L', 'forearm_fix_L', 'forearm_fk_L', 'forearm_twist_def_L', 'forearm_def_L'],
     [27],
@@ -315,7 +389,14 @@ def WEIGHTS_Cage_Elbow(operator, context):
 
 def WEIGHTS_Cage_Wrist(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Wrist', 'mdef_cage',
-    'x6', ['hand_fk_L', 90, -90, 90, -90, 35, -35, 1], 'XZY',
+    'x6', ['hand_fk_L',
+    (0.0, 0.0, 0.0), (90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -90, 0.0), (1.0, 1.0, 1.0),
+    1],
     'forearm_fk_L', 'hand_fk_L', 'FRONT',
     ['hand_fk_L', 'hand_def_L', 'wrist_fix_up_L', 'wrist_fix_low_L', 'forearm_twist_def_L', 'forearm_def_L'],
     [27],
@@ -332,7 +413,14 @@ def WEIGHTS_Cage_Wrist(operator, context):
 
 def WEIGHTS_Char_Wrist(operator, context):
     weight_step(operator, context, 'WEIGHTS_Char_Wrist', 'hands',
-    'x4', ['hand_fk_L', 90, -90, 90, -90, 35, -35, 1], 'XZ',
+    'x4', ['hand_fk_L',
+    (0.0, 0.0, 0.0), (90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-90, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -90, 0.0), (1.0, 1.0, 1.0),
+    1],
     'forearm_fk_L', 'hand_fk_L', 'FRONT',
     ['hand_fk_L', 'hand_def_L'],
     [27],
@@ -346,6 +434,44 @@ def WEIGHTS_Char_Wrist(operator, context):
     guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  1.0
     guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  1.0
     guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  1.0
+
+def WEIGHTS_Char_Hand_VP(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Hand_VP', 'hands',
+    'x2', ['hand_close_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 0.5, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 2.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'forearm_fk_L', 'hand_fk_L', 'FRONT',
+    ['hand_close_L', 'fing_lit_ctrl_L', 'fing_lit_fix_low_3_L', 'fing_lit_fix_up_3_L', 'fing_lit_fix_low_2_L', 'fing_lit_fix_up_2_L', 'fing_ring_ctrl_L', 'fing_ring_fix_low_3_L',
+    'fing_ring_fix_up_3_L', 'fing_ring_fix_low_2_L', 'fing_ring_fix_up_2_L', 'fing_ind_ctrl_L', 'fing_ind_fix_low_3_L', 'fing_ind_fix_up_3_L', 'fing_ind_fix_low_2_L', 'fing_ind_fix_up_2_L',
+    'fing_mid_ctrl_L', 'fing_mid_fix_low_3_L', 'fing_mid_fix_up_3_L', 'fing_mid_fix_low_2_L', 'fing_mid_fix_up_2_L', 'fing_ind_fix_up_1_L', 'fing_ind_fix_low_1_L', 'fing_ring_fix_up_1_L', 'fing_ring_fix_low_1_L',
+    'fing_lit_fix_up_1_L', 'fing_lit_fix_low_1_L', 'fing_mid_fix_up_1_L', 'fing_mid_fix_low_1_L', 'fing_thumb_ctrl_L', 'fing_thumb_fix_low_2_L', 'fing_thumb_fix_up_2_L', 'fing_thumb_fix_up_1_L', 'fing_thumb_fix_low_1_L'],
+    [27],
+    ['hand_close_L'],
+    ['fing_ind_fix_up_1_L'],
+    'char_mesh',)
+
+def WEIGHTS_Char_Fing_Index(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Fing_Index', 'hands',
+    'x4', ['fing_ind_ctrl_L',
+    (0.0, 0.0, 0.0), (85, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-85, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'forearm_fk_L', 'hand_fk_L', 'FRONT',
+    ['fing_ind_ctrl_L', 'fing_ind_2_L', 'fing_ind_3_L', 'fing_ind_4_L', 'fing_ind_4_def_L', 'fing_ind_fix_low_3_L', 'fing_ind_fix_up_3_L',
+    'fing_ind_3_def_L', 'fing_ind_fix_low_2_L', 'fing_ind_fix_up_2_L', 'fing_ind_2_def_L', 'fing_ind_1_def_L', 'fing_ind_fix_up_1_L', 'fing_ind_fix_low_1_L'],
+    [27],
+    ['fing_ind_ctrl_L', 'fing_ind_3_L', 'fing_ind_4_L'],
+    ['fing_ind_1_def_L', 'fing_ind_2_def_L', 'fing_ind_3_def_L'],
+    'weight_paint',)
 
 #### END OF STEP ACTIONS ####
 
