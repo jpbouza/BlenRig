@@ -502,8 +502,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                         col_R.prop(p_bones['properties_arm_L'], 'volume_preservation_knuckles_up_L', text="Outwards", toggle=True)
                     except:
                         pass
-            #Char Fing Index
-            if guide_props.guide_current_step == 'WEIGHTS_Char_Fing_Index':
+            #Char Fingers 1
+            if guide_props.guide_current_step == 'WEIGHTS_Char_Fings_1':
                 box_pose = steps.box()
                 box_pose.label(text='Select Joint Number', icon='BONE_DATA')
                 joint_row = box_pose.row()
@@ -519,38 +519,181 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
                 joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
                 joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-                if guide_props.guide_transformation_bone == 'spine_3_fk':
-                    box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Spine 3 Pose')
-                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-                if guide_props.guide_transformation_bone == 'fing_ind_ctrl_L':
-                    box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Index Fingers Pose')
-                else:
-                    box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Index Fingers Pose')
-                if guide_props.guide_joint_transforms_X4 == 1:
+                box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Fingers Pose')
+                if guide_props.guide_joint_transforms_X6 == 5:
                     row_props = box_pose.row()
                     col_R = row_props.column()
                     col_L = row_props.column()
-                    col_R.label(text='Knuckles Volume:')
-                    col_L.label(text='Palm Volume:')
-                    try:
-                        col_R.prop(p_bones['properties_arm_L'], 'volume_preservation_knuckles_down_L', text="Outwards", toggle=True)
-                        col_L.prop(p_bones['properties_arm_L'], 'volume_preservation_palm_down_L', text="Outwards", toggle=True)
-                    except:
-                        pass
-                    col_R.label(text='Fingers Volume:')
-                    try:
-                        col_R.prop(p_bones['properties_arm_L'], 'volume_preservation_fingers_down_L', text="Outwards", toggle=True)
-                    except:
-                        pass
+                    if guide_props.guide_transformation_bone == 'fing_thumb_ctrl_L':
+                        col_R.label(text='Thumb Up Knuckle Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_thumb_fix_up_1_L'].constraints['Fing_Knuckles_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ind_ctrl_L':
+                        col_R.label(text='Index Up Knuckle Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ind_fix_up_1_L'].constraints['Fing_Knuckles_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_mid_ctrl_L':
+                        col_R.label(text='Middle Up Knuckle Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_mid_fix_up_1_L'].constraints['Fing_Knuckles_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ring_ctrl_L':
+                        col_R.label(text='Ring Up Knuckle Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ring_fix_up_1_L'].constraints['Fing_Knuckles_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_lit_ctrl_L':
+                        col_R.label(text='LIttle Up Knuckle Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_lit_fix_up_1_L'].constraints['Fing_Knuckles_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                if guide_props.guide_joint_transforms_X6 == 6:
+                    row_props = box_pose.row()
+                    col_R = row_props.column()
+                    col_L = row_props.column()
+                    if guide_props.guide_transformation_bone == 'fing_thumb_ctrl_L':
+                        col_R.label(text='Thumb Down Knuckle Volume:')
+                        col_L.label(text='Thumb Down Palm Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_thumb_fix_up_1_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_thumb_fix_low_1_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ind_ctrl_L':
+                        col_R.label(text='Index Down Knuckle Volume:')
+                        col_L.label(text='Index Down Palm Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ind_fix_up_1_L'].constraints['Fing_Knuckles_VP_Down_L_NOREP'], 'to_max_z', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_ind_fix_low_1_L'].constraints['Fing_Palm_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_mid_ctrl_L':
+                        col_R.label(text='Middle Down Knuckle Volume:')
+                        col_L.label(text='Middle Down Palm Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_mid_fix_up_1_L'].constraints['Fing_Knuckles_VP_Down_L_NOREP'], 'to_max_z', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_mid_fix_low_1_L'].constraints['Fing_Palm_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ring_ctrl_L':
+                        col_R.label(text='Ring Down Knuckle Volume:')
+                        col_L.label(text='Ring Down Palm Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ring_fix_up_1_L'].constraints['Fing_Knuckles_VP_Down_L_NOREP'], 'to_max_z', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_ring_fix_low_1_L'].constraints['Fing_Palm_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_lit_ctrl_L':
+                        col_R.label(text='Little Down Knuckle Volume:')
+                        col_L.label(text='Little Down Palm Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_lit_fix_up_1_L'].constraints['Fing_Knuckles_VP_Down_L_NOREP'], 'to_max_z', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_lit_fix_low_1_L'].constraints['Fing_Palm_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                if guide_props.guide_joint_transforms_X6 == 5 or guide_props.guide_joint_transforms_X6 == 6:
+                    box_pose.separator()
+                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+            #Char Fingers 2
+            if guide_props.guide_current_step == 'WEIGHTS_Char_Fings_2':
+                box_pose = steps.box()
+                box_pose.label(text='Select Joint Number', icon='BONE_DATA')
+                joint_row = box_pose.row()
+                joint_row.alignment = 'CENTER'
+                joint_row.scale_x = 0.9
+                joint_col_1 = joint_row.column()
+                joint_col_1.alignment = 'CENTER'
+                joint_col_2 = joint_row.column()
+                joint_col_2.alignment = 'CENTER'
+                joint_col_3 = joint_row.column()
+                joint_col_3.alignment = 'CENTER'
+                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+                joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
+                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Fingers Pose')
                 if guide_props.guide_joint_transforms_X2 == 2:
                     row_props = box_pose.row()
                     col_R = row_props.column()
                     col_L = row_props.column()
-                    col_R.label(text='Knuckles Volume:')
-                    col_L.label(text=' ')
-                    try:
-                        col_R.prop(p_bones['properties_arm_L'], 'volume_preservation_knuckles_up_L', text="Outwards", toggle=True)
-                    except:
-                        pass
-
-
+                    if guide_props.guide_transformation_bone == 'fing_thumb_3_L':
+                        col_R.label(text='Thumb Upper Volume:')
+                        col_L.label(text='Thumb Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_thumb_fix_up_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_thumb_fix_low_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ind_3_L':
+                        col_R.label(text='Index Upper Volume:')
+                        col_L.label(text='Index Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ind_fix_up_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_ind_fix_low_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ind_4_L':
+                        col_R.label(text='Index Upper Volume:')
+                        col_L.label(text='Index Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ind_fix_up_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_ind_fix_low_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_mid_3_L':
+                        col_R.label(text='Middle Upper Volume:')
+                        col_L.label(text='Middle Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_mid_fix_up_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_mid_fix_low_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_mid_4_L':
+                        col_R.label(text='Middle Upper Volume:')
+                        col_L.label(text='Middle Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_mid_fix_up_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_mid_fix_low_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ring_3_L':
+                        col_R.label(text='Ring Upper Volume:')
+                        col_L.label(text='Ring Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ring_fix_up_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_ring_fix_low_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_ring_4_L':
+                        col_R.label(text='Ring Upper Volume:')
+                        col_L.label(text='Ring Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_ring_fix_up_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_ring_fix_low_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_lit_3_L':
+                        col_R.label(text='Little Upper Volume:')
+                        col_L.label(text='Little Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_lit_fix_up_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_lit_fix_low_2_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    if guide_props.guide_transformation_bone == 'fing_lit_4_L':
+                        col_R.label(text='Little Upper Volume:')
+                        col_L.label(text='Little Lower Volume:')
+                        try:
+                            col_R.prop(p_bones['fing_lit_fix_up_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                            col_L.prop(p_bones['fing_lit_fix_low_3_L'].constraints['Fing_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        except:
+                            pass
+                    box_pose.separator()
+                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
