@@ -160,7 +160,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'accion': WEIGHTS_Char_Hand_VP
     },
-    #Hand Volume Preservation Poses
+    #Fingers 1 Poses
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
@@ -171,7 +171,20 @@ GUIDE_STEPS_WEIGHTS = (
             'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
-        'accion': WEIGHTS_Char_Fing_Index
+        'accion': WEIGHTS_Char_Fings_1
+    },
+    #Fingers 1 Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Fings_2
     },
 )
 

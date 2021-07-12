@@ -455,22 +455,45 @@ def WEIGHTS_Char_Hand_VP(operator, context):
     ['fing_ind_fix_up_1_L'],
     'char_mesh',)
 
-def WEIGHTS_Char_Fing_Index(operator, context):
-    weight_step(operator, context, 'WEIGHTS_Char_Fing_Index', 'hands',
-    'x4', ['fing_ind_ctrl_L',
-    (0.0, 0.0, 0.0), (85, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (-85, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
+def WEIGHTS_Char_Fings_1(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Fings_1', 'hands',
+    'x6', ['fing_thumb_ctrl_L',
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['fing_thumb_3_L'].length) / 2, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones['fing_thumb_3_L'].length / 2, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['fing_thumb_3_L'].length) / 2, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones['fing_thumb_3_L'].length / 2, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (-75, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (75, 0.0, 0.0), (1.0, 1.0, 1.0),
+    0],
+    'fing_mid_5_toon_L', 'hand_fk_L', 'FRONT',
+    ['fing_lit_ctrl_L', 'fing_lit_2_def_L', 'fing_ring_ctrl_L', 'fing_ring_2_def_L', 'fing_ind_ctrl_L', 'fing_ind_2_def_L', 'fing_mid_ctrl_L', 'fing_mid_2_def_L',
+    'hand_def_L', 'fing_ind_1_def_L', 'fing_ind_fix_up_1_L', 'fing_ind_fix_low_1_L', 'fing_ring_fix_up_1_L', 'fing_ring_fix_low_1_L', 'fing_ring_1_def_L', 'fing_lit_fix_up_1_L',
+    'fing_lit_fix_low_1_L', 'fing_lit_1_def_L', 'fing_mid_fix_up_1_L', 'fing_mid_fix_low_1_L', 'fing_mid_1_def_L', 'fing_thumb_ctrl_L', 'fing_thumb_2_def_L', 'fing_thumb_fix_up_1_L', 'fing_thumb_fix_low_1_L', 'fing_thumb_1_def_L'],
+    [27],
+    ['fing_thumb_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'],
+    ['fing_thumb_1_def_L', 'fing_ind_1_def_L', 'fing_mid_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Fings_2(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Fings_2', 'hands',
+    'x2', ['fing_thumb_3_L',
     (0.0, 0.0, 0.0), (-45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (75, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'forearm_fk_L', 'hand_fk_L', 'FRONT',
-    ['fing_ind_ctrl_L', 'fing_ind_2_L', 'fing_ind_3_L', 'fing_ind_4_L', 'fing_ind_4_def_L', 'fing_ind_fix_low_3_L', 'fing_ind_fix_up_3_L',
-    'fing_ind_3_def_L', 'fing_ind_fix_low_2_L', 'fing_ind_fix_up_2_L', 'fing_ind_2_def_L', 'fing_ind_1_def_L', 'fing_ind_fix_up_1_L', 'fing_ind_fix_low_1_L'],
+    'fing_mid_5_toon_L', 'hand_fk_L', 'FRONT',
+    ['fing_lit_ctrl_L', 'fing_lit_3_L', 'fing_lit_4_L', 'fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_fix_low_3_L', 'fing_lit_fix_up_3_L', 'fing_lit_2_def_L',
+    'fing_lit_fix_low_2_L', 'fing_lit_fix_up_2_L', 'fing_ring_ctrl_L', 'fing_ring_3_L', 'fing_ring_4_L', 'fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_fix_low_3_L',
+    'fing_ring_fix_up_3_L', 'fing_ring_2_def_L', 'fing_ring_fix_low_2_L', 'fing_ring_fix_up_2_L', 'fing_ind_ctrl_L', 'fing_ind_3_L', 'fing_ind_4_L', 'fing_ind_4_def_L', 'fing_ind_fix_low_3_L',
+    'fing_ind_fix_up_3_L', 'fing_ind_3_def_L', 'fing_ind_fix_low_2_L', 'fing_ind_fix_up_2_L', 'fing_ind_2_def_L', 'fing_mid_ctrl_L', 'fing_mid_3_L', 'fing_mid_4_L', 'fing_mid_4_def_L', 'fing_mid_3_def_L',
+    'fing_mid_fix_low_3_L', 'fing_mid_fix_up_3_L', 'fing_mid_2_def_L', 'fing_mid_fix_low_2_L', 'fing_mid_fix_up_2_L', 'fing_thumb_ctrl_L', 'fing_thumb_3_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L',
+    'fing_thumb_fix_low_2_L', 'fing_thumb_fix_up_2_L'],
     [27],
-    ['fing_ind_ctrl_L', 'fing_ind_3_L', 'fing_ind_4_L'],
-    ['fing_ind_1_def_L', 'fing_ind_2_def_L', 'fing_ind_3_def_L'],
+    ['fing_thumb_3_L', 'fing_ind_3_L', 'fing_ind_4_L', 'fing_mid_3_L', 'fing_mid_4_L', 'fing_ring_3_L', 'fing_ring_4_L', 'fing_lit_3_L', 'fing_lit_4_L'],
+    ['fing_thumb_2_def_L', 'fing_ind_2_def_L', 'fing_ind_3_def_L', 'fing_mid_2_def_L', 'fing_mid_3_def_L', 'fing_ring_2_def_L', 'fing_ring_3_def_L', 'fing_lit_2_def_L', 'fing_lit_3_def_L'],
     'weight_paint',)
 
 #### END OF STEP ACTIONS ####
