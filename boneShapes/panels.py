@@ -7,14 +7,14 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
     bl_label = "Bone Shapes"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_parent_id = "BLENRIG_PT_blenrig_6_general"
+    bl_parent_id = "BLENRIG_PT_blenrig_6_general_SubPanel"
     bl_idname = 'BLENRIG_PT_posemode_panel'
-    # bl_options = {'DEFAULT_CLOSED'}
+    bl_options = {"HIDE_HEADER"}
 
     @classmethod
     def poll(cls, context):
         BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
-        if not BlenRigPanelOptions.displayContext == 'TOOLS':
+        if not BlenRigPanelOptions.displayContext2 == 'BONESHAPES':
             return False
         else:
             return True
@@ -90,14 +90,15 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
                                 icon='FILE_REFRESH', text="Resync Shapes Names")
             
             if bpy.context.mode in {'POSE'}:
-                if hasattr(bpy.context.active_pose_bone.custom_shape, 'users'):
-                    if bpy.context.active_pose_bone.custom_shape.users > 2:
-                        layout = self.layout
-                        box = layout.row()
-                        row = box.row()
-                        row.operator("blenrig.make_unique",
-                                        icon='CON_ROTLIMIT', text="Make Unique")
-            
+                if hasattr(bpy.context.active_pose_bone,'custom_shape'):
+                    if hasattr(bpy.context.active_pose_bone.custom_shape, 'users'):
+                        if bpy.context.active_pose_bone.custom_shape.users > 2:
+                            layout = self.layout
+                            box = layout.row()
+                            row = box.row()
+                            row.operator("blenrig.make_unique",
+                                            icon='CON_ROTLIMIT', text="Make Unique")
+                
             if bpy.context.mode in {'POSE'}:
                 layout = self.layout
                 layout.operator("BLENRIG_OT_shape_scale",

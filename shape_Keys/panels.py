@@ -5,16 +5,16 @@ from .shape_keys_plus import *
 class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_idname = "BLENRIG_PT_shape_keys_plus"
-    bl_parent_id = "BLENRIG_PT_blenrig_6_general"
+    bl_parent_id = "BLENRIG_PT_blenrig_6_general_SubPanel"
     bl_region_type = 'UI'
     bl_label = 'Shape Keys+'
     bl_category = "BlenRig 6"
-    bl_options = {'DEFAULT_CLOSED'}
+    bl_options = {"HIDE_HEADER"}
 
     @classmethod
     def poll(cls, context):
         BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
-        if not BlenRigPanelOptions.displayContext == 'TOOLS':
+        if not BlenRigPanelOptions.displayContext2 == 'SHAPEKEYS':
             return False
 
         obj = context.object

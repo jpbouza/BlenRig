@@ -1831,7 +1831,7 @@ bpy.types.PoseBone.volume_preservation_toes_down_R = FloatProperty(
 
 ####### Load BlenRig 6 Controls Panel
 from .ui.panels.ui_panel_controls import BLENRIG_PT_blenrig_6_Interface
-from .ui.panels.ui_panel_blenrig import BLENRIG_PT_blenrig_6_general
+from .ui.panels.ui_panel_blenrig import BLENRIG_PT_blenrig_6_general,BLENRIG_PT_blenrig_6_general_SubPanel
 from .ui.panels.ui_panel_controls_2_0 import BLENRIG_PT_blenrig_6_Interface_2_0
 from .snap_points import BLENRIG_OT_SnapPoints
 from .ui.panels.cage_snapping_panel import BLENRIG_PT_Cage_snapping_panel
@@ -3334,6 +3334,7 @@ def register():
     from bpy.utils import register_class
 
     register_class(BLENRIG_PT_blenrig_6_general)
+    register_class(BLENRIG_PT_blenrig_6_general_SubPanel)
 
     #######################register Guide ###################
     from .guides.register import register
@@ -3426,6 +3427,7 @@ def unregister():
     from bpy.utils import unregister_class
 
     unregister_class(BLENRIG_PT_blenrig_6_general)
+    unregister_class(BLENRIG_PT_blenrig_6_general_SubPanel)
 
     # BlenRig Props
     del bpy.types.WindowManager.blenrig_6_props

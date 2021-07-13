@@ -83,13 +83,17 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col_1.scale_x = 1.5
         col_2 = row.column()
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Body Objects').area = 'Body'
-        col_2.label(text= str([b.character_body_obj.name for b in bpy.context.scene.blenrig_character_body_obj]))
+        if hasattr(bpy.context.scene.blenrig_character_body_obj, 'name'):
+            col_2.label(text= str([b.character_body_obj.name for b in bpy.context.scene.blenrig_character_body_obj]))
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
-        col_2.label(text=bpy.context.scene.blenrig_guide.character_hands_obj.name)
+        if hasattr(bpy.context.scene.blenrig_guide.character_hands_obj, 'name'):
+            col_2.label(text=bpy.context.scene.blenrig_guide.character_hands_obj.name)
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Toes Object').area = 'Toes'
-        col_2.label(text=bpy.context.scene.blenrig_guide.character_toes_obj.name)
+        if hasattr(bpy.context.scene.blenrig_guide.character_toes_obj, 'name'):
+            col_2.label(text=bpy.context.scene.blenrig_guide.character_toes_obj.name)
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
-        col_2.label(text=bpy.context.scene.blenrig_guide.character_head_obj.name)
+        if hasattr(bpy.context.scene.blenrig_guide.character_head_obj, 'name'):
+            col_2.label(text=bpy.context.scene.blenrig_guide.character_head_obj.name)
 
 ####### Lattice & Curves Panel
 
