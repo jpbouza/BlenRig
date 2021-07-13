@@ -2589,8 +2589,8 @@ class blenrig_6_props(bpy.types.PropertyGroup):
                         ('TOOLS', 'Tools', "Workflow Tools", 'TOOL_SETTINGS', 3),
                         ('GUIDES', 'Rigging Assistant', "Automatic Rigging Assistant Guides", 'HELP', 4)]
     displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
-    contextOptions2 = [('BONESHAPES', 'BoneShapes', "Display BoneShapes", 'ARMATURE_DATA', 0),
-                        ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'BONE_DATA', 1)]
+    contextOptions2 = [('BONESHAPES', 'BoneShapes', "Display BoneShapes", 'POSE_HLT', 0),
+                        ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
     displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')                    
     ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=5, max=50, default=8)
 
