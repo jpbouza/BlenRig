@@ -18,7 +18,7 @@ class ModalReturn(Enum):
     FINISH = 'FINISHED'
     CANCEL = 'CANCELLED'
     RUN = 'RUNNING_MODAL'
-    PASS = 'PASS_THROUGHT'
+    PASS = 'PASS_THROUGH'
 
     def __call__(self) -> set:
         return {self.value}
