@@ -213,66 +213,25 @@ def frame_selected():
 def frame_points(*points):
     return
 
-def load_reproportion_image(img_name: str):
-    from . reproportion.guide_reproportion import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
-    if not exists(path) or not isfile(path):
-        return None
-    return bpy.data.images.load(path, check_existing=True)
+############ IMAGE UTILS
 
-def load_datatransfer_image(img_name: str):
-    from . datatransfer.guide_datatransfer import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
+from os.path import exists, isfile, join, dirname
+guides_dir = dirname(__file__)
+def load_guide_image(guide_name: str, img_name: str, ghost: bool = True):
+    path = join(guides_dir, guide_name, 'images', img_name)
     if not exists(path) or not isfile(path):
         return None
-    return bpy.data.images.load(path, check_existing=True)
-
-def load_mdef_image(img_name: str):
-    from . mdef.guide_mdef import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
-    if not exists(path) or not isfile(path):
-        return None
-    return bpy.data.images.load(path, check_existing=True)
-
-def load_lattices_image(img_name: str):
-    from . lattices.guide_lattices import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
-    if not exists(path) or not isfile(path):
-        return None
-    return bpy.data.images.load(path, check_existing=True)
-
-def load_actions_image(img_name: str):
-    from . actions.guide_actions import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
-    if not exists(path) or not isfile(path):
-        return None
-    return bpy.data.images.load(path, check_existing=True)
-
-def load_weights_image(img_name: str):
-    from . weights.guide_weights import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
-    if not exists(path) or not isfile(path):
-        return None
-    return bpy.data.images.load(path, check_existing=True)
-
-def load_shapekeys_image(img_name: str):
-    from . shapekeys.guide_shapekeys import images_dir
-    from os.path import exists, isfile, join
-    path = join(images_dir, img_name)
-    if not exists(path) or not isfile(path):
-        return None
-    return bpy.data.images.load(path, check_existing=True)
+    img = bpy.data.images.load(path, check_existing=True)
+    if ghost:
+        img.name = '.' + img.name
+    return img
 
 def hide_image(image):
     if image.name.startswith('.'):
         return
     image.name = '.' + image.name
+
+############
 
 def get_regiondata_view3d(context):
     if not context:

@@ -1,7 +1,7 @@
 import bpy
 from bpy.types import PropertyGroup, Object
 from bpy.props import *
-from . guide import languages
+from . traductor import languages
 from . utils import *
 
 class BlenRigBodyObj(bpy.types.PropertyGroup):
