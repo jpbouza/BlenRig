@@ -81,4 +81,5 @@ def BlenRig_Panel_Sub_Options(layout, context):
 
         # Display options.
         columnRow = column.row()
+        columnRow.scale_y = 0.8
         columnRow.prop(BlenRigPanelOptions, 'displayContext2', text=" ",expand=True)

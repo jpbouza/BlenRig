@@ -50,7 +50,7 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
             for vert in sel_verts:
                 vert.co = vert_pose_list[vert]
                 bm.normal_update()
-                vert.co += vert.normal/props 
+                vert.co += vert.normal/(props*-1) 
                 bmesh.update_edit_mesh(active_obj.data)
 
         return {'FINISHED'}
