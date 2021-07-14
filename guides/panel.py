@@ -71,7 +71,7 @@ class BlenRigGuidePanel_options(BlenRigGuidePanel_menu,Panel):
     def draw(self, context):
         guide = context.scene.blenrig_guide
         layout = self.layout
-        from . operator import VIEW3D_OT_blenrig_guide_reproportion as OPERATOR
+        from . guide_ops import VIEW3D_OT_blenrig_guide_reproportion as OPERATOR
         layout.enabled = False if OPERATOR.instance else True
         layout.prop(guide, 'language')
         layout.prop(guide, 'dpi')

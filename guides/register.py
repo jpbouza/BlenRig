@@ -28,12 +28,21 @@ def register():
 
 
     from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
-    from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, VIEW3D_OT_blenrig_guide_mdef, Operator_Transfer_VGroups,
+    from .guide_ops import (
+        VIEW3D_OT_blenrig_guide_reproportion,
+        VIEW3D_OT_blenrig_guide_datatransfer,
+        VIEW3D_OT_blenrig_guide_mdef, 
+        VIEW3D_OT_blenrig_guide_lattices,
+        VIEW3D_OT_blenrig_guide_actions,
+        VIEW3D_OT_blenrig_guide_weights,
+        VIEW3D_OT_blenrig_guide_shapekeys
+    )
+    from .operator import (Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver, Operator_blenrig_add_body_modifiers,
     Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
-    VIEW3D_OT_blenrig_guide_lattices, VIEW3D_OT_blenrig_guide_actions, VIEW3D_OT_blenrig_guide_weights, VIEW3D_OT_blenrig_guide_shapekeys, Operator_blenrig_mirror_lattice_transforms,
+    Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup)
 
@@ -74,12 +83,21 @@ def register():
 
 def unregister():
     from .panel import BlenRigGuidePanel, BlenRigGuidePanel_options
-    from .operator import (VIEW3D_OT_blenrig_guide_reproportion,VIEW3D_OT_blenrig_guide_datatransfer, VIEW3D_OT_blenrig_guide_mdef, Operator_Transfer_VGroups,
+    from .guide_ops import (
+        VIEW3D_OT_blenrig_guide_reproportion,
+        VIEW3D_OT_blenrig_guide_datatransfer,
+        VIEW3D_OT_blenrig_guide_mdef, 
+        VIEW3D_OT_blenrig_guide_lattices,
+        VIEW3D_OT_blenrig_guide_actions,
+        VIEW3D_OT_blenrig_guide_weights,
+        VIEW3D_OT_blenrig_guide_shapekeys
+    )
+    from .operator import (Operator_Transfer_VGroups,
     Operator_Guide_Transfer_VGroups, Operator_blenrig_add_head_modifiers, Operator_blenrig_add_hands_modifiers, Operator_blenrig_add_body_shapekeys,
     Operator_blenrig_add_fingers_shapekeys, Operator_blenrig_add_toes_shapekeys, Operator_blenrig_add_face_shapekeys, Operator_blenrig_update_shapekey_driver,
     Operator_blenrig_update_face_shapekeys_drivers, Operator_blenrig_mirror_shapekeys_drivers, Operator_blenrig_mirror_active_shapekey_driver, Operator_blenrig_add_body_modifiers,
     Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
-    VIEW3D_OT_blenrig_guide_lattices, VIEW3D_OT_blenrig_guide_actions, VIEW3D_OT_blenrig_guide_weights, VIEW3D_OT_blenrig_guide_shapekeys, Operator_blenrig_mirror_lattice_transforms,
+    Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup)
 

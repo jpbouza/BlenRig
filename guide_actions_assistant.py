@@ -1,5 +1,5 @@
 import bpy
-from ...guides.operator import VIEW3D_OT_blenrig_guide_actions
+from ...guides.guide_ops import VIEW3D_OT_blenrig_guide_actions
 
 ####### Actions assistant Guide
 

@@ -1,5 +1,5 @@
 import bpy
-from ...guides.operator import VIEW3D_OT_blenrig_guide_weights
+from ...guides.guide_ops import VIEW3D_OT_blenrig_guide_weights
 
 ####### Weights assistant Guide
 
