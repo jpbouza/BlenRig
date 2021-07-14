@@ -93,7 +93,7 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
         paint_obj = guide_props.character_toes_obj
         set_active_object(context, paint_obj)
     #Head
-    elif wp_obj == 'hands':
+    elif wp_obj == 'head':
         paint_obj = guide_props.character_head_obj
         set_active_object(context, paint_obj)
 
@@ -449,7 +449,9 @@ def WEIGHTS_Char_Hand_VP(operator, context):
     ['hand_close_L', 'fing_lit_ctrl_L', 'fing_lit_fix_low_3_L', 'fing_lit_fix_up_3_L', 'fing_lit_fix_low_2_L', 'fing_lit_fix_up_2_L', 'fing_ring_ctrl_L', 'fing_ring_fix_low_3_L',
     'fing_ring_fix_up_3_L', 'fing_ring_fix_low_2_L', 'fing_ring_fix_up_2_L', 'fing_ind_ctrl_L', 'fing_ind_fix_low_3_L', 'fing_ind_fix_up_3_L', 'fing_ind_fix_low_2_L', 'fing_ind_fix_up_2_L',
     'fing_mid_ctrl_L', 'fing_mid_fix_low_3_L', 'fing_mid_fix_up_3_L', 'fing_mid_fix_low_2_L', 'fing_mid_fix_up_2_L', 'fing_ind_fix_up_1_L', 'fing_ind_fix_low_1_L', 'fing_ring_fix_up_1_L', 'fing_ring_fix_low_1_L',
-    'fing_lit_fix_up_1_L', 'fing_lit_fix_low_1_L', 'fing_mid_fix_up_1_L', 'fing_mid_fix_low_1_L', 'fing_thumb_ctrl_L', 'fing_thumb_fix_low_2_L', 'fing_thumb_fix_up_2_L', 'fing_thumb_fix_up_1_L', 'fing_thumb_fix_low_1_L'],
+    'fing_lit_fix_up_1_L', 'fing_lit_fix_low_1_L', 'fing_mid_fix_up_1_L', 'fing_mid_fix_low_1_L', 'fing_thumb_ctrl_L', 'fing_thumb_fix_low_2_L', 'fing_thumb_fix_up_2_L', 'fing_thumb_fix_up_1_L', 'fing_thumb_fix_low_1_L'
+    'fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_2_def_L', 'fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_2_def_L', 'fing_ind_4_def_L', 'fing_ind_3_def_L', 'fing_ind_2_def_L', 'fing_mid_4_def_L', 'fing_mid_3_def_L',
+    'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L'],
     [27],
     ['hand_close_L'],
     ['fing_ind_fix_up_1_L'],
@@ -495,6 +497,104 @@ def WEIGHTS_Char_Fings_2(operator, context):
     ['fing_thumb_3_L', 'fing_ind_3_L', 'fing_ind_4_L', 'fing_mid_3_L', 'fing_mid_4_L', 'fing_ring_3_L', 'fing_ring_4_L', 'fing_lit_3_L', 'fing_lit_4_L'],
     ['fing_thumb_2_def_L', 'fing_ind_2_def_L', 'fing_ind_3_def_L', 'fing_mid_2_def_L', 'fing_mid_3_def_L', 'fing_ring_2_def_L', 'fing_ring_3_def_L', 'fing_lit_2_def_L', 'fing_lit_3_def_L'],
     'weight_paint',)
+
+def WEIGHTS_Char_Head(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Head', 'head',
+    'x6', ['head_fk',
+    (0.0, 0.0, 0.0), (-45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (20, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, -90, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'neck_1_fk', 'head_stretch', 'RIGHT',
+    ['head_fk', 'head_def_1', 'maxi'],
+    [27],
+    ['head_fk'],
+    ['no_mdef'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Head_Joints(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Head_Joints', 'head',
+    'x4', ['head_mid_ctrl',
+    (0.0, 0.0, 0.0), (-33, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (15, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 33), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -33), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'neck_1_fk', 'head_stretch', 'RIGHT',
+    ['head_fk', 'head_def_1', 'head_def_2', 'head_def_3', 'head_mid_ctrl', 'head_top_ctrl'],
+    [27],
+    ['head_mid_ctrl', 'head_top_ctrl'],
+    ['head_def_2', 'head_def_3'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Ears(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Ears', 'head',
+    'x2', ['ear_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, -45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'neck_1_fk', 'brow_mstr_L', 'RIGHT',
+    ['ear_L', 'ear_up_L', 'ear_low_L', 'head_def_1', 'head_def_2', 'head_def_3'],
+    [27],
+    ['ear_L', 'ear_up_L', 'ear_low_L'],
+    ['ear_L', 'ear_up_L', 'ear_low_L'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Eyebrows(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Eyebrows', 'head',
+    'x2', ['brow_mstr_L',
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_3_L'].length * 0.75), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['brow_arch_def_3_L'].length * 0.75)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'head_stretch', 'FRONT',
+    ['head_def_2', 'head_def_3', 'brow_mstr_L', 'brow_def_5_L', 'brow_arch_def_5_L', 'brow_ctrl_curve_L', 'brow_ctrl_in_L', 'brow_ctrl_out_L', 'cheek_rim_def_1_L', 'eyelid_rim_up_def_1_L',
+    'forehead_def_mid', 'frown_ctrl_mstr', 'frown_def', 'nose_def_1_mid', 'head_def_1', 'eyelid_rim_up_def_4_L', 'eyelid_rim_up_def_3_L', 'eyelid_rim_up_def_2_L', 'brow_low_def_4_L', 'brow_up_def_4_L',
+    'brow_arch_def_1_L', 'frown_low_def_L', 'nose_side_def_1_L', 'brow_def_1_L', 'frown_up_def_L', 'brow_arch_def_2_L', 'brow_low_def_1_L', 'brow_def_2_L', 'brow_up_def_1_L', 'brow_arch_def_3_L',
+    'brow_low_def_2_L', 'brow_def_3_L', 'brow_up_def_2_L', 'brow_arch_def_4_L', 'brow_low_def_3_L', 'brow_def_4_L', 'brow_up_def_3_L', 'nose_root_def_1_L', 'forehead_def_3_L', 'forehead_def_2_L',
+    'forehead_def_1_L', 'forehead_def_4_L', 'forehead_def_5_L', 'nose_root_def_2_L', 'brow_low_def_5_L', 'brow_up_def_5_L', 'brow_arch_def_6_L'],
+    [27],
+    ['brow_mstr_L', 'frown_ctrl_mstr'],
+    ['frown_def', 'brow_def_3_L'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Eyelids(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Eyelids', 'head',
+    'x2', ['eyelid_up_ctrl_L',
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_3_L'].length * 0.75), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['brow_arch_def_3_L'].length * 0.75)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['brow_mstr_L', 'brow_arch_def_5_L', 'eyelid_up_rim_ctrl_L', 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_out_def_L', 'cheek_rim_def_1_L', 'eyelid_rim_up_def_1_L', 'eyelid_rim_low_def_1_L',
+    'eyelid_in_def_L', 'eyelid_up_ctrl_2_L', 'eyelid_up_line_def_3_L', 'eyelid_ctrl_in_L', 'eyelid_low_line_def_1_L', 'eyelid_up_line_def_1_L', 'eyelid_ctrl_out_L', 'eyelid_up_line_def_4_L',
+    'eyelid_low_line_def_4_L', 'eyelid_up_ctrl_3_L', 'eyelid_up_ctrl_1_L', 'eyelid_up_line_def_2_L', 'eyelid_low_ctrl_2_L', 'eyelid_low_line_def_3_L', 'eyelid_low_ctrl_3_L', 'eyelid_low_ctrl_1_L',
+    'eyelid_low_line_def_2_L', 'eyelid_low_rim_ctrl_L', 'nose_def_1_mid', 'cheek_def_1_1_L', 'eyelid_low_def_1_L', 'eyelid_rim_low_def_2_L', 'cheek_def_3_1_L', 'eyelid_low_def_3_L', 'eyelid_rim_low_def_4_L',
+    'eyelid_low_def_2_L', 'eyelid_rim_low_def_3_L', 'cheek_def_2_1_L', 'eyelid_rim_up_def_4_L', 'eyelid_up_def_3_L', 'eyelid_rim_up_def_3_L', 'eyelid_up_def_2_L', 'eyelid_rim_up_def_2_L', 'eyelid_up_def_1_L',
+    'brow_low_def_4_L', 'brow_arch_def_1_L', 'frown_low_def_L', 'nose_side_def_1_L', 'brow_arch_def_2_L', 'brow_low_def_1_L', 'brow_arch_def_3_L', 'brow_low_def_2_L', 'brow_arch_def_4_L', 'brow_low_def_3_L',
+    'nose_frown_up_def_L', 'nose_root_def_2_L', 'cheekbone_line_def_3_L', 'cheekbone_line_def_2_L', 'cheekbone_line_def_1_L', 'brow_low_def_5_L', 'cheek_rim_def_2_L', 'brow_arch_def_6_L', 'nose_root_def_1_L'],
+    [27],
+    ['eyelid_up_ctrl_L', 'eyelid_low_ctrl_L'],
+    ['eyelid_up_line_def_3_L', 'eyelid_low_line_def_3_L'],
+    'weight_paint',)
+
+
+
 
 #### END OF STEP ACTIONS ####
 
@@ -551,6 +651,7 @@ def end_of_step_action(context):
         #Turn Organic Spine Back On
         guide_props.arm_obj.pose.bones["properties_head"]["organic_neck"] = 1
     Arm_Steps = ['WEIGHTS_Cage_Ankle', 'WEIGHTS_Cage_Elbow', 'WEIGHTS_Cage_Wrist', 'WEIGHTS_Char_Wrist']
+    #Arm IK Switch
     for step in Arm_Steps:
         if current_step == step:
             #Set Rig Control Properties

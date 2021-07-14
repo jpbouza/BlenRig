@@ -186,6 +186,69 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'accion': WEIGHTS_Char_Fings_2
     },
+    #Head Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Head
+    },
+    #Head Joints Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Head_Joints
+    },
+    #Ear Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Ears
+    },
+    #Eyebrows Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Eyebrows
+    },
+    #Eyelids Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Char_Eyelids
+    },
 )
-
-
