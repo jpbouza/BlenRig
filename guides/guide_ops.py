@@ -59,8 +59,8 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
     def invoke(self, context, event):
         self.init(context)
-        
-        context.scene.blenrig_guide.arm_obj = context.pose_object
+
+        context.scene.blenrig_guide.arm_obj = context.active_object
         self.obj = context.object
 
         self.guide_steps, self.end_of_step_action = GuideSteps.get_steps(self)
