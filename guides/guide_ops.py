@@ -5,7 +5,7 @@ from mathutils import Vector
 from bpy.props import IntProperty
 
 from . draw import draw_callback_px
-from . utils import inside, get_armature_object, load_guide_image, hide_image
+from . utils import set_mode, inside, get_armature_object, load_guide_image, hide_image
 from . traductor import texts_dict
 from . guides import GuideSteps
 
@@ -58,6 +58,8 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         pass
 
     def invoke(self, context, event):
+        self.init(context)
+        
         context.scene.blenrig_guide.arm_obj = context.pose_object
         self.obj = context.object
 
@@ -270,10 +272,13 @@ class VIEW3D_OT_blenrig_guide_reproportion(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_reproportion"
     bl_label = "Show Reproportion Guide"
 
-    modes = {'OBJECT', 'POSE'}
+    modes = {'POSE', 'OBJECT'}
+    object_types = {'ARMATURE'}
+
     guide_name = 'reproportion'
 
     def init(self, context):
+        set_mode('POSE')
         # Activar reproportion...
         context.object.data.reproportion = True
 
