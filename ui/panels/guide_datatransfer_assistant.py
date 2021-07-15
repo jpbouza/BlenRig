@@ -26,7 +26,7 @@ class BLENRIG_PT_datatransfer_guide(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        if VIEW3D_OT_blenrig_guide_datatransfer.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Head':
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Head':
             steps = layout.column(align=True)
             box_transfer = steps.box()
             box_transfer.label(text='Weights Transfer')
@@ -34,11 +34,11 @@ class BLENRIG_PT_datatransfer_guide(bpy.types.Panel):
             row_options = box_transfer.row()
             col_ray = row_options.column()
             col_ray.label(text = 'Ray Distance:')
-            col_ray.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance", text = '')
+            col_ray.prop(context.scene.blenrig_guide, "transfer_ray_distance", text = '')
             col_mapping = row_options.column()
             col_mapping.label(text = 'Mapping:')
-            col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
-        if VIEW3D_OT_blenrig_guide_datatransfer.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Hands':
+            col_mapping.prop(context.scene.blenrig_guide, "transfer_mapping", text =  '')
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Hands':
             steps = layout.column(align=True)
             box_transfer = steps.box()
             box_transfer.label(text='Weights Transfer')
@@ -46,7 +46,7 @@ class BLENRIG_PT_datatransfer_guide(bpy.types.Panel):
             row_options = box_transfer.row()
             col_ray = row_options.column()
             col_ray.label(text = 'Ray Distance:')
-            col_ray.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance", text = '')
+            col_ray.prop(context.scene.blenrig_guide, "transfer_ray_distance", text = '')
             col_mapping = row_options.column()
             col_mapping.label(text = 'Mapping:')
-            col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
+            col_mapping.prop(context.scene.blenrig_guide, "transfer_mapping", text =  '')

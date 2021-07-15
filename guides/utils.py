@@ -3,9 +3,33 @@ from bpy_extras import view3d_utils
 from math import radians
 from mathutils import Matrix, Vector
 
-# GET ARMATURE
+
+# GET BLENRIG ARMATURE
+def find_blenrig_armature_object(context):
+    for ob in context.scene.objects:
+        if ob.type == 'ARMATURE':
+            if ob.data.rig_name == 'BlenRig':
+                context.scene.blenrig_guide.arm_obj = ob
+                return ob
+    return None
+
 def get_armature_object(context):
+    if not context.scene.blenrig_guide.arm_obj:
+        return find_blenrig_armature_object(context)
     return context.scene.blenrig_guide.arm_obj
+
+def go_blenrig_pose_mode(context):
+    if context.mode == 'POSE':
+        return True
+    arm = get_armature_object(context)
+    if not arm:
+        return False
+    if context.mode != 'OBJECT':
+        set_mode('OBJECT')
+    if context.active_object != arm:
+        set_active_object(context, arm)
+    set_mode('POSE')
+    return True
 
 # REPROPORTION
 def set_reproportion_on(context=None):

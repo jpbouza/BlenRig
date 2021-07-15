@@ -9,10 +9,7 @@ def frame_bones(context, *bone_names):
 
 def select_armature(operator, context):
     # Select previously active Armature
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 #### MDEF STEPS ####
 
@@ -28,11 +25,7 @@ def MDEF_Select_Body_Objects(operator, context):
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
@@ -41,7 +34,7 @@ def MDEF_Select_Body_Objects(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
-    armature.hide_viewport = True
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
 
     deselect_all_objects(context)
 
@@ -85,11 +78,7 @@ def MDEF_Binding_Check(operator, context):
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
@@ -98,7 +87,7 @@ def MDEF_Binding_Check(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
-    armature.hide_viewport = True
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
 
     deselect_all_objects(context)
 
@@ -126,11 +115,7 @@ def MDEF_Final_Binding(operator, context):
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
@@ -139,7 +124,7 @@ def MDEF_Final_Binding(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
-    armature.hide_viewport = True
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
 
     deselect_all_objects(context)
 
@@ -156,10 +141,10 @@ def MDEF_Final_Binding(operator, context):
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'MDEF_Edit_Mdef_Cage':
         #Set back Object Mode
         if context.mode != 'OBJECT':
             set_mode('OBJECT')
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''

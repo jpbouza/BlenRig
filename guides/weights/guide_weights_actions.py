@@ -9,21 +9,15 @@ def frame_bones(context, *bone_names):
 
 def select_armature(context):
     # Select previously active Armature
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, bpy.context.scene.blenrig_guide.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 def show_armature(context):
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = get_armature_object(context)
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 def show_mdef_cage(context):
     deselect_all_objects(context)
@@ -599,17 +593,15 @@ def WEIGHTS_Char_Eyelids(operator, context):
 #### END OF STEP ACTIONS ####
 
 def weights_end_generic(context):
-
-    guide_props = bpy.context.scene.blenrig_guide
+    guide_props = context.scene.blenrig_guide
 
     #Select Armature
-    if bpy.context.active_object.type == 'MESH':
+    if context.active_object.type == 'MESH':
         deselect_all_objects(context)
         select_armature(context)
 
     #Ensure POSE Mode
-    set_active_object(context, guide_props.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     #Ensure Properties Symmetry
     bpy.ops.blenrig.mirror_vp_rj_values()
@@ -634,28 +626,29 @@ def weights_end_generic(context):
 #Property for action to be performed after steps
 def end_of_step_action(context):
     weights_end_generic(context)
-    guide_props = bpy.context.scene.blenrig_guide
-    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    guide_props = context.scene.blenrig_guide
+    blenrig_bones = guide_props.arm_obj.pose.bones
+    current_step = guide_props.guide_current_step
     Leg_Steps = ['WEIGHTS_Cage_Shoulder', 'WEIGHTS_Cage_Foot_Toe', 'WEIGHTS_Cage_Knee', 'WEIGHTS_Cage_Thigh']
     #Leg IK Switch
     for step in Leg_Steps:
         if current_step == step:
             #Set Rig Control Properties
-            guide_props.arm_obj.pose.bones["properties_leg_L"].ik_leg_L =  0.0
-            guide_props.arm_obj.pose.bones["properties_leg_R"].ik_leg_R =  0.0
+            blenrig_bones["properties_leg_L"].ik_leg_L =  0.0
+            blenrig_bones["properties_leg_R"].ik_leg_R =  0.0
             guide_props.guide_current_step = ''
     if current_step == 'WEIGHTS_Cage_Torso':
         #Turn Organic Spine Back On
-        guide_props.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 1
+        blenrig_bones["properties_torso"]["organic_spine"] = 1
     if current_step == 'WEIGHTS_Cage_Neck':
         #Turn Organic Spine Back On
-        guide_props.arm_obj.pose.bones["properties_head"]["organic_neck"] = 1
+        blenrig_bones["properties_head"]["organic_neck"] = 1
     Arm_Steps = ['WEIGHTS_Cage_Ankle', 'WEIGHTS_Cage_Elbow', 'WEIGHTS_Cage_Wrist', 'WEIGHTS_Char_Wrist']
     #Arm IK Switch
     for step in Arm_Steps:
         if current_step == step:
             #Set Rig Control Properties
-            guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  0.0
-            guide_props.arm_obj.pose.bones["properties_arm_R"].ik_arm_R =  0.0
-            guide_props.arm_obj.pose.bones["properties_arm_L"].space_hand_L =  0.0
-            guide_props.arm_obj.pose.bones["properties_arm_R"].space_hand_R =  0.0
+            blenrig_bones["properties_arm_L"].ik_arm_L =  0.0
+            blenrig_bones["properties_arm_R"].ik_arm_R =  0.0
+            blenrig_bones["properties_arm_L"].space_hand_L =  0.0
+            blenrig_bones["properties_arm_R"].space_hand_R =  0.0

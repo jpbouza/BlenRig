@@ -16,18 +16,18 @@ class BLENRIG_PT_blenrig_5_rigging_panel(bpy.types.Panel):
         if not BlenRigPanelOptions.displayContext == 'RIGTOOLS':
             return False
             
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["ARMATURE"]):
-            for prop in bpy.context.active_object.data.items():
+        if (context.active_object.type in ["ARMATURE"]):
+            for prop in context.active_object.data.items():
                 if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                    for prop in bpy.context.active_object.data.items():
+                    for prop in context.active_object.data.items():
                         if prop[0] == 'rig_version' and str(prop[1]) < '2.0.0':
                             return True
 
     def draw(self, context):
-        arm = bpy.context.active_object
-        arm_data = bpy.context.active_object.data
+        arm = context.active_object
+        arm_data = context.active_object.data
         p_bones = arm.pose.bones
         layout = self.layout
 

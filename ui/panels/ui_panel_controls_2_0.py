@@ -20,18 +20,18 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
         if not BlenRigPanelOptions.displayContext == 'PICKER':
             return False
 
-        elif not bpy.context.active_object:
+        elif not context.active_object:
             return False
-        elif (bpy.context.active_object.type in ["ARMATURE"]):
-            for prop in bpy.context.active_object.data.items():
+        elif (context.active_object.type in ["ARMATURE"]):
+            for prop in context.active_object.data.items():
                 if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                    for prop in bpy.context.active_object.data.items():
+                    for prop in context.active_object.data.items():
                         if prop[0] == 'rig_version' and str(prop[1]) >= '2.0.0':
                             return True
         else:
-            if bpy.context.mode in ["OBJECT","EDIT_MESH"]:
-                if (bpy.context.active_object.type in ["MESH"]):
-                    for mod in bpy.context.active_object.modifiers:
+            if context.mode in ["OBJECT","EDIT_MESH"]:
+                if (context.active_object.type in ["MESH"]):
+                    for mod in context.active_object.modifiers:
                         if (mod.type in ["ARMATURE", "MESH_DEFORM"]):
                             return True
 

@@ -26,7 +26,7 @@ class BLENRIG_PT_shapekeys_guide(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        # if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
+        # if VIEW3D_OT_blenrig_guide_lattices.instance and context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
         #     steps = layout.column(align=True)
         #     box_set = steps.box()
         #     box_set.label(text='Define Object tha use Mesh Deform')

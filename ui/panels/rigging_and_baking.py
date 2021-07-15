@@ -74,7 +74,7 @@ class BLENRIG_PT_visual_assistant(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        if not  bpy.context.mode in ['OBJECT','EDIT_ARMATURE'] and context.active_object.data.reproportion:
+        if not  context.mode in ['OBJECT','EDIT_ARMATURE'] and context.active_object.data.reproportion:
             return True
 
     def draw(self, context):
@@ -157,7 +157,7 @@ class BLENRIG_PT_baking(bpy.types.Panel):
     
     @classmethod
     def poll(cls, context):
-        if not bpy.context.mode in ['OBJECT']:
+        if not context.mode in ['OBJECT']:
             return True
 
     def draw(self, context):

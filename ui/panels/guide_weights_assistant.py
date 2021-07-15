@@ -21,11 +21,11 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
         obj = context.object
         valid_types = {'POSE','ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE', 'EDIT_ARMATURE'}
 
-        return obj or obj.type in valid_types
+        return obj and obj.type in valid_types and context.scene.blenrig_guide.arm_obj is not None
 
     def draw(self, context):
-        guide_props = bpy.context.scene.blenrig_guide
-        active = bpy.context.active_object
+        guide_props = context.scene.blenrig_guide
+        active = context.active_object
         active_mode = active.mode
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout

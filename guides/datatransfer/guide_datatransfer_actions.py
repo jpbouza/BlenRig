@@ -3,10 +3,7 @@ from .. utils import *
 
 def reproportion_on(context):
     # 0. Make sure Armature is active and in Pose Mode.
-    if context.mode != 'POSE':
-        set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Set Armature to Reproportion mode
     set_reproportion_on(context)
@@ -15,10 +12,7 @@ def reproportion_on(context):
 
 def reproportion_off(context):
     # 0. Make sure Armature is active and in Pose Mode.
-    if context.mode != 'POSE':
-        set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Set Armature to Reproportion mode
     set_reproportion_off(context)
@@ -32,10 +26,7 @@ def frame_bones(context, *bone_names):
 
 def select_armature(operator, context):
     # Select previously active Armature
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 #### DATATRANSFER STEPS ####
 
@@ -108,14 +99,11 @@ def DT_Select_Head(operator, context):
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Head'
 
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "neck_1_fk")
@@ -164,14 +152,11 @@ def DT_Select_Hands(operator, context):
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Hands'
 
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "hand_fk_L", "hand_fk_R")
@@ -249,12 +234,11 @@ def DT_Finish(operator, context):
 
     #Select Armature
     deselect_all_objects(context)
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
     armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    armature.hide_viewport = False
+
+    #Select Armature
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_fk", "master_torso")
@@ -266,7 +250,7 @@ def DT_Finish(operator, context):
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'DT_Weight_Mesh_Shapekey_Head':
         #Set back Object Mode
         if context.mode != 'OBJECT':
@@ -274,7 +258,7 @@ def end_of_step_action(context):
         #Switch Local_View off
         switch_out_local_view()
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'DT_Weight_Mesh_Shapekey_Hands':
         #Set back Object Mode
         if context.mode != 'OBJECT':
@@ -282,7 +266,7 @@ def end_of_step_action(context):
         #Switch Local_View off
         switch_out_local_view()
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'DT_Edit_Head':
         #Set back Object Mode
         if context.mode != 'OBJECT':
@@ -290,8 +274,8 @@ def end_of_step_action(context):
         #Switch Local_View off
         switch_out_local_view()
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.arm_obj.hide_viewport = False
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'DT_Edit_Hands':
         #Set back Object Mode
         if context.mode != 'OBJECT':
@@ -299,5 +283,5 @@ def end_of_step_action(context):
         #Switch Local_View off
         switch_out_local_view()
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.arm_obj.hide_viewport = False
+        context.scene.blenrig_guide.guide_current_step = ''

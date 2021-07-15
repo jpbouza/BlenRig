@@ -9,10 +9,7 @@ def frame_bones(context, *bone_names):
 
 def select_armature(operator, context):
     # Select previously active Armature
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 #### LATTICES STEPS ####
 
@@ -32,11 +29,7 @@ def LATTICES_Adjust_Body(operator, context):
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
@@ -45,7 +38,7 @@ def LATTICES_Adjust_Body(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
-    armature.hide_viewport = True
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
 
     deselect_all_objects(context)
 
@@ -83,14 +76,11 @@ def LATTICES_Adjust_Head(operator, context):
         pass
 
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "spine_3_fk")
@@ -137,14 +127,11 @@ def LATTICES_Adjust_Brow(operator, context):
         pass
 
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "neck_3_fk")
@@ -191,14 +178,11 @@ def LATTICES_Adjust_Mouth(operator, context):
         pass
 
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "neck_3_fk")
@@ -245,14 +229,11 @@ def LATTICES_Adjust_Eyes(operator, context):
         pass
 
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Adjust view to Bones.
     frame_bones(context, "head_str", "neck_3_fk")
@@ -290,7 +271,7 @@ def LATTICES_Adjust_Eyes(operator, context):
 #Property for action to be performed after steps
 def end_of_step_action(context):
     Hide_Lattices = ['LATTICE_HEAD', 'LATTICE_BROW', 'LATTICE_MOUTH', 'LATTICE_EYE_L', 'LATTICE_EYE_R', 'LATTICE_BODY']
-    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'LATTICES_Adjust_Body' or current_step == 'LATTICES_Adjust_Head' or current_step == 'LATTICES_Adjust_Brow' or current_step == 'LATTICES_Adjust_Mouth' or current_step == 'LATTICES_Adjust_Eyes':
         #Unhide Lattices
         for ob in Hide_Lattices:
@@ -299,4 +280,4 @@ def end_of_step_action(context):
             except:
                 pass
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''

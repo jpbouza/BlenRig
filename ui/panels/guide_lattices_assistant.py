@@ -28,7 +28,7 @@ class BLENRIG_PT_lattices_guide(bpy.types.Panel):
 
         STEPS = ['LATTICES_Adjust_Body', 'LATTICES_Adjust_Head', 'LATTICES_Adjust_Brow', 'LATTICES_Adjust_Mouth']
 
-        if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step in STEPS:
+        if VIEW3D_OT_blenrig_guide_lattices.instance and context.scene.blenrig_guide.guide_current_step in STEPS:
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Lattice Position')
@@ -38,7 +38,7 @@ class BLENRIG_PT_lattices_guide(bpy.types.Panel):
             sub = row.row()
             sub.scale_x = 0.6
             sub.operator("blenrig.reset_hooks", text="Apply Lattice Position")
-        if VIEW3D_OT_blenrig_guide_lattices.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'LATTICES_Adjust_Eyes':
+        if VIEW3D_OT_blenrig_guide_lattices.instance and context.scene.blenrig_guide.guide_current_step == 'LATTICES_Adjust_Eyes':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Lattice Position')

@@ -20,10 +20,10 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         if context.mode in ["EDIT_MESH"]:
             return False
 
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            for mod in bpy.context.active_object.modifiers:
+        if (context.active_object.type in ["MESH"]):
+            for mod in context.active_object.modifiers:
                 if (mod.type in ["ARMATURE", "MESH_DEFORM", "SURFACE_DEFORM"]):
                     return True
 
@@ -51,10 +51,10 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row_options = box_transfer.row()
         col_ray = row_options.column()
         col_ray.label(text = 'Ray Distance:')
-        col_ray.prop(bpy.context.scene.blenrig_guide, "transfer_ray_distance", text = '')
+        col_ray.prop(context.scene.blenrig_guide, "transfer_ray_distance", text = '')
         col_mapping = row_options.column()
         col_mapping.label(text = 'Mapping:')
-        col_mapping.prop(bpy.context.scene.blenrig_guide, "transfer_mapping", text =  '')
+        col_mapping.prop(context.scene.blenrig_guide, "transfer_mapping", text =  '')
         #Add Modiifers Buttons
         box_modifiers = col_buttons.box()
         box_modifiers.label(text='Add Modifiers')
@@ -83,17 +83,17 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col_1.scale_x = 1.5
         col_2 = row.column()
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Body Objects').area = 'Body'
-        if hasattr(bpy.context.scene.blenrig_character_body_obj, 'name'):
-            col_2.label(text= str([b.character_body_obj.name for b in bpy.context.scene.blenrig_character_body_obj]))
+        if hasattr(context.scene.blenrig_character_body_obj, 'name'):
+            col_2.label(text= str([b.character_body_obj.name for b in context.scene.blenrig_character_body_obj]))
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
-        if hasattr(bpy.context.scene.blenrig_guide.character_hands_obj, 'name'):
-            col_2.label(text=bpy.context.scene.blenrig_guide.character_hands_obj.name)
+        if hasattr(context.scene.blenrig_guide.character_hands_obj, 'name'):
+            col_2.label(text=context.scene.blenrig_guide.character_hands_obj.name)
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Toes Object').area = 'Toes'
-        if hasattr(bpy.context.scene.blenrig_guide.character_toes_obj, 'name'):
-            col_2.label(text=bpy.context.scene.blenrig_guide.character_toes_obj.name)
+        if hasattr(context.scene.blenrig_guide.character_toes_obj, 'name'):
+            col_2.label(text=context.scene.blenrig_guide.character_toes_obj.name)
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
-        if hasattr(bpy.context.scene.blenrig_guide.character_head_obj, 'name'):
-            col_2.label(text=bpy.context.scene.blenrig_guide.character_head_obj.name)
+        if hasattr(context.scene.blenrig_guide.character_head_obj, 'name'):
+            col_2.label(text=context.scene.blenrig_guide.character_head_obj.name)
 
 ####### Lattice & Curves Panel
 

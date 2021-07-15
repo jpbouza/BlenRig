@@ -24,6 +24,7 @@ class BlenrigGuideData(PropertyGroup):
     show_steps : BoolProperty(default=False, name="Show Steps")
     guide_current_step : StringProperty('')
     #BlenRig Armature
+    obj : PointerProperty(type=Object) # temporal object slot.
     arm_obj : PointerProperty(type=Object)
     #BlenRig Weights Transfer Mesh
     mdef_weights_transfer_obj : PointerProperty(type=Object)

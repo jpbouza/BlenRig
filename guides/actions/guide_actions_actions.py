@@ -9,10 +9,7 @@ def frame_bones(context, *bone_names):
 
 def select_armature(operator, context):
     # Select previously active Armature
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 #Generic Function for Editting Actions
 def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, action, frame_number, bone_list):
@@ -23,14 +20,11 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     deselect_all_objects(context)
 
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    armature = bpy.context.scene.blenrig_guide.arm_obj
+    armature.hide_viewport = False
 
     #Select Armature
-    armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.select_set(state=True)
-    bpy.context.view_layer.objects.active = armature
-    if context.mode != 'POSE':
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     #Toggle Pose X-Mirror
     toggle_pose_x_mirror(context, True)
@@ -1045,14 +1039,14 @@ def actions_end_generic(context):
     toggle_pose_x_mirror(context, False)
 
     #Turn Layers on
-    off_layers = [27, 28]
+    off_layers = (27, 28)
     for l in off_layers:
         bpy.context.object.data.layers[l] = False
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    guide_props = bpy.context.scene.blenrig_guide
-    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    guide_props = context.scene.blenrig_guide
+    current_step = context.scene.blenrig_guide.guide_current_step
     steps = ['ACTIONS_Fingers_Spread_X_Up', 'ACTIONS_Fingers_Spread_X_Down', 'ACTIONS_Fingers_Spread_Z_Out', 'ACTIONS_Fingers_Spread_Z_In',
     'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out',
     'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_Range', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2',
@@ -1067,7 +1061,7 @@ def end_of_step_action(context):
     for step in steps:
         if current_step == step:
             actions_end_generic(context)
-            bpy.context.scene.blenrig_guide.guide_current_step = ''
+            context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'ACTIONS_Eyelids_Up_Up_Range':
         #Enable Action Constraints
         mute_constraints('Eyelid_Upper_Up', False)
@@ -1084,7 +1078,7 @@ def end_of_step_action(context):
         #Enable Action Constraints
         mute_constraints('Eyelid_Out', False)
         #Rotate Eye
-        guide_props = bpy.context.scene.blenrig_guide
+        guide_props = context.scene.blenrig_guide
         for C in guide_props.arm_obj.pose.bones["eye_def_L"].constraints:
             C.mute = False
         for C in guide_props.arm_obj.pose.bones["eye_def_R"].constraints:
@@ -1096,7 +1090,7 @@ def end_of_step_action(context):
         #Enable Action Constraints
         mute_constraints('Eyelid_In', False)
         #Rotate Eye
-        guide_props = bpy.context.scene.blenrig_guide
+        guide_props = context.scene.blenrig_guide
         for C in guide_props.arm_obj.pose.bones["eye_def_L"].constraints:
             C.mute = False
         for C in guide_props.arm_obj.pose.bones["eye_def_R"].constraints:

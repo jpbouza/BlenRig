@@ -18,10 +18,10 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
         if context.mode not in ["EDIT_MESH"]:
             return False
 
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            for mod in bpy.context.active_object.modifiers:
+        if (context.active_object.type in ["MESH"]):
+            for mod in context.active_object.modifiers:
                 if (mod.type in ["ARMATURE", "MESH_DEFORM"]):
                     return True
 

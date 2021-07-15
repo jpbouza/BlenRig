@@ -3,10 +3,7 @@ from .. utils import *
 
 def reproportion_on(context):
     # 0. Make sure Armature is active and in Pose Mode.
-    if context.mode != 'POSE':
-        set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Set Armature to Reproportion mode
     set_reproportion_on(context)
@@ -15,10 +12,7 @@ def reproportion_on(context):
 
 def reproportion_off(context):
     # 0. Make sure Armature is active and in Pose Mode.
-    if context.mode != 'POSE':
-        set_mode('OBJECT')
-        set_active_object(context, operator.arm_obj)
-        set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     # Set Armature to Reproportion mode
     set_reproportion_off(context)
@@ -32,10 +26,7 @@ def frame_bones(context, *bone_names):
 
 def select_armature(operator, context):
     # Select previously active Armature
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, operator.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
 #### REPROPORTION STEPS ####
 
@@ -698,10 +689,7 @@ def Reprop_Face_Mstr(operator, context):
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Face_Mstr'
 
     # Seleccionar automáticamente el armature en el que estábamos antes.
-    if context.mode != 'OBJECT':
-        set_mode('OBJECT')
-    set_active_object(context, context.scene.blenrig_guide.arm_obj)
-    set_mode('POSE')
+    go_blenrig_pose_mode(context)
 
     reproportion_on(context)
 
@@ -1639,11 +1627,11 @@ def Reprop_Finish(operator, context):
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    current_step = bpy.context.scene.blenrig_guide.guide_current_step
+    current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'Reprop_Sole_Side':
         context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
         context.pose_object.pose.bones['foot_roll_ctrl_R'].lock_location[1] = True
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Toes':
         context.pose_object.pose.bones['toes_spread_L'].lock_location[0] = True
         context.pose_object.pose.bones['toes_spread_L'].lock_location[1] = True
@@ -1653,7 +1641,7 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['toes_spread_R'].lock_location[1] = True
         context.pose_object.pose.bones['toes_spread_R'].lock_location[2] = True
         context.pose_object.pose.bones['toes_spread_R'].lock_rotation[1] = True
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Fingers':
         context.pose_object.pose.bones['fing_spread_L'].lock_location[0] = True
         context.pose_object.pose.bones['fing_spread_L'].lock_location[1] = True
@@ -1667,13 +1655,10 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = True
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Eye_Loop':
         # Select Armature object
-        if context.mode != 'OBJECT':
-            set_mode('OBJECT')
-        set_active_object(context, context.scene.blenrig_guide.arm_obj)
-        set_mode('POSE')
+        go_blenrig_pose_mode(context)
 
         reproportion_on(context)
         #Snap Eye_Mstr to Cursor
@@ -1685,21 +1670,21 @@ def end_of_step_action(context):
         mirror_pose()
         #
         deselect_all_pose_bones(context)
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Cheek_Ctrls':
         context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[0] = True
         context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[0] = True
         context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[1] = True
         context.pose_object.pose.bones['nose_frown_ctrl_R'].lock_location[1] = True
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Toon_Scale':
         #Erase Temp Collection
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Face_Mstr':
         #Erase Temp Collection
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Edit_Face':
         #Erase Temp Collection
         # try:
@@ -1707,7 +1692,7 @@ def end_of_step_action(context):
         # except:
             # pass
         blenrig_temp_unlink()
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Sole_Bottom':
         #Lock Foot Ctrl Frame
         context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_location[0] = True
@@ -1722,8 +1707,7 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[1] = True
         context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[2] = True
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[2] = True
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Custom_Alignments':
-        if context.mode != 'POSE':
-            set_mode('POSE')
-        bpy.context.scene.blenrig_guide.guide_current_step = ''
+        go_blenrig_pose_mode(context)
+        context.scene.blenrig_guide.guide_current_step = ''

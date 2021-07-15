@@ -43,13 +43,13 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
             p_bones = arm.pose.bones
 
             # Step 0 X-Mirror
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.prop(pose, "use_mirror_x")
 
             # Set Spine Curve Values Step
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Spine_Line':
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Spine_Line':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Spine Curvature")
@@ -62,7 +62,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                     pass
 
             # Set Eyebrow Curve Values Step
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Eyebrows_Curve':
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Eyebrows_Curve':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Curve Values")
@@ -102,7 +102,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                     pass
 
             # Set Mouth Curve Values Step
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Mouth_Curves':
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Mouth_Curves':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Curve Values")
@@ -215,7 +215,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                     pass
 
             # Diplay Bake Button
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Bake':
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Bake':
                 if context.mode in ['POSE','OBJECT']:
                     if context.active_object.data.reproportion:
                         steps = layout.column(align=True)
@@ -226,7 +226,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                         row.operator("blenrig.armature_baker_all_part_1", text="Bake All")
 
             # Diplay Bake Button
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Custom_Alignments':
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Custom_Alignments':
                 if context.mode in ['EDIT_ARMATURE']:
                     if context.active_object.data.reproportion:
                         steps = layout.column(align=True)
@@ -237,7 +237,7 @@ class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
                         row.operator("blenrig.armature_baker_all_part_2", text="Custom Alignments")
 
         # # Diplay Mode for Face Mask
-        # if VIEW3D_OT_blenrig_guide_reproportion.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
+        # if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
         #     steps = layout.column(align=True)
         #     box = steps.box()
         #     box.label(text="Display As")

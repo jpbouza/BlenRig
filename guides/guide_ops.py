@@ -5,7 +5,7 @@ from mathutils import Vector
 from bpy.props import IntProperty
 
 from . draw import draw_callback_px
-from . utils import set_mode, inside, get_armature_object, load_guide_image, hide_image
+from . utils import set_mode, inside, get_armature_object, load_guide_image, hide_image, get_armature_object
 from . traductor import texts_dict
 from . guides import GuideSteps
 
@@ -36,7 +36,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
     # PROPIEDADES A ADAPTAR EN CADA SUB-OPERATOR.
     ## Condiciones que debe cumplir para poder ejecutar este Operator.
-    object_types = None # De qué tipo debe ser el objeto activo.
+    object_types = {'ARMATURE'} # De qué tipo debe ser el objeto activo.
     modes = {'OBJECT', 'POSE'}  # En qué modo debe de estar.
     guide_name = ''
 
@@ -58,10 +58,14 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         pass
 
     def invoke(self, context, event):
-        self.init(context)
+        # Esta línea asegura que el rig de blenrig esté localizado y verificado.
+        # para que otras partes de la guia, como las diferentes actions, puedan hacer uso de este.
+        if not get_armature_object(context):
+            return ModalReturn.CANCEL()
 
-        context.scene.blenrig_guide.arm_obj = context.active_object
-        self.obj = context.object
+        context.scene.blenrig_guide.obj = context.active_object
+
+        self.init(context)
 
         self.guide_steps, self.end_of_step_action = GuideSteps.get_steps(self)
         self.max_step_index = len(self.guide_steps) - 1

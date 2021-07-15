@@ -24,7 +24,7 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
         return obj or obj.type in valid_types
 
     def draw(self, context):
-        arm_obj_props = bpy.context.scene.blenrig_guide
+        arm_obj_props = context.scene.blenrig_guide
         arm = context.active_object
         if hasattr(arm, 'pose'):
             pose = arm.pose
@@ -41,127 +41,127 @@ class BLENRIG_PT_actions_guide(bpy.types.Panel):
             steps = layout.column(align=True)
             box = steps.box()
             box.prop(pose, "use_mirror_x")
-            layout.row().prop(bpy.context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
+            layout.row().prop(context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
             for step in Face_Steps:
-                if step == bpy.context.scene.blenrig_guide.guide_current_step:
-                    box.prop(bpy.context.scene.blenrig_guide.arm_obj.data, "layers", index=27, text='Show Deformation Bones')
+                if step == context.scene.blenrig_guide.guide_current_step:
+                    box.prop(context.scene.blenrig_guide.arm_obj.data, "layers", index=27, text='Show Deformation Bones')
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Up_Up_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Up_Up_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_up_up")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Up_Down_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Up_Down_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_up_down")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Low_Down_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Low_Down_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_low_down")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Low_Up_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Low_Up_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_low_up")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Cheek_Up_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Cheek_Up_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_cheek_up")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Cheek_Down_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Cheek_Down_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_cheek_down")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Out':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_Out':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_out")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_In':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Eyelids_In':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_in")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Nose_Frown_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Nose_Frown_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_nose_frown")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Jaw_Down_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Jaw_Down_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_jaw_down")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Jaw_Up_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Jaw_Up_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_jaw_up")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Out_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Out_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_corner_out")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Up_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Up_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_corner_up")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Down_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Down_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_corner_down")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Back_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Back_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_corner_back")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Forw_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_Forw_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_corner_forw")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_In_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Corner_In_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_corner_in")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_U_O_M_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_U_O_M_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_u_o_m")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Frown_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Mouth_Frown_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_mouth_frown")
 
-        if VIEW3D_OT_blenrig_guide_actions.instance and bpy.context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Chin_Frown_Range':
+        if VIEW3D_OT_blenrig_guide_actions.instance and context.scene.blenrig_guide.guide_current_step == 'ACTIONS_Chin_Frown_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Range of Motion')

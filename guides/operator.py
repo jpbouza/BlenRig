@@ -18,19 +18,19 @@ class Operator_Transfer_VGroups(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if len(bpy.context.selected_objects) != 2:
+        if len(context.selected_objects) != 2:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
 
     def execute(self, context):
         # Define objects
-        active = bpy.context.active_object
-        for ob in bpy.context.selected_objects:
+        active = context.active_object
+        for ob in context.selected_objects:
             if ob != active:
                 selected = ob
 
@@ -40,9 +40,9 @@ class Operator_Transfer_VGroups(bpy.types.Operator):
         mod.object = selected
         mod.use_vert_data = True
         mod.data_types_verts = {'VGROUP_WEIGHTS'}
-        mod.vert_mapping = bpy.context.scene.blenrig_guide.transfer_mapping
+        mod.vert_mapping = context.scene.blenrig_guide.transfer_mapping
         mod.use_max_distance = True
-        mod.max_distance = bpy.context.scene.blenrig_guide.transfer_ray_distance
+        mod.max_distance = context.scene.blenrig_guide.transfer_ray_distance
         bpy.ops.object.datalayout_transfer(modifier=mod.name, data_type='VGROUP_WEIGHTS', use_delete=False, layers_select_src='ALL', layers_select_dst='NAME')
         bpy.ops.object.modifier_apply(modifier=mod.name)
         bpy.ops.object.vertex_group_clean(group_select_mode='ALL', limit=0.01, keep_single=False)
@@ -57,9 +57,9 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -77,20 +77,20 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
         deselect_all_objects(context)
 
         #Select Mdef Weight Transfer Model
-        transfer_obj = bpy.context.scene.blenrig_guide.mdef_weights_transfer_obj
+        transfer_obj = context.scene.blenrig_guide.mdef_weights_transfer_obj
         transfer_obj.select_set(state=True)
 
         if self.body_area == 'head':
             #Select Head Object
-            head_object = bpy.context.scene.blenrig_guide.character_head_obj
+            head_object = context.scene.blenrig_guide.character_head_obj
             head_object.select_set(state=True)
-            bpy.context.view_layer.objects.active = head_object
+            context.view_layer.objects.active = head_object
 
         if self.body_area == 'hands':
             #Select Fingers Object
-            fingers_object = bpy.context.scene.blenrig_guide.character_hands_obj
+            fingers_object = context.scene.blenrig_guide.character_hands_obj
             fingers_object.select_set(state=True)
-            bpy.context.view_layer.objects.active = fingers_object
+            context.view_layer.objects.active = fingers_object
 
         #Transfer Weights
         bpy.ops.blenrig.transfer_vgroups()
@@ -100,15 +100,15 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
 
         if self.body_area == 'head':
             #Select Head Object
-            head_object = bpy.context.scene.blenrig_guide.character_head_obj
+            head_object = context.scene.blenrig_guide.character_head_obj
             head_object.select_set(state=True)
-            bpy.context.view_layer.objects.active = head_object
+            context.view_layer.objects.active = head_object
 
         if self.body_area == 'hands':
             #Select Fingers Object
-            fingers_object = bpy.context.scene.blenrig_guide.character_hands_obj
+            fingers_object = context.scene.blenrig_guide.character_hands_obj
             fingers_object.select_set(state=True)
-            bpy.context.view_layer.objects.active = fingers_object
+            context.view_layer.objects.active = fingers_object
 
         #Set back Object Mode
         if context.mode != 'EDIT':
@@ -126,9 +126,9 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -138,7 +138,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
         from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
 
         #Add Deform Modifiers to Character's head
-        active = bpy.context.active_object
+        active = context.active_object
 
         #Armature
         if check_mod_type('ARMATURE'):
@@ -146,7 +146,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
         else:
             mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
             # set modifier properties
-            mod.object = bpy.context.scene.blenrig_guide.arm_obj
+            mod.object = context.scene.blenrig_guide.arm_obj
             mod.use_deform_preserve_volume = True
             mod.vertex_group = 'no_mdef'
             mod.show_expanded = True
@@ -158,7 +158,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
         else:
             mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
             # set modifier properties
-            mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+            mod.object = context.scene.blenrig_guide.mdef_cage_obj
             mod.invert_vertex_group = True
             mod.vertex_group = 'no_mdef'
             mod.show_expanded = True
@@ -182,12 +182,12 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
         else:
             mod = active.modifiers.new(name= "Cheek_Puff_L",type= 'WARP')
             # set modifier properties
-            mod.object_from = bpy.context.scene.blenrig_guide.arm_obj
+            mod.object_from = context.scene.blenrig_guide.arm_obj
             mod.bone_from = 'cheek_puff_mstr_L'
-            mod.object_to = bpy.context.scene.blenrig_guide.arm_obj
+            mod.object_to = context.scene.blenrig_guide.arm_obj
             mod.bone_to = 'cheek_puff_ctrl_L'
             mod.vertex_group = 'no_mdef'
-            mod.falloff_radius = bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]
+            mod.falloff_radius = context.scene.blenrig_guide.arm_obj.pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]
             mod.show_expanded = False
 
         if check_mod_type_name('WARP', 'Cheek_Puff_R'):
@@ -195,12 +195,12 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
         else:
             mod = active.modifiers.new(name= "Cheek_Puff_R",type= 'WARP')
             # set modifier properties
-            mod.object_from = bpy.context.scene.blenrig_guide.arm_obj
+            mod.object_from = context.scene.blenrig_guide.arm_obj
             mod.bone_from = 'cheek_puff_mstr_R'
-            mod.object_to = bpy.context.scene.blenrig_guide.arm_obj
+            mod.object_to = context.scene.blenrig_guide.arm_obj
             mod.bone_to = 'cheek_puff_ctrl_R'
             mod.vertex_group = 'no_mdef'
-            mod.falloff_radius = bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]
+            mod.falloff_radius = context.scene.blenrig_guide.arm_obj.pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]
             mod.show_expanded = False
 
         #Lattices
@@ -212,7 +212,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
             for ob in bpy.data.objects:
                 if ob.type == 'LATTICE':
                     if 'LATTICE_EYE_L' in ob.name:
-                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
                             mod.object = ob
             mod.vertex_group = 'lattice_eye_L'
             mod.show_expanded = False
@@ -225,7 +225,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
             for ob in bpy.data.objects:
                 if ob.type == 'LATTICE':
                     if 'LATTICE_EYE_R' in ob.name:
-                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
                             mod.object = ob
             mod.vertex_group = 'lattice_eye_R'
             mod.show_expanded = False
@@ -238,7 +238,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
             for ob in bpy.data.objects:
                 if ob.type == 'LATTICE':
                     if 'LATTICE_BROW' in ob.name:
-                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
                             mod.object = ob
             mod.vertex_group = 'lattice_brow'
             mod.show_expanded = False
@@ -251,7 +251,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
             for ob in bpy.data.objects:
                 if ob.type == 'LATTICE':
                     if 'LATTICE_MOUTH' in ob.name:
-                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
                             mod.object = ob
             mod.vertex_group = 'lattice_mouth'
             mod.show_expanded = False
@@ -264,7 +264,7 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
             for ob in bpy.data.objects:
                 if ob.type == 'LATTICE':
                     if 'LATTICE_HEAD' in ob.name:
-                        if ob.parent == bpy.context.scene.blenrig_guide.arm_obj:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
                             mod.object = ob
             mod.vertex_group = 'lattice_head'
             mod.show_expanded = False
@@ -291,11 +291,11 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
                     fcurves.remove(fcurves[0])
         #Cheek_Puff_L
         active_driver = add_drivers(active.modifiers["Cheek_Puff_L"], 'falloff_radius', 0, 'no_array', 'CONSTANT', False, False, False, '1.000', 'MAX')
-        add_vars(active_driver, 'var', 'SINGLE_PROP', bpy.context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_L', 'pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
+        add_vars(active_driver, 'var', 'SINGLE_PROP', context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_L', 'pose.bones["cheek_puff_ctrl_L"]["PUFF_RADIUS_L"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
         add_mod_generator(active_driver, 'GENERATOR', 0.0, 0.0, 0.0, 0.0, 'POLYNOMIAL', False, 1, False, False, False, 0.0, 1.0)
         #Cheek_Puff_R
         active_driver = add_drivers(active.modifiers["Cheek_Puff_R"], 'falloff_radius', 0, 'no_array', 'CONSTANT', False, False, False, '1.000', 'MAX')
-        add_vars(active_driver, 'var', 'SINGLE_PROP', bpy.context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_R', 'pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
+        add_vars(active_driver, 'var', 'SINGLE_PROP', context.scene.blenrig_guide.arm_obj, 'cheek_puff_ctrl_R', 'pose.bones["cheek_puff_ctrl_R"]["PUFF_RADIUS_R"]', 'WORLD_SPACE', 'LOC_X', 'AUTO')
         add_mod_generator(active_driver, 'GENERATOR', 0.0, 0.0, 0.0, 0.0, 'POLYNOMIAL', False, 1, False, False, False, 0.0, 1.0)
 
         return {"FINISHED"}
@@ -309,9 +309,9 @@ class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -321,8 +321,8 @@ class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
         from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
 
         #Add Deform Modifiers to Character's hands
-        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_hands_obj
-        active = bpy.context.active_object
+        context.view_layer.objects.active = context.scene.blenrig_guide.character_hands_obj
+        active = context.active_object
 
         #Armature
         if check_mod_type('ARMATURE'):
@@ -330,7 +330,7 @@ class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
         else:
             mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
             # set modifier properties
-            mod.object = bpy.context.scene.blenrig_guide.arm_obj
+            mod.object = context.scene.blenrig_guide.arm_obj
             mod.use_deform_preserve_volume = True
             mod.vertex_group = 'no_mdef'
             mod.show_expanded = True
@@ -342,7 +342,7 @@ class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
         else:
             mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
             # set modifier properties
-            mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+            mod.object = context.scene.blenrig_guide.mdef_cage_obj
             mod.invert_vertex_group = True
             mod.vertex_group = 'no_mdef'
             mod.show_expanded = True
@@ -382,9 +382,9 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -394,19 +394,19 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
         from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects
 
         #Clear List
-        bpy.context.scene.blenrig_character_body_obj.clear()
+        context.scene.blenrig_character_body_obj.clear()
 
         #Define Body Objects
-        for ob in bpy.context.selected_objects:
-            add_item = bpy.context.scene.blenrig_character_body_obj.add()
+        for ob in context.selected_objects:
+            add_item = context.scene.blenrig_character_body_obj.add()
             add_item.character_body_obj = ob
 
         #Add Deform Modifiers to defined Character's body object
-        for ob in bpy.context.scene.blenrig_character_body_obj:
+        for ob in context.scene.blenrig_character_body_obj:
             body_ob = ob.character_body_obj
             deselect_all_objects(context)
             set_active_object(context, body_ob)
-            active = bpy.context.active_object
+            active = context.active_object
 
             #Mesh Deform
             if check_mod_type('MESH_DEFORM'):
@@ -414,7 +414,7 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
             else:
                 mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
                 # set modifier properties
-                mod.object = bpy.context.scene.blenrig_guide.mdef_cage_obj
+                mod.object = context.scene.blenrig_guide.mdef_cage_obj
                 mod.invert_vertex_group = True
                 mod.vertex_group = 'no_mdef'
                 mod.show_expanded = True
@@ -443,9 +443,9 @@ class Operator_blenrig_define_body_area(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -455,18 +455,18 @@ class Operator_blenrig_define_body_area(bpy.types.Operator):
     def execute(self, context):
         if self.area == 'Body':
             #Clear List
-            bpy.context.scene.blenrig_character_body_obj.clear()
+            context.scene.blenrig_character_body_obj.clear()
 
             #Define Body Objects
-            for ob in bpy.context.selected_objects:
-                add_item = bpy.context.scene.blenrig_character_body_obj.add()
+            for ob in context.selected_objects:
+                add_item = context.scene.blenrig_character_body_obj.add()
                 add_item.character_body_obj = ob
         if self.area == 'Hands':
-            bpy.context.scene.blenrig_guide.character_hands_obj = bpy.context.active_object
+            context.scene.blenrig_guide.character_hands_obj = context.active_object
         if self.area == 'Toes':
-            bpy.context.scene.blenrig_guide.character_toes_obj = bpy.context.active_object
+            context.scene.blenrig_guide.character_toes_obj = context.active_object
         if self.area == 'Head':
-            bpy.context.scene.blenrig_guide.character_head_obj = bpy.context.active_object
+            context.scene.blenrig_guide.character_head_obj = context.active_object
         return {"FINISHED"}
 
 #Mesh Deform Binding Operators
@@ -480,11 +480,11 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            if hasattr(bpy.context.active_object, 'modifiers'):
-                for mod in bpy.context.active_object.modifiers:
+        if (context.active_object.type in ["MESH"]):
+            if hasattr(context.active_object, 'modifiers'):
+                for mod in context.active_object.modifiers:
                     if mod.type == 'MESH_DEFORM':
                         return True
         else:
@@ -494,7 +494,7 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
     def bind_mdef(self, context, mdef_precision):
         from .utils import set_active_object, deselect_all_objects
 
-        for ob in bpy.context.selected_objects:
+        for ob in context.selected_objects:
             set_active_object(context, ob)
             if hasattr(ob, 'modifiers'):
                 for mod in ob.modifiers:
@@ -529,19 +529,19 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
         if self.Guide_Bind_Type == True:
             try:
                 deselect_all_objects(context)
-                set_active_object(context, bpy.context.scene.blenrig_guide.character_head_obj)
+                set_active_object(context, context.scene.blenrig_guide.character_head_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
             except:
                 pass
             try:
                 deselect_all_objects(context)
-                set_active_object(context, bpy.context.scene.blenrig_character_body_obj.character_hands_obj)
+                set_active_object(context, context.scene.blenrig_character_body_obj.character_hands_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
             except:
                 pass
             try:
                 deselect_all_objects(context)
-                for ob in bpy.context.scene.blenrig_character_body_obj:
+                for ob in context.scene.blenrig_character_body_obj:
                     body_ob = ob.character_body_obj
                     deselect_all_objects(context)
                     set_active_object(context, body_ob)
@@ -551,19 +551,19 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
         if self.Guide_Bind_Type == False:
             try:
                 deselect_all_objects(context)
-                set_active_object(context, bpy.context.scene.blenrig_guide.character_head_obj)
+                set_active_object(context, context.scene.blenrig_guide.character_head_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
             except:
                 pass
             try:
                 deselect_all_objects(context)
-                set_active_object(context, bpy.context.scene.blenrig_guide.character_hands_obj)
+                set_active_object(context, context.scene.blenrig_guide.character_hands_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
             except:
                 pass
             try:
                 deselect_all_objects(context)
-                for ob in bpy.context.scene.blenrig_character_body_obj:
+                for ob in context.scene.blenrig_character_body_obj:
                     body_ob = ob.character_body_obj
                     deselect_all_objects(context)
                     set_active_object(context, body_ob)
@@ -581,11 +581,11 @@ class Operator_blenrig_unbind_mdef_modifiers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            if hasattr(bpy.context.active_object, 'modifiers'):
-                for mod in bpy.context.active_object.modifiers:
+        if (context.active_object.type in ["MESH"]):
+            if hasattr(context.active_object, 'modifiers'):
+                for mod in context.active_object.modifiers:
                     if mod.type == 'MESH_DEFORM':
                         return True
         else:
@@ -596,7 +596,7 @@ class Operator_blenrig_unbind_mdef_modifiers(bpy.types.Operator):
     def unbind_mdef(self, context):
         from .utils import set_active_object, deselect_all_objects
 
-        for ob in bpy.context.selected_objects:
+        for ob in context.selected_objects:
             set_active_object(context, ob)
             if hasattr(ob, 'modifiers'):
                 for mod in ob.modifiers:
@@ -620,19 +620,19 @@ class Operator_blenrig_guide_unbind_mdef_modifiers(bpy.types.Operator):
 
         try:
             deselect_all_objects(context)
-            set_active_object(context, bpy.context.scene.blenrig_guide.character_head_obj)
+            set_active_object(context, context.scene.blenrig_guide.character_head_obj)
             bpy.ops.blenrig.unbind_mdef_modifiers()
         except:
             pass
         try:
             deselect_all_objects(context)
-            set_active_object(context, bpy.context.scene.blenrig_character_body_obj.character_hands_obj)
+            set_active_object(context, context.scene.blenrig_character_body_obj.character_hands_obj)
             bpy.ops.blenrig.unbind_mdef_modifiers()
         except:
             pass
         try:
             deselect_all_objects(context)
-            for ob in bpy.context.scene.blenrig_character_body_obj:
+            for ob in context.scene.blenrig_character_body_obj:
                 body_ob = ob.character_body_obj
                 deselect_all_objects(context)
                 set_active_object(context, body_ob)
@@ -652,9 +652,9 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -696,11 +696,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
 
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #Head
@@ -905,11 +905,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'spine_1_twist_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #Spine_3
@@ -1072,11 +1072,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'hand_back_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #Shoulder_L
@@ -1240,11 +1240,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'hand_back_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #Shoulder_R
@@ -1403,11 +1403,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'foot_out_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #Thigh_L
@@ -1537,11 +1537,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'foot_out_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #Thigh_R
@@ -1673,9 +1673,9 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -1694,11 +1694,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_ind_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_ind_2_up_L
@@ -1758,11 +1758,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_mid_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_mid_2_up_L
@@ -1822,11 +1822,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_ring_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_ring_2_up_L
@@ -1887,11 +1887,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_lit_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_lit_1_down_L
@@ -1960,11 +1960,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_thumb_3_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_thumb_1_down_L
@@ -2042,11 +2042,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_ind_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_ind_2_up_R
@@ -2106,11 +2106,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_mid_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_mid_2_up_R
@@ -2170,11 +2170,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_ring_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_ring_2_up_R
@@ -2235,11 +2235,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_lit_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_lit_1_down_R
@@ -2308,11 +2308,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'fing_thumb_3_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #fing_thumb_1_down_R
@@ -2414,9 +2414,9 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -2435,11 +2435,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_ind_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_ind_2_up_L
@@ -2499,11 +2499,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_mid_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_mid_2_up_L
@@ -2563,11 +2563,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_fourth_4_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_fourth_2_up_L
@@ -2625,11 +2625,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_lit_3_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_lit_2_up_L
@@ -2673,11 +2673,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_big_3_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_big_2_up_L
@@ -2723,11 +2723,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_ind_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_ind_2_up_R
@@ -2787,11 +2787,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_mid_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_mid_2_up_R
@@ -2851,11 +2851,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_fourth_4_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_fourth_2_up_R
@@ -2913,11 +2913,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_lit_3_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_lit_2_up_R
@@ -2961,11 +2961,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'toe_big_3_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
 
             #Skip if Driver already present
             #toe_big_2_up_R
@@ -3035,9 +3035,9 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -3052,11 +3052,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'frown_down')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Rename Shapekeys Datablock
@@ -3097,11 +3097,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'brow_5_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3202,11 +3202,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'brow_5_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3299,11 +3299,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'eyelid_up_down_2_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3353,11 +3353,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'eyelid_up_down_2_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3407,11 +3407,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'eyelid_low_up_2_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3461,11 +3461,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'eyelid_low_up_2_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3514,11 +3514,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'cheek_down_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3547,11 +3547,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'cheek_down_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3582,11 +3582,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'nostril_frown_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3631,11 +3631,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'nostril_frown_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3685,11 +3685,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_corner_out_back_down_fix_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3824,11 +3824,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_corner_out_forw_down_fix_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -3916,11 +3916,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_corner_out_back_down_fix_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4055,11 +4055,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_corner_out_forw_down_fix_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4140,11 +4140,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'U_low_L')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4206,11 +4206,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'U_low_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4273,11 +4273,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'U')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4314,11 +4314,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'M')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4361,11 +4361,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'mouth_close_corner_in_R')
 
         #Add Drivers
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
             keys_name = ob.data.shape_keys.name
-            blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
             pbones = blenrig_arm.pose.bones
 
             #Skip if Driver already present
@@ -4504,10 +4504,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            ob = bpy.context.active_object
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
             if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
                 return True
         else:
@@ -4518,7 +4518,7 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
         from . utils import bone_local_transforms
 
-        ob = bpy.context.active_object
+        ob = context.active_object
         active_shapekey = ob.active_shape_key.name
 
         driver_target = []
@@ -4585,9 +4585,9 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
         from . utils import bone_local_transforms
 
-        ob = bpy.context.active_object
+        ob = context.active_object
         active_shapekey = ob.active_shape_key.name
-        blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+        blenrig_arm = context.scene.blenrig_guide.arm_obj
         pbones = blenrig_arm.pose.bones
 
         driver_target = []
@@ -4688,9 +4688,9 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
         from . utils import bone_local_transforms
 
-        ob = bpy.context.active_object
+        ob = context.active_object
         active_shapekey = ob.active_shape_key.name
-        blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+        blenrig_arm = context.scene.blenrig_guide.arm_obj
         pbones = blenrig_arm.pose.bones
 
         driver_target = []
@@ -4741,7 +4741,7 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
     mouth_open_shapekeys = ['mouth_open_down', 'mouth_close_up']
 
     def execute(self, context):
-        ob = bpy.context.active_object
+        ob = context.active_object
         active_shapekey = ob.active_shape_key.name
         #Facial Shapkeys Exception
         if active_shapekey in self.facial_shapekeys:
@@ -4763,10 +4763,10 @@ class Operator_blenrig_update_face_shapekeys_drivers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            ob = bpy.context.active_object
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
             if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
                 return True
         else:
@@ -4775,7 +4775,7 @@ class Operator_blenrig_update_face_shapekeys_drivers(bpy.types.Operator):
     #Get Bone transformation to update driver
     def update_curve(self, context, shapekey, expression):
 
-        ob = bpy.context.active_object
+        ob = context.active_object
         active_shapekey = ob.active_shape_key.name
 
         driver_target = []
@@ -4797,7 +4797,7 @@ class Operator_blenrig_update_face_shapekeys_drivers(bpy.types.Operator):
     eyelid_shapekeys = ['eyelid_up_down_1_L', 'eyelid_up_down_2_L', 'eyelid_up_down_1_R', 'eyelid_up_down_2_R', 'eyelid_low_up_1_L', 'eyelid_low_up_2_L', 'eyelid_low_up_1_R', 'eyelid_low_up_2_R']
 
     def execute(self, context):
-        blenrig_arm = bpy.context.scene.blenrig_guide.arm_obj
+        blenrig_arm = context.scene.blenrig_guide.arm_obj
         pbones = blenrig_arm.pose.bones
         #Eyelids
         self.update_curve(context, 'eyelid_up_up_L', pbones["eyelid_up_ctrl_L"].EYELID_UP_LIMIT_L)
@@ -4858,10 +4858,10 @@ class Operator_blenrig_mirror_shapekeys_drivers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            ob = bpy.context.active_object
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
             if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
                 return True
         else:
@@ -4869,7 +4869,7 @@ class Operator_blenrig_mirror_shapekeys_drivers(bpy.types.Operator):
 
     #Mirror Drivers Values
     def mirror_coefficient(self, context, transform, factor, side_1, side_2):
-        ob = bpy.context.active_object
+        ob = context.active_object
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
 
@@ -4937,10 +4937,10 @@ class Operator_blenrig_mirror_active_shapekey_driver(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
-            ob = bpy.context.active_object
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
             if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
                 return True
         else:
@@ -4948,7 +4948,7 @@ class Operator_blenrig_mirror_active_shapekey_driver(bpy.types.Operator):
 
     #Mirror Drivers Values
     def mirror_coefficient(self, context, transform, factor):
-        ob = bpy.context.active_object
+        ob = context.active_object
         active_shapekey = ob.active_shape_key.name
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
@@ -4997,9 +4997,9 @@ class Operator_blenrig_mirror_lattice_transforms(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["LATTICE"]):
+        if (context.active_object.type in ["LATTICE"]):
             return True
         else:
             return False
@@ -5040,9 +5040,9 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH", "ARMATURE"]):
+        if (context.active_object.type in ["MESH", "ARMATURE"]):
             return True
         else:
             return False
@@ -5055,8 +5055,8 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
 
         #Mdef Cage State
         if self.paint_object == 'mdef_cage':
-            obj = bpy.context.scene.blenrig_guide.mdef_cage_obj
-            arm_obj = bpy.context.scene.blenrig_guide.arm_obj
+            obj = context.scene.blenrig_guide.mdef_cage_obj
+            arm_obj = context.scene.blenrig_guide.arm_obj
 
             if obj.mode != 'WEIGHT_PAINT':
                 obj.show_wire = True
@@ -5076,11 +5076,11 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
                 set_active_object(context, arm_obj)
                 set_mode('POSE')
         else:
-            if bpy.context.active_object.type == 'MESH':
-                bpy.context.scene.blenrig_guide.active_wp_obj = bpy.context.active_object
+            if context.active_object.type == 'MESH':
+                context.scene.blenrig_guide.active_wp_obj = context.active_object
 
-            obj = bpy.context.scene.blenrig_guide.active_wp_obj
-            arm_obj = bpy.context.scene.blenrig_guide.arm_obj
+            obj = context.scene.blenrig_guide.active_wp_obj
+            arm_obj = context.scene.blenrig_guide.arm_obj
 
             if obj.mode != 'WEIGHT_PAINT':
                 obj.show_wire = True
@@ -5116,19 +5116,19 @@ class Operator_blenrigmirror_vp_rj_values(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH", "ARMATURE"]):
+        if (context.active_object.type in ["MESH", "ARMATURE"]):
             return True
         else:
             return False
 
     def execute(self, context):
-        guide_props = bpy.context.scene.blenrig_guide
+        guide_props = context.scene.blenrig_guide
         armobj = guide_props.arm_obj
         p_bones = armobj.pose.bones
         #Pose Mode
-        if bpy.context.active_object.type == "ARMATURE":
+        if context.active_object.type == "ARMATURE":
             bpy.ops.mirror.rj_constraints(to_side="L to R")
             bpy.ops.mirror.vp_constraints()
             try:
@@ -5139,7 +5139,7 @@ class Operator_blenrigmirror_vp_rj_values(bpy.types.Operator):
             except:
                 pass
         #Weight Paint
-        if bpy.context.active_object.type =='MESH' and bpy.context.active_object.mode=='WEIGHT_PAINT':
+        if context.active_object.type =='MESH' and context.active_object.mode=='WEIGHT_PAINT':
             bpy.ops.blenrig.toggle_weight_painting(paint_object="mesh")
             bpy.ops.mirror.rj_constraints(to_side="L to R")
             bpy.ops.mirror.vp_constraints()
@@ -5162,8 +5162,8 @@ class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
 
     def execute(self, context):
         from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup
-        guide_props = bpy.context.scene.blenrig_guide
-        joint_list = bpy.context.scene.blenrig_joint_chain_list
+        guide_props = context.scene.blenrig_guide
+        joint_list = context.scene.blenrig_joint_chain_list
         index = []
 
         for i in range(len(joint_list)):
@@ -5193,8 +5193,8 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
 
     def execute(self, context):
         from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup
-        guide_props = bpy.context.scene.blenrig_guide
-        joint_list = bpy.context.scene.blenrig_joint_chain_list
+        guide_props = context.scene.blenrig_guide
+        joint_list = context.scene.blenrig_joint_chain_list
         index = []
 
         for i in range(len(joint_list)):
@@ -5224,9 +5224,9 @@ class Operator_blenrig_select_vgroup(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False
@@ -5247,9 +5247,9 @@ class Operator_blenrig_edit_corrective_smooth_vgroup(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH"]):
             return True
         else:
             return False

@@ -18,31 +18,31 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        BlenRigPanelOptions = bpy.context.window_manager.BlenRigPanelSettings
+        BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
         if not BlenRigPanelOptions.displayContext == 'PICKER':
             return False
 
-        if not bpy.context.active_object:
+        if not context.active_object:
             return False
-        if (bpy.context.active_object.type in ["ARMATURE"]):
-            for prop in bpy.context.active_object.data.items():
+        if (context.active_object.type in ["ARMATURE"]):
+            for prop in context.active_object.data.items():
                 if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                    for prop in bpy.context.active_object.data.items():
+                    for prop in context.active_object.data.items():
                         if prop[0] == 'rig_version' and str(prop[1]) < '2.0.0':
                             return True
 
     def draw(self, context):
-        if bpy.context.mode in ["POSE", "EDIT_ARMATURE"]:
+        if context.mode in ["POSE", "EDIT_ARMATURE"]:
             global all_bones, hand_l, hand_r, arm_l, arm_r, leg_l, leg_r, foot_l, foot_r, head, torso
             layout = self.layout
-            props = bpy.context.window_manager.blenrig_6_props
-            arm = bpy.context.active_object.data
-            armobj = bpy.context.active_object
-            arm_bones = bpy.context.active_object.pose.bones
-            act_bone = bpy.context.active_pose_bone
+            props = context.window_manager.blenrig_6_props
+            arm = context.active_object.data
+            armobj = context.active_object
+            arm_bones = context.active_object.pose.bones
+            act_bone = context.active_pose_bone
 
         try:
-            selected_bones = [bone.name for bone in bpy.context.selected_pose_bones]
+            selected_bones = [bone.name for bone in context.selected_pose_bones]
         except:
             selected_bones = []
         else:
@@ -72,7 +72,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     return True
             return False
 
-        if bpy.context.mode in ["POSE", "EDIT_ARMATURE"]:
+        if context.mode in ["POSE", "EDIT_ARMATURE"]:
 
 ######### Bone groups used for Inherit Scale Checkboxes & Sensible to Selection Sliders Display
             if not all_bones:
@@ -339,7 +339,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
             col_2.alignment = 'LEFT'
             # col_2.operator("blenrig.paste_pose_flipped", text="Quick Pose Flipped")
 
-            ovlay = bpy.context.space_data.overlay
+            ovlay = context.space_data.overlay
             col_3 = animation_row.column()
             col_3.scale_x = 1
             col_3.scale_y = 1
@@ -354,7 +354,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
             col_1.separator()
 
 ################# BLENRIG PICKER BODY #############################################
-            if bpy.context.mode == "POSE":
+            if context.mode == "POSE":
 
                 if "gui_picker_body" in arm:
                     box = layout.column()
@@ -831,7 +831,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     col_spine_3.alignment = 'CENTER'
                     col_spine_3.operator("operator.spine_3_legacy", text="Spine 3")
 
-                    prop_inv = int(bpy.context.active_object.pose.bones['properties_torso'].inv_torso)
+                    prop_inv = int(context.active_object.pose.bones['properties_torso'].inv_torso)
                     if prop_inv == 1:
                         col_spine_3_inv_ctrl = col_torso.row(align = 1)
                         col_spine_3_inv_ctrl.scale_x = 0.95
@@ -2801,7 +2801,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
 
 
 ################ FACE #######################################
-            if bpy.context.mode == "POSE":
+            if context.mode == "POSE":
 
                 if "gui_picker_face" in arm:
                     box = layout.column()
@@ -3818,7 +3818,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     row.label(text="BLENRIG FACE PICKER")
 
 ########### Extra Properties
-            if bpy.context.mode == "POSE":
+            if context.mode == "POSE":
 
                 if "gui_misc" in arm:
                     box = layout.column()
@@ -4111,7 +4111,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     row.label(text="EXTRA PROPERTIES")
 
 ########### Custom Properties
-            if bpy.context.mode == "POSE":
+            if context.mode == "POSE":
 
                 if "gui_cust_props" in arm:
                     box = layout.column()
@@ -4166,7 +4166,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     row.label(text="CUSTOM PROPERTIES")
 
 ########### Muscle System box
-            if bpy.context.mode == "POSE":
+            if context.mode == "POSE":
 
                 if "gui_muscle" in arm:
                     box = layout.column()
