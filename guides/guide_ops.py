@@ -276,9 +276,6 @@ class VIEW3D_OT_blenrig_guide_reproportion(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_reproportion"
     bl_label = "Show Reproportion Guide"
 
-    modes = {'POSE', 'OBJECT'}
-    object_types = {'ARMATURE'}
-
     guide_name = 'reproportion'
 
     def init(self, context):
@@ -292,9 +289,6 @@ class VIEW3D_OT_blenrig_guide_datatransfer(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_datatransfer"
     bl_label = "Show Data Transfer Guide"
 
-    object_type = {'MESH'} # De qué tipo debe ser el objeto activo.
-    mode = {'EDIT_MESH', 'OBJECT'}   # En qué modo debe de estar.
-
     guide_name = 'datatransfer'
 
     def init(self, context):
@@ -304,9 +298,6 @@ class VIEW3D_OT_blenrig_guide_datatransfer(BlenrigGuide_BaseOperator):
 class VIEW3D_OT_blenrig_guide_mdef(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_mdef"
     bl_label = "Show Mesh Deform Guide"
-
-    object_type = {'MESH'} # De qué tipo debe ser el objeto activo.
-    mode = {'EDIT_MESH', 'OBJECT'}
 
     guide_name = 'mdef'
 
@@ -319,9 +310,6 @@ class VIEW3D_OT_blenrig_guide_lattices(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_lattices"
     bl_label = "Show Mesh Deform Guide"
 
-    object_type = {'LATTICE', 'MESH'} # De qué tipo debe ser el objeto activo. 'ARMATURE' por defecto.
-    modes = {'OBJECT', 'EDIT_LATTICE'} 
-
     guide_name = 'lattices'
 
     def init(self, context):
@@ -332,9 +320,6 @@ class VIEW3D_OT_blenrig_guide_lattices(BlenrigGuide_BaseOperator):
 class VIEW3D_OT_blenrig_guide_actions(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_actions"
     bl_label = "Show Actions Guide"
-
-    object_type = {'ARMATURE'}  # De qué tipo debe ser el objeto activo.
-    modes = {'OBJECT', 'POSE'} 
 
     guide_name = 'actions'
 
@@ -347,9 +332,6 @@ class VIEW3D_OT_blenrig_guide_weights(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_weights"
     bl_label = "Show Weight Painting Guide"
 
-    object_type = {'MESH'}
-    modes = {'OBJECT'} 
-
     guide_name = 'weights'
 
     def init(self, context):
@@ -360,9 +342,6 @@ class VIEW3D_OT_blenrig_guide_weights(BlenrigGuide_BaseOperator):
 class VIEW3D_OT_blenrig_guide_shapekeys(BlenrigGuide_BaseOperator):
     bl_idname = "view3d.blenrig_guide_shapekeys"
     bl_label = "Show Shapekeys Guide"
-
-    object_type = {'MESH'}  # De qué tipo debe ser el objeto activo.
-    mode = {'OBJECT'}
 
     guide_name = 'shapekeys'
 
