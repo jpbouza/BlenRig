@@ -31,7 +31,7 @@ def register():
     from .guide_ops import (
         VIEW3D_OT_blenrig_guide_reproportion,
         VIEW3D_OT_blenrig_guide_datatransfer,
-        VIEW3D_OT_blenrig_guide_mdef, 
+        VIEW3D_OT_blenrig_guide_mdef,
         VIEW3D_OT_blenrig_guide_lattices,
         VIEW3D_OT_blenrig_guide_actions,
         VIEW3D_OT_blenrig_guide_weights,
@@ -86,7 +86,7 @@ def unregister():
     from .guide_ops import (
         VIEW3D_OT_blenrig_guide_reproportion,
         VIEW3D_OT_blenrig_guide_datatransfer,
-        VIEW3D_OT_blenrig_guide_mdef, 
+        VIEW3D_OT_blenrig_guide_mdef,
         VIEW3D_OT_blenrig_guide_lattices,
         VIEW3D_OT_blenrig_guide_actions,
         VIEW3D_OT_blenrig_guide_weights,
@@ -145,3 +145,4 @@ def unregister():
     unregister_class(BlenrigGuideData)
     unregister_class(BlenRigBodyObj)
     unregister_class(BlenRigJointChain)
+    unregister_class(BlenRigWPBones)
