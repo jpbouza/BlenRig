@@ -52,6 +52,8 @@ class BLENRIG_PT_weights_guide(bpy.types.Panel):
             box_row = box_weight.row()
             box_row.prop(guide_props, 'guide_show_wp_bones')
             box_row.prop(guide_props.arm_obj, 'show_in_front')
+            if active_mode == 'WEIGHT_PAINT':
+                box_row.prop(active, 'show_wire')
             steps.separator()
             #Cage Ankle
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Ankle':
