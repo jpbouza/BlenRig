@@ -304,7 +304,7 @@ def WEIGHTS_Cage_Neck(operator, context):
     (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
     1],
-    'neck_1_fk', 'head_stretch', 'FRONT',
+    'neck_1_fk', 'head_stretch', 'RIGHT',
     ['neck_1_fk', 'neck_2_fk', 'neck_3_fk', 'head_def_2', 'head_def_3', 'head_def_1', 'maxi', 'head_fk',
     'neck_1_def', 'neck_2_def', 'neck_3_def', 'spine_3_def', 'clavi_def_R', 'shoulder_R', 'clavi_def_L', 'shoulder_L'],
     [27],
@@ -616,7 +616,7 @@ def WEIGHTS_Char_Cheeks(operator, context):
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'nostril_ctrl_L', 'eyelid_low_ctrl_L', 'FRONT',
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
     ['cheek_ctrl_L', 'cheek_line_def_1_L', 'cheek_def_1_3_L', 'cheek_line_def_2_L', 'cheek_def_2_3_L', 'cheek_line_def_3_L', 'cheek_def_3_3_L', 'cheek_def_4_1_L', 'cheek_rim_def_1_L',
     'eyelid_rim_low_def_1_L', 'cheek_def_4_3_L', 'cheek_def_4_2_L', 'smile_line_def_3_L', 'cheek_def_1_1_L', 'eyelid_rim_low_def_2_L', 'cheek_def_3_1_L', 'eyelid_rim_low_def_4_L',
     'eyelid_rim_low_def_3_L', 'cheek_def_2_1_L', 'nose_def_2_mid', 'nose_root_def_1_L', 'nose_side_def_3_L', 'nose_frown_def_L', 'nose_def_3_mid', 'nose_bridge_up_def_L', 'smile_line_def_2_L',
@@ -637,7 +637,7 @@ def WEIGHTS_Char_Nose(operator, context):
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'nose_base_ctrl', 'nose_bridge_ctrl_1', 'FRONT',
+    'nose_base_ctrl', 'brow_mstr_L', 'FRONT',
     ['cheek_line_def_1_L', 'cheek_def_1_3_L', 'cheek_def_2_3_L', 'nose_bridge_ctrl_2', 'nose_bridge_ctrl_1', 'eyelid_rim_low_def_1_L', 'nose_def_1_mid', 'lip_up_outer_line_def_1_L', 'lip_up_outer_line_def_2_L',
     'lip_up_outer_line_def_3_L', 'cheek_def_1_1_L', 'eyelid_rim_low_def_2_L', 'cheek_def_2_1_L', 'brow_arch_def_1_L', 'frown_low_def_L', 'nose_side_def_1_L', 'nose_def_2_mid', 'nose_root_def_1_L', 'nose_side_def_3_L',
     'nose_frown_def_L', 'nose_def_3_mid', 'nose_bridge_up_def_L', 'lip_up_outer_def_3_2_L', 'nose_def_4_mid', 'nostril_front_def_L', 'nose_bridge_low_def_L', 'nose_sill_def_L', 'nostril_low_def_L', 'lip_up_outer_def_2_2_L',
@@ -758,3 +758,12 @@ def end_of_step_action(context):
             blenrig_bones["properties_arm_R"].ik_arm_R =  0.0
             blenrig_bones["properties_arm_L"].space_hand_L =  0.0
             blenrig_bones["properties_arm_R"].space_hand_R =  0.0
+    if current_step == 'WEIGHTS_Char_Inner_Mouth':
+        try:
+            guide_props.character_head_obj.data.use_paint_mask = False
+        except:
+            pass
+        try:
+            bpy.context.scene.tool_settings.use_auto_normalize = False
+        except:
+            pass
