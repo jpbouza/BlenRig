@@ -65,6 +65,7 @@ from .ui.panels.guide_mdef_assistant import BLENRIG_PT_mdef_guide
 from .ui.panels.guide_lattices_assistant import BLENRIG_PT_lattices_guide
 from .ui.panels.guide_actions_assistant import BLENRIG_PT_actions_guide
 from .ui.panels.guide_weights_assistant import BLENRIG_PT_weights_guide
+from .ui.panels.guide_rig_settings_assistant import BLENRIG_PT_rig_settings_guide
 from .ui.panels.guide_shapekeys_assistant import BLENRIG_PT_shapekeys_guide
 from .ui.panels.bodysettings.volume_preservation_bones_movement import *
 from .ui.panels.bodysettings.ik import BLENRIG_PT_Rig_Body_settings_ik
@@ -2591,7 +2592,7 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
     contextOptions2 = [('BONESHAPES', 'BoneShapes', "BoneShapes Tools", 'POSE_HLT', 0),
                         ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
-    displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')                    
+    displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')
     ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=5, max=50, default=8)
 
 # BlenRig Armature Tools Operator
@@ -3254,6 +3255,7 @@ panels_classes = [
     BLENRIG_PT_lattices_guide,
     BLENRIG_PT_actions_guide,
     BLENRIG_PT_weights_guide,
+    BLENRIG_PT_rig_settings_guide,
     BLENRIG_PT_shapekeys_guide,
     BLENRIG_PT_Rig_Body_settings_ik,
     BLENRIG_PT_Rig_Body_settings_automated_movement,
