@@ -5,6 +5,7 @@ from . mdef.guide_mdef import GUIDE_STEPS_MDEF
 from . lattices.guide_lattices import GUIDE_STEPS_LATTICES
 from . actions.guide_actions import GUIDE_STEPS_ACTIONS
 from . weights.guide_weights import GUIDE_STEPS_WEIGHTS
+from . rig_settings.guide_rig_settings import GUIDE_STEPS_SETTINGS
 from . shapekeys.guide_shapekeys import GUIDE_STEPS_SHAPEKEYS
 
 
@@ -15,6 +16,7 @@ from . mdef.guide_mdef_actions import end_of_step_action as mdef_end_of_step_act
 from . lattices.guide_lattices_actions import end_of_step_action as lattices_end_of_step_action
 from . actions.guide_actions_actions import end_of_step_action as actions_end_of_step_action
 from . weights.guide_weights_actions import end_of_step_action as weights_end_of_step_action
+from . rig_settings.guide_rig_settings_actions import end_of_step_action as rig_settings_end_of_step_action
 from . shapekeys.guide_shapekeys_actions import end_of_step_action as shapekeys_end_of_step_action
 
 
@@ -31,6 +33,7 @@ class GuideSteps(Enum):
     LATTICES     = (GUIDE_STEPS_LATTICES    , lattices_end_of_step_action)
     ACTIONS      = (GUIDE_STEPS_ACTIONS     , actions_end_of_step_action)
     WEIGHTS      = (GUIDE_STEPS_WEIGHTS     , weights_end_of_step_action)
+    RIG_SETTINGS = (GUIDE_STEPS_SETTINGS    , rig_settings_end_of_step_action)
     SHAPEKEYS    = (GUIDE_STEPS_SHAPEKEYS   , shapekeys_end_of_step_action)
 
 

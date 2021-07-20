@@ -35,6 +35,7 @@ def register():
         VIEW3D_OT_blenrig_guide_lattices,
         VIEW3D_OT_blenrig_guide_actions,
         VIEW3D_OT_blenrig_guide_weights,
+        VIEW3D_OT_blenrig_guide_rig_settings,
         VIEW3D_OT_blenrig_guide_shapekeys
     )
     from .operator import (Operator_Transfer_VGroups,
@@ -52,6 +53,7 @@ def register():
     register_class(VIEW3D_OT_blenrig_guide_lattices)
     register_class(VIEW3D_OT_blenrig_guide_actions)
     register_class(VIEW3D_OT_blenrig_guide_weights)
+    register_class(VIEW3D_OT_blenrig_guide_rig_settings)
     register_class(VIEW3D_OT_blenrig_guide_shapekeys)
     register_class(Operator_Transfer_VGroups)
     register_class(Operator_Guide_Transfer_VGroups)
@@ -90,6 +92,7 @@ def unregister():
         VIEW3D_OT_blenrig_guide_lattices,
         VIEW3D_OT_blenrig_guide_actions,
         VIEW3D_OT_blenrig_guide_weights,
+        VIEW3D_OT_blenrig_guide_rig_settings,
         VIEW3D_OT_blenrig_guide_shapekeys
     )
     from .operator import (Operator_Transfer_VGroups,
@@ -110,6 +113,7 @@ def unregister():
     unregister_class(VIEW3D_OT_blenrig_guide_lattices)
     unregister_class(VIEW3D_OT_blenrig_guide_actions)
     unregister_class(VIEW3D_OT_blenrig_guide_weights)
+    unregister_class(VIEW3D_OT_blenrig_guide_rig_settings)
     unregister_class(VIEW3D_OT_blenrig_guide_shapekeys)
     unregister_class(Operator_Transfer_VGroups)
     unregister_class(Operator_Guide_Transfer_VGroups)

@@ -337,6 +337,15 @@ class VIEW3D_OT_blenrig_guide_weights(BlenrigGuide_BaseOperator):
     def init(self, context):
         pass
 
+''' RIG SETTINGS. '''
+class VIEW3D_OT_blenrig_guide_rig_settings(BlenrigGuide_BaseOperator):
+    bl_idname = "view3d.blenrig_guide_rig_settings"
+    bl_label = "Show Advanced Settings Guide"
+
+    guide_name = 'rig_settings'
+
+    def init(self, context):
+        pass
 
 ''' SHAPE-KEYS. '''
 class VIEW3D_OT_blenrig_guide_shapekeys(BlenrigGuide_BaseOperator):

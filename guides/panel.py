@@ -46,7 +46,8 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         button_2.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
         button_2.operator("view3d.blenrig_guide_actions", text = '5 - Show Actions Guide')
         button_2.operator("view3d.blenrig_guide_weights", text = '6 - Show Weight Painting Guide')
-        button_2.operator("view3d.blenrig_guide_shapekeys", text = '7 - Show Shapekeys Guide')
+        button_2.operator("view3d.blenrig_guide_rig_settings", text = '7 - Show Advanced Settings Guide')
+        button_2.operator("view3d.blenrig_guide_shapekeys", text = '8 - Show Shapekeys Guide')
         layout.separator()
 
         steps = layout.column(align=True)
