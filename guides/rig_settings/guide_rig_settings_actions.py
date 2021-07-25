@@ -149,13 +149,128 @@ def SETTINGS_Torso_Rotation(operator, context):
     1],
     'pelvis_ctrl', 'head_stretch', 'FRONT',
     ['torso_fk_ctrl', 'spine_1_def', 'spine_2_def', 'spine_3_def'],
-    [16, 27],
+    [7, 27],
     ['torso_fk_ctrl'])
+
+def SETTINGS_Neck_Rotation(operator, context):
+    weight_step(operator, context, 'SETTINGS_Neck_Rotation',
+    'x2', ['neck_fk_ctrl',
+    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'neck_1_fk', 'head_stretch', 'RIGHT',
+    ['neck_fk_ctrl', 'neck_1_def', 'neck_2_def', 'neck_3_def'],
+    [4, 27],
+    ['neck_fk_ctrl'])
+
+def SETTINGS_Torso_Inv_Rotation(operator, context):
+    weight_step(operator, context, 'SETTINGS_Torso_Inv_Rotation',
+    'x2', ['torso_fk_ctrl_inv',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'pelvis_ctrl', 'head_stretch', 'FRONT',
+    ['torso_fk_ctrl_inv', 'spine_1_def', 'spine_2_def', 'pelvis_def'],
+    [18, 27],
+    ['torso_fk_ctrl_inv'])
+
+def SETTINGS_Torso_Stretching(operator, context):
+    weight_step(operator, context, 'SETTINGS_Torso_Stretching',
+    'x2', ['pelvis_ctrl',
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones['pelvis_def'].length, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'pelvis_ctrl', 'head_stretch', 'FRONT',
+    ['pelvis_ctrl', 'spine_1_def', 'spine_2_def', 'spine_3_def', 'pelvis_def'],
+    [7, 27],
+    ['pelvis_ctrl'])
+
+def SETTINGS_Pelvis_Compensation(operator, context):
+    weight_step(operator, context, 'SETTINGS_Pelvis_Compensation',
+    'x2', ['pelvis_ctrl',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 33), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'pelvis_ctrl', 'head_stretch', 'FRONT',
+    ['pelvis_ctrl', 'spine_1_def', 'spine_2_def', 'spine_3_def', 'pelvis_def'],
+    [7, 27],
+    ['pelvis_ctrl'])
+
+def SETTINGS_Foot_Roll(operator, context):
+    weight_step(operator, context, 'SETTINGS_Foot_Roll',
+    'x2', ['foot_roll_ctrl_L',
+    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'foot_roll_ctrl_L', 'toe_roll_2_L', 'RIGHT',
+    ['foot_roll_ctrl_L', 'foot_def_L', 'foot_toe_1_def_L', 'foot_toe_2_def_L'],
+    [9, 27],
+    ['foot_roll_ctrl_L'])
+
+def SETTINGS_Volume_Variation(operator, context):
+    weight_step(operator, context, 'SETTINGS_Volume_Variation',
+    'x2', ['torso_fk_ctrl',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'master', 'head_stretch', 'FRONT',
+    ['head_fk', 'head_stretch', 'torso_fk_ctrl', 'pelvis_ctrl', 'sole_ctrl_L', 'fing_lit_5_toon_L', 'fing_lit_4_toon_L', 'fing_lit_3_toon_L', 'fing_ring_5_toon_L', 'fing_ring_4_toon_L',
+    'fing_ring_3_toon_L', 'fing_ind_5_toon_L', 'fing_ind_4_toon_L', 'fing_ind_3_toon_L', 'fing_mid_5_toon_L', 'fing_mid_4_toon_L', 'fing_mid_3_toon_L', 'fing_thumb_4_toon_L', 'fing_thumb_3_toon_L',
+    'fing_thumb_2_toon_L', 'hand_ik_ctrl_L', 'toe_3_toon_L', 'toe_2_toon_L', 'toe_lit_4_toon_L', 'toe_lit_3_toon_L', 'toe_big_4_toon_L', 'toe_big_3_toon_L', 'toe_fourth_5_toon_L', 'toe_fourth_3_toon_L',
+    'toe_mid_5_toon_L', 'toe_mid_3_toon_L', 'toe_ind_5_toon_L', 'toe_ind_3_toon_L', 'toe_lit_2_toon_L', 'toe_big_2_toon_L', 'toe_fourth_2_toon_L', 'toe_mid_2_toon_L', 'toe_ind_2_toon_L',
+    'sole_ctrl_L', 'elbow_toon_L', 'knee_toon_L'],
+    [0, 4, 7, 9, 13, 14, 16, 27],
+    ['torso_fk_ctrl'])
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Enable Stretchy IK
+    guide_props.arm_obj.pose.bones["properties_arm_L"].toon_arm_L =  1.0
+    guide_props.arm_obj.pose.bones["properties_leg_L"].toon_leg_L =  1.0
+
+def SETTINGS_Feet_Floor(operator, context):
+    weight_step(operator, context, 'SETTINGS_Feet_Floor',
+    'x2', ['foot_floor_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, -0.0), (1.0, 1.0, 1.0),
+    1],
+    'shin_fk_L', 'foot_floor_L', 'RIGHT',
+    ['foot_floor_L'],
+    [8, 27],
+    ['foot_floor_L'])
 
 #### END OF STEP ACTIONS ####
 
 def rig_settings_end_generic(context):
     guide_props = context.scene.blenrig_guide
+    p_bones = guide_props.arm_obj.pose.bones
 
     #Select Armature
     if context.active_object.type == 'MESH':
@@ -178,20 +293,43 @@ def rig_settings_end_generic(context):
 
     #Mirror Parameters
     try:
-        guide_props.arm_obj.pose.bones['shoulder_R']["SHLDR_AUTO_FORW_R"] = guide_props.arm_obj.pose.bones['shoulder_L']["SHLDR_AUTO_FORW_L"]
-        guide_props.arm_obj.pose.bones['shoulder_R']["SHLDR_AUTO_BACK_R"] = guide_props.arm_obj.pose.bones['shoulder_L']["SHLDR_AUTO_BACK_L"]
-        guide_props.arm_obj.pose.bones['shoulder_R']["SHLDR_AUTO_UP_R"] = guide_props.arm_obj.pose.bones['shoulder_L']["SHLDR_AUTO_UP_L"]
-        guide_props.arm_obj.pose.bones['shoulder_R']["SHLDR_AUTO_DOWN_R"] = guide_props.arm_obj.pose.bones['shoulder_L']["SHLDR_AUTO_DOWN_L"]
+        p_bones['shoulder_R']["SHLDR_AUTO_FORW_R"] = p_bones['shoulder_L']["SHLDR_AUTO_FORW_L"]
+        p_bones['shoulder_R']["SHLDR_AUTO_BACK_R"] = p_bones['shoulder_L']["SHLDR_AUTO_BACK_L"]
+        p_bones['shoulder_R']["SHLDR_AUTO_UP_R"] = p_bones['shoulder_L']["SHLDR_AUTO_UP_L"]
+        p_bones['shoulder_R']["SHLDR_AUTO_DOWN_R"] = p_bones['shoulder_L']["SHLDR_AUTO_DOWN_L"]
     except:
         pass
+    try:
+        p_bones['foot_roll_ctrl_R']["FOOT_ROLL_AMPLITUD_R"] = p_bones['foot_roll_ctrl_L']["FOOT_ROLL_AMPLITUD_L"]
+        p_bones['foot_roll_ctrl_R']["TOE_1_ROLL_START_R"] = p_bones['foot_roll_ctrl_L']["TOE_1_ROLL_START_L"]
+        p_bones['foot_roll_ctrl_R']["TOE_2_ROLL_START_R"] = p_bones['foot_roll_ctrl_L']["TOE_2_ROLL_START_L"]
+    except:
+        pass
+    try:
+        p_bones['properties_arm_R']["volume_variation_arm_R"] = p_bones['properties_arm_L']["volume_variation_arm_L"]
+        p_bones['properties_arm_R']["volume_variation_fingers_R"] = p_bones['properties_arm_L']["volume_variation_fingers_L"]
+        p_bones['properties_leg_R']["volume_variation_leg_R"] = p_bones['properties_leg_L']["volume_variation_leg_L"]
+        p_bones['properties_leg_R']["volume_variation_toes_R"] = p_bones['properties_leg_L']["volume_variation_toes_L"]
+        p_bones['properties_torso']["volume_variation_torso"] = p_bones['properties_torso']["volume_variation_torso"]
+        p_bones['properties_head']["volume_variation_neck"] = p_bones['properties_head']["volume_variation_neck"]
+        p_bones['properties_head']["volume_variation_head"] = p_bones['properties_head']["volume_variation_head"]
+    except:
+        pass
+    try:
+        p_bones["sole_ctrl_R"].constraints["Floor_Foot_R_NOREP"].offset = p_bones["sole_ctrl_L"].constraints["Floor_Foot_L_NOREP"].offset
+    except:
+        pass
+
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
     rig_settings_end_generic(context)
     guide_props = context.scene.blenrig_guide
-    blenrig_bones = guide_props.arm_obj.pose.bones
+    p_bones = guide_props.arm_obj.pose.bones
     current_step = guide_props.guide_current_step
     if current_step == 'SETTINGS_Shoulder_Movement':
-        guide_props.arm_obj.pose.bones["properties_arm_L"].ik_arm_L =  0.0
-        guide_props.arm_obj.pose.bones["properties_arm_L"].toggle_arm_ik_pole_L =  1
-
+        p_bones["properties_arm_L"].ik_arm_L =  0.0
+        p_bones["properties_arm_L"].toggle_arm_ik_pole_L =  1
+    if current_step == 'SETTINGS_Volume_Variation':
+        p_bones["properties_arm_L"].toon_arm_L =  0.0
+        p_bones["properties_leg_L"].toon_leg_L =  0.0
