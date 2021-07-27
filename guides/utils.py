@@ -623,6 +623,11 @@ def bone_local_transforms(armature, bname, transform_type):
 
 #Actions Guide Properties Functions
 
+#Drivers Update
+def drivers_update():
+    for d in bpy.context.active_object.animation_data.drivers:
+        d.driver.type = d.driver.type
+
 #Mouth Corners
 def corner_out_update(self, context):
     if not bpy.context.screen:
@@ -1095,6 +1100,7 @@ def auto_shoulder_update(self, context):
                 pbones["shoulder_R"]["SHLDR_AUTO_UP_R"] = shoulder_auto_up
                 pbones["shoulder_L"]["SHLDR_AUTO_DOWN_L"] = shoulder_auto_down
                 pbones["shoulder_R"]["SHLDR_AUTO_DOWN_R"] = shoulder_auto_down
+                drivers_update()
 
 #Foot Roll
 def foot_roll_update(self, context):
@@ -1121,6 +1127,7 @@ def foot_roll_update(self, context):
                 pbones["foot_roll_ctrl_R"]["FOOT_ROLL_AMPLITUD_R"] = foot_roll_amp
                 pbones["foot_roll_ctrl_R"]["TOE_1_ROLL_START_R"] = foot_roll_toe_1
                 pbones["foot_roll_ctrl_R"]["TOE_2_ROLL_START_R"] = foot_roll_toe_2
+                drivers_update()
 
 #Volume Variation
 def vol_var_update(self, context):
@@ -1150,6 +1157,7 @@ def vol_var_update(self, context):
                 pbones["properties_arm_R"].volume_variation_fingers_R = vol_var_fingers
                 pbones["properties_leg_R"].volume_variation_leg_R = vol_var_legs
                 pbones["properties_leg_R"].volume_variation_toes_R = vol_var_toes
+                drivers_update()
 
 #Floor Offset
 def feet_floor_update(self, context):
@@ -1206,7 +1214,93 @@ def facial_floor_update(self, context):
                 pbones["lip_up_ctrl_3_mstr_R"].constraints["Floor_Lips"].offset = lip_3_floor
 
 #Face Specials
-def face_specials_update(self, context):
+def eyelids_up_follow_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                eyelid_up_up_follow = bpy.context.scene.blenrig_guide.guide_eyelid_up_up_follow
+                eyelid_up_down_follow = bpy.context.scene.blenrig_guide.guide_eyelid_up_down_follow
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_up_ctrl_L"].EYE_UP_FOLLOW_L = eyelid_up_up_follow
+                pbones["eyelid_up_ctrl_R"].EYE_UP_FOLLOW_R = eyelid_up_up_follow
+                pbones["eyelid_up_ctrl_L"].EYE_DOWN_FOLLOW_L = eyelid_up_down_follow
+                pbones["eyelid_up_ctrl_R"].EYE_DOWN_FOLLOW_R = eyelid_up_down_follow
+                drivers_update()
+
+def eyelids_low_follow_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                eyelid_low_up_follow = bpy.context.scene.blenrig_guide.guide_eyelid_low_up_follow
+                eyelid_low_down_follow = bpy.context.scene.blenrig_guide.guide_eyelid_low_down_follow
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_low_ctrl_L"].EYE_UP_FOLLOW_L = eyelid_low_up_follow
+                pbones["eyelid_low_ctrl_R"].EYE_UP_FOLLOW_R = eyelid_low_up_follow
+                pbones["eyelid_low_ctrl_L"].EYE_DOWN_FOLLOW_L = eyelid_low_down_follow
+                pbones["eyelid_low_ctrl_R"].EYE_DOWN_FOLLOW_R = eyelid_low_down_follow
+                drivers_update()
+
+def eyelid_auto_cheek_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                eyelid_low_cheek_follow = bpy.context.scene.blenrig_guide.guide_eyelid_auto_cheek
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_low_ctrl_L"].AUTO_CHEEK_L = eyelid_low_cheek_follow
+                pbones["eyelid_low_ctrl_R"].AUTO_CHEEK_R = eyelid_low_cheek_follow
+                drivers_update()
+
+def cheek_auto_smile_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                cheek_auto_smile = bpy.context.scene.blenrig_guide.guide_cheek_auto_smile
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["cheek_ctrl_L"].AUTO_SMILE_L = cheek_auto_smile
+                pbones["cheek_ctrl_R"].AUTO_SMILE_R = cheek_auto_smile
+                drivers_update()
+
+def corner_auto_back_update(self, context):
     if not bpy.context.screen:
         return False
     if bpy.context.screen.is_animation_playing == True:
@@ -1219,32 +1313,15 @@ def face_specials_update(self, context):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
                 auto_back_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_auto_back
-                cheek_auto_smile = bpy.context.scene.blenrig_guide.guide_cheek_auto_smile
-                eyelid_up_up_follow = bpy.context.scene.blenrig_guide.guide_eyelid_up_up_follow
-                eyelid_up_down_follow = bpy.context.scene.blenrig_guide.guide_eyelid_up_down_follow
-                eyelid_low_up_follow = bpy.context.scene.blenrig_guide.guide_eyelid_low_up_follow
-                eyelid_low_down_follow = bpy.context.scene.blenrig_guide.guide_eyelid_low_down_follow
-                eyelid_low_cheek_follow = bpy.context.scene.blenrig_guide.guide_eyelid_auto_cheek
                 pbones = arm.pose.bones
 
                 #Update Properties
                 pbones["mouth_corner_L"].AUTO_BACK_L = auto_back_value
                 pbones["mouth_corner_R"].AUTO_BACK_R = auto_back_value
-                pbones["cheek_ctrl_L"].AUTO_SMILE_L = cheek_auto_smile
-                pbones["cheek_ctrl_R"].AUTO_SMILE_R = cheek_auto_smile
-                pbones["eyelid_up_ctrl_L"].EYE_UP_FOLLOW_L = eyelid_up_up_follow
-                pbones["eyelid_up_ctrl_R"].EYE_UP_FOLLOW_R = eyelid_up_up_follow
-                pbones["eyelid_up_ctrl_L"].EYE_DOWN_FOLLOW_L = eyelid_up_down_follow
-                pbones["eyelid_up_ctrl_R"].EYE_DOWN_FOLLOW_R = eyelid_up_down_follow
-                pbones["eyelid_low_ctrl_L"].EYE_UP_FOLLOW_L = eyelid_low_up_follow
-                pbones["eyelid_low_ctrl_R"].EYE_UP_FOLLOW_R = eyelid_low_up_follow
-                pbones["eyelid_low_ctrl_L"].EYE_DOWN_FOLLOW_L = eyelid_low_down_follow
-                pbones["eyelid_low_ctrl_R"].EYE_DOWN_FOLLOW_R = eyelid_low_down_follow
-                pbones["eyelid_low_ctrl_L"].AUTO_CHEEK_L = eyelid_low_cheek_follow
-                pbones["eyelid_low_ctrl_R"].AUTO_CHEEK_R = eyelid_low_cheek_follow
+                drivers_update()
 
 #Lip Shaping
-def lip_settings_update(self, context):
+def lip_rigidity_update(self, context):
     if not bpy.context.screen:
         return False
     if bpy.context.screen.is_animation_playing == True:
@@ -1256,28 +1333,12 @@ def lip_settings_update(self, context):
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 arm = bpy.context.scene.blenrig_guide.arm_obj
-                lips_motion_curvature = bpy.context.scene.blenrig_guide.guide_lips_motion_curvature
                 lip_1_rigidity = bpy.context.scene.blenrig_guide.guide_lip_1_rigidity
                 lip_2_rigidity = bpy.context.scene.blenrig_guide.guide_lip_2_rigidity
                 lip_3_rigidity = bpy.context.scene.blenrig_guide.guide_lip_3_rigidity
-                lip_1_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[0]
-                lip_2_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[0]
-                lip_3_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[0]
-                lip_1_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[1]
-                lip_2_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[1]
-                lip_3_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[1]
-                lip_1_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[2]
-                lip_2_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[2]
-                lip_3_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[2]
                 pbones = arm.pose.bones
 
                 #Update Properties
-                pbones["lip_up_line_L"].bone.bbone_easeout = lips_motion_curvature
-                pbones["lip_up_line_R"].bone.bbone_easeout = lips_motion_curvature
-                pbones["lip_zipper_line_L"].bone.bbone_easeout = lips_motion_curvature
-                pbones["lip_zipper_line_R"].bone.bbone_easeout = lips_motion_curvature
-                pbones["lip_low_line_L"].bone.bbone_easeout = lips_motion_curvature
-                pbones["lip_low_line_R"].bone.bbone_easeout = lips_motion_curvature
                 pbones["lip_up_ctrl_1_str_L"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
                 pbones["lip_up_ctrl_1_str_R"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
                 pbones["lip_low_ctrl_1_str_L"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
@@ -1290,6 +1351,54 @@ def lip_settings_update(self, context):
                 pbones["lip_up_ctrl_3_str_R"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
                 pbones["lip_low_ctrl_3_str_L"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
                 pbones["lip_low_ctrl_3_str_R"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
+
+def lip_curvature_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                lips_motion_curvature = bpy.context.scene.blenrig_guide.guide_lips_motion_curvature
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["lip_up_line_L"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_up_line_R"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_zipper_line_L"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_zipper_line_R"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_low_line_L"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_low_line_R"].bone.bbone_easeout = lips_motion_curvature
+
+def lip_override_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                lip_1_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[0]
+                lip_2_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[0]
+                lip_3_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[0]
+                lip_1_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[1]
+                lip_2_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[1]
+                lip_3_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[1]
+                lip_1_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[2]
+                lip_2_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[2]
+                lip_3_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[2]
+                pbones = arm.pose.bones
+
+                #Update Properties
                 pbones["lip_up_ctrl_1_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_1_curvature_x_override
                 pbones["lip_up_ctrl_1_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_1_curvature_y_override
                 pbones["lip_up_ctrl_1_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_1_curvature_z_override
@@ -1326,6 +1435,7 @@ def lip_settings_update(self, context):
                 pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_3_curvature_x_override
                 pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_3_curvature_y_override
                 pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_3_curvature_z_override
+                drivers_update()
 
 # Assign Actions
 
