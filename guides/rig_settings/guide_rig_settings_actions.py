@@ -438,7 +438,7 @@ def SETTINGS_Coner_Auto_Back(operator, context):
 def SETTINGS_Lips_Floor(operator, context):
     weight_step(operator, context, 'SETTINGS_Lips_Floor',
     'x2', ['mouth_ctrl',
-    (0.0, 0.0, -(bpy.data.objects["biped_blenrig"].pose.bones["lip_low_def_mid"].length)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, bpy.data.objects["biped_blenrig"].pose.bones["lip_low_def_mid"].length), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
