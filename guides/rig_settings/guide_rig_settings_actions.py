@@ -310,9 +310,6 @@ def rig_settings_end_generic(context):
         p_bones['properties_arm_R']["volume_variation_fingers_R"] = p_bones['properties_arm_L']["volume_variation_fingers_L"]
         p_bones['properties_leg_R']["volume_variation_leg_R"] = p_bones['properties_leg_L']["volume_variation_leg_L"]
         p_bones['properties_leg_R']["volume_variation_toes_R"] = p_bones['properties_leg_L']["volume_variation_toes_L"]
-        p_bones['properties_torso']["volume_variation_torso"] = p_bones['properties_torso']["volume_variation_torso"]
-        p_bones['properties_head']["volume_variation_neck"] = p_bones['properties_head']["volume_variation_neck"]
-        p_bones['properties_head']["volume_variation_head"] = p_bones['properties_head']["volume_variation_head"]
     except:
         pass
     try:
