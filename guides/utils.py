@@ -758,25 +758,6 @@ def corner_forw_update(self, context):
                 pbones["mouth_corner_L"].location[1] = prop_value
                 pbones["mouth_corner_R"].location[1] = prop_value
 
-def auto_back_update(self, context):
-    if not bpy.context.screen:
-        return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
-            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-
-                arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_auto_back
-                pbones = arm.pose.bones
-
-                #Update Properties
-                pbones["mouth_corner_L"].AUTO_BACK_L = prop_value
-                pbones["mouth_corner_R"].AUTO_BACK_R = prop_value
-
 #Jaw
 def jaw_up_update(self, context):
     if not bpy.context.screen:
@@ -1085,6 +1066,266 @@ def eyelid_in_update(self, context):
                 #Apply Bone Transform
                 pbones["eye_def_L"].rotation_euler[2] = radians(-(prop_value))
                 pbones["eye_def_R"].rotation_euler[2] = radians(prop_value)
+
+#Shoulder Automatic Movement
+def auto_shoulder_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                shoulder_auto_forw = bpy.context.scene.blenrig_guide.guide_shoulder_auto_forw
+                shoulder_auto_back = bpy.context.scene.blenrig_guide.guide_shoulder_auto_back
+                shoulder_auto_up = bpy.context.scene.blenrig_guide.guide_shoulder_auto_up
+                shoulder_auto_down = bpy.context.scene.blenrig_guide.guide_shoulder_auto_down
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["shoulder_L"]["SHLDR_AUTO_FORW_L"] = shoulder_auto_forw
+                pbones["shoulder_R"]["SHLDR_AUTO_FORW_R"] = shoulder_auto_forw
+                pbones["shoulder_L"]["SHLDR_AUTO_BACK_L"] = shoulder_auto_back
+                pbones["shoulder_R"]["SHLDR_AUTO_BACK_R"] = shoulder_auto_back
+                pbones["shoulder_L"]["SHLDR_AUTO_UP_L"] = shoulder_auto_up
+                pbones["shoulder_R"]["SHLDR_AUTO_UP_R"] = shoulder_auto_up
+                pbones["shoulder_L"]["SHLDR_AUTO_DOWN_L"] = shoulder_auto_down
+                pbones["shoulder_R"]["SHLDR_AUTO_DOWN_R"] = shoulder_auto_down
+
+#Foot Roll
+def foot_roll_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                foot_roll_amp = bpy.context.scene.blenrig_guide.guide_foot_roll_amp
+                foot_roll_toe_1 = bpy.context.scene.blenrig_guide.guide_foot_roll_toe_1
+                foot_roll_toe_2 = bpy.context.scene.blenrig_guide.guide_foot_roll_toe_2
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["foot_roll_ctrl_L"]["FOOT_ROLL_AMPLITUD_L"] = foot_roll_amp
+                pbones["foot_roll_ctrl_L"]["TOE_1_ROLL_START_L"] = foot_roll_toe_1
+                pbones["foot_roll_ctrl_L"]["TOE_2_ROLL_START_L"] = foot_roll_toe_2
+                pbones["foot_roll_ctrl_R"]["FOOT_ROLL_AMPLITUD_R"] = foot_roll_amp
+                pbones["foot_roll_ctrl_R"]["TOE_1_ROLL_START_R"] = foot_roll_toe_1
+                pbones["foot_roll_ctrl_R"]["TOE_2_ROLL_START_R"] = foot_roll_toe_2
+
+#Volume Variation
+def vol_var_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                vol_var_arms = bpy.context.scene.blenrig_guide.guide_vol_var_arms
+                vol_var_fingers = bpy.context.scene.blenrig_guide.guide_vol_var_fingers
+                vol_var_legs = bpy.context.scene.blenrig_guide.guide_vol_var_legs
+                vol_var_toes = bpy.context.scene.blenrig_guide.guide_vol_var_toes
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["properties_arm_L"].volume_variation_arm_L = vol_var_arms
+                pbones["properties_arm_L"].volume_variation_fingers_L = vol_var_fingers
+                pbones["properties_leg_L"].volume_variation_leg_L = vol_var_legs
+                pbones["properties_leg_L"].volume_variation_toes_L = vol_var_toes
+                pbones["properties_arm_R"].volume_variation_arm_R = vol_var_arms
+                pbones["properties_arm_R"].volume_variation_fingers_R = vol_var_fingers
+                pbones["properties_leg_R"].volume_variation_leg_R = vol_var_legs
+                pbones["properties_leg_R"].volume_variation_toes_R = vol_var_toes
+
+#Floor Offset
+def feet_floor_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                feet_floor = bpy.context.scene.blenrig_guide.guide_feet_floor
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["sole_ctrl_L"].constraints["Floor_Foot_L_NOREP"].offset = feet_floor
+                pbones["sole_ctrl_R"].constraints["Floor_Foot_R_NOREP"].offset = feet_floor
+
+def facial_floor_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                eyelid_1_floor = bpy.context.scene.blenrig_guide.guide_eyelid_1_floor
+                eyelid_2_floor = bpy.context.scene.blenrig_guide.guide_eyelid_2_floor
+                eyelid_3_floor = bpy.context.scene.blenrig_guide.guide_eyelid_3_floor
+                lip_1_floor = bpy.context.scene.blenrig_guide.guide_lip_1_floor
+                lip_2_floor = bpy.context.scene.blenrig_guide.guide_lip_2_floor
+                lip_3_floor = bpy.context.scene.blenrig_guide.guide_lip_3_floor
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["eyelid_low_ctrl_1_mstr_L"].constraints["Floor_Eyelids_NOREP"].offset = eyelid_1_floor
+                pbones["eyelid_low_ctrl_2_mstr_L"].constraints["Floor_Eyelids_NOREP"].offset = eyelid_2_floor
+                pbones["eyelid_low_ctrl_3_mstr_L"].constraints["Floor_Eyelids_NOREP"].offset = eyelid_3_floor
+                pbones["eyelid_low_ctrl_1_mstr_R"].constraints["Floor_Eyelids_NOREP"].offset = eyelid_1_floor
+                pbones["eyelid_low_ctrl_2_mstr_R"].constraints["Floor_Eyelids_NOREP"].offset = eyelid_2_floor
+                pbones["eyelid_low_ctrl_3_mstr_R"].constraints["Floor_Eyelids_NOREP"].offset = eyelid_3_floor
+                pbones["lip_up_ctrl_1_mstr_L"].constraints["Floor_Lips"].offset = lip_1_floor
+                pbones["lip_up_ctrl_2_mstr_L"].constraints["Floor_Lips"].offset = lip_2_floor
+                pbones["lip_up_ctrl_3_mstr_L"].constraints["Floor_Lips"].offset = lip_3_floor
+                pbones["lip_up_ctrl_1_mstr_R"].constraints["Floor_Lips"].offset = lip_1_floor
+                pbones["lip_up_ctrl_2_mstr_R"].constraints["Floor_Lips"].offset = lip_2_floor
+                pbones["lip_up_ctrl_3_mstr_R"].constraints["Floor_Lips"].offset = lip_3_floor
+
+#Face Specials
+def face_specials_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                auto_back_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_auto_back
+                cheek_auto_smile = bpy.context.scene.blenrig_guide.guide_cheek_auto_smile
+                eyelid_up_up_follow = bpy.context.scene.blenrig_guide.guide_eyelid_up_up_follow
+                eyelid_up_down_follow = bpy.context.scene.blenrig_guide.guide_eyelid_up_down_follow
+                eyelid_low_up_follow = bpy.context.scene.blenrig_guide.guide_eyelid_low_up_follow
+                eyelid_low_down_follow = bpy.context.scene.blenrig_guide.guide_eyelid_low_down_follow
+                eyelid_low_cheek_follow = bpy.context.scene.blenrig_guide.guide_eyelid_auto_cheek
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["mouth_corner_L"].AUTO_BACK_L = auto_back_value
+                pbones["mouth_corner_R"].AUTO_BACK_R = auto_back_value
+                pbones["cheek_ctrl_L"].AUTO_SMILE_L = cheek_auto_smile
+                pbones["cheek_ctrl_R"].AUTO_SMILE_R = cheek_auto_smile
+                pbones["eyelid_up_ctrl_L"].EYE_UP_FOLLOW_L = eyelid_up_up_follow
+                pbones["eyelid_up_ctrl_R"].EYE_UP_FOLLOW_R = eyelid_up_up_follow
+                pbones["eyelid_up_ctrl_L"].EYE_DOWN_FOLLOW_L = eyelid_up_down_follow
+                pbones["eyelid_up_ctrl_R"].EYE_DOWN_FOLLOW_R = eyelid_up_down_follow
+                pbones["eyelid_low_ctrl_L"].EYE_UP_FOLLOW_L = eyelid_low_up_follow
+                pbones["eyelid_low_ctrl_R"].EYE_UP_FOLLOW_R = eyelid_low_up_follow
+                pbones["eyelid_low_ctrl_L"].EYE_DOWN_FOLLOW_L = eyelid_low_down_follow
+                pbones["eyelid_low_ctrl_R"].EYE_DOWN_FOLLOW_R = eyelid_low_down_follow
+                pbones["eyelid_low_ctrl_L"].AUTO_CHEEK_L = eyelid_low_cheek_follow
+                pbones["eyelid_low_ctrl_R"].AUTO_CHEEK_R = eyelid_low_cheek_follow
+
+#Lip Shaping
+def lip_settings_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                lips_motion_curvature = bpy.context.scene.blenrig_guide.guide_lips_motion_curvature
+                lip_1_rigidity = bpy.context.scene.blenrig_guide.guide_lip_1_rigidity
+                lip_2_rigidity = bpy.context.scene.blenrig_guide.guide_lip_2_rigidity
+                lip_3_rigidity = bpy.context.scene.blenrig_guide.guide_lip_3_rigidity
+                lip_1_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[0]
+                lip_2_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[0]
+                lip_3_curvature_x_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[0]
+                lip_1_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[1]
+                lip_2_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[1]
+                lip_3_curvature_y_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[1]
+                lip_1_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_1_curvature_override[2]
+                lip_2_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_2_curvature_override[2]
+                lip_3_curvature_z_override = bpy.context.scene.blenrig_guide.guide_lip_3_curvature_override[2]
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["lip_up_line_L"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_up_line_R"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_zipper_line_L"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_zipper_line_R"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_low_line_L"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_low_line_R"].bone.bbone_easeout = lips_motion_curvature
+                pbones["lip_up_ctrl_1_str_L"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
+                pbones["lip_up_ctrl_1_str_R"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
+                pbones["lip_low_ctrl_1_str_L"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
+                pbones["lip_low_ctrl_1_str_R"].constraints["Limit Distance_NOREP"].influence = lip_1_rigidity
+                pbones["lip_up_ctrl_2_str_L"].constraints["Limit Distance_NOREP"].influence = lip_2_rigidity
+                pbones["lip_up_ctrl_2_str_R"].constraints["Limit Distance_NOREP"].influence = lip_2_rigidity
+                pbones["lip_low_ctrl_2_str_L"].constraints["Limit Distance_NOREP"].influence = lip_2_rigidity
+                pbones["lip_low_ctrl_2_str_R"].constraints["Limit Distance_NOREP"].influence = lip_2_rigidity
+                pbones["lip_up_ctrl_3_str_L"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
+                pbones["lip_up_ctrl_3_str_R"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
+                pbones["lip_low_ctrl_3_str_L"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
+                pbones["lip_low_ctrl_3_str_R"].constraints["Limit Distance_NOREP"].influence = lip_3_rigidity
+                pbones["lip_up_ctrl_1_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_1_curvature_x_override
+                pbones["lip_up_ctrl_1_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_1_curvature_y_override
+                pbones["lip_up_ctrl_1_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_1_curvature_z_override
+                pbones["lip_low_ctrl_1_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_1_curvature_x_override
+                pbones["lip_low_ctrl_1_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_1_curvature_y_override
+                pbones["lip_low_ctrl_1_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_1_curvature_z_override
+                pbones["lip_up_ctrl_1_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_1_curvature_x_override
+                pbones["lip_up_ctrl_1_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_1_curvature_y_override
+                pbones["lip_up_ctrl_1_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_1_curvature_z_override
+                pbones["lip_low_ctrl_1_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_1_curvature_x_override
+                pbones["lip_low_ctrl_1_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_1_curvature_y_override
+                pbones["lip_low_ctrl_1_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_1_curvature_z_override
+                pbones["lip_up_ctrl_2_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_2_curvature_x_override
+                pbones["lip_up_ctrl_2_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_2_curvature_y_override
+                pbones["lip_up_ctrl_2_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_2_curvature_z_override
+                pbones["lip_low_ctrl_2_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_2_curvature_x_override
+                pbones["lip_low_ctrl_2_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_2_curvature_y_override
+                pbones["lip_low_ctrl_2_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_2_curvature_z_override
+                pbones["lip_up_ctrl_2_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_2_curvature_x_override
+                pbones["lip_up_ctrl_2_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_2_curvature_y_override
+                pbones["lip_up_ctrl_2_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_2_curvature_z_override
+                pbones["lip_low_ctrl_2_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_2_curvature_x_override
+                pbones["lip_low_ctrl_2_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_2_curvature_y_override
+                pbones["lip_low_ctrl_2_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_2_curvature_z_override
+                pbones["lip_up_ctrl_3_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_3_curvature_x_override
+                pbones["lip_up_ctrl_3_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_3_curvature_y_override
+                pbones["lip_up_ctrl_3_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_3_curvature_z_override
+                pbones["lip_low_ctrl_3_mstr_L"]["CORNER_FOLLOW_X_L"] = lip_3_curvature_x_override
+                pbones["lip_low_ctrl_3_mstr_L"]["CORNER_FOLLOW_Y_L"] = lip_3_curvature_y_override
+                pbones["lip_low_ctrl_3_mstr_L"]["CORNER_FOLLOW_Z_L"] = lip_3_curvature_z_override
+                pbones["lip_up_ctrl_3_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_3_curvature_x_override
+                pbones["lip_up_ctrl_3_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_3_curvature_y_override
+                pbones["lip_up_ctrl_3_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_3_curvature_z_override
+                pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_X_R"] = lip_3_curvature_x_override
+                pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_Y_R"] = lip_3_curvature_y_override
+                pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_3_curvature_z_override
 
 # Assign Actions
 

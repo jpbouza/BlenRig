@@ -50,7 +50,7 @@ class BlenrigGuideData(PropertyGroup):
             ),
             name="Mapping", default='POLYINTERP_VNORPROJ')
 
-## Actions Properties ##
+## Rig Settings Properties ##
 
     #Mouth Corners
     guide_mouth_corner_out : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
@@ -82,11 +82,6 @@ class BlenrigGuideData(PropertyGroup):
     description="Define the Forwards Limit of the Character's Mouth Corners",
     update=corner_forw_update,
     name="Mouth Corner Forwards Limit"
-    )
-    guide_auto_back : FloatProperty(default=0.000, min=-1000.000, max=1000.000, precision=3,
-    description="Define how much the Mouth Corners move Backwards when they move Outwards with Mouth_Ctrl, representing the underlying volume of the teeth",
-    update=auto_back_update,
-    name="Mouth Corner Auto Back"
     )
     #Jaw
     guide_jaw_up : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
@@ -165,6 +160,172 @@ class BlenrigGuideData(PropertyGroup):
     description="Define the maximum amount of Inwards Rotation of the Eye",
     update=eyelid_in_update,
     name="Eyelid In Limit"
+    )
+    #Shoulder Automatic Movement
+    guide_shoulder_auto_forw : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Shoulder Automatic Forwards Rotation on Arm movement",
+    update=auto_shoulder_update,
+    name="Shoulder Forwards"
+    )
+    guide_shoulder_auto_back : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Shoulder Automatic Backwards Rotation on Arm movement",
+    update=auto_shoulder_update,
+    name="Shoulder Backwards"
+    )
+    guide_shoulder_auto_up : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Shoulder Automatic Upwards Rotation on Arm movement",
+    update=auto_shoulder_update,
+    name="Shoulder Upwards"
+    )
+    guide_shoulder_auto_down : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Shoulder Automatic Downwards Rotation on Arm movement",
+    update=auto_shoulder_update,
+    name="Shoulder Downwards"
+    )
+    #Foot Roll
+    guide_foot_roll_amp : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Foot Roll Controllers Rotation Range",
+    update=foot_roll_update,
+    name="Foot Roll Controller Rotation"
+    )
+    guide_foot_roll_toe_1 : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Angle for toe 1 to start rolling",
+    update=foot_roll_update,
+    name="Toe 1 Rotation Start"
+    )
+    guide_foot_roll_toe_2 : FloatProperty(default=0.000, min=0.000, max=180.000, precision=3,
+    description="Angle for toe 2 to start rolling",
+    update=foot_roll_update,
+    name="Toe 2 Rotation Start"
+    )
+    #Volume Variation
+    guide_vol_var_arms : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Stretch & Squash Volume Variation",
+    update=vol_var_update,
+    name="Arms Volume Variation"
+    )
+    guide_vol_var_fingers : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Stretch & Squash Volume Variation",
+    update=vol_var_update,
+    name="Fingers Volume Variation"
+    )
+    guide_vol_var_legs : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Stretch & Squash Volume Variation",
+    update=vol_var_update,
+    name="Legs Volume Variation"
+    )
+    guide_vol_var_toes : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
+    description="Stretch & Squash Volume Variation",
+    update=vol_var_update,
+    name="Toes Volume Variation"
+    )
+    #Floor Offset
+    guide_feet_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Feet Floor Offset Value",
+    update=feet_floor_update,
+    name="Feet Floor Offset"
+    )
+    guide_eyelid_1_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Eyelid 1 Floor Offset Value",
+    update=facial_floor_update,
+    name="Eyelid 1 Floor Offset"
+    )
+    guide_eyelid_2_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Eyelid 2 Floor Offset Value",
+    update=facial_floor_update,
+    name="Eyelid 2 Floor Offset"
+    )
+    guide_eyelid_3_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Eyelid 3 Floor Offset Value",
+    update=facial_floor_update,
+    name="Eyelid 3 Floor Offset"
+    )
+    guide_lip_1_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Lip 1 Floor Offset Value",
+    update=facial_floor_update,
+    name="Lip 1 Floor Offset"
+    )
+    guide_lip_2_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Lip 2 Floor Offset Value",
+    update=facial_floor_update,
+    name="Lip 2 Floor Offset"
+    )
+    guide_lip_3_floor : FloatProperty(default=0.000, min=-10.000, max=10.000, precision=3,
+    description="Lip 3 Floor Offset Value",
+    update=facial_floor_update,
+    name="Lip 3 Floor Offset"
+    )
+    #Facial Specials
+    guide_mouth_corner_auto_back : FloatProperty(default=0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define how much the Mouth Corners move Backwards when they move Outwards with Mouth_Ctrl, representing the underlying volume of the teeth",
+    update=face_specials_update,
+    name="Mouth Corner Auto Back"
+    )
+    guide_cheek_auto_smile : FloatProperty(default=0.000, min=-0.000, max=1.000, precision=3,
+    description="Define how much the Cheek raises when the character smiles",
+    update=face_specials_update,
+    name="Cheek Smile Following Rate"
+    )
+    guide_eyelid_up_up_follow : FloatProperty(default=0.000, min=-0.000, max=10.000, precision=3,
+    description="Define how much the Upper Eyelid follows the upwards movement of the Eye",
+    update=face_specials_update,
+    name="Upper Eylid Up Follow"
+    )
+    guide_eyelid_up_down_follow : FloatProperty(default=0.000, min=-0.000, max=10.000, precision=3,
+    description="Define how much the Upper Eyelid follows the downwards movement of the Eye",
+    update=face_specials_update,
+    name="Upper Eylid Down Follow"
+    )
+    guide_eyelid_low_up_follow : FloatProperty(default=0.000, min=-0.000, max=10.000, precision=3,
+    description="Define how much the Lower Eyelid follows the upwards movement of the Eye",
+    update=face_specials_update,
+    name="Lower Eylid Up Follow"
+    )
+    guide_eyelid_low_down_follow : FloatProperty(default=0.000, min=-0.000, max=10.000, precision=3,
+    description="Define how much the Lower Eyelid follows the downwards movement of the Eye",
+    update=face_specials_update,
+    name="Lower Eylid Down Follow"
+    )
+    guide_eyelid_auto_cheek : FloatProperty(default=0.000, min=-0.000, max=10.000, precision=3,
+    description="Define how much the Lower Eyelid follows the Upwards movement of the Cheek",
+    update=face_specials_update,
+    name="Lower Eylid Cheek Follow"
+    )
+    #Lip Shaping
+    guide_lips_motion_curvature : FloatProperty(default=0.000, min=-5.000, max=5.000, precision=3,
+    description="Define the Curvature of the lips when they move",
+    update=lip_settings_update,
+    name="Lips Curvature"
+    )
+    guide_lip_1_rigidity : FloatProperty(default=0.000, min=0.000, max=1.000, precision=3,
+    description="Define how much the joints of the lip stretch towards the mouth corner",
+    update=lip_settings_update,
+    name="Lip 1 Rigidity"
+    )
+    guide_lip_2_rigidity : FloatProperty(default=0.000, min=0.000, max=1.000, precision=3,
+    description="Define how much the joints of the lip stretch towards the mouth corner",
+    update=lip_settings_update,
+    name="Lip 2 Rigidity"
+    )
+    guide_lip_3_rigidity : FloatProperty(default=0.000, min=0.000, max=1.000, precision=3,
+    description="Define how much the joints of the lip stretch towards the mouth corner",
+    update=lip_settings_update,
+    name="Lip 3 Rigidity"
+    )
+    guide_lip_1_curvature_override : FloatVectorProperty(default=(0.0, 0.0, 0.0), min=0.000, max=100.000, precision=3,
+    description="Tweak value (XYZ) to override the default curvature of the lips",
+    update=lip_settings_update,
+    name="Lip 1 motion Override"
+    )
+    guide_lip_2_curvature_override : FloatVectorProperty(default=(0.0, 0.0, 0.0), min=0.000, max=100.000, precision=3,
+    description="Tweak value (XYZ) to override the default curvature of the lips",
+    update=lip_settings_update,
+    name="Lip 2 motion Override"
+    )
+    guide_lip_3_curvature_override : FloatVectorProperty(default=(0.0, 0.0, 0.0), min=0.000, max=100.000, precision=3,
+    description="Tweak value (XYZ) to override the default curvature of the lips",
+    update=lip_settings_update,
+    name="Lip 3 motion Override"
     )
 ## Weights Properties ##
     #Bone to transform
