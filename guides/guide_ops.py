@@ -5,7 +5,7 @@ from mathutils import Vector
 from bpy.props import IntProperty
 
 from . draw import draw_callback_px
-from . utils import set_mode, inside, get_armature_object, load_guide_image, hide_image, get_armature_object
+from . utils import set_mode, inside, get_armature_object, load_guide_image, get_armature_object
 from . traductor import texts_dict
 from . guides import GuideSteps
 
@@ -51,6 +51,9 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             return False
         if cls.modes and ctx.mode not in cls.modes:
             return False
+        if cls.instance:
+            print("WARN! Trying to open a new Blenrig Guide instance when there's one active instance")
+            return False
         return True
 
     # Funcion donde se inicializaran cosas especificas para cada guia.
@@ -64,6 +67,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             return ModalReturn.CANCEL()
 
         context.scene.blenrig_guide.obj = context.active_object
+        self.timer = None
 
         self.init(context)
 
@@ -124,26 +128,19 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         return ModalReturn.RUN()
 
     ''' LOAD-STEP FUNCTIONS. '''
-    def load_step_imagen(self, context, image):
-        self.multi_image = isinstance(image, tuple)
+    def load_step_imagen(self, context, step_image):
+        guide_props = context.scene.blenrig_guide
+        # Borramos las imagenes del contenedor de imagenes de la guía...
+        guide_props.clear_images()
+        # Vemos si tenemos multiples imagenes comprobando si es un tuple o no "(imagen1, imagen2, imagen3,...)"
+        self.multi_image = isinstance(step_image, tuple)
         if self.multi_image:
-            self.image = []
-            for name in image:
-                img = load_guide_image(self.guide_name, name)
-                if img:
-                    hide_image(img)
-                    self.image.append(img)
-            self.image_index = 0
-            self.max_image_index = len(self.image) - 1
-            if self.max_image_index != -1:
-                self.image[0].gl_load()
+            for name in step_image:
+                guide_props.add_image(load_guide_image(self.guide_name, name, True))
             self.timer = context.window_manager.event_timer_add(2.0, window=context.window)
             #print("Create Timer")
         else:
-            self.image = load_guide_image(self.guide_name, image)
-            if self.image:
-                hide_image(self.image)
-                self.image.gl_load()
+            guide_props.add_image(load_guide_image(self.guide_name, step_image, True))
 
     def load_step(self, context, step: int) -> bool:
         if step < 0 or step > self.max_step_index:
@@ -153,7 +150,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             self.button_text = 'Close'
         self.next_button_enabled = step != self.max_step_index
         self.prev_button_enabled = step != 0
-        if hasattr(self, 'timer') and self.timer:
+        if self.timer:
             context.window_manager.event_timer_remove(self.timer)
             #print("Remove Timer")
         step_data = self.guide_steps[self.step]
@@ -193,9 +190,11 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
     # Cuando el Modal finaliza.
     def finish(self, context=bpy.context):
+        if not getattr(context, 'scene', None):
+            context = bpy.context
         self.end_of_step_action(context)
         self.__class__.instance = None
-        if hasattr(self, 'timer') and self.timer:
+        if self.timer:
             context.window_manager.event_timer_remove(self.timer)
         bpy.types.SpaceView3D.draw_handler_remove(self._handle, 'WINDOW')
         # Recover temporal changes.
@@ -217,11 +216,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         # Para cazar eventos del timer para el cambio de imagen.
         if event.type == 'TIMER':
             if self.multi_image:
-                if self.image_index == self.max_image_index:
-                    self.image_index = 0
-                else:
-                    self.image_index += 1
-                self.image[self.image_index].gl_load()
+                context.scene.blenrig_guide.load_next_image()
             return ModalReturn.RUN()
 
         # IGNORAR: eventos que no sean left-click.

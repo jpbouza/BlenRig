@@ -1,25 +1,61 @@
 import bpy
-from bpy.types import PropertyGroup, Object
+from bpy.types import PropertyGroup, Object, Image
 from bpy.props import *
 from . traductor import languages
 from . utils import *
 
-class BlenRigBodyObj(bpy.types.PropertyGroup):
+class BlenRigBodyObj(PropertyGroup):
     character_body_obj : PointerProperty(type=Object)
 
-class BlenRigJointChain(bpy.types.PropertyGroup):
+class BlenRigJointChain(PropertyGroup):
     joint : StringProperty('')
     vgroup : StringProperty('')
 
-class BlenRigWPBones(bpy.types.PropertyGroup):
+class BlenRigWPBones(PropertyGroup):
     bone : StringProperty('')
 
+class BlenrigGuideImages(PropertyGroup):
+    image : PointerProperty(type=Image)
+
 class BlenrigGuideData(PropertyGroup):
+    # TODO: Port to PyGPU.
+    def load_image(self, idx: int = 0):
+        if idx < len(self.images):
+            img = self.images[idx].image
+            if img:
+                img.gl_load()
+                self.active_image = img
+
+    def load_next_image(self):
+        if self.image_index == (len(self.images)-1):
+            self.image_index = 0
+        else:
+            self.image_index += 1
+        self.load_image(self.image_index)
+    
+    def add_image(self, img: Image = None):
+        if not img or not isinstance(img, Image):
+            return
+        if not self.active_image:
+            img.gl_load()
+            self.active_image = img
+        container = self.images.add()
+        container.image = img
+
+    def clear_images(self):
+        while self.images:
+            self.images.remove(0)
+        self.active_image = None
+        self.image_index = 0
+
     language : EnumProperty(
         items=languages,
         name="Language"
     )
     dpi : IntProperty(default=72, min=72, max=300, name="Screen DPI")
+    active_image : PointerProperty(type=Image)
+    image_index : IntProperty(default=0)
+    images : CollectionProperty(type=BlenrigGuideImages)
     image_scale : FloatProperty(default=1, min=0.5, max=4, name="Image Scale")
     show_steps : BoolProperty(default=False, name="Show Steps")
     guide_current_step : StringProperty('')

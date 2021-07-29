@@ -6,6 +6,9 @@ def get_img_verts(x,y,w,h): return ((x,y),(x+w,y),(x+w,y+h),(x,y+h))
 shader = gpu.shader.from_builtin('2D_IMAGE')
 
 def Draw_Image(p,s,i):
+    if not i:
+        print("ERROR: Draw_Image -> Invalid Image!")
+        return
     if i.gl_touch():
         raise Exception()
     batch = batch_for_shader(

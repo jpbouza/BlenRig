@@ -1,27 +1,13 @@
 import bpy
 from ...guides.guide_ops import VIEW3D_OT_blenrig_guide_datatransfer
+from . assistant_base import BLENRIG_PT_guide_assistant
 
 ####### Data Transfer assistant Guide
 
-class BLENRIG_PT_datatransfer_guide(bpy.types.Panel):
+class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
     bl_label = "Data Transfer Assistant Guide"
     bl_idname = "BLENRIG_PT_datatransfer_guide"
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_options = {"HIDE_HEADER",}
-
-
-    @classmethod
-    def poll(cls, context):
-        BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
-        if not BlenRigPanelOptions.displayContext == 'GUIDES':
-            return False
-
-        obj = context.object
-        valid_types = {'POSE','ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE', 'EDIT_ARMATURE'}
-
-        return obj or obj.type in valid_types
 
     def draw(self, context):
         layout = self.layout

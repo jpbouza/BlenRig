@@ -13,7 +13,11 @@ from . utils import spacecoordstoscreencoords, get_armature_object
 def draw_callback_px(self, context):
     if self.area != context.area:
         return
-    mw = get_armature_object(context).matrix_world
+    arm_obj = get_armature_object(context)
+    if not arm_obj:
+        return
+    guide_props = context.scene.blenrig_guide
+    mw = arm_obj.matrix_world
     color = (1, 0, 0, 1)
     for b in self.bones_to_display:
         # OLD: mw @ b.matrix @ b.location
@@ -38,7 +42,7 @@ def draw_callback_px(self, context):
     # Imagen.
     bgl.glEnable(bgl.GL_BLEND)
     Draw_Rectangle(self.widget_pos+Vector((0, self.text_box_height)), self.image_size, (0, 0, 0, .9))
-    Draw_Image(self.widget_pos+Vector((5, self.text_box_height+5)), self.image_size-Vector((10, 10)), self.image if not self.multi_image else self.image[self.image_index])
+    Draw_Image(self.widget_pos+Vector((5, self.text_box_height+5)), self.image_size-Vector((10, 10)), guide_props.active_image)
 
     # Caja de texto.
     s = Vector((self.widget_size.x, self.text_box_height))

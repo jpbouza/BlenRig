@@ -1,38 +1,13 @@
 import bpy
 from ...guides.guide_ops import VIEW3D_OT_blenrig_guide_reproportion
+from . assistant_base import BLENRIG_PT_guide_assistant
 
 ####### Repoportion assistant Guide
 
-class BLENRIG_PT_reproportion_guide(bpy.types.Panel):
+class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
     bl_label = "Repoportion Assistant Guide"
     bl_idname = "BLENRIG_PT_reproportion_guide"
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_options = {"HIDE_HEADER",}
-
-
-    @classmethod
-    def poll(cls, context):
-        BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
-        if not BlenRigPanelOptions.displayContext == 'GUIDES':
-            return False
-        # if not context.active_object:
-        #     return False
-
-        # for prop in context.active_object.data.items():
-        #     if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-        #         for prop in context.active_object.data.items():
-        #             if prop[0] == 'rig_version' and str(prop[1]) >= '2.0.0':
-        #                 return True
-        #     else:
-        #         return True
-
-        obj = context.object
-        valid_types = {'POSE','ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE', 'EDIT_ARMATURE'}
-
-        return obj or obj.type in valid_types
-
 
     def draw(self, context):
         layout = self.layout

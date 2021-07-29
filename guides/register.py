@@ -13,10 +13,11 @@
 import bpy
 
 def register():
-    from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
+    from .properties import BlenrigGuideImages, BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
     from bpy.types import Scene as scn
     from bpy.props import PointerProperty as Pointer
     from bpy.utils import register_class
+    register_class(BlenrigGuideImages)
     register_class(BlenrigGuideData)
     scn.blenrig_guide = Pointer(type=BlenrigGuideData, name="Blenrig Guide")
     register_class(BlenRigBodyObj)
@@ -140,13 +141,14 @@ def unregister():
     unregister_class(Operator_blenrig_wp_joint_chain_down)
     unregister_class(Operator_blenrig_select_vgroup)
     unregister_class(Operator_blenrig_edit_corrective_smooth_vgroup)
-    from .properties import BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
+    from .properties import BlenrigGuideImages, BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones
     from bpy.types import Scene as scn
     del scn.blenrig_guide
     del scn.blenrig_character_body_obj
     del scn.blenrig_joint_chain_list
     del scn.blenrig_wp_bones
     unregister_class(BlenrigGuideData)
+    unregister_class(BlenrigGuideImages)
     unregister_class(BlenRigBodyObj)
     unregister_class(BlenRigJointChain)
     unregister_class(BlenRigWPBones)
