@@ -4451,6 +4451,75 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars_shapekeys(active_driver, 'var_close', keys_name, 'mouth_close_up')
                 add_mod_generator_location(active_driver, 1)
 
+    #Mouth Frown to the Side
+    def mouth_frown_side_L(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_vars_shapekeys, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location, add_mod_generator_location_offset
+
+        #Add Shapekeys
+        add_shapekey(context, 'mouth_frown_side_L')
+        add_shapekey(context, 'mouth_frown_side__corner_in_L')
+        add_shapekey(context, 'mouth_frown_side__corner_out_L')
+        add_shapekey(context, 'mouth_frown_side_R')
+        add_shapekey(context, 'mouth_frown_side__corner_in_R')
+        add_shapekey(context, 'mouth_frown_side__corner_out_R')
+
+        #Add Drivers
+        ob = context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            keys_name = ob.data.shape_keys.name
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
+            pbones = blenrig_arm.pose.bones
+
+            #Skip if Driver already present
+            #mouth_frown_side_L
+            if check_shapekey_driver('mouth_frown_side_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_mstr_ik', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+             #mouth_frown_side__corner_in_L
+            if check_shapekey_driver('mouth_frown_side__corner_in_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_in_L'], 'value', 'SCRIPTED', 'var_in * var_frown')
+                add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_L')
+                add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_L')
+                add_mod_generator_location(active_driver, 1)
+             #mouth_frown_side__corner_out_L
+            if check_shapekey_driver('mouth_frown_side__corner_out_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_out_L'], 'value', 'SCRIPTED', 'var_out * var_frown')
+                add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_L')
+                add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_L')
+                add_mod_generator_location(active_driver, 1)
+            #mouth_frown_side_R
+            if check_shapekey_driver('mouth_frown_side_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_mstr_ik', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+             #mouth_frown_side__corner_in_R
+            if check_shapekey_driver('mouth_frown_side__corner_in_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_in_R'], 'value', 'SCRIPTED', 'var_in * var_frown')
+                add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_R')
+                add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_R')
+                add_mod_generator_location(active_driver, 1)
+             #mouth_frown_side__corner_out_R
+            if check_shapekey_driver('mouth_frown_side__corner_out_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_out_R'], 'value', 'SCRIPTED', 'var_out * var_frown')
+                add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_R')
+                add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_R')
+                add_mod_generator_location(active_driver, 1)
+
     Forehead_Frown_Shapekeys: bpy.props.BoolProperty(default=True)
     Eyebrows_Shapekeys: bpy.props.BoolProperty(default=True)
     Eyelids_Shapekeys: bpy.props.BoolProperty(default=True)
@@ -4461,6 +4530,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
     Mouth_U_Shapekeys: bpy.props.BoolProperty(default=True)
     Mouth_M_Shapekeys: bpy.props.BoolProperty(default=True)
     Mouth_Open_Shapekeys: bpy.props.BoolProperty(default=True)
+    Mouth_Forwn_Side_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
         if self.Forehead_Frown_Shapekeys:
@@ -4493,6 +4563,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             self.M(context)
         if self.Mouth_Open_Shapekeys:
             self.mouth_open(context)
+        if self.Mouth_Forwn_Side_Shapekeys:
+            self.mouth_frown_side_L(context)
         return {"FINISHED"}
 
 class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
@@ -4952,28 +5024,52 @@ class Operator_blenrig_mirror_active_shapekey_driver(bpy.types.Operator):
         active_shapekey = ob.active_shape_key.name
         if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
             shapekeys = ob.data.shape_keys.key_blocks
-
-            for driver in ob.data.shape_keys.animation_data.drivers:
-                d_path = driver.data_path
-                if d_path == 'key_blocks["' + active_shapekey + '"].value':
-                    for var in driver.driver.variables:
-                        if var.type == 'TRANSFORMS':
-                            target = var.targets[0]
-                            #Transform
-                            if target.transform_type == transform:
-                                for mod in driver.modifiers:
-                                    if mod.type == 'GENERATOR':
-                                        co_1_L = mod.coefficients[1]
-                                        #Look for _R
-                                        for shape_R in shapekeys:
-                                            if shape_R.name[0:-2] == active_shapekey[0:-2]:
-                                                for driver in ob.data.shape_keys.animation_data.drivers:
-                                                    d_path = driver.data_path
-                                                    if d_path == 'key_blocks["' + shape_R.name + '"].value':
-                                                        for mod_R in driver.modifiers:
-                                                            if mod_R.type == 'GENERATOR':
-                                                                mod_R.coefficients[1] = factor * co_1_L
-
+            #L
+            if active_shapekey.endswith('_L'):
+                for driver in ob.data.shape_keys.animation_data.drivers:
+                    d_path = driver.data_path
+                    if d_path == 'key_blocks["' + active_shapekey + '"].value':
+                        for var in driver.driver.variables:
+                            if var.type == 'TRANSFORMS':
+                                target = var.targets[0]
+                                #Transform
+                                if target.transform_type == transform:
+                                    for mod in driver.modifiers:
+                                        if mod.type == 'GENERATOR':
+                                            co_1_act = mod.coefficients[1]
+                                            #Look for opposite side
+                                            for shape_mirror in shapekeys:
+                                                if shape_mirror.name.endswith('_R'):
+                                                    if shape_mirror.name[0:-2] == active_shapekey[0:-2]:
+                                                        for driver in ob.data.shape_keys.animation_data.drivers:
+                                                            d_path_mirror = driver.data_path
+                                                            if d_path_mirror == 'key_blocks["' + shape_mirror.name + '"].value':
+                                                                for mod_mirror in driver.modifiers:
+                                                                    if mod_mirror.type == 'GENERATOR':
+                                                                        mod_mirror.coefficients[1] = factor * co_1_act
+            #R
+            if active_shapekey.endswith('_R'):
+                for driver in ob.data.shape_keys.animation_data.drivers:
+                    d_path = driver.data_path
+                    if d_path == 'key_blocks["' + active_shapekey + '"].value':
+                        for var in driver.driver.variables:
+                            if var.type == 'TRANSFORMS':
+                                target = var.targets[0]
+                                #Transform
+                                if target.transform_type == transform:
+                                    for mod in driver.modifiers:
+                                        if mod.type == 'GENERATOR':
+                                            co_1_act = mod.coefficients[1]
+                                            #Look for opposite side
+                                            for shape_mirror in shapekeys:
+                                                if shape_mirror.name.endswith('_L'):
+                                                    if shape_mirror.name[0:-2] == active_shapekey[0:-2]:
+                                                        for driver in ob.data.shape_keys.animation_data.drivers:
+                                                            d_path_mirror = driver.data_path
+                                                            if d_path_mirror == 'key_blocks["' + shape_mirror.name + '"].value':
+                                                                for mod_mirror in driver.modifiers:
+                                                                    if mod_mirror.type == 'GENERATOR':
+                                                                        mod_mirror.coefficients[1] = factor * co_1_act
     def execute(self, context):
         self.mirror_coefficient(context, 'LOC_Y', 1)
         self.mirror_coefficient(context, 'LOC_Z', 1)

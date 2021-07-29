@@ -693,6 +693,8 @@ def corner_up_update(self, context):
                 #Update Properties
                 pbones["mouth_corner_L"].UP_LIMIT_L = prop_value
                 pbones["mouth_corner_R"].UP_LIMIT_R = prop_value
+                pbones["mouth_ctrl"].SMILE_LIMIT = prop_value
+                drivers_update()
                 #Apply Bone Transform
                 pbones["mouth_corner_L"].location[2] = prop_value
                 pbones["mouth_corner_R"].location[2] = prop_value
@@ -708,13 +710,15 @@ def corner_down_update(self, context):
         for prop in bpy.context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
-                arm = bpy.context.scene.blenrig_guide.arm_obj
-                prop_value = bpy.context.scene.blenrig_guide.guide_mouth_corner_down
+                guide_props = bpy.context.scene.blenrig_guide
+                arm = guide_props.arm_obj
+                prop_value = guide_props.guide_mouth_corner_down
                 pbones = arm.pose.bones
 
                 #Update Properties
                 pbones["mouth_corner_L"].DOWN_LIMIT_L = prop_value
                 pbones["mouth_corner_R"].DOWN_LIMIT_R = prop_value
+                pbones["mouth_ctrl"].constraints["Limit Rotation_NOREP"].min_y = radians(-90 * guide_props.guide_mouth_corner_up / guide_props.guide_mouth_corner_down)
                 #Apply Bone Transform
                 pbones["mouth_corner_L"].location[2] = -(prop_value)
                 pbones["mouth_corner_R"].location[2] = -(prop_value)
