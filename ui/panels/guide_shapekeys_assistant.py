@@ -778,4 +778,5 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 row_shape = box_pose.row()
                 row_shape.alignment = 'CENTER'
                 row_shape.label(text=guide_props.active_shp_obj.active_shape_key.name.upper())
+                box_pose.operator("blenrig.update_shapekey_driver", text='Update Driver with Current Pose')
 
