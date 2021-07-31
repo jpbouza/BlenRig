@@ -13,6 +13,6 @@ class BLENRIG_PT_guide_assistant(Panel):
             return False
         if not context.object:
             return False
-        if context.object.type not in {'ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE', 'EDIT_ARMATURE'}:
-            return False
-        return context.scene.blenrig_guide.arm_obj
+        obj = context.object
+        valid_types = {'POSE','ARAMTURE', 'MESH', 'LATTICE', 'CURVE', 'SURFACE', 'EDIT_ARMATURE'}
+        return obj or obj.type in valid_types
