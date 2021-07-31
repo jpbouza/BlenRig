@@ -1646,10 +1646,177 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_twist_drv_R', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
                 add_mod_generator_angle(active_driver, 45)
 
+    #Foot_Toe_L
+    def foot_toe_L(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_vars_shapekeys, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle
+
+        #Add Shapekeys
+        #Foot_Toe_L
+        add_shapekey(context, 'foot_toe_1_up_L')
+        add_shapekey(context, 'foot_toe_1_down_L')
+        add_shapekey(context, 'foot_toe_1_in_L')
+        add_shapekey(context, 'foot_toe_1_out_L')
+        add_shapekey(context, 'foot_toe_2_up_L')
+        add_shapekey(context, 'foot_toe_2_down_L')
+        add_shapekey(context, 'foot_toe_2_in_L')
+        add_shapekey(context, 'foot_toe_2_out_L')
+
+        #Add Drivers
+        ob = context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            keys_name = ob.data.shape_keys.name
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
+
+            #Skip if Driver already present
+            #Foot_Toe_1_L
+            #foot_toe_1_up_L
+            if check_shapekey_driver('foot_toe_1_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_up_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_L', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -90)
+            #foot_toe_1_down_L
+            if check_shapekey_driver('foot_toe_1_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_down_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_L', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 90)
+            #foot_toe_1_in_L
+            if check_shapekey_driver('foot_toe_1_in_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_in_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_L', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #foot_toe_1_out_L
+            if check_shapekey_driver('foot_toe_1_out_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_out_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_L', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #Foot_Toe_2_L
+            #foot_toe_2_up_L
+            if check_shapekey_driver('foot_toe_2_up_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_up_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_L', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -90)
+            #foot_toe_2_down_L
+            if check_shapekey_driver('foot_toe_2_down_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_down_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_L', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 90)
+            #foot_toe_2_in_L
+            if check_shapekey_driver('foot_toe_2_in_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_in_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_L', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #foot_toe_2_out_L
+            if check_shapekey_driver('foot_toe_2_out_L'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_out_L'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_L', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+
+    #Foot_Toe_R
+    def foot_toe_R(self, context):
+
+        from . utils import add_shapekey, add_drivers, add_vars, add_vars_shapekeys, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle
+
+        #Add Shapekeys
+        #Foot_Toe_R
+        add_shapekey(context, 'foot_toe_1_up_R')
+        add_shapekey(context, 'foot_toe_1_down_R')
+        add_shapekey(context, 'foot_toe_1_in_R')
+        add_shapekey(context, 'foot_toe_1_out_R')
+        add_shapekey(context, 'foot_toe_2_up_R')
+        add_shapekey(context, 'foot_toe_2_down_R')
+        add_shapekey(context, 'foot_toe_2_in_R')
+        add_shapekey(context, 'foot_toe_2_out_R')
+
+        #Add Drivers
+        ob = context.active_object
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            keys_name = ob.data.shape_keys.name
+            blenrig_arm = context.scene.blenrig_guide.arm_obj
+
+            #Skip if Driver already present
+            #Foot_Toe_1_R
+            #foot_toe_1_up_R
+            if check_shapekey_driver('foot_toe_1_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_up_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_R', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -90)
+            #foot_toe_1_down_R
+            if check_shapekey_driver('foot_toe_1_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_down_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_R', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 90)
+            #foot_toe_1_in_R
+            if check_shapekey_driver('foot_toe_1_in_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_in_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_R', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #foot_toe_1_out_R
+            if check_shapekey_driver('foot_toe_1_out_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_1_out_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_1_def_R', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+            #Foot_Toe_2_R
+            #foot_toe_2_up_R
+            if check_shapekey_driver('foot_toe_2_up_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_up_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_R', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, -90)
+            #foot_toe_2_down_R
+            if check_shapekey_driver('foot_toe_2_down_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_down_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_R', "''", 'LOCAL_SPACE', 'ROT_X', 'SWING_TWIST_X')
+                add_mod_generator_angle(active_driver, 90)
+            #foot_toe_2_in_R
+            if check_shapekey_driver('foot_toe_2_in_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_in_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_R', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, 45)
+            #foot_toe_2_out_R
+            if check_shapekey_driver('foot_toe_2_out_R'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['foot_toe_2_out_R'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'foot_toe_2_def_R', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
+                add_mod_generator_angle(active_driver, -45)
+
     Neck_Shapekeys: bpy.props.BoolProperty(default=True)
     Spine_Shapekeys: bpy.props.BoolProperty(default=True)
     Arms_Shapekeys: bpy.props.BoolProperty(default=True)
     Legs_Shapekeys: bpy.props.BoolProperty(default=True)
+    Foot_Toe_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
         if self.Neck_Shapekeys:
@@ -1662,6 +1829,9 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         if self.Legs_Shapekeys:
             self.leg_L(context)
             self.leg_R(context)
+        if self.Foot_Toe_Shapekeys:
+            self.foot_toe_L(context)
+            self.foot_toe_R(context)
         return {"FINISHED"}
 
 class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
@@ -5125,7 +5295,7 @@ class Operator_blenrig_mirror_lattice_transforms(bpy.types.Operator):
         self.mirror_transforms(context)
         return {"FINISHED"}
 
-#Toggle Weight Painting Mode
+#Toggle Modes
 
 class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
 
@@ -5149,10 +5319,13 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
     def toggle_mode(self, context):
         from .utils import set_active_object, set_mode, deselect_all_objects
 
+        guide_props = context.scene.blenrig_guide
+        arm_obj = guide_props.arm_obj
+
         #Mdef Cage State
         if self.paint_object == 'mdef_cage':
-            obj = context.scene.blenrig_guide.mdef_cage_obj
-            arm_obj = context.scene.blenrig_guide.arm_obj
+            obj = guide_props.mdef_cage_obj
+            guide_props.active_wp_obj = obj
 
             if obj.mode != 'WEIGHT_PAINT':
                 obj.show_wire = True
@@ -5173,10 +5346,9 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
                 set_mode('POSE')
         else:
             if context.active_object.type == 'MESH':
-                context.scene.blenrig_guide.active_wp_obj = context.active_object
+                guide_props.active_wp_obj = context.active_object
 
-            obj = context.scene.blenrig_guide.active_wp_obj
-            arm_obj = context.scene.blenrig_guide.arm_obj
+            obj = guide_props.active_wp_obj
 
             if obj.mode != 'WEIGHT_PAINT':
                 obj.show_wire = True
@@ -5200,6 +5372,81 @@ class Operator_blenrig_toggle_weight_painting(bpy.types.Operator):
         self.toggle_mode(context)
         bpy.ops.ed.undo_push()
         return {"FINISHED"}
+
+class Operator_blenrig_toggle_shapekey_editting(bpy.types.Operator):
+
+    bl_idname = "blenrig.toggle_shapekey_editting"
+    bl_label = "BlenRig Toggle Shapekey Editting Mode"
+    bl_description = "Toggle Shapekey Editting in BlenRig Guide"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH", "ARMATURE"]):
+            return True
+        else:
+            return False
+
+    mesh_edit_object : bpy.props.StringProperty()
+
+    #Set Edit Mode
+    def toggle_mode(self, context):
+        from .utils import set_active_object, set_mode, deselect_all_objects, set_active_shapekey
+
+        guide_props = context.scene.blenrig_guide
+        arm_obj = guide_props.arm_obj
+
+        #Mdef Cage State
+        if self.mesh_edit_object == 'mdef_cage':
+            obj = guide_props.mdef_cage_obj
+            guide_props.active_shp_obj = obj
+
+            if obj.mode != 'EDIT':
+                obj.hide_viewport = False
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+                set_active_object(context, obj)
+                set_mode('EDIT')
+                set_active_shapekey(guide_props.active_shapekey_name)
+            else:
+                deselect_all_objects(context)
+                set_active_object(context, obj)
+                set_mode('OBJECT')
+                obj.hide_viewport = True
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+        else:
+            if context.active_object.type == 'MESH':
+                guide_props.active_shp_obj = context.active_object
+
+            obj = guide_props.active_shp_obj
+
+            if obj.mode != 'EDIT':
+                obj.hide_viewport = False
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+                set_active_object(context, obj)
+                set_mode('EDIT')
+                set_active_shapekey(guide_props.active_shapekey_name)
+            else:
+                deselect_all_objects(context)
+                set_active_object(context, obj)
+                set_mode('OBJECT')
+                obj.hide_viewport = False
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+
+    def execute(self, context):
+        self.toggle_mode(context)
+        bpy.ops.ed.undo_push()
+        return {"FINISHED"}
+
 
 #Mirror VP and RJ Values
 
@@ -5269,6 +5516,7 @@ class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
         if (index[0] + 1) < len(joint_list):
             guide_props.guide_transformation_bone = joint_list[index[0] + 1].joint
             guide_props.guide_active_wp_group = joint_list[index[0] + 1].vgroup
+            guide_props.shapekeys_list_index = index[0] + 2
             if guide_props.guide_transform_steps == 'x6':
                 guide_props.guide_joint_transforms_X6 = guide_props.guide_joint_transforms_X6
             elif guide_props.guide_transform_steps == 'x4':
@@ -5300,6 +5548,7 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
         if index[0] > 0:
             guide_props.guide_transformation_bone = joint_list[index[0] - 1].joint
             guide_props.guide_active_wp_group = joint_list[index[0] - 1].vgroup
+            guide_props.shapekeys_list_index = index[0]
             if guide_props.guide_transform_steps == 'x6':
                 guide_props.guide_joint_transforms_X6 = guide_props.guide_joint_transforms_X6
             elif guide_props.guide_transform_steps == 'x4':
@@ -5357,3 +5606,4 @@ class Operator_blenrig_edit_corrective_smooth_vgroup(bpy.types.Operator):
             bpy.ops.blenrig.toggle_weight_painting(paint_object='char')
         set_active_vgroup('corrective_smooth')
         return {"FINISHED"}
+

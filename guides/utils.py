@@ -1528,6 +1528,21 @@ def joint_x6_update(self, context):
     t_bone = guide_props.guide_transformation_bone
     pbones = arm.pose.bones
 
+    #Set Active Shapekey Function
+    def active_shapekey(index):
+        try:
+            if guide_props.shapekeys_list_index == 1:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_1
+            if guide_props.shapekeys_list_index == 2:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_2
+            if guide_props.shapekeys_list_index == 3:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_3
+            if guide_props.shapekeys_list_index == 4:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_4
+            set_active_shapekey(guide_props.active_shapekey_name)
+        except:
+            pass
+
     reset_all_bones_transforms()
 
     #Apply Bone Transform
@@ -1544,6 +1559,9 @@ def joint_x6_update(self, context):
             pbones[t_bone].scale = scale_value_1
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(0)
+
     if prop_value == 2:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_2[0]), radians(rot_value_2[1]), radians(rot_value_2[2]))
@@ -1551,6 +1569,9 @@ def joint_x6_update(self, context):
             pbones[t_bone].scale = scale_value_2
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(1)
+
     if prop_value == 3:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_3[0]), radians(rot_value_3[1]), radians(rot_value_3[2]))
@@ -1558,6 +1579,9 @@ def joint_x6_update(self, context):
             pbones[t_bone].scale = scale_value_3
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(2)
+
     if prop_value == 4:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_4[0]), radians(rot_value_4[1]), radians(rot_value_4[2]))
@@ -1565,6 +1589,9 @@ def joint_x6_update(self, context):
             pbones[t_bone].scale = scale_value_4
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(3)
+
     if prop_value == 5:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_5[0]), radians(rot_value_5[1]), radians(rot_value_5[2]))
@@ -1572,6 +1599,9 @@ def joint_x6_update(self, context):
             pbones[t_bone].scale = scale_value_5
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(4)
+
     if prop_value == 6:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_6[0]), radians(rot_value_6[1]), radians(rot_value_6[2]))
@@ -1579,6 +1609,8 @@ def joint_x6_update(self, context):
             pbones[t_bone].scale = scale_value_6
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(5)
 
 def joint_x4_update(self, context):
     guide_props = bpy.context.scene.blenrig_guide
@@ -1599,6 +1631,21 @@ def joint_x4_update(self, context):
     t_bone = guide_props.guide_transformation_bone
     pbones = arm.pose.bones
 
+    #Set Active Shapekey Function
+    def active_shapekey(index):
+        try:
+            if guide_props.shapekeys_list_index == 1:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_1
+            if guide_props.shapekeys_list_index == 2:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_2
+            if guide_props.shapekeys_list_index == 3:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_3
+            if guide_props.shapekeys_list_index == 4:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_4
+            set_active_shapekey(guide_props.active_shapekey_name)
+        except:
+            pass
+
     reset_all_bones_transforms()
 
     #Apply Bone Transform
@@ -1615,6 +1662,9 @@ def joint_x4_update(self, context):
             pbones[t_bone].scale = scale_value_1
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(0)
+
     if prop_value == 2:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_2[0]), radians(rot_value_2[1]), radians(rot_value_2[2]))
@@ -1622,6 +1672,9 @@ def joint_x4_update(self, context):
             pbones[t_bone].scale = scale_value_2
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(1)
+
     if prop_value == 3:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_3[0]), radians(rot_value_3[1]), radians(rot_value_3[2]))
@@ -1629,6 +1682,9 @@ def joint_x4_update(self, context):
             pbones[t_bone].scale = scale_value_3
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(2)
+
     if prop_value == 4:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_4[0]), radians(rot_value_4[1]), radians(rot_value_4[2]))
@@ -1636,6 +1692,8 @@ def joint_x4_update(self, context):
             pbones[t_bone].scale = scale_value_4
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(3)
 
 def joint_x2_update(self, context):
     guide_props = bpy.context.scene.blenrig_guide
@@ -1650,6 +1708,21 @@ def joint_x2_update(self, context):
     t_bone = guide_props.guide_transformation_bone
     pbones = arm.pose.bones
 
+    #Set Active Shapekey Function
+    def active_shapekey(index):
+        try:
+            if guide_props.shapekeys_list_index == 1:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_1
+            if guide_props.shapekeys_list_index == 2:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_2
+            if guide_props.shapekeys_list_index == 3:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_3
+            if guide_props.shapekeys_list_index == 4:
+                guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_4
+            set_active_shapekey(guide_props.active_shapekey_name)
+        except:
+            pass
+
     reset_all_bones_transforms()
 
     #Apply Bone Transform
@@ -1666,6 +1739,9 @@ def joint_x2_update(self, context):
             pbones[t_bone].scale = scale_value_1
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(0)
+
     if prop_value == 2:
         try:
             pbones[t_bone].rotation_euler = (radians(rot_value_2[0]), radians(rot_value_2[1]), radians(rot_value_2[2]))
@@ -1673,6 +1749,8 @@ def joint_x2_update(self, context):
             pbones[t_bone].scale = scale_value_2
         except:
             pass
+        #Set Active Shapekey
+        active_shapekey(1)
 
 #Set Active Vgroup for Weight Painting
 def set_active_vgroup(v_group):
@@ -1703,3 +1781,16 @@ def show_wp_bones_update(self, context):
         select_all_pose_bones(context)
         deselect_pose_bones(context, *bones)
         hide_selected_pose_bones(context)
+
+#Set Active Shapekey for Editting
+def set_active_shapekey(shapekey_name):
+    ob = bpy.context.active_object
+    if not ob:
+        return False
+    if ob.type == 'MESH':
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            index = shapekeys.find(shapekey_name)
+            ob.active_shape_key_index = index
+
+

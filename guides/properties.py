@@ -14,6 +14,12 @@ class BlenRigJointChain(PropertyGroup):
 class BlenRigWPBones(PropertyGroup):
     bone : StringProperty('')
 
+class BlenRigShapekeysList(bpy.types.PropertyGroup):
+    list_1 : StringProperty('')
+    list_2 : StringProperty('')
+    list_3 : StringProperty('')
+    list_4 : StringProperty('')
+
 class BlenrigGuideImages(PropertyGroup):
     image : PointerProperty(type=Image)
 
@@ -32,7 +38,7 @@ class BlenrigGuideData(PropertyGroup):
         else:
             self.image_index += 1
         self.load_image(self.image_index)
-    
+
     def add_image(self, img: Image = None):
         if not img or not isinstance(img, Image):
             return
@@ -72,6 +78,10 @@ class BlenrigGuideData(PropertyGroup):
     character_toes_obj : PointerProperty(type=Object)
     #Weight Paint Object
     active_wp_obj : PointerProperty(type=Object)
+    #Shapkey Editting
+    active_shp_obj : PointerProperty(type=Object)
+    active_shapekey_name : StringProperty('')
+    shapekeys_list_index : IntProperty(default=1, min=1, max=4, name="Shapekey List")
     #Weight Transfer Parameters
     transfer_ray_distance : FloatProperty(default=0.05, min=0.0, max=100.0, name="Transfer Ray Distance")
     transfer_mapping : EnumProperty(
