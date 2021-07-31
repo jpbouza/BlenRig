@@ -761,8 +761,37 @@ def SHAPEKEYS_Char_Inner_Mouth(operator, context):
 
 #### END OF STEP ACTIONS ####
 
-def weights_end_generic(context):
+def shapekeys_end_generic(context):
     guide_props = context.scene.blenrig_guide
+
+    #Mirror Edited Shapekeys
+    try:
+        blenrig_temp_link(guide_props.active_shp_obj)
+    except:
+        pass
+    try:
+        guide_props.active_shp_obj.hide_viewport = False
+        deselect_all_objects(context)
+        set_active_object(context, guide_props.active_shp_obj)
+        for list in bpy.context.scene.blenrig_shapekeys_list:
+            shapes_1 = list.list_1
+            set_active_shapekey(shapes_1)
+            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+            bpy.ops.blenrig.mirror_active_shapekey_driver()
+            shapes_2 = list.list_2
+            set_active_shapekey(shapes_2)
+            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+            bpy.ops.blenrig.mirror_active_shapekey_driver()
+            shapes_3 = list.list_3
+            set_active_shapekey(shapes_3)
+            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+            bpy.ops.blenrig.mirror_active_shapekey_driver()
+            shapes_4 = list.list_4
+            set_active_shapekey(shapes_4)
+            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+            bpy.ops.blenrig.mirror_active_shapekey_driver()
+    except:
+        pass
 
     #Select Armature
     if context.active_object.type == 'MESH':
@@ -772,12 +801,9 @@ def weights_end_generic(context):
     #Ensure POSE Mode
     go_blenrig_pose_mode(context)
 
-    #Ensure Properties Symmetry
-    bpy.ops.blenrig.mirror_vp_rj_values()
+    #Reset Transforms
     unhide_all_bones(context)
     deselect_all_pose_bones(context)
-
-    #Reset Transforms
     reset_all_bones_transforms()
 
     #Turn Layers on
@@ -785,16 +811,12 @@ def weights_end_generic(context):
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
 
-    #Turn Off Wire in Weight Paint Object
-    if guide_props.active_wp_obj != None:
-        guide_props.active_wp_obj.show_wire = False
-
     #Unlink Temp Collection
     blenrig_temp_unlink()
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    weights_end_generic(context)
+    shapekeys_end_generic(context)
     guide_props = context.scene.blenrig_guide
     blenrig_bones = guide_props.arm_obj.pose.bones
     current_step = guide_props.guide_current_step
