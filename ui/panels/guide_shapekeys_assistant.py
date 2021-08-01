@@ -778,5 +778,16 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 row_shape = box_pose.row()
                 row_shape.alignment = 'CENTER'
                 row_shape.label(text=guide_props.active_shp_obj.active_shape_key.name.upper())
-                box_pose.operator("blenrig.update_shapekey_driver", text='Update Driver with Current Pose')
+                box_pose.label(text='Drivers:')
+                row_drivers = box_pose.row()
+                row_drivers.operator("blenrig.update_shapekey_driver", text='Update Driver with Current Pose')
+                if not guide_props.auto_mirror_shapekeys:
+                    row_drivers.operator("blenrig.mirror_active_shapekey_driver", text='Mirror Active Shapekey Driver')
+                box_pose.label(text='Mirroring:')
+                box_pose.prop(guide_props, "auto_mirror_shapekeys", text='Auto Mirror Shapekeys')
+                if not guide_props.auto_mirror_shapekeys:
+                    if guide_props.active_shp_obj.data.use_mirror_topology == True:
+                        box_pose.operator("object.blenrig_shape_key_copy", text='Mirror Active Shapekey').type='MIRROR_TOPOLOGY'
+                    else:
+                        box_pose.operator("object.blenrig_shape_key_copy", text='Mirror Active Shapekey').type='MIRROR'
 
