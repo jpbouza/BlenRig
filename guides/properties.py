@@ -82,6 +82,7 @@ class BlenrigGuideData(PropertyGroup):
     active_shp_obj : PointerProperty(type=Object)
     active_shapekey_name : StringProperty('')
     shapekeys_list_index : IntProperty(default=1, min=1, max=4, name="Shapekey List")
+    auto_mirror_shapekeys : BoolProperty(default=True, name="Auto Mirror Shapekeys", description="Automatically Mirror Edited Shapkeys on Step Change")
     #Weight Transfer Parameters
     transfer_ray_distance : FloatProperty(default=0.05, min=0.0, max=100.0, name="Transfer Ray Distance")
     transfer_mapping : EnumProperty(
