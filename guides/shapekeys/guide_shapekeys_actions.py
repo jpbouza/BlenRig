@@ -770,26 +770,27 @@ def shapekeys_end_generic(context):
     except:
         pass
     try:
-        guide_props.active_shp_obj.hide_viewport = False
-        deselect_all_objects(context)
-        set_active_object(context, guide_props.active_shp_obj)
-        for list in bpy.context.scene.blenrig_shapekeys_list:
-            shapes_1 = list.list_1
-            set_active_shapekey(shapes_1)
-            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-            bpy.ops.blenrig.mirror_active_shapekey_driver()
-            shapes_2 = list.list_2
-            set_active_shapekey(shapes_2)
-            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-            bpy.ops.blenrig.mirror_active_shapekey_driver()
-            shapes_3 = list.list_3
-            set_active_shapekey(shapes_3)
-            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-            bpy.ops.blenrig.mirror_active_shapekey_driver()
-            shapes_4 = list.list_4
-            set_active_shapekey(shapes_4)
-            bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-            bpy.ops.blenrig.mirror_active_shapekey_driver()
+        if guide_props.auto_mirror_shapekeys:
+            guide_props.active_shp_obj.hide_viewport = False
+            deselect_all_objects(context)
+            set_active_object(context, guide_props.active_shp_obj)
+            for list in bpy.context.scene.blenrig_shapekeys_list:
+                shapes_1 = list.list_1
+                set_active_shapekey(shapes_1)
+                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                shapes_2 = list.list_2
+                set_active_shapekey(shapes_2)
+                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                shapes_3 = list.list_3
+                set_active_shapekey(shapes_3)
+                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                shapes_4 = list.list_4
+                set_active_shapekey(shapes_4)
+                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                bpy.ops.blenrig.mirror_active_shapekey_driver()
     except:
         pass
 
