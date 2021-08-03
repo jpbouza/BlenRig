@@ -1,6 +1,6 @@
 import bpy
 from bpy_extras import view3d_utils
-from math import radians
+from math import radians, degrees
 from mathutils import Matrix, Vector
 
 
@@ -1793,4 +1793,16 @@ def set_active_shapekey(shapekey_name):
             index = shapekeys.find(shapekey_name)
             ob.active_shape_key_index = index
 
+#Get Shapekey Driver Transform
+def get_driver_transform(shapekey, default_value):
+    guide_props = bpy.context.scene.blenrig_guide
+    ob = guide_props.active_shp_obj
 
+
+    #Get Active Shapekey Driver
+    if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'animation_data') and hasattr(ob.data.shape_keys.animation_data, 'drivers'):
+        for driver in ob.data.shape_keys.animation_data.drivers:
+            d_path = driver.data_path
+            if d_path == 'key_blocks["' + str(shapekey) + '"].value':
+                return degrees(1 / driver.modifiers[0].coefficients[1])
+    return default_value
