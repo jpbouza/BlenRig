@@ -22,6 +22,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             steps = layout.column(align=True)
             if guide_props.guide_current_step not in exclude_list:
                 box_weight = steps.box()
+                box_pose = steps.box()
                 box_weight.label(text='Shapekeys Editting Options')
                 if '_Cage_' in guide_props.guide_current_step:
                     box_weight.operator("blenrig.toggle_shapekey_editting", text='Toggle Shapekey Editting').mesh_edit_object = 'mdef_cage'
@@ -67,108 +68,44 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 #Foot Toe 2
                 if guide_props.guide_transformation_bone == 'foot_toe_2_fk_L':
                     box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Foot Toe 2 Pose')
-            # #Cage Knee
-            # if guide_props.guide_current_step == 'WEIGHTS_Cage_Knee':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Knee Pose')
-            #     if guide_props.guide_joint_transforms_X4 == 1:
-            #         box_pose.label(text='Realistic Joints Parameters')
-            #         box_pose.prop(p_bones["properties_leg_L"], 'realistic_joints_knee_loc_L', text='Shin Displacement')
-            #         box_pose.prop(p_bones["properties_leg_L"], 'realistic_joints_knee_rot_L', text='Thigh Displacement')
-            #     if guide_props.guide_joint_transforms_X4 == 3 or guide_props.guide_joint_transforms_X4 == 4 :
-            #         box_pose.label(text='Thigh Twist Rate')
-            #         box_pose.prop(p_bones["properties_leg_L"], '["twist_rate_thigh_L"]', text='Twist Rate')
-            #     if guide_props.guide_joint_transforms_X4 == 1:
-            #         row_props = box_pose.row()
-            #         col_R = row_props.column()
-            #         col_L = row_props.column()
-            #         col_R.label(text='Volume Preservation: Shin')
-            #         col_L.label(text='Volume Preservation: Knee Volume')
-            #         try:
-            #             col_R.prop(p_bones['shin_fix_L'].constraints['Shin_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-            #             col_R.prop(p_bones['shin_fix_L'].constraints['Shin_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            #         except:
-            #             pass
-            #         try:
-            #             col_L.prop(p_bones['knee_fix_L'].constraints['Knee_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-            #             col_L.prop(p_bones['knee_fix_L'].constraints['Knee_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            #         except:
-            #             pass
-            #     if guide_props.guide_joint_transforms_X4 != 0:
-            #         box_pose.separator()
-            #         box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            # #Cage Thigh
-            # if guide_props.guide_current_step == 'WEIGHTS_Cage_Thigh':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Thigh Pose')
-            #     if guide_props.guide_joint_transforms_X4 == 2:
-            #         row_props = box_pose.row()
-            #         col_R = row_props.column()
-            #         col_L = row_props.column()
-            #         col_R.label(text='Volume Preservation: Leg')
-            #         col_L.label(text=' ')
-            #         try:
-            #             col_R.prop(p_bones['thigh_fix_L'].constraints['Thigh_VP_Forw_L_NOREP'], 'to_min_x', text="Horizontal", toggle=True)
-            #             col_R.prop(p_bones['thigh_fix_L'].constraints['Thigh_VP_Forw_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
-            #             col_L.prop(p_bones['thigh_fix_L'].constraints['Thigh_VP_Forw_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-            #         except:
-            #             pass
-            #     if guide_props.guide_joint_transforms_X4 == 1:
-            #         row_props = box_pose.row()
-            #         col_R = row_props.column()
-            #         col_L = row_props.column()
-            #         col_R.label(text='Volume Preservation: Buttock')
-            #         col_L.label(text=' ')
-            #         try:
-            #             col_R.prop(p_bones['buttock_fix_L'].constraints['Thigh_VP_Back_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
-            #             col_L.prop(p_bones['buttock_fix_L'].constraints['Thigh_VP_Back_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
-            #         except:
-            #             pass
-            #     if guide_props.guide_joint_transforms_X4 == 4:
-            #         row_props = box_pose.row()
-            #         col_R = row_props.column()
-            #         col_L = row_props.column()
-            #         col_R.label(text='Volume Preservation: Hips')
-            #         col_L.label(text=' ')
-            #         try:
-            #             col_R.prop(p_bones['hip_fix_L'].constraints['Thigh_VP_Out_L_NOREP'], 'to_min_x', text="Horizontal", toggle=True)
-            #             col_R.prop(p_bones['hip_fix_L'].constraints['Thigh_VP_Out_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
-            #             col_L.prop(p_bones['hip_fix_L'].constraints['Thigh_VP_Out_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
-            #         except:
-            #             pass
-            #     if guide_props.guide_joint_transforms_X4 != 0:
-            #         box_pose.separator()
-            #         box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
-            # #Cage Torso
-            # if guide_props.guide_current_step == 'WEIGHTS_Cage_Torso':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     #Spine 1
-            #     if guide_props.guide_transformation_bone == 'pelvis_ctrl':
-            #         box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Pelvis / Spine 1 Pose')
-            #     box_pose = steps.box()
-            #     #Spine 2
-            #     if guide_props.guide_transformation_bone == 'spine_2_fk':
-            #         box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Spine 2 Pose')
-            #     box_pose = steps.box()
-            #     #Spine 3
-            #     if guide_props.guide_transformation_bone == 'spine_3_fk':
-            #         box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Spine 3 Pose')
+            #Cage Knee
+            if guide_props.guide_current_step == 'SHAPEKEYS_Cage_Knee':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Knee Pose')
+            #Cage Thigh
+            if guide_props.guide_current_step == 'SHAPEKEYS_Cage_Thigh':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Thigh Pose')
+            #Cage Torso
+            if guide_props.guide_current_step == 'SHAPEKEYS_Cage_Torso':
+                box_pose = steps.box()
+                box_pose.label(text='Select Joint Number', icon='BONE_DATA')
+                joint_row = box_pose.row()
+                joint_row.alignment = 'CENTER'
+                joint_row.scale_x = 0.9
+                joint_col_1 = joint_row.column()
+                joint_col_1.alignment = 'CENTER'
+                joint_col_2 = joint_row.column()
+                joint_col_2.alignment = 'CENTER'
+                joint_col_3 = joint_row.column()
+                joint_col_3.alignment = 'CENTER'
+                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+                joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
+                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                #Spine 1
+                if guide_props.guide_transformation_bone == 'pelvis_ctrl':
+                    box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Pelvis / Spine 1 Pose')
+                box_pose = steps.box()
+                #Spine 2
+                if guide_props.guide_transformation_bone == 'spine_2_fk':
+                    box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Spine 2 Pose')
+                box_pose = steps.box()
+                #Spine 3
+                if guide_props.guide_transformation_bone == 'spine_3_fk':
+                    box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Spine 3 Pose')
             # #Cage Neck
             # if guide_props.guide_current_step == 'WEIGHTS_Cage_Neck':
             #     box_pose = steps.box()
@@ -777,7 +714,8 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 box_pose.label(text='Active Shapekey:')
                 row_shape = box_pose.row()
                 row_shape.alignment = 'CENTER'
-                row_shape.label(text=guide_props.active_shp_obj.active_shape_key.name.upper())
+                if hasattr(guide_props.active_shp_obj, 'active_shape_key') and hasattr(guide_props.active_shp_obj.active_shape_key, 'name'):
+                    row_shape.label(text=guide_props.active_shp_obj.active_shape_key.name.upper())
                 box_pose.label(text='Drivers:')
                 row_drivers = box_pose.row()
                 row_drivers.operator("blenrig.update_shapekey_driver", text='Update Driver with Current Pose')
