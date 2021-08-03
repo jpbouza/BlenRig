@@ -78,18 +78,22 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode, shapekeys_
         show_mdef_cage(context)
         mesh_edit_obj = guide_props.mdef_cage_obj
         set_active_object(context, mesh_edit_obj)
+        guide_props.active_shp_obj = mesh_edit_obj
     #Hands
     elif shp_obj == 'hands':
         mesh_edit_obj = guide_props.character_hands_obj
         set_active_object(context, mesh_edit_obj)
+        guide_props.active_shp_obj = mesh_edit_obj
     #Toes
     elif shp_obj == 'toes':
         mesh_edit_obj = guide_props.character_toes_obj
         set_active_object(context, mesh_edit_obj)
+        guide_props.active_shp_obj = mesh_edit_obj
     #Head
     elif shp_obj == 'head':
         mesh_edit_obj = guide_props.character_head_obj
         set_active_object(context, mesh_edit_obj)
+        guide_props.active_shp_obj = mesh_edit_obj
 
     bpy.context.active_object.data.use_mirror_x = x_mirror
 
@@ -236,16 +240,16 @@ def SHAPEKEYS_Cage_Add_Body_Shapes(operator, context):
 def SHAPEKEYS_Cage_Ankle(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Ankle', 'mdef_cage',
     'x6', ['foot_fk_L',
-    (0.0, 0.0, 0.0), (60, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (-60, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 60), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, -60), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 60, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, -60, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('foot_down_L', 60) , 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('foot_up_L', -60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('foot_in_L', 60)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('foot_out_L', -60)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform('shin_twist_in_L', 60), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform('shin_twist_out_L', -60), 0.0), (1.0, 1.0, 1.0),
     1],
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_fk_L'],
-    [27],
+    [22],
     ['foot_fk_L'],
     ['foot_def_L'],
     'shpaekey_edit',
@@ -265,16 +269,16 @@ def SHAPEKEYS_Cage_Ankle(operator, context):
 def SHAPEKEYS_Cage_Foot_Toe(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Foot_Toe', 'mdef_cage',
     'x4', ['foot_toe_1_fk_L',
-    (0.0, 0.0, 0.0), (60, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (-60, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 45), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 00, -45), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('foot_toe_1_down_L', 60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('foot_toe_1_up_L', -60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('foot_toe_1_in_L', 45)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 00, get_driver_transform('foot_toe_1_out_L', -45)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_toe_1_fk_L', 'foot_toe_2_fk_L'],
-    [27],
+    [22],
     ['foot_toe_1_fk_L', 'foot_toe_2_fk_L'],
     ['foot_toe_1_def_L', 'foot_toe_2_def_L'],
     'shpaekey_edit',
@@ -294,19 +298,25 @@ def SHAPEKEYS_Cage_Foot_Toe(operator, context):
 def SHAPEKEYS_Cage_Knee(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Knee', 'mdef_cage',
     'x4', ['shin_fk_L',
-    (0.0, 0.0, 0.0), (90, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (-20, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 90, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, -90, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('shin_up_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('shin_down_L', -20), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform('thigh_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform('thigh_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
     'foot_fk_L', 'thigh_fk_L', 'RIGHT',
     ['thigh_def_L', 'thigh_twist_def_L', 'knee_fix_L', 'shin_fix_L', 'shin_fk_L', 'shin_def_L', 'shin_twist_def_L'],
-    [27],
+    [22],
     ['shin_fk_L'],
     ['thigh_twist_def_L'],
-    'mdef_mesh',)
+    'shpaekey_edit',
+    ['shin_up_L', 'shin_down_L', 'thigh_twist_in_L', 'thigh_twist_out_L'],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'shin_up_L',
+    False)
 
     guide_props = bpy.context.scene.blenrig_guide
     #Set Rig Control Properties
@@ -316,19 +326,25 @@ def SHAPEKEYS_Cage_Knee(operator, context):
 def SHAPEKEYS_Cage_Thigh(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Thigh', 'mdef_cage',
     'x4', ['thigh_fk_L',
-    (0.0, 0.0, 0.0), (60, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (-80, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 20), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, -80), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('thigh_back_L', 60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('thigh_forw_L', -80), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('thigh_in_L', 30)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('thigh_out_L', -80)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
     'foot_fk_L', 'thigh_fk_L', 'RIGHT',
     ['pelvis_def', 'pelvis_def_L', 'hip_fix_L', 'thigh_fix_L', 'thigh_def_L', 'buttock_fix_L', 'thigh_fk_L', 'thigh_twist_def_L'],
-    [27],
+    [22],
     ['thigh_fk_L'],
     ['thigh_def_L'],
-    'mdef_mesh',)
+    'shpaekey_edit',
+    ['thigh_back_L', 'thigh_forw_L', 'thigh_in_L', 'thigh_out_L'],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'thigh_back_L',
+    False)
 
     guide_props = bpy.context.scene.blenrig_guide
     #Set Rig Control Properties
@@ -339,21 +355,26 @@ def SHAPEKEYS_Cage_Thigh(operator, context):
 def SHAPEKEYS_Cage_Torso(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Torso', 'mdef_cage',
     'x6', ['pelvis_ctrl',
-    (0.0, 0.0, 0.0), (45, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (-45, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 45, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, -45, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('spine_1_forw', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform('spine_1_back', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform('spine_1_twist_L', 45), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform('spine_1_twist_R', -45), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('spine_1_L', 35)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('spine_1_R', -35)), (1.0, 1.0, 1.0),
     1],
     'pelvis_ctrl', 'neck_1_fk', 'FRONT',
     ['spine_1_fk', 'spine_2_fk', 'spine_3_fk', 'spine_3_def', 'spine_1_def', 'spine_2_def', 'pelvis_ctrl', 'pelvis_def', 'pelvis_def_L', 'pelvis_def_R',
     'breast_ctrl_L', 'breast_tip_L', 'breast_def_L', 'breast_ctrl_R', 'breast_tip_R', 'breast_def_R'],
-    [27],
+    [7],
     ['pelvis_ctrl', 'spine_2_fk', 'spine_3_fk'],
     ['spine_1_def', 'spine_2_def', 'spine_3_def'],
-    'weight_paint',)
-
+    'shpaekey_edit',
+    ['spine_1_forw', 'spine_1_back', 'spine_1_twist_L', 'spine_1_twist_R', 'spine_1_L', 'spine_1_R'],
+    ['spine_2_forw', 'spine_2_back', 'spine_2_twist_L', 'spine_2_twist_R', 'spine_2_L', 'spine_2_R'],
+    ['spine_3_forw', 'spine_3_back', 'spine_3_twist_L', 'spine_3_twist_R', 'spine_3_L', 'spine_3_R'],
+    ['', '', '', '', '', ''], 1,
+    'spine_1_def',
+    False)
     #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
     bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 0
 
