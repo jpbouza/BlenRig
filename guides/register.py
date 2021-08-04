@@ -48,7 +48,7 @@ def register():
     Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
-    Operator_blenrig_toggle_shapekey_editting)
+    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape)
 
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
@@ -71,6 +71,7 @@ def register():
     register_class(Operator_blenrig_update_face_shapekeys_drivers)
     register_class(Operator_blenrig_mirror_shapekeys_drivers)
     register_class(Operator_blenrig_mirror_active_shapekey_driver)
+    register_class(Operator_blenrig_blend_from_shape)
     register_class(Operator_blenrig_add_body_modifiers)
     register_class(Operator_blenrig_bind_mdef_modifiers)
     register_class(Operator_blenrig_guide_bind_mdef_modifiers)
@@ -107,7 +108,7 @@ def unregister():
     Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
-    Operator_blenrig_toggle_shapekey_editting)
+    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape)
 
     from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
@@ -133,6 +134,7 @@ def unregister():
     unregister_class(Operator_blenrig_update_face_shapekeys_drivers)
     unregister_class(Operator_blenrig_mirror_shapekeys_drivers)
     unregister_class(Operator_blenrig_mirror_active_shapekey_driver)
+    unregister_class(Operator_blenrig_blend_from_shape)
     unregister_class(Operator_blenrig_add_body_modifiers)
     unregister_class(Operator_blenrig_bind_mdef_modifiers)
     unregister_class(Operator_blenrig_guide_bind_mdef_modifiers)

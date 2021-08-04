@@ -1806,3 +1806,12 @@ def get_driver_transform(shapekey, default_value):
             if d_path == 'key_blocks["' + str(shapekey) + '"].value':
                 return degrees(1 / driver.modifiers[0].coefficients[1])
     return default_value
+
+#Propagate shapekey y other shapekeys
+def blend_from_shape(destination_keys):
+    ob = bpy.context.active_object
+    shapekeys_list = destination_keys
+
+    for shape in shapekeys_list:
+        set_active_shapekey(shape)
+        bpy.ops.mesh.blend_from_shape(shape=ob.active_shape_key.name, blend=1.0, add=False)

@@ -3265,6 +3265,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'brow_4_down_L')
         add_shapekey(context, 'brow_5_up_L')
         add_shapekey(context, 'brow_5_down_L')
+        add_shapekey(context, 'brow_up_L')
+        add_shapekey(context, 'brow_down_L')
 
         #Add Drivers
         ob = context.active_object
@@ -3353,6 +3355,22 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_5_L', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, -(pbones['brow_arch_def_5_L'].bone.length * 0.75))
 
+            #Turn M Sculpting Shapes Off
+            shapekeys['brow_up_L'].value = 0.0
+            shapekeys['brow_down_L'].value = 0.0
+
+        #Assign Vgroups
+        shapekeys['brow_1_up_L'].vertex_group = 'shapekeys_brow_1_L'
+        shapekeys['brow_1_down_L'].vertex_group = 'shapekeys_brow_1_L'
+        shapekeys['brow_2_up_L'].vertex_group = 'shapekeys_brow_2_L'
+        shapekeys['brow_2_down_L'].vertex_group = 'shapekeys_brow_2_L'
+        shapekeys['brow_3_up_L'].vertex_group = 'shapekeys_brow_3_L'
+        shapekeys['brow_3_down_L'].vertex_group = 'shapekeys_brow_3_L'
+        shapekeys['brow_4_up_L'].vertex_group = 'shapekeys_brow_4_L'
+        shapekeys['brow_4_down_L'].vertex_group = 'shapekeys_brow_4_L'
+        shapekeys['brow_5_up_L'].vertex_group = 'shapekeys_brow_5_L'
+        shapekeys['brow_5_down_L'].vertex_group = 'shapekeys_brow_5_L'
+
     #Eyebrows_R
     def eyebrows_R(self, context):
 
@@ -3370,6 +3388,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'brow_4_down_R')
         add_shapekey(context, 'brow_5_up_R')
         add_shapekey(context, 'brow_5_down_R')
+        add_shapekey(context, 'brow_up_R')
+        add_shapekey(context, 'brow_down_R')
 
         #Add Drivers
         ob = context.active_object
@@ -3457,6 +3477,22 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 active_driver = add_shapekeys_driver(shapekeys['brow_5_down_R'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'brow_drv_5_R', "''", 'LOCAL_SPACE', 'LOC_Z', 'AUTO')
                 add_mod_generator_location(active_driver, -(pbones['brow_arch_def_5_R'].bone.length * 0.75))
+
+            #Turn M Sculpting Shapes Off
+            shapekeys['brow_up_R'].value = 0.0
+            shapekeys['brow_down_R'].value = 0.0
+
+        #Assign Vgroups
+        shapekeys['brow_1_up_R'].vertex_group = 'shapekeys_brow_1_R'
+        shapekeys['brow_1_down_R'].vertex_group = 'shapekeys_brow_1_R'
+        shapekeys['brow_2_up_R'].vertex_group = 'shapekeys_brow_2_R'
+        shapekeys['brow_2_down_R'].vertex_group = 'shapekeys_brow_2_R'
+        shapekeys['brow_3_up_R'].vertex_group = 'shapekeys_brow_3_R'
+        shapekeys['brow_3_down_R'].vertex_group = 'shapekeys_brow_3_R'
+        shapekeys['brow_4_up_R'].vertex_group = 'shapekeys_brow_4_R'
+        shapekeys['brow_4_down_R'].vertex_group = 'shapekeys_brow_4_R'
+        shapekeys['brow_5_up_R'].vertex_group = 'shapekeys_brow_5_R'
+        shapekeys['brow_5_down_R'].vertex_group = 'shapekeys_brow_5_R'
 
     #Upper_Eyelid_L
     def eyelid_up_L(self, context):
@@ -4362,8 +4398,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_mod_generator_location(active_driver, pbones["mouth_ctrl"].U_M_CTRL_LIMIT)
 
         #Assign Vgroups
-        shapekeys['U_up_L'].vertex_group = 'mouth_up_L'
-        shapekeys['U_low_L'].vertex_group = 'mouth_low_L'
+        shapekeys['U_up_L'].vertex_group = 'shapekeys_mouth_up_L'
+        shapekeys['U_low_L'].vertex_group = 'shapekeys_mouth_low_L'
 
     #U_R
     def U_R(self, context):
@@ -4428,8 +4464,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 add_mod_generator_location(active_driver, pbones["mouth_ctrl"].U_M_CTRL_LIMIT)
 
         #Assign Vgroups
-        shapekeys['U_up_R'].vertex_group = 'mouth_up_R'
-        shapekeys['U_low_R'].vertex_group = 'mouth_low_R'
+        shapekeys['U_up_R'].vertex_group = 'shapekeys_mouth_up_R'
+        shapekeys['U_low_R'].vertex_group = 'shapekeys_mouth_low_R'
 
     #U
     def U(self, context):
@@ -4470,8 +4506,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             shapekeys['U_thickness'].value = 0.0
 
         #Assign Vgroups
-        shapekeys['U_thickness_up'].vertex_group = 'mouth_up'
-        shapekeys['U_thickness_low'].vertex_group = 'mouth_low'
+        shapekeys['U_thickness_up'].vertex_group = 'shapekeys_mouth_up'
+        shapekeys['U_thickness_low'].vertex_group = 'shapekeys_mouth_low'
 
     #M
     def M(self, context):
@@ -4510,8 +4546,8 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             shapekeys['M'].value = 0.0
 
         #Assign Vgroups
-        shapekeys['M_up'].vertex_group = 'mouth_up'
-        shapekeys['M_low'].vertex_group = 'mouth_low'
+        shapekeys['M_up'].vertex_group = 'shapekeys_mouth_up'
+        shapekeys['M_low'].vertex_group = 'shapekeys_mouth_low'
 
     #Mouth Open
     def mouth_open(self, context):
@@ -5251,6 +5287,32 @@ class Operator_blenrig_mirror_active_shapekey_driver(bpy.types.Operator):
         self.mirror_coefficient(context, 'SCALE_y', 1)
         self.mirror_coefficient(context, 'SCALE_Z', 1)
         return {"FINISHED"}
+
+class Operator_blenrig_blend_from_shape(bpy.types.Operator):
+
+    bl_idname = "blenrig.blend_from_shape"
+    bl_label = "BlenRig Copy Shapekey to other Shapekeys"
+    bl_description = "Copy Shapekey to specified Shapekeys"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    shapekey_list :bpy.props.StringProperty()
+
+    def execute(self, context):
+        from .utils import blend_from_shape
+        blend_from_shape(self.shapekey_list)
+        return {"FINISHED"}
+
 
 #Mirror Lattices Transforms Operator
 
