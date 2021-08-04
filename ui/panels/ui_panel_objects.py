@@ -83,17 +83,25 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col_1.scale_x = 1.5
         col_2 = row.column()
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Body Objects').area = 'Body'
-        if hasattr(context.scene.blenrig_character_body_obj, 'name'):
+        try:
             col_2.label(text= str([b.character_body_obj.name for b in context.scene.blenrig_character_body_obj]))
+        except:
+            col_2.label(text='No Objects Assigned')
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
-        if hasattr(context.scene.blenrig_guide.character_hands_obj, 'name'):
+        try:
             col_2.label(text=context.scene.blenrig_guide.character_hands_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Toes Object').area = 'Toes'
-        if hasattr(context.scene.blenrig_guide.character_toes_obj, 'name'):
+        try:
             col_2.label(text=context.scene.blenrig_guide.character_toes_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
-        if hasattr(context.scene.blenrig_guide.character_head_obj, 'name'):
+        try:
             col_2.label(text=context.scene.blenrig_guide.character_head_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
 
 ####### Lattice & Curves Panel
 
