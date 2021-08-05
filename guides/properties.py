@@ -63,7 +63,14 @@ class BlenrigGuideData(PropertyGroup):
     image_index : IntProperty(default=0)
     images : CollectionProperty(type=BlenrigGuideImages)
     image_scale : FloatProperty(default=1, min=0.5, max=4, name="Image Scale")
-    show_steps : BoolProperty(default=False, name="Show Steps")
+    show_steps_guide_reproportion : BoolProperty(default=False, name="Show Steps Guide Reproportion")
+    show_steps_guide_datatransfer : BoolProperty(default=False, name="Show Steps Guide Datatransfer")
+    show_steps_guide_mdef : BoolProperty(default=False, name="Show Steps Guide Mdef")
+    show_steps_guide_lattices : BoolProperty(default=False, name="Show Steps Guide Lattices")
+    show_steps_guide_actions : BoolProperty(default=False, name="Show Steps Guide Actions")
+    show_steps_guide_weights : BoolProperty(default=False, name="Show Steps Guide Weights")
+    show_steps_guide_rig_settings : BoolProperty(default=False, name="Show Steps Rig Settings")
+    show_steps_guide_shapekeys : BoolProperty(default=False, name="Show Steps Guide Shapekeys")
     guide_current_step : StringProperty('')
     #BlenRig Armature
     obj : PointerProperty(type=Object) # temporal object slot.

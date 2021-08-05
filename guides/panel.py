@@ -6,6 +6,7 @@ from .lattices.guide_lattices import GUIDE_STEPS_LATTICES
 from .actions.guide_actions import GUIDE_STEPS_ACTIONS
 from .weights.guide_weights import GUIDE_STEPS_WEIGHTS
 from .shapekeys.guide_shapekeys import GUIDE_STEPS_SHAPEKEYS
+from .rig_settings.guide_rig_settings import GUIDE_STEPS_SETTINGS
 
 class BlenRigGuidePanel_menu:
     bl_space_type = 'VIEW_3D'
@@ -39,28 +40,71 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         button = col.row()
         button_2 = col.row()
         button.scale_y = 1.5
+        button.scale_x = 0.5
         button_2.scale_y = 1.5
-        button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Reproportion Guide')
-        button.operator("view3d.blenrig_guide_datatransfer", text = '2 - Show Weights Transfer Guide')
-        button.operator("view3d.blenrig_guide_mdef", text = '3 - Show Mesh Deform Guide')
-        button_2.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
-        button_2.operator("view3d.blenrig_guide_actions", text = '5 - Show Actions Guide')
-        button_2.operator("view3d.blenrig_guide_weights", text = '6 - Show Weight Painting Guide')
-        button_2.operator("view3d.blenrig_guide_rig_settings", text = '7 - Show Advanced Settings Guide')
-        button_2.operator("view3d.blenrig_guide_shapekeys", text = '8 - Show Shapekeys Guide')
-        layout.separator()
-
+        button_2.scale_x = 0.5
         steps = layout.column(align=True)
-        desplegable = steps.box()
-        desplegable.prop(guide, 'show_steps', icon='TRIA_DOWN' if guide.show_steps else 'TRIA_RIGHT', emboss=False)
-
-        if not guide.show_steps:
-            return
-
         step_list = steps.box().column(align=True)
 
-        for i, step in enumerate(GUIDE_STEPS_REPROPORTION):
-            step_list.operator("view3d.blenrig_guide_reproportion", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+        button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Reproportion Guide')
+        button.prop(guide, 'show_steps_guide_reproportion',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_reproportion else 'ALIGN_JUSTIFY', emboss=False)
+        
+        button.operator("view3d.blenrig_guide_datatransfer", text = '2 - Show Weights Transfer Guide')
+        button.prop(guide, 'show_steps_guide_datatransfer',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_datatransfer else 'INFO', emboss=False)
+        
+        button.operator("view3d.blenrig_guide_mdef", text = '3 - Show Mesh Deform Guide')
+        button.prop(guide, 'show_steps_guide_mdef',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_mdef else 'INFO', emboss=False)
+        
+        button_2.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
+        button_2.prop(guide, 'show_steps_guide_lattices',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_lattices else 'INFO', emboss=False)
+        
+        button_2.operator("view3d.blenrig_guide_actions", text = '5 - Show Actions Guide')
+        button_2.prop(guide, 'show_steps_guide_actions',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_actions else 'INFO', emboss=False)
+        
+        button_2.operator("view3d.blenrig_guide_weights", text = '6 - Show Weight Painting Guide')
+        button_2.prop(guide, 'show_steps_guide_weights',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_weights else 'INFO', emboss=False)
+        
+        button_2.operator("view3d.blenrig_guide_rig_settings", text = '7 - Show Advanced Settings Guide')
+        button_2.prop(guide, 'show_steps_guide_rig_settings',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_rig_settings else 'INFO', emboss=False)
+        
+        button_2.operator("view3d.blenrig_guide_shapekeys", text = '8 - Show Shapekeys Guide')
+        button_2.prop(guide, 'show_steps_guide_shapekeys',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_shapekeys else 'INFO', emboss=False)
+        layout.separator()
+
+        if guide.show_steps_guide_reproportion:
+            for i, step in enumerate(GUIDE_STEPS_REPROPORTION):
+                step_list.operator("view3d.blenrig_guide_reproportion", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_datatransfer:
+            for i, step in enumerate(GUIDE_STEPS_DATATRANSFER):
+                step_list.operator("view3d.blenrig_guide_datatransfer", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_mdef:
+            for i, step in enumerate(GUIDE_STEPS_MDEF):
+                step_list.operator("view3d.blenrig_guide_mdef", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_lattices:
+            for i, step in enumerate(GUIDE_STEPS_LATTICES):
+                step_list.operator("view3d.blenrig_guide_lattices", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_actions:
+            for i, step in enumerate(GUIDE_STEPS_ACTIONS):
+                step_list.operator("view3d.blenrig_guide_actions", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_weights:
+            for i, step in enumerate(GUIDE_STEPS_WEIGHTS):
+                step_list.operator("view3d.blenrig_guide_weights", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_rig_settings:
+            for i, step in enumerate(GUIDE_STEPS_SETTINGS):
+                step_list.operator("view3d.blenrig_guide_rig_settings", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        if guide.show_steps_guide_shapekeys:
+            for i, step in enumerate(GUIDE_STEPS_SHAPEKEYS):
+                step_list.operator("view3d.blenrig_guide_shapekeys", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
+        # if not guide.show_steps_guide_reproportion:
+        #     return
 
 class BlenRigGuidePanel_options(BlenRigGuidePanel_menu,Panel):
     bl_label = "Options"
