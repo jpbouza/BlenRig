@@ -40,33 +40,33 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         button = col.row()
         button_2 = col.row()
         button.scale_y = 1.5
-        button.scale_x = 0.5
+        button.scale_x = 0.8
         button_2.scale_y = 1.5
-        button_2.scale_x = 0.5
+        button_2.scale_x = 0.8
         steps = layout.column(align=True)
         step_list = steps.box().column(align=True)
 
         button.operator("view3d.blenrig_guide_reproportion", text = '1 - Show Reproportion Guide')
         button.prop(guide, 'show_steps_guide_reproportion',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_reproportion else 'ALIGN_JUSTIFY', emboss=False)
-        
+
         button.operator("view3d.blenrig_guide_datatransfer", text = '2 - Show Weights Transfer Guide')
         button.prop(guide, 'show_steps_guide_datatransfer',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_datatransfer else 'INFO', emboss=False)
-        
+
         button.operator("view3d.blenrig_guide_mdef", text = '3 - Show Mesh Deform Guide')
         button.prop(guide, 'show_steps_guide_mdef',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_mdef else 'INFO', emboss=False)
-        
+
         button_2.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
         button_2.prop(guide, 'show_steps_guide_lattices',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_lattices else 'INFO', emboss=False)
-        
+
         button_2.operator("view3d.blenrig_guide_actions", text = '5 - Show Actions Guide')
         button_2.prop(guide, 'show_steps_guide_actions',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_actions else 'INFO', emboss=False)
-        
+
         button_2.operator("view3d.blenrig_guide_weights", text = '6 - Show Weight Painting Guide')
         button_2.prop(guide, 'show_steps_guide_weights',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_weights else 'INFO', emboss=False)
-        
+
         button_2.operator("view3d.blenrig_guide_rig_settings", text = '7 - Show Advanced Settings Guide')
         button_2.prop(guide, 'show_steps_guide_rig_settings',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_rig_settings else 'INFO', emboss=False)
-        
+
         button_2.operator("view3d.blenrig_guide_shapekeys", text = '8 - Show Shapekeys Guide')
         button_2.prop(guide, 'show_steps_guide_shapekeys',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_shapekeys else 'INFO', emboss=False)
         layout.separator()
