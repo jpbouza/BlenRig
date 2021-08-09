@@ -63,6 +63,7 @@ class BlenrigGuideData(PropertyGroup):
     image_index : IntProperty(default=0)
     images : CollectionProperty(type=BlenrigGuideImages)
     image_scale : FloatProperty(default=1, min=0.5, max=4, name="Image Scale")
+    show_steps : BoolProperty(default=False, name="Steps Guide")
     show_steps_guide_reproportion : BoolProperty(default=False, name="Show Steps Guide Reproportion")
     show_steps_guide_datatransfer : BoolProperty(default=False, name="Show Steps Guide Datatransfer")
     show_steps_guide_mdef : BoolProperty(default=False, name="Show Steps Guide Mdef")
