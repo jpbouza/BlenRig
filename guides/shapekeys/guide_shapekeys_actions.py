@@ -79,21 +79,25 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode, shapekeys_
         mesh_edit_obj = guide_props.mdef_cage_obj
         set_active_object(context, mesh_edit_obj)
         guide_props.active_shp_obj = mesh_edit_obj
+        guide_props.active_wp_obj = mesh_edit_obj
     #Hands
     elif shp_obj == 'hands':
         mesh_edit_obj = guide_props.character_hands_obj
         set_active_object(context, mesh_edit_obj)
         guide_props.active_shp_obj = mesh_edit_obj
+        guide_props.active_wp_obj = mesh_edit_obj
     #Toes
     elif shp_obj == 'toes':
         mesh_edit_obj = guide_props.character_toes_obj
         set_active_object(context, mesh_edit_obj)
         guide_props.active_shp_obj = mesh_edit_obj
+        guide_props.active_wp_obj = mesh_edit_obj
     #Head
     elif shp_obj == 'head':
         mesh_edit_obj = guide_props.character_head_obj
         set_active_object(context, mesh_edit_obj)
         guide_props.active_shp_obj = mesh_edit_obj
+        guide_props.active_wp_obj = mesh_edit_obj
 
     bpy.context.active_object.data.use_mirror_x = x_mirror
 
@@ -212,6 +216,11 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode, shapekeys_
             if context.mode != 'EDIT':
                 set_mode('EDIT')
                 bpy.ops.blenrig.toggle_shapekey_editting(mesh_edit_object='char')
+        if mode == 'weight_paint':
+            #Set Weight Paint Mode
+            set_active_object(context, mesh_edit_obj)
+            if context.mode != 'WEIGHT_PAINT':
+                bpy.ops.blenrig.toggle_weight_painting(paint_object='char')
 
 #### SHAPEKEYS STEPS ####
 
@@ -242,12 +251,12 @@ def SHAPEKEYS_Cage_Add_Body_Shapes(operator, context):
 def SHAPEKEYS_Cage_Ankle(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Ankle', 'mdef_cage',
     'x6', ['foot_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('foot_down_L', 60) , 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('foot_up_L', -60), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('foot_in_L', 60)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('foot_out_L', -60)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('shin_twist_in_L', 60), 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('shin_twist_out_L', -60), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('foot_down_L', 60) , 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('foot_up_L', -60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('foot_in_L', 60)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('foot_out_L', -60)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('shin_twist_in_L', 60), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('shin_twist_out_L', -60), 0.0), (1.0, 1.0, 1.0),
     1],
     'foot_fk_L', 'sole_pivot_point_L', 'RIGHT',
     ['foot_fk_L'],
@@ -271,10 +280,10 @@ def SHAPEKEYS_Cage_Ankle(operator, context):
 def SHAPEKEYS_Cage_Foot_Toe(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Foot_Toe', 'mdef_cage',
     'x4', ['foot_toe_1_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('foot_toe_1_down_L', 60), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('foot_toe_1_up_L', -60), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('foot_toe_1_in_L', 45)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 00, get_driver_transform('foot_toe_1_out_L', -45)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('foot_toe_1_down_L', 60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('foot_toe_1_up_L', -60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('foot_toe_1_in_L', 45)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 00, get_driver_transform_rot('foot_toe_1_out_L', -45)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -300,10 +309,10 @@ def SHAPEKEYS_Cage_Foot_Toe(operator, context):
 def SHAPEKEYS_Cage_Knee(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Knee', 'mdef_cage',
     'x4', ['shin_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('shin_up_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('shin_down_L', -20), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('thigh_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('thigh_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('shin_up_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('shin_down_L', -20), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('thigh_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('thigh_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -328,10 +337,10 @@ def SHAPEKEYS_Cage_Knee(operator, context):
 def SHAPEKEYS_Cage_Thigh(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Thigh', 'mdef_cage',
     'x4', ['thigh_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('thigh_back_L', 60), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('thigh_forw_L', -80), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('thigh_in_L', 30)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('thigh_out_L', -80)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('thigh_back_L', 60), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('thigh_forw_L', -80), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('thigh_in_L', 30)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('thigh_out_L', -80)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -357,10 +366,10 @@ def SHAPEKEYS_Cage_Thigh(operator, context):
 def SHAPEKEYS_Cage_Torso(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Torso', 'mdef_cage',
     'x4', ['spine_1_fk',
-    (0.0, 0.0, 0.0), (get_driver_transform('spine_1_forw', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('spine_1_back', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('spine_1_twist_L', -45), 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0,get_driver_transform('spine_1_L', -35)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('spine_1_forw', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('spine_1_back', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('spine_1_twist_L', -45), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0,get_driver_transform_rot('spine_1_L', -35)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -383,10 +392,10 @@ def SHAPEKEYS_Cage_Torso(operator, context):
 def SHAPEKEYS_Cage_Neck(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Neck', 'mdef_cage',
     'x4', ['neck_1_fk',
-    (0.0, 0.0, 0.0), (get_driver_transform('neck_1_forw', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('neck_1_back', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('neck_1_twist_L', -45), 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0,get_driver_transform('neck_1_L', -35)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('neck_1_forw', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('neck_1_back', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('neck_1_twist_L', -45), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0,get_driver_transform_rot('neck_1_L', -35)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -410,10 +419,10 @@ def SHAPEKEYS_Cage_Neck(operator, context):
 def SHAPEKEYS_Cage_Clavicle(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Clavicle', 'mdef_cage',
     'x4', ['shoulder_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('shoulder_forw_L', 35), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('shoulder_back_L', -35), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('shoulder_up_L', 35)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('shoulder_down_L', -15)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('shoulder_forw_L', 35), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('shoulder_back_L', -35), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('shoulder_up_L', 35)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('shoulder_down_L', -15)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1 ],
@@ -433,10 +442,10 @@ def SHAPEKEYS_Cage_Clavicle(operator, context):
 def SHAPEKEYS_Cage_Shoulder(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Shoulder', 'mdef_cage',
     'x4', ['arm_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('arm_forw_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('arm_back_L', -90), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('arm_up_L', 90)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('arm_down_L', -20)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('arm_forw_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('arm_back_L', -90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('arm_up_L', 90)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('arm_down_L', -20)), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -464,10 +473,10 @@ def SHAPEKEYS_Cage_Shoulder(operator, context):
 def SHAPEKEYS_Cage_Elbow(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Elbow', 'mdef_cage',
     'x4', ['forearm_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('forearm_up_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('forearm_down_L', -20), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('arm_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('arm_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('forearm_up_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('forearm_down_L', -20), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('arm_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('arm_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -494,12 +503,12 @@ def SHAPEKEYS_Cage_Elbow(operator, context):
 def SHAPEKEYS_Cage_Wrist(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Wrist', 'mdef_cage',
     'x6', ['hand_fk_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('hand_down_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('hand_up_L', -90), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('hand_forw_L', 35)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('hand_back_L', -35)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('forearm_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, get_driver_transform('forearm_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('hand_down_L', 90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('hand_up_L', -90), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('hand_forw_L', 35)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('hand_back_L', -35)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('forearm_twist_in_L', 90), 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, get_driver_transform_rot('forearm_twist_out_L', -90), 0.0), (1.0, 1.0, 1.0),
     1],
     'forearm_fk_L', 'hand_fk_L', 'FRONT',
     ['hand_fk_L', 'hand_def_L', 'wrist_fix_up_L', 'wrist_fix_low_L', 'forearm_twist_def_L', 'forearm_def_L'],
@@ -546,10 +555,10 @@ def SHAPEKEYS_Char_Add_Fingers_Shapes(operator, context):
 def SHAPEKEYS_Char_Thumb_1(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Thumb_1', 'hands',
     'x4', ['fing_thumb_1_L',
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('fing_thumb_1_out_L', 45)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform('fing_thumb_1_in_L', -45)), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_thumb_1_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_thumb_1_down_L', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('fing_thumb_1_out_L', 45)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, get_driver_transform_rot('fing_thumb_1_in_L', -45)), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_thumb_1_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_thumb_1_down_L', 45), 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
@@ -592,8 +601,8 @@ def SHAPEKEYS_Char_Lit_1(operator, context):
 def SHAPEKEYS_Char_Thumb_Joints(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Thumb_Joints', 'hands',
     'x2', ['fing_thumb_2_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_thumb_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_thumb_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_thumb_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_thumb_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -615,8 +624,8 @@ def SHAPEKEYS_Char_Thumb_Joints(operator, context):
 def SHAPEKEYS_Char_Index_Joints(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Index_Joints', 'hands',
     'x2', ['fing_ind_2_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_ind_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_ind_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_ind_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_ind_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -638,8 +647,8 @@ def SHAPEKEYS_Char_Index_Joints(operator, context):
 def SHAPEKEYS_Char_Middle_Joints(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Middle_Joints', 'hands',
     'x2', ['fing_mid_2_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_mid_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_mid_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_mid_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_mid_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -661,8 +670,8 @@ def SHAPEKEYS_Char_Middle_Joints(operator, context):
 def SHAPEKEYS_Char_Ring_Joints(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Ring_Joints', 'hands',
     'x2', ['fing_ring_2_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_ring_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_ring_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_ring_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_ring_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -684,8 +693,8 @@ def SHAPEKEYS_Char_Ring_Joints(operator, context):
 def SHAPEKEYS_Char_Little_Joints(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Little_Joints', 'hands',
     'x2', ['fing_lit_2_L',
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_lit_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (get_driver_transform('fing_lit_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_lit_2_up_L', -45), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (get_driver_transform_rot('fing_lit_2_down_L', 75), 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -729,7 +738,7 @@ def SHAPEKEYS_Char_Add_Face_Shapes(operator, context):
 def SHAPEKEYS_Char_Eyebrow_Up(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyebrow_Up', 'head',
     'x2', ['brow_mstr_L',
-    (0.0, 0.0, get_driver_transform('fing_lit_2_up_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_3_L'].length * 0.75)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, get_driver_transform_loc('brow_1_up_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_3_L'].length * 0.75)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -742,11 +751,11 @@ def SHAPEKEYS_Char_Eyebrow_Up(operator, context):
     ['brow_mstr_L'],
     ['frown_def', 'brow_def_3_L'],
     'shpaekey_edit',
-    ['brow_up_L'],
+    ['brow_up_L', 'brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L'],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
-    'brow_1_up_L',
+    'brow_up_L',
     False)
 
     guide_props = bpy.context.scene.blenrig_guide
@@ -754,11 +763,20 @@ def SHAPEKEYS_Char_Eyebrow_Up(operator, context):
         guide_props.character_head_obj.data.shape_keys.key_blocks['brow_up_L'].value = 1.0
     except:
         pass
+    #Mute actual Brow Shapekeys so that they don't influence the current shape
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_1_up_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_2_up_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_3_up_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_4_up_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_5_up_L'].mute = True
+    except:
+        pass
 
 def SHAPEKEYS_Char_Eyebrow_Down(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyebrow_Down', 'head',
     'x2', ['brow_mstr_L',
-    (0.0, 0.0, get_driver_transform('fing_lit_2_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['brow_arch_def_3_L'].length * 0.75))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, get_driver_transform_loc('brow_1_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['brow_arch_def_3_L'].length * 0.75))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -771,7 +789,7 @@ def SHAPEKEYS_Char_Eyebrow_Down(operator, context):
     ['brow_mstr_L'],
     ['frown_def', 'brow_def_3_L'],
     'shpaekey_edit',
-    ['brow_down_L'],
+    ['brow_down_L', 'brow_1_down_L', 'brow_2_down_L', 'brow_3_down_L', 'brow_4_down_L', 'brow_5_down_L'],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
@@ -783,6 +801,92 @@ def SHAPEKEYS_Char_Eyebrow_Down(operator, context):
         guide_props.character_head_obj.data.shape_keys.key_blocks['brow_down_L'].value = 1.0
     except:
         pass
+    #Mute actual Brow Shapekeys so that they don't influence the current shape
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_1_down_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_2_down_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_3_down_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_4_down_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_5_down_L'].mute = True
+    except:
+        pass
+
+def SHAPEKEYS_Char_Eyebrow_Weight(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyebrow_Weight', 'head',
+    'x2', ['brow_mstr_L',
+    (0.0, 0.0, get_driver_transform_loc('brow_1_up_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_3_L'].length * 0.75)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, get_driver_transform_loc('brow_1_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['brow_arch_def_3_L'].length * 0.75))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'head_stretch', 'FRONT',
+    ['brow_mstr_L', 'brow_ctrl_1_L', 'brow_ctrl_2_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L', 'brow_ctrl_5_L'],
+    [1, 2],
+    ['brow_mstr_L', 'brow_ctrl_1_L', 'brow_ctrl_2_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L', 'brow_ctrl_5_L'],
+    ['shapekeys_brow_1_L', 'shapekeys_brow_1_L', 'shapekeys_brow_2_L', 'shapekeys_brow_3_L', 'shapekeys_brow_4_L', 'shapekeys_brow_5_L'],
+    'weight_paint',
+    ['brow_up_L', 'brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L'],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'brow_up_L',
+    True)
+
+def SHAPEKEYS_Char_Frown_Up(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Frown_Up', 'head',
+    'x2', ['frown_ctrl',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'brow_ctrl_out_L', 'brow_ctrl_out_R', 'FRONT',
+    ['frown_ctrl', 'brow_mstr_L', 'brow_mstr_R'],
+    [1, 2],
+    ['frown_ctrl'],
+    ['frown_def'],
+    'shpaekey_edit',
+    ['frown_up', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'frown_up',
+    True)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.arm_obj.pose.bones['brow_mstr_L'].location[2] = get_driver_transform_loc('brow_1_up_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_mid'].length * 0.75))
+    guide_props.arm_obj.pose.bones['brow_mstr_R'].location[2] = get_driver_transform_loc('brow_1_up_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_mid'].length * 0.75))
+
+def SHAPEKEYS_Char_Frown_Down(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Frown_Up', 'head',
+    'x2', ['frown_ctrl',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'brow_ctrl_out_L', 'brow_ctrl_out_R', 'FRONT',
+    ['frown_ctrl', 'brow_mstr_L', 'brow_mstr_R'],
+    [1, 2],
+    ['frown_ctrl'],
+    ['frown_def'],
+    'shpaekey_edit',
+    ['frown_down', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'frown_down',
+    True)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.arm_obj.pose.bones['brow_mstr_L'].location[2] = get_driver_transform_loc('brow_1_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['nose_def_1_mid'].length * 0.75))
+    guide_props.arm_obj.pose.bones['brow_mstr_R'].location[2] = get_driver_transform_loc('brow_1_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['nose_def_1_mid'].length * 0.75))
 
 def SHAPEKEYS_Char_Eye_Socket(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Eye_Socket', 'head',
@@ -951,67 +1055,9 @@ def shapekeys_end_generic(context):
     except:
         pass
 
-    #Select Armature
-    if context.active_object.type == 'MESH':
-        deselect_all_objects(context)
-        select_armature(context)
-
-    #Ensure POSE Mode
-    go_blenrig_pose_mode(context)
-
-    #Reset Transforms
-    unhide_all_bones(context)
-    deselect_all_pose_bones(context)
-    reset_all_bones_transforms()
-
-    #Turn Layers on
-    off_layers = [27]
-    for l in off_layers:
-        guide_props.arm_obj.data.layers[l] = False
-
-    #Unlink Temp Collection
-    blenrig_temp_unlink()
-
-def shapekeys_end_blend_from_shape(context):
-    guide_props = context.scene.blenrig_guide
-
-    #Propagate Shapekey to other Shapekeys
-    guide_props.active_shp_obj.hide_viewport = False
-    deselect_all_objects(context)
-    set_active_object(context, guide_props.active_shp_obj)
-    set_mode('EDIT')
-    bpy.ops.mesh.select_mode(type="VERT")
-    bpy.ops.mesh.select_all(action = 'SELECT')
-    blend_from_shape('brow_up_L', ['brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L'])
-    set_mode('OBJECT')
-
-    #Mirror Edited Shapekeys
     try:
-        blenrig_temp_link(guide_props.active_shp_obj)
-    except:
-        pass
-    try:
-        if guide_props.auto_mirror_shapekeys:
-            guide_props.active_shp_obj.hide_viewport = False
-            deselect_all_objects(context)
-            set_active_object(context, guide_props.active_shp_obj)
-            for list in bpy.context.scene.blenrig_shapekeys_list:
-                shapes_1 = list.list_1
-                set_active_shapekey(shapes_1)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
-                shapes_2 = list.list_2
-                set_active_shapekey(shapes_2)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
-                shapes_3 = list.list_3
-                set_active_shapekey(shapes_3)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
-                shapes_4 = list.list_4
-                set_active_shapekey(shapes_4)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
+        guide_props.active_shp_obj.use_shape_key_edit_mode = True
+        guide_props.active_shp_obj.show_only_shape_key = False
     except:
         pass
 
@@ -1035,7 +1081,6 @@ def shapekeys_end_blend_from_shape(context):
 
     #Unlink Temp Collection
     blenrig_temp_unlink()
-
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
@@ -1069,10 +1114,28 @@ def end_of_step_action(context):
     if current_step == 'SHAPEKEYS_Char_Eyebrow_Up':
         try:
             guide_props.character_head_obj.data.shape_keys.key_blocks['brow_up_L'].value = 0.0
+            guide_props.character_head_obj.data.shape_keys.key_blocks['brow_up_R'].value = 0.0
         except:
             pass
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_1_up_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_2_up_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_3_up_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_4_up_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_5_up_L'].mute = False
+    except:
+        pass
     if current_step == 'SHAPEKEYS_Char_Eyebrow_Down':
         try:
             guide_props.character_head_obj.data.shape_keys.key_blocks['brow_down_L'].value = 0.0
+            guide_props.character_head_obj.data.shape_keys.key_blocks['brow_down_R'].value = 0.0
         except:
             pass
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_1_down_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_2_down_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_3_down_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_4_down_L'].mute = False
+        guide_props.character_head_obj.data.shape_keys.key_blocks['brow_5_down_L'].mute = False
+    except:
+        pass
