@@ -16,7 +16,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout
 
-        exclude_list = ['SHAPEKEYS_Cage_Add_Body_Shapes', 'SHAPEKEYS_Char_Add_Fingers_Shapes']
+        exclude_list = ['SHAPEKEYS_Cage_Add_Body_Shapes', 'SHAPEKEYS_Char_Add_Fingers_Shapes', 'SHAPEKEYS_Char_Add_Face_Shapes', 'SHAPEKEYS_Char_Eyebrow_Weight']
 
         if VIEW3D_OT_blenrig_guide_shapekeys.instance:
             steps = layout.column(align=True)
@@ -161,7 +161,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             if guide_props.guide_current_step == 'SHAPEKEYS_Char_Add_Fingers_Shapes':
                 box_pose = steps.box()
                 box_pose.label(text='Add Fingers Shapekeys', icon='ARMATURE_DATA')
-                box_pose.operator("blenrig.add_fingers_shapekeys", text = 'Add FIngers Shapekeys')
+                box_pose.operator("blenrig.add_fingers_shapekeys", text = 'Add Fingers Shapekeys')
              #Char Thumb 1
             if guide_props.guide_current_step == 'SHAPEKEYS_Char_Thumb_1':
                 box_pose = steps.box()
@@ -260,11 +260,47 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Little Pose')
+            #Add Face Shapekeys
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Add_Face_Shapes':
+                box_pose = steps.box()
+                box_pose.label(text='Add Face Shapekeys', icon='ARMATURE_DATA')
+                box_pose.operator("blenrig.add_face_shapekeys", text = 'Add Face Shapekeys')
              #Char Eyebrow Up
             if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyebrow_Up':
                 box_pose = steps.box()
+                box_pose.label(text='Apply Current Shape to Brow Up Shapekeys', icon='ARMATURE_DATA')
+                box_pose.operator("blenrig.blend_from_shape", text='Apply Shape').operation = 'brow_up_L'
+             #Char Eyebrow Down
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyebrow_Down':
+                box_pose = steps.box()
+                box_pose.label(text='Apply Current Shape to Brow Down Shapekeys', icon='ARMATURE_DATA')
+                box_pose.operator("blenrig.blend_from_shape", text='Apply Shape').operation = 'brow_down_L'
+             #Char Eyebrow Weights
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyebrow_Weight':
+                box_pose = steps.box()
+                box_pose.label(text='Select Shapekey Vertex Group', icon='BONE_DATA')
+                joint_row = box_pose.row()
+                joint_row.alignment = 'CENTER'
+                joint_row.scale_x = 0.9
+                joint_col_1 = joint_row.column()
+                joint_col_1.alignment = 'CENTER'
+                joint_col_2 = joint_row.column()
+                joint_col_2.alignment = 'CENTER'
+                joint_col_3 = joint_row.column()
+                joint_col_3.alignment = 'CENTER'
+                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+                joint_col_2.label(text=active.vertex_groups.active.name.upper())
+                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-                box_pose.operator("blenrig.blend_from_shape", text='Blend from Shape').shapekey_list = ['brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L']
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyebrow Pose')
+                steps.separator()
+                box_weight = steps.box()
+                box_weight.label(text='Weight Painting Options')
+                mirror_row = box_weight.row()
+                if active_mode == 'WEIGHT_PAINT':
+                    mirror_row.prop(active.data, "use_mirror_x", text='X-Mirror')
+                    mirror_row.prop(active.data, "use_mirror_topology")
+
 
             # #Char Head
             # if guide_props.guide_current_step == 'WEIGHTS_Char_Head':
@@ -423,7 +459,10 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 row_shape = box_pose.row()
                 row_shape.alignment = 'CENTER'
                 if hasattr(guide_props.active_shp_obj, 'active_shape_key') and hasattr(guide_props.active_shp_obj.active_shape_key, 'name'):
-                    row_shape.label(text=guide_props.active_shp_obj.active_shape_key.name.upper())
+                    row_shape.label(text=str(guide_props.active_shp_obj.active_shape_key.name.upper()) + " (value: " + str(round(guide_props.active_shp_obj.active_shape_key.value, 1)) + ")",
+                    icon="{}".format('KEYTYPE_EXTREME_VEC' if guide_props.active_shp_obj.active_shape_key.value < 0.5
+                    else ('KEYTYPE_KEYFRAME_VEC' if guide_props.active_shp_obj.active_shape_key.value >= 0.5 and guide_props.active_shp_obj.active_shape_key.value < 0.8
+                    else ('KEYTYPE_JITTER_VEC'))))
                 box_pose.label(text='Drivers:')
                 row_drivers = box_pose.row()
                 row_drivers.operator("blenrig.update_shapekey_driver", text='Update Driver with Current Pose')
