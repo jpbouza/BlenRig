@@ -1794,7 +1794,8 @@ def set_active_shapekey(shapekey_name):
             ob.active_shape_key_index = index
 
 #Get Shapekey Driver Transform
-def get_driver_transform(shapekey, default_value):
+#Rotation
+def get_driver_transform_rot(shapekey, default_value):
     guide_props = bpy.context.scene.blenrig_guide
     ob = guide_props.active_shp_obj
 
@@ -1806,12 +1807,29 @@ def get_driver_transform(shapekey, default_value):
             if d_path == 'key_blocks["' + str(shapekey) + '"].value':
                 return degrees(1 / driver.modifiers[0].coefficients[1])
     return default_value
+#Location
+def get_driver_transform_loc(shapekey, default_value):
+    guide_props = bpy.context.scene.blenrig_guide
+    ob = guide_props.active_shp_obj
+
+
+    #Get Active Shapekey Driver
+    if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'animation_data') and hasattr(ob.data.shape_keys.animation_data, 'drivers'):
+        for driver in ob.data.shape_keys.animation_data.drivers:
+            d_path = driver.data_path
+            if d_path == 'key_blocks["' + str(shapekey) + '"].value':
+                return 1 / driver.modifiers[0].coefficients[1]
+    return default_value
 
 #Propagate shapekey y other shapekeys
-def blend_from_shape(destination_keys):
+def blend_from_shape(source_shape, destination_keys):
     ob = bpy.context.active_object
     shapekeys_list = destination_keys
 
+    set_mode('EDIT')
+    bpy.ops.mesh.select_mode(type="VERT")
+    bpy.ops.mesh.select_all(action = 'SELECT')
+
     for shape in shapekeys_list:
         set_active_shapekey(shape)
-        bpy.ops.mesh.blend_from_shape(shape=ob.active_shape_key.name, blend=1.0, add=False)
+        bpy.ops.mesh.blend_from_shape(shape=source_shape, blend=1.0, add=False)

@@ -5018,6 +5018,9 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
     #Mouth Open Shapekeys are updated separately
     mouth_open_shapekeys = ['mouth_open_down', 'mouth_close_up']
 
+    #Brow Up and Down general shapekeys propagate their value to the actual Up and Down Shapekeys
+    brow_shapekeys = ['brow_up_L', 'brow_up_R', 'brow_down_L', 'brow_down_R']
+
     def execute(self, context):
         ob = context.active_object
         active_shapekey = ob.active_shape_key.name
@@ -5028,6 +5031,45 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
             self.update_eyelids(context)
         elif active_shapekey in self.mouth_open_shapekeys:
             self.update_mouth_open(context)
+        elif active_shapekey in self.brow_shapekeys:
+            up_L = ['brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L']
+            up_R = ['brow_1_up_R', 'brow_2_up_R', 'brow_3_up_R', 'brow_4_up_R', 'brow_5_up_R']
+            down_L = ['brow_1_down_L', 'brow_2_down_L', 'brow_3_down_L', 'brow_4_down_L', 'brow_5_down_L']
+            down_R = ['brow_1_down_R', 'brow_2_down_R', 'brow_3_down_R', 'brow_4_down_R', 'brow_5_down_R']
+            from .utils import set_active_shapekey
+            if active_shapekey == 'brow_up_L':
+                try:
+                    for shape in up_L:
+                        set_active_shapekey(shape)
+                        self.update_trasnform(context)
+                    set_active_shapekey('brow_up_L')
+                except:
+                    pass
+            if active_shapekey == 'brow_up_R':
+                try:
+                    for shape in up_R:
+                        set_active_shapekey(shape)
+                        self.update_trasnform(context)
+                    set_active_shapekey('brow_up_R')
+                except:
+                    pass
+            if active_shapekey == 'brow_down_L':
+                try:
+                    for shape in down_L:
+                        set_active_shapekey(shape)
+                        self.update_trasnform(context)
+                    set_active_shapekey('brow_down_L')
+                except:
+                    pass
+            if active_shapekey == 'brow_down_R':
+                try:
+                    for shape in down_R:
+                        set_active_shapekey(shape)
+                        self.update_trasnform(context)
+                    set_active_shapekey('brow_down_R')
+                except:
+                    pass
+
         else:
             self.update_trasnform(context)
         return {"FINISHED"}
@@ -5306,11 +5348,14 @@ class Operator_blenrig_blend_from_shape(bpy.types.Operator):
         else:
             return False
 
-    shapekey_list :bpy.props.StringProperty()
+    operation :bpy.props.StringProperty()
 
     def execute(self, context):
         from .utils import blend_from_shape
-        blend_from_shape(self.shapekey_list)
+        if self.operation == 'brow_up_L':
+            blend_from_shape('brow_up_L', ['brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L'])
+        if self.operation == 'brow_down_L':
+            blend_from_shape('brow_down_L', ['brow_1_down_L', 'brow_2_down_L', 'brow_3_down_L', 'brow_4_down_L', 'brow_5_down_L'])
         return {"FINISHED"}
 
 
