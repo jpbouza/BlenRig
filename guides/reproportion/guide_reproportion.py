@@ -9,7 +9,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
         'titulo': {
             'EN': 'Symmetry Option',
-            'ES': 'Paso 1'
+            'ES': 'Opcion de Simetria'
             },
         'texto': {
             'EN': 'If the character is symmetric, please enable the X-Mirror option.',
@@ -22,7 +22,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Master_A.jpg', 'Reprop_Master_B.jpg'),
         'titulo': {
             'EN': 'General Scale',
-            'ES': 'Paso 1'
+            'ES': 'Escala General'
             },
         'texto': {
             'EN': 'Scale the overall size of the rig so that it better fits the character.',
@@ -35,7 +35,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Master_Torso.jpg',
         'titulo': {
             'EN': 'Master Torso',
-            'ES': 'Paso 1'
+            'ES': 'Torso Principal'
             },
         'texto': {
             'EN': 'Place “master_torso” at the height of hips. It should more or less match the head of the thigh bone.',
@@ -48,7 +48,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Spine.jpg',
         'titulo': {
             'EN': 'Spine Joints',
-            'ES': 'Paso 2'
+            'ES': 'Articulaciones de la columna'
             },
         'texto': {
             'EN': 'Place the hips and spine joints.',
@@ -61,7 +61,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Spine_Line_A.jpg', 'Reprop_Spine_Line_B.jpg', 'Reprop_Spine_Line_C.jpg'),
         'titulo': {
             'EN': 'Spine Line Curvature',
-            'ES': 'Paso 2'
+            'ES': 'Curvatura de la linea de la columna'
             },
         'texto': {
             'EN': 'Adjust the curve of the Spine Line so that it best matches the shape of the spine bones.',
@@ -74,7 +74,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Neck.jpg',
         'titulo': {
             'EN': 'Neck Joints',
-            'ES': 'Paso 3'
+            'ES': 'Articulacion del cuello'
             },
         'texto': {
             'EN': 'Place the neck and head joints.',
@@ -87,7 +87,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Head.jpg',
         'titulo': {
             'EN': 'Head Joints',
-            'ES': 'Paso 4'
+            'ES': 'Articulacion de la cabeza'
             },
         'texto': {
             'EN': 'Place the inner head joints, one at the height of the eyes and the other one the height of the base of the nose.',
@@ -100,11 +100,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Breasts_Pecs.jpg',
         'titulo': {
             'EN': 'Breasts / Pecs',
-            'ES': 'Paso 2'
+            'ES': 'Pechos / Pectorales'
             },
         'texto': {
-            'EN': 'Place the Beasts bones',
-            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            'EN': 'Place the Breasts bones',
+            'ES': 'Coloque los huesos de los pechos'
             },
         'accion': Reprop_Breasts_Pecs
     },
@@ -113,11 +113,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Body_Lattice.jpg',
         'titulo': {
             'EN': 'Body Lattice',
-            'ES': 'Paso 2'
+            'ES': 'Deformador Lattice del cuerpo'
             },
         'texto': {
             'EN': 'Place the Lattice controllers for the body',
-            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            'ES': 'Coloque los controladores Lattice para el cuerpo'
             },
         'accion': Reprop_Body_Lattice
     },
@@ -126,11 +126,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Sole_Side.jpg',
         'titulo': {
             'EN': 'Heel Side',
-            'ES': 'Paso 5'
+            'ES': 'Posicion del talon'
             },
         'texto': {
             'EN': 'Place the sole bone at the heel. Position the Foot Roll Controller and the Front Pivot Point.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca el hueso de la suela en el talon. Coloca el controlador "Foot Roll" y el "Front Pivot Point".'
             },
         'accion': Reprop_Sole_Side
     },
@@ -191,7 +191,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Feet.jpg',
         'titulo': {
             'EN': 'Feet',
-            'ES': 'Paso 5'
+            'ES': 'Pie'
             },
         'texto': {
             'EN': 'Place the foot joints.',
@@ -243,7 +243,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Hands.jpg',
         'titulo': {
             'EN': 'Hand Joint',
-            'ES': 'Paso 5'
+            'ES': 'Articulacion de la Mano'
             },
         'texto': {
             'EN': 'Place the hand joint at the root of the fingers.',
@@ -256,11 +256,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Fingers.jpg',
         'titulo': {
             'EN': 'Fingers',
-            'ES': 'Paso 5'
+            'ES': 'Dedos'
             },
         'texto': {
             'EN': 'If your character has fingers, place the finger joints, otherwise, toggle fingers off.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Si tu personaje tiene dedos, coloca las articulaciones de estos, y si no tiene, desactiva el "toggle fingers".'
             },
         'accion': Reprop_Fingers
     },
@@ -295,7 +295,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Edit_Face_A.jpg', 'Reprop_Edit_Face_B.jpg', 'Reprop_Edit_Face_C.jpg'),
         'titulo': {
             'EN': 'Face Mask Editting',
-            'ES': 'Paso 5'
+            'ES': 'Mascara de edicion de la cara'
             },
         'texto': {
             'EN': 'Edit the Face Mask. Snap the vertices to the face of the character. Toggle Between Wire and Solid mode to see the area of the face.',
@@ -308,7 +308,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Eye_Loop_A.jpg', 'Reprop_Eye_Loop_B.jpg'),
         'titulo': {
             'EN': 'Setting Eye Loop',
-            'ES': 'Paso 5'
+            'ES': 'Ajuste del loop del ojo'
             },
         'texto': {
             'EN': "Pick the character's left eye object and in Edit mode select the Center Loop. Move Cursor to Selection with Shift+S.",
@@ -334,11 +334,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Eyebrows_Main_Ctrl.jpg',
         'titulo': {
             'EN': 'Eyebrow Main',
-            'ES': 'Paso 5'
+            'ES': 'Ceja Principal'
             },
         'texto': {
             'EN': 'Place the main controller of the Eyebrow.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca el controlador principal de las cejas'
             },
         'accion': Reprop_Eyebrows_Main_Ctrl
     },
@@ -360,7 +360,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Eyebrows_Curve_A.jpg', 'Reprop_Eyebrows_Curve_B.jpg', 'Reprop_Eyebrows_Curve_C.jpg'),
         'titulo': {
             'EN': 'Eyebrow Curve',
-            'ES': 'Paso 5'
+            'ES': 'Curva de las Cejas'
             },
         'texto': {
             'EN': "Modify the curve values so that the Curve conforms the shape of the character's Eyebrow structure.",
@@ -373,7 +373,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Eyebrows_Ctrls.jpg',
         'titulo': {
             'EN': 'Eyebrow Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Controles de las Cejas'
             },
         'texto': {
             'EN': 'Place the controllers at the center of each joint of the Eyebrow.',
@@ -386,7 +386,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Eyelids_Ctrls.jpg',
         'titulo': {
             'EN': 'Eyelids Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Controles de los Parpados'
             },
         'texto': {
             'EN': 'Place the controllers for the Eyelids.',
@@ -438,7 +438,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Nose_A.jpg', 'Reprop_Nose_B.jpg'),
         'titulo': {
             'EN': 'Nose',
-            'ES': 'Paso 5'
+            'ES': 'Nariz'
             },
         'texto': {
             'EN': 'Use the controllers to fit the nose bones to the nose structure of the model. Place the Nostrils controls.',
@@ -451,7 +451,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Jaw.jpg',
         'titulo': {
             'EN': 'Jaw',
-            'ES': 'Paso 5'
+            'ES': 'Mandibula'
             },
         'texto': {
             'EN': 'Position the jaw from its joint point to the chin.',
@@ -464,7 +464,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Face_Low.jpg',
         'titulo': {
             'EN': 'Lower Face Joint',
-            'ES': 'Paso 5'
+            'ES': 'Articulacion inferior de la cara'
             },
         'texto': {
             'EN': 'Place the lower face joint from the base of the nose to the chin. This bone usually goes through the mouth corners, defining an orientation place for the mouth.',
@@ -477,7 +477,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Mouth_IK.jpg',
         'titulo': {
             'EN': 'Mouth Center & Arch',
-            'ES': 'Paso 5'
+            'ES': 'Centro de la Boca y Arco'
             },
         'texto': {
             'EN': 'Place "mouth_mstr_str" at the center of the mouth. Move "mouth_mstr_ik_pivot" inside of the mouth cavity to define the pivoting point of the arch that makes the lips slide over the teeth.',
@@ -490,7 +490,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Lips_Centers.jpg',
         'titulo': {
             'EN': 'Upper & Lower Lips Centers',
-            'ES': 'Paso 5'
+            'ES': 'Superior e Inferior del centro del labio'
             },
         'texto': {
             'EN': 'Place the upper and lower lips centers',
@@ -503,7 +503,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Mouth_Ctrl.jpg',
         'titulo': {
             'EN': 'Mouth Ctrl',
-            'ES': 'Paso 5'
+            'ES': 'Controles de la Boca'
             },
         'texto': {
             'EN': 'Place the controller of the mouth where it best visually fits the character. Place the cheek puff controllers.',
@@ -516,7 +516,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Mouth_Curves_Ctrls_A.jpg', 'Reprop_Mouth_Curves_Ctrls_B.jpg'),
         'titulo': {
             'EN': 'Mouth Curves Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Curvas de control de la boca'
             },
         'texto': {
             'EN': 'Use the mouth corner controllers and the middle lips controllers to place the curves along the lips.',
@@ -529,7 +529,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Mouth_Curves_A.jpg', 'Reprop_Mouth_Curves_B.jpg'),
         'titulo': {
             'EN': 'Lips Curves',
-            'ES': 'Paso 5'
+            'ES': 'Curva del labio'
             },
         'texto': {
             'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth.',
@@ -542,7 +542,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Mouth_Ctrls.jpg',
         'titulo': {
             'EN': 'Lips Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Controles de labio'
             },
         'texto': {
             'EN': 'Place the lips controllers at the middle of each lip joint.',
@@ -568,7 +568,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Teeth_Up.jpg',
         'titulo': {
             'EN': 'Upper Teeth',
-            'ES': 'Paso 5'
+            'ES': 'Dientes Superiores'
             },
         'texto': {
             'EN': 'Move "teeth_up_str" to where the teeth object is and place the Upper Teeth controls.',
@@ -581,7 +581,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Teeth_Low.jpg',
         'titulo': {
             'EN': 'Lower Teeth',
-            'ES': 'Paso 5'
+            'ES': 'Dientes inferiores'
             },
         'texto': {
             'EN': 'Move "teeth_low_str" to where the teeth object is and place the Lower Teeth controls.',
@@ -594,7 +594,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Tongue.jpg',
         'titulo': {
             'EN': 'Tongue',
-            'ES': 'Paso 5'
+            'ES': 'Lengua'
             },
         'texto': {
             'EN': 'Move "tongue_str" to the root of the tongue object and place the controllers along the tongue',
@@ -607,7 +607,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Inner_Mouth.jpg',
         'titulo': {
             'EN': 'Inner Mouth',
-            'ES': 'Paso 5'
+            'ES': 'Interior de la Boca'
             },
         'texto': {
             'EN': 'Place the inner mouth area controllers',
@@ -620,7 +620,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Ears.jpg',
         'titulo': {
             'EN': 'Ears',
-            'ES': 'Paso 5'
+            'ES': 'Orejas'
             },
         'texto': {
             'EN': 'Place the Ears controllers.',
@@ -633,7 +633,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Hat_Glasses.jpg',
         'titulo': {
             'EN': 'Hat & Glasses',
-            'ES': 'Paso 5'
+            'ES': 'Sombrero y Gafas'
             },
         'texto': {
             'EN': 'Place the Hat and Glasses pivot controllers.',
@@ -646,7 +646,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Look_A.jpg', 'Reprop_Look_B.jpg'),
         'titulo': {
             'EN': 'Look',
-            'ES': 'Paso 5'
+            'ES': 'Control de la mirada'
             },
         'texto': {
             'EN': 'Place the Look controller. Scale it to fit the width of the eyes.',
@@ -659,7 +659,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Bake.jpg',
         'titulo': {
             'EN': 'Bake Rig',
-            'ES': 'Paso 5'
+            'ES': 'Bake Rig'
             },
         'texto': {
             'EN': 'Press the Bake button to bake the current state of the rig and the deformation objects.',
@@ -685,7 +685,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Finish.jpg',
         'titulo': {
             'EN': 'Reproportion Finish',
-            'ES': 'Paso 5'
+            'ES': 'Reproporcion Finalizada'
             },
         'texto': {
             'EN': 'End of Reproportion process. You can now start the deformation setup process',
