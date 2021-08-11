@@ -300,7 +300,31 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 if active_mode == 'WEIGHT_PAINT':
                     mirror_row.prop(active.data, "use_mirror_x", text='X-Mirror')
                     mirror_row.prop(active.data, "use_mirror_topology")
-
+            #Upper Eyelid Down
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyelid_Up_Down':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyelid Pose')
+            #Lower Eyelid Up
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyelid_Low_Up':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyelid Pose')
+            #Cheeks
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Cheeks':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Cheek Pose')
+            #Nose
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Nostril':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Nostril Pose')
+            #Mouth Corner Base
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_Corner_Base':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Mouth Corner Pose')
 
             # #Char Head
             # if guide_props.guide_current_step == 'WEIGHTS_Char_Head':
