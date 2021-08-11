@@ -3808,14 +3808,14 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 pass
             else:
                 active_driver = add_shapekeys_driver(shapekeys['nostril_expand_L'], 'value', 'MAX', '')
-                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_L', "''", 'LOCAL_SPACE', 'SCALE_X', 'AUTO')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_L', "''", 'LOCAL_SPACE', 'SCALE_Y', 'AUTO')
                 add_mod_generator_location_offset(active_driver, -1.0, 1.0)
             #nostril_collapse_L
             if check_shapekey_driver('nostril_collapse_L'):
                 pass
             else:
                 active_driver = add_shapekeys_driver(shapekeys['nostril_collapse_L'], 'value', 'MAX', '')
-                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_L', "''", 'LOCAL_SPACE', 'SCALE_X', 'AUTO')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_L', "''", 'LOCAL_SPACE', 'SCALE_Y', 'AUTO')
                 add_mod_generator_location_offset(active_driver, 2.0, -0.5)
             #nostril_frown_L
             if check_shapekey_driver('nostril_frown_L'):
@@ -3857,14 +3857,14 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 pass
             else:
                 active_driver = add_shapekeys_driver(shapekeys['nostril_expand_R'], 'value', 'MAX', '')
-                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_R', "''", 'LOCAL_SPACE', 'SCALE_X', 'AUTO')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_R', "''", 'LOCAL_SPACE', 'SCALE_Y', 'AUTO')
                 add_mod_generator_location_offset(active_driver, -1.0, 1.0)
             #nostril_collapse_R
             if check_shapekey_driver('nostril_collapse_R'):
                 pass
             else:
                 active_driver = add_shapekeys_driver(shapekeys['nostril_collapse_R'], 'value', 'MAX', '')
-                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_R', "''", 'LOCAL_SPACE', 'SCALE_X', 'AUTO')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'nostril_ctrl_R', "''", 'LOCAL_SPACE', 'SCALE_Y', 'AUTO')
                 add_mod_generator_location_offset(active_driver, 2.0, -0.5)
             #nostril_frown_R
             if check_shapekey_driver('nostril_frown_R'):
