@@ -888,89 +888,212 @@ def SHAPEKEYS_Char_Frown_Down(operator, context):
     guide_props.arm_obj.pose.bones['brow_mstr_L'].location[2] = get_driver_transform_loc('brow_1_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['nose_def_1_mid'].length * 0.75))
     guide_props.arm_obj.pose.bones['brow_mstr_R'].location[2] = get_driver_transform_loc('brow_1_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['nose_def_1_mid'].length * 0.75))
 
-def SHAPEKEYS_Char_Eye_Socket(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eye_Socket', 'head',
-    'x2', ['eye_mstr_str_L',
-    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+def SHAPEKEYS_Char_Eyebrow_In(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyebrow_In', 'head',
+    'x2', ['brow_ctrl_in_L',
+    (get_driver_transform_loc('brow_1_in_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones['frown_low_def_L'].length * 0.5), 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
-    ['eye_mstr_str_L'],
-    [27],
-    ['eye_mstr_str_L'],
-    ['eye_mstr_str_L'],
-    'weight_paint',)
+    'brow_ctrl_out_L', 'brow_ctrl_out_R', 'FRONT',
+    ['brow_ctrl_in_L'],
+    [0],
+    ['brow_ctrl_in_L'],
+    ['frown_def'],
+    'shpaekey_edit',
+    ['brow_1_in_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'brow_1_in_L',
+    False)
 
-def SHAPEKEYS_Char_Eyelids(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelids', 'head',
+def SHAPEKEYS_Char_Eyelid_Up_Up(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Up_Up', 'head',
     'x2', ['eyelid_up_ctrl_L',
-    (0.0, 0.0, -(abs(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['eyelid_up_ctrl_L'].head[2] - bpy.context.scene.blenrig_guide.arm_obj.pose.bones['eyelid_low_ctrl_L'].head[2]))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, abs(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['eyelid_up_ctrl_L'].head[2] - bpy.context.scene.blenrig_guide.arm_obj.pose.bones['eyelid_low_ctrl_L'].head[2])), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, get_driver_transform_loc('eyelid_up_up_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_UP_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
     'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
-    ['brow_mstr_L', 'brow_arch_def_5_L', 'eyelid_up_rim_ctrl_L', 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_out_def_L', 'cheek_rim_def_1_L', 'eyelid_rim_up_def_1_L', 'eyelid_rim_low_def_1_L',
-    'eyelid_in_def_L', 'eyelid_up_ctrl_2_L', 'eyelid_up_line_def_3_L', 'eyelid_ctrl_in_L', 'eyelid_low_line_def_1_L', 'eyelid_up_line_def_1_L', 'eyelid_ctrl_out_L', 'eyelid_up_line_def_4_L',
-    'eyelid_low_line_def_4_L', 'eyelid_up_ctrl_3_L', 'eyelid_up_ctrl_1_L', 'eyelid_up_line_def_2_L', 'eyelid_low_ctrl_2_L', 'eyelid_low_line_def_3_L', 'eyelid_low_ctrl_3_L', 'eyelid_low_ctrl_1_L',
-    'eyelid_low_line_def_2_L', 'eyelid_low_rim_ctrl_L', 'nose_def_1_mid', 'cheek_def_1_1_L', 'eyelid_low_def_1_L', 'eyelid_rim_low_def_2_L', 'cheek_def_3_1_L', 'eyelid_low_def_3_L', 'eyelid_rim_low_def_4_L',
-    'eyelid_low_def_2_L', 'eyelid_rim_low_def_3_L', 'cheek_def_2_1_L', 'eyelid_rim_up_def_4_L', 'eyelid_up_def_3_L', 'eyelid_rim_up_def_3_L', 'eyelid_up_def_2_L', 'eyelid_rim_up_def_2_L', 'eyelid_up_def_1_L',
-    'brow_low_def_4_L', 'brow_arch_def_1_L', 'frown_low_def_L', 'nose_side_def_1_L', 'brow_arch_def_2_L', 'brow_low_def_1_L', 'brow_arch_def_3_L', 'brow_low_def_2_L', 'brow_arch_def_4_L', 'brow_low_def_3_L',
-    'nose_frown_up_def_L', 'nose_root_def_2_L', 'cheekbone_line_def_3_L', 'cheekbone_line_def_2_L', 'cheekbone_line_def_1_L', 'brow_low_def_5_L', 'cheek_rim_def_2_L', 'brow_arch_def_6_L', 'nose_root_def_1_L',
-    'cheek_line_def_1_L', 'cheek_line_def_2_L', 'cheek_line_def_3_L', 'cheek_def_4_1_L', 'cheek_def_4_2_L', 'nose_def_2_mid', 'nose_frown_def_L', 'nose_bridge_up_def_L', 'nose_side_def_2_L', 'cheek_side_def_1_L',
-    'cheek_def_3_2_L', 'cheek_def_2_2_L', 'cheek_def_1_2_L', 'eye_mstr_str_L'],
-    [27],
-    ['eyelid_up_ctrl_L', 'eyelid_low_ctrl_L'],
-    ['eyelid_up_line_def_3_L', 'eyelid_low_line_def_3_L'],
-    'weight_paint',)
+    ['eyelid_up_ctrl_L'],
+    [0],
+    ['eyelid_up_ctrl_L'],
+    ['eyelid_up_def_2_L'],
+    'shpaekey_edit',
+    ['eyelid_up_up_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'eyelid_up_up_L',
+    False)
+
+def SHAPEKEYS_Char_Eyelid_Up_Down(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Up_Down', 'head',
+    'x2', ['eyelid_up_ctrl_L',
+    (0.0, 0.0, get_driver_transform_loc('eyelid_up_down_1_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L / 2))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['eyelid_up_ctrl_L'],
+    [0],
+    ['eyelid_up_ctrl_L'],
+    ['eyelid_up_def_2_L'],
+    'char_mesh',
+    ['eyelid_up_down_1_L', 'eyelid_up_down_2_L', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'eyelid_up_down_1_L',
+    False)
+
+def SHAPEKEYS_Char_Eyelid_Low_Down(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Low_Down', 'head',
+    'x2', ['eyelid_low_ctrl_L',
+    (0.0, 0.0, get_driver_transform_loc('eyelid_low_down_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_DOWN_LIMIT_L))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['eyelid_low_ctrl_L'],
+    [0],
+    ['eyelid_low_ctrl_L'],
+    ['eyelid_low_def_2_L'],
+    'shpaekey_edit',
+    ['eyelid_low_down_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'eyelid_low_down_L',
+    False)
+
+def SHAPEKEYS_Char_Eyelid_Low_Up(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Low_Up', 'head',
+    'x2', ['eyelid_low_ctrl_L',
+    (0.0, 0.0, get_driver_transform_loc('eyelid_low_up_1_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L / 2)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['eyelid_low_ctrl_L'],
+    [0],
+    ['eyelid_low_ctrl_L'],
+    ['eyelid_low_def_2_L'],
+    'char_mesh',
+    ['eyelid_low_up_1_L', 'eyelid_low_up_2_L', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'eyelid_low_up_1_L',
+    False)
 
 def SHAPEKEYS_Char_Cheeks(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Cheeks', 'head',
     'x2', ['cheek_ctrl_L',
-    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones['cheek_def_3_1_L'].length * 0.9), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['cheek_def_3_1_L'].length * 0.9)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
     'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
-    ['cheek_ctrl_L', 'cheek_line_def_1_L', 'cheek_def_1_3_L', 'cheek_line_def_2_L', 'cheek_def_2_3_L', 'cheek_line_def_3_L', 'cheek_def_3_3_L', 'cheek_def_4_1_L', 'cheek_rim_def_1_L',
-    'eyelid_rim_low_def_1_L', 'cheek_def_4_3_L', 'cheek_def_4_2_L', 'smile_line_def_3_L', 'cheek_def_1_1_L', 'eyelid_rim_low_def_2_L', 'cheek_def_3_1_L', 'eyelid_rim_low_def_4_L',
-    'eyelid_rim_low_def_3_L', 'cheek_def_2_1_L', 'nose_def_2_mid', 'nose_root_def_1_L', 'nose_side_def_3_L', 'nose_frown_def_L', 'nose_def_3_mid', 'nose_bridge_up_def_L', 'smile_line_def_2_L',
-    'nose_bridge_low_def_L', 'smile_line_def_1_L', 'nostril_up_def_L', 'nose_side_def_2_L', 'nose_frown_up_def_L', 'nose_root_def_2_L', 'cheek_side_def_1_L', 'cheek_def_3_2_L', 'cheekbone_line_def_3_L',
-    'cheek_def_2_2_L', 'cheekbone_line_def_2_L', 'cheek_def_1_2_L', 'cheekbone_line_def_1_L', 'cheek_rim_def_2_L', 'nose_frown_ctrl_L'],
-    [27],
-    ['cheek_ctrl_L', 'nose_frown_ctrl_L'],
-    ['cheekbone_line_def_2_L', 'nose_frown_def_L'],
-    'weight_paint',)
+    ['cheek_ctrl_L'],
+    [0],
+    ['cheek_ctrl_L'],
+    ['cheek_def_3_2_L'],
+    'shpaekey_edit',
+    ['cheek_up_L', 'cheek_down_L', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'cheek_up_L',
+    False)
 
-def SHAPEKEYS_Char_Nose(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Cheeks', 'head',
-    'x2', ['nose_ctrl',
-    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones['cheek_def_1_3_L'].length * 0.5), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['cheek_def_1_3_L'].length * 0.5)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+def SHAPEKEYS_Char_Nose_Frown(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Nose_Frown', 'head',
+    'x2', ['nose_frown_ctrl_L',
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["nose_frown_ctrl_L"].FROWN_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'nose_base_ctrl', 'brow_mstr_L', 'FRONT',
-    ['cheek_line_def_1_L', 'cheek_def_1_3_L', 'cheek_def_2_3_L', 'nose_bridge_ctrl_2', 'nose_bridge_ctrl_1', 'eyelid_rim_low_def_1_L', 'nose_def_1_mid', 'lip_up_outer_line_def_1_L', 'lip_up_outer_line_def_2_L',
-    'lip_up_outer_line_def_3_L', 'cheek_def_1_1_L', 'eyelid_rim_low_def_2_L', 'cheek_def_2_1_L', 'brow_arch_def_1_L', 'frown_low_def_L', 'nose_side_def_1_L', 'nose_def_2_mid', 'nose_root_def_1_L', 'nose_side_def_3_L',
-    'nose_frown_def_L', 'nose_def_3_mid', 'nose_bridge_up_def_L', 'lip_up_outer_def_3_2_L', 'nose_def_4_mid', 'nostril_front_def_L', 'nose_bridge_low_def_L', 'nose_sill_def_L', 'nostril_low_def_L', 'lip_up_outer_def_2_2_L',
-    'nostril_back_def_L', 'smile_line_low_def_1_L', 'smile_line_def_1_L', 'nostril_up_def_L', 'lip_up_outer_def_2_mid', 'nose_base_def_1_L', 'lip_up_outer_def_1_2_L', 'nose_base_def_2_L', 'nose_side_def_2_L',
-    'nose_frown_up_def_L', 'nose_root_def_2_L', 'cheek_def_2_2_L', 'cheek_def_1_2_L', 'cheekbone_line_def_1_L', 'nose_ctrl', 'nose_base_ctrl', 'nostril_ctrl_L', 'nose_tip_ctrl_mstr', 'nose_tip_def_L', 'nose_def_5_mid'],
-    [27],
-    ['nose_ctrl', 'nostril_ctrl_L', 'nose_base_ctrl', 'nose_bridge_ctrl_2', 'nose_bridge_ctrl_1'],
-    ['nose_def_5_mid', 'nostril_back_def_L', 'nose_base_def_1_L', 'nose_def_3_mid', 'nose_def_1_mid'],
-    'weight_paint',)
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['nose_frown_ctrl_L'],
+    [0],
+    ['nose_frown_ctrl_L'],
+    ['nose_side_def_2_L'],
+    'shpaekey_edit',
+    ['nose_frown_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'nose_frown_L',
+    False)
+
+def SHAPEKEYS_Char_Nostril(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Nostril', 'head',
+    'x2', ['nostril_ctrl_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 2.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 0.5, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['nostril_ctrl_L'],
+    [0],
+    ['nostril_ctrl_L'],
+    ['nostril_back_def_L'],
+    'shpaekey_edit',
+    ['nostril_expand_L', 'nostril_collapse_L', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'nostril_expand_L',
+    False)
+
+def SHAPEKEYS_Char_Mouth_Corner_Base(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Corner_Base', 'head',
+    'x6', ['mouth_corner_L',
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 2.0, 1.0),
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 0.5, 1.0),
+    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['mouth_corner_L'],
+    [0],
+    ['mouth_corner_L'],
+    ['lip_low_outer_def_4_1_L'],
+    'shpaekey_edit',
+    ['mouth_corner_out_L', 'mouth_corner_up_L', 'mouth_corner_down_L', 'mouth_corner_back_L', 'mouth_corner_forw_L', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_corner_out_L',
+    False)
 
 def SHAPEKEYS_Char_Mouth(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth', 'head',
@@ -1038,20 +1161,24 @@ def shapekeys_end_generic(context):
             for list in bpy.context.scene.blenrig_shapekeys_list:
                 shapes_1 = list.list_1
                 set_active_shapekey(shapes_1)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
+                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                    bpy.ops.blenrig.mirror_active_shapekey_driver()
                 shapes_2 = list.list_2
                 set_active_shapekey(shapes_2)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
+                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                    bpy.ops.blenrig.mirror_active_shapekey_driver()
                 shapes_3 = list.list_3
                 set_active_shapekey(shapes_3)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
+                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                    bpy.ops.blenrig.mirror_active_shapekey_driver()
                 shapes_4 = list.list_4
                 set_active_shapekey(shapes_4)
-                bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                bpy.ops.blenrig.mirror_active_shapekey_driver()
+                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
+                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
+                    bpy.ops.blenrig.mirror_active_shapekey_driver()
     except:
         pass
 
