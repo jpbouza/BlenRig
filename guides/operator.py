@@ -5356,8 +5356,13 @@ class Operator_blenrig_blend_from_shape(bpy.types.Operator):
             blend_from_shape('brow_up_L', ['brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L'])
         if self.operation == 'brow_down_L':
             blend_from_shape('brow_down_L', ['brow_1_down_L', 'brow_2_down_L', 'brow_3_down_L', 'brow_4_down_L', 'brow_5_down_L'])
+        if self.operation == 'U':
+            blend_from_shape('U', ['U_up_L', 'U_low_L', 'U_up_R', 'U_low_R'])
+        if self.operation == 'U_Thickness':
+            blend_from_shape('U_thickness', ['U_thickness_up', 'U_thickness_low'])
+        if self.operation == 'M':
+            blend_from_shape('M', ['M_up', 'M_low'])
         return {"FINISHED"}
-
 
 #Mirror Lattices Transforms Operator
 
