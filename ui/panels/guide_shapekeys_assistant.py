@@ -16,7 +16,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout
 
-        exclude_list = ['SHAPEKEYS_Cage_Add_Body_Shapes', 'SHAPEKEYS_Char_Add_Fingers_Shapes', 'SHAPEKEYS_Char_Add_Face_Shapes', 'SHAPEKEYS_Char_Eyebrow_Weight']
+        exclude_list = ['SHAPEKEYS_Cage_Add_Body_Shapes', 'SHAPEKEYS_Char_Add_Fingers_Shapes', 'SHAPEKEYS_Char_Add_Face_Shapes', 'SHAPEKEYS_Char_Eyebrow_Weight', 'SHAPEKEYS_Char_Mouth_Weight']
 
         if VIEW3D_OT_blenrig_guide_shapekeys.instance:
             steps = layout.column(align=True)
@@ -325,159 +325,60 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Mouth Corner Pose')
-
-            # #Char Head
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Head':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X6", text='Head Pose')
-            # #Char Head Joints
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Head_Joints':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Head Joints Pose')
-            # #Char Ears
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Ears':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Ear Pose')
-            # #Char Eyebrows
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Eyebrows':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyebrows Pose')
-            # #Char Eyelids
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Eyelids':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyelids Pose')
-            # #Char Cheeks
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Cheeks':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Cheeks Pose')
-            # #Nose
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Nose':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Nose Pose')
-            # #Mouth
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Mouth':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Mouth Pose')
-            # #Inner Mouth
-            # if guide_props.guide_current_step == 'WEIGHTS_Char_Inner_Mouth':
-            #     box_pose = steps.box()
-            #     box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-            #     joint_row = box_pose.row()
-            #     joint_row.alignment = 'CENTER'
-            #     joint_row.scale_x = 0.9
-            #     joint_col_1 = joint_row.column()
-            #     joint_col_1.alignment = 'CENTER'
-            #     joint_col_2 = joint_row.column()
-            #     joint_col_2.alignment = 'CENTER'
-            #     joint_col_3 = joint_row.column()
-            #     joint_col_3.alignment = 'CENTER'
-            #     joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-            #     joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-            #     joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
-            #     box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-            #     box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Mouth Pose')
-            #     box_pose.label(text='Masking Options')
-            #     box_pose.prop(active.data, "use_paint_mask", text='Use Face Mask')
-            #     box_pose.prop(bpy.context.scene.tool_settings, "use_auto_normalize", text='Use Auto Normalize')
+            #Mouth Corner Fix 1
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_Corner_Fix_1':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Mouth Corner Pose')
+            #Mouth Corner Fix 2
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_Corner_Fix_2':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Mouth Corner Pose')
+             #Char Mouth Weights
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_Weight':
+                box_pose = steps.box()
+                box_pose.label(text='Select Shapekey Vertex Group', icon='BONE_DATA')
+                joint_row = box_pose.row()
+                joint_row.alignment = 'CENTER'
+                joint_row.scale_x = 0.9
+                joint_col_1 = joint_row.column()
+                joint_col_1.alignment = 'CENTER'
+                joint_col_2 = joint_row.column()
+                joint_col_2.alignment = 'CENTER'
+                joint_col_3 = joint_row.column()
+                joint_col_3.alignment = 'CENTER'
+                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+                joint_col_2.label(text=active.vertex_groups.active.name.upper())
+                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
+                steps.separator()
+                box_weight = steps.box()
+                box_weight.label(text='Weight Painting Options')
+                mirror_row = box_weight.row()
+                if active_mode == 'WEIGHT_PAINT':
+                    mirror_row.prop(active.data, "use_mirror_x", text='X-Mirror')
+                    mirror_row.prop(active.data, "use_mirror_topology")
+             #Char Mouth U
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_U':
+                box_pose = steps.box()
+                box_pose.label(text='Apply Current Shape to U Shapekeys', icon='ARMATURE_DATA')
+                box_pose.operator("blenrig.blend_from_shape", text='Apply Shape').operation = 'U'
+             #Char Mouth U Thickness
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_U_Thickness':
+                box_pose = steps.box()
+                box_pose.label(text='Apply Current Shape to U_Thickness Shapekeys', icon='ARMATURE_DATA')
+                box_pose.operator("blenrig.blend_from_shape", text='Apply Shape').operation = 'U_Thickness'
+             #Char Mouth M
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_M':
+                box_pose = steps.box()
+                box_pose.label(text='Apply Current Shape to M Shapekeys', icon='ARMATURE_DATA')
+                box_pose.operator("blenrig.blend_from_shape", text='Apply Shape').operation = 'M'
+            #Mouth Open Down
+            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Mouth_Open_Close':
+                box_pose = steps.box()
+                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
+                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Jaw Pose')
+            #General Options
             if guide_props.guide_current_step not in exclude_list:
                 box_pose.label(text='Active Shapekey:')
                 row_shape = box_pose.row()

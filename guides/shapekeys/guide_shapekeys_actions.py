@@ -1,5 +1,6 @@
 import bpy
 from .. utils import *
+from math import radians
 
 def frame_bones(context, *bone_names):
     deselect_all_pose_bones(context)
@@ -834,6 +835,9 @@ def SHAPEKEYS_Char_Eyebrow_Weight(operator, context):
     'brow_up_L',
     True)
 
+    #Active VGroup Fix
+    set_active_vgroup(bpy.context.scene.blenrig_guide.guide_active_wp_group)
+
 def SHAPEKEYS_Char_Frown_Up(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Frown_Up', 'head',
     'x2', ['frown_ctrl',
@@ -1075,14 +1079,14 @@ def SHAPEKEYS_Char_Nostril(operator, context):
 def SHAPEKEYS_Char_Mouth_Corner_Base(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Corner_Base', 'head',
     'x6', ['mouth_corner_L',
-    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 2.0, 1.0),
-    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 0.5, 1.0),
-    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.25, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.1, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.25, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
     ['mouth_corner_L'],
     [0],
     ['mouth_corner_L'],
@@ -1095,53 +1099,437 @@ def SHAPEKEYS_Char_Mouth_Corner_Base(operator, context):
     'mouth_corner_out_L',
     False)
 
-def SHAPEKEYS_Char_Mouth(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth', 'head',
-    'x2', ['maxi',
-    (0.0, 0.0, 0.0), (-30, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+def SHAPEKEYS_Char_Mouth_Corner_Fix_1(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Corner_Fix_1', 'head',
+    'x4', ['mouth_corner_L',
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'jaw_line_ctrl_mid', 'nose_base_ctrl', 'FRONT',
-    ['cheek_line_def_1_L', 'cheek_def_1_3_L', 'cheek_line_def_2_L', 'cheek_def_2_3_L', 'cheek_line_def_3_L', 'cheek_def_3_3_L', 'jaw_line_def_6_L', 'cheek_def_4_1_L', 'lip_up_outer_def_1_mid', 'chin_ctrl_mstr', 'chin_def_1_2_L',
-    'jaw_line_def_2_L', 'chin_def_2_mid', 'jaw_line_def_1_L', 'lip_low_outer_line_def_2_L', 'lip_low_outer_def_1_1_L', 'lip_low_outer_line_def_1_L', 'lip_low_outer_def_1_mid', 'lip_low_outer_line_def_3_L', 'lip_low_outer_def_2_1_L',
-    'lip_low_outer_line_def_4_L', 'lip_low_outer_def_3_1_L', 'lip_low_outer_ctrl', 'chin_ctrl', 'lip_low_ctrl', 'lip_low_ctrl_curve_L', 'jaw_line_def_5_L', 'lip_low_outer_def_4_1_L', 'cheek_def_4_3_L', 'cheek_line_def_4_L',
-    'lip_low_outer_def_4_2_L', 'cheek_def_4_2_L', 'cheek_side_def_2_L', 'chin_def_3_1_L', 'chin_line_def_4_L', 'chin_def_2_1_L', 'chin_line_def_3_L', 'chin_def_1_1_L', 'chin_line_def_2_L', 'chin_def_1_mid', 'chin_line_def_1_L',
-    'lip_up_ctrl', 'lip_up_ctrl_curve_L', 'lip_up_outer_ctrl', 'lip_up_outer_def_1_1_L', 'lip_up_outer_def_3_1_L', 'lip_up_outer_line_def_4_L', 'lip_up_outer_def_4_1_L', 'lip_up_outer_line_def_5_L', 'lip_up_outer_def_4_2_L',
-    'lip_up_outer_def_2_1_L', 'lip_low_ctrl_3_L', 'lip_low_def_3_L', 'lip_low_ctrl_2_L', 'lip_low_def_2_L', 'lip_low_line_def_3_L', 'lip_low_ctrl_1_L', 'lip_low_def_1_L', 'lip_low_line_def_2_L', 'lip_low_ctrl_mid', 'lip_low_def_mid',
-    'lip_low_line_def_1_L', 'chin_def_3_2_L', 'jaw_line_def_4_L', 'chin_def_2_2_L', 'jaw_line_def_3_L', 'nose_def_2_mid', 'nose_root_def_1_L', 'mouth_corner_L', 'lip_up_ctrl_4_L', 'lip_low_def_4_L', 'lip_low_rim_def_4_L',
-    'lip_up_rim_def_4_L', 'lip_low_line_def_4_L', 'lip_up_line_def_4_L', 'nose_frown_def_L', 'nose_def_3_mid', 'nose_bridge_up_def_L', 'lip_up_outer_def_3_2_L', 'smile_line_def_2_L', 'nose_def_4_mid', 'nostril_front_def_L',
-    'nose_bridge_low_def_L', 'nose_sill_def_L', 'nostril_low_def_L', 'lip_up_outer_def_2_2_L', 'nostril_back_def_L', 'smile_line_low_def_1_L', 'smile_line_def_1_L', 'nostril_up_def_L', 'lip_up_outer_def_2_mid', 'nose_base_def_1_L',
-    'lip_up_outer_def_1_2_L', 'nose_base_def_2_L', 'nose_frown_up_def_L', 'cheek_side_def_1_L', 'cheek_def_3_2_L', 'cheekbone_line_def_3_L', 'cheek_def_2_2_L', 'cheekbone_line_def_2_L', 'cheek_def_1_2_L', 'cheekbone_line_def_1_L',
-    'cheek_rim_def_2_L', 'lip_up_ctrl_mid', 'lip_up_def_mid', 'lip_up_rim_def_1_L', 'lip_up_line_def_1_L', 'lip_up_ctrl_1_L', 'lip_up_def_1_L', 'lip_up_rim_def_2_L', 'lip_up_line_def_2_L', 'lip_up_ctrl_2_L', 'lip_up_def_2_L',
-    'lip_up_rim_def_3_L', 'lip_up_line_def_3_L', 'lip_up_ctrl_3_L', 'lip_up_def_3_L', 'nose_ctrl', 'nose_base_ctrl', 'nose_tip_def_L', 'nose_def_5_mid', 'maxi'],
-    [27],
-    ['maxi'],
-    ['maxi'],
-    'weight_paint',)
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_corner_L'],
+    [0],
+    ['mouth_corner_L'],
+    ['lip_low_outer_def_4_1_L'],
+    'shpaekey_edit',
+    ['mouth_corner_out_up_fix_L', 'mouth_corner_out_down_fix_L', 'mouth_corner_out_back_fix_L', 'mouth_corner_out_forw_fix_L', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_corner_out_up_fix_L',
+    False)
 
-def SHAPEKEYS_Char_Inner_Mouth(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Inner_Mouth', 'head',
-    'x2', ['maxi',
-    (0.0, 0.0, 0.0), (-30, 0.0, 0.0), (1.0, 1.0, 1.0),
+def SHAPEKEYS_Char_Mouth_Corner_Fix_2(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Corner_Fix_2', 'head',
+    'x4', ['mouth_corner_L',
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_corner_L'],
+    [0],
+    ['mouth_corner_L'],
+    ['lip_low_outer_def_4_1_L'],
+    'shpaekey_edit',
+    ['mouth_corner_out_back_up_fix_L', 'mouth_corner_out_back_down_fix_L', 'mouth_corner_out_forw_up_fix_L', 'mouth_corner_out_forw_down_fix_L', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_corner_out_back_up_fix_L',
+    False)
+
+def SHAPEKEYS_Char_Mouth_Corner_In(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Corner_In', 'head',
+    'x2', ['mouth_corner_L',
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
-    'jaw_line_ctrl_mid', 'nose_base_ctrl', 'RIGHT',
-    ['maxi', 'lip_low_ctrl', 'lip_low_ctrl_curve_L', 'mouth_floor', 'lip_up_ctrl', 'lip_up_ctrl_curve_L', 'hard_palate', 'soft_palate', 'uvula_1', 'uvula_2', 'larynx', 'tongue_mstr', 'tongue_1_def', 'tongue_1_fk',
-    'tongue_2_def', 'tongue_2_fk', 'tongue_3_ik', 'tongue_3_def', 'tongue_2_ik', 'tongue_1_ik', 'teeth_low', 'teeth_low_ctrl_mid', 'teeth_low_ctrl_mid_L', 'teeth_low_ctrl_mid_R', 'teeth_low_ctrl_L', 'teeth_low_ctrl_R',
-    'teeth_low_1_def_L', 'teeth_low_2_def_L', 'teeth_low_1_def_R', 'teeth_low_2_def_R', 'teeth_up', 'teeth_up_ctrl_L', 'teeth_up_ctrl_R', 'teeth_up_ctrl_mid', 'teeth_up_ctrl_mid_L', 'teeth_up_ctrl_mid_R', 'teeth_up_1_def_L',
-    'teeth_up_2_def_L', 'teeth_up_1_def_R', 'teeth_up_2_def_R', 'mouth_corner_L'],
-    [27],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_corner_L'],
+    [0],
+    ['mouth_corner_L'],
+    ['lip_low_outer_def_4_1_L'],
+    'shpaekey_edit',
+    ['mouth_corner_in_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_corner_in_L',
+    False)
+
+def SHAPEKEYS_Char_Mouth_Weight(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Weight', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
     ['maxi'],
+    [1, 2],
+    ['maxi', 'mouth_corner_L', 'mouth_corner_R', 'mouth_ctrl'],
+    ['shapekeys_mouth_up', 'shapekeys_mouth_up_L', 'shapekeys_mouth_low', 'shapekeys_mouth_low_L'],
+    'weight_paint',
+    ['U', '', '', '', '', ''],
+    ['U', '', '', '', '', ''],
+    ['U_up_L', '', '', '', '', ''],
+    ['U_low_L', '', '', '', '', ''], 1,
+    'U',
+    True)
+
+    #Active VGroup Fix
+    set_active_vgroup(bpy.context.scene.blenrig_guide.guide_active_wp_group)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['maxi'].rotation_euler[0] = radians(-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT))
+
+def SHAPEKEYS_Char_Mouth_U(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_U', 'head',
+    'x2', ['mouth_ctrl',
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_ctrl"].IN_LIMIT, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_ctrl'],
+    [0],
+    ['mouth_ctrl'],
+    ['shapekeys_mouth_up'],
+    'shpaekey_edit',
+    ['U', 'U_up_L', 'U_low_L', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'U',
+    True)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U'].value = 1.0
+    except:
+        pass
+    #Mute actual Brow Shapekeys so that they don't influence the current shape
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_up_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_low_L'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_up_R'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_low_R'].mute = True
+    except:
+        pass
+
+def SHAPEKEYS_Char_Mouth_U_Thickness(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_U_Thickness', 'head',
+    'x2', ['mouth_ctrl',
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_ctrl"].IN_LIMIT, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 0.5),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_ctrl'],
+    [0],
+    ['mouth_ctrl'],
+    ['shapekeys_mouth_up'],
+    'shpaekey_edit',
+    ['U_thickness', 'U_thickness_up', 'U_thickness_low', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'U_thickness',
+    True)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_thickness'].value = 1.0
+    except:
+        pass
+    #Mute actual Brow Shapekeys so that they don't influence the current shape
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_thickness_up'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['U_thickness_low'].mute = True
+    except:
+        pass
+
+def SHAPEKEYS_Char_Mouth_M(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_M', 'head',
+    'x2', ['mouth_up_ctrl',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_up_ctrl', 'mouth_low_ctrl'],
+    [0],
+    ['mouth_up_ctrl'],
+    ['shapekeys_mouth_up'],
+    'shpaekey_edit',
+    ['M', 'M_up', 'M_low', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'M',
+    True)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['M'].value = 1.0
+    except:
+        pass
+    #Mute actual Brow Shapekeys so that they don't influence the current shape
+    try:
+        guide_props.character_head_obj.data.shape_keys.key_blocks['M_up'].mute = True
+        guide_props.character_head_obj.data.shape_keys.key_blocks['M_low'].mute = True
+    except:
+        pass
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_up_ctrl'].location[1] = -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_ctrl"].U_M_CTRL_LIMIT)
+    guide_props.arm_obj.pose.bones['mouth_low_ctrl'].location[1] =  -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_ctrl"].U_M_CTRL_LIMIT)
+
+def SHAPEKEYS_Char_Mouth_Open_Close(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Open_Close', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_UP_LIMIT, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'RIGHT',
     ['maxi'],
-    'weight_paint',)
+    [0],
+    ['maxi'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_open_down', 'mouth_close_up', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_open_down',
+    True)
+
+def SHAPEKEYS_Char_Mouth_Open_Out(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Open_Out', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['maxi', 'mouth_corner_L'],
+    [0],
+    ['maxi'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_open_corner_out_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_open_corner_out_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_corner_L'].location[0] = -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L)
+
+
+def SHAPEKEYS_Char_Mouth_Open_In(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Open_In', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_DOWN_LIMIT), 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['maxi', 'mouth_corner_L'],
+    [0],
+    ['maxi'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_open_corner_in_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_open_corner_in_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_corner_L'].location[0] = bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L
+
+def SHAPEKEYS_Char_Mouth_Close_Out(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Close_Out', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_UP_LIMIT, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['maxi', 'mouth_corner_L'],
+    [0],
+    ['maxi'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_close_corner_out_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_close_corner_out_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_corner_L'].location[0] = -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L)
+
+
+def SHAPEKEYS_Char_Mouth_Close_In(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Close_In', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["maxi"].JAW_UP_LIMIT, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['maxi', 'mouth_corner_L'],
+    [0],
+    ['maxi'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_close_corner_in_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_close_corner_in_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_corner_L'].location[0] = bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L
+
+def SHAPEKEYS_Char_Mouth_Frown_Side(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Frown_Side', 'head',
+    'x2', ['mouth_mstr_ik',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_mstr_ik'],
+    [0, 26],
+    ['mouth_mstr_ik'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_frown_side_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_frown_side_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_mode = 'XYZ'
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Copy Transforms'].mute = True
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = True
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_euler[2] = get_driver_transform_loc('mouth_frown_side_L', 45)
+
+def SHAPEKEYS_Char_Mouth_Frown_Side_Out(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Frown_Side_Out', 'head',
+    'x2', ['mouth_corner_L',
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L), 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_corner_L'],
+    [0],
+    ['mouth_corner_L'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_frown_side_corner_out_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_frown_side_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_mode = 'XYZ'
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Copy Transforms'].mute = True
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = True
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_euler[2] = get_driver_transform_loc('mouth_frown_side_L', 45)
+
+def SHAPEKEYS_Char_Mouth_Frown_Side_In(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Frown_Side_In', 'head',
+    'x2', ['mouth_corner_L',
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['mouth_corner_L'],
+    [0],
+    ['mouth_corner_L'],
+    ['shapekeys_mouth_low'],
+    'shpaekey_edit',
+    ['mouth_frown_side_corner_out_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'mouth_frown_side_L',
+    False)
+
+    guide_props = bpy.context.scene.blenrig_guide
+    #Set Pose
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_mode = 'XYZ'
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Copy Transforms'].mute = True
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = True
+    guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_euler[2] = get_driver_transform_loc('mouth_frown_side_L', 45)
 
 #### END OF STEP ACTIONS ####
 
@@ -1266,3 +1654,43 @@ def end_of_step_action(context):
         guide_props.character_head_obj.data.shape_keys.key_blocks['brow_5_down_L'].mute = False
     except:
         pass
+    if current_step == 'SHAPEKEYS_Char_Mouth_U':
+        try:
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U'].value = 0.0
+        except:
+            pass
+        #Mute actual Brow Shapekeys so that they don't influence the current shape
+        try:
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_up_L'].mute = False
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_low_L'].mute = False
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_up_R'].mute = False
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_low_R'].mute = False
+        except:
+            pass
+    if current_step == 'SHAPEKEYS_Char_Mouth_U_Thickness':
+        try:
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_thickness'].value = 0.0
+        except:
+            pass
+        #Mute actual Brow Shapekeys so that they don't influence the current shape
+        try:
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_thickness_up'].mute = False
+            guide_props.character_head_obj.data.shape_keys.key_blocks['U_thickness_low'].mute = False
+        except:
+            pass
+    if current_step == 'SHAPEKEYS_Char_Mouth_M':
+        try:
+            guide_props.character_head_obj.data.shape_keys.key_blocks['M'].value = 0.0
+        except:
+            pass
+        #Mute actual Brow Shapekeys so that they don't influence the current shape
+        try:
+            guide_props.character_head_obj.data.shape_keys.key_blocks['M_up'].mute = False
+            guide_props.character_head_obj.data.shape_keys.key_blocks['M_low'].mute = False
+        except:
+            pass
+    Frown_Side_Steps = ['SHAPEKEYS_Char_Mouth_Frown_Side', 'SHAPEKEYS_Char_Mouth_Frown_Side_Out', 'SHAPEKEYS_Char_Mouth_Frown_Side_In']
+    if current_step in Frown_Side_Steps:
+        guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_mode = 'QUATERNION'
+        guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Copy Transforms'].mute = False
+        guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = False

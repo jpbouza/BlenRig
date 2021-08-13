@@ -4664,11 +4664,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
 
         #Add Shapekeys
         add_shapekey(context, 'mouth_frown_side_L')
-        add_shapekey(context, 'mouth_frown_side__corner_in_L')
-        add_shapekey(context, 'mouth_frown_side__corner_out_L')
+        add_shapekey(context, 'mouth_frown_side_corner_in_L')
+        add_shapekey(context, 'mouth_frown_side_corner_out_L')
         add_shapekey(context, 'mouth_frown_side_R')
-        add_shapekey(context, 'mouth_frown_side__corner_in_R')
-        add_shapekey(context, 'mouth_frown_side__corner_out_R')
+        add_shapekey(context, 'mouth_frown_side_corner_in_R')
+        add_shapekey(context, 'mouth_frown_side_corner_out_R')
 
         #Add Drivers
         ob = context.active_object
@@ -4686,20 +4686,20 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_L'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_mstr_ik', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
                 add_mod_generator_angle(active_driver, 45)
-             #mouth_frown_side__corner_in_L
-            if check_shapekey_driver('mouth_frown_side__corner_in_L'):
+             #mouth_frown_side_corner_out_L
+            if check_shapekey_driver('mouth_frown_side_corner_out_L'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_in_L'], 'value', 'SCRIPTED', 'var_in * var_frown')
-                add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_L')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_corner_out_L'], 'value', 'SCRIPTED', 'var_out * var_frown')
+                add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_L')
                 add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_L')
                 add_mod_generator_location(active_driver, 1)
-             #mouth_frown_side__corner_out_L
-            if check_shapekey_driver('mouth_frown_side__corner_out_L'):
+             #mouth_frown_side_corner_in_L
+            if check_shapekey_driver('mouth_frown_side_corner_in_L'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_out_L'], 'value', 'SCRIPTED', 'var_out * var_frown')
-                add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_L')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_corner_in_L'], 'value', 'SCRIPTED', 'var_in * var_frown')
+                add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_L')
                 add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_L')
                 add_mod_generator_location(active_driver, 1)
             #mouth_frown_side_R
@@ -4709,20 +4709,20 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
                 active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_R'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'mouth_mstr_ik', "''", 'LOCAL_SPACE', 'ROT_Z', 'SWING_TWIST_Z')
                 add_mod_generator_angle(active_driver, -45)
-             #mouth_frown_side__corner_in_R
-            if check_shapekey_driver('mouth_frown_side__corner_in_R'):
+             #mouth_frown_side_corner_out_R
+            if check_shapekey_driver('mouth_frown_side_corner_out_R'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_in_R'], 'value', 'SCRIPTED', 'var_in * var_frown')
-                add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_R')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_corner_out_R'], 'value', 'SCRIPTED', 'var_out * var_frown')
+                add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_R')
                 add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_R')
                 add_mod_generator_location(active_driver, 1)
-             #mouth_frown_side__corner_out_R
-            if check_shapekey_driver('mouth_frown_side__corner_out_R'):
+             #mouth_frown_side_corner_in_R
+            if check_shapekey_driver('mouth_frown_side_corner_in_R'):
                 pass
             else:
-                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side__corner_out_R'], 'value', 'SCRIPTED', 'var_out * var_frown')
-                add_vars_shapekeys(active_driver, 'var_out', keys_name, 'mouth_corner_out_R')
+                active_driver = add_shapekeys_driver(shapekeys['mouth_frown_side_corner_in_R'], 'value', 'SCRIPTED', 'var_in * var_frown')
+                add_vars_shapekeys(active_driver, 'var_in', keys_name, 'mouth_corner_in_R')
                 add_vars_shapekeys(active_driver, 'var_frown', keys_name, 'mouth_frown_side_R')
                 add_mod_generator_location(active_driver, 1)
 
@@ -5356,8 +5356,13 @@ class Operator_blenrig_blend_from_shape(bpy.types.Operator):
             blend_from_shape('brow_up_L', ['brow_1_up_L', 'brow_2_up_L', 'brow_3_up_L', 'brow_4_up_L', 'brow_5_up_L'])
         if self.operation == 'brow_down_L':
             blend_from_shape('brow_down_L', ['brow_1_down_L', 'brow_2_down_L', 'brow_3_down_L', 'brow_4_down_L', 'brow_5_down_L'])
+        if self.operation == 'U':
+            blend_from_shape('U', ['U_up_L', 'U_low_L', 'U_up_R', 'U_low_R'])
+        if self.operation == 'U_Thickness':
+            blend_from_shape('U_thickness', ['U_thickness_up', 'U_thickness_low'])
+        if self.operation == 'M':
+            blend_from_shape('M', ['M_up', 'M_low'])
         return {"FINISHED"}
-
 
 #Mirror Lattices Transforms Operator
 

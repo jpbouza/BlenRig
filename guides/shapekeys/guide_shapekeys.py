@@ -446,7 +446,203 @@ GUIDE_STEPS_SHAPEKEYS = (
             },
         'accion': SHAPEKEYS_Char_Mouth_Corner_Base
     },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Corner_Fix_1
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Corner_Fix_2
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Corner_In
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Weight
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_U
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_U_Thickness
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_M
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Open_Close
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Open_Out
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Open_In
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Close_Out
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Close_In
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Frown_Side
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Frown_Side_Out
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Define Character Body Objects',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Char_Mouth_Frown_Side_In
+    },
 )
+
 
 
 
