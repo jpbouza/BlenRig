@@ -9,7 +9,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
         'titulo': {
             'EN': 'Symmetry Option',
-            'ES': 'Opcion de Simetria'
+            'ES': 'Opcion de Simetria.'
             },
         'texto': {
             'EN': 'If the character is symmetric, please enable the X-Mirror option.',
@@ -139,7 +139,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Sole_Bottom.jpg',
         'titulo': {
             'EN': 'Heel Middle',
-            'ES': 'Paso 5'
+            'ES': 'Tacón medio'
             },
         'texto': {
             'EN': 'Move the sole bone horizontaly to place it at the middle of the heel. Adjust the Front Pivot Point. Place foot_ctrl_frame in front of the foot.',
@@ -152,7 +152,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Foot_Side_Rolls.jpg',
         'titulo': {
             'EN': 'Foot Side Rolls',
-            'ES': 'Paso 5'
+            'ES': 'Rolls lateral del pie'
             },
         'texto': {
             'EN': 'Make the horizontal roll controllers match the shape of the foot.',
@@ -165,7 +165,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Legs_Front.jpg',
         'titulo': {
             'EN': 'Leg Front',
-            'ES': 'Paso 5'
+            'ES': 'Pierna hacia delante'
             },
         'texto': {
             'EN': 'Place the leg joints, front view.',
@@ -178,7 +178,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Legs_Side.jpg',
         'titulo': {
             'EN': 'Leg Side',
-            'ES': 'Paso 5'
+            'ES': 'Pierna hacia un lado'
             },
         'texto': {
             'EN': 'Place the leg joints, side view.',
@@ -204,7 +204,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Toes.jpg',
         'titulo': {
             'EN': 'Toes',
-            'ES': 'Paso 5'
+            'ES': 'Dedos de los pies'
             },
         'texto': {
             'EN': 'If your character has toes, place the toes joints, otherwise, toggle toes off.',
@@ -217,7 +217,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Arms_Front.jpg',
         'titulo': {
             'EN': 'Arms Front',
-            'ES': 'Paso 5'
+            'ES': 'Brazo hacia adelante'
             },
         'texto': {
             'EN': 'Place the arm joints, front view.',
@@ -230,7 +230,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Arms_Side.jpg',
         'titulo': {
             'EN': 'Arms Side',
-            'ES': 'Paso 5'
+            'ES': 'Brazo hacia un lado'
             },
         'texto': {
             'EN': 'Place the arm joints, side view.',
@@ -256,7 +256,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Fingers.jpg',
         'titulo': {
             'EN': 'Fingers',
-            'ES': 'Dedos'
+            'ES': 'Dedos de las manos'
             },
         'texto': {
             'EN': 'If your character has fingers, place the finger joints, otherwise, toggle fingers off.',
@@ -269,7 +269,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Toon_Scale_A.jpg', 'Reprop_Toon_Scale_B.jpg', 'Reprop_Toon_Scale_C.jpg', 'Reprop_Toon_Scale_D.jpg'),
         'titulo': {
             'EN': 'Toon Scale',
-            'ES': 'Paso 5'
+            'ES': 'Escala de deformaciones Toon'
             },
         'texto': {
             'EN': 'Optionally, you can better adjust the Mesh Deform Cage to your character by scaling the toon controllers.',
@@ -282,7 +282,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Face_Mstr_A.jpg', 'Reprop_Face_Mstr_B.jpg', 'Reprop_Face_Mstr_C.jpg', 'Reprop_Face_Mstr_D.jpg'),
         'titulo': {
             'EN': 'Face General Placement',
-            'ES': 'Paso 5'
+            'ES': 'Colocacion general de la cara'
             },
         'texto': {
             'EN': 'Use the Face controller to match the Face Mask to the Face of the character as best as possible.',
@@ -321,7 +321,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Set_Eyes.jpg',
         'titulo': {
             'EN': 'Eye Controls Placement Check',
-            'ES': 'Paso 5'
+            'ES': 'Comprobación de la ubicación de los controles oculares'
             },
         'texto': {
             'EN': 'Eye controls should now match the center of the eyes. Move to the next step.',
@@ -347,7 +347,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Eyebrows_Curve_Ctrls_A.jpg', 'Reprop_Eyebrows_Curve_Ctrls_B.jpg'),
         'titulo': {
             'EN': 'Eyebrow Curve Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Controles de la curva de la ceja'
             },
         'texto': {
             'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the middle controller.",
@@ -399,7 +399,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Eyelids_Rim_Ctrls.jpg',
         'titulo': {
             'EN': 'Eyelids Rim',
-            'ES': 'Paso 5'
+            'ES': 'Borde del párpado'
             },
         'texto': {
             'EN': 'Place the controllers for the Outer Rim of the Eyelids.',
@@ -412,7 +412,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Face_Toon.jpg',
         'titulo': {
             'EN': 'Facial Toon Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Controles Faciales Toon'
             },
         'texto': {
             'EN': 'Place the facial toon controllers.',
@@ -425,7 +425,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Cheek_Ctrls.jpg',
         'titulo': {
             'EN': 'Cheek Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Control de la mejilla'
             },
         'texto': {
             'EN': 'Place the controllers for the Cheeks and the Nose Frowns',
@@ -555,7 +555,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Mouth_Outer_Ctrls.jpg',
         'titulo': {
             'EN': 'Mouth Outer Ctrls',
-            'ES': 'Paso 5'
+            'ES': 'Controles Exterior de la Boca'
             },
         'texto': {
             'EN': 'Place the controllers for the first and second outer rings of the mouth.',
@@ -672,7 +672,7 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Custom_Alignments.jpg',
         'titulo': {
             'EN': 'Custom Alignments',
-            'ES': 'Paso 5'
+            'ES': 'Alineaciones personalizadas'
             },
         'texto': {
             'EN': 'Check the bone roll orientations and press the Custom Alignments Button.',
