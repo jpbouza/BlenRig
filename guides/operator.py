@@ -659,6 +659,11 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         else:
             return False
 
+    #Basis Fix
+    def basis_fix(self, context):
+        from .utils import basis_shapekey_fix
+        basis_shapekey_fix(self, context)
+
     #Neck
     def neck(self, context):
 
@@ -1819,6 +1824,7 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
     Foot_Toe_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
+        self.basis_fix(context)
         if self.Neck_Shapekeys:
             self.neck(context)
         if self.Spine_Shapekeys:
@@ -1849,6 +1855,11 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
             return True
         else:
             return False
+
+    #Basis Fix
+    def basis_fix(self, context):
+        from .utils import basis_shapekey_fix
+        basis_shapekey_fix(self, context)
 
     #Index_L
     def index_L(self, context):
@@ -2553,6 +2564,7 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
     Thumb_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
+        self.basis_fix(context)
         if self.Index_Shapekeys:
             self.index_L(context)
         if self.Middle_Shapekeys:
@@ -2590,6 +2602,11 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
             return True
         else:
             return False
+
+    #Basis Fix
+    def basis_fix(self, context):
+        from .utils import basis_shapekey_fix
+        basis_shapekey_fix(self, context)
 
     #Toe_Index_L
     def toe_index_L(self, context):
@@ -3174,6 +3191,7 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
     Toe_Little_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
+        self.basis_fix(context)
         if self.Toe_Big_Shapekeys:
             self.toe_big_L(context)
         if self.Toe_Index_Shapekeys:
@@ -3211,6 +3229,11 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
             return True
         else:
             return False
+
+    #Basis Fix
+    def basis_fix(self, context):
+        from .utils import basis_shapekey_fix
+        basis_shapekey_fix(self, context)
 
     #Frown
     def frown(self, context):
@@ -4739,6 +4762,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
     Mouth_Forwn_Side_Shapekeys: bpy.props.BoolProperty(default=True)
 
     def execute(self, context):
+        self.basis_fix(context)
         if self.Forehead_Frown_Shapekeys:
             self.frown(context)
         if self.Eyebrows_Shapekeys:

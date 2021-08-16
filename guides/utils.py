@@ -419,6 +419,7 @@ def add_shapekey(context, shape_name):
                 #Rename Shapekeys Datablock
                 ob.data.shape_keys.name = 'ShapeKeys'
             else:
+                #New Shapekey
                 new_shape = ob.shape_key_add(from_mix=False)
                 new_shape.name = shape_name
                 if shape_name in shapekeys:
@@ -442,6 +443,20 @@ def add_shapekey(context, shape_name):
                 ob.active_shape_key_index = index
                 ob.data.shape_keys.key_blocks[index].value = 1.0
                 ob.use_shape_key_edit_mode = True
+
+def basis_shapekey_fix(self, context):
+    ob=bpy.context.object
+    if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
+        if hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            if shapekeys.find('Basis') == 0:
+            #Fix Basis Shapekey Hack for correct creation of New Shapekeys
+                set_active_shapekey('Basis')
+                set_mode('EDIT')
+                bpy.ops.mesh.select_mode(type="VERT")
+                bpy.ops.mesh.select_all(action = 'SELECT')
+                bpy.ops.mesh.blend_from_shape(shape='Basis', blend=1.0, add=True)
+                set_mode('OBJECT')
 
 ### Add Drivers
 driver_data_path = []
