@@ -5388,6 +5388,96 @@ class Operator_blenrig_blend_from_shape(bpy.types.Operator):
             blend_from_shape('M', ['M_up', 'M_low'])
         return {"FINISHED"}
 
+class Operator_blenrig_mirror_active_shapekey(bpy.types.Operator):
+
+    bl_idname = "blenrig.mirror_active_shapekey"
+    bl_label = "BlenRig Update Active Shapekey's Opposite counterpart with current shape"
+    bl_description = "Update Active Shapekey's Opposite counterpart with current shape"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    def execute(self, context):
+        from .utils import mirror_active_shapekey
+        ob = context.active_object
+        active_shape = ob.active_shape_key.name
+        shapekeys = ob.data.shape_keys.key_blocks
+        if active_shape.endswith('_L'):
+            mirror_active_shapekey(self, context, '_L', '_R')
+        elif active_shape.endswith('_R'):
+            mirror_active_shapekey(self, context, '_R', '_L')
+        elif active_shape.endswith('.L'):
+            mirror_active_shapekey(self, context, '.L', '.R')
+        elif active_shape.endswith('.R'):
+            mirror_active_shapekey(self, context, '.R', '.L')
+        else:
+            self.report({'ERROR'}, "Mirroring L or R Shapekeys only")
+        return {"FINISHED"}
+
+class Operator_blenrig_mirror_all_shapekeys(bpy.types.Operator):
+
+    bl_idname = "blenrig.mirror_all_shapekeys"
+    bl_label = "BlenRig Update all opposite side Shapekeys"
+    bl_description = "Update all opposite side Shapekeys"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    #Choose Side Property
+    Side : EnumProperty(
+        items = (
+            ('L to R', 'Left to Right', '', 0),
+            ('R to L', 'Right to Left', '', 1),
+            ),
+            name="Choose Side", default='L to R')
+
+    def execute(self, context):
+        from .utils import mirror_active_shapekey
+        ob = context.active_object
+        active_shape = ob.active_shape_key.name
+        shapekeys = ob.data.shape_keys.key_blocks
+        if self.Side == 'L to R':
+            for shape in shapekeys:
+                index = shapekeys.find(shape.name)
+                if shape.name.endswith('_L'):
+                    ob.active_shape_key_index = index
+                    mirror_active_shapekey(self, context, '_L', '_R')
+                    print ('Mirrored Shapekey ' + shape.name)
+                elif active_shape.endswith('.L'):
+                    ob.active_shape_key_index = index
+                    mirror_active_shapekey(self, context, '.L', '.R')
+                    print ('Mirrored Shapekey ' + shape.name)
+        else:
+            for shape in shapekeys:
+                index = shapekeys.find(shape.name)
+                if shape.name.endswith('_R'):
+                    ob.active_shape_key_index = index
+                    mirror_active_shapekey(self, context, '_R', '_L')
+                    print ('Mirrored Shapekey ' + shape.name)
+                elif active_shape.endswith('.R'):
+                    ob.active_shape_key_index = index
+                    mirror_active_shapekey(self, context, '.R', '.L')
+                    print ('Mirrored Shapekey ' + shape.name)
+        return {"FINISHED"}
+
 #Mirror Lattices Transforms Operator
 
 class Operator_blenrig_mirror_lattice_transforms(bpy.types.Operator):

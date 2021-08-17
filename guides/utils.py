@@ -458,6 +458,42 @@ def basis_shapekey_fix(self, context):
                 bpy.ops.mesh.blend_from_shape(shape='Basis', blend=1.0, add=True)
                 set_mode('OBJECT')
 
+def mirror_active_shapekey(self, context, side, mirror_side):
+    ob = context.active_object
+    active_shape = ob.active_shape_key.name
+    shapekeys = ob.data.shape_keys.key_blocks
+
+    if active_shape.endswith(side):
+        index = shapekeys.find(active_shape)
+        if shapekeys.find(active_shape[: -2] + mirror_side) != -1:
+            mirror_shape = shapekeys[active_shape[: -2] + mirror_side].name
+            mirror_index = shapekeys.find(mirror_shape)
+            blend_from_shape(active_shape, [mirror_shape])
+            ob.active_shape_key_index = mirror_index
+            if ob.data.use_mirror_topology:
+                bpy.ops.object.shape_key_mirror(use_topology=True)
+            else:
+                bpy.ops.object.shape_key_mirror(use_topology=False)
+            ob.active_shape_key_index = index
+        else:
+            ob.show_only_shape_key = True
+            new_shape = ob.shape_key_add(from_mix=True)
+            new_shape.name = active_shape[: -2] + mirror_side
+            try:
+                new_shape.vertex_group =  active_shape.vertex_group[: -2] + mirror_side
+            except:
+                pass
+            ob.show_only_shape_key = False
+            mirror_shape = new_shape.name
+            mirror_index = shapekeys.find(mirror_shape)
+            ob.active_shape_key_index = mirror_index
+            if ob.data.use_mirror_topology:
+                bpy.ops.object.shape_key_mirror(use_topology=True)
+            else:
+                bpy.ops.object.shape_key_mirror(use_topology=False)
+            bpy.ops.driver.blenrig_driver_update()
+            ob.active_shape_key_index = index
+
 ### Add Drivers
 driver_data_path = []
 driver_array_index = []
@@ -1848,3 +1884,4 @@ def blend_from_shape(source_shape, destination_keys):
     for shape in shapekeys_list:
         set_active_shapekey(shape)
         bpy.ops.mesh.blend_from_shape(shape=source_shape, blend=1.0, add=False)
+    set_mode('OBJECT')
