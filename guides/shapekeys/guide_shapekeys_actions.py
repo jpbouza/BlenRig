@@ -1535,44 +1535,55 @@ def SHAPEKEYS_Char_Mouth_Frown_Side_In(operator, context):
 
 def shapekeys_end_generic(context):
     guide_props = context.scene.blenrig_guide
+    ob = guide_props.active_shp_obj
 
     #Mirror Edited Shapekeys
     try:
-        blenrig_temp_link(guide_props.active_shp_obj)
+        blenrig_temp_link(ob)
     except:
         pass
     try:
         if guide_props.auto_mirror_shapekeys:
-            guide_props.active_shp_obj.hide_viewport = False
+            ob.hide_viewport = False
             deselect_all_objects(context)
-            set_active_object(context, guide_props.active_shp_obj)
-            for list in bpy.context.scene.blenrig_shapekeys_list:
-                shapes_1 = list.list_1
-                set_active_shapekey(shapes_1)
-                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
-                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                    bpy.ops.blenrig.mirror_active_shapekey_driver()
-                shapes_2 = list.list_2
-                set_active_shapekey(shapes_2)
-                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
-                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                    bpy.ops.blenrig.mirror_active_shapekey_driver()
-                shapes_3 = list.list_3
-                set_active_shapekey(shapes_3)
-                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
-                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                    bpy.ops.blenrig.mirror_active_shapekey_driver()
-                shapes_4 = list.list_4
-                set_active_shapekey(shapes_4)
-                if guide_props.active_shp_obj.active_shape_key.name.endswith('_L') or guide_props.active_shp_obj.active_shape_key.name.endswith('_R'):
-                    bpy.ops.object.blenrig_shape_key_copy(type='MIRROR')
-                    bpy.ops.blenrig.mirror_active_shapekey_driver()
+            set_active_object(context, ob)
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
+                if hasattr(ob.data.shape_keys, 'key_blocks'):
+                    shapekeys = ob.data.shape_keys.key_blocks
+                    for list in bpy.context.scene.blenrig_shapekeys_list:
+                        shapes_1 = list.list_1
+                        if shapes_1 in shapekeys:
+                            set_active_shapekey(shapes_1)
+                            if hasattr(ob.active_shape_key, 'name'):
+                                if ob.active_shape_key.name.endswith('_L') or ob.active_shape_key.name.endswith('_R'):
+                                    bpy.ops.blenrig.mirror_active_shapekey()
+                                    bpy.ops.blenrig.mirror_active_shapekey_driver()
+                        shapes_2 = list.list_2
+                        if shapes_2 in shapekeys:
+                            set_active_shapekey(shapes_2)
+                            if hasattr(ob.active_shape_key, 'name'):
+                                if ob.active_shape_key.name.endswith('_L') or ob.active_shape_key.name.endswith('_R'):
+                                    bpy.ops.blenrig.mirror_active_shapekey()
+                                    bpy.ops.blenrig.mirror_active_shapekey_driver()
+                        shapes_3 = list.list_3
+                        if shapes_3 in shapekeys:
+                            set_active_shapekey(shapes_3)
+                            if hasattr(ob.active_shape_key, 'name'):
+                                if ob.active_shape_key.name.endswith('_L') or ob.active_shape_key.name.endswith('_R'):
+                                    bpy.ops.blenrig.mirror_active_shapekey()
+                                    bpy.ops.blenrig.mirror_active_shapekey_driver()
+                        shapes_4 = list.list_4
+                        if shapes_4 in shapekeys:
+                            set_active_shapekey(shapes_4)
+                            if hasattr(ob.active_shape_key, 'name'):
+                                if ob.active_shape_key.name.endswith('_L') or ob.active_shape_key.name.endswith('_R'):
+                                    bpy.ops.blenrig.mirror_active_shapekey()
+                                    bpy.ops.blenrig.mirror_active_shapekey_driver()
     except:
         pass
-
     try:
-        guide_props.active_shp_obj.use_shape_key_edit_mode = True
-        guide_props.active_shp_obj.show_only_shape_key = False
+        ob.use_shape_key_edit_mode = True
+        ob.show_only_shape_key = False
     except:
         pass
 
@@ -1590,7 +1601,7 @@ def shapekeys_end_generic(context):
     reset_all_bones_transforms()
 
     #Turn Layers on
-    off_layers = [27]
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
 
