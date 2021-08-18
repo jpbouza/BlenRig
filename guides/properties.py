@@ -86,6 +86,7 @@ class BlenrigGuideData(PropertyGroup):
     character_toes_obj : PointerProperty(type=Object)
     #Weight Paint Object
     active_wp_obj : PointerProperty(type=Object)
+    auto_mirror_vp_rj_values : BoolProperty(default=True, name="Auto Mirror VP and RJ values", description="Automatically Mirror Edited Realistic Joints and Volume Preservation value on Step Change")
     #Shapkey Editting
     active_shp_obj : PointerProperty(type=Object)
     active_shapekey_name : StringProperty('')
