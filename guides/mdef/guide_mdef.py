@@ -25,7 +25,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh. You can use the 'Adjust Cage' button to get a first approximation. Keep in mind that the closer the cage is from the character, the stiffer the deformation, the further away, the smoother the deformation. Use this strategically to get better deformation in difficult areas, such as the shoulders.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Edit_Mdef_Cage
@@ -38,7 +38,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the Unbind button, Edit the cage and Bind again until all the vertices move with the rig",
+            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the Unbind button, then Edit the cage and Bind again until all the vertices move with the rig",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Binding_Check
@@ -51,7 +51,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "If all vertices are moving along, press the Unbind button and then the Bind Mesh Deform(Final) Button. Go grab a cup of coffee because depending on how many objects you are binding, this can take long.",
+            'EN': "If you managed to get all the vertices right, press the Unbind button and then the Bind Mesh Deform(Final) Button. Depending on the number of objects you are binding, this process can take long. Go take a cup of coffe.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Final_Binding
