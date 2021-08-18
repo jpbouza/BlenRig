@@ -182,6 +182,23 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
 
 #### WEIGHTS STEPS ####
 
+def WEIGHTS_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'WEIGHTS_Intro'
+
+    deselect_all_objects(context)
+
+    #Show Armature
+    show_armature(context)
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
 def WEIGHTS_Cage_Ankle(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Ankle', 'mdef_cage',
     'x6', ['foot_fk_L',
@@ -283,13 +300,13 @@ def WEIGHTS_Cage_Torso(operator, context):
     (0.0, 0.0, 0.0), (0.0, 0.0, 35), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, -35), (1.0, 1.0, 1.0),
     1],
-    'pelvis_ctrl', 'neck_1_fk', 'FRONT',
+    'pelvis_ctrl', 'neck_1_fk', 'RIGHT',
     ['spine_1_fk', 'spine_2_fk', 'spine_3_fk', 'spine_3_def', 'spine_1_def', 'spine_2_def', 'pelvis_ctrl', 'pelvis_def', 'pelvis_def_L', 'pelvis_def_R',
     'breast_ctrl_L', 'breast_tip_L', 'breast_def_L', 'breast_ctrl_R', 'breast_tip_R', 'breast_def_R'],
     [27],
     ['pelvis_ctrl', 'spine_2_fk', 'spine_3_fk'],
     ['spine_1_def', 'spine_2_def', 'spine_3_def'],
-    'weight_paint',)
+    'mdef_mesh',)
 
     #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
     bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 0
@@ -310,7 +327,7 @@ def WEIGHTS_Cage_Neck(operator, context):
     [27],
     ['neck_1_fk', 'neck_2_fk', 'neck_3_fk', 'head_fk'],
     ['neck_1_def', 'neck_2_def', 'neck_3_def', 'head_def_1'],
-    'weight_paint',)
+    'mdef_mesh',)
 
     #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
     bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_head"]["organic_neck"] = 0
@@ -326,11 +343,11 @@ def WEIGHTS_Cage_Clavicle(operator, context):
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1 ],
     'spine_2_fk', 'shoulder_L', 'TOP',
-    ['neck_1_def', 'spine_3_def', 'clavi_def_L', 'shoulder_L'],
+    ['neck_1_def', 'spine_3_def', 'clavi_def_L', 'shoulder_L', 'trap_fix_L'],
     [27],
     ['shoulder_L'],
     ['clavi_def_L'],
-    'weight_paint',)
+    'mdef_mesh',)
 
 def WEIGHTS_Cage_Shoulder(operator, context):
     weight_step(operator, context, 'WEIGHTS_Cage_Shoulder', 'mdef_cage',
@@ -710,7 +727,8 @@ def weights_end_generic(context):
     go_blenrig_pose_mode(context)
 
     #Ensure Properties Symmetry
-    bpy.ops.blenrig.mirror_vp_rj_values()
+    if guide_props.auto_mirror_vp_rj_values:
+        bpy.ops.blenrig.mirror_vp_rj_values()
     unhide_all_bones(context)
     deselect_all_pose_bones(context)
 

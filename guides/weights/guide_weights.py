@@ -4,15 +4,28 @@ from .. weights.guide_weights_actions import *
 images_dir = join(dirname(__file__), 'images')
 
 GUIDE_STEPS_WEIGHTS = (
+    #Intro
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Weights Guide Intro',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "In this Guide you will be able to adjust the Character's and Mdef Cage Weights if needed. You will also be able to adjust the values of the Volume Preservation Bones and the Realistic Joints values to simulate Sekeltal Structure volume in the Joints. Keep in mind that this will be the initial deformation setup, if you need to fine tune it, you will be able to do it in the Shapekeys Guide",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': WEIGHTS_Intro
+    },
     #Ankle Poses
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
-            'ES': 'Paso 1'
+            'EN': 'Ankle',
+            'ES': 'Tobillo'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Ankle deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Ankle
@@ -21,11 +34,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Foot Toe',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the 'Foot Toe joints' deformation. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Foot_Toe
@@ -34,11 +47,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Knee',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Knee deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Knee
@@ -47,11 +60,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Thigh',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Thigh deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Thigh
@@ -64,7 +77,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Torso deformation. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Torso
@@ -73,11 +86,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Neck',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Neck deformation. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Neck
@@ -86,11 +99,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Clavicle',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Clavicle deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Clavicle
@@ -99,11 +112,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Arm / Shoulder',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Shoulder deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Shoulder
@@ -112,11 +125,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Elbow',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Elbow deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Elbow
@@ -125,11 +138,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Wrist',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Check the Wrist deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Wrist
@@ -138,11 +151,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Hands Mdef Group',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Edit the 'no_mdef' Vertex Group to define the area of influence of the Mesh Deform and the Armature Modifier. Hands should have full influence of this group. Transition should happen at the Wrist area.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Wrist
@@ -151,11 +164,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Hands General VP & RJ Values',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define the general values of Realistic Joints and Volume Preservation for the hands. Scroll through the key Poses with the 'Set Joint Transform' slider.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Hand_VP
@@ -177,11 +190,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Palm',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Edit the Weights of the Palm and the first Joint of the Fingers. Change the active Finger with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Fings_2
@@ -190,11 +203,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Fingers',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Edit the Weights of the Fingers. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Head
