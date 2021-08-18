@@ -60,7 +60,7 @@ GUIDE_STEPS_LATTICES = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Edit Eyes Lattice',
+            'EN': 'Edit Eyes Lattices',
             'ES': 'Paso 1'
             },
         'texto': {
