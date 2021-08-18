@@ -397,7 +397,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 box_pose.prop(guide_props, "auto_mirror_shapekeys", text='Auto Mirror Shapekeys')
                 if not guide_props.auto_mirror_shapekeys:
                     if guide_props.active_shp_obj.data.use_mirror_topology == True:
-                        box_pose.operator("object.blenrig_shape_key_copy", text='Mirror Active Shapekey').type='MIRROR_TOPOLOGY'
+                        box_pose.operator("blenrig.mirror_active_shapekey", text='Mirror Active Shapekey').type='MIRROR_TOPOLOGY'
                     else:
-                        box_pose.operator("object.blenrig_shape_key_copy", text='Mirror Active Shapekey').type='MIRROR'
+                        box_pose.operator("blenrig.mirror_active_shapekey", text='Mirror Active Shapekey').type='MIRROR'
 
