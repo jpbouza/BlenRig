@@ -63,11 +63,11 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         button_4.operator("view3d.blenrig_guide_lattices", text = '4 - Show Lattices Guide')
         button_4.prop(guide, 'show_steps_guide_lattices',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_lattices else 'DOWNARROW_HLT', emboss=True)
 
-        button_6.operator("view3d.blenrig_guide_weights", text = '5 - Show Weight Painting Guide')
-        button_6.prop(guide, 'show_steps_guide_weights',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_weights else 'DOWNARROW_HLT', emboss=True)
+        button_5.operator("view3d.blenrig_guide_weights", text = '5 - Show Weight Painting Guide')
+        button_5.prop(guide, 'show_steps_guide_weights',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_weights else 'DOWNARROW_HLT', emboss=True)
 
-        button_5.operator("view3d.blenrig_guide_actions", text = '6 - Show Actions Guide')
-        button_5.prop(guide, 'show_steps_guide_actions',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_actions else 'DOWNARROW_HLT', emboss=True)
+        button_6.operator("view3d.blenrig_guide_actions", text = '6 - Show Actions Guide')
+        button_6.prop(guide, 'show_steps_guide_actions',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_actions else 'DOWNARROW_HLT', emboss=True)
 
         button_7.operator("view3d.blenrig_guide_rig_settings", text = '7 - Show Advanced Settings Guide')
         button_7.prop(guide, 'show_steps_guide_rig_settings',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_rig_settings else 'DOWNARROW_HLT', emboss=True)
