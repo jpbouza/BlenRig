@@ -402,7 +402,9 @@ def check_mod_type_name(mod_type, mod_name):
                     if mod.name == mod_name:
                         return True
 
-#### Shapekey Creation
+#### Shapekeys
+
+#New Shapekey
 def add_shapekey(context, shape_name):
     ob=bpy.context.object
     if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
@@ -444,6 +446,7 @@ def add_shapekey(context, shape_name):
                 ob.data.shape_keys.key_blocks[index].value = 1.0
                 ob.use_shape_key_edit_mode = True
 
+#Fix Basis Shapekey for correct creation of new Shapekeys
 def basis_shapekey_fix(self, context):
     ob=bpy.context.object
     if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
@@ -456,8 +459,25 @@ def basis_shapekey_fix(self, context):
                 bpy.ops.mesh.select_mode(type="VERT")
                 bpy.ops.mesh.select_all(action = 'SELECT')
                 bpy.ops.mesh.blend_from_shape(shape='Basis', blend=1.0, add=True)
+                bpy.ops.mesh.select_all(action = 'DESELECT')
                 set_mode('OBJECT')
 
+#Propagate shapekey y other shapekeys
+def blend_from_shape(source_shape, destination_keys):
+    ob = bpy.context.active_object
+    shapekeys_list = destination_keys
+
+    set_mode('EDIT')
+    bpy.ops.mesh.select_mode(type="VERT")
+    bpy.ops.mesh.select_all(action = 'SELECT')
+
+    for shape in shapekeys_list:
+        set_active_shapekey(shape)
+        bpy.ops.mesh.blend_from_shape(shape=source_shape, blend=1.0, add=False)
+    bpy.ops.mesh.select_all(action = 'DESELECT')
+    set_mode('OBJECT')
+
+#Mirror Shapekey
 def mirror_active_shapekey(self, context, side, mirror_side):
     ob = context.active_object
     active_shape = ob.active_shape_key.name
@@ -1884,4 +1904,5 @@ def blend_from_shape(source_shape, destination_keys):
     for shape in shapekeys_list:
         set_active_shapekey(shape)
         bpy.ops.mesh.blend_from_shape(shape=source_shape, blend=1.0, add=False)
+    bpy.ops.mesh.select_all(action = 'DESELECT')
     set_mode('OBJECT')
