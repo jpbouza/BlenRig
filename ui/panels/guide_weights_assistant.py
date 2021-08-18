@@ -16,31 +16,34 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout
 
+        exclude_list = ['WEIGHTS_Intro']
+
         if VIEW3D_OT_blenrig_guide_weights.instance:
             steps = layout.column(align=True)
-            box_weight = steps.box()
-            box_weight.label(text='Weight Painting Options')
-            if '_Cage_' in guide_props.guide_current_step:
-                box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
-            else:
-                box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'char'
-            mirror_row = box_weight.row()
-            mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
-            if active_mode == 'WEIGHT_PAINT':
-                mirror_row.prop(active.data, "use_mirror_vertex_groups")
-                mirror_row.prop(active.data, "use_mirror_topology")
-                if '_Char_' in guide_props.guide_current_step:
-                    box_weight.operator("blenrig.select_vgroup", text='Select Mesh Deform Vgroup').vgroup = 'no_mdef'
-            if active_mode != 'WEIGHT_PAINT':
-                box_weight.operator("blenrig.edit_corrective_smooth_vgroup", text='Edit Corrective Smooth Vgroup')
-            else:
-                box_weight.operator("blenrig.select_vgroup", text='Select Corrective Smooth Vgroup').vgroup = 'corrective_smooth'
-            box_row = box_weight.row()
-            box_row.prop(guide_props, 'guide_show_wp_bones')
-            box_row.prop(guide_props.arm_obj, 'show_in_front')
-            if active_mode == 'WEIGHT_PAINT':
-                box_row.prop(active, 'show_wire')
-            steps.separator()
+            if guide_props.guide_current_step not in exclude_list:
+                box_weight = steps.box()
+                box_weight.label(text='Weight Painting Options')
+                if '_Cage_' in guide_props.guide_current_step:
+                    box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
+                else:
+                    box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'char'
+                mirror_row = box_weight.row()
+                mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
+                if active_mode == 'WEIGHT_PAINT':
+                    mirror_row.prop(active.data, "use_mirror_vertex_groups")
+                    mirror_row.prop(active.data, "use_mirror_topology")
+                    if '_Char_' in guide_props.guide_current_step:
+                        box_weight.operator("blenrig.select_vgroup", text='Select Mesh Deform Vgroup').vgroup = 'no_mdef'
+                if active_mode != 'WEIGHT_PAINT':
+                    box_weight.operator("blenrig.edit_corrective_smooth_vgroup", text='Edit Corrective Smooth Vgroup')
+                else:
+                    box_weight.operator("blenrig.select_vgroup", text='Select Corrective Smooth Vgroup').vgroup = 'corrective_smooth'
+                box_row = box_weight.row()
+                box_row.prop(guide_props, 'guide_show_wp_bones')
+                box_row.prop(guide_props.arm_obj, 'show_in_front')
+                if active_mode == 'WEIGHT_PAINT':
+                    box_row.prop(active, 'show_wire')
+                steps.separator()
             #Cage Ankle
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Ankle':
                 box_pose = steps.box()
@@ -76,7 +79,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                         pass
                 if guide_props.guide_joint_transforms_X6 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Foot Toe
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Foot_Toe':
                 box_pose = steps.box()
@@ -142,7 +147,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                             pass
                 if guide_props.guide_joint_transforms_X4 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Knee
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Knee':
                 box_pose = steps.box()
@@ -173,7 +180,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                         pass
                 if guide_props.guide_joint_transforms_X4 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Thigh
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Thigh':
                 box_pose = steps.box()
@@ -216,7 +225,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                         pass
                 if guide_props.guide_joint_transforms_X4 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Torso
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Torso':
                 box_pose = steps.box()
@@ -281,6 +292,21 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                 box_pose = steps.box()
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Collarbone Pose')
+                if guide_props.guide_joint_transforms_X4 == 3:
+                    row_props = box_pose.row()
+                    col_R = row_props.column()
+                    col_L = row_props.column()
+                    col_R.label(text='Volume Preservation: Trapezius')
+                    col_L.label(text=' ')
+                    try:
+                        col_R.prop(p_bones['trap_fix_L'].constraints['Trap_VP_Up_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        col_L.prop(p_bones['trap_fix_L'].constraints['Trap_VP_Up_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
+                    except:
+                        pass
+                    box_pose.separator()
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Shoulder
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Shoulder':
                 box_pose = steps.box()
@@ -344,7 +370,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                         pass
                 if guide_props.guide_joint_transforms_X4 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Elbow
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Elbow':
                 box_pose = steps.box()
@@ -374,7 +402,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     box_pose.prop(p_bones["properties_arm_L"], '["twist_rate_arm_L"]', text='Twist Rate')
                 if guide_props.guide_joint_transforms_X4 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Cage Wrist
             if guide_props.guide_current_step == 'WEIGHTS_Cage_Wrist':
                 box_pose = steps.box()
@@ -420,7 +450,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     box_pose.prop(p_bones["properties_arm_L"], '["twist_rate_forearm_L"]', text='Twist Rate')
                 if guide_props.guide_joint_transforms_X4 != 0:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Char Wrist
             if guide_props.guide_current_step == 'WEIGHTS_Char_Wrist':
                 box_pose = steps.box()
@@ -501,7 +533,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     except:
                         pass
                 box_pose.separator()
-                box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                if not guide_props.auto_mirror_vp_rj_values:
+                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Char Fingers 1
             if guide_props.guide_current_step == 'WEIGHTS_Char_Fings_1':
                 box_pose = steps.box()
@@ -600,7 +634,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                             pass
                 if guide_props.guide_joint_transforms_X6 == 5 or guide_props.guide_joint_transforms_X6 == 6:
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Char Fingers 2
             if guide_props.guide_current_step == 'WEIGHTS_Char_Fings_2':
                 box_pose = steps.box()
@@ -696,7 +732,9 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                         except:
                             pass
                     box_pose.separator()
-                    box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
+                    box_pose.prop(guide_props, "auto_mirror_vp_rj_values", text='Auto Mirror RJ and VP Values')
+                    if not guide_props.auto_mirror_vp_rj_values:
+                        box_pose.operator("blenrig.mirror_vp_rj_values", text='Mirror Values')
             #Char Head
             if guide_props.guide_current_step == 'WEIGHTS_Char_Head':
                 box_pose = steps.box()
