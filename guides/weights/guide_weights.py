@@ -151,7 +151,7 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Hands Mdef Group',
+            'EN': 'Hands Mdef Vertex Group',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -177,19 +177,6 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
-            'ES': 'Paso 1'
-            },
-        'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
-            },
-        'accion': WEIGHTS_Char_Fings_1
-    },
-    #Fingers 1 Poses
-    {
-        'imagen': 'DT_Finish_A.jpg',
-        'titulo': {
             'EN': 'Palm',
             'ES': 'Paso 1'
             },
@@ -197,9 +184,9 @@ GUIDE_STEPS_WEIGHTS = (
             'EN': "Edit the Weights of the Palm and the first Joint of the Fingers. Change the active Finger with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
-        'accion': WEIGHTS_Char_Fings_2
+        'accion': WEIGHTS_Char_Fings_1
     },
-    #Head Poses
+    #Fingers 1 Poses
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
@@ -210,17 +197,30 @@ GUIDE_STEPS_WEIGHTS = (
             'EN': "Edit the Weights of the Fingers. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
+        'accion': WEIGHTS_Char_Fings_2
+    },
+    #Head Poses
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Head Mdef Vertex Group',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the 'no_mdef' Vertex Group to define the area of influence of the Mesh Deform and the Armature Modifier. Head should have full influence of this group. Define a short transition and check deformation in the different poses.",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
         'accion': WEIGHTS_Char_Head
     },
     #Head Joints Poses
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Head Joints',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Edit the Weights of the Head Joints. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Head_Joints
@@ -229,11 +229,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Ear',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Edit the Weights of the Ear Joints. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Ears
@@ -242,11 +242,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Eyebrows',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Eyebrows. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Eyebrows
@@ -255,11 +255,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Eye Socket',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Paint the inner part of the Eyelids with the Eye_Mstr_STR bone",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Eye_Socket
@@ -268,11 +268,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Eyelids',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Eyelids. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Do NOT Paint the Eyelids with the Corrective Smooth Vertex Group.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Eyelids
@@ -281,11 +281,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Cheeks',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Cheeks. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Cheeks
@@ -294,11 +294,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Nose',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Nose. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Nose
@@ -307,11 +307,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Mouth',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Mouth area. Move the controllers around to check deformation on the area. Do NOT Paint the Lips with the Corrective Smooth Vertex Group",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Mouth
@@ -320,11 +320,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Inner Mouth',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Paint the Teeth, Gums, Uvula and Tongue. You might want to enable the Auto Normalize and Face Masks options to clean up intrecate areas. Once things look good, you might need to go back to the previous step in order to paint the inner parts of the cheeks and lips. Alternatively you can activate the 'Show Bones' options to unhide all the deformation bones.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Inner_Mouth

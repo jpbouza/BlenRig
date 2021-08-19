@@ -718,6 +718,9 @@ def WEIGHTS_Char_Inner_Mouth(operator, context):
 def weights_end_generic(context):
     guide_props = context.scene.blenrig_guide
 
+    #Turn off Show Bones
+    guide_props.guide_show_wp_bones = False
+
     #Select Armature
     if context.active_object.type == 'MESH':
         deselect_all_objects(context)
