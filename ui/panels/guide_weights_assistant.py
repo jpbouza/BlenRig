@@ -851,37 +851,11 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
             #Mouth
             if guide_props.guide_current_step == 'WEIGHTS_Char_Mouth':
                 box_pose = steps.box()
-                box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-                joint_row = box_pose.row()
-                joint_row.alignment = 'CENTER'
-                joint_row.scale_x = 0.9
-                joint_col_1 = joint_row.column()
-                joint_col_1.alignment = 'CENTER'
-                joint_col_2 = joint_row.column()
-                joint_col_2.alignment = 'CENTER'
-                joint_col_3 = joint_row.column()
-                joint_col_3.alignment = 'CENTER'
-                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-                joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Mouth Pose')
             #Inner Mouth
             if guide_props.guide_current_step == 'WEIGHTS_Char_Inner_Mouth':
                 box_pose = steps.box()
-                box_pose.label(text='Select Joint Number', icon='BONE_DATA')
-                joint_row = box_pose.row()
-                joint_row.alignment = 'CENTER'
-                joint_row.scale_x = 0.9
-                joint_col_1 = joint_row.column()
-                joint_col_1.alignment = 'CENTER'
-                joint_col_2 = joint_row.column()
-                joint_col_2.alignment = 'CENTER'
-                joint_col_3 = joint_row.column()
-                joint_col_3.alignment = 'CENTER'
-                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
-                joint_col_2.label(text=guide_props.guide_transformation_bone.upper())
-                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
                 box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
                 box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Mouth Pose')
                 box_pose.label(text='Masking Options')
