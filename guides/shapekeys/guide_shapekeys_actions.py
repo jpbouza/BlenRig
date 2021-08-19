@@ -1600,7 +1600,7 @@ def shapekeys_end_generic(context):
     deselect_all_pose_bones(context)
     reset_all_bones_transforms()
 
-    #Turn Layers on
+    #Turn Layers off
     off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
