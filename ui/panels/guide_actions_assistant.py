@@ -27,6 +27,8 @@ class BLENRIG_PT_actions_guide(BLENRIG_PT_guide_assistant):
             steps = layout.column(align=True)
             box = steps.box()
             box.prop(pose, "use_mirror_x")
+            if not pose.use_mirror_x:
+                box.label(text= 'WARNING! Pose will not be mirrored to the other side. Using X-Mirror is recommended.', icon='ERROR')
             layout.row().prop(context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
             for step in Face_Steps:
                 if step == context.scene.blenrig_guide.guide_current_step:
