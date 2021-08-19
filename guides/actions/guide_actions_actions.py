@@ -12,7 +12,7 @@ def select_armature(operator, context):
     go_blenrig_pose_mode(context)
 
 #Generic Function for Editting Actions
-def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, action, frame_number, bone_list):
+def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, action, frame_number, bone_list, active_bone, layer_list):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = step_name
@@ -43,7 +43,7 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     assign_action(action, frame_number)
 
     #Turn On Actions Layer
-    on_layers = [28]
+    on_layers = layer_list
     for l in on_layers:
         bpy.context.object.data.layers[l] = True
 
@@ -56,6 +56,12 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     hide_selected_pose_bones(context)
     deselect_all_pose_bones(context)
 
+    #Set Active Bone
+    select_pose_bone(context, active_bone)
+
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = True
+
 def mute_constraints(constraint_name, c_mute):
     guide_props = bpy.context.scene.blenrig_guide
     for b in guide_props.arm_obj.pose.bones:
@@ -63,6 +69,23 @@ def mute_constraints(constraint_name, c_mute):
             if C.type == 'ACTION':
                 if constraint_name in C.name:
                     C.mute = c_mute
+
+def set_locks(bone_list, loc_x, loc_y, loc_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z):
+    guide_props = bpy.context.scene.blenrig_guide
+    pbones = guide_props.arm_obj.pose.bones
+    bones = bone_list
+    for bone in bones:
+        for b in pbones:
+            if b.name == bone:
+                b.lock_location[0] = loc_x
+                b.lock_location[1] = loc_y
+                b.lock_location[2] = loc_z
+                b.lock_rotation[0] = rot_x
+                b.lock_rotation[1] = rot_y
+                b.lock_rotation[2] = rot_z
+                b.lock_scale[0] = scale_x
+                b.lock_scale[1] = scale_y
+                b.lock_scale[2] = scale_z
 
 #### ACTIONS STEPS ####
 
@@ -72,7 +95,9 @@ def ACTIONS_Fingers_Spread_X_Up(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'FRONT',
     'zrig_fing_spread_x', 1,
-    ['fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L']
+    ['fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L'],
+    'fing_lit_ctrl_mstr_L',
+    [28]
     )
 
 def ACTIONS_Fingers_Spread_X_Down(operator, context):
@@ -81,7 +106,9 @@ def ACTIONS_Fingers_Spread_X_Down(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'FRONT',
     'zrig_fing_spread_x', -1,
-    ['fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L']
+    ['fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L'],
+    'fing_lit_ctrl_mstr_L',
+    [28]
     )
 
 def ACTIONS_Fingers_Spread_Z_Out(operator, context):
@@ -90,7 +117,9 @@ def ACTIONS_Fingers_Spread_Z_Out(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'RIGHT',
     'zrig_fing_spread_z', 1,
-    ['fing_ind_ctrl_mstr_L', 'fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L']
+    ['fing_ind_ctrl_mstr_L', 'fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L'],
+    'fing_lit_ctrl_mstr_L',
+    [28]
     )
 
 def ACTIONS_Fingers_Spread_Z_In(operator, context):
@@ -99,7 +128,9 @@ def ACTIONS_Fingers_Spread_Z_In(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'RIGHT',
     'zrig_fing_spread_z', -1,
-    ['fing_ind_ctrl_mstr_L', 'fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L']
+    ['fing_ind_ctrl_mstr_L', 'fing_mid_ctrl_mstr_L', 'fing_ring_ctrl_mstr_L', 'fing_lit_ctrl_mstr_L'],
+    'fing_lit_ctrl_mstr_L',
+    [28]
     )
 
 def ACTIONS_Fingers_Curl_In(operator, context):
@@ -108,8 +139,12 @@ def ACTIONS_Fingers_Curl_In(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'FRONT',
     'zrig_fing_spread_scale', 4,
-    ['fing_lit_ctrl_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L']
+    ['fing_lit_ctrl_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L'],
+    'fing_ind_ctrl_L',
+    [5, 28]
     )
+    #Step Locks
+    set_locks(['fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], True, True, True, True, True, True, True, False, True)
 
 def ACTIONS_Fingers_Curl_Out(operator, context):
     edit_action(operator, context,
@@ -117,8 +152,12 @@ def ACTIONS_Fingers_Curl_Out(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'FRONT',
     'zrig_fing_spread_scale', -4,
-    ['fing_lit_ctrl_mstr_L', 'fing_lit_ctrl_L', 'fing_ring_ctrl_mstr_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_mstr_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_mstr_L', 'fing_mid_ctrl_L']
+    ['fing_lit_ctrl_mstr_L', 'fing_lit_ctrl_L', 'fing_ring_ctrl_mstr_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_mstr_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_mstr_L', 'fing_mid_ctrl_L'],
+    'fing_ind_ctrl_L',
+    [5, 28]
     )
+    #Step Locks
+    set_locks(['fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], True, True, True, True, True, True, True, False, True)
 
 def ACTIONS_Hand_Close(operator, context):
     edit_action(operator, context,
@@ -126,8 +165,12 @@ def ACTIONS_Hand_Close(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'FRONT',
     'zrig_hand_close', 4,
-    ['fing_lit_ctrl_mstr_L', 'fing_lit_ctrl_L', 'fing_ring_ctrl_mstr_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_mstr_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_mstr_L', 'fing_mid_ctrl_L', 'fing_thumb_ctrl_mstr_L', 'fing_thumb_ctrl_L']
+    ['fing_lit_ctrl_mstr_L', 'fing_lit_ctrl_L', 'fing_ring_ctrl_mstr_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_mstr_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_mstr_L', 'fing_mid_ctrl_L', 'fing_thumb_ctrl_mstr_L', 'fing_thumb_ctrl_L'],
+    'fing_thumb_ctrl_mstr_L',
+    [5, 28]
     )
+    #Step Locks
+    set_locks(['fing_thumb_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], True, True, True, True, True, True, True, False, True)
 
 def ACTIONS_Hand_Open(operator, context):
     edit_action(operator, context,
@@ -135,8 +178,12 @@ def ACTIONS_Hand_Open(operator, context):
     'hand_ik_ctrl_L', 'hand_close_L',
     'TOP',
     'zrig_hand_close', -4,
-    ['fing_lit_ctrl_mstr_L', 'fing_lit_ctrl_L', 'fing_ring_ctrl_mstr_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_mstr_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_mstr_L', 'fing_mid_ctrl_L', 'fing_thumb_ctrl_mstr_L', 'fing_thumb_ctrl_L']
+    ['fing_lit_ctrl_mstr_L', 'fing_lit_ctrl_L', 'fing_ring_ctrl_mstr_L', 'fing_ring_ctrl_L', 'fing_ind_ctrl_mstr_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_mstr_L', 'fing_mid_ctrl_L', 'fing_thumb_ctrl_mstr_L', 'fing_thumb_ctrl_L'],
+    'fing_thumb_ctrl_mstr_L',
+    [5, 28]
     )
+    #Step Locks
+    set_locks(['fing_thumb_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], True, True, True, True, True, True, True, False, True)
 
 def ACTIONS_Breathing_in(operator, context):
     edit_action(operator, context,
@@ -144,7 +191,9 @@ def ACTIONS_Breathing_in(operator, context):
     'head_stretch', 'pelvis_ctrl',
     'RIGHT',
     'zrig_breathing', 1,
-    ['neck_1_fk', 'head_fk', 'spine_2_fk', 'spine_3_toon', 'spine_3_fk', 'spine_4_toon', 'shoulder_R', 'shoulder_toon_R', 'shoulder_L', 'shoulder_toon_L', 'spine_ctrl_curve']
+    ['neck_1_fk', 'head_fk', 'spine_2_fk', 'spine_3_toon', 'spine_3_fk', 'spine_4_toon', 'shoulder_R', 'shoulder_toon_R', 'shoulder_L', 'shoulder_toon_L', 'spine_ctrl_curve'],
+    'spine_ctrl_curve',
+    [4, 7, 13, 28]
     )
 
 def ACTIONS_Breathing_Out(operator, context):
@@ -153,7 +202,9 @@ def ACTIONS_Breathing_Out(operator, context):
     'head_stretch', 'pelvis_ctrl',
     'RIGHT',
     'zrig_breathing', -1,
-    ['neck_1_fk', 'head_fk', 'spine_2_fk', 'spine_3_toon', 'spine_3_fk', 'spine_4_toon', 'shoulder_R', 'shoulder_toon_R', 'shoulder_L', 'shoulder_toon_L', 'spine_ctrl_curve']
+    ['neck_1_fk', 'head_fk', 'spine_2_fk', 'spine_3_toon', 'spine_3_fk', 'spine_4_toon', 'shoulder_R', 'shoulder_toon_R', 'shoulder_L', 'shoulder_toon_L', 'spine_ctrl_curve'],
+    'spine_ctrl_curve',
+    [4, 7, 13, 28]
     )
 
 def ACTIONS_Eyelids_Up_Up_Range(operator, context):
@@ -162,7 +213,9 @@ def ACTIONS_Eyelids_Up_Up_Range(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['eyelid_up_ctrl_L']
+    ['eyelid_up_ctrl_L'],
+    'eyelid_up_ctrl_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -178,7 +231,9 @@ def ACTIONS_Eyelids_Up_Up(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'zrig_eyelids_upper', -1,
-    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L']
+    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L'],
+    'eyelid_up_ctrl_2_mstr_L',
+    [28]
     )
 
 def ACTIONS_Eyelids_Up_Down_Range(operator, context):
@@ -187,7 +242,9 @@ def ACTIONS_Eyelids_Up_Down_Range(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['eyelid_up_ctrl_L']
+    ['eyelid_up_ctrl_L'],
+    'eyelid_up_ctrl_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -203,7 +260,9 @@ def ACTIONS_Eyelids_Up_Down_1(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'zrig_eyelids_upper', 1,
-    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L']
+    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L'],
+    'eyelid_up_ctrl_2_mstr_L',
+    [28]
     )
 
 def ACTIONS_Eyelids_Up_Down_2(operator, context):
@@ -212,7 +271,9 @@ def ACTIONS_Eyelids_Up_Down_2(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'zrig_eyelids_upper', 2,
-    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L']
+    ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L', 'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L'],
+    'eyelid_up_ctrl_2_mstr_L',
+    [28]
     )
 
 def ACTIONS_Eyelids_Low_Down_Range(operator, context):
@@ -221,7 +282,9 @@ def ACTIONS_Eyelids_Low_Down_Range(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['eyelid_low_ctrl_L']
+    ['eyelid_low_ctrl_L'],
+    'eyelid_low_ctrl_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -237,7 +300,9 @@ def ACTIONS_Eyelids_Low_Down(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'zrig_eyelids_lower', -1,
-    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L'],
+    'eyelid_low_ctrl_2_mstr_L',
+    [28]
     )
 
 def ACTIONS_Eyelids_Low_Up_Range(operator, context):
@@ -246,7 +311,9 @@ def ACTIONS_Eyelids_Low_Up_Range(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['eyelid_low_ctrl_L']
+    ['eyelid_low_ctrl_L'],
+    'eyelid_low_ctrl_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -262,7 +329,9 @@ def ACTIONS_Eyelids_Low_Up_1(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'zrig_eyelids_lower', 1,
-    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L'],
+    'eyelid_low_ctrl_2_mstr_L',
+    [28]
     )
 
 def ACTIONS_Eyelids_Low_Up_2(operator, context):
@@ -271,7 +340,9 @@ def ACTIONS_Eyelids_Low_Up_2(operator, context):
     'brow_ctrl_curve_L', 'eyelid_low_rim_ctrl_L',
     'FRONT',
     'zrig_eyelids_lower', 2,
-    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    ['eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L'],
+    'eyelid_low_ctrl_2_mstr_L',
+    [28]
     )
 
 def ACTIONS_Eyelids_Out(operator, context):
@@ -281,7 +352,9 @@ def ACTIONS_Eyelids_Out(operator, context):
     'FRONT',
     'zrig_eyelids_sides', 1,
     ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L',
-    'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L'],
+    'eyelid_up_ctrl_2_mstr_L',
+    [28]
     )
 
     #Diable Action Constraints
@@ -309,7 +382,9 @@ def ACTIONS_Eyelids_In(operator, context):
     'FRONT',
     'zrig_eyelids_sides', 3,
     ['eyelid_up_rot_2_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_ctrl_out_mstr_L', 'eyelid_up_rot_3_L', 'eyelid_up_ctrl_3_mstr_L',
-    'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L']
+    'eyelid_up_rot_1_L', 'eyelid_up_ctrl_1_mstr_L', 'eyelid_low_rot_2_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_rot_3_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_low_rot_1_L', 'eyelid_low_ctrl_1_mstr_L'],
+    'eyelid_up_ctrl_2_mstr_L',
+    [28]
     )
 
     #Diable Action Constraints
@@ -336,7 +411,9 @@ def ACTIONS_Cheek_Up_Range(operator, context):
     'brow_ctrl_curve_L', 'nostril_ctrl_L',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['cheek_ctrl_L']
+    ['cheek_ctrl_L'],
+    'cheek_ctrl_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -349,7 +426,9 @@ def ACTIONS_Cheek_Up(operator, context):
     'brow_ctrl_curve_L', 'nostril_ctrl_L',
     'FRONT',
     'zrig_cheeks', 1,
-    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_3_L', 'eyelid_rim_low_ctrl_2_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L']
+    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_3_L', 'eyelid_rim_low_ctrl_2_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L'],
+    'cheekbone_ctrl_3_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -366,7 +445,9 @@ def ACTIONS_Cheek_Down_Range(operator, context):
     'brow_ctrl_curve_L', 'nostril_ctrl_L',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['cheek_ctrl_L']
+    ['cheek_ctrl_L'],
+    'cheek_ctrl_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -379,7 +460,9 @@ def ACTIONS_Cheek_Down(operator, context):
     'brow_ctrl_curve_L', 'nostril_ctrl_L',
     'FRONT',
     'zrig_cheeks', -1,
-    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_3_L', 'eyelid_rim_low_ctrl_2_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L']
+    ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_3_L', 'eyelid_rim_low_ctrl_2_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L'],
+    'cheekbone_ctrl_3_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -398,7 +481,9 @@ def ACTIONS_Cheek_Frown(operator, context):
     'zrig_cheeks_frown', 1,
     ['cheek_line_ctrl_2_L', 'cheek_line_ctrl_3_L', 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_out_mstr_L',
     'eyelid_up_ctrl_3_mstr_L', 'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_ctrl_3_mstr_L', 'eyelid_rim_low_ctrl_3_L', 'eyelid_rim_low_ctrl_2_L',
-    'brow_ctrl_5_L', 'brow_ctrl_2_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L']
+    'brow_ctrl_5_L', 'brow_ctrl_2_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L', 'cheekbone_ctrl_3_L', 'cheekbone_ctrl_2_L'],
+    'cheekbone_ctrl_3_L',
+    [0, 1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -411,7 +496,9 @@ def ACTIONS_Nose_Frown_Range(operator, context):
     'brow_ctrl_curve_L', 'nose_tip_ctrl_mstr',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['nose_frown_ctrl_L']
+    ['nose_frown_ctrl_L'],
+    'nose_frown_ctrl_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -425,7 +512,9 @@ def ACTIONS_Nose_Frown(operator, context):
     'FRONT',
     'zrig_nose_frown', 1,
     ['cheek_line_ctrl_1_L', 'cheek_line_ctrl_2_L', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_2_L', 'nose_bridge_up_ctrl_L',
-    'smile_line_ctrl_1_L', 'nose_bridge_low_ctrl_L', 'nostril_up_ctrl_L', 'nose_root_ctrl_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L', 'nostril_ctrl_L']
+    'smile_line_ctrl_1_L', 'nose_bridge_low_ctrl_L', 'nostril_up_ctrl_L', 'nose_root_ctrl_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L', 'nostril_ctrl_L'],
+    'cheek_line_ctrl_1_L',
+    [28]
     )
 
 def ACTIONS_Nose_Frown_Max(operator, context):
@@ -436,7 +525,9 @@ def ACTIONS_Nose_Frown_Max(operator, context):
     'zrig_nose_frown_max', 1,
     ['cheek_line_ctrl_1_L', 'cheek_line_ctrl_2_L', 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_up_ctrl_1_mstr_L',
     'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_ctrl_1_mstr_L', 'frown_ctrl', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_2_L', 'brow_low_ctrl_1_L', 'brow_low_ctrl_2_L', 'brow_low_ctrl_3_L',
-    'nose_bridge_up_ctrl_L', 'smile_line_ctrl_1_L', 'nostril_up_ctrl_L', 'nose_root_ctrl_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L', 'nostril_ctrl_L']
+    'nose_bridge_up_ctrl_L', 'smile_line_ctrl_1_L', 'nostril_up_ctrl_L', 'nose_root_ctrl_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L', 'nostril_ctrl_L'],
+    'cheek_line_ctrl_1_L',
+    [0, 1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -449,7 +540,9 @@ def ACTIONS_Jaw_Down_Range(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'No_Action_For_This_Step', 0,
-    ['maxi']
+    ['maxi'],
+    'maxi',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -463,7 +556,9 @@ def ACTIONS_Jaw_Down(operator, context):
     'RIGHT',
     'zrig_maxi_up_down', -1,
     ['mouth_low', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'mouth_up', 'smile_line_ctrl_2_L', 'teeth_low', 'teeth_up', 'lip_low_ctrl_3_mstr_L',
-    'lip_up_ctrl_4_mstr_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_3_mstr_L']
+    'lip_up_ctrl_4_mstr_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_3_mstr_L'],
+    'lip_up_ctrl_3_mstr_L',
+    [0, 1, 2, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -479,7 +574,9 @@ def ACTIONS_Jaw_Up_Range(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'No_Action_For_This_Step', 0,
-    ['maxi']
+    ['maxi'],
+    'maxi',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -493,7 +590,9 @@ def ACTIONS_Jaw_Up(operator, context):
     'RIGHT',
     'zrig_maxi_up_down', 1,
     ['mouth_low', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'mouth_up','lip_up_outer_ctrl', 'smile_line_ctrl_2_L', 'teeth_low', 'teeth_up',
-    'lip_up_ctrl_4_mstr_L', 'smile_line_ctrl_1_L', 'nose_base_ctrl']
+    'lip_up_ctrl_4_mstr_L', 'smile_line_ctrl_1_L', 'nose_base_ctrl'],
+    'nose_base_ctrl',
+    [0, 1, 2, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -509,7 +608,9 @@ def ACTIONS_Mouth_Corner_Out_Range(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['mouth_corner_L']
+    ['mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -528,7 +629,9 @@ def ACTIONS_Mouth_Corner_Out(operator, context):
     'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
     'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L',
     'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L',
-    'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L'],
+    'smile_line_ctrl_3_L',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -545,7 +648,9 @@ def ACTIONS_Mouth_Corner_Up_Range(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['mouth_corner_L']
+    ['mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -565,7 +670,9 @@ def ACTIONS_Mouth_Corner_Up(operator, context):
     'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L',
     'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L',
     'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L',
-    'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    'lip_up_line_ctrl_3_L', 'nostril_ctrl_L'],
+    'smile_line_ctrl_2_L',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -584,7 +691,9 @@ def ACTIONS_Mouth_Corner_Down_Range(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['mouth_corner_L']
+    ['mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -604,7 +713,9 @@ def ACTIONS_Mouth_Corner_Down(operator, context):
     'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
     'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L',
     'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
-    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L'],
+    'jaw_line_ctrl_3_L',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -623,7 +734,9 @@ def ACTIONS_Mouth_Corner_Back_Range(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'No_Action_For_This_Step', 0,
-    ['mouth_corner_L']
+    ['mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -643,7 +756,9 @@ def ACTIONS_Mouth_Corner_Back(operator, context):
     'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L',
     'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'jaw_line_ctrl_3_L', 'lip_up_ctrl_4_mstr_L',
     'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L',
-    'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nostril_ctrl_L'],
+    'lip_up_rim_ctrl_4_L',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -662,7 +777,9 @@ def ACTIONS_Mouth_Corner_Forw_Range(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'No_Action_For_This_Step', 0,
-    ['mouth_corner_L']
+    ['mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -675,7 +792,9 @@ def ACTIONS_Mouth_Corner_Forw(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'zrig_mouth_corner_forw', 1,
-    ['lip_up_ctrl_4_mstr_L']
+    ['lip_up_ctrl_4_mstr_L'],
+    'lip_up_ctrl_4_mstr_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -692,7 +811,9 @@ def ACTIONS_Mouth_Corner_In_Range(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['mouth_corner_L']
+    ['mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -707,10 +828,12 @@ def ACTIONS_Mouth_Corner_In(operator, context):
     'zrig_mouth_corner_in', 1,
     ['lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl_4_L', 'cheek_line_ctrl_4_L', 'smile_line_ctrl_3_L',
     'chin_ctrl_3_L', 'chin_ctrl_2_L', 'chin_ctrl_1_L', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
-    'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
+    'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L',
     'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L',
     'smile_line_ctrl_1_L', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L',
-    'lip_up_line_ctrl_3_L', 'nostril_ctrl_L']
+    'lip_up_line_ctrl_3_L', 'nostril_ctrl_L'],
+    'lip_up_ctrl_1_mstr_L',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -727,7 +850,9 @@ def ACTIONS_Mouth_Corner_In_Zipper(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'zrig_mouth_corner_in', 1,
-    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L']
+    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L'],
+    'lip_zipper_ctrl_1_L',
+    [2, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -749,7 +874,9 @@ def ACTIONS_Mouth_Corner_Up_Out_Corrective(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'zrig_mouth_up_out_corrective', 1,
-    ['lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'smile_line_ctrl_1_L']
+    ['lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'smile_line_ctrl_1_L'],
+    'smile_line_ctrl_2_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -766,7 +893,9 @@ def ACTIONS_Mouth_Corner_Down_Out_Corrective(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'zrig_mouth_down_out_corrective', 1,
-    ['smile_line_ctrl_3_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'smile_line_ctrl_2_L', 'smile_line_ctrl_1_L']
+    ['smile_line_ctrl_3_L', 'chin_ctrl_3_L', 'chin_ctrl_2_L', 'smile_line_ctrl_2_L', 'smile_line_ctrl_1_L'],
+    'chin_ctrl_3_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -783,7 +912,9 @@ def ACTIONS_U_O_M_Range(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'No_Action_For_This_Step', 0,
-    ['mouth_up_ctrl', 'mouth_low_ctrl']
+    ['mouth_up_ctrl', 'mouth_low_ctrl'],
+    'mouth_up_ctrl',
+    [0, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -810,7 +941,9 @@ def ACTIONS_U(operator, context):
     'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid',
     'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid',
     'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
-    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl']
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl'],
+    'lip_up_ctrl',
+    [0, 1, 28]
     )
 
 def ACTIONS_U_Zipper(operator, context):
@@ -819,7 +952,9 @@ def ACTIONS_U_Zipper(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'zrig_U_O_M', 1,
-    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L']
+    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L'],
+    'lip_zipper_ctrl_1_L',
+    [28]
     )
 
     #Activate Zipper
@@ -840,7 +975,9 @@ def ACTIONS_O(operator, context):
     'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid',
     'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid',
     'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
-    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl']
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl'],
+    'lip_up_ctrl',
+    [28]
     )
 
 def ACTIONS_O_Zipper(operator, context):
@@ -849,7 +986,9 @@ def ACTIONS_O_Zipper(operator, context):
     'head_stretch', 'head_fk',
     'RIGHT',
     'zrig_U_O_M', 2,
-    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L']
+    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L'],
+    'lip_zipper_ctrl_1_L',
+    [28]
     )
 
     #Activate Zipper
@@ -863,12 +1002,14 @@ def ACTIONS_U_Narrow_Corrective(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'zrig_U_narrow_corrective', 1,
-    ['lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'lip_zipper_ctrl_mid',
-    'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L',
-    'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L',
+    ['lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L',
+    'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
+    'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L', 'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L',
     'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid', 'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L',
     'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid', 'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L',
-    'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L']
+    'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L'],
+    'lip_up_ctrl_1_mstr_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -884,7 +1025,9 @@ def ACTIONS_U_Narrow_Corrective_Zipper(operator, context):
     'head_stretch', 'head_fk',
     'FRONT',
     'zrig_U_narrow_corrective', 1,
-    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L']
+    ['lip_zipper_ctrl_mid', 'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L'],
+    'lip_zipper_ctrl_1_L',
+    [28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -908,7 +1051,9 @@ def ACTIONS_U_Thicker_Lips(operator, context):
     ['lip_low_outer_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
     'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid', 'lip_low_line_ctrl_mid',
     'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid', 'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L',
-    'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L']
+    'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L'],
+    'lip_up_line_ctrl_1_L',
+    [0, 1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -925,7 +1070,9 @@ def ACTIONS_U_Thinner_Lips(operator, context):
     ['lip_low_outer_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
     'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid', 'lip_low_line_ctrl_mid',
     'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid', 'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L',
-    'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L']
+    'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L', 'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L'],
+    'lip_up_ctrl',
+    [0, 1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
@@ -941,12 +1088,14 @@ def ACTIONS_M(operator, context):
     'zrig_U_O_M', -2,
     ['lip_up_outer_ctrl_mid', 'lip_low_outer_ctrl_1_L', 'lip_low_outer_ctrl_mid', 'lip_low_outer_ctrl_2_L', 'lip_low_outer_ctrl_3_L', 'lip_low_outer_ctrl',
     'chin_ctrl', 'lip_low_ctrl_collision_override', 'lip_low_outer_ctrl_4_L', 'smile_line_ctrl_3_L', 'lip_up_ctrl_collision_override',
-    'lip_up_outer_ctrl', 'lip_zipper_ctrl_mid', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
-    'lip_zipper_ctrl_3_L', 'lip_zipper_ctrl_2_L', 'lip_zipper_ctrl_1_L', 'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
+    'lip_up_outer_ctrl', 'lip_up_outer_ctrl_1_L', 'lip_up_outer_ctrl_3_L', 'lip_up_outer_ctrl_4_L', 'smile_line_ctrl_2_L', 'lip_up_outer_ctrl_2_L',
+    'lip_low_ctrl_3_mstr_L', 'lip_low_rim_ctrl_3_L', 'lip_low_line_ctrl_3_L', 'lip_low_ctrl_2_mstr_L',
     'lip_low_rim_ctrl_2_L', 'lip_low_line_ctrl_2_L', 'lip_low_ctrl_1_mstr_L', 'lip_low_rim_ctrl_1_L', 'lip_low_line_ctrl_1_L', 'lip_low_ctrl_mstr_mid', 'lip_low_rim_ctrl_mid',
     'lip_low_line_ctrl_mid', 'mouth_corner_mstr_L', 'lip_up_ctrl_4_mstr_L', 'lip_up_rim_ctrl_4_L', 'lip_up_line_ctrl_4_L', 'smile_line_ctrl_1_L', 'lip_up_ctrl_mstr_mid', 'lip_up_rim_ctrl_mid',
     'lip_up_line_ctrl_mid', 'lip_up_ctrl_1_mstr_L', 'lip_up_rim_ctrl_1_L', 'lip_up_line_ctrl_1_L', 'lip_up_ctrl_2_mstr_L', 'lip_up_rim_ctrl_2_L', 'lip_up_line_ctrl_2_L', 'lip_up_ctrl_3_mstr_L',
-    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl']
+    'lip_up_rim_ctrl_3_L', 'lip_up_line_ctrl_3_L', 'nose_base_ctrl'],
+    'lip_up_ctrl_collision_override',
+    [0, 1, 28]
     )
 
 def ACTIONS_Mouth_Frown_Range(operator, context):
@@ -955,7 +1104,9 @@ def ACTIONS_Mouth_Frown_Range(operator, context):
     'nose_tip_ctrl_mstr', 'chin_frown_ctrl',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['mouth_frown_ctrl_L']
+    ['mouth_frown_ctrl_L'],
+    'mouth_frown_ctrl_L',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -972,7 +1123,9 @@ def ACTIONS_Mouth_Frown(operator, context):
     'nose_tip_ctrl_mstr', 'chin_frown_ctrl',
     'FRONT',
     'zrig_mouth_frown', 2,
-    ['chin_ctrl_mstr', 'lip_low_outer_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'mouth_corner_L']
+    ['chin_ctrl_mstr', 'lip_low_outer_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'mouth_corner_L'],
+    'mouth_corner_L',
+    [0, 1, 28]
     )
 
 def ACTIONS_Chin_Frown_Range(operator, context):
@@ -981,7 +1134,9 @@ def ACTIONS_Chin_Frown_Range(operator, context):
     'nose_tip_ctrl_mstr', 'chin_frown_ctrl',
     'FRONT',
     'No_Action_For_This_Step', 0,
-    ['chin_frown_ctrl']
+    ['chin_frown_ctrl'],
+    'chin_frown_ctrl',
+    [1, 28]
     )
 
     #Assign value from Facial Movement Ranges to Guide Property
@@ -998,7 +1153,9 @@ def ACTIONS_Chin_Frown_Up(operator, context):
     'nose_tip_ctrl_mstr', 'chin_frown_ctrl',
     'FRONT',
     'zrig_chin_frown', 1,
-    ['chin_ctrl_mstr', 'lip_low_outer_ctrl', 'chin_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'nose_base_ctrl']
+    ['chin_ctrl_mstr', 'lip_low_outer_ctrl', 'chin_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'nose_base_ctrl'],
+    'lip_low_outer_ctrl',
+    [0, 1, 28]
     )
 
 def ACTIONS_Chin_Frown_Down(operator, context):
@@ -1007,12 +1164,16 @@ def ACTIONS_Chin_Frown_Down(operator, context):
     'nose_tip_ctrl_mstr', 'chin_frown_ctrl',
     'FRONT',
     'zrig_chin_frown', -1,
-    ['chin_ctrl_mstr', 'lip_low_outer_ctrl', 'chin_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'nose_base_ctrl']
+    ['chin_ctrl_mstr', 'lip_low_outer_ctrl', 'chin_ctrl', 'lip_low_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'nose_base_ctrl'],
+    'chin_ctrl',
+    [0, 1, 28]
     )
 
 #### END OF STEP ACTIONS ####
 
 def actions_end_generic(context):
+    guide_props = context.scene.blenrig_guide
+
     #Force Pose Position
     bpy.context.active_object.data.pose_position = 'POSE'
 
@@ -1038,30 +1199,31 @@ def actions_end_generic(context):
     #Toggle Pose X-Mirror
     toggle_pose_x_mirror(context, False)
 
-    #Turn Layers on
-    off_layers = (27, 28)
+    #Turn Layers off
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
     for l in off_layers:
-        bpy.context.object.data.layers[l] = False
+        guide_props.arm_obj.data.layers[l] = False
+
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = False
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
     guide_props = context.scene.blenrig_guide
     current_step = context.scene.blenrig_guide.guide_current_step
-    steps = ['ACTIONS_Fingers_Spread_X_Up', 'ACTIONS_Fingers_Spread_X_Down', 'ACTIONS_Fingers_Spread_Z_Out', 'ACTIONS_Fingers_Spread_Z_In',
-    'ACTIONS_Fingers_Curl_In', 'ACTIONS_Fingers_Curl_Out', 'ACTIONS_Hand_Close', 'ACTIONS_Hand_Open', 'ACTIONS_Breathing_in', 'ACTIONS_Breathing_Out',
-    'ACTIONS_Eyelids_Up_Up_Range', 'ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_Range', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2',
-    'ACTIONS_Eyelids_Low_Down_Range', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_Range', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2',
-    'ACTIONS_Cheek_Up_Range', 'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down_Range', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In',
-    'ACTIONS_Jaw_Down_Range', 'ACTIONS_Jaw_Up_Range', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up', 'ACTIONS_Mouth_Corner_Out_Range', 'ACTIONS_Mouth_Corner_Out', 'ACTIONS_Mouth_Corner_Up_Range', 'ACTIONS_Mouth_Corner_Up',
-    'ACTIONS_Mouth_Corner_Down_Range', 'ACTIONS_Mouth_Corner_Down', 'ACTIONS_Mouth_Corner_Back_Range', 'ACTIONS_Mouth_Corner_Back', 'ACTIONS_Mouth_Corner_Forw_Range', 'ACTIONS_Mouth_Corner_Forw',
-    'ACTIONS_Mouth_Corner_In_Range', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective'
-    'ACTIONS_U_O_M_Range', 'ACTIONS_U', 'ACTIONS_O', 'ACTIONS_M', 'ACTIONS_U_Narrow_Corrective', 'ACTIONS_U_Thicker_Lips', 'ACTIONS_U_Thinner_Lips',
-    'ACTIONS_Mouth_Frown_Range', 'ACTIONS_Mouth_Frown', 'ACTIONS_Chin_Frown_Range','ACTIONS_Chin_Frown_Up', 'ACTIONS_Chin_Frown_Down',
-    'ACTIONS_Mouth_Corner_In_Zipper', 'ACTIONS_U_Zipper', 'ACTIONS_O_Zipper', 'ACTIONS_U_Narrow_Corrective_Zipper']
-    for step in steps:
-        if current_step == step:
-            actions_end_generic(context)
-            context.scene.blenrig_guide.guide_current_step = ''
+    actions_end_generic(context)
+    if current_step == 'ACTIONS_Fingers_Curl_In':
+        #Step Locks
+        set_locks(['fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], False, False, False, False, False, False, True, False, True)
+    if current_step == 'ACTIONS_Fingers_Curl_Out':
+        #Step Locks
+        set_locks(['fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], False, False, False, False, False, False, True, False, True)
+    if current_step == 'ACTIONS_Hand_Close':
+        #Step Locks
+        set_locks(['fing_thumb_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], False, False, False, False, False, False, True, False, True)
+    if current_step == 'ACTIONS_Hand_Open':
+        #Step Locks
+        set_locks(['fing_thumb_ctrl_L', 'fing_ind_ctrl_L', 'fing_mid_ctrl_L', 'fing_ring_ctrl_L', 'fing_lit_ctrl_L'], False, False, False, False, False, False, True, False, True)
     if current_step == 'ACTIONS_Eyelids_Up_Up_Range':
         #Enable Action Constraints
         mute_constraints('Eyelid_Upper_Up', False)

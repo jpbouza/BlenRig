@@ -12,7 +12,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Corner",
+            'EN': "Pose the fingers into the Spread Up position.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Fingers_Spread_X_Up
@@ -25,7 +25,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the fingers into the Spread Down position",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Fingers_Spread_X_Down
@@ -38,7 +38,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Corner",
+            'EN': "Pose the fingers into the Spread Out position.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Fingers_Spread_Z_Out
@@ -51,7 +51,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the fingers one next to the other.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Fingers_Spread_Z_In
@@ -64,7 +64,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Corner",
+            'EN': "Adjust the curling pose of the fingers so that the finger tips touch the palm",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Fingers_Curl_In
@@ -77,7 +77,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Adjust the outwards curling pose of the fingers",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Fingers_Curl_Out
@@ -90,8 +90,8 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Corner",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'EN': "Adjust the closed fist position of the hand. Scale the main finger controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly.",
+            'ES': "Adjust the closed fist position of the hand. Scale the main finger controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly."
             },
         'accion': ACTIONS_Hand_Close
     },
@@ -103,7 +103,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Adjust the 'wide opened' position of the hand. Scale the main fingers controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Hand_Open
@@ -116,7 +116,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Corner",
+            'EN': "Pose the Spine and Neck into a Breathing In position. Using the 'spine_ctrl_curve' bone is recommended for this. Don't worry about rib cage Expansion, this will be done with a Shapekey in a later Step. You can Switch between Pose and Rest Position to visualize the resulting motion.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Breathing_in
@@ -129,7 +129,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Spine and Neck into a Breathing Out position. Using the 'spine_ctrl_curve' bone is recommended for this. Don't worry about rib cage Compression, this will be done with a Shapekey in a later Step. You can Switch between Pose and Rest Position to visualize the resulting motion.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Breathing_Out
@@ -142,7 +142,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Upwards Motion of the Upper Eyelid Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Up_Up_Range
@@ -155,7 +155,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Upper Eyelids into a fully opened position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Up_Up
@@ -168,7 +168,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Downwards Motion of the Upper Eyelid Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Up_Down_Range
@@ -181,7 +181,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Upper Eyelids so that the Eye is half closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Up_Down_1
@@ -194,7 +194,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Upper Eyelids into a fully closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Up_Down_2
@@ -207,7 +207,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Downwards Motion of the Lower Eyelid Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Low_Down_Range
@@ -220,7 +220,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Lower Eyelids into a fully opened position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Low_Down
@@ -233,7 +233,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Upwards Motion of the Lower Eyelid Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Low_Up_Range
@@ -246,7 +246,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Lower Eyelids so that the Eye is half closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Low_Up_1
@@ -259,7 +259,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Lower Eyelids into a fully closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Low_Up_2
@@ -272,20 +272,20 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Eyelids so that they react to the Eye looking Out.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_Out
     },
-    #Eyelids Out
+    #Eyelids In
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Eyelids Out',
+            'EN': 'Eyelids In',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Eyelids so that they react to the Eye looking In.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Eyelids_In
@@ -298,7 +298,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Upwards Motion of the Cheek Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Cheek_Up_Range
@@ -311,7 +311,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Cheek Controllers into the Cheek Upwards position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Cheek_Up
@@ -324,7 +324,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Controllers as if the Character was frowning the Eye.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Cheek_Frown
@@ -337,7 +337,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Downwards Motion of the Cheek Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Cheek_Down_Range
@@ -350,7 +350,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Cheek Controllers into the Cheek Downwards position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Cheek_Down
@@ -363,7 +363,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Upwards Motion of the Nose Frown Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Nose_Frown_Range
@@ -376,7 +376,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the Controllers into a Nose Frowning  position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Nose_Frown
@@ -389,7 +389,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Make Nose Frowning a bit more extreme, as if the character was furious. You can involve the Eyelids and Eyebrows in this pose.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Nose_Frown_Max
@@ -402,7 +402,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Downwards Rotation of the Jaw. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Jaw_Down_Range
@@ -415,7 +415,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Opened Mouth Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Jaw_Down
@@ -428,7 +428,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Upwards Rotation of the Jaw. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Jaw_Up_Range
@@ -441,7 +441,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Closed Mouth Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Jaw_Up
@@ -454,7 +454,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Outwards motion of the Mouth Corner. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Out_Range
@@ -467,7 +467,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Outwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Out
@@ -480,7 +480,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Upwards motion of the Mouth Corner. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Up_Range
@@ -493,7 +493,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Upwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Up
@@ -506,7 +506,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Downwards motion of the Mouth Corner. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Down_Range
@@ -519,7 +519,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Downwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Down
@@ -532,7 +532,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Backwards motion of the Mouth Corner. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Back_Range
@@ -545,7 +545,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Backwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Back
@@ -558,7 +558,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Forwards motion of the Mouth Corner. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Forw_Range
@@ -571,7 +571,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Forwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Forw
@@ -584,7 +584,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Inwards motion of the Mouth Corner. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_In_Range
@@ -597,7 +597,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Inwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_In
@@ -610,7 +610,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Lips Zipper Joints for when the mouth is narrowed inwards.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_In_Zipper
@@ -623,7 +623,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Up and Out combination Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Up_Out_Corrective
@@ -636,7 +636,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Mouth Corner Up and Down combination Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Corner_Down_Out_Corrective
@@ -649,7 +649,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of motion of the Upper and Lower Mouth Controllers. This motion triggers the 'U Vowel' and 'M' poses. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U_O_M_Range
@@ -662,23 +662,10 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips out. The idea is to achieve a 'Subtle U Vowel' or 'Whistling' pose. Use 'mouth_corner_mstr_L' to move the mouth corner slightly forwards.  Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps. ",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U
-    },
-        #U Zipper
-    {
-        'imagen': 'DT_Finish_A.jpg',
-        'titulo': {
-            'EN': 'U Zipper',
-            'ES': 'Paso 1'
-            },
-        'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
-            },
-        'accion': ACTIONS_U_Zipper
     },
     #O
     {
@@ -688,10 +675,23 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips out a bit further. The idea is to achieve a 'O Vowel' pose. Use 'mouth_corner_mstr_L' to move the mouth corner forwards. Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps. ",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_O
+    },
+    #U Zipper
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'U Zipper',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Fine tune the Lips Zipper Joints for the 'Subtle U Vowel'.",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': ACTIONS_U_Zipper
     },
     #O Zipper
     {
@@ -701,7 +701,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Lips Zipper Joints for the 'O Vowel'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_O_Zipper
@@ -714,7 +714,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Pose the 'MSTR' controllers to conform a 'Strong U Vowel'. Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U_Narrow_Corrective
@@ -727,7 +727,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Fine tune the Lips Zipper Joints for the 'Strong U Vowel'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U_Narrow_Corrective_Zipper
@@ -740,7 +740,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use the 'lip_low_line_ctrl' bones to make the lips thicker. Use the rest of the controllers to achieve this compressed pose on the Lips",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U_Thicker_Lips
@@ -753,7 +753,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to open the lips. Use the 'lip_low_line_ctrl' bones and the rest of the controllers to make the lips thinner.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_U_Thinner_Lips
@@ -766,7 +766,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Move and Rotate 'lip_up_ctrl_collision_override' and 'lip_low_ctrl_collision_override' to achieve an 'M' pose. Use the rest of the controllers to seal and fine tune the pose. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_M
@@ -779,7 +779,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Downwards Motion of the Mouth Frown Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Frown_Range
@@ -792,7 +792,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use the controllers to achieve a Frowning Mouth Corner pose",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Mouth_Frown
@@ -805,7 +805,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Define the Maximum Range of Motion of the Chin Frown Controller. Do this with the Range Slider",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Chin_Frown_Range
@@ -818,7 +818,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use the controllers to achieve an Upwards Frowning Chin pose. This should also compress the Lower Lips",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Chin_Frown_Up
@@ -831,7 +831,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh",
+            'EN': "Use the controllers to achieve an Downwards Frowning Chin pose.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': ACTIONS_Chin_Frown_Down
