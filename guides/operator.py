@@ -4767,7 +4767,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
     Cheeks_Shapekeys: bpy.props.BoolProperty(default=True)
     Nose_Shapekeys: bpy.props.BoolProperty(default=True)
     Mouth_Corners_Shapekeys: bpy.props.BoolProperty(default=True)
-    Mouth_Corners_Quadruped_Extra_Shapekeys: bpy.props.BoolProperty(default=False)
+    Mouth_Corners_Quadruped_Extra_Shapekeys: bpy.props.BoolProperty(default=True)
     Mouth_U_Shapekeys: bpy.props.BoolProperty(default=True)
     Mouth_M_Shapekeys: bpy.props.BoolProperty(default=True)
     Mouth_Open_Shapekeys: bpy.props.BoolProperty(default=True)
