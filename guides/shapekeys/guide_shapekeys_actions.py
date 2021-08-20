@@ -225,6 +225,23 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode, shapekeys_
 
 #### SHAPEKEYS STEPS ####
 
+def SHAPEKEYS_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'SHAPEKEYS_Intro'
+
+    deselect_all_objects(context)
+
+    #Show Armature
+    show_armature(context)
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
 def SHAPEKEYS_Cage_Add_Body_Shapes(operator, context):
 
     scn = bpy.context.scene
@@ -389,6 +406,29 @@ def SHAPEKEYS_Cage_Torso(operator, context):
     False)
     #Turn Organic Spine Off in order to preview the correct influence of each Spine Bone
     bpy.context.scene.blenrig_guide.arm_obj.pose.bones["properties_torso"]["organic_spine"] = 0
+
+def SHAPEKEYS_Cage_Breathing(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Cage_Breathing', 'mdef_cage',
+    'x2', ['torso_fk_ctrl',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 2.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'pelvis_ctrl', 'neck_1_fk', 'RIGHT',
+    ['torso_fk_ctrl'],
+    [7],
+    ['torso_fk_ctrl'],
+    ['torso_fk_ctrl'],
+    'shpaekey_edit',
+    ['breathing', '', '', ''],
+    ['', '', '', ''],
+    ['', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'breathing',
+    True)
 
 def SHAPEKEYS_Cage_Neck(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Cage_Neck', 'mdef_cage',
@@ -821,7 +861,7 @@ def SHAPEKEYS_Char_Eyebrow_Weight(operator, context):
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    1],
+    0],
     'nostril_ctrl_L', 'head_stretch', 'FRONT',
     ['brow_mstr_L', 'brow_ctrl_1_L', 'brow_ctrl_2_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L', 'brow_ctrl_5_L'],
     [1, 2],
@@ -938,11 +978,11 @@ def SHAPEKEYS_Char_Eyelid_Up_Up(operator, context):
     'eyelid_up_up_L',
     False)
 
-def SHAPEKEYS_Char_Eyelid_Up_Down(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Up_Down', 'head',
+def SHAPEKEYS_Char_Eyelid_Up_Down_1(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Up_Down_1', 'head',
     'x2', ['eyelid_up_ctrl_L',
     (0.0, 0.0, get_driver_transform_loc('eyelid_up_down_1_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L / 2))), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -954,11 +994,34 @@ def SHAPEKEYS_Char_Eyelid_Up_Down(operator, context):
     ['eyelid_up_ctrl_L'],
     ['eyelid_up_def_2_L'],
     'char_mesh',
-    ['eyelid_up_down_1_L', 'eyelid_up_down_2_L', '', '', '', ''],
+    ['eyelid_up_down_1_L', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
     'eyelid_up_down_1_L',
+    False)
+
+def SHAPEKEYS_Char_Eyelid_Up_Down_2(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Up_Down_2', 'head',
+    'x2', ['eyelid_up_ctrl_L',
+    (0.0, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_up_ctrl_L"].EYELID_DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['eyelid_up_ctrl_L'],
+    [0],
+    ['eyelid_up_ctrl_L'],
+    ['eyelid_up_def_2_L'],
+    'shpaekey_edit',
+    ['eyelid_up_down_2_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'eyelid_up_down_2_L',
     False)
 
 def SHAPEKEYS_Char_Eyelid_Low_Down(operator, context):
@@ -984,11 +1047,11 @@ def SHAPEKEYS_Char_Eyelid_Low_Down(operator, context):
     'eyelid_low_down_L',
     False)
 
-def SHAPEKEYS_Char_Eyelid_Low_Up(operator, context):
-    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Low_Up', 'head',
+def SHAPEKEYS_Char_Eyelid_Low_Up_1(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Low_Up_1', 'head',
     'x2', ['eyelid_low_ctrl_L',
     (0.0, 0.0, get_driver_transform_loc('eyelid_low_up_1_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L / 2)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -1000,11 +1063,34 @@ def SHAPEKEYS_Char_Eyelid_Low_Up(operator, context):
     ['eyelid_low_ctrl_L'],
     ['eyelid_low_def_2_L'],
     'char_mesh',
-    ['eyelid_low_up_1_L', 'eyelid_low_up_2_L', '', '', '', ''],
+    ['eyelid_low_up_1_L', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
     'eyelid_low_up_1_L',
+    False)
+
+def SHAPEKEYS_Char_Eyelid_Low_Up_2(operator, context):
+    shapekey_step(operator, context, 'SHAPEKEYS_Char_Eyelid_Low_Up_2', 'head',
+    'x2', ['eyelid_low_ctrl_L',
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'nostril_ctrl_L', 'brow_mstr_L', 'FRONT',
+    ['eyelid_low_ctrl_L'],
+    [0],
+    ['eyelid_low_ctrl_L'],
+    ['eyelid_low_def_2_L'],
+    'shpaekey_edit',
+    ['eyelid_low_up_2_L', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''],
+    ['', '', '', '', '', ''], 1,
+    'eyelid_low_up_2_L',
     False)
 
 def SHAPEKEYS_Char_Cheeks(operator, context):
