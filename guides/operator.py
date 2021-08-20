@@ -884,7 +884,7 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
     #Spine
     def spine(self, context):
 
-        from . utils import add_shapekey, add_drivers, add_vars, add_vars_shapekeys, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle
+        from . utils import add_shapekey, add_drivers, add_vars, add_vars_shapekeys, add_mod_generator, check_shapekey_driver, add_shapekeys_driver, add_mod_generator_angle, add_mod_generator_location_offset
 
         #Add Shapekeys
         #Spine_3
@@ -908,6 +908,8 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
         add_shapekey(context, 'spine_1_back')
         add_shapekey(context, 'spine_1_twist_L')
         add_shapekey(context, 'spine_1_twist_R')
+        #Breathing
+        add_shapekey(context, 'breathing')
 
         #Add Drivers
         ob = context.active_object
@@ -1046,6 +1048,16 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
                 active_driver = add_shapekeys_driver(shapekeys['spine_1_twist_R'], 'value', 'MAX', '')
                 add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'spine_1_y_drv', "''", 'LOCAL_SPACE', 'ROT_Y', 'SWING_TWIST_Y')
                 add_mod_generator_angle(active_driver, -90)
+            #breathing
+            if check_shapekey_driver('breathing'):
+                pass
+            else:
+                active_driver = add_shapekeys_driver(shapekeys['breathing'], 'value', 'MAX', '')
+                add_vars(active_driver, 'var', 'TRANSFORMS', blenrig_arm, 'torso_fk_ctrl', "''", 'LOCAL_SPACE', 'SCALE_Z', 'AUTO')
+                add_mod_generator_location_offset(active_driver, -1.0, 1.0)
+
+        #Assign Values
+        shapekeys['breathing'].slider_min = -1
 
     #Arm_L
     def arm_L(self, context):
