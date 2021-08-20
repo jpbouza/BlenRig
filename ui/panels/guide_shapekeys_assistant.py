@@ -16,7 +16,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout
 
-        exclude_list = ['SHAPEKEYS_Cage_Add_Body_Shapes', 'SHAPEKEYS_Char_Add_Fingers_Shapes', 'SHAPEKEYS_Char_Add_Face_Shapes', 'SHAPEKEYS_Char_Eyebrow_Weight', 'SHAPEKEYS_Char_Mouth_Weight']
+        exclude_list = ['SHAPEKEYS_Cage_Add_Body_Shapes', 'SHAPEKEYS_Char_Add_Fingers_Shapes', 'SHAPEKEYS_Char_Add_Face_Shapes', 'SHAPEKEYS_Char_Eyebrow_Weight', 'SHAPEKEYS_Char_Mouth_Weight', 'SHAPEKEYS_Intro']
 
         if VIEW3D_OT_blenrig_guide_shapekeys.instance:
             steps = layout.column(align=True)
@@ -300,16 +300,6 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 if active_mode == 'WEIGHT_PAINT':
                     mirror_row.prop(active.data, "use_mirror_x", text='X-Mirror')
                     mirror_row.prop(active.data, "use_mirror_topology")
-            #Upper Eyelid Down
-            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyelid_Up_Down':
-                box_pose = steps.box()
-                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyelid Pose')
-            #Lower Eyelid Up
-            if guide_props.guide_current_step == 'SHAPEKEYS_Char_Eyelid_Low_Up':
-                box_pose = steps.box()
-                box_pose.label(text='Set Joint Transforms', icon='ARMATURE_DATA')
-                box_pose.prop(guide_props, "guide_joint_transforms_X2", text='Eyelid Pose')
             #Cheeks
             if guide_props.guide_current_step == 'SHAPEKEYS_Char_Cheeks':
                 box_pose = steps.box()
@@ -348,9 +338,9 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 joint_col_2.alignment = 'CENTER'
                 joint_col_3 = joint_row.column()
                 joint_col_3.alignment = 'CENTER'
-                joint_col_1.operator("blenrig.wp_joint_chain_down", icon='TRIA_LEFT', text='')
+                joint_col_1.operator("blenrig.wp_vgroup_chain_down", icon='TRIA_LEFT', text='')
                 joint_col_2.label(text=active.vertex_groups.active.name.upper())
-                joint_col_3.operator("blenrig.wp_joint_chain_up", icon='TRIA_RIGHT', text='')
+                joint_col_3.operator("blenrig.wp_vgroup_chain_up", icon='TRIA_RIGHT', text='')
                 steps.separator()
                 box_weight = steps.box()
                 box_weight.label(text='Weight Painting Options')
