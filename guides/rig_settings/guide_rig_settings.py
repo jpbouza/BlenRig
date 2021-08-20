@@ -8,11 +8,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Shoulder Movement',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Shoulder moves along with the Arm with the Automatic Movement Values. Move the Character's hand around to preview the result.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Shoulder_Movement
@@ -21,11 +21,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Torso Rotation Rate',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Spine Joints follow the Main Torso Controller. Rotate 'torso_fk_ctrl' to preview the result.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Torso_Rotation
@@ -34,11 +34,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Neck Rotation Rate',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Neck Joints follow the Main Neck Controller. Rotate 'neck_fk_ctrl' to preview the result.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Neck_Rotation
@@ -47,11 +47,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Inverted Torso Rotation Rate',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Spine Joints follow the Inverted Torso Controller. Rotate 'torso_fk_ctrl_inv' to preview the result.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Torso_Inv_Rotation
@@ -60,11 +60,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Torso Stretching Curve',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define the curvature of the Joints when the Spine stretches",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Torso_Stretching
@@ -73,24 +73,24 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Torso Pelvis Compensation',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the torso automatically compensates the rotation of the Pelvis. Rotate the Pevlis to preview the result. This feature might be good for posing but not for animation, use it carefully or don't use it at all ",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Pelvis_Compensation
     },
-    #Torso Pelvis Compensation
+    #Foot Roll
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Foot Roll',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Tweak the Foot Roll behavior. Define the 'Rasing Start Angle' values that better suit your character. Preview the result by rotating 'foot_roll_ctrl_L'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Foot_Roll
@@ -99,24 +99,24 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Volume Variation',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Use the Controllers to Squash and Stretch body parts. Define how their volume changes on this motions with the Volume Variation Values. A range between 0.0 and 4.0 is recommended",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Volume_Variation
     },
-    #Feet Floor
+    #Foot Floor
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Foot Floor',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Move the Foot Floor Controller up and check if it collides correctly with the character's foot. Tweak the Collision value if needed.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Feet_Floor
@@ -125,11 +125,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Eyelids Collision',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Move the Upper Eyelid down with 'eyelid_up_ctrl_L' until it overlaps with the Lower Eyelid. Tweak the Collision Values of each joint so that the automatic Collision looks natural.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Eyelids_Floor
@@ -138,11 +138,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Eye Movement Follow',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Move the Look Controller Upwards and define how much the Eyelids follow the movement of the Eye with the Upwards Movement Values. Then, move the Look Controller Downwards and do the same with the Downwards Movement Values.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Eyelids_Follow
@@ -151,11 +151,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Eyelid Cheek Movement Follow',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Lower Eyelid follows the movement of the Cheek. Move the Cheek controller to check if the resulting motion looks natural.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Eyelids_Cheek_Follow
@@ -164,11 +164,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Cheek Smile Movement Follow',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Cheek follows the Smile. Move the Mouth Corner controller to check if the resulting motion looks natural.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Cheek_Smile_Follow
@@ -177,11 +177,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Mouth Corner Auto Back',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define how much the Mouth Corners move Backwards when the Mouth Widens. This motion is intended to simulate how the Lips move around the underlying Teeth volume",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Coner_Auto_Back
@@ -190,11 +190,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Lips Collision',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Put the lips together with 'mouth_ctrl' and tweak the Collision Values of each joint so that the automatic Collision looks natural.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Lips_Floor
@@ -203,11 +203,11 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Lips Settings',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Define the Basic Curvature of the Lips. If needed tweak the Rigidity values to define how much the Joints stretch towards the Mouth Corner. Finally you can override the amount in which the Joints follow the Mouth Corner in XYZ. Move the Mouth Corner around to preview the result",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Lip_Curvature

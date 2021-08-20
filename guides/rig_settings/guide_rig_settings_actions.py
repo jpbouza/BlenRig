@@ -110,6 +110,9 @@ bone_list, layers_list, active_bone_list):
     #Set Active Bone
     select_pose_bone(context, joint_list[0])
 
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = True
+
 #### RIG SETTTINGS STEPS ####
 
 def SETTINGS_Shoulder_Movement(operator, context):
@@ -535,6 +538,9 @@ def rig_settings_end_generic(context):
     off_layers = [27, 28]
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
+
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = False
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
