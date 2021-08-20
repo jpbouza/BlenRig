@@ -5798,6 +5798,51 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
         set_active_vgroup(guide_props.guide_active_wp_group)
         return {"FINISHED"}
 
+class Operator_blenrig_wp_vgroup_chain_up(bpy.types.Operator):
+
+    bl_idname = "blenrig.wp_vgroup_chain_up"
+    bl_label = "BlenRig Vgroup Select"
+    bl_description = "Scroll through the Vertex Groups list"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    def execute(self, context):
+        from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup
+        guide_props = context.scene.blenrig_guide
+        joint_list = context.scene.blenrig_joint_chain_list
+        index = []
+
+        for i in range(len(joint_list)):
+            if joint_list[i].vgroup == guide_props.guide_active_wp_group:
+                index[:] = []
+                index.append(i)
+        if (index[0] + 1) < len(joint_list):
+            guide_props.guide_active_wp_group = joint_list[index[0] + 1].vgroup
+        set_active_vgroup(guide_props.guide_active_wp_group)
+        return {"FINISHED"}
+
+class Operator_blenrig_wp_vgroup_chain_down(bpy.types.Operator):
+
+    bl_idname = "blenrig.wp_vgroup_chain_down"
+    bl_label = "BlenRig Vgroup Select"
+    bl_description = "Scroll through the Vertex Groups list"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    def execute(self, context):
+        from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup
+        guide_props = context.scene.blenrig_guide
+        joint_list = context.scene.blenrig_joint_chain_list
+        index = []
+
+        for i in range(len(joint_list)):
+            if joint_list[i].vgroup == guide_props.guide_active_wp_group:
+                index[:] = []
+                index.append(i)
+        if index[0] > 0:
+            guide_props.guide_active_wp_group = joint_list[index[0] - 1].vgroup
+        set_active_vgroup(guide_props.guide_active_wp_group)
+        return {"FINISHED"}
+
+
 class Operator_blenrig_select_vgroup(bpy.types.Operator):
 
     bl_idname = "blenrig.select_vgroup"

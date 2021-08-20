@@ -48,7 +48,8 @@ def register():
     Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
-    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys)
+    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
+    Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down)
 
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
@@ -85,6 +86,8 @@ def register():
     register_class(Operator_blenrigmirror_vp_rj_values)
     register_class(Operator_blenrig_wp_joint_chain_up)
     register_class(Operator_blenrig_wp_joint_chain_down)
+    register_class(Operator_blenrig_wp_vgroup_chain_up)
+    register_class(Operator_blenrig_wp_vgroup_chain_down)
     register_class(Operator_blenrig_select_vgroup)
     register_class(Operator_blenrig_edit_corrective_smooth_vgroup)
     register_class(BlenRigGuidePanel_options)
@@ -110,7 +113,8 @@ def unregister():
     Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
-    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys)
+    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
+    Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down)
 
     from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
@@ -150,6 +154,8 @@ def unregister():
     unregister_class(Operator_blenrigmirror_vp_rj_values)
     unregister_class(Operator_blenrig_wp_joint_chain_up)
     unregister_class(Operator_blenrig_wp_joint_chain_down)
+    unregister_class(Operator_blenrig_wp_vgroup_chain_up)
+    unregister_class(Operator_blenrig_wp_vgroup_chain_down)
     unregister_class(Operator_blenrig_select_vgroup)
     unregister_class(Operator_blenrig_edit_corrective_smooth_vgroup)
     from .properties import BlenrigGuideImages, BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones, BlenRigShapekeysList
