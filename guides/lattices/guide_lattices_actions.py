@@ -270,6 +270,8 @@ def LATTICES_Adjust_Eyes(operator, context):
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
 def end_of_step_action(context):
+    #Armature for setting view
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
     Hide_Lattices = ['LATTICE_HEAD', 'LATTICE_BROW', 'LATTICE_MOUTH', 'LATTICE_EYE_L', 'LATTICE_EYE_R', 'LATTICE_BODY']
     current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'LATTICES_Adjust_Body' or current_step == 'LATTICES_Adjust_Head' or current_step == 'LATTICES_Adjust_Brow' or current_step == 'LATTICES_Adjust_Mouth' or current_step == 'LATTICES_Adjust_Eyes':
