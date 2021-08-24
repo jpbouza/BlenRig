@@ -54,9 +54,6 @@ def MDEF_Edit_Mdef_Cage(operator, context):
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Edit_Mdef_Cage'
 
-    #Hide Armature
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
-
     deselect_all_objects(context)
 
     # Show Mdef
@@ -70,6 +67,9 @@ def MDEF_Edit_Mdef_Cage(operator, context):
         bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
         set_mode('EDIT')
 
+    #Hide Armature
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
+
 def MDEF_Binding_Check(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -77,9 +77,6 @@ def MDEF_Binding_Check(operator, context):
 
     #Set Mdef Cage
     deselect_all_objects(context)
-
-    #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -113,9 +110,6 @@ def MDEF_Final_Binding(operator, context):
     #Set Mdef Cage
     deselect_all_objects(context)
 
-    #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-
     #Select Armature
     go_blenrig_pose_mode(context)
 
@@ -143,8 +137,9 @@ def mdef_end_generic(context):
     guide_props = context.scene.blenrig_guide
 
     #Select Armature
-    if context.active_object.type == 'MESH':
-        deselect_all_objects(context)
+    if hasattr(context, 'active_object') and hasattr(context.active_object, 'type'):
+        if context.active_object.type == 'MESH':
+            deselect_all_objects(context)
 
     show_armature(context)
 
