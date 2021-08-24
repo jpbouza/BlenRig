@@ -38,7 +38,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select the Head Object of the character and click Next",
+            'EN': "Select the Head Object of the character and press the 'Define Selected as Head' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Select_Head
@@ -64,7 +64,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select the Hands Object of the character and click Next",
+            'EN': "Select the Hands Object of the character and and press the 'Define Selected as Hands' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Select_Hands
