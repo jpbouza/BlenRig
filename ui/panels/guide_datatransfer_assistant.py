@@ -11,7 +11,16 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
 
     def draw(self, context):
         layout = self.layout
-
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Select_Head':
+            steps = layout.column(align=True)
+            set_head = steps.box()
+            set_head.label(text='Set Head Object')
+            set_head.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Select_Hands':
+            steps = layout.column(align=True)
+            set_head = steps.box()
+            set_head.label(text='Set Hands Object')
+            set_head.operator("blenrig.define_body_area", text = 'Define selected as Hands Object').area = 'Hands'
         if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Head':
             steps = layout.column(align=True)
             box_transfer = steps.box()
@@ -36,3 +45,4 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
             col_mapping = row_options.column()
             col_mapping.label(text = 'Mapping:')
             col_mapping.prop(context.scene.blenrig_guide, "transfer_mapping", text =  '')
+
