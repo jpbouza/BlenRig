@@ -25,9 +25,6 @@ def LATTICES_Adjust_Body(operator, context):
     except:
         pass
 
-    #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
-
     #Select Armature
     go_blenrig_pose_mode(context)
 
@@ -77,7 +74,6 @@ def LATTICES_Adjust_Head(operator, context):
 
     #Armature for setting view
     armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.hide_viewport = False
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -128,7 +124,6 @@ def LATTICES_Adjust_Brow(operator, context):
 
     #Armature for setting view
     armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.hide_viewport = False
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -179,7 +174,6 @@ def LATTICES_Adjust_Mouth(operator, context):
 
     #Armature for setting view
     armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.hide_viewport = False
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -230,7 +224,6 @@ def LATTICES_Adjust_Eyes(operator, context):
 
     #Armature for setting view
     armature = bpy.context.scene.blenrig_guide.arm_obj
-    armature.hide_viewport = False
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -268,10 +261,36 @@ def LATTICES_Adjust_Eyes(operator, context):
         pass
 
 #### END OF STEP ACTIONS ####
+def lattices_end_generic(context):
+    guide_props = context.scene.blenrig_guide
+
+    #Select Armature
+    if hasattr(context, 'active_object') and hasattr(context.active_object, 'type'):
+        if context.active_object.type in ['MESH', 'LATTICE']:
+            deselect_all_objects(context)
+
+    show_armature(context)
+
+    #Ensure POSE Mode
+    go_blenrig_pose_mode(context)
+
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+    #Reset Transforms
+    reset_all_bones_transforms()
+
+    #Turn Layers off
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
+    for l in off_layers:
+        guide_props.arm_obj.data.layers[l] = False
+
+    #Unlink Temp Collection
+    blenrig_temp_unlink()
+
 #Property for action to be performed after steps
 def end_of_step_action(context):
-    #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    lattices_end_generic(context)
     Hide_Lattices = ['LATTICE_HEAD', 'LATTICE_BROW', 'LATTICE_MOUTH', 'LATTICE_EYE_L', 'LATTICE_EYE_R', 'LATTICE_BODY']
     current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'LATTICES_Adjust_Body' or current_step == 'LATTICES_Adjust_Head' or current_step == 'LATTICES_Adjust_Brow' or current_step == 'LATTICES_Adjust_Mouth' or current_step == 'LATTICES_Adjust_Eyes':
