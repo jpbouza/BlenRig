@@ -48,10 +48,10 @@ def draw_callback_px(self, context):
     s = Vector((self.widget_size.x, self.text_box_height))
     Draw_Rectangle(self.widget_pos, s, (.12, .12, .12, 1))
 
-    dim = SetSizeGetDim(0, 13, self.dpi, self.text)
+    dim = SetSizeGetDim(0, 12, self.dpi, self.text)
     p = self.widget_pos + Vector((margin, -margin + s.y - dim[1]))
     sx = int(s.x - margin * 2)
-    Draw_Text_Wrap(*p, sx, self.text, 13, self.dpi, 0, 1, 1, 1, 1)
+    Draw_Text_Wrap(*p, sx, self.text, 12, self.dpi, 0, 1, 1, 1, 1)
 
     # Para cerrar y finalizar.
     dim = SetSizeGetDim(0, self.button_text_size, self.dpi, 'x')

@@ -1914,3 +1914,13 @@ def blend_from_shape(source_shape, destination_keys):
         bpy.ops.mesh.blend_from_shape(shape=source_shape, blend=1.0, add=False)
     bpy.ops.mesh.select_all(action = 'DESELECT')
     set_mode('OBJECT')
+
+#Get Screen Resolution for Automatic Guide Size
+def get_viewport_resolution():
+    for a in bpy.context.screen.areas:
+        if a.type == 'VIEW_3D':
+            for r in a.regions:
+                if r.type == 'WINDOW':
+                    return round(r.height/1080, 0)
+                    #print(f"Viewport dimensions: {r.width}x{r.height}, approximate aspect rato: {round(r.width/r.height, 2)}")
+
