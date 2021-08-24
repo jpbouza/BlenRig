@@ -9,6 +9,8 @@ def reproportion_on(context):
     set_reproportion_on(context)
     unhide_all_bones(context)
 
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = True
 
 def reproportion_off(context):
     # 0. Make sure Armature is active and in Pose Mode.
@@ -1627,6 +1629,8 @@ def Reprop_Finish(operator, context):
 #### END OF STEP ACTIONS ####
 #Property for action to be performed after steps
 def end_of_step_action(context):
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = False
     current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'Reprop_Sole_Side':
         context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
