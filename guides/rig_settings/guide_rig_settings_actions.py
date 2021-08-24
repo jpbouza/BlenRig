@@ -11,14 +11,6 @@ def select_armature(context):
     # Select previously active Armature
     go_blenrig_pose_mode(context)
 
-def show_armature(context):
-    #Armature for setting view
-    armature = get_armature_object(context)
-    armature.hide_viewport = False
-
-    #Select Armature
-    go_blenrig_pose_mode(context)
-
 def joint_rotations(BONE, LOC_1, ROT_1, SCALE_1, LOC_2, ROT_2, SCALE_2, LOC_3, ROT_3, SCALE_3, LOC_4, ROT_4, SCALE_4, LOC_5, ROT_5, SCALE_5, LOC_6, ROT_6, SCALE_6, PROP_VALUE):
     #Set Bone and Angles
     guide_props = bpy.context.scene.blenrig_guide
@@ -525,6 +517,8 @@ def rig_settings_end_generic(context):
         deselect_all_objects(context)
         select_armature(context)
 
+    show_armature(context)
+
     #Ensure POSE Mode
     go_blenrig_pose_mode(context)
 
@@ -535,7 +529,7 @@ def rig_settings_end_generic(context):
     reset_all_bones_transforms()
 
     #Turn Layers off
-    off_layers = [27, 28]
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
 
