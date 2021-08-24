@@ -12,14 +12,6 @@ def select_armature(context):
     # Select previously active Armature
     go_blenrig_pose_mode(context)
 
-def show_armature(context):
-    #Armature for setting view
-    armature = get_armature_object(context)
-    armature.hide_viewport = False
-
-    #Select Armature
-    go_blenrig_pose_mode(context)
-
 def show_mdef_cage(context):
     deselect_all_objects(context)
     # Show Mdef
@@ -1677,6 +1669,8 @@ def shapekeys_end_generic(context):
     if context.active_object.type == 'MESH':
         deselect_all_objects(context)
         select_armature(context)
+
+    show_armature(context)
 
     #Ensure POSE Mode
     go_blenrig_pose_mode(context)
