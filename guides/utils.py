@@ -31,6 +31,14 @@ def go_blenrig_pose_mode(context):
     set_mode('POSE')
     return True
 
+def show_armature(context):
+    #Armature for setting view
+    armature = get_armature_object(context)
+    armature.hide_viewport = False
+
+    #Select Armature
+    go_blenrig_pose_mode(context)
+
 # REPROPORTION
 def set_reproportion_on(context=None):
     if context:
@@ -447,7 +455,7 @@ def add_shapekey(context, shape_name):
                 ob.use_shape_key_edit_mode = True
 
 #Fix Basis Shapekey for correct creation of new Shapekeys
-def basis_shapekey_fix(self, context):
+def basis_shapekey_fix(context):
     ob=bpy.context.object
     if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys'):
         if hasattr(ob.data.shape_keys, 'key_blocks'):

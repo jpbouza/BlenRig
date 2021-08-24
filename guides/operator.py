@@ -662,7 +662,7 @@ class Operator_blenrig_add_body_shapekeys(bpy.types.Operator):
     #Basis Fix
     def basis_fix(self, context):
         from .utils import basis_shapekey_fix
-        basis_shapekey_fix(self, context)
+        basis_shapekey_fix(context)
 
     #Neck
     def neck(self, context):
@@ -1871,7 +1871,7 @@ class Operator_blenrig_add_fingers_shapekeys(bpy.types.Operator):
     #Basis Fix
     def basis_fix(self, context):
         from .utils import basis_shapekey_fix
-        basis_shapekey_fix(self, context)
+        basis_shapekey_fix(context)
 
     #Index_L
     def index_L(self, context):
@@ -2618,7 +2618,7 @@ class Operator_blenrig_add_toes_shapekeys(bpy.types.Operator):
     #Basis Fix
     def basis_fix(self, context):
         from .utils import basis_shapekey_fix
-        basis_shapekey_fix(self, context)
+        basis_shapekey_fix(context)
 
     #Toe_Index_L
     def toe_index_L(self, context):
@@ -3245,7 +3245,7 @@ class Operator_blenrig_add_face_shapekeys(bpy.types.Operator):
     #Basis Fix
     def basis_fix(self, context):
         from .utils import basis_shapekey_fix
-        basis_shapekey_fix(self, context)
+        basis_shapekey_fix(context)
 
     #Frown
     def frown(self, context):
