@@ -11,14 +11,6 @@ def select_armature(context):
     # Select previously active Armature
     go_blenrig_pose_mode(context)
 
-def show_armature(context):
-    #Armature for setting view
-    armature = get_armature_object(context)
-    armature.hide_viewport = False
-
-    #Select Armature
-    go_blenrig_pose_mode(context)
-
 def show_mdef_cage(context):
     deselect_all_objects(context)
     # Show Mdef
@@ -726,6 +718,8 @@ def weights_end_generic(context):
         deselect_all_objects(context)
         select_armature(context)
 
+    show_armature(context)
+
     #Ensure POSE Mode
     go_blenrig_pose_mode(context)
 
@@ -738,8 +732,8 @@ def weights_end_generic(context):
     #Reset Transforms
     reset_all_bones_transforms()
 
-    #Turn Layers on
-    off_layers = [27]
+    #Turn Layers off
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
     for l in off_layers:
         guide_props.arm_obj.data.layers[l] = False
 
