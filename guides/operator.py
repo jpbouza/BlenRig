@@ -5890,3 +5890,29 @@ class Operator_blenrig_edit_corrective_smooth_vgroup(bpy.types.Operator):
         set_active_vgroup('corrective_smooth')
         return {"FINISHED"}
 
+#Reproportion Snap Bone to Cursor
+
+class Operator_blenrig_snap_bone_to_cursor(bpy.types.Operator):
+
+    bl_idname = "blenrig.snap_bone_to_cursor"
+    bl_label = "BlenRig Snap Bone to Cursor"
+    bl_description = "Snap Bone to Cursor"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["ARMATURE"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+        from .utils import deselect_all_pose_bones, select_pose_bone, snap_selected_to_cursor
+        #Snap Eye_Mstr to Cursor
+        if bpy.context.selected_pose_bones == []:
+            self.report({'ERROR'}, "Please Select a Bone")
+        else:
+            snap_selected_to_cursor()
+        return {"FINISHED"}

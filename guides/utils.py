@@ -233,6 +233,9 @@ def hide_selected_edit_bones(context):
 def set_viewpoint(viewpoint='RIGHT'):
     bpy.ops.view3d.view_axis(type=viewpoint)
 
+def orbit_viewpoint(value, direction='ORBITLEFT'):
+     bpy.ops.view3d.view_orbit(angle=value, type=direction)
+
 def set_view_perspective(context, enable: bool):
     if enable and not context.space_data.region_3d.is_perspective:
         bpy.ops.view3d.view_persportho()
@@ -1924,3 +1927,27 @@ def get_viewport_resolution():
                     return round(r.height/1080, 0)
                     #print(f"Viewport dimensions: {r.width}x{r.height}, approximate aspect rato: {round(r.width/r.height, 2)}")
 
+#Lock Center Bones Update
+def lock_center_bones_update(self, context):
+    guide_props = bpy.context.scene.blenrig_guide
+    arm = guide_props.arm_obj
+    pbones = arm.pose.bones
+
+    lock_bones = ['master', 'master_torso_str', 'face_mstr_str', 'mouth_str_loc_1', 'nose_low_str', 'nose_bridge_ctrl_2', 'nose_up_str', 'frown_ctrl_mstr', 'frown_ctrl', 'chin_ctrl_mstr',
+    'lip_low_outer_ctrl', 'chin_ctrl', 'lip_low_ctrl', 'chin_frown_ctrl', 'lip_up_ctrl', 'lip_up_outer_ctrl', 'teeth_up_str', 'teeth_low_str', 'maxi_str_2', 'neck_ctrl_4_str',
+    'mouth_ctrl_str', 'mouth_str_loc_2', 'spine_ctrl_4_str', 'head_str', 'neck_ctrl_3_str', 'neck_ctrl_2_str', 'spine_ctrl_3_str', 'spine_ctrl_2_str', 'spine_ctrl_1_str', 'maxi_str_1',
+    'pelvis_str', 'tongue_3_str', 'teeth_up_ctrl_mid_str', 'lip_low_ctrl_str_mid', 'belly_ctrl', 'butt_ctrl', 'chest_ctrl', 'lip_up_ctrl_str_mid', 'nose_base_ctrl', 'nose_tip_ctrl_mstr',
+    'mouth_mstr_str', 'mouth_mstr_ik_pivot', 'mouth_mstr_up_str', 'mouth_mstr_low_str', 'teeth_low_ctrl_mid_str', 'tongue_str', 'tongue_1_str', 'tongue_2_str', 'tongue_3_str',
+    'look_str_loc', 'hard_palate', 'soft_palate', 'larynx', 'mouth_floor', 'uvula_2', 'uvula_2', 'eyeglasses_free', 'hat_free']
+
+    for b in lock_bones:
+        if guide_props.guide_lock_center_bones:
+            try:
+                pbones[b].lock_location[0] = True
+            except:
+                pass
+        else:
+            try:
+                pbones[b].lock_location[0] = False
+            except:
+                pass

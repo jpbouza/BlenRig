@@ -76,6 +76,12 @@ class BlenrigGuideData(PropertyGroup):
     #BlenRig Armature
     obj : PointerProperty(type=Object) # temporal object slot.
     arm_obj : PointerProperty(type=Object)
+    #BlenRig Reproportion
+    guide_lock_center_bones : BoolProperty(default=0,
+    description="Lock the X Transform for the Center Bones of the Rig",
+    update=lock_center_bones_update,
+    name="Lock Center Bones"
+    )
     #BlenRig Weights Transfer Mesh
     mdef_weights_transfer_obj : PointerProperty(type=Object)
     #BlenRig Mdef Cage
