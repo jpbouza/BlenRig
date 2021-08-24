@@ -21,8 +21,9 @@ def MDEF_Select_Body_Objects(operator, context):
     #Set Mdef Cage
     deselect_all_objects(context)
 
+
     #Armature for setting view
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+    show_armature(context)
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -52,6 +53,9 @@ def MDEF_Edit_Mdef_Cage(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Edit_Mdef_Cage'
+
+    #Hide Armature
+    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
 
     deselect_all_objects(context)
 
@@ -86,8 +90,6 @@ def MDEF_Binding_Check(operator, context):
     #Set back Object Mode
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
-
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
 
     deselect_all_objects(context)
 
@@ -124,8 +126,6 @@ def MDEF_Final_Binding(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
-
     deselect_all_objects(context)
 
     # Front View.
@@ -139,8 +139,37 @@ def MDEF_Final_Binding(operator, context):
         pass
 
 #### END OF STEP ACTIONS ####
+def mdef_end_generic(context):
+    guide_props = context.scene.blenrig_guide
+
+    #Select Armature
+    if context.active_object.type == 'MESH':
+        deselect_all_objects(context)
+
+    show_armature(context)
+
+    #Ensure POSE Mode
+    go_blenrig_pose_mode(context)
+
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+    #Reset Transforms
+    reset_all_bones_transforms()
+
+    #Turn Layers on
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
+    for l in off_layers:
+        guide_props.arm_obj.data.layers[l] = False
+
+    #Unlink Temp Collection
+    blenrig_temp_unlink()
+
 #Property for action to be performed after steps
 def end_of_step_action(context):
+    mdef_end_generic(context)
+    #Armature for setting view
+    show_armature(context)
     current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'MDEF_Edit_Mdef_Cage':
         #Set back Object Mode
