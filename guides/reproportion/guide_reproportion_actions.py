@@ -1627,8 +1627,35 @@ def Reprop_Finish(operator, context):
 
 
 #### END OF STEP ACTIONS ####
+def reproportion_end_generic(context):
+    guide_props = context.scene.blenrig_guide
+
+    #Select Armature
+    if context.active_object.type == 'MESH':
+        deselect_all_objects(context)
+        select_armature(context)
+
+    show_armature(context)
+
+    reproportion_off(context)
+
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+    #Turn Layers off
+    on_layers = [0, 1, 3, 4, 5, 6, 7, 9, 16, 17, 18, 20, 22, 23]
+    off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
+    for l in on_layers:
+        context.object.data.layers[l] = True
+    for l in off_layers:
+        context.object.data.layers[l] = False
+
+    #Unlink Temp Collection
+    blenrig_temp_unlink()
+
 #Property for action to be performed after steps
 def end_of_step_action(context):
+    reproportion_end_generic(context)
     #Lock Object Mode Off
     bpy.context.scene.tool_settings.lock_object_mode = False
     current_step = context.scene.blenrig_guide.guide_current_step
