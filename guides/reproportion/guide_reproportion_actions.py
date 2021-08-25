@@ -21,6 +21,15 @@ def reproportion_on(context):
         if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
             b.bone.hide_select = True
 
+    # Turn Off Lattice Modifiers
+    lattice_objects = collect_lattice_objects()
+    for lattice in lattice_objects:
+        for ob in bpy.data.objects:
+            if hasattr(ob, 'modifiers'):
+                for M in ob.modifiers:
+                    if M.type == 'LATTICE' and M.object == lattice:
+                        M.show_viewport = False
+
 def reproportion_off(context):
     # 0. Make sure Armature is active and in Pose Mode.
     go_blenrig_pose_mode(context)
@@ -1698,6 +1707,15 @@ def reproportion_end_generic(context):
         context.object.data.layers[l] = True
     for l in off_layers:
         context.object.data.layers[l] = False
+
+    # Turn On Lattice Modifiers
+    lattice_objects = collect_lattice_objects()
+    for lattice in lattice_objects:
+        for ob in bpy.data.objects:
+            if hasattr(ob, 'modifiers'):
+                for M in ob.modifiers:
+                    if M.type == 'LATTICE' and M.object == lattice:
+                        M.show_viewport = True
 
     #Unlink Temp Collection
     blenrig_temp_unlink()
