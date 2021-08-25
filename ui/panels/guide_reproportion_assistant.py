@@ -12,10 +12,19 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
     def draw(self, context):
         layout = self.layout
         arm = context.active_object
-        arm_data = context.active_object.data
+        active = context.active_object
         if hasattr(arm, 'pose') and hasattr(arm.pose, 'bones'):
             pose = arm.pose
             p_bones = arm.pose.bones
+            guide_props = bpy.context.scene.blenrig_guide
+
+            #General
+            if VIEW3D_OT_blenrig_guide_reproportion.instance:
+                exclude = ['Reprop_Bake', 'Reprop_Custom_Alignments', 'Reprop_IK_Check', 'Reprop_Finish']
+                if guide_props.guide_current_step not in exclude:
+                    steps = layout.column(align=True)
+                    box = steps.box()
+                    box.prop(guide_props, "guide_lock_center_bones")
 
             # Step 0 X-Mirror
             if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
@@ -35,6 +44,12 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                     col.prop(p_bones['spine_line'].bone, "bbone_curveiny",  text="Lower Curvature")
                 except:
                     pass
+            # Set Eye Location
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Set_Eyes':
+                steps = layout.column(align=True)
+                box = steps.box()
+                box.label(text="Set Eyes Location")
+                box.operator("blenrig.snap_bone_to_cursor", text="Snap Eye to Cursor")
 
             # Set Eyebrow Curve Values Step
             if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Eyebrows_Curve':
@@ -210,10 +225,33 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                         row.scale_x = 0.5
                         row.scale_y = 1.8
                         row.operator("blenrig.armature_baker_all_part_2", text="Custom Alignments")
+            # IK Check
+            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_IK_Check':
+                steps = layout.column(align=True)
+                box = steps.box()
+                box.label(text="Ik Rotation Override")
+                row_props = box.row()
+                col_R = row_props.column()
+                col_L = row_props.column()
+                for b in p_bones:
+                    if '_R' in b.name:
+                        for C in b.constraints:
+                            if C.name == 'Ik_Initial_Rotation':
+                                col_R.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
+                for b in p_bones:
+                    if '_L' in b.name:
+                        for C in b.constraints:
+                            if C.name == 'Ik_Initial_Rotation':
+                                col_L.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
 
-        # # Diplay Mode for Face Mask
-        # if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
-        #     steps = layout.column(align=True)
-        #     box = steps.box()
-        #     box.label(text="Display As")
-        #     box.prop(arm, "display_type")
+        # Edit Mask
+        if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.label(text="Mask Editing Options")
+            mirror_row = box.row()
+            if active.mode == 'EDIT':
+                mirror_row.prop(active.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(active.data, "use_mirror_topology")
+                mirror_row.prop(active, "show_in_front")
+                box.prop(active, "display_type")
