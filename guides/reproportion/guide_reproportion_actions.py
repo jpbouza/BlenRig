@@ -12,6 +12,15 @@ def reproportion_on(context):
     #Lock Object Mode Off
     bpy.context.scene.tool_settings.lock_object_mode = True
 
+    #Lock Center Bones
+    guide_props = bpy.context.scene.blenrig_guide
+    guide_props.guide_lock_center_bones = True
+
+    #Make Deform Bones not Selectable
+    for b in guide_props.arm_obj.pose.bones:
+        if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
+            b.bone.hide_select = True
+
 def reproportion_off(context):
     # 0. Make sure Armature is active and in Pose Mode.
     go_blenrig_pose_mode(context)
@@ -26,7 +35,7 @@ def frame_bones(context, *bone_names):
     frame_selected()
     deselect_all_pose_bones(context)
 
-def select_armature(operator, context):
+def select_armature(context):
     # Select previously active Armature
     go_blenrig_pose_mode(context)
 
@@ -215,6 +224,7 @@ def Reprop_Breasts_Pecs(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(45, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, "breast_ctrl_L", "breast_ctrl_R")
@@ -365,49 +375,17 @@ def Reprop_Foot_Side_Rolls(operator, context):
     # Select Sole
     select_pose_bone(context, "sole_str_L")
 
-def Reprop_Legs_Front(operator, context):
+def Reprop_Legs(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Legs_Front'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Legs'
 
     reproportion_on(context)
 
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
-
-    # Adjust view to Bones.
-    frame_bones(context, "master_torso_str", "master")
-
-    #
-    bones = (
-        "pelvis_str_L", "pelvis_str_R", "knee_str_L", "knee_str_R", "knee_pole_str_L", "knee_pole_str_R", "knee_line_L", "knee_line_R",
-        "ankle_str_L", "ankle_str_R",
-        "thigh_def_L", "thigh_def_R", "thigh_twist_def_L", "thigh_twist_def_R", "shin_def_L", "shin_def_R", "shin_twist_def_L", "shin_twist_def_R",
-    )
-    unhide_all_bones(context)
-    select_all_pose_bones(context)
-    deselect_pose_bones(context, *bones)
-    hide_selected_pose_bones(context)
-
-    # Add OpenGL Highlight to bones
-    operator.draw_bones(context, "pelvis_str_L", "pelvis_str_R", "knee_str_L", "knee_str_R",
-    "ankle_str_L", "ankle_str_R"
-    )
-
-    # Select Sole
-    select_pose_bone(context, "knee_str_L")
-
-def Reprop_Legs_Side(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Legs_Side'
-
-    reproportion_on(context)
-
-    # Set View
-    set_view_perspective(context, False)
-    set_viewpoint('RIGHT')
+    orbit_viewpoint(45, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, "master_torso_str", "master")
@@ -440,7 +418,9 @@ def Reprop_Feet(operator, context):
 
     # Set View
     set_view_perspective(context, False)
-    set_viewpoint('RIGHT')
+    set_viewpoint('FRONT')
+    orbit_viewpoint(45, 'ORBITRIGHT')
+    orbit_viewpoint(12, 'ORBITDOWN')
 
     # Adjust view to Bones.
     frame_bones(context, "ankle_str_L", "sole_str_L")
@@ -468,7 +448,8 @@ def Reprop_Toes(operator, context):
 
     # Set View
     set_view_perspective(context, False)
-    set_viewpoint('RIGHT')
+    set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, "ankle_str_L", "sole_str_L")
@@ -508,16 +489,17 @@ def Reprop_Toes(operator, context):
     context.pose_object.pose.bones['toes_spread_R'].lock_location[2] = False
     context.pose_object.pose.bones['toes_spread_R'].lock_rotation[1] = False
 
-def Reprop_Arms_Front(operator, context):
+def Reprop_Arms(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Arms_Front'
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Arms'
 
     reproportion_on(context)
 
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(45, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, "master_torso_str", "head_str")
@@ -525,35 +507,11 @@ def Reprop_Arms_Front(operator, context):
     #
     bones = (
         'elbow_line_R', 'clavi_def_R', 'arm_def_R', 'elbow_line_L', 'clavi_def_L', 'arm_def_L', 'wrist_str_R', 'wrist_str_L', 'elbow_str_L', 'elbow_pole_str_L',
-        'elbow_str_R', 'elbow_pole_str_R', 'shoulder_str_R', 'shoulder_str_L', 'clavi_str_R', 'clavi_str_L', 'arm_twist_def_R', 'forearm_twist_def_R', 'forearm_def_R', 'arm_twist_def_L', 'forearm_twist_def_L', 'forearm_def_L'
-    )
-    unhide_all_bones(context)
-    select_all_pose_bones(context)
-    deselect_pose_bones(context, *bones)
-    hide_selected_pose_bones(context)
-
-    # Add OpenGL Highlight to bones
-    operator.draw_bones(context, 'wrist_str_R', 'wrist_str_L', 'elbow_str_L', 'elbow_str_R', 'shoulder_str_R', 'shoulder_str_L', 'clavi_str_R', 'clavi_str_L'
-    )
-
-def Reprop_Arms_Side(operator, context):
-    #Perform end of step action and set current step name
-    end_of_step_action(context)
-    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Arms_Side'
-
-    reproportion_on(context)
-
-    # Set View
-    set_view_perspective(context, False)
-    set_viewpoint('RIGHT')
-
-    # Adjust view to Bones.
-    frame_bones(context, "master_torso_str", "head_str")
-
-    #
-    bones = (
-        'elbow_line_R', 'clavi_def_R', 'arm_def_R', 'elbow_line_L', 'clavi_def_L', 'arm_def_L', 'wrist_str_R', 'wrist_str_L', 'elbow_str_L', 'elbow_pole_str_L',
-        'elbow_str_R', 'elbow_pole_str_R', 'shoulder_str_R', 'shoulder_str_L', 'clavi_str_R', 'clavi_str_L', 'arm_twist_def_R', 'forearm_twist_def_R', 'forearm_def_R', 'arm_twist_def_L', 'forearm_twist_def_L', 'forearm_def_L'
+        'elbow_str_R', 'elbow_pole_str_R', 'shoulder_str_R', 'shoulder_str_L', 'clavi_str_R', 'clavi_str_L', 'arm_twist_def_R', 'forearm_twist_def_R', 'forearm_def_R', 'arm_twist_def_L', 'forearm_twist_def_L', 'forearm_def_L',
+        'fing_lit_4_def_R', 'fing_lit_3_def_R', 'fing_lit_2_def_R', 'fing_ring_4_def_R', 'fing_ring_3_def_R', 'fing_ring_2_def_R', 'fing_ind_4_def_R',
+        'fing_ind_3_def_R', 'fing_ind_2_def_R', 'fing_mid_4_def_R', 'fing_mid_3_def_R', 'fing_mid_2_def_R', 'fing_ind_1_def_R', 'fing_ring_1_def_R', 'fing_lit_1_def_R', 'fing_mid_1_def_R', 'fing_thumb_3_def_R', 'fing_thumb_2_def_R',
+        'fing_thumb_1_def_R', 'fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_2_def_L', 'fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_2_def_L', 'fing_ind_4_def_L', 'fing_ind_3_def_L', 'fing_ind_2_def_L', 'fing_mid_4_def_L',
+        'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -576,11 +534,15 @@ def Reprop_Hands(operator, context):
     set_viewpoint('RIGHT')
 
     # Adjust view to Bones.
-    frame_bones(context, 'wrist_str_R', 'wrist_str_L', 'hand_str_R', 'hand_str_L')
+    frame_bones(context, 'wrist_str_L', 'hand_str_L')
 
     #
     bones = (
-        'hand_str_R', 'hand_str_L', 'hand_def_R', 'hand_def_L'
+        'hand_str_R', 'hand_str_L', 'hand_def_R', 'hand_def_L',
+        'fing_lit_4_def_R', 'fing_lit_3_def_R', 'fing_lit_2_def_R', 'fing_ring_4_def_R', 'fing_ring_3_def_R', 'fing_ring_2_def_R', 'fing_ind_4_def_R',
+        'fing_ind_3_def_R', 'fing_ind_2_def_R', 'fing_mid_4_def_R', 'fing_mid_3_def_R', 'fing_mid_2_def_R', 'fing_ind_1_def_R', 'fing_ring_1_def_R', 'fing_lit_1_def_R', 'fing_mid_1_def_R',
+        'fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_2_def_L', 'fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_2_def_L', 'fing_ind_4_def_L', 'fing_ind_3_def_L', 'fing_ind_2_def_L', 'fing_mid_4_def_L',
+        'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L',
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -601,9 +563,10 @@ def Reprop_Fingers(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(45, 'ORBITRIGHT')
 
     # Adjust view to Bones.
-    frame_bones(context, 'wrist_str_R', 'wrist_str_L', 'hand_str_R', 'hand_str_L')
+    frame_bones(context, 'wrist_str_L', 'hand_str_L')
 
     #
     bones = (
@@ -642,6 +605,37 @@ def Reprop_Fingers(operator, context):
     context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = False
     context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = False
     context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = False
+
+def Reprop_Limbs_Adjust_Shape(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Limbs_Adjust_Shape'
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, 'master', 'head_str')
+
+    #
+    bones = (
+        'arm_def_R', 'arm_def_L', 'thigh_def_L', 'thigh_def_R', 'thigh_toon_R', 'thigh_twist_def_R', 'shin_def_R', 'shin_toon_R', 'shin_twist_def_R',
+        'arm_toon_R', 'arm_twist_def_R', 'forearm_toon_R', 'forearm_twist_def_R', 'forearm_def_R', 'arm_toon_L', 'arm_twist_def_L', 'forearm_toon_L',
+        'forearm_twist_def_L', 'forearm_def_L', 'thigh_toon_L', 'thigh_twist_def_L', 'shin_def_L', 'shin_toon_L', 'shin_twist_def_L'
+    )
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, 'arm_toon_R', 'arm_toon_L', 'forearm_toon_L', 'forearm_toon_R', 'thigh_toon_L', 'thigh_toon_R', 'shin_toon_L', 'shin_toon_R'
+    )
+
+    deselect_all_pose_bones(context)
 
 def Reprop_Toon_Scale(operator, context):
     #Perform end of step action and set current step name
@@ -747,6 +741,8 @@ def Reprop_Edit_Face(operator, context):
         ob.hide_viewport = False
         context.view_layer.objects.active = ob
         set_mode('EDIT')
+        ob.data.use_mirror_x = True
+        ob.data.use_mirror_topology = True
 
 def Reprop_Eye_Loop(operator, context):
     #Perform end of step action and set current step name
@@ -762,12 +758,6 @@ def Reprop_Set_Eyes(operator, context):
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Set_Eyes'
 
-    # # Select Armature object
-    # if context.mode != 'OBJECT':
-    #     set_mode('OBJECT')
-    # set_active_object(context, context.scene.blenrig_guide.arm_obj)
-    # set_mode('POSE')
-
     reproportion_on(context)
 
     # Set View
@@ -779,17 +769,13 @@ def Reprop_Set_Eyes(operator, context):
 
     #
     bones = (
-        'eye_socket_mstr_str_L', 'eye_socket_mstr_str_R'
+        'eye_socket_mstr_str_L', 'eye_socket_mstr_str_L'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
-    # select_pose_bone(context, "eye_socket_mstr_str_L")
-    # snap_selected_to_cursor()
-    # mirror_pose()
 
-    # #
     deselect_all_pose_bones(context)
 
 def Reprop_Eyebrows_Main_Ctrl(operator, context):
@@ -805,6 +791,7 @@ def Reprop_Eyebrows_Main_Ctrl(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
@@ -839,6 +826,7 @@ def Reprop_Eyebrows_Curve_Ctrls(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
@@ -872,6 +860,7 @@ def Reprop_Eyebrows_Curve(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
@@ -955,6 +944,13 @@ def Reprop_Eyelids_Ctrls(operator, context):
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_low_ctrl_R', 'eyelid_up_ctrl_R', 'blink_ctrl_L', 'blink_ctrl_R')
 
+    #Define Locks
+    context.pose_object.pose.bones['blink_ctrl_L'].lock_location[0] = False
+    context.pose_object.pose.bones['blink_ctrl_L'].lock_location[1] = False
+    context.pose_object.pose.bones['blink_ctrl_R'].lock_location[0] = False
+    context.pose_object.pose.bones['blink_ctrl_R'].lock_location[1] = False
+
+
 def Reprop_Eyelids_Rim_Ctrls(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -968,6 +964,7 @@ def Reprop_Eyelids_Rim_Ctrls(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'eyelid_ctrl_out_mstr_L', 'eyelid_ctrl_out_mstr_R')
@@ -998,12 +995,12 @@ def Reprop_Face_Toon(operator, context):
     set_viewpoint('FRONT')
 
     # Adjust view to Bones.
-    frame_bones(context, 'eyelid_ctrl_out_mstr_L', 'eyelid_ctrl_out_mstr_R')
+    frame_bones(context, 'eyelid_ctrl_out_mstr_L', 'eyelid_ctrl_out_mstr_R', 'face_toon_low')
 
     #
     bones = (
         'toon_brow_L', 'toon_brow_R', 'toon_eye_up_L', 'toon_eye_out_L', 'toon_eye_in_L', 'toon_eye_low_L',
-        'lattice_eye_L', 'toon_eye_up_R', 'toon_eye_out_R', 'toon_eye_in_R', 'toon_eye_low_R', 'lattice_eye_R'
+        'lattice_eye_L', 'toon_eye_up_R', 'toon_eye_out_R', 'toon_eye_in_R', 'toon_eye_low_R', 'lattice_eye_R', 'face_toon_low'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -1200,6 +1197,7 @@ def Reprop_Mouth_Ctrl(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
@@ -1228,6 +1226,7 @@ def Reprop_Mouth_Curves_Ctrls(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
@@ -1263,6 +1262,7 @@ def Reprop_Mouth_Curves(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    orbit_viewpoint(1, 'ORBITRIGHT')
 
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
@@ -1610,6 +1610,33 @@ def Reprop_Custom_Alignments(operator, context):
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Custom_Alignments'
 
+def Reprop_IK_Check(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_IK_Check'
+
+    reproportion_off(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, 'head_str', 'master')
+
+    #
+    bones = ('hand_ik_ctrl_L', 'hand_ik_ctrl_L', 'master_torso', 'sole_ctrl_L', 'sole_ctrl_R'
+    )
+
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, 'hand_ik_ctrl_L', 'hand_ik_ctrl_R', 'master_torso', 'sole_ctrl_L', 'sole_ctrl_R'
+    )
+
 def Reprop_Finish(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -1631,16 +1658,38 @@ def reproportion_end_generic(context):
     guide_props = context.scene.blenrig_guide
 
     #Select Armature
-    if context.active_object.type == 'MESH':
-        deselect_all_objects(context)
-        select_armature(context)
+    if hasattr(context, 'active_object') and hasattr(context.active_object, 'type'):
+        if context.active_object.type == 'MESH':
+            deselect_all_objects(context)
+            select_armature(context)
 
     show_armature(context)
+
+    #Ensure Symmetry
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+    #Left Side
+    for b in context.pose_object.data.bones:
+        if b.name.endswith('_L'):
+            b.select = True
+
+    if bpy.context.active_object.pose.use_mirror_x == True:
+        mirror_pose()
+    deselect_all_pose_bones(context)
 
     reproportion_off(context)
 
     unhide_all_bones(context)
     deselect_all_pose_bones(context)
+
+    #Unlock Center Bones
+    guide_props.guide_lock_center_bones = False
+
+    #Make Deform Bones Selectable
+    for b in guide_props.arm_obj.pose.bones:
+        if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
+            b.bone.hide_select = False
 
     #Turn Layers off
     on_layers = [0, 1, 3, 4, 5, 6, 7, 9, 16, 17, 18, 20, 22, 23]
@@ -1653,11 +1702,12 @@ def reproportion_end_generic(context):
     #Unlink Temp Collection
     blenrig_temp_unlink()
 
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = False
+
 #Property for action to be performed after steps
 def end_of_step_action(context):
     reproportion_end_generic(context)
-    #Lock Object Mode Off
-    bpy.context.scene.tool_settings.lock_object_mode = False
     current_step = context.scene.blenrig_guide.guide_current_step
     if current_step == 'Reprop_Sole_Side':
         context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
@@ -1686,21 +1736,6 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = True
-        context.scene.blenrig_guide.guide_current_step = ''
-    if current_step == 'Reprop_Eye_Loop':
-        # Select Armature object
-        go_blenrig_pose_mode(context)
-
-        reproportion_on(context)
-        #Snap Eye_Mstr to Cursor
-        bones = ('eye_socket_mstr_str_L', 'eye_socket_mstr_str_R')
-        unhide_all_bones(context)
-        deselect_all_pose_bones(context)
-        select_pose_bone(context, "eye_socket_mstr_str_L")
-        snap_selected_to_cursor()
-        mirror_pose()
-        #
-        deselect_all_pose_bones(context)
         context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Cheek_Ctrls':
         context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[0] = True
@@ -1739,6 +1774,12 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[2] = True
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[2] = True
         context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Eyelids_Ctrls':
+        #Define Locks
+        context.pose_object.pose.bones['blink_ctrl_L'].lock_location[0] = True
+        context.pose_object.pose.bones['blink_ctrl_L'].lock_location[1] = True
+        context.pose_object.pose.bones['blink_ctrl_R'].lock_location[0] = True
+        context.pose_object.pose.bones['blink_ctrl_R'].lock_location[1] = True
     if current_step == 'Reprop_Custom_Alignments':
         go_blenrig_pose_mode(context)
         context.scene.blenrig_guide.guide_current_step = ''

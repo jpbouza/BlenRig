@@ -164,27 +164,14 @@ GUIDE_STEPS_REPROPORTION = (
     {
         'imagen': 'Reprop_Legs_Front.jpg',
         'titulo': {
-            'EN': 'Leg Front',
+            'EN': 'Leg',
             'ES': 'Pierna hacia delante'
             },
         'texto': {
             'EN': 'Place the leg joints, front view.',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
-        'accion': Reprop_Legs_Front
-    },
-    # Leg Side
-    {
-        'imagen': 'Reprop_Legs_Side.jpg',
-        'titulo': {
-            'EN': 'Leg Side',
-            'ES': 'Pierna hacia un lado'
-            },
-        'texto': {
-            'EN': 'Place the leg joints, side view.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
-            },
-        'accion': Reprop_Legs_Side
+        'accion': Reprop_Legs
     },
     # Feet
     {
@@ -216,27 +203,14 @@ GUIDE_STEPS_REPROPORTION = (
     {
         'imagen': 'Reprop_Arms_Front.jpg',
         'titulo': {
-            'EN': 'Arms Front',
+            'EN': 'Arms',
             'ES': 'Brazo hacia adelante'
             },
         'texto': {
             'EN': 'Place the arm joints, front view.',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
-        'accion': Reprop_Arms_Front
-    },
-    # Arms Side
-    {
-        'imagen': 'Reprop_Arms_Side.jpg',
-        'titulo': {
-            'EN': 'Arms Side',
-            'ES': 'Brazo hacia un lado'
-            },
-        'texto': {
-            'EN': 'Place the arm joints, side view.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
-            },
-        'accion': Reprop_Arms_Side
+        'accion': Reprop_Arms
     },
     # hand Joint
     {
@@ -263,6 +237,19 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Si tu personaje tiene dedos, coloca las articulaciones de estos, y si no tiene, desactiva el "toggle fingers".'
             },
         'accion': Reprop_Fingers
+    },
+    # Toon Limbs Adjust
+    {
+        'imagen': ('Reprop_Toon_Scale_A.jpg', 'Reprop_Toon_Scale_B.jpg', 'Reprop_Toon_Scale_C.jpg', 'Reprop_Toon_Scale_D.jpg'),
+        'titulo': {
+            'EN': 'Toon Limbs Adjust',
+            'ES': 'Escala de deformaciones Toon'
+            },
+        'texto': {
+            'EN': 'Optionally, you can better adjust the deformation bones to the shape of the limbs of the character.',
+            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            },
+        'accion': Reprop_Limbs_Adjust_Shape
     },
     # Toon Scale
     {
@@ -680,6 +667,19 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'accion': Reprop_Custom_Alignments
     },
+    # Ik Check
+    {
+        'imagen': 'Reprop_Custom_Alignments.jpg',
+        'titulo': {
+            'EN': 'IK Check',
+            'ES': 'Alineaciones personalizadas'
+            },
+        'texto': {
+            'EN': "Move the controllers and check that the limbs bend correcly. In case the arms or legs don't bend, Use the 'IK Rotation Override' Sliders to make them bend.",
+            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            },
+        'accion': Reprop_IK_Check
+    },
     # Reproportion Finish
     {
         'imagen': 'Reprop_Finish.jpg',
@@ -694,3 +694,5 @@ GUIDE_STEPS_REPROPORTION = (
         'accion': Reprop_Finish
     }
 )
+
+
