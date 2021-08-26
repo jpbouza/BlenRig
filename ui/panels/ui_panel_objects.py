@@ -60,6 +60,9 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         box_modifiers.label(text='Add Modifiers')
         box_modifiers.operator("blenrig.add_head_modifiers", text = 'Add Head Mofiiers')
         box_modifiers.operator("blenrig.add_hands_modifiers", text = 'Add Hands Mofiiers')
+        box_modifiers.operator("blenrig.add_teeth_modifiers", text = 'Add Teeth Mofiiers')
+        box_modifiers.operator("blenrig.add_eyes_modifiers", text = 'Add Left Eye Mofiiers').side = 'Left'
+        box_modifiers.operator("blenrig.add_eyes_modifiers", text = 'Add Right Eye Mofiiers').side = 'Right'
         #Add Shapekeys Buttons
         box_modifiers = col_buttons.box()
         box_modifiers.label(text='Add Shapekeys')
