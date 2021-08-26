@@ -300,6 +300,193 @@ class Operator_blenrig_add_head_modifiers(bpy.types.Operator):
 
         return {"FINISHED"}
 
+class Operator_blenrig_add_eyes_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_eyes_modifiers"
+    bl_label = "BlenRig add Eyes Modifiers"
+    bl_description = "Add commonly used modifiers for Eye Deformation"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    side : bpy.props.StringProperty()
+
+    def add_vgroup(self, context, vgroup):
+        from .utils import check_vgroup_name
+        #Check if Vgroups Exist
+        if check_vgroup_name(vgroup):
+            pass
+        else:
+            bpy.context.active_object.vertex_groups.new(name=vgroup)
+            bpy.ops.object.vertex_group_assign()
+
+    def execute(self, context):
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+
+        #Add Deform Modifiers to Character's Eye
+        active = context.active_object
+
+        #Armature
+        if check_mod_type('ARMATURE'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+            # set modifier properties
+            mod.object = context.scene.blenrig_guide.arm_obj
+            mod.use_deform_preserve_volume = True
+            mod.vertex_group = 'no_mdef'
+            mod.show_expanded = True
+            mod.show_in_editmode = True
+            mod.show_on_cage = True
+        #Lattices
+        #Left Eye
+        if self.side == 'Left':
+            #Add Vgroups
+            if active.mode == 'EDIT':
+                self.add_vgroup(context, 'eye_def_L')
+                self.add_vgroup(context, 'lattice_eye_L')
+            #Eye Lattice
+            if check_mod_type_name('LATTICE', 'LATTICE_EYE_L'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "LATTICE_EYE_L",type= 'LATTICE')
+                # set modifier properties
+                for ob in bpy.data.objects:
+                    if ob.type == 'LATTICE':
+                        if 'LATTICE_EYE_L' in ob.name:
+                            if ob.parent == context.scene.blenrig_guide.arm_obj:
+                                mod.object = ob
+                mod.vertex_group = 'lattice_eye_L'
+                mod.show_expanded = False
+        #Right Eye
+        if self.side == 'Right':
+            #Add Vgroups
+            if active.mode == 'EDIT':
+                self.add_vgroup(context, 'eye_def_R')
+                self.add_vgroup(context, 'lattice_eye_R')
+            #Eye Lattice
+            if check_mod_type_name('LATTICE', 'LATTICE_EYE_R'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "LATTICE_EYE_R",type= 'LATTICE')
+                # set modifier properties
+                for ob in bpy.data.objects:
+                    if ob.type == 'LATTICE':
+                        if 'LATTICE_EYE_R' in ob.name:
+                            if ob.parent == context.scene.blenrig_guide.arm_obj:
+                                mod.object = ob
+                mod.vertex_group = 'lattice_eye_R'
+                mod.show_expanded = False
+
+        if check_mod_type_name('LATTICE', 'LATTICE_HEAD'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_HEAD' in ob.name:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_head'
+            mod.show_expanded = False
+
+        #Subsurf
+        subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+        if subsurf_mods:
+            active.modifiers.remove(subsurf_mods[-1])
+        mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+        # set modifier properties
+        mod.subdivision_type = 'CATMULL_CLARK'
+        mod.levels = 0
+        mod.render_levels = 3
+        mod.show_expanded = True
+
+        return {"FINISHED"}
+
+class Operator_blenrig_add_teeth_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.add_teeth_modifiers"
+    bl_label = "BlenRig add Teeth Modifiers"
+    bl_description = "Add commonly used modifiers for Teeth Deformation"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+
+        #Add Deform Modifiers to Character's Eye
+        active = context.active_object
+
+        #Armature
+        if check_mod_type('ARMATURE'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+            # set modifier properties
+            mod.object = context.scene.blenrig_guide.arm_obj
+            mod.use_deform_preserve_volume = True
+            mod.vertex_group = 'no_mdef'
+            mod.show_expanded = True
+            mod.show_in_editmode = True
+            mod.show_on_cage = True
+        #Lattices
+        if check_mod_type_name('LATTICE', 'LATTICE_MOUTH'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_MOUTH",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_MOUTH' in ob.name:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_mouth'
+            mod.show_expanded = False
+
+        if check_mod_type_name('LATTICE', 'LATTICE_HEAD'):
+            pass
+        else:
+            mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
+            # set modifier properties
+            for ob in bpy.data.objects:
+                if ob.type == 'LATTICE':
+                    if 'LATTICE_HEAD' in ob.name:
+                        if ob.parent == context.scene.blenrig_guide.arm_obj:
+                            mod.object = ob
+            mod.vertex_group = 'lattice_head'
+            mod.show_expanded = False
+
+        #Subsurf
+        subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+        if subsurf_mods:
+            active.modifiers.remove(subsurf_mods[-1])
+        mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+        # set modifier properties
+        mod.subdivision_type = 'CATMULL_CLARK'
+        mod.levels = 0
+        mod.render_levels = 3
+        mod.show_expanded = True
+
+        return {"FINISHED"}
+
+
 class Operator_blenrig_add_hands_modifiers(bpy.types.Operator):
 
     bl_idname = "blenrig.add_hands_modifiers"

@@ -412,6 +412,14 @@ def check_mod_type_name(mod_type, mod_name):
                 if mod.type == mod_type:
                     if mod.name == mod_name:
                         return True
+### Check if Vgroup Exists
+def check_vgroup_name(vgroup_name):
+    active = bpy.context.active_object
+    if hasattr(active, 'vertex_groups'):
+        for vgroup in active.vertex_groups:
+            if hasattr(vgroup, 'name'):
+                if vgroup.name == vgroup_name:
+                    return True
 
 #### Shapekeys
 
@@ -1951,3 +1959,4 @@ def lock_center_bones_update(self, context):
                 pbones[b].lock_location[0] = False
             except:
                 pass
+
