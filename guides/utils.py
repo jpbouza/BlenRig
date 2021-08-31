@@ -1867,10 +1867,18 @@ def show_wp_bones_update(self, context):
             b.bone.hide = False
     else:
         bones = [b.bone for b in scn.blenrig_wp_bones]
-        unhide_all_bones(context)
-        select_all_pose_bones(context)
-        deselect_pose_bones(context, *bones)
-        hide_selected_pose_bones(context)
+        for b in pbones:
+            b.bone.hide = True
+        for B in bones:
+            for b in pbones:
+                if b.name == B:
+                    b.bone.hide = False
+
+
+        # unhide_all_bones(context)
+        # select_all_pose_bones(context)
+        # deselect_pose_bones(context, *bones)
+        # hide_selected_pose_bones(context)
 
 #Set Active Shapekey for Editting
 def set_active_shapekey(shapekey_name):
@@ -1935,6 +1943,15 @@ def get_viewport_resolution():
                     return round(r.height/1080, 0)
                     #print(f"Viewport dimensions: {r.width}x{r.height}, approximate aspect rato: {round(r.width/r.height, 2)}")
 
+#Get Screen Resolution for Automatic Guide Size
+def set_viewport_shading_type(shading_type, shading_color_type):
+    for area in bpy.context.screen.areas:
+        if area.type == 'VIEW_3D':
+            for space in area.spaces:
+                if space.type == 'VIEW_3D':
+                    space.shading.type = shading_type
+                    space.shading.color_type = shading_color_type
+
 #Lock Center Bones Update
 def lock_center_bones_update(self, context):
     guide_props = bpy.context.scene.blenrig_guide
@@ -1960,3 +1977,20 @@ def lock_center_bones_update(self, context):
             except:
                 pass
 
+#Set Bone Locks
+def set_locks(bone_list, loc_x, loc_y, loc_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z):
+    guide_props = bpy.context.scene.blenrig_guide
+    pbones = guide_props.arm_obj.pose.bones
+    bones = bone_list
+    for bone in bones:
+        for b in pbones:
+            if b.name == bone:
+                b.lock_location[0] = loc_x
+                b.lock_location[1] = loc_y
+                b.lock_location[2] = loc_z
+                b.lock_rotation[0] = rot_x
+                b.lock_rotation[1] = rot_y
+                b.lock_rotation[2] = rot_z
+                b.lock_scale[0] = scale_x
+                b.lock_scale[1] = scale_y
+                b.lock_scale[2] = scale_z
