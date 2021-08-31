@@ -13,10 +13,10 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
         layout = self.layout
         arm = context.active_object
         active = context.active_object
+        guide_props = bpy.context.scene.blenrig_guide
         if hasattr(arm, 'pose') and hasattr(arm.pose, 'bones'):
             pose = arm.pose
             p_bones = arm.pose.bones
-            guide_props = bpy.context.scene.blenrig_guide
 
             #General
             if VIEW3D_OT_blenrig_guide_reproportion.instance:
@@ -25,7 +25,8 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                     steps = layout.column(align=True)
                     box = steps.box()
                     box.prop(guide_props, "guide_lock_center_bones")
-
+                    box.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
+                    box.prop(guide_props.arm_obj.data, "display_type")
             # Step 0 X-Mirror
             if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
                 steps = layout.column(align=True)
@@ -254,4 +255,6 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 mirror_row.prop(active.data, "use_mirror_x", text='X-Mirror')
                 mirror_row.prop(active.data, "use_mirror_topology")
                 mirror_row.prop(active, "show_in_front")
+                mirror_row.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
                 box.prop(active, "display_type")
+
