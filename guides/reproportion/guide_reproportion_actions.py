@@ -9,7 +9,7 @@ def reproportion_on(context):
     set_reproportion_on(context)
     unhide_all_bones(context)
 
-    #Lock Object Mode Off
+    #Lock Object Mode On
     bpy.context.scene.tool_settings.lock_object_mode = True
 
     #Lock Center Bones
@@ -17,9 +17,11 @@ def reproportion_on(context):
     guide_props.guide_lock_center_bones = True
 
     #Make Deform Bones not Selectable
+    exclude_list = ['foot_ctrl_frame_L', 'foot_ctrl_frame_R']
     for b in guide_props.arm_obj.pose.bones:
-        if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
-            b.bone.hide_select = True
+        if b.name not in exclude_list:
+            if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
+                b.bone.hide_select = True
 
     # Turn Off Lattice Modifiers
     lattice_objects = collect_lattice_objects()
@@ -99,9 +101,19 @@ def Reprop_Master_Torso(operator, context):
     frame_bones(context, "head_str", "master")
 
     # hide all bones but master_torso_str.
+    bones = ("master_torso_str", "master_torso_str")
+
+    unhide_all_bones(context)
     select_all_pose_bones(context)
-    deselect_pose_bones(context, "master_torso_str")
+    deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'master_torso_str')
@@ -137,6 +149,13 @@ def Reprop_Spine(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "pelvis_str", "spine_ctrl_1_str", "spine_ctrl_2_str", "spine_ctrl_3_str", "spine_ctrl_4_str")
 
@@ -166,6 +185,13 @@ def Reprop_Spine_Line(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "spine_line")
 
@@ -192,6 +218,13 @@ def Reprop_Neck(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "neck_ctrl_4_str", "neck_ctrl_2_str", "neck_ctrl_3_str", "head_str")
@@ -220,6 +253,13 @@ def Reprop_Head(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "head_mid_1_str", "head_mid_2_str")
 
@@ -240,12 +280,19 @@ def Reprop_Breasts_Pecs(operator, context):
 
     #
     bones = (
-        "breast_ctrl_L", "breast_ctrl_R", "breast_tip_L", "breast_tip_R"
+        "breast_ctrl_L", "breast_ctrl_R", "breast_tip_L", "breast_tip_R", "breast_def_L", "breast_def_R"
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "breast_ctrl_L", "breast_ctrl_R", "breast_tip_L", "breast_tip_R")
@@ -272,6 +319,13 @@ def Reprop_Body_Lattice(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "chest_ctrl", "belly_ctrl", "butt_ctrl")
@@ -300,6 +354,13 @@ def Reprop_Sole_Side(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "sole_str_L", "sole_str_L", "foot_roll_ctrl_L", "foot_roll_ctrl_R", "sole_pivot_point_L", "sole_pivot_point_R")
@@ -334,6 +395,13 @@ def Reprop_Sole_Bottom(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "sole_str_L", "sole_str_R", "foot_ctrl_frame_L", "foot_ctrl_frame_R", "sole_pivot_point_L", "sole_pivot_point_R")
@@ -378,6 +446,13 @@ def Reprop_Foot_Side_Rolls(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "foot_side_roll_out_L", "foot_side_roll_out_R", "foot_side_roll_in_L", "foot_side_roll_in_R")
 
@@ -409,6 +484,13 @@ def Reprop_Legs(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "pelvis_str_L", "pelvis_str_R", "knee_str_L", "knee_str_R",
@@ -443,6 +525,13 @@ def Reprop_Feet(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "foot_str_L", "foot_str_R", "toe_str_1_L", "toe_str_1_R", "toe_str_2_L", "toe_str_2_R"
@@ -479,6 +568,13 @@ def Reprop_Toes(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'toe_lit_str_1_L', 'toe_fourth_str_1_L', 'toe_mid_str_1_L', 'toe_big_str_1_L', 'toe_ind_str_1_L', 'toe_big_str_2_L', 'toe_mid_str_2_L', 'toe_fourth_str_2_L', 'toe_lit_str_2_L', 'toe_ind_str_2_L',
@@ -527,6 +623,13 @@ def Reprop_Arms(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'wrist_str_R', 'wrist_str_L', 'elbow_str_L', 'elbow_str_R', 'shoulder_str_R', 'shoulder_str_L', 'clavi_str_R', 'clavi_str_L'
     )
@@ -557,6 +660,13 @@ def Reprop_Hands(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'hand_str_R', 'hand_str_L'
@@ -592,6 +702,13 @@ def Reprop_Fingers(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'fing_lit_str_1_R', 'fing_ring_str_1_R', 'fing_ind_str_1_R', 'fing_mid_str_1_R', 'fing_thumb_str_1_R', 'fing_thumb_str_2_R', 'fing_thumb_str_3_R', 'fing_thumb_str_4_R', 'fing_lit_str_2_R', 'fing_lit_str_3_R', 'fing_lit_str_4_R',
@@ -640,6 +757,13 @@ def Reprop_Limbs_Adjust_Shape(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'arm_toon_R', 'arm_toon_L', 'forearm_toon_L', 'forearm_toon_R', 'thigh_toon_L', 'thigh_toon_R', 'shin_toon_L', 'shin_toon_R'
     )
@@ -671,6 +795,13 @@ def Reprop_Toon_Scale(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'neck_2_toon', 'neck_3_toon', 'spine_2_toon', 'spine_3_toon', 'spine_4_toon', 'shoulder_toon_R', 'shoulder_toon_L', 'pelvis_toon', 'spine_1_toon', 'pelvis_toon_R', 'pelvis_toon_L',
         'thigh_toon_R', 'knee_toon_R', 'foot_toon_R', 'toe_3_toon_R', 'toe_2_toon_R', 'toe_1_toon_R', 'shin_toon_R', 'arm_toon_R', 'elbow_toon_R', 'hand_toon_R', 'forearm_toon_R', 'arm_toon_L',
@@ -687,6 +818,14 @@ def Reprop_Toon_Scale(operator, context):
     collect_cage()
     for ob in mdef_cage_objects:
         ob.hide_viewport = False
+
+    #Set Locks
+    set_locks(['neck_2_toon', 'neck_3_toon', 'spine_2_toon', 'spine_3_toon', 'spine_4_toon', 'shoulder_toon_R', 'shoulder_toon_L', 'pelvis_toon', 'spine_1_toon', 'pelvis_toon_R', 'pelvis_toon_L',
+        'thigh_toon_R', 'knee_toon_R', 'foot_toon_R', 'toe_3_toon_R', 'toe_2_toon_R', 'toe_1_toon_R', 'shin_toon_R', 'arm_toon_R', 'elbow_toon_R', 'hand_toon_R', 'forearm_toon_R', 'arm_toon_L',
+        'elbow_toon_L', 'hand_toon_L', 'forearm_toon_L', 'thigh_toon_L', 'knee_toon_L', 'foot_toon_L', 'toe_3_toon_L', 'toe_2_toon_L', 'toe_1_toon_L', 'shin_toon_L'], True, True, True, True, True, True, False, False, False)
+
+    #Set Shading to Material to enable transparency
+    set_viewport_shading_type('SOLID', 'MATERIAL')
 
 def Reprop_Face_Mstr(operator, context):
     #Perform end of step action and set current step name
@@ -705,10 +844,19 @@ def Reprop_Face_Mstr(operator, context):
     # Adjust view to Bones.
     frame_bones(context, "head_str", "neck_ctrl_4_str")
 
+    bones = ("face_mstr_str", "face_mstr_str")
+
     # hide all bones but specific ones.
     select_all_pose_bones(context)
-    deselect_pose_bones(context, "face_mstr_str")
+    deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'face_mstr_str')
@@ -720,6 +868,9 @@ def Reprop_Face_Mstr(operator, context):
     face_rig_objects = collect_facemask()
     collect_facemask()
     blenrig_temp_link(face_rig_objects)
+
+    #Set Shading to Material to enable transparency
+    set_viewport_shading_type('SOLID', 'MATERIAL')
 
 def Reprop_Edit_Face(operator, context):
     #Perform end of step action and set current step name
@@ -733,10 +884,39 @@ def Reprop_Edit_Face(operator, context):
     # Adjust view to Bones.
     frame_bones(context, "head_str", "neck_ctrl_4_str")
 
+    reproportion_on(context)
+
+    bones = ("master", "master")
+
+    # hide all bones but specific ones.
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Se resetean los puntos de gl.
     operator.draw_bones(context)
 
     hide_all_bones(context)
+
+    #Turn Layers off
+    on_layers = [27]
+    off_layers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,15 ,16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 31]
+    for l in on_layers:
+        context.object.data.layers[l] = True
+    for l in off_layers:
+        context.object.data.layers[l] = False
+
+    # Set Armature to Bbone Display
+    set_display_type(context, 'BBONE')
+
+    deselect_all_objects(context)
 
     # Show FaceRigMesh
     face_rig_objects = collect_facemask()
@@ -750,8 +930,12 @@ def Reprop_Edit_Face(operator, context):
         ob.hide_viewport = False
         context.view_layer.objects.active = ob
         set_mode('EDIT')
+        bpy.ops.mesh.select_mode(type="VERT")
         ob.data.use_mirror_x = True
         ob.data.use_mirror_topology = True
+
+    #Set Shading to Material to enable transparency
+    set_viewport_shading_type('SOLID', 'MATERIAL')
 
 def Reprop_Eye_Loop(operator, context):
     #Perform end of step action and set current step name
@@ -761,6 +945,11 @@ def Reprop_Eye_Loop(operator, context):
     # Set View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+
+    reproportion_on(context)
+
+    #Lock Object Mode Off
+    bpy.context.scene.tool_settings.lock_object_mode = False
 
 def Reprop_Set_Eyes(operator, context):
     #Perform end of step action and set current step name
@@ -784,6 +973,13 @@ def Reprop_Set_Eyes(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     deselect_all_pose_bones(context)
 
@@ -816,6 +1012,13 @@ def Reprop_Eyebrows_Main_Ctrl(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'brow_mstr_L', 'brow_mstr_R')
@@ -852,6 +1055,13 @@ def Reprop_Eyebrows_Curve_Ctrls(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'brow_ctrl_curve_L', 'brow_ctrl_in_L', 'brow_ctrl_out_L', 'brow_ctrl_curve_R', 'brow_ctrl_in_R', 'brow_ctrl_out_R'
     )
@@ -886,6 +1096,13 @@ def Reprop_Eyebrows_Curve(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context)
 
@@ -918,6 +1135,13 @@ def Reprop_Eyebrows_Ctrls(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'frown_ctrl', 'brow_ctrl_1_R', 'brow_ctrl_3_R', 'brow_ctrl_4_R', 'brow_ctrl_5_R', 'brow_ctrl_5_L', 'brow_ctrl_1_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L', 'brow_ctrl_2_L', 'brow_ctrl_2_R'
     )
@@ -949,6 +1173,13 @@ def Reprop_Eyelids_Ctrls(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_low_ctrl_R', 'eyelid_up_ctrl_R', 'blink_ctrl_L', 'blink_ctrl_R')
@@ -989,6 +1220,13 @@ def Reprop_Eyelids_Rim_Ctrls(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'eyelid_up_rim_ctrl_L', 'eyelid_low_rim_ctrl_L', 'eyelid_up_rim_ctrl_R', 'eyelid_low_rim_ctrl_R')
 
@@ -1015,6 +1253,13 @@ def Reprop_Face_Toon(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'toon_brow_L', 'toon_brow_R', 'toon_eye_up_L', 'toon_eye_out_L', 'toon_eye_in_L', 'toon_eye_low_L',
@@ -1043,6 +1288,13 @@ def Reprop_Cheek_Ctrls(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'cheek_ctrl_L', 'cheek_ctrl_R', 'nose_frown_ctrl_L', 'nose_frown_ctrl_R')
@@ -1079,6 +1331,13 @@ def Reprop_Nose(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'nose_low_str', 'nose_bridge_ctrl_2', 'nose_up_str', 'nostril_ctrl_L', 'nostril_ctrl_R', 'nose_tip_ctrl_mstr')
 
@@ -1106,6 +1365,13 @@ def Reprop_Jaw(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'maxi_str_1', 'maxi_str_2')
@@ -1135,6 +1401,13 @@ def Reprop_Face_Low(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'mouth_str_loc_1', 'mouth_str_loc_2')
 
@@ -1163,6 +1436,13 @@ def Reprop_Mouth_IK(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'mouth_mstr_ik_pivot', 'mouth_mstr_str')
 
@@ -1189,6 +1469,13 @@ def Reprop_Lips_Centers(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'mouth_mstr_up_str', 'mouth_mstr_low_str')
@@ -1218,6 +1505,13 @@ def Reprop_Mouth_Ctrl(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'mouth_ctrl_str', 'cheek_puff_mstr_R', 'cheek_puff_mstr_L')
@@ -1255,6 +1549,13 @@ def Reprop_Mouth_Curves_Ctrls(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'lip_low_ctrl', 'lip_low_ctrl_curve_L', 'lip_low_ctrl_curve_R', 'lip_up_ctrl', 'lip_up_ctrl_curve_L', 'lip_up_ctrl_curve_R', 'mouth_corner_str_L', 'mouth_corner_str_R')
 
@@ -1289,6 +1590,13 @@ def Reprop_Mouth_Curves(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context)
@@ -1325,6 +1633,13 @@ def Reprop_Mouth_Ctrls(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'lip_low_ctrl_3_str_R', 'lip_low_ctrl_2_str_R', 'lip_low_ctrl_1_str_R', 'lip_low_ctrl_3_str_L', 'lip_low_ctrl_2_str_L',
@@ -1365,6 +1680,13 @@ def Reprop_Mouth_Outer_Ctrls(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'chin_ctrl_mstr', 'lip_low_outer_ctrl', 'chin_ctrl', 'lip_up_outer_ctrl', 'nose_base_ctrl'
     )
@@ -1395,6 +1717,13 @@ def Reprop_Teeth_Up(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'teeth_up_str', 'teeth_up_ctrl_str_L', 'teeth_up_ctrl_str_R', 'teeth_up_ctrl_mid_str',
@@ -1430,6 +1759,13 @@ def Reprop_Teeth_Low(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'teeth_low_str', 'teeth_low_ctrl_str_L', 'teeth_low_ctrl_str_R', 'teeth_low_ctrl_mid_str',
     'teeth_low_ctrl_mid_str_L', 'teeth_low_ctrl_mid_str_R'
@@ -1463,6 +1799,13 @@ def Reprop_Tongue(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'tongue_str', 'tongue_1_str', 'tongue_2_str', 'tongue_3_str'
     )
@@ -1495,6 +1838,13 @@ def Reprop_Inner_Mouth(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'mouth_floor', 'hard_palate', 'soft_palate', 'uvula_1', 'uvula_2', 'larynx'
     )
@@ -1525,6 +1875,13 @@ def Reprop_Ears(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'ear_R', 'ear_up_R', 'ear_low_R', 'ear_L', 'ear_up_L', 'ear_low_L'
     )
@@ -1554,6 +1911,13 @@ def Reprop_Hat_Glasses(operator, context):
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'hat_free', 'eyeglasses_free')
 
@@ -1578,6 +1942,13 @@ def Reprop_Look(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, "look_str_loc")
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'look_str_loc')
@@ -1641,6 +2012,13 @@ def Reprop_IK_Check(operator, context):
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
 
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, 'hand_ik_ctrl_L', 'hand_ik_ctrl_R', 'master_torso', 'sole_ctrl_L', 'sole_ctrl_R'
@@ -1791,6 +2169,12 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[1] = True
         context.pose_object.pose.bones['foot_ctrl_frame_L'].lock_scale[2] = True
         context.pose_object.pose.bones['foot_ctrl_frame_R'].lock_scale[2] = True
+        context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Toon_Scale':
+        #Set Locks
+        set_locks(['neck_2_toon', 'neck_3_toon', 'spine_2_toon', 'spine_3_toon', 'spine_4_toon', 'shoulder_toon_R', 'shoulder_toon_L', 'pelvis_toon', 'spine_1_toon', 'pelvis_toon_R', 'pelvis_toon_L',
+            'thigh_toon_R', 'knee_toon_R', 'foot_toon_R', 'toe_3_toon_R', 'toe_2_toon_R', 'toe_1_toon_R', 'shin_toon_R', 'arm_toon_R', 'elbow_toon_R', 'hand_toon_R', 'forearm_toon_R', 'arm_toon_L',
+            'elbow_toon_L', 'hand_toon_L', 'forearm_toon_L', 'thigh_toon_L', 'knee_toon_L', 'foot_toon_L', 'toe_3_toon_L', 'toe_2_toon_L', 'toe_1_toon_L', 'shin_toon_L'], False, False, False, False, False, False, False, False, False)
         context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Eyelids_Ctrls':
         #Define Locks

@@ -129,7 +129,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Posicion del talon'
             },
         'texto': {
-            'EN': 'Place the sole bone at the heel. Position the Foot Roll Controller and the Front Pivot Point.',
+            'EN': 'First, place the sole bone at the heel of the character. Scale it so that its length matches the length of the foot. Then, position the Foot Roll Controller and the Front Pivot Point.',
             'ES': 'Coloca el hueso de la suela en el talon. Coloca el controlador "Foot Roll" y el "Front Pivot Point".'
             },
         'accion': Reprop_Sole_Side
@@ -142,7 +142,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Tacón medio'
             },
         'texto': {
-            'EN': 'Move the sole bone horizontaly to place it at the middle of the heel. Adjust the Front Pivot Point. Place foot_ctrl_frame in front of the foot.',
+            'EN': 'Move the sole bone horizontally to place it at the middle of the heel. Adjust the Front Pivot Point. Place foot_ctrl_frame in front of the foot.',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Sole_Bottom
@@ -168,7 +168,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Pierna hacia delante'
             },
         'texto': {
-            'EN': 'Place the leg joints, front view.',
+            'EN': 'Place the leg joints.',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Legs
@@ -207,7 +207,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Brazo hacia adelante'
             },
         'texto': {
-            'EN': 'Place the arm joints, front view.',
+            'EN': 'Place the arm joints. You can also scale the wrist controller to give the size of the hand a first approximation',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Arms
@@ -233,14 +233,14 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de las manos'
             },
         'texto': {
-            'EN': 'If your character has fingers, place the finger joints, otherwise, toggle fingers off.',
+            'EN': 'If your character has fingers, place the finger joints and the finger_spread controller. Otherwise, toggle fingers off.',
             'ES': 'Si tu personaje tiene dedos, coloca las articulaciones de estos, y si no tiene, desactiva el "toggle fingers".'
             },
         'accion': Reprop_Fingers
     },
     # Toon Limbs Adjust
     {
-        'imagen': ('Reprop_Toon_Scale_A.jpg', 'Reprop_Toon_Scale_B.jpg', 'Reprop_Toon_Scale_C.jpg', 'Reprop_Toon_Scale_D.jpg'),
+        'imagen': ('Reprop_Limbs_Adjust_A.jpg', 'Reprop_Limbs_Adjust_B.jpg'),
         'titulo': {
             'EN': 'Toon Limbs Adjust',
             'ES': 'Escala de deformaciones Toon'
@@ -285,7 +285,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Mascara de edicion de la cara'
             },
         'texto': {
-            'EN': 'Edit the Face Mask. Snap the vertices to the face of the character. Toggle Between Wire and Solid mode to see the area of the face.',
+            'EN': 'Edit the Face Mask. Snap the vertices to the face of the character. You can toggle between Wire and Textured mode. Textured mode will let you see the different areas of the Face Mask.',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Edit_Face
