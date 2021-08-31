@@ -70,23 +70,6 @@ def mute_constraints(constraint_name, c_mute):
                 if constraint_name in C.name:
                     C.mute = c_mute
 
-def set_locks(bone_list, loc_x, loc_y, loc_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z):
-    guide_props = bpy.context.scene.blenrig_guide
-    pbones = guide_props.arm_obj.pose.bones
-    bones = bone_list
-    for bone in bones:
-        for b in pbones:
-            if b.name == bone:
-                b.lock_location[0] = loc_x
-                b.lock_location[1] = loc_y
-                b.lock_location[2] = loc_z
-                b.lock_rotation[0] = rot_x
-                b.lock_rotation[1] = rot_y
-                b.lock_rotation[2] = rot_z
-                b.lock_scale[0] = scale_x
-                b.lock_scale[1] = scale_y
-                b.lock_scale[2] = scale_z
-
 #### ACTIONS STEPS ####
 
 def ACTIONS_Fingers_Spread_X_Up(operator, context):
