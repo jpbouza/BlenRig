@@ -577,11 +577,13 @@ def Reprop_Toes(operator, context):
         add_item.bone = b
 
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context, 'toe_lit_str_1_L', 'toe_fourth_str_1_L', 'toe_mid_str_1_L', 'toe_big_str_1_L', 'toe_ind_str_1_L', 'toe_big_str_2_L', 'toe_mid_str_2_L', 'toe_fourth_str_2_L', 'toe_lit_str_2_L', 'toe_ind_str_2_L',
-        'toe_big_str_3_L', 'toe_mid_str_3_L', 'toe_mid_str_4_L', 'toe_fourth_str_3_L', 'toe_fourth_str_4_L', 'toe_lit_str_3_L', 'toe_ind_str_3_L', 'toe_ind_str_4_L', 'toe_lit_str_4_L', 'toe_fourth_str_5_L', 'toe_mid_str_5_L',
-        'toe_big_str_4_L', 'toe_ind_str_5_L', 'toe_lit_str_1_R', 'toe_fourth_str_1_R', 'toe_mid_str_1_R', 'toe_big_str_1_R', 'toe_ind_str_1_R', 'toe_big_str_2_R', 'toe_mid_str_2_R', 'toe_fourth_str_2_R', 'toe_lit_str_2_R', 'toe_ind_str_2_R',
-        'toe_big_str_3_R', 'toe_mid_str_3_R', 'toe_mid_str_4_R', 'toe_fourth_str_3_R', 'toe_fourth_str_4_R', 'toe_lit_str_3_R', 'toe_ind_str_3_R', 'toe_ind_str_4_R', 'toe_lit_str_4_R', 'toe_big_str_4_R','toe_fourth_str_5_R', 'toe_mid_str_5_R', 'toe_ind_str_5_R',
-        'toes_spread_L', 'toes_spread_R', 'toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L', 'toes_str_1_R', 'toes_str_2_R', 'toes_str_3_R'
+    # operator.draw_bones(context, 'toe_lit_str_1_L', 'toe_fourth_str_1_L', 'toe_mid_str_1_L', 'toe_big_str_1_L', 'toe_ind_str_1_L', 'toe_big_str_2_L', 'toe_mid_str_2_L', 'toe_fourth_str_2_L', 'toe_lit_str_2_L', 'toe_ind_str_2_L',
+    #     'toe_big_str_3_L', 'toe_mid_str_3_L', 'toe_mid_str_4_L', 'toe_fourth_str_3_L', 'toe_fourth_str_4_L', 'toe_lit_str_3_L', 'toe_ind_str_3_L', 'toe_ind_str_4_L', 'toe_lit_str_4_L', 'toe_fourth_str_5_L', 'toe_mid_str_5_L',
+    #     'toe_big_str_4_L', 'toe_ind_str_5_L', 'toe_lit_str_1_R', 'toe_fourth_str_1_R', 'toe_mid_str_1_R', 'toe_big_str_1_R', 'toe_ind_str_1_R', 'toe_big_str_2_R', 'toe_mid_str_2_R', 'toe_fourth_str_2_R', 'toe_lit_str_2_R', 'toe_ind_str_2_R',
+    #     'toe_big_str_3_R', 'toe_mid_str_3_R', 'toe_mid_str_4_R', 'toe_fourth_str_3_R', 'toe_fourth_str_4_R', 'toe_lit_str_3_R', 'toe_ind_str_3_R', 'toe_ind_str_4_R', 'toe_lit_str_4_R', 'toe_big_str_4_R','toe_fourth_str_5_R', 'toe_mid_str_5_R', 'toe_ind_str_5_R',
+    #     'toes_spread_L', 'toes_spread_R', 'toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L', 'toes_str_1_R', 'toes_str_2_R', 'toes_str_3_R'
+    # )
+    operator.draw_bones(context, 'toes_spread_L', 'toes_spread_R', 'toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L', 'toes_str_1_R', 'toes_str_2_R', 'toes_str_3_R'
     )
 
     #Unlock Toes Spread Location
@@ -712,11 +714,13 @@ def Reprop_Fingers(operator, context):
         add_item.bone = b
 
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context, 'fing_lit_str_1_R', 'fing_ring_str_1_R', 'fing_ind_str_1_R', 'fing_mid_str_1_R', 'fing_thumb_str_1_R', 'fing_thumb_str_2_R', 'fing_thumb_str_3_R', 'fing_thumb_str_4_R', 'fing_lit_str_2_R', 'fing_lit_str_3_R', 'fing_lit_str_4_R',
-        'fing_lit_str_5_R', 'fing_ring_str_2_R', 'fing_ring_str_3_R', 'fing_ring_str_4_R', 'fing_ring_str_5_R', 'fing_ind_str_2_R', 'fing_ind_str_3_R', 'fing_ind_str_4_R', 'fing_ind_str_5_R', 'fing_mid_str_2_R', 'fing_mid_str_3_R',
-        'fing_mid_str_4_R', 'fing_mid_str_5_R', 'fing_lit_str_1_L', 'fing_ring_str_1_L', 'fing_ind_str_1_L', 'fing_mid_str_1_L', 'fing_thumb_str_1_L', 'fing_thumb_str_2_L', 'fing_thumb_str_3_L', 'fing_thumb_str_4_L', 'fing_lit_str_2_L',
-        'fing_lit_str_3_L', 'fing_lit_str_4_L', 'fing_lit_str_5_L', 'fing_ring_str_2_L', 'fing_ring_str_3_L', 'fing_ring_str_4_L', 'fing_ring_str_5_L', 'fing_ind_str_2_L', 'fing_ind_str_3_L', 'fing_ind_str_4_L', 'fing_ind_str_5_L',
-        'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L','fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R', 'hand_close_L', 'hand_close_R'
+    # operator.draw_bones(context, 'fing_lit_str_1_R', 'fing_ring_str_1_R', 'fing_ind_str_1_R', 'fing_mid_str_1_R', 'fing_thumb_str_1_R', 'fing_thumb_str_2_R', 'fing_thumb_str_3_R', 'fing_thumb_str_4_R', 'fing_lit_str_2_R', 'fing_lit_str_3_R', 'fing_lit_str_4_R',
+    #     'fing_lit_str_5_R', 'fing_ring_str_2_R', 'fing_ring_str_3_R', 'fing_ring_str_4_R', 'fing_ring_str_5_R', 'fing_ind_str_2_R', 'fing_ind_str_3_R', 'fing_ind_str_4_R', 'fing_ind_str_5_R', 'fing_mid_str_2_R', 'fing_mid_str_3_R',
+    #     'fing_mid_str_4_R', 'fing_mid_str_5_R', 'fing_lit_str_1_L', 'fing_ring_str_1_L', 'fing_ind_str_1_L', 'fing_mid_str_1_L', 'fing_thumb_str_1_L', 'fing_thumb_str_2_L', 'fing_thumb_str_3_L', 'fing_thumb_str_4_L', 'fing_lit_str_2_L',
+    #     'fing_lit_str_3_L', 'fing_lit_str_4_L', 'fing_lit_str_5_L', 'fing_ring_str_2_L', 'fing_ring_str_3_L', 'fing_ring_str_4_L', 'fing_ring_str_5_L', 'fing_ind_str_2_L', 'fing_ind_str_3_L', 'fing_ind_str_4_L', 'fing_ind_str_5_L',
+    #     'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L','fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R', 'hand_close_L', 'hand_close_R'
+    # )
+    operator.draw_bones(context, 'fing_spread_L', 'fing_spread_R', 'hand_close_L', 'hand_close_R'
     )
 
     #Unlock Fingers Spread Location
