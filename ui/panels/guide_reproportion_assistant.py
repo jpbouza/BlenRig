@@ -54,8 +54,8 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 col.label(text='General Toggle')
                 row_props = col.row()
                 try:
-                    row_props.prop(p_bones['properties_arm_R'], "toggle_fingers_R", text="Toggle All Fingers_R")
-                    row_props.prop(p_bones['properties_arm_L'], "toggle_fingers_L", text="Toggle All Fingers_L")
+                    row_props.prop(p_bones['properties_arm_R'], "toggle_fingers_R", text="Toggle All Right Fingers")
+                    row_props.prop(p_bones['properties_arm_L'], "toggle_fingers_L", text="Toggle All Left Fingers")
                 except:
                     pass
                 col = box.column()
@@ -64,19 +64,19 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 col_R = row_props.column()
                 col_L = row_props.column()
                 try:
-                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_thumb_R", text="Thumb_R Finger")
-                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_index_R", text="Index_R Finger")
-                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_middle_R", text="Middle_R Finger")
-                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_ring_R", text="Ring_R Finger")
-                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_little_R", text="Little_R Finger")
+                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_thumb_R", text="Right Thumb")
+                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_index_R", text="Right Index")
+                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_middle_R", text="Right Middle")
+                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_ring_R", text="Right Ring")
+                    col_R.prop(p_bones['properties_arm_R'], "toggle_fingers_little_R", text="Right Little")
                 except:
                     pass
                 try:
-                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_thumb_L", text="Thumb_L Finger")
-                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_index_L", text="Index_L Finger")
-                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_middle_L", text="Middle_L Finger")
-                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_ring_L", text="Ring_L Finger")
-                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_little_L", text="Little_L Finger")
+                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_thumb_L", text="Left Thumb")
+                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_index_L", text="Left Index")
+                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_middle_L", text="Left Middle")
+                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_ring_L", text="Left Ring")
+                    col_L.prop(p_bones['properties_arm_L'], "toggle_fingers_little_L", text="Left Little")
                 except:
                     pass
             # Toes Toggles
@@ -88,8 +88,8 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 col.label(text='General Toggle')
                 row_props = col.row()
                 try:
-                    row_props.prop(p_bones['properties_leg_R'], "toggle_toes_R", text="Toggle All Toes_R")
-                    row_props.prop(p_bones['properties_leg_L'], "toggle_toes_L", text="Toggle All Toes_L")
+                    row_props.prop(p_bones['properties_leg_R'], "toggle_toes_R", text="Toggle All Right Toes")
+                    row_props.prop(p_bones['properties_leg_L'], "toggle_toes_L", text="Toggle All Left Toes")
                 except:
                     pass
                 col = box.column()
@@ -98,19 +98,19 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 col_R = row_props.column()
                 col_L = row_props.column()
                 try:
-                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_big_R", text="Big_R Finger")
-                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_index_R", text="Index_R Finger")
-                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_middle_R", text="Middle_R Finger")
-                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_fourth_R", text="Fourth_R Finger")
-                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_little_R", text="Little_R Finger")
+                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_big_R", text="Right Big")
+                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_index_R", text="Right Index")
+                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_middle_R", text="Right Middle")
+                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_fourth_R", text="Right Fourth")
+                    col_R.prop(p_bones['properties_leg_R'], "toggle_toes_little_R", text="Right Little")
                 except:
                     pass
                 try:
-                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_big_L", text="Big_L Finger")
-                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_index_L", text="Index_L Finger")
-                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_middle_L", text="Middle_L Finger")
-                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_fourth_L", text="Fourth_L Finger")
-                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_little_L", text="Little_L Finger")
+                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_big_L", text="Left Big")
+                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_index_L", text="Left Index")
+                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_middle_L", text="Left Middle")
+                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_fourth_L", text="Left Fourth")
+                    col_L.prop(p_bones['properties_leg_L'], "toggle_toes_little_L", text="Left Little")
                 except:
                     pass
             # Set Eye Location
