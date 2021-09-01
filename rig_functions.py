@@ -381,6 +381,7 @@ def rig_toggles(context):
                 p_bones = amr_obj.pose.bones
 
                 fingers_bones = ['hand_close_L', 'fing_spread_L']
+                foot_toes_str = ['toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L']
 
                 def set_bone_layers(bone_list, layer_list, constraints_state, side):
                     bones = bone_list
@@ -470,6 +471,7 @@ def rig_toggles(context):
                                         b.toggle_toes_little_L = 1
                                         set_bone_layers(['toes_spread_L'], [10, 24, 25, 31], 'On', '_L')
                                         set_bone_layers(['toes_ik_ctrl_L'], [9, 24, 25], 'On', '_L')
+                                        set_bone_layers(foot_toes_str, [24, 31], 'On', '_L')
                                     except:
                                         pass
                                 else:
@@ -481,6 +483,7 @@ def rig_toggles(context):
                                         b.toggle_toes_little_L = 0
                                         set_bone_layers(['toes_spread_L'], [24], 'Off', '_L')
                                         set_bone_layers(['toes_ik_ctrl_L'], [24], 'Off', '_L')
+                                        set_bone_layers(foot_toes_str, [24], 'Off', '_L')
                                     except:
                                         pass
                         #Toes_R
@@ -495,6 +498,7 @@ def rig_toggles(context):
                                         b.toggle_toes_little_R = 1
                                         set_bone_layers(['toes_spread_R'], [10, 24, 25, 31], 'On', '_R')
                                         set_bone_layers(['toes_ik_ctrl_R'], [23, 24, 25], 'On', '_R')
+                                        set_bone_layers(foot_toes_str, [24, 31], 'On', '_R')
                                     except:
                                         pass
                                 else:
@@ -506,6 +510,7 @@ def rig_toggles(context):
                                         b.toggle_toes_little_R = 0
                                         set_bone_layers(['toes_spread_R'], [24], 'Off', '_R')
                                         set_bone_layers(['toes_ik_ctrl_R'], [24], 'Off', '_R')
+                                        set_bone_layers(foot_toes_str, [24], 'Off', '_R')
                                     except:
                                         pass
 
