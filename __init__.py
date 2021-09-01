@@ -100,6 +100,12 @@ def reprop_update(self, context):
 def rig_toggles_update(self, context):
     rig_toggles(context)
 
+def fingers_toggles_update(self, context):
+    fingers_toggles(self, context)
+
+def toes_toggles_update(self, context):
+    toes_toggles(self, context)
+
 def optimize_face(self, context):
     toggle_face_drivers(context)
 
@@ -149,7 +155,7 @@ def snap_points_update(self, context):
 def load_reprop_handler(context):
     bone_auto_hide(context)
     reproportion_toggle(context)
-    rig_toggles(context)
+
 
 @persistent
 def load_handler(context):
@@ -943,33 +949,157 @@ bpy.types.Armature.toggle_body_drivers = BoolProperty(
     update=optimize_body,
     name="toggle_body_drivers"
 )
-# TOGGLES
+### TOGGLES
+#Fingers L
 bpy.types.PoseBone.toggle_fingers_L = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
     update=rig_toggles_update,
     name="toggle_fingers_L"
 )
+bpy.types.PoseBone.toggle_fingers_index_L = BoolProperty(
+    default=1,
+    description="Toggle index finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_index_L"
+)
+bpy.types.PoseBone.toggle_fingers_middle_L = BoolProperty(
+    default=1,
+    description="Toggle middle finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_middle_L"
+)
+bpy.types.PoseBone.toggle_fingers_ring_L = BoolProperty(
+    default=1,
+    description="Toggle ring finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_ring_L"
+)
+bpy.types.PoseBone.toggle_fingers_little_L = BoolProperty(
+    default=1,
+    description="Toggle little finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_little_L"
+)
+bpy.types.PoseBone.toggle_fingers_thumb_L = BoolProperty(
+    default=1,
+    description="Toggle thumb finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_thumb_L"
+)
 
+#Toes L
 bpy.types.PoseBone.toggle_toes_L = BoolProperty(
     default=0,
     description="Toggle toes in rig",
     update=rig_toggles_update,
     name="toggle_toes_L"
 )
+bpy.types.PoseBone.toggle_toes_index_L = BoolProperty(
+    default=1,
+    description="Toggle index toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_index_L"
+)
+bpy.types.PoseBone.toggle_toes_middle_L = BoolProperty(
+    default=1,
+    description="Toggle middle toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_middle_L"
+)
+bpy.types.PoseBone.toggle_toes_fourth_L = BoolProperty(
+    default=1,
+    description="Toggle fourth toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_fourth_L"
+)
+bpy.types.PoseBone.toggle_toes_little_L = BoolProperty(
+    default=1,
+    description="Toggle little toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toe_little_L"
+)
+bpy.types.PoseBone.toggle_toes_big_L = BoolProperty(
+    default=1,
+    description="Toggle big toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_big_L"
+)
 
+#Fingers R
 bpy.types.PoseBone.toggle_fingers_R = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
     update=rig_toggles_update,
     name="toggle_fingers_R"
 )
+bpy.types.PoseBone.toggle_fingers_index_R = BoolProperty(
+    default=1,
+    description="Toggle index finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_index_R"
+)
+bpy.types.PoseBone.toggle_fingers_middle_R = BoolProperty(
+    default=1,
+    description="Toggle middle finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_middle_R"
+)
+bpy.types.PoseBone.toggle_fingers_ring_R = BoolProperty(
+    default=1,
+    description="Toggle ring finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_ring_R"
+)
+bpy.types.PoseBone.toggle_fingers_little_R = BoolProperty(
+    default=1,
+    description="Toggle little finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_little_R"
+)
+bpy.types.PoseBone.toggle_fingers_thumb_R = BoolProperty(
+    default=1,
+    description="Toggle thumb finger in rig",
+    update=fingers_toggles_update,
+    name="toggle_fingers_thumb_R"
+)
 
+#Toes R
 bpy.types.PoseBone.toggle_toes_R = BoolProperty(
     default=0,
     description="Toggle toes in rig",
     update=rig_toggles_update,
     name="toggle_toes_R"
+)
+bpy.types.PoseBone.toggle_toes_index_R = BoolProperty(
+    default=1,
+    description="Toggle index toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_index_R"
+)
+bpy.types.PoseBone.toggle_toes_middle_R = BoolProperty(
+    default=1,
+    description="Toggle middle toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_middle_R"
+)
+bpy.types.PoseBone.toggle_toes_fourth_R = BoolProperty(
+    default=1,
+    description="Toggle fourth toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_fourth_R"
+)
+bpy.types.PoseBone.toggle_toes_little_R = BoolProperty(
+    default=1,
+    description="Toggle little toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toe_little_R"
+)
+bpy.types.PoseBone.toggle_toes_big_R = BoolProperty(
+    default=1,
+    description="Toggle big toe in rig",
+    update=toes_toggles_update,
+    name="toggle_toes_big_R"
 )
 
 #### FACIAL PROPERTIES ####

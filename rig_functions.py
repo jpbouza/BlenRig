@@ -343,7 +343,8 @@ def reproportion_toggle(context):
                                 C.mute = False
                             if ('NOREP' in C.name):
                                 C.mute = True
-
+                    fingers_toggles(self, context)
+                    toes_toggles(self, context)
                 else:
                     contador = 0
                     try :
@@ -357,12 +358,14 @@ def reproportion_toggle(context):
                                     C.mute = True
                                 if ('NOREP' in C.name):
                                     C.mute = False
-                        rig_toggles(context)
+                        fingers_toggles(self, context)
+                        toes_toggles(self, context)
                     except:
                         pass
 
 ####### Rig Toggles #######
 
+#Legacy Function for BlenRig 5 Rigs
 def rig_toggles(context):
     if not bpy.context.screen:
         return False
@@ -373,223 +376,717 @@ def rig_toggles(context):
     if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
         for prop in bpy.context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                p_bones = bpy.context.active_object.pose.bones
-                arm = bpy.context.active_object.data
+                amr_obj = bpy.context.active_object
+                arm = amr_obj.data
+                p_bones = amr_obj.pose.bones
+
+                fingers_bones = ['hand_close_L', 'fing_spread_L']
+
+                def set_bone_layers(bone_list, layer_list, constraints_state, side):
+                    bones = bone_list
+                    layers = layer_list
+                    for B in bones:
+                        for b in p_bones:
+                            if b.name == str(B[0:-2] + side):
+                                for L in layers:
+                                    b.bone.layers[L] = 1
+                                    for l in range(len(b.bone.layers)):
+                                        if l not in layers:
+                                            b.bone.layers[l] = 0
+                                if constraints_state == 'On':
+                                    for C in b.constraints:
+                                        C.mute = False
+                                        if bpy.context.active_object.data.reproportion:
+                                            if ('REPROP' in C.name):
+                                                C.mute = False
+                                            if ('NOREP' in C.name):
+                                                C.mute = True
+                                        else:
+                                            if ('REPROP' in C.name):
+                                                C.mute = True
+                                            if ('NOREP' in C.name):
+                                                C.mute = False
+                                if constraints_state == 'Off':
+                                    for C in b.constraints:
+                                        C.mute = True
 
                 for b in p_bones:
                     if ('properties' in b.name):
-                        # Left Properties
                         #Fingers_L
-                        if ('L' in b.name):
+                        if b.name.endswith('_L'):
                             if ('arm'in b.name):
-                                prop_fing = int(b.toggle_fingers_L)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_fingers_def_1_L']):
-                                        if prop_fing == 1:
-                                            bone.layers[27] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                    if (bone.name in b['bones_fingers_def_2_L']):
-                                        if prop_fing == 1:
-                                            bone.layers[27] = 1
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                            bone.layers[31] = 0
-                                    if (bone.name in b['bones_fingers_str_L']):
-                                        if prop_fing == 1:
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[31] = 0
-                                    for b_prop in bpy.context.active_object.data.items():
-                                        if b_prop[0] == 'custom_layers' and b_prop[1] == 0:
-                                            if (bone.name in b['bones_fingers_ctrl_1_L']):
-                                                if prop_fing == 1:
-                                                    bone.layers[0] = 1
-                                                else:
-                                                    bone.layers[0] = 0
-                                            if (bone.name in b['bones_fingers_ctrl_2_L']):
-                                                if prop_fing == 1:
-                                                    bone.layers[2] = 1
-                                                else:
-                                                    bone.layers[2] = 0
-                                    if (bone.name in b['bones_fingers_ctrl_2_L']):
-                                        if prop_fing == 1:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_fingers_ctrl_2_L']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = False
-                                        else:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_fingers_ctrl_2_L']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = True
-                        #Toes_L
-                        if ('L' in b.name):
-                            if ('leg'in b.name):
-                                prop_toes = int(b.toggle_toes_L)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_toes_def_1_L']):
-                                        if prop_toes == 1:
-                                            bone.layers[27] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                    if (bone.name in b['bones_toes_def_2_L']):
-                                        if prop_toes == 1:
-                                            bone.layers[27] = 1
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                            bone.layers[31] = 0
-                                    if (bone.name in b['bones_no_toes_def_L']):
-                                        if prop_toes == 1:
-                                            bone.layers[27] = 0
-                                        else:
-                                            bone.layers[27] = 1
-                                    if (bone.name in b['bones_toes_str_L']):
-                                        if prop_toes == 1:
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[31] = 0
-                                    for b_prop in bpy.context.active_object.data.items():
-                                        if b_prop[0] == 'custom_layers' and b_prop[1] == 0:
-                                            if (bone.name in b['bones_toes_ctrl_1_L']):
-                                                if prop_toes == 1:
-                                                    bone.layers[0] = 1
-                                                else:
-                                                    bone.layers[0] = 0
-                                            if (bone.name in b['bones_no_toes_ctrl_L']):
-                                                if prop_toes == 1:
-                                                    bone.layers[0] = 0
-                                                else:
-                                                    bone.layers[0] = 1
-                                            if (bone.name in b['bones_toes_ctrl_2_L']):
-                                                if prop_toes == 1:
-                                                    bone.layers[2] = 1
-                                                else:
-                                                    bone.layers[2] = 0
-                                    if (bone.name in b['bones_toes_ctrl_2_L']):
-                                        if prop_toes == 1:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_toes_ctrl_2_L']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = False
-                                        else:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_toes_ctrl_2_L']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = True
-
-                        # Right Properties
+                                if b.toggle_fingers_L:
+                                    try:
+                                        b.toggle_fingers_thumb_L = 1
+                                        b.toggle_fingers_index_L = 1
+                                        b.toggle_fingers_middle_L = 1
+                                        b.toggle_fingers_ring_L = 1
+                                        b.toggle_fingers_little_L = 1
+                                        set_bone_layers(fingers_bones, [5, 16, 24, 25, 31], 'On', '_L')
+                                    except:
+                                        pass
+                                else:
+                                    try:
+                                        b.toggle_fingers_thumb_L = 0
+                                        b.toggle_fingers_index_L = 0
+                                        b.toggle_fingers_middle_L = 0
+                                        b.toggle_fingers_ring_L = 0
+                                        b.toggle_fingers_little_L = 0
+                                        set_bone_layers(fingers_bones, [24], 'Off', '_L')
+                                    except:
+                                        pass
                         #Fingers_R
-                        if ('R' in b.name):
+                        if b.name.endswith('_R'):
                             if ('arm'in b.name):
-                                prop_fing = int(b.toggle_fingers_R)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_fingers_def_1_R']):
-                                        if prop_fing == 1:
-                                            bone.layers[27] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                    if (bone.name in b['bones_fingers_def_2_R']):
-                                        if prop_fing == 1:
-                                            bone.layers[27] = 1
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                            bone.layers[31] = 0
-                                    if (bone.name in b['bones_fingers_str_R']):
-                                        if prop_fing == 1:
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[31] = 0
-                                    for b_prop in bpy.context.active_object.data.items():
-                                        if b_prop[0] == 'custom_layers' and b_prop[1] == 0:
-                                            if (bone.name in b['bones_fingers_ctrl_1_R']):
-                                                if prop_fing == 1:
-                                                    bone.layers[0] = 1
-                                                else:
-                                                    bone.layers[0] = 0
-                                            if (bone.name in b['bones_fingers_ctrl_2_R']):
-                                                if prop_fing == 1:
-                                                    bone.layers[2] = 1
-                                                else:
-                                                    bone.layers[2] = 0
-                                    if (bone.name in b['bones_fingers_ctrl_2_R']):
-                                        if prop_fing == 1:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_fingers_ctrl_2_R']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = False
-                                        else:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_fingers_ctrl_2_R']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = True
-                        #Toes_R
-                        if ('R' in b.name):
+                                if b.toggle_fingers_R:
+                                    try:
+                                        b.toggle_fingers_thumb_R = 1
+                                        b.toggle_fingers_index_R = 1
+                                        b.toggle_fingers_middle_R = 1
+                                        b.toggle_fingers_ring_R = 1
+                                        b.toggle_fingers_little_R = 1
+                                        set_bone_layers(fingers_bones, [3, 6, 24, 25, 31], 'On', '_R')
+                                    except:
+                                        pass
+                                else:
+                                    try:
+                                        b.toggle_fingers_thumb_R = 0
+                                        b.toggle_fingers_index_R = 0
+                                        b.toggle_fingers_middle_R = 0
+                                        b.toggle_fingers_ring_R = 0
+                                        b.toggle_fingers_little_R = 0
+                                        set_bone_layers(fingers_bones, [24], 'Off', '_R')
+                                    except:
+                                        pass
+                        #Toes_L
+                        if b.name.endswith('_L'):
                             if ('leg'in b.name):
-                                prop_toes = int(b.toggle_toes_R)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_toes_def_1_R']):
-                                        if prop_toes == 1:
-                                            bone.layers[27] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                    if (bone.name in b['bones_toes_def_2_R']):
-                                        if prop_toes == 1:
-                                            bone.layers[27] = 1
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[27] = 0
-                                            bone.layers[31] = 0
-                                    if (bone.name in b['bones_no_toes_def_R']):
-                                        if prop_toes == 1:
-                                            bone.layers[27] = 0
-                                        else:
-                                            bone.layers[27] = 1
-                                    if (bone.name in b['bones_toes_str_R']):
-                                        if prop_toes == 1:
-                                            bone.layers[31] = 1
-                                        else:
-                                            bone.layers[31] = 0
-                                    for b_prop in bpy.context.active_object.data.items():
-                                        if b_prop[0] == 'custom_layers' and b_prop[1] == 0:
-                                            if (bone.name in b['bones_toes_ctrl_1_R']):
-                                                if prop_toes == 1:
-                                                    bone.layers[0] = 1
-                                                else:
-                                                    bone.layers[0] = 0
-                                            if (bone.name in b['bones_no_toes_ctrl_R']):
-                                                if prop_toes == 1:
-                                                    bone.layers[0] = 0
-                                                else:
-                                                    bone.layers[0] = 1
-                                            if (bone.name in b['bones_toes_ctrl_2_R']):
-                                                if prop_toes == 1:
-                                                    bone.layers[2] = 1
-                                                else:
-                                                    bone.layers[2] = 0
-                                    if (bone.name in b['bones_toes_ctrl_2_R']):
-                                        if prop_toes == 1:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_toes_ctrl_2_R']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = False
-                                        else:
-                                            for pbone in p_bones:
-                                                if (pbone.name in b['bones_toes_ctrl_2_R']):
-                                                    for C in pbone.constraints:
-                                                        if C.type == 'IK':
-                                                            C.mute = True
+                                if b.toggle_toes_L:
+                                    try:
+                                        b.toggle_toes_big_L = 1
+                                        b.toggle_toes_index_L = 1
+                                        b.toggle_toes_middle_L = 1
+                                        b.toggle_toes_fourth_L = 1
+                                        b.toggle_toes_little_L = 1
+                                        set_bone_layers(['toes_spread_L'], [10, 24, 25, 31], 'On', '_L')
+                                        set_bone_layers(['toes_ik_ctrl_L'], [9, 24, 25], 'On', '_L')
+                                    except:
+                                        pass
+                                else:
+                                    try:
+                                        b.toggle_toes_big_L = 0
+                                        b.toggle_toes_index_L = 0
+                                        b.toggle_toes_middle_L = 0
+                                        b.toggle_toes_fourth_L = 0
+                                        b.toggle_toes_little_L = 0
+                                        set_bone_layers(['toes_spread_L'], [24], 'Off', '_L')
+                                        set_bone_layers(['toes_ik_ctrl_L'], [24], 'Off', '_L')
+                                    except:
+                                        pass
+                        #Toes_R
+                        if b.name.endswith('_R'):
+                            if ('leg'in b.name):
+                                if b.toggle_toes_R:
+                                    try:
+                                        b.toggle_toes_big_R = 1
+                                        b.toggle_toes_index_R = 1
+                                        b.toggle_toes_middle_R = 1
+                                        b.toggle_toes_fourth_R = 1
+                                        b.toggle_toes_little_R = 1
+                                        set_bone_layers(['toes_spread_R'], [10, 24, 25, 31], 'On', '_R')
+                                        set_bone_layers(['toes_ik_ctrl_R'], [23, 24, 25], 'On', '_R')
+                                    except:
+                                        pass
+                                else:
+                                    try:
+                                        b.toggle_toes_big_R = 0
+                                        b.toggle_toes_index_R = 0
+                                        b.toggle_toes_middle_R = 0
+                                        b.toggle_toes_fourth_R = 0
+                                        b.toggle_toes_little_R = 0
+                                        set_bone_layers(['toes_spread_R'], [24], 'Off', '_R')
+                                        set_bone_layers(['toes_ik_ctrl_R'], [24], 'Off', '_R')
+                                    except:
+                                        pass
 
+def fingers_toggles(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                amr_obj = bpy.context.active_object
+                arm = amr_obj.data
+                p_bones = amr_obj.pose.bones
+
+                #Fingers List
+                thumb_fk_list = ['fing_thumb_1_L', 'fing_thumb_2_L', 'fing_thumb_3_L']
+                thumb_ctrl_list = ['fing_thumb_ctrl_L']
+                thumb_toon_list = ['fing_thumb_4_toon_L', 'fing_thumb_3_toon_L', 'fing_thumb_2_toon_L', 'fing_thumb_1_toon_1_L']
+                thumb_ik_list = ['fing_thumb_ik_L']
+                thumb_str_list = ['fing_thumb_str_1_L', 'fing_thumb_str_2_L', 'fing_thumb_str_3_L', 'fing_thumb_str_4_L']
+                thumb_def_list = ['fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L']
+                thumb_fix_list = ['fing_thumb_fix_low_2_L', 'fing_thumb_fix_up_2_L', 'fing_thumb_fix_up_1_L', 'fing_thumb_fix_low_1_L']
+                thumb_action_list = ['fing_thumb_ctrl_mstr_L']
+                thumb_mech_list = ['fing_thumb_ctrl_track_L', 'fing_thumb_shp_at_L', 'fing_thumb_2_ik_L', 'fing_thumb_3_ik_L', 'fing_thumb_1_ik_L', 'fing_thumb_2_rot_L', 'fing_thumb_ctrl_shp_at_L']
+
+                index_fk_list = ['fing_ind_2_L', 'fing_ind_3_L', 'fing_ind_4_L']
+                index_ctrl_list = ['fing_ind_ctrl_L']
+                index_toon_list = ['fing_ind_5_toon_L', 'fing_ind_4_toon_L', 'fing_ind_3_toon_L', 'fing_ind_2_toon_L', 'fing_ind_1_toon_L']
+                index_ik_list = ['fing_ind_ik_L']
+                index_str_list = ['fing_ind_str_1_L', 'fing_ind_str_2_L', 'fing_ind_str_3_L', 'fing_ind_str_4_L', 'fing_ind_str_5_L']
+                index_def_list = ['fing_ind_4_def_L', 'fing_ind_3_def_L', 'fing_ind_2_def_L', 'fing_ind_1_def_L']
+                index_fix_list = ['fing_ind_fix_low_3_L', 'fing_ind_fix_up_3_L', 'fing_ind_fix_low_2_L', 'fing_ind_fix_up_2_L', 'fing_ind_fix_up_1_L', 'fing_ind_fix_low_1_L']
+                index_action_list = ['fing_ind_ctrl_mstr_L']
+                index_mech_list = ['fing_ind_ctrl_loc_L', 'fing_ind_ctrl_track_L', 'fing_ind_2_ik_L', 'fing_ind_3_ik_L', 'fing_ind_4_ik_L', 'fing_ind_shp_at_L', 'fing_ind_1_L', 'fing_ind_2_rot_L', 'fing_ind_ctrl_shp_at_L', 'fing_ind_ctrl_bend_loc_L']
+
+                middle_fk_list = ['fing_mid_2_L', 'fing_mid_3_L', 'fing_mid_4_L']
+                middle_ctrl_list = ['fing_mid_ctrl_L']
+                middle_toon_list = ['fing_mid_5_toon_L', 'fing_mid_4_toon_L', 'fing_mid_3_toon_L', 'fing_mid_2_toon_L', 'fing_mid_1_toon_L']
+                middle_ik_list = ['fing_mid_ik_L']
+                middle_str_list = ['fing_mid_str_1_L', 'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L']
+                middle_def_list = ['fing_mid_4_def_L', 'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_mid_1_def_L']
+                middle_fix_list = ['fing_mid_fix_low_3_L', 'fing_mid_fix_up_3_L', 'fing_mid_fix_low_2_L', 'fing_mid_fix_up_2_L', 'fing_mid_fix_up_1_L', 'fing_mid_fix_low_1_L']
+                middle_action_list = ['fing_mid_ctrl_mstr_L']
+                middle_mech_list = ['fing_mid_ctrl_loc_L', 'fing_mid_ctrl_track_L', 'fing_mid_2_ik_L', 'fing_mid_3_ik_L', 'fing_mid_4_ik_L', 'fing_mid_shp_at_L', 'fing_mid_1_L', 'fing_mid_2_rot_L', 'fing_mid_ctrl_shp_at_L', 'fing_mid_ctrl_bend_loc_L']
+
+                ring_fk_list = ['fing_ring_2_L', 'fing_ring_3_L', 'fing_ring_4_L']
+                ring_ctrl_list = ['fing_ring_ctrl_L']
+                ring_toon_list = ['fing_ring_5_toon_L', 'fing_ring_4_toon_L', 'fing_ring_3_toon_L', 'fing_ring_2_toon_L', 'fing_ring_1_toon_L']
+                ring_ik_list = ['fing_ring_ik_L']
+                ring_str_list = ['fing_ring_str_1_L', 'fing_ring_str_2_L', 'fing_ring_str_3_L', 'fing_ring_str_4_L', 'fing_ring_str_5_L']
+                ring_def_list = ['fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_2_def_L', 'fing_ring_1_def_L']
+                ring_fix_list = ['fing_ring_fix_low_3_L', 'fing_ring_fix_up_3_L', 'fing_ring_fix_low_2_L', 'fing_ring_fix_up_2_L', 'fing_ring_fix_up_1_L', 'fing_ring_fix_low_1_L']
+                ring_action_list = ['fing_ring_ctrl_mstr_L']
+                ring_mech_list = ['fing_ring_ctrl_loc_L', 'fing_ring_ctrl_track_L', 'fing_ring_2_ik_L', 'fing_ring_3_ik_L', 'fing_ring_4_ik_L', 'fing_ring_shp_at_L', 'fing_ring_1_L', 'fing_ring_2_rot_L', 'fing_ring_ctrl_shp_at_L', 'fing_ring_ctrl_bend_loc_L']
+
+                little_fk_list = ['fing_lit_2_L', 'fing_lit_3_L', 'fing_lit_4_L']
+                little_ctrl_list = ['fing_lit_ctrl_L']
+                little_toon_list = ['fing_lit_5_toon_L', 'fing_lit_4_toon_L', 'fing_lit_3_toon_L', 'fing_lit_2_toon_L', 'fing_lit_1_toon_L']
+                little_ik_list = ['fing_lit_ik_L']
+                little_str_list = ['fing_lit_str_1_L', 'fing_lit_str_2_L', 'fing_lit_str_3_L', 'fing_lit_str_4_L', 'fing_lit_str_5_L']
+                little_def_list = ['fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_2_def_L', 'fing_lit_1_def_L']
+                little_fix_list = ['fing_lit_fix_low_3_L', 'fing_lit_fix_up_3_L', 'fing_lit_fix_low_2_L', 'fing_lit_fix_up_2_L', 'fing_lit_fix_up_1_L', 'fing_lit_fix_low_1_L']
+                little_action_list = ['fing_lit_ctrl_mstr_L']
+                little_mech_list = ['fing_lit_ctrl_loc_L', 'fing_lit_ctrl_track_L', 'fing_lit_2_ik_L', 'fing_lit_3_ik_L', 'fing_lit_4_ik_L', 'fing_lit_shp_at_L', 'fing_lit_1_L', 'fing_lit_2_rot_L', 'fing_lit_ctrl_shp_at_L', 'fing_lit_ctrl_bend_loc_L']
+
+                def set_bone_layers(bone_list, layer_list, constraints_state, side):
+                    bones = bone_list
+                    layers = layer_list
+                    for B in bones:
+                        for b in p_bones:
+                            if b.name == str(B[0:-2] + side):
+                                for L in layers:
+                                    b.bone.layers[L] = 1
+                                    for l in range(len(b.bone.layers)):
+                                        if l not in layers:
+                                            b.bone.layers[l] = 0
+                                if constraints_state == 'On':
+                                    for C in b.constraints:
+                                        C.mute = False
+                                        if bpy.context.active_object.data.reproportion:
+                                            if ('REPROP' in C.name):
+                                                C.mute = False
+                                            if ('NOREP' in C.name):
+                                                C.mute = True
+                                        else:
+                                            if ('REPROP' in C.name):
+                                                C.mute = True
+                                            if ('NOREP' in C.name):
+                                                C.mute = False
+                                if constraints_state == 'Off':
+                                    for C in b.constraints:
+                                        C.mute = True
+
+                for b in p_bones:
+                    if ('properties' in b.name):
+                        #Fingers_L
+                        if b.name.endswith('_L'):
+                            if ('arm'in b.name):
+                                if b.toggle_fingers_thumb_L:
+                                    set_bone_layers(thumb_fk_list, [17, 24, 25], 'On', '_L')
+                                    set_bone_layers(thumb_ctrl_list, [5, 16, 24, 25, 28, 29], 'On', '_L')
+                                    set_bone_layers(thumb_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(thumb_ik_list, [19, 24, 25], 'On', '_L')
+                                    set_bone_layers(thumb_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(thumb_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(thumb_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(thumb_action_list, [24, 28], 'On', '_L')
+                                    set_bone_layers(thumb_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(thumb_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_action_list, [24], 'Off', '_L')
+                                    set_bone_layers(thumb_mech_list, [24], 'Off', '_L')
+                                if b.toggle_fingers_index_L:
+                                    set_bone_layers(index_fk_list, [17, 24, 25], 'On', '_L')
+                                    set_bone_layers(index_ctrl_list, [5, 16, 24, 25, 28, 29], 'On', '_L')
+                                    set_bone_layers(index_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(index_ik_list, [19, 24, 25], 'On', '_L')
+                                    set_bone_layers(index_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(index_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(index_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(index_action_list, [24, 28], 'On', '_L')
+                                    set_bone_layers(index_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(index_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_action_list, [24], 'Off', '_L')
+                                    set_bone_layers(index_mech_list, [24], 'Off', '_L')
+                                if b.toggle_fingers_middle_L:
+                                    set_bone_layers(middle_fk_list, [17, 24, 25], 'On', '_L')
+                                    set_bone_layers(middle_ctrl_list, [5, 16, 24, 25, 28, 29], 'On', '_L')
+                                    set_bone_layers(middle_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(middle_ik_list, [19, 24, 25], 'On', '_L')
+                                    set_bone_layers(middle_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(middle_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(middle_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(middle_action_list, [24, 28], 'On', '_L')
+                                    set_bone_layers(middle_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(middle_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_action_list, [24], 'Off', '_L')
+                                    set_bone_layers(middle_mech_list, [24], 'Off', '_L')
+                                if b.toggle_fingers_ring_L:
+                                    set_bone_layers(ring_fk_list, [17, 24, 25], 'On', '_L')
+                                    set_bone_layers(ring_ctrl_list, [5, 16, 24, 25, 28, 29], 'On', '_L')
+                                    set_bone_layers(ring_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(ring_ik_list, [19, 24, 25], 'On', '_L')
+                                    set_bone_layers(ring_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(ring_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(ring_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(ring_action_list, [24, 28], 'On', '_L')
+                                    set_bone_layers(ring_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(ring_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_action_list, [24], 'Off', '_L')
+                                    set_bone_layers(ring_mech_list, [24], 'Off', '_L')
+                                if b.toggle_fingers_little_L:
+                                    set_bone_layers(little_fk_list, [17, 24, 25], 'On', '_L')
+                                    set_bone_layers(little_ctrl_list, [5, 16, 24, 25, 28, 29], 'On', '_L')
+                                    set_bone_layers(little_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(little_ik_list, [19, 24, 25], 'On', '_L')
+                                    set_bone_layers(little_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(little_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(little_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(little_action_list, [24, 28], 'On', '_L')
+                                    set_bone_layers(little_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(little_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_action_list, [24], 'Off', '_L')
+                                    set_bone_layers(little_mech_list, [24], 'Off', '_L')
+                        #Fingers_R
+                        if b.name.endswith('_R'):
+                            if ('arm'in b.name):
+                                if b.toggle_fingers_thumb_R:
+                                    set_bone_layers(thumb_fk_list, [17, 24, 25], 'On', '_R')
+                                    set_bone_layers(thumb_ctrl_list, [3, 6, 24, 25, 28, 29], 'On', '_R')
+                                    set_bone_layers(thumb_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(thumb_ik_list, [19, 24, 25], 'On', '_R')
+                                    set_bone_layers(thumb_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(thumb_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(thumb_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(thumb_action_list, [24, 28], 'On', '_R')
+                                    set_bone_layers(thumb_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(thumb_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_action_list, [24], 'Off', '_R')
+                                    set_bone_layers(thumb_mech_list, [24], 'Off', '_R')
+                                if b.toggle_fingers_index_R:
+                                    set_bone_layers(index_fk_list, [17, 24, 25], 'On', '_R')
+                                    set_bone_layers(index_ctrl_list, [3, 6, 24, 25, 28, 29], 'On', '_R')
+                                    set_bone_layers(index_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(index_ik_list, [19, 24, 25], 'On', '_R')
+                                    set_bone_layers(index_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(index_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(index_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(index_action_list, [24, 28], 'On', '_R')
+                                    set_bone_layers(index_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(index_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_action_list, [24], 'Off', '_R')
+                                    set_bone_layers(index_mech_list, [24], 'Off', '_R')
+                                if b.toggle_fingers_middle_R:
+                                    set_bone_layers(middle_fk_list, [17, 24, 25], 'On', '_R')
+                                    set_bone_layers(middle_ctrl_list, [3, 6, 24, 25, 28, 29], 'On', '_R')
+                                    set_bone_layers(middle_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(middle_ik_list, [19, 24, 25], 'On', '_R')
+                                    set_bone_layers(middle_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(middle_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(middle_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(middle_action_list, [24, 28], 'On', '_R')
+                                    set_bone_layers(middle_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(middle_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_action_list, [24], 'Off', '_R')
+                                    set_bone_layers(middle_mech_list, [24], 'Off', '_R')
+                                if b.toggle_fingers_ring_R:
+                                    set_bone_layers(ring_fk_list, [17, 24, 25], 'On', '_R')
+                                    set_bone_layers(ring_ctrl_list, [3, 6, 24, 25, 28, 29], 'On', '_R')
+                                    set_bone_layers(ring_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(ring_ik_list, [19, 24, 25], 'On', '_R')
+                                    set_bone_layers(ring_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(ring_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(ring_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(ring_action_list, [24, 28], 'On', '_R')
+                                    set_bone_layers(ring_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(ring_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_action_list, [24], 'Off', '_R')
+                                    set_bone_layers(ring_mech_list, [24], 'Off', '_R')
+                                if b.toggle_fingers_little_R:
+                                    set_bone_layers(little_fk_list, [17, 24, 25], 'On', '_R')
+                                    set_bone_layers(little_ctrl_list, [3, 6, 24, 25, 28, 29], 'On', '_R')
+                                    set_bone_layers(little_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(little_ik_list, [19, 24, 25], 'On', '_R')
+                                    set_bone_layers(little_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(little_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(little_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(little_action_list, [24, 28], 'On', '_R')
+                                    set_bone_layers(little_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(little_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_action_list, [24], 'Off', '_R')
+                                    set_bone_layers(little_mech_list, [24], 'Off', '_R')
+
+def toes_toggles(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                amr_obj = bpy.context.active_object
+                arm = amr_obj.data
+                p_bones = amr_obj.pose.bones
+
+                #Toes List
+                toe_big_fk_list = ['toe_big_2_L', 'toe_big_3_L']
+                toe_big_ctrl_list = ['toe_big_ctrl_L']
+                toe_big_toon_list = ['toe_big_4_toon_L', 'toe_big_3_toon_L', 'toe_big_2_toon_L', 'toe_big_1_toon_L']
+                toe_big_ik_list = ['toe_big_ik_L']
+                toe_big_str_list = ['toe_big_str_2_L', 'toe_big_str_3_L', 'toe_big_str_4_L', 'toe_big_str_1_L']
+                toe_big_def_list = ['toe_big_3_def_L', 'toe_big_2_def_L', 'toe_big_1_def_L']
+                toe_big_fix_list = ['toe_big_fix_up_2_L', 'toe_big_fix_low_2_L', 'toe_big_fix_up_1_L', 'toe_big_fix_low_1_L']
+                toe_big_mech_list = ['toe_big_ctrl_mstr_L', 'toe_big_shp_at_L', 'toe_big_1_L', 'toe_big_ctrl_shp_at_L', 'toe_big_2_rot_L']
+
+                toe_index_fk_list = ['toe_ind_2_L', 'toe_ind_3_L', 'toe_ind_4_L']
+                toe_index_ctrl_list = ['toe_ind_ctrl_L']
+                toe_index_toon_list = ['toe_ind_5_toon_L', 'toe_ind_4_toon_L', 'toe_ind_3_toon_L', 'toe_ind_2_toon_L', 'toe_ind_1_toon_L']
+                toe_index_ik_list = ['toe_ind_ik_L']
+                toe_index_str_list = ['toe_ind_str_2_L', 'toe_ind_str_4_L', 'toe_ind_str_3_L', 'toe_ind_str_5_L', 'toe_ind_str_1_L']
+                toe_index_def_list = ['toe_ind_4_def_L', 'toe_ind_3_def_L', 'toe_ind_2_def_L', 'toe_ind_1_def_L']
+                toe_index_fix_list = ['toe_ind_fix_up_3_L', 'toe_ind_fix_low_3_L', 'toe_ind_fix_up_2_L', 'toe_ind_fix_low_2_L', 'toe_ind_fix_up_1_L', 'toe_ind_fix_low_1_L']
+                toe_index_mech_list = ['toe_ind_ctrl_mstr_L', 'toe_ind_shp_at_L', 'toe_ind_1_L', 'toe_ind_ctrl_shp_at_L', 'toe_ind_2_rot_L']
+
+                toe_middle_fk_list = ['toe_mid_2_L', 'toe_mid_3_L', 'toe_mid_4_L']
+                toe_middle_ctrl_list = ['toe_mid_ctrl_L']
+                toe_middle_toon_list = ['toe_mid_5_toon_L', 'toe_mid_4_toon_L', 'toe_mid_3_toon_L', 'toe_mid_2_toon_L', 'toe_mid_1_toon_L']
+                toe_middle_ik_list = ['toe_mid_ik_L']
+                toe_middle_str_list = ['toe_mid_str_2_L', 'toe_mid_str_4_L', 'toe_mid_str_3_L', 'toe_mid_str_5_L', 'toe_mid_str_1_L']
+                toe_middle_def_list = ['toe_mid_4_def_L', 'toe_mid_3_def_L', 'toe_mid_2_def_L', 'toe_mid_1_def_L']
+                toe_middle_fix_list = ['toe_mid_fix_up_3_L', 'toe_mid_fix_low_3_L', 'toe_mid_fix_up_2_L', 'toe_mid_fix_low_2_L', 'toe_mid_fix_up_1_L', 'toe_mid_fix_low_1_L']
+                toe_middle_mech_list = ['toe_mid_ctrl_mstr_L', 'toe_mid_shp_at_L', 'toe_mid_1_L', 'toe_mid_ctrl_shp_at_L', 'toe_mid_2_rot_L']
+
+                toe_fourth_fk_list = ['toe_fourth_2_L', 'toe_fourth_3_L', 'toe_fourth_4_L']
+                toe_fourth_ctrl_list = ['toe_fourth_ctrl_L']
+                toe_fourth_toon_list = ['toe_fourth_5_toon_L', 'toe_fourth_4_toon_L', 'toe_fourth_3_toon_L', 'toe_fourth_2_toon_L', 'toe_fourth_1_toon_L']
+                toe_fourth_ik_list = ['toe_fourth_ik_L']
+                toe_fourth_str_list = ['toe_fourth_str_2_L', 'toe_fourth_str_4_L', 'toe_fourth_str_3_L', 'toe_fourth_str_5_L', 'toe_fourth_str_1_L']
+                toe_fourth_def_list = ['toe_fourth_4_def_L', 'toe_fourth_3_def_L', 'toe_fourth_2_def_L', 'toe_fourth_1_def_L']
+                toe_fourth_fix_list = ['toe_fourth_fix_up_3_L', 'toe_fourth_fix_low_3_L', 'toe_fourth_fix_up_2_L', 'toe_fourth_fix_low_2_L', 'toe_fourth_fix_up_1_L', 'toe_fourth_fix_low_1_L']
+                toe_fourth_mech_list = ['toe_fourth_ctrl_mstr_L', 'toe_fourth_shp_at_L', 'toe_fourth_1_L', 'toe_fourth_ctrl_shp_at_L', 'toe_fourth_2_rot_L']
+
+                toe_little_fk_list = ['toe_lit_2_L', 'toe_lit_3_L']
+                toe_little_ctrl_list = ['toe_lit_ctrl_L']
+                toe_little_toon_list = ['toe_lit_4_toon_L', 'toe_lit_3_toon_L', 'toe_lit_2_toon_L', 'toe_lit_1_toon_L']
+                toe_little_ik_list = ['toe_lit_ik_L']
+                toe_little_str_list = ['toe_lit_str_2_L', 'toe_lit_str_3_L', 'toe_lit_str_4_L', 'toe_lit_str_1_L']
+                toe_little_def_list = ['toe_lit_3_def_L', 'toe_lit_2_def_L', 'toe_lit_1_def_L']
+                toe_little_fix_list = ['toe_lit_fix_up_2_L', 'toe_lit_fix_low_2_L', 'toe_lit_fix_up_1_L', 'toe_lit_fix_low_1_L']
+                toe_little_mech_list = ['toe_lit_ctrl_mstr_L', 'toe_lit_shp_at_L', 'toe_lit_1_L', 'toe_lit_ctrl_shp_at_L', 'toe_lit_2_rot_L']
+
+                def set_bone_layers(bone_list, layer_list, constraints_state, side):
+                    bones = bone_list
+                    layers = layer_list
+                    for B in bones:
+                        for b in p_bones:
+                            if b.name == str(B[0:-2] + side):
+                                for L in layers:
+                                    b.bone.layers[L] = 1
+                                    for l in range(len(b.bone.layers)):
+                                        if l not in layers:
+                                            b.bone.layers[l] = 0
+                                if constraints_state == 'On':
+                                    for C in b.constraints:
+                                        C.mute = False
+                                        if bpy.context.active_object.data.reproportion:
+                                            if ('REPROP' in C.name):
+                                                C.mute = False
+                                            if ('NOREP' in C.name):
+                                                C.mute = True
+                                        else:
+                                            if ('REPROP' in C.name):
+                                                C.mute = True
+                                            if ('NOREP' in C.name):
+                                                C.mute = False
+                                if constraints_state == 'Off':
+                                    for C in b.constraints:
+                                        C.mute = True
+
+                for b in p_bones:
+                    if ('properties' in b.name):
+                        #Toes_L
+                        if b.name.endswith('_L'):
+                            if ('leg'in b.name):
+                                if b.toggle_toes_big_L:
+                                    set_bone_layers(toe_big_fk_list, [12, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_big_ctrl_list, [10, 24, 25, 29], 'On', '_L')
+                                    set_bone_layers(toe_big_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_big_ik_list, [10, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_big_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(toe_big_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(toe_big_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(toe_big_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(toe_big_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_big_mech_list, [24], 'Off', '_L')
+                                if b.toggle_toes_index_L:
+                                    set_bone_layers(toe_index_fk_list, [12, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_index_ctrl_list, [10, 24, 25, 29], 'On', '_L')
+                                    set_bone_layers(toe_index_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_index_ik_list, [10, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_index_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(toe_index_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(toe_index_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(toe_index_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(toe_index_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_index_mech_list, [24], 'Off', '_L')
+                                if b.toggle_toes_middle_L:
+                                    set_bone_layers(toe_middle_fk_list, [12, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_middle_ctrl_list, [10, 24, 25, 29], 'On', '_L')
+                                    set_bone_layers(toe_middle_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_middle_ik_list, [10, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_middle_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(toe_middle_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(toe_middle_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(toe_middle_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(toe_middle_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_middle_mech_list, [24], 'Off', '_L')
+                                if b.toggle_toes_fourth_L:
+                                    set_bone_layers(toe_fourth_fk_list, [12, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_fourth_ctrl_list, [10, 24, 25, 29], 'On', '_L')
+                                    set_bone_layers(toe_fourth_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_fourth_ik_list, [10, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_fourth_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(toe_fourth_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(toe_fourth_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(toe_fourth_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(toe_fourth_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_fourth_mech_list, [24], 'Off', '_L')
+                                if b.toggle_toes_little_L:
+                                    set_bone_layers(toe_little_fk_list, [12, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_little_ctrl_list, [10, 24, 25, 29], 'On', '_L')
+                                    set_bone_layers(toe_little_toon_list, [14, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_little_ik_list, [10, 24, 25], 'On', '_L')
+                                    set_bone_layers(toe_little_str_list, [24, 25, 31], 'On', '_L')
+                                    set_bone_layers(toe_little_def_list, [24, 27, 29, 31], 'On', '_L')
+                                    set_bone_layers(toe_little_fix_list, [24, 27], 'On', '_L')
+                                    set_bone_layers(toe_little_mech_list, [26, 24], 'On', '_L')
+                                else:
+                                    set_bone_layers(toe_little_fk_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_ctrl_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_toon_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_ik_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_str_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_def_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_fix_list, [24], 'Off', '_L')
+                                    set_bone_layers(toe_little_mech_list, [24], 'Off', '_L')
+                        #Toes_R
+                        if b.name.endswith('_R'):
+                            if ('leg'in b.name):
+                                if b.toggle_toes_big_R:
+                                    set_bone_layers(toe_big_fk_list, [12, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_big_ctrl_list, [10, 24, 25, 29], 'On', '_R')
+                                    set_bone_layers(toe_big_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_big_ik_list, [10, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_big_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(toe_big_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(toe_big_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(toe_big_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(toe_big_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_big_mech_list, [24], 'Off', '_R')
+                                if b.toggle_toes_index_R:
+                                    set_bone_layers(toe_index_fk_list, [12, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_index_ctrl_list, [10, 24, 25, 29], 'On', '_R')
+                                    set_bone_layers(toe_index_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_index_ik_list, [10, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_index_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(toe_index_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(toe_index_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(toe_index_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(toe_index_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_index_mech_list, [24], 'Off', '_R')
+                                if b.toggle_toes_middle_R:
+                                    set_bone_layers(toe_middle_fk_list, [12, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_middle_ctrl_list, [10, 24, 25, 29], 'On', '_R')
+                                    set_bone_layers(toe_middle_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_middle_ik_list, [10, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_middle_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(toe_middle_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(toe_middle_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(toe_middle_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(toe_middle_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_middle_mech_list, [24], 'Off', '_R')
+                                if b.toggle_toes_fourth_R:
+                                    set_bone_layers(toe_fourth_fk_list, [12, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_fourth_ctrl_list, [10, 24, 25, 29], 'On', '_R')
+                                    set_bone_layers(toe_fourth_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_fourth_ik_list, [10, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_fourth_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(toe_fourth_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(toe_fourth_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(toe_fourth_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(toe_fourth_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_fourth_mech_list, [24], 'Off', '_R')
+                                if b.toggle_toes_little_R:
+                                    set_bone_layers(toe_little_fk_list, [12, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_little_ctrl_list, [10, 24, 25, 29], 'On', '_R')
+                                    set_bone_layers(toe_little_toon_list, [14, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_little_ik_list, [10, 24, 25], 'On', '_R')
+                                    set_bone_layers(toe_little_str_list, [24, 25, 31], 'On', '_R')
+                                    set_bone_layers(toe_little_def_list, [24, 27, 29, 31], 'On', '_R')
+                                    set_bone_layers(toe_little_fix_list, [24, 27], 'On', '_R')
+                                    set_bone_layers(toe_little_mech_list, [26, 24], 'On', '_R')
+                                else:
+                                    set_bone_layers(toe_little_fk_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_ctrl_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_toon_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_ik_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_str_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_def_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_fix_list, [24], 'Off', '_R')
+                                    set_bone_layers(toe_little_mech_list, [24], 'Off', '_R')
 ####### Rig Optimizations #######
 
 ####### Toggle Face Drivers #######
