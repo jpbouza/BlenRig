@@ -41,14 +41,7 @@ class BLENRIG_PT_Rig_Layers_settings(bpy.types.Panel):
         row_props.scale_x = 1
         row_props.alignment = 'LEFT'
         row_props.prop(arm_data, '["layers_count"]', text="Layers", toggle=True)
-        if arm_data['bone_auto_hide'] == 1:
-            row_props.operator("gui.blenrig_6_tabs",text = "  Bone Auto Hiding", icon="CHECKBOX_HLT", emboss = 0).tab = "bone_auto_hide"
-        else:
-            row_props.operator("gui.blenrig_6_tabs",text = "  Bone Auto Hiding", icon="CHECKBOX_DEHLT", emboss = 0).tab = "bone_auto_hide"
-        col.label(text='Layers Schemes:')
-        row_schemes = col.row()
-        row_schemes.operator("blenrig.layers_scheme_compact", text="Compact")
-        row_schemes.operator("blenrig.layers_scheme_expanded", text="Expanded")
+        col.separator()
         col.label(text='Layers Names: (Always keep 32 items)')
         row_layers = col.row()
         row_layers.prop(arm_data, '["layer_list"]', text="", toggle=True)
