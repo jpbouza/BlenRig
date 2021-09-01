@@ -194,7 +194,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de los pies'
             },
         'texto': {
-            'EN': 'If your character has toes, place the toes joints, otherwise, toggle toes off.',
+            'EN': 'Place the joints of the Toes and the toes_spread controller. You can also disable Toes completely or individually with the Toes Toggles',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Toes
@@ -233,7 +233,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de las manos'
             },
         'texto': {
-            'EN': 'If your character has fingers, place the finger joints and the finger_spread controller. Otherwise, toggle fingers off.',
+            'EN': 'Place the joints of the Fingers, the fingers_spread controller and the hand_close controller. You can also disable Fingers completely or individually with the Fingers Toggles',
             'ES': 'Si tu personaje tiene dedos, coloca las articulaciones de estos, y si no tiene, desactiva el "toggle fingers".'
             },
         'accion': Reprop_Fingers

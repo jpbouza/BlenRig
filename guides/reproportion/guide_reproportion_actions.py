@@ -696,7 +696,8 @@ def Reprop_Fingers(operator, context):
         'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L', 'fing_lit_4_def_R', 'fing_lit_3_def_R', 'fing_lit_2_def_R', 'fing_ring_4_def_R', 'fing_ring_3_def_R', 'fing_ring_2_def_R', 'fing_ind_4_def_R',
         'fing_ind_3_def_R', 'fing_ind_2_def_R', 'fing_mid_4_def_R', 'fing_mid_3_def_R', 'fing_mid_2_def_R', 'fing_ind_1_def_R', 'fing_ring_1_def_R', 'fing_lit_1_def_R', 'fing_mid_1_def_R', 'fing_thumb_3_def_R', 'fing_thumb_2_def_R',
         'fing_thumb_1_def_R', 'fing_lit_4_def_L', 'fing_lit_3_def_L', 'fing_lit_2_def_L', 'fing_ring_4_def_L', 'fing_ring_3_def_L', 'fing_ring_2_def_L', 'fing_ind_4_def_L', 'fing_ind_3_def_L', 'fing_ind_2_def_L', 'fing_mid_4_def_L',
-        'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R'
+        'fing_mid_3_def_L', 'fing_mid_2_def_L', 'fing_ind_1_def_L', 'fing_ring_1_def_L', 'fing_lit_1_def_L', 'fing_mid_1_def_L', 'fing_thumb_3_def_L', 'fing_thumb_2_def_L', 'fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R',
+        'hand_close_L', 'hand_close_R'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -715,10 +716,10 @@ def Reprop_Fingers(operator, context):
         'fing_lit_str_5_R', 'fing_ring_str_2_R', 'fing_ring_str_3_R', 'fing_ring_str_4_R', 'fing_ring_str_5_R', 'fing_ind_str_2_R', 'fing_ind_str_3_R', 'fing_ind_str_4_R', 'fing_ind_str_5_R', 'fing_mid_str_2_R', 'fing_mid_str_3_R',
         'fing_mid_str_4_R', 'fing_mid_str_5_R', 'fing_lit_str_1_L', 'fing_ring_str_1_L', 'fing_ind_str_1_L', 'fing_mid_str_1_L', 'fing_thumb_str_1_L', 'fing_thumb_str_2_L', 'fing_thumb_str_3_L', 'fing_thumb_str_4_L', 'fing_lit_str_2_L',
         'fing_lit_str_3_L', 'fing_lit_str_4_L', 'fing_lit_str_5_L', 'fing_ring_str_2_L', 'fing_ring_str_3_L', 'fing_ring_str_4_L', 'fing_ring_str_5_L', 'fing_ind_str_2_L', 'fing_ind_str_3_L', 'fing_ind_str_4_L', 'fing_ind_str_5_L',
-        'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L','fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R'
+        'fing_mid_str_2_L', 'fing_mid_str_3_L', 'fing_mid_str_4_L', 'fing_mid_str_5_L','fing_thumb_1_def_L', 'fing_spread_L', 'fing_spread_R', 'hand_close_L', 'hand_close_R'
     )
 
-    #Unlock Toes Spread Location
+    #Unlock Fingers Spread Location
     context.pose_object.pose.bones['fing_spread_L'].lock_location[0] = False
     context.pose_object.pose.bones['fing_spread_L'].lock_location[1] = False
     context.pose_object.pose.bones['fing_spread_L'].lock_location[2] = False
@@ -731,7 +732,7 @@ def Reprop_Fingers(operator, context):
     context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = False
     context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = False
     context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = False
-
+    set_locks(['hand_close_L', 'hand_close_R'], False, False, False, False, False, False, False, False, False)
 def Reprop_Limbs_Adjust_Shape(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -2132,6 +2133,7 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['fing_spread_R'].lock_rotation[1] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = True
         context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = True
+        set_locks(['hand_close_L', 'hand_close_R'], True, True, True, True, True, True, True, False, True)
         context.scene.blenrig_guide.guide_current_step = ''
     if current_step == 'Reprop_Cheek_Ctrls':
         context.pose_object.pose.bones['nose_frown_ctrl_L'].lock_location[0] = True
