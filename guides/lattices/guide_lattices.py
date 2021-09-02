@@ -9,11 +9,11 @@ GUIDE_STEPS_LATTICES = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Edit Body Lattice',
-            'ES': 'Paso 1'
+            'ES': 'Edita el Lattice del cuerpo'
             },
         'texto': {
             'EN': "Adjust the Body Lattice, press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': "Ajuste el Lattice del cuerpo, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
             },
         'accion': LATTICES_Adjust_Body
     },
@@ -22,11 +22,11 @@ GUIDE_STEPS_LATTICES = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Edit Head Lattice',
-            'ES': 'Paso 1'
+            'ES': 'Edita el Lattice de la cabeza'
             },
         'texto': {
             'EN': "Adjust the Head Lattice, press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': "Ajusta el Lattice de la cabeza, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
             },
         'accion': LATTICES_Adjust_Head
     },
@@ -35,11 +35,11 @@ GUIDE_STEPS_LATTICES = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Edit Brow Lattice',
-            'ES': 'Paso 1'
+            'ES': 'Edita el Lattice de las cejas'
             },
         'texto': {
             'EN': "Adjust the Brow Lattice, press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': "Ajusta el Lattice de las cejas, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
             },
         'accion': LATTICES_Adjust_Brow
     },
@@ -48,11 +48,11 @@ GUIDE_STEPS_LATTICES = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Edit Mouth Lattice',
-            'ES': 'Paso 1'
+            'ES': 'Edita el Lattice de la boca'
             },
         'texto': {
             'EN': "Adjust the Mouth Lattice, press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': "Ajusta el Lattice de la boca, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
             },
         'accion': LATTICES_Adjust_Mouth
     },
@@ -61,11 +61,11 @@ GUIDE_STEPS_LATTICES = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Edit Eyes Lattices',
-            'ES': 'Paso 1'
+            'ES': 'Edita el Lattice de los ojos'
             },
         'texto': {
             'EN': "Adjust the Lattice of the Left Eye, press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button. Finally Mirror the position to the Right Eye Lattice with the 'Mirror Lattice Transforms' button",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': "Edita el Lattice de los ojos, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
             },
         'accion': LATTICES_Adjust_Eyes
     },
