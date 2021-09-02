@@ -617,6 +617,14 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
 
         from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects
 
+        #Clear List
+        context.scene.blenrig_character_body_obj.clear()
+
+        #Define Body Objects
+        for ob in context.selected_objects:
+            add_item = context.scene.blenrig_character_body_obj.add()
+            add_item.character_body_obj = ob
+
         #Add Deform Modifiers to defined Character's body object
         for ob in context.scene.blenrig_character_body_obj:
             body_ob = ob.character_body_obj
