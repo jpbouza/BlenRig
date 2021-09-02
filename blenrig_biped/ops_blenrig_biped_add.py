@@ -59,9 +59,14 @@ class Operator_BlenRig5_Add_Biped(Operator):
                     if mod.type == 'ARMATURE':
                         if mod.object == context.view_layer.objects.active:
                             context.scene.blenrig_guide.mdef_cage_obj = ob
-            if 'BlenRigMDefWeightsModel' in ob.name:
+            if 'BlenRigMDefHeadWeightsModel' in ob.name:
                 for mod in ob.modifiers:
                     if mod.type == 'ARMATURE':
                         if mod.object == context.view_layer.objects.active:
-                            context.scene.blenrig_guide.mdef_weights_transfer_obj = ob
+                            context.scene.blenrig_guide.mdef_head_weights_transfer_obj = ob
+            if 'BlenRigMDefHandsWeightsModel' in ob.name:
+                for mod in ob.modifiers:
+                    if mod.type == 'ARMATURE':
+                        if mod.object == context.view_layer.objects.active:
+                            context.scene.blenrig_guide.mdef_hands_weights_transfer_obj = ob
         return{'FINISHED'}
