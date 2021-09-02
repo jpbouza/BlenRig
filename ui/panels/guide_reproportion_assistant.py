@@ -286,14 +286,12 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
 
             # Diplay Bake Button
             if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Custom_Alignments':
-                if context.mode in ['EDIT_ARMATURE']:
-                    if context.active_object.data.reproportion:
-                        steps = layout.column(align=True)
-                        box = steps.box()
-                        row = box.row()
-                        row.scale_x = 0.5
-                        row.scale_y = 1.8
-                        row.operator("blenrig.armature_baker_all_part_2", text="Custom Alignments")
+                steps = layout.column(align=True)
+                box = steps.box()
+                row = box.row()
+                row.scale_x = 0.5
+                row.scale_y = 1.8
+                row.operator("blenrig.armature_baker_all_part_2", text="Custom Alignments")
             # IK Check
             if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_IK_Check':
                 steps = layout.column(align=True)
