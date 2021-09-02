@@ -357,14 +357,23 @@ def collect_cage():
             mdef_cage_objects.append(ob)
     return mdef_cage_objects
 
-mdef_weights_model_objects = []
+mdef_head_weights_model_objects = []
 
-def collect_mdef_weights_model():
-    mdef_weights_model_objects.clear()
+def collect_mdef_head_weights_model():
+    mdef_head_weights_model_objects.clear()
     for ob in bpy.data.objects:
-        if "MDefWeightsModel" in ob.name:
-            mdef_weights_model_objects.append(ob)
-    return mdef_weights_model_objects
+        if "MDefHeadWeightsModel" in ob.name:
+            mdef_head_weights_model_objects.append(ob)
+    return mdef_head_weights_model_objects
+
+mdef_hands_weights_model_objects = []
+
+def collect_mdef_hands_weights_model():
+    mdef_hands_weights_model_objects.clear()
+    for ob in bpy.data.objects:
+        if "MDefHandsWeightsModel" in ob.name:
+            mdef_hands_weights_model_objects.append(ob)
+    return mdef_hands_weights_model_objects
 
 lattice_objects = []
 

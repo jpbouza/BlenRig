@@ -76,17 +76,21 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
 
         deselect_all_objects(context)
 
-        #Select Mdef Weight Transfer Model
-        transfer_obj = context.scene.blenrig_guide.mdef_weights_transfer_obj
-        transfer_obj.select_set(state=True)
-
         if self.body_area == 'head':
+            #Select Mdef Head Weight Transfer Model
+            transfer_obj = context.scene.blenrig_guide.mdef_head_weights_transfer_obj
+            transfer_obj.select_set(state=True)
+
             #Select Head Object
             head_object = context.scene.blenrig_guide.character_head_obj
             head_object.select_set(state=True)
             context.view_layer.objects.active = head_object
 
         if self.body_area == 'hands':
+            #Select Mdef Head Weight Transfer Model
+            transfer_obj = context.scene.blenrig_guide.mdef_hands_weights_transfer_obj
+            transfer_obj.select_set(state=True)
+
             #Select Fingers Object
             fingers_object = context.scene.blenrig_guide.character_hands_obj
             fingers_object.select_set(state=True)
@@ -113,6 +117,36 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
         #Set back Object Mode
         if context.mode != 'EDIT':
             set_mode('EDIT')
+        return {"FINISHED"}
+
+class Operator_Guide_Transfer_Test_Rig(bpy.types.Operator):
+
+    bl_idname = "blenrig.guide_transfer_test_rig"
+    bl_label = "BlenRig Test how the Character moves with the Rig"
+    bl_description = "Test how the Character moves with the Rig"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    bone : bpy.props.StringProperty()
+
+    def execute(self, context):
+        from .utils import go_blenrig_pose_mode, deselect_all_objects, deselect_all_pose_bones, select_pose_bone
+        deselect_all_objects(context)
+        try:
+            bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = False
+        except:
+            pass
+        go_blenrig_pose_mode(context)
+        deselect_all_pose_bones(context)
+        select_pose_bone(context, self.bone)
         return {"FINISHED"}
 
 #Add Modifiers Operators
@@ -429,60 +463,63 @@ class Operator_blenrig_add_teeth_modifiers(bpy.types.Operator):
 
     def execute(self, context):
 
-        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object
 
         #Add Deform Modifiers to Character's Eye
-        active = context.active_object
 
-        #Armature
-        if check_mod_type('ARMATURE'):
-            pass
-        else:
-            mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+        for ob in context.selected_objects:
+            set_active_object(context, ob)
+            active = context.active_object
+
+            #Armature
+            if check_mod_type('ARMATURE'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "Armature",type= 'ARMATURE')
+                # set modifier properties
+                mod.object = context.scene.blenrig_guide.arm_obj
+                mod.use_deform_preserve_volume = True
+                mod.vertex_group = 'no_mdef'
+                mod.show_expanded = True
+                mod.show_in_editmode = True
+                mod.show_on_cage = True
+            #Lattices
+            if check_mod_type_name('LATTICE', 'LATTICE_MOUTH'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "LATTICE_MOUTH",type= 'LATTICE')
+                # set modifier properties
+                for ob in bpy.data.objects:
+                    if ob.type == 'LATTICE':
+                        if 'LATTICE_MOUTH' in ob.name:
+                            if ob.parent == context.scene.blenrig_guide.arm_obj:
+                                mod.object = ob
+                mod.vertex_group = 'lattice_mouth'
+                mod.show_expanded = False
+
+            if check_mod_type_name('LATTICE', 'LATTICE_HEAD'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
+                # set modifier properties
+                for ob in bpy.data.objects:
+                    if ob.type == 'LATTICE':
+                        if 'LATTICE_HEAD' in ob.name:
+                            if ob.parent == context.scene.blenrig_guide.arm_obj:
+                                mod.object = ob
+                mod.vertex_group = 'lattice_head'
+                mod.show_expanded = False
+
+            #Subsurf
+            subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+            if subsurf_mods:
+                active.modifiers.remove(subsurf_mods[-1])
+            mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
             # set modifier properties
-            mod.object = context.scene.blenrig_guide.arm_obj
-            mod.use_deform_preserve_volume = True
-            mod.vertex_group = 'no_mdef'
+            mod.subdivision_type = 'CATMULL_CLARK'
+            mod.levels = 0
+            mod.render_levels = 3
             mod.show_expanded = True
-            mod.show_in_editmode = True
-            mod.show_on_cage = True
-        #Lattices
-        if check_mod_type_name('LATTICE', 'LATTICE_MOUTH'):
-            pass
-        else:
-            mod = active.modifiers.new(name= "LATTICE_MOUTH",type= 'LATTICE')
-            # set modifier properties
-            for ob in bpy.data.objects:
-                if ob.type == 'LATTICE':
-                    if 'LATTICE_MOUTH' in ob.name:
-                        if ob.parent == context.scene.blenrig_guide.arm_obj:
-                            mod.object = ob
-            mod.vertex_group = 'lattice_mouth'
-            mod.show_expanded = False
-
-        if check_mod_type_name('LATTICE', 'LATTICE_HEAD'):
-            pass
-        else:
-            mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
-            # set modifier properties
-            for ob in bpy.data.objects:
-                if ob.type == 'LATTICE':
-                    if 'LATTICE_HEAD' in ob.name:
-                        if ob.parent == context.scene.blenrig_guide.arm_obj:
-                            mod.object = ob
-            mod.vertex_group = 'lattice_head'
-            mod.show_expanded = False
-
-        #Subsurf
-        subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
-        if subsurf_mods:
-            active.modifiers.remove(subsurf_mods[-1])
-        mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
-        # set modifier properties
-        mod.subdivision_type = 'CATMULL_CLARK'
-        mod.levels = 0
-        mod.render_levels = 3
-        mod.show_expanded = True
 
         return {"FINISHED"}
 
@@ -580,14 +617,6 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
 
         from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects
 
-        #Clear List
-        context.scene.blenrig_character_body_obj.clear()
-
-        #Define Body Objects
-        for ob in context.selected_objects:
-            add_item = context.scene.blenrig_character_body_obj.add()
-            add_item.character_body_obj = ob
-
         #Add Deform Modifiers to defined Character's body object
         for ob in context.scene.blenrig_character_body_obj:
             body_ob = ob.character_body_obj
@@ -654,6 +683,12 @@ class Operator_blenrig_define_body_area(bpy.types.Operator):
             context.scene.blenrig_guide.character_toes_obj = context.active_object
         if self.area == 'Head':
             context.scene.blenrig_guide.character_head_obj = context.active_object
+        if self.area == 'Mdef_Cage':
+            context.scene.blenrig_guide.mdef_cage_obj = context.active_object
+        if self.area == 'Head_Weights':
+            context.scene.blenrig_guide.mdef_head_weights_transfer_obj = context.active_object
+        if self.area == 'Hands_Weights':
+            context.scene.blenrig_guide.mdef_hands_weights_transfer_obj = context.active_object
         return {"FINISHED"}
 
 #Mesh Deform Binding Operators
