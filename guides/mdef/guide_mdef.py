@@ -9,7 +9,7 @@ GUIDE_STEPS_MDEF = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Define Character Body Objects',
-            'ES': 'Paso 1'
+            'ES': 'Define los objetos que componen el cuerpo de tu personaje'
             },
         'texto': {
             'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
@@ -22,7 +22,7 @@ GUIDE_STEPS_MDEF = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Edit the Mesh Deform Cage',
-            'ES': 'Paso 1'
+            'ES': 'Edita el Mesh Deform Cage'
             },
         'texto': {
             'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh. You can use the 'Adjust Cage' button to get a first approximation. Keep in mind that the closer the cage is from the character, the stiffer the deformation, the further away, the smoother the deformation. Use this strategically to get better deformation in difficult areas, such as the shoulders.",
@@ -35,7 +35,7 @@ GUIDE_STEPS_MDEF = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Check Mesh Deform Binding',
-            'ES': 'Paso 1'
+            'ES': 'Comprueba la vinculacion de la malla de deformación'
             },
         'texto': {
             'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the Unbind button, then Edit the cage and Bind again until all the vertices move with the rig",
@@ -48,7 +48,7 @@ GUIDE_STEPS_MDEF = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Mesh Deform Final Binding',
-            'ES': 'Paso 1'
+            'ES': 'Finalización de la vinculacion del Mesh Deform'
             },
         'texto': {
             'EN': "If you managed to get all the vertices right, press the Unbind button and then the Bind Mesh Deform(Final) Button. Depending on the number of objects you are binding, this process can take long. Go take a cup of coffe.",
