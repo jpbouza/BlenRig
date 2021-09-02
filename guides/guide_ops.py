@@ -37,7 +37,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
     # PROPIEDADES A ADAPTAR EN CADA SUB-OPERATOR.
     ## Condiciones que debe cumplir para poder ejecutar este Operator.
     object_types = {'ARMATURE'} # De qué tipo debe ser el objeto activo.
-    modes = {'OBJECT', 'POSE'}  # En qué modo debe de estar.
+    modes = {'OBJECT', 'POSE', 'EDIT'}  # En qué modo debe de estar.
     guide_name = ''
 
     ''' Initialization. '''
