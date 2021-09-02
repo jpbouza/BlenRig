@@ -52,5 +52,28 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
                 bm.normal_update()
                 vert.co += vert.normal/(props*-1) 
                 bmesh.update_edit_mesh(active_obj.data)
-
+        center_loop()
         return {'FINISHED'}
+
+def center_loop():    
+    if bpy.context.mode != 'EDIT':
+        bpy.ops.object.mode_set(mode='EDIT')    
+
+    bpy.ops.mesh.select_all(action='DESELECT')
+
+    nombre_vertex_group = 'center_loop'
+    bpy.context.active_object.vertex_groups.active = bpy.context.active_object.vertex_groups.get(nombre_vertex_group)
+    bpy.ops.object.vertex_group_select()
+
+    active_obj = bpy.context.active_object
+    bm = bmesh.from_edit_mesh(active_obj.data)
+    bm.normal_update()
+    sel_verts = [v for v in bm.verts if v.select]
+    for vert in sel_verts:
+        print(vert.co)
+        vert.co[0] = 0
+        bm.normal_update()
+        bmesh.update_edit_mesh(active_obj.data)
+
+    bpy.ops.mesh.select_all(action='DESELECT')
+    # bpy.ops.object.mode_set(mode='OBJECT')

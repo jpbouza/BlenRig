@@ -55,5 +55,4 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
             # row.prop(props,"smooth_repeat",text="Repiter Smooth")
             # row =layout.row(heading="Smooth Factor")
             # row.prop(props,"smooth_factor",text="Factor Smooth", slider=True)
-            
-            
+
