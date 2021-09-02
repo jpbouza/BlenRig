@@ -298,7 +298,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Ajuste del loop del ojo'
             },
         'texto': {
-            'EN': "Pick the character's left eye object and in Edit mode select the Center Loop. Move Cursor to Selection with Shift+S.",
+            'EN': "Select the character's Left Eye object. Go into Edit Mode and select the Center Loop . Move Cursor to Selection with Shift+S.",
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Eye_Loop
@@ -311,7 +311,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Comprobación de la ubicación de los controles oculares'
             },
         'texto': {
-            'EN': 'Eye controls should now match the center of the eyes. Move to the next step.',
+            'EN': 'With the Eye control selected, press the "Snap Eye to Cursor" Button ',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Set_Eyes

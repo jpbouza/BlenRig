@@ -988,6 +988,8 @@ def Reprop_Set_Eyes(operator, context):
 
     deselect_all_pose_bones(context)
 
+    select_pose_bone(context, 'eye_socket_mstr_str_L')
+
 def Reprop_Eyebrows_Main_Ctrl(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -1943,9 +1945,11 @@ def Reprop_Look(operator, context):
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
 
+    bones = ('look_str_loc', 'look_str_loc')
+
     # hide all bones but master_torso_str.
     select_all_pose_bones(context)
-    deselect_pose_bones(context, "look_str_loc")
+    deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
 
     #Add bones to list for hiding toggle
@@ -1975,6 +1979,14 @@ def Reprop_Bake(operator, context):
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
 
+    #Turn Layers on
+    on_layers = [31]
+    for L in on_layers:
+        context.object.data.layers[L] = True
+        for l in range(len(context.object.data.layers)):
+            if l not in on_layers:
+                context.object.data.layers[l] = False
+
     unhide_all_bones(context)
     deselect_all_pose_bones(context)
 
@@ -1994,12 +2006,44 @@ def Reprop_Custom_Alignments(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Custom_Alignments'
+    guide_props = context.scene.blenrig_guide
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
+    unhide_all_bones(context)
+    deselect_all_pose_bones(context)
+
+    # Set Armature to Bbone Display
+    set_display_type(context, 'OCTAHEDRAL')
+
+    #Make Deform Bones Selectable
+    for b in guide_props.arm_obj.pose.bones:
+        if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
+            b.bone.hide_select = False
+
+    set_mode('EDIT')
+
+    #Turn Layers on
+    on_layers = [29]
+    for L in on_layers:
+        context.object.data.layers[L] = True
+        for l in range(len(context.object.data.layers)):
+            if l not in on_layers:
+                context.object.data.layers[l] = False
 
 def Reprop_IK_Check(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_IK_Check'
 
+    reproportion_on(context)
     reproportion_off(context)
 
     # Set View
@@ -2009,14 +2053,27 @@ def Reprop_IK_Check(operator, context):
     # Adjust view to Bones.
     frame_bones(context, 'head_str', 'master')
 
+    #Turn Layers on
+    on_layers = [6, 9, 16, 23, 27]
+    for L in on_layers:
+        context.object.data.layers[L] = True
+        for l in range(len(context.object.data.layers)):
+            if l not in on_layers:
+                context.object.data.layers[l] = False
     #
-    bones = ('hand_ik_ctrl_L', 'hand_ik_ctrl_L', 'master_torso', 'sole_ctrl_L', 'sole_ctrl_R'
+    bones = ('hand_ik_ctrl_L', 'hand_ik_ctrl_R', 'master_torso', 'sole_ctrl_L', 'sole_ctrl_R',
+    'arm_def_R', 'arm_def_L', 'thigh_def_L', 'thigh_def_R', 'thigh_twist_def_R', 'shin_def_R', 'shin_twist_def_R', 'arm_twist_def_R',
+    'forearm_twist_def_R', 'forearm_def_R', 'arm_twist_def_L', 'forearm_twist_def_L', 'forearm_def_L', 'thigh_twist_def_L', 'shin_def_L', 'shin_twist_def_L'
+
     )
 
     unhide_all_bones(context)
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
     hide_selected_pose_bones(context)
+
+    # Set Armature to Bbone Display
+    set_display_type(context, 'BBONE')
 
     #Add bones to list for hiding toggle
     scn = bpy.context.scene
@@ -2038,11 +2095,11 @@ def Reprop_Finish(operator, context):
 
     #Turn Layers on
     on_layers = [0, 1, 3, 4, 5, 6, 7, 9, 16, 17, 18, 20, 22, 23]
-    off_layers = [2, 8, 10, 11, 12, 13, 14, 15, 19, 21, 24, 25, 26, 27, 28, 29, 30, 31]
-    for l in on_layers:
-        context.object.data.layers[l] = True
-    for l in off_layers:
-        context.object.data.layers[l] = False
+    for L in on_layers:
+        context.object.data.layers[L] = True
+        for l in range(len(context.object.data.layers)):
+            if l not in on_layers:
+                context.object.data.layers[l] = False
 
 
 #### END OF STEP ACTIONS ####
