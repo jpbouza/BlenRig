@@ -82,7 +82,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col_mdef.operator("blenrig.unbind_mdef_modifiers", text = 'Unbind Mesh Deform')
         #Define Body Areas
         box_area = col_buttons.box()
-        box_area.label(text='Define Body Area')
+        box_area.label(text='Character Objects')
         row = box_area.row()
         col_1 = row.column()
         col_1.scale_x = 1.5
@@ -105,6 +105,27 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         col_1.operator("blenrig.define_body_area", text = 'Define selected as Head Object').area = 'Head'
         try:
             col_2.label(text=context.scene.blenrig_guide.character_head_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
+
+        box_area.label(text='BlenRig Rigging Meshes')
+        row = box_area.row()
+        col_1 = row.column()
+        col_1.scale_x = 1.5
+        col_2 = row.column()
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Mdef Cage Object').area = 'Mdef_Cage'
+        try:
+            col_2.label(text=context.scene.blenrig_guide.mdef_cage_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Head Weights Transfer Object').area = 'Head_Weights'
+        try:
+            col_2.label(text=context.scene.blenrig_guide.mdef_head_weights_transfer_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
+        col_1.operator("blenrig.define_body_area", text = 'Define selected as Hands Weights Transfer Object').area = 'Hands_Weights'
+        try:
+            col_2.label(text=context.scene.blenrig_guide.mdef_hands_weights_transfer_obj.name)
         except:
             col_2.label(text='No Object Assigned')
 

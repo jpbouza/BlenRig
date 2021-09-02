@@ -10,7 +10,32 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
 
     def draw(self, context):
+        guide_props = bpy.context.scene.blenrig_guide
+        head_weights_model = guide_props.mdef_head_weights_transfer_obj
+        hands_weights_model = guide_props.mdef_hands_weights_transfer_obj
+        head_model = guide_props.character_head_obj
+        hands_model = guide_props.character_hands_obj
         layout = self.layout
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Weight_Mesh_Shapekey_Head':
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.label(text="Head Weights Mesh Editing Options")
+            mirror_row = box.row()
+            if head_weights_model.mode == 'EDIT':
+                mirror_row.prop(head_weights_model.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(head_weights_model.data, "use_mirror_topology")
+                mirror_row.prop(head_weights_model, "show_in_front")
+                box.prop(head_weights_model, "display_type")
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Weight_Mesh_Shapekey_Hands':
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.label(text="Hands Weights Mesh Editing Options")
+            mirror_row = box.row()
+            if hands_weights_model.mode == 'EDIT':
+                mirror_row.prop(hands_weights_model.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(hands_weights_model.data, "use_mirror_topology")
+                mirror_row.prop(hands_weights_model, "show_in_front")
+                box.prop(hands_weights_model, "display_type")
         if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Select_Head':
             steps = layout.column(align=True)
             set_head = steps.box()
@@ -33,6 +58,29 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
             col_mapping = row_options.column()
             col_mapping.label(text = 'Mapping:')
             col_mapping.prop(context.scene.blenrig_guide, "transfer_mapping", text =  '')
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.label(text="Head Weights Mesh Editing Options")
+            mirror_row = box.row()
+            if head_weights_model.mode == 'EDIT':
+                mirror_row.prop(head_weights_model.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(head_weights_model.data, "use_mirror_topology")
+                mirror_row.prop(head_weights_model, "show_in_front")
+            box.prop(head_weights_model, "display_type")
+            box.separator()
+            if head_model.mode == 'EDIT':
+                box = steps.box()
+                box.label(text="Character Head Editing Options")
+                mirror_row = box.row()
+                mirror_row.prop(head_model.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(head_model.data, "use_mirror_topology")
+
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Test_Face':
+            steps = layout.column(align=True)
+            box_modifiers = steps.box()
+            box_modifiers.label(text='Face Deformation')
+            box_modifiers.operator("blenrig.add_head_modifiers", text = 'Add Head Modifiers')
+            box_modifiers.operator("blenrig.guide_transfer_test_rig", text = 'Test Defomation').bone = 'mouth_ctrl'
         if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Edit_Hands':
             steps = layout.column(align=True)
             box_transfer = steps.box()
@@ -45,4 +93,41 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
             col_mapping = row_options.column()
             col_mapping.label(text = 'Mapping:')
             col_mapping.prop(context.scene.blenrig_guide, "transfer_mapping", text =  '')
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.label(text="Hands Weights Mesh Editing Options")
+            mirror_row = box.row()
+            if hands_weights_model.mode == 'EDIT':
+                mirror_row.prop(hands_weights_model.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(hands_weights_model.data, "use_mirror_topology")
+                mirror_row.prop(hands_weights_model, "show_in_front")
+            box.prop(hands_weights_model, "display_type")
+            box.separator()
+            if hands_model.mode == 'EDIT':
+                box = steps.box()
+                box.label(text="Character Hands Editing Options")
+                mirror_row = box.row()
+                mirror_row.prop(hands_model.data, "use_mirror_x", text='X-Mirror')
+                mirror_row.prop(hands_model.data, "use_mirror_topology")
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Test_Hands':
+            steps = layout.column(align=True)
+            box_modifiers = steps.box()
+            box_modifiers.label(text='Hands Deformation')
+            box_modifiers.operator("blenrig.add_hands_modifiers", text = 'Add Hands Modifiers')
+            box_modifiers.separator()
+            box_modifiers.operator("blenrig.guide_transfer_test_rig", text = 'Test Defomation').bone = 'hand_close_L'
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Eyes':
+            steps = layout.column(align=True)
+            box_modifiers = steps.box()
+            box_modifiers.label(text='Eyes Deformation')
+            box_modifiers.operator("blenrig.add_eyes_modifiers", text = 'Add Left Eye Modifiers').side = 'Left'
+            box_modifiers.separator()
+            box_modifiers.operator("blenrig.add_eyes_modifiers", text = 'Add Right Eye Modifiers').side = 'Right'
+            box_modifiers.separator()
+            box_modifiers.operator("blenrig.guide_transfer_test_rig", text = 'Test Defomation').bone = 'look'
+        if VIEW3D_OT_blenrig_guide_datatransfer.instance and context.scene.blenrig_guide.guide_current_step == 'DT_Inner_Mouth':
+            steps = layout.column(align=True)
+            box_modifiers = steps.box()
+            box_modifiers.label(text='Eyes Deformation')
+            box_modifiers.operator("blenrig.add_teeth_modifiers", text = 'Add Inner Mouth Modifiers')
 
