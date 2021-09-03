@@ -8,11 +8,24 @@ GUIDE_STEPS_MDEF = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
+            'EN': 'Mesh Deform intro',
+            'ES': 'Define los objetos que componen el cuerpo de tu personaje'
+            },
+        'texto': {
+            'EN': "In this Guide you will setup Mesh Deform Deformation. In this method, the body of the character is deformed with Low Resolution Mesh that is much easier to setup than weight painting directly on the character. Head, Hands and eventually Toes don't get deformed with this method.",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': MDEF_Intro
+    },
+    #Define Character Body Objects
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
             'EN': 'Define Character Body Objects',
             'ES': 'Define los objetos que componen el cuerpo de tu personaje'
             },
         'texto': {
-            'EN': "Select all the objects that conform the character's body and press the Set Body Objects button",
+            'EN': "Select all the objects that conform the Character's Body and press the 'Set Body Objects' Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Select_Body_Objects
@@ -38,7 +51,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Comprueba la vinculacion de la malla de deformación'
             },
         'texto': {
-            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the Unbind button, then Edit the cage and Bind again until all the vertices move with the rig",
+            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the 'Edit Mdef Cage' Button, tweak the cage and Bind again until all the body vertices move with the rig",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Binding_Check
@@ -55,6 +68,19 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Final_Binding
+},
+    #Mesh Finish
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Mesh Finish',
+            'ES': 'Finalización de la vinculacion del Mesh Deform'
+            },
+        'texto': {
+            'EN': "Move on to the next Guide!",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': MDEF_Finish
 }
 )
 

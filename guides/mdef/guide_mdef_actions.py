@@ -13,6 +13,11 @@ def select_armature(operator, context):
 
 #### MDEF STEPS ####
 
+def MDEF_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Intro'
+
 def MDEF_Select_Body_Objects(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -57,23 +62,33 @@ def MDEF_Edit_Mdef_Cage(operator, context):
     deselect_all_objects(context)
 
     # Show Mdef
-    mdef_cage_objects = collect_cage()
-    collect_cage()
-    blenrig_temp_link(mdef_cage_objects)
+    guide_props = bpy.context.scene.blenrig_guide
+    mdef_cage = guide_props.mdef_cage_obj
 
-    for ob in mdef_cage_objects:
-        set_active_object(context, ob)
-        bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
+    if mdef_cage != None:
+        blenrig_temp_link([mdef_cage])
+        set_active_object(context, mdef_cage)
+        mdef_cage.hide_viewport = False
         set_mode('EDIT')
+    else:
+        mdef_cage_objects = collect_cage()
+        collect_cage()
+        blenrig_temp_link(mdef_cage_objects)
+
+        for ob in mdef_cage_objects:
+            set_active_object(context, ob)
+            guide_props.mdef_cage_obj = ob
+            guide_props.mdef_cage_obj.hide_viewport = False
+            set_mode('EDIT')
 
     #Hide Armature
-    bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
+    guide_props.arm_obj.hide_viewport = True
 
 def MDEF_Binding_Check(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Binding_Check'
+    guide_props = bpy.context.scene.blenrig_guide
 
     #Set Mdef Cage
     deselect_all_objects(context)
@@ -96,16 +111,15 @@ def MDEF_Binding_Check(operator, context):
 
     #Select Head object
     try:
-        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
+        set_active_object(context, guide_props.character_head_obj)
     except:
         pass
-
-
 
 def MDEF_Final_Binding(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Final_Binding'
+    guide_props = bpy.context.scene.blenrig_guide
 
     #Set Mdef Cage
     deselect_all_objects(context)
@@ -128,9 +142,14 @@ def MDEF_Final_Binding(operator, context):
 
     #Select Head object
     try:
-        bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
+        set_active_object(context, guide_props.character_head_obj)
     except:
         pass
+
+def MDEF_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Finish'
 
 #### END OF STEP ACTIONS ####
 def mdef_end_generic(context):
