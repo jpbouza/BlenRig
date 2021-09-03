@@ -76,4 +76,3 @@ def center_loop():
         bmesh.update_edit_mesh(active_obj.data)
 
     bpy.ops.mesh.select_all(action='DESELECT')
-    # bpy.ops.object.mode_set(mode='OBJECT')
