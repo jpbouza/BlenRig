@@ -51,6 +51,11 @@ def select_armature(context):
     go_blenrig_pose_mode(context)
 
 #### REPROPORTION STEPS ####
+def Reprop_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Intro'
+
 
 def Reprop_Symmetry(operator, context):
     #Perform end of step action and set current step name

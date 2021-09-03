@@ -4,6 +4,19 @@ from . guide_reproportion_actions import *
 images_dir = join(dirname(__file__), 'images')
 
 GUIDE_STEPS_REPROPORTION = (
+    # Introduction
+    {
+        'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
+        'titulo': {
+            'EN': 'Introduction',
+            'ES': 'Opcion de Simetria.'
+            },
+        'texto': {
+            'EN': 'This Guide will take you through the process of adjusting the Rig to you Character.',
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': Reprop_Intro
+    },
     # Symmetry Step
     {
         'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
@@ -688,7 +701,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Reproporcion Finalizada'
             },
         'texto': {
-            'EN': 'End of Reproportion process. You can now start the deformation setup process',
+            'EN': "You're done with Reproportion. Now start the 'Weights Transfer Guide!'",
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Finish
