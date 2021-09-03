@@ -4,11 +4,11 @@ from .. datatransfer.guide_datatransfer_actions import *
 images_dir = join(dirname(__file__), 'images')
 
 GUIDE_STEPS_DATATRANSFER = (
-    #Weihgts Transfer Intro
+    #Introduction
     {
         'imagen': ('DT_Weight_Mesh_Shapekey_Head_A.jpg', 'DT_Weight_Mesh_Shapekey_Head_B.jpg', 'DT_Weight_Mesh_Shapekey_Head_C.jpg', 'DT_Weight_Mesh_Shapekey_Head_D.jpg'),
         'titulo': {
-            'EN': 'Weights Transfer Intro',
+            'EN': 'Introduction',
             'ES': 'Paso 1'
             },
         'texto': {
