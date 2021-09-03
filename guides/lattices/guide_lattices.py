@@ -4,6 +4,19 @@ from .. lattices.guide_lattices_actions import *
 images_dir = join(dirname(__file__), 'images')
 
 GUIDE_STEPS_LATTICES = (
+    #Introduction
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Introduction',
+            'ES': 'Edita el Lattice del cuerpo'
+            },
+        'texto': {
+            'EN': "In this Guide you will adjust the placement of the Lattices of the rig. Lattices will allow you to achieve extra deformations, most commonly used for toon characters.",
+            'ES': "Ajuste el Lattice del cuerpo, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
+            },
+        'accion': LATTICES_Intro
+    },
     #Edit Body Lattice
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -69,6 +82,19 @@ GUIDE_STEPS_LATTICES = (
             },
         'accion': LATTICES_Adjust_Eyes
     },
+    #Lattices Finish
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Lattices Finish',
+            'ES': 'Edita el Lattice del cuerpo'
+            },
+        'texto': {
+            'EN': "Done! Move to the Weight Painting Guide!",
+            'ES': "Ajuste el Lattice del cuerpo, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
+            },
+        'accion': LATTICES_Finish
+    }
 )
 
 

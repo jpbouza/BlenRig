@@ -12,6 +12,10 @@ def select_armature(operator, context):
     go_blenrig_pose_mode(context)
 
 #### LATTICES STEPS ####
+def LATTICES_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'LATTICES_Intro'
 
 def LATTICES_Adjust_Body(operator, context):
     #Perform end of step action and set current step name
@@ -260,9 +264,27 @@ def LATTICES_Adjust_Eyes(operator, context):
     except:
         pass
 
+def LATTICES_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'LATTICES_Finish'
+
 #### END OF STEP ACTIONS ####
 def lattices_end_generic(context):
     guide_props = context.scene.blenrig_guide
+
+    #Unlink Temp Collection
+    blenrig_temp_unlink()
+
+    # Show Lattices
+    lattice_objects = collect_lattice_objects()
+    collect_lattice_objects()
+    blenrig_temp_link(lattice_objects)
+
+    #Apply Lattices Transform
+    for ob in lattice_objects:
+        set_active_object(context, ob)
+        bpy.ops.blenrig.reset_hooks()
 
     #Select Armature
     if hasattr(context, 'active_object') and hasattr(context.active_object, 'type'):
