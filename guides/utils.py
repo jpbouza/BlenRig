@@ -1928,7 +1928,7 @@ def get_driver_transform_loc(shapekey, default_value):
                 return 1 / driver.modifiers[0].coefficients[1]
     return default_value
 
-#Propagate shapekey y other shapekeys
+#Propagate shapekey to other shapekeys
 def blend_from_shape(source_shape, destination_keys):
     ob = bpy.context.active_object
     shapekeys_list = destination_keys
@@ -2003,3 +2003,17 @@ def set_locks(bone_list, loc_x, loc_y, loc_z, rot_x, rot_y, rot_z, scale_x, scal
                 b.lock_scale[0] = scale_x
                 b.lock_scale[1] = scale_y
                 b.lock_scale[2] = scale_z
+
+#Toggle Mdef Cage Function
+def show_mdef_cage_update(self, context):
+    guide_props = bpy.context.scene.blenrig_guide
+    mdef_cage = guide_props.mdef_cage_obj
+    prop = guide_props.guide_show_mdef_cage
+
+    if prop:
+        blenrig_temp_unlink()
+        blenrig_temp_link([mdef_cage])
+    else:
+        blenrig_temp_unlink()
+
+

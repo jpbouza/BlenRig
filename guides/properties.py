@@ -499,3 +499,9 @@ class BlenrigGuideData(PropertyGroup):
     update=show_wp_bones_update,
     name="Show Bones"
     )
+    #Toggle Mdef Cage
+    guide_show_mdef_cage : BoolProperty(default=0,
+    description="Toggle Mdef Cage Visibility in BlenRig Weights Transfer Guide",
+    update=show_mdef_cage_update,
+    name="Show Mdef Cage"
+    )

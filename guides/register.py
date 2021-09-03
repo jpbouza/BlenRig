@@ -50,7 +50,7 @@ def register():
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
     Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
     Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down, Operator_blenrig_snap_bone_to_cursor, Operator_blenrig_add_eyes_modifiers, Operator_blenrig_add_teeth_modifiers,
-    Operator_Guide_Transfer_Test_Rig)
+    Operator_Guide_Transfer_Test_Rig, Operator_blenrig_guide_edit_mdef_cage)
 
     register_class(VIEW3D_OT_blenrig_guide_reproportion)
     register_class(VIEW3D_OT_blenrig_guide_datatransfer)
@@ -95,6 +95,7 @@ def register():
     register_class(Operator_blenrig_add_eyes_modifiers)
     register_class(Operator_blenrig_add_teeth_modifiers)
     register_class(Operator_Guide_Transfer_Test_Rig)
+    register_class(Operator_blenrig_guide_edit_mdef_cage)
     register_class(BlenRigGuidePanel_options)
     register_class(BlenRigGuidePanel)
 
@@ -120,7 +121,7 @@ def unregister():
     Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
     Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
     Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down, Operator_blenrig_snap_bone_to_cursor, Operator_blenrig_add_eyes_modifiers, Operator_blenrig_add_teeth_modifiers,
-    Operator_Guide_Transfer_Test_Rig)
+    Operator_Guide_Transfer_Test_Rig, Operator_blenrig_guide_edit_mdef_cage)
 
     from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
@@ -168,6 +169,7 @@ def unregister():
     unregister_class(Operator_blenrig_add_eyes_modifiers)
     unregister_class(Operator_blenrig_add_teeth_modifiers)
     unregister_class(Operator_Guide_Transfer_Test_Rig)
+    unregister_class(Operator_blenrig_guide_edit_mdef_cage)
     from .properties import BlenrigGuideImages, BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones, BlenRigShapekeysList
     from bpy.types import Scene as scn
     del scn.blenrig_guide

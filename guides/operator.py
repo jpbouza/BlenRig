@@ -1,6 +1,5 @@
-from math import radians
-
 import bpy
+from math import radians
 from mathutils import Vector
 from bpy.props import StringProperty, BoolProperty, EnumProperty
 
@@ -130,7 +129,7 @@ class Operator_Guide_Transfer_Test_Rig(bpy.types.Operator):
     def poll(cls, context):
         if not context.active_object:
             return False
-        if (context.active_object.type in ["MESH"]):
+        if (context.active_object.type in ["MESH", "ARMATURE"]):
             return True
         else:
             return False
@@ -754,12 +753,25 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
     Guide_Bind_Type: bpy.props.BoolProperty(default=True, name = 'Fast Binding' )
 
     def execute(self, context):
-        from .utils import set_active_object, deselect_all_objects
+        guide_props = bpy.context.scene.blenrig_guide
+        from .utils import set_active_object, deselect_all_objects, show_armature, go_blenrig_pose_mode, unhide_all_bones, deselect_all_pose_bones, reset_all_bones_transforms
+
+        #Reset Armature Pose
+        show_armature(context)
+
+        #Ensure POSE Mode
+        go_blenrig_pose_mode(context)
+
+        unhide_all_bones(context)
+        deselect_all_pose_bones(context)
+
+        #Reset Transforms
+        reset_all_bones_transforms()
 
         if self.Guide_Bind_Type == True:
             try:
                 deselect_all_objects(context)
-                set_active_object(context, context.scene.blenrig_guide.character_head_obj)
+                set_active_object(context, guide_props.character_head_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
             except:
                 pass
@@ -781,13 +793,13 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
         if self.Guide_Bind_Type == False:
             try:
                 deselect_all_objects(context)
-                set_active_object(context, context.scene.blenrig_guide.character_head_obj)
+                set_active_object(context, guide_props.character_head_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
             except:
                 pass
             try:
                 deselect_all_objects(context)
-                set_active_object(context, context.scene.blenrig_guide.character_hands_obj)
+                set_active_object(context, guide_props.character_hands_obj)
                 bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
             except:
                 pass
@@ -800,6 +812,11 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
                     bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=False)
             except:
                 pass
+        try:
+            set_active_object(context, guide_props.character_head_obj)
+        except:
+            pass
+        guide_props.guide_show_mdef_cage = False
         return {"FINISHED"}
 
 class Operator_blenrig_unbind_mdef_modifiers(bpy.types.Operator):
@@ -846,7 +863,16 @@ class Operator_blenrig_guide_unbind_mdef_modifiers(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
     def execute(self, context):
-        from .utils import set_active_object, deselect_all_objects
+        from .utils import set_active_object, deselect_all_objects, show_armature, go_blenrig_pose_mode, unhide_all_bones, deselect_all_pose_bones
+
+        #Reset Armature Pose
+        show_armature(context)
+
+        #Ensure POSE Mode
+        go_blenrig_pose_mode(context)
+
+        unhide_all_bones(context)
+        deselect_all_pose_bones(context)
 
         try:
             deselect_all_objects(context)
@@ -869,6 +895,55 @@ class Operator_blenrig_guide_unbind_mdef_modifiers(bpy.types.Operator):
                 bpy.ops.blenrig.unbind_mdef_modifiers()
         except:
             pass
+        try:
+            set_active_object(context, context.scene.blenrig_guide.character_head_obj)
+        except:
+            pass
+        return {"FINISHED"}
+
+class Operator_blenrig_guide_edit_mdef_cage(bpy.types.Operator):
+
+    bl_idname = "blenrig.guide_edit_mdef_cage"
+    bl_label = "BlenRig Edit Mesh Deform Cage"
+    bl_description = "Edit MDef Cage. This will Unbind Mesh Deform first, in order to Edit the Cage"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH", "ARMATURE"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+        guide_props = bpy.context.scene.blenrig_guide
+        from .utils import go_blenrig_pose_mode, deselect_all_objects, deselect_all_pose_bones, select_pose_bone, set_active_object, set_mode, show_armature, unhide_all_bones, reset_all_bones_transforms
+
+        deselect_all_objects(context)
+
+        #Reset Armature Pose
+        show_armature(context)
+
+        #Ensure POSE Mode
+        go_blenrig_pose_mode(context)
+
+        unhide_all_bones(context)
+        deselect_all_pose_bones(context)
+
+        #Reset Transforms
+        reset_all_bones_transforms()
+
+        deselect_all_objects(context)
+
+        #Unbind Mdef
+        bpy.ops.blenrig.guide_unbind_mdef_modifiers()
+        #Show Mdef Cage
+        guide_props.guide_show_mdef_cage = True
+        set_active_object(context, guide_props.mdef_cage_obj)
+        set_mode('EDIT')
+
         return {"FINISHED"}
 
 #Shapekeys Operators
