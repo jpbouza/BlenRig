@@ -9,11 +9,11 @@ GUIDE_STEPS_DATATRANSFER = (
         'imagen': ('DT_Weight_Mesh_Shapekey_Head_A.jpg', 'DT_Weight_Mesh_Shapekey_Head_B.jpg', 'DT_Weight_Mesh_Shapekey_Head_C.jpg', 'DT_Weight_Mesh_Shapekey_Head_D.jpg'),
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Paso 1'
+            'ES': 'Introducción'
             },
         'texto': {
             'EN': "In this Guide you will Transfer the Weights from the BlenRig pre-weighted Meshes to the meshes of your character. This will give you a first weighting iteration that will let you continue with the rigging process",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'En esta guía transferirás los pesos de las mallas pre-pesadas de BlenRig a las mallas de tu personaje. Esto le dará una primera iteración de pesos que le permitirá continuar con el proceso de rigging'
             },
         'accion': DT_Intro
     },
