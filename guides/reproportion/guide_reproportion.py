@@ -9,11 +9,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Opcion de Simetria.'
+            'ES': 'Introducción'
             },
         'texto': {
             'EN': 'This Guide will take you through the process of adjusting the Rig to you Character.',
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Esta guía le llevará a través del proceso de ajuste del Rig a su personaje.'
             },
         'accion': Reprop_Intro
     },
