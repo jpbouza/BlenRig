@@ -52,7 +52,7 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                 if guide_props.guide_joint_transforms_X6 != 0:
                     box_pose.label(text='Realistic Joints Parameters')
                     box_pose.prop(p_bones["properties_leg_L"], 'realistic_joints_ankle_rot_L', text='Ankle Displacement')
-                if guide_props.guide_joint_transforms_X6 == 5 or guide_props.guide_joint_transforms_X6 == 6 :
+                if guide_props.guide_joint_transforms_X6 == 3 or guide_props.guide_joint_transforms_X6 == 4 :
                     box_pose.label(text='Shin Twist Rate')
                     box_pose.prop(p_bones["properties_leg_L"], '["twist_rate_shin_L"]', text='Twist Rate')
                 if guide_props.guide_joint_transforms_X6 == 2:
