@@ -70,7 +70,6 @@ def center_loop():
     bm.normal_update()
     sel_verts = [v for v in bm.verts if v.select]
     for vert in sel_verts:
-        print(vert.co)
         vert.co[0] = 0
         bm.normal_update()
         bmesh.update_edit_mesh(active_obj.data)
