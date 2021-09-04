@@ -9,11 +9,11 @@ GUIDE_STEPS_LATTICES = (
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Edita el Lattice del cuerpo'
+            'ES': 'Introducción'
             },
         'texto': {
             'EN': "In this Guide you will adjust the placement of the Lattices of the rig. Lattices will allow you to achieve extra deformations, most commonly used for toon characters.",
-            'ES': "Ajuste el Lattice del cuerpo, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
+            'ES': "En esta Guia, tu podras ajustar el posicionamiento del Lattices del rig. El Lattices te permitira lograr una deformaciones adicionales,más comúnmente utilizadas para los personajes toon."
             },
         'accion': LATTICES_Intro
     },
