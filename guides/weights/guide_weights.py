@@ -12,14 +12,11 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Intro Guia de Pesos'
             },
         'texto': {
-<<<<<<< HEAD
             'EN': "In this Guide you will be able to adjust the Character's and Mdef Cage Weights if needed. You will also be able to adjust the values of the Volume Preservation Bones and the Realistic Joints values to simulate Sekeltal Structure volume in the Joints. Keep in mind that this will be the initial deformation setup, if you need to fine tune it, you will be able to do it in the Shapekeys Guide",
             'ES': 'En esta Guía podrás ajustar los Pesos del Personaje y del "Mdef Cage" si es necesario. También podrás ajustar los valores de los Huesos de Preservación del Volumen y los valores de las Juntas Realistas para simular el volumen de la Estructura Sekeltal en las Juntas. Ten en cuenta que esta será la configuración inicial de la deformación, si necesitas afinarla, podrás hacerlo en la Guía de Shapekeys.'
 
-=======
             'EN': "In this Guide you will be able to adjust the Weights of the Character and of the Mdef Cage if needed. You will also be able to adjust the values of the Volume Preservation Bones and the Realistic Joints values to simulate Sekeltal Structure Volume in the Joints. Keep in mind that this will be the initial deformation setup, further tuning will be done in the Shapekeys Guide",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
->>>>>>> c938339b032d8bfca468c1baab7b0e31a1599efc
             },
         'accion': WEIGHTS_Intro
     },
