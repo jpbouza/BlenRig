@@ -437,7 +437,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Lower Eyelid Up',
             'ES': 'Paso 1'
             },
         'texto': {
