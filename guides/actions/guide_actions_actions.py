@@ -7,10 +7,6 @@ def frame_bones(context, *bone_names):
     frame_selected()
     deselect_all_pose_bones(context)
 
-def select_armature(operator, context):
-    # Select previously active Armature
-    go_blenrig_pose_mode(context)
-
 #Generic Function for Editting Actions
 def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, action, frame_number, bone_list, active_bone, layer_list):
     #Perform end of step action and set current step name
@@ -1042,7 +1038,7 @@ def ACTIONS_U_Thicker_Lips(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.arm_obj.pose.bones["mouth_ctrl"].location[0] = guide_props.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L
-    guide_props.arm_obj.pose.bones["mouth_ctrl"].scale[:] = (0.5, 0.5, 0.5)
+    #guide_props.arm_obj.pose.bones["mouth_ctrl"].scale[:] = (0.5, 0.5, 0.5)
 
 def ACTIONS_U_Thinner_Lips(operator, context):
     edit_action(operator, context,
@@ -1061,7 +1057,7 @@ def ACTIONS_U_Thinner_Lips(operator, context):
     #Assign value from Facial Movement Ranges to Guide Property so that controller moves
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.arm_obj.pose.bones["mouth_ctrl"].location[0] = guide_props.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L
-    guide_props.arm_obj.pose.bones["mouth_ctrl"].scale[:] = (2.0, 2.0, 2.0)
+    #guide_props.arm_obj.pose.bones["mouth_ctrl"].scale[:] = (2.0, 2.0, 2.0)
 
 def ACTIONS_M(operator, context):
     edit_action(operator, context,
@@ -1156,6 +1152,19 @@ def ACTIONS_Chin_Frown_Down(operator, context):
 
 def actions_end_generic(context):
     guide_props = context.scene.blenrig_guide
+
+    #Turn off Show Bones
+    guide_props.guide_show_wp_bones = False
+
+    #Select Armature
+    if context.active_object.type == 'MESH':
+        deselect_all_objects(context)
+
+    show_armature(context)
+
+    #Ensure POSE Mode
+    go_blenrig_pose_mode(context)
+
 
     #Force Pose Position
     bpy.context.active_object.data.pose_position = 'POSE'
