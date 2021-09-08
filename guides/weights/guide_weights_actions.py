@@ -100,6 +100,7 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
 
     #Active VGroup
     set_active_vgroup(vgroup_list[0])
+    guide_props.guide_active_wp_group = vgroup_list[0]
 
     #Set Bone and Angles
     guide_props.guide_transform_steps = joint_type
