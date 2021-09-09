@@ -1570,7 +1570,7 @@ def SHAPEKEYS_Char_Mouth_Frown_Side_Out(operator, context):
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
-    'mouth_frown_side_L',
+    'mouth_frown_side_corner_out_L',
     False)
 
     guide_props = bpy.context.scene.blenrig_guide
@@ -1596,11 +1596,11 @@ def SHAPEKEYS_Char_Mouth_Frown_Side_In(operator, context):
     ['mouth_corner_L'],
     ['shapekeys_mouth_low'],
     'shpaekey_edit',
-    ['mouth_frown_side_corner_out_L', '', '', '', '', ''],
+    ['mouth_frown_side_corner_in_L', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
-    'mouth_frown_side_L',
+    'mouth_frown_side_corner_out_L',
     False)
 
     guide_props = bpy.context.scene.blenrig_guide
