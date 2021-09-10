@@ -308,7 +308,7 @@ def SETTINGS_Feet_Floor(operator, context):
 def SETTINGS_Eyelids_Floor(operator, context):
     weight_step(operator, context, 'SETTINGS_Eyelids_Floor',
     'x2', ['eyelid_low_ctrl_L',
-    (0.0, 0.0, bpy.data.objects["biped_blenrig"].pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L / 2), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["eyelid_low_ctrl_L"].EYELID_UP_LIMIT_L / 2), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -364,7 +364,7 @@ def SETTINGS_Eyelids_Follow(operator, context):
 def SETTINGS_Eyelids_Cheek_Follow(operator, context):
     weight_step(operator, context, 'SETTINGS_Eyelids_Cheek_Follow',
     'x2', ['cheek_ctrl_L',
-    (0.0, 0.0, bpy.data.objects["biped_blenrig"].pose.bones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["cheek_ctrl_L"].CHEEK_UP_LIMIT_L), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -387,7 +387,7 @@ def SETTINGS_Eyelids_Cheek_Follow(operator, context):
 def SETTINGS_Cheek_Smile_Follow(operator, context):
     weight_step(operator, context, 'SETTINGS_Cheek_Smile_Follow',
     'x2', ['mouth_corner_L',
-    (-(bpy.data.objects["biped_blenrig"].pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.25, 0.0, bpy.data.objects["biped_blenrig"].pose.bones["mouth_corner_L"].UP_LIMIT_L * 0.5), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.25, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L * 0.5), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -410,7 +410,7 @@ def SETTINGS_Cheek_Smile_Follow(operator, context):
 def SETTINGS_Coner_Auto_Back(operator, context):
     weight_step(operator, context, 'SETTINGS_Coner_Auto_Back',
     'x2', ['mouth_ctrl',
-    (-(bpy.data.objects["biped_blenrig"].pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.5, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.5, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -433,7 +433,7 @@ def SETTINGS_Coner_Auto_Back(operator, context):
 def SETTINGS_Lips_Floor(operator, context):
     weight_step(operator, context, 'SETTINGS_Lips_Floor',
     'x2', ['mouth_ctrl',
-    (0.0, 0.0, bpy.data.objects["biped_blenrig"].pose.bones["lip_low_def_mid"].length), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["lip_low_def_mid"].length), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
@@ -460,7 +460,7 @@ def SETTINGS_Lips_Floor(operator, context):
 def SETTINGS_Lip_Curvature(operator, context):
     weight_step(operator, context, 'SETTINGS_Lip_Curvature',
     'x2', ['mouth_corner_L',
-    (-(bpy.data.objects["biped_blenrig"].pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.75, 0.0, bpy.data.objects["biped_blenrig"].pose.bones["mouth_corner_L"].UP_LIMIT_L * 0.75), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.75, 0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].UP_LIMIT_L * 0.75), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
