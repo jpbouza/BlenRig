@@ -48,12 +48,16 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
                             vert_pose_list[vert] =  v_pos_near
 
             for vert in sel_verts:
+                append_attribute_to_obj(active_obj, str(vert.index), vert.co)
                 vert.co = vert_pose_list[vert]
                 bm.normal_update()
-                vert.co += vert.normal/(props*-1) 
                 bmesh.update_edit_mesh(active_obj.data)
-        center_loop()
+        #center_loop()
         return {'FINISHED'}
+    
+def append_attribute_to_obj(obj, attribute, value):
+    v = str(value.x) + " " + str(value.y) + " " + str(value.z)
+    obj[attribute] = str(v)
 
 def center_loop():    
     if bpy.context.mode != 'EDIT':

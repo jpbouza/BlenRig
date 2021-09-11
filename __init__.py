@@ -47,6 +47,8 @@ bl_info = {
 import bpy
 import os
 import bl_ui
+import bmesh
+from mathutils import Vector
 
 
 from bpy.props import FloatProperty, IntProperty, BoolProperty,EnumProperty, FloatVectorProperty
@@ -145,8 +147,25 @@ def vol_variation_update(self, context):
 def vol_prservation_update(self, context):
     set_vol_preservation(context)
 
+def get_custom_attribute_from_object(obj, attribute):
+    if str(attribute) in obj:
+        return obj[attribute]
+
 def snap_points_update(self, context):
-    bpy.ops.blenrig.snap_points()
+    props = context.window_manager.blenrig_6_props.ajust_distance_cage
+    active_obj = context.active_object
+    bm = bmesh.from_edit_mesh(active_obj.data)
+    bm.verts.ensure_lookup_table()
+    sel_verts = [v for v in bm.verts if v.select]
+
+    for vert in sel_verts:
+        old_co = get_custom_attribute_from_object(active_obj, str(vert.index))
+        a = old_co.split()
+        old_vec = Vector((float(a[0]),float(a[1]),float(a[2])))
+        bm.normal_update()
+        vert.co = old_vec + vert.normal*float("%f" % props)
+        bmesh.update_edit_mesh(active_obj.data)
+
 ######### Handler for update on load and frame change #########
 
 # from bpy.app.handlers import persistent
@@ -2785,7 +2804,7 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     contextOptions2 = [('BONESHAPES', 'BoneShapes', "BoneShapes Tools", 'POSE_HLT', 0),
                         ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
     displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')
-    ajust_distance_cage : bpy.props.IntProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=5, max=50, default=8)
+    ajust_distance_cage : bpy.props.FloatProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
 
 # BlenRig Armature Tools Operator
 armature_classes = [
