@@ -13,6 +13,11 @@
 import bpy
 
 def register():
+    # Registrar los handlers.
+    from . handlers import register as REGISTER_HANDLERS
+    REGISTER_HANDLERS()
+
+    # Registrar clases de properties.
     from .properties import BlenrigGuideImages, BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones, BlenRigShapekeysList
     from bpy.types import Scene as scn
     from bpy.props import PointerProperty as Pointer
@@ -100,6 +105,11 @@ def register():
     register_class(BlenRigGuidePanel)
 
 def unregister():
+    # Unregister handlers.
+    from . handlers import unregister as UNREGISTER_HANDLERS
+    UNREGISTER_HANDLERS()
+
+    # Unregister Operators.
     from .panel import BlenRigGuidePanel, BlenRigGuidePanel_options
     from .guide_ops import (
         VIEW3D_OT_blenrig_guide_reproportion,

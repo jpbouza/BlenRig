@@ -36,7 +36,6 @@ class GuideSteps(Enum):
     RIG_SETTINGS = (GUIDE_STEPS_SETTINGS    , rig_settings_end_of_step_action)
     SHAPEKEYS    = (GUIDE_STEPS_SHAPEKEYS   , shapekeys_end_of_step_action)
 
-
     @classmethod
     def get_steps(cls, operator: 'BlenrigGuide_BaseOperator') -> tuple:
         return getattr(cls, operator.guide_name.upper())()

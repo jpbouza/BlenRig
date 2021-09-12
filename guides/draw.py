@@ -11,7 +11,11 @@ from . utils import spacecoordstoscreencoords, get_armature_object
 
 
 def draw_callback_px(self, context):
-    if self.area != context.area:
+    try:
+        if self.area != context.area:
+            return
+    except ReferenceError as e:
+        print(e)
         return
     arm_obj = get_armature_object(context)
     if not arm_obj:

@@ -32,6 +32,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
     bl_description = "Run Blenrig interactive guide and show it inside 3d viewport"
 
     instance = None
+    draw_handler = None
     step : IntProperty(default=0)
 
     # PROPIEDADES A ADAPTAR EN CADA SUB-OPERATOR.
@@ -51,7 +52,9 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             return False
         if cls.modes and ctx.mode not in cls.modes:
             return False
-        if cls.instance:
+        # Sólo debe de haber una instancia (independientemente de qué guía sea),
+        # y el operator base/padre se encarga de almacenar la referencia.
+        if BlenrigGuide_BaseOperator.instance: # cls.instance:
             print("WARN! Trying to open a new Blenrig Guide instance when there's one active instance")
             return False
         return True
@@ -121,10 +124,11 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         self.use_auto_perspective = context.preferences.inputs.use_auto_perspective
         context.preferences.inputs.use_auto_perspective = False
 
-        args = (self, context)
-        self._handle = bpy.types.SpaceView3D.draw_handler_add(draw_callback_px, args, 'WINDOW', 'POST_PIXEL')
-        context.window_manager.modal_handler_add(self)
-        self.__class__.instance = self
+        if not context.window_manager.modal_handler_add(self):
+            return ModalReturn.CANCEL()
+ 
+        BlenrigGuide_BaseOperator.draw_handler = bpy.types.SpaceView3D.draw_handler_add(draw_callback_px, (self, context), 'WINDOW', 'POST_PIXEL') #self._handle
+        BlenrigGuide_BaseOperator.instance = self #self.__class__.instance = self
         return ModalReturn.RUN()
 
     ''' LOAD-STEP FUNCTIONS. '''
@@ -193,12 +197,17 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         if not getattr(context, 'scene', None):
             context = bpy.context
         self.end_of_step_action(context)
-        self.__class__.instance = None
+        BlenrigGuide_BaseOperator.instance = None #self.__class__.instance = None
         if self.timer:
             context.window_manager.event_timer_remove(self.timer)
-        bpy.types.SpaceView3D.draw_handler_remove(self._handle, 'WINDOW')
+        bpy.types.SpaceView3D.draw_handler_remove(BlenrigGuide_BaseOperator.draw_handler, 'WINDOW') #self._handle
         # Recover temporal changes.
         context.preferences.inputs.use_auto_perspective = self.use_auto_perspective
+
+    @staticmethod
+    def finish_draw():
+        if BlenrigGuide_BaseOperator.draw_handler:
+            bpy.types.SpaceView3D.draw_handler_remove(BlenrigGuide_BaseOperator.draw_handler, 'WINDOW')
 
     # El Modal...
     def modal(self, context, event):
