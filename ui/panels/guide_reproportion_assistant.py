@@ -10,6 +10,9 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
 
     def draw(self, context):
+        if not VIEW3D_OT_blenrig_guide_reproportion.is_instantiated():
+            return
+
         layout = self.layout
         arm = context.active_object
         active = context.active_object
@@ -19,22 +22,21 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
             p_bones = arm.pose.bones
 
             #General
-            if VIEW3D_OT_blenrig_guide_reproportion.instance:
-                exclude = ['Reprop_Bake', 'Reprop_Custom_Alignments', 'Reprop_IK_Check', 'Reprop_Finish']
-                if guide_props.guide_current_step not in exclude:
-                    steps = layout.column(align=True)
-                    box = steps.box()
-                    box.prop(guide_props, "guide_lock_center_bones")
-                    box.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
-                    box.prop(guide_props.arm_obj.data, "display_type")
+            exclude = ['Reprop_Bake', 'Reprop_Custom_Alignments', 'Reprop_IK_Check', 'Reprop_Finish']
+            if guide_props.guide_current_step not in exclude:
+                steps = layout.column(align=True)
+                box = steps.box()
+                box.prop(guide_props, "guide_lock_center_bones")
+                box.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
+                box.prop(guide_props.arm_obj.data, "display_type")
             # Step 0 X-Mirror
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.prop(pose, "use_mirror_x")
 
             # Set Spine Curve Values Step
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Spine_Line':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Spine_Line':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Spine Curvature")
@@ -46,7 +48,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 except:
                     pass
             # Fingers Toggles
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Fingers':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Fingers':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Fingers Toggles")
@@ -80,7 +82,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 except:
                     pass
             # Toes Toggles
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Toes':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Toes':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Toes Toggles")
@@ -114,14 +116,14 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 except:
                     pass
             # Set Eye Location
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Set_Eyes':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Set_Eyes':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Set Eyes Location")
                 box.operator("blenrig.snap_bone_to_cursor", text="Snap Eye to Cursor")
 
             # Set Eyebrow Curve Values Step
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Eyebrows_Curve':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Eyebrows_Curve':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Curve Values")
@@ -161,7 +163,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                     pass
 
             # Set Mouth Curve Values Step
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Mouth_Curves':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Mouth_Curves':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Curve Values")
@@ -274,7 +276,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                     pass
 
             # Diplay Bake Button
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Bake':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Bake':
                 if context.mode in ['POSE','OBJECT']:
                     if context.active_object.data.reproportion:
                         steps = layout.column(align=True)
@@ -285,7 +287,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                         row.operator("blenrig.armature_baker_all_part_1", text="Bake All")
 
             # Diplay Bake Button
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Custom_Alignments':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Custom_Alignments':
                 steps = layout.column(align=True)
                 box = steps.box()
                 row = box.row()
@@ -293,7 +295,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 row.scale_y = 1.8
                 row.operator("blenrig.armature_baker_all_part_2", text="Custom Alignments")
             # IK Check
-            if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_IK_Check':
+            if context.scene.blenrig_guide.guide_current_step == 'Reprop_IK_Check':
                 steps = layout.column(align=True)
                 box = steps.box()
                 box.label(text="Ik Rotation Override")
@@ -312,7 +314,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                                 col_L.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
 
         # Edit Mask
-        if VIEW3D_OT_blenrig_guide_reproportion.instance and context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
+        if context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
             steps = layout.column(align=True)
             box = steps.box()
             box.label(text="Mask Editing Options")

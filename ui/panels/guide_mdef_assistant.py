@@ -10,16 +10,19 @@ class BLENRIG_PT_mdef_guide(BLENRIG_PT_guide_assistant):
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
 
     def draw(self, context):
+        if not VIEW3D_OT_blenrig_guide_mdef.is_instantiated():
+            return
+
         layout = self.layout
         guide_props = bpy.context.scene.blenrig_guide
         mdef_cage = guide_props.mdef_cage_obj
 
-        if VIEW3D_OT_blenrig_guide_mdef.instance and context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
+        if context.scene.blenrig_guide.guide_current_step == 'MDEF_Select_Body_Objects':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Objects that use Mesh Deform')
             box_set.operator("blenrig.add_body_modifiers", text = 'Set Body Objects')
-        if VIEW3D_OT_blenrig_guide_mdef.instance and context.scene.blenrig_guide.guide_current_step == 'MDEF_Edit_Mdef_Cage':
+        if context.scene.blenrig_guide.guide_current_step == 'MDEF_Edit_Mdef_Cage':
             props = context.window_manager.blenrig_6_props
             ob = context.active_object
             # Cage Setup
@@ -40,7 +43,7 @@ class BLENRIG_PT_mdef_guide(BLENRIG_PT_guide_assistant):
                 row.prop(mdef_cage.data, "use_mirror_topology")
                 col.prop(mdef_cage, "display_type")
 
-        if VIEW3D_OT_blenrig_guide_mdef.instance and context.scene.blenrig_guide.guide_current_step == 'MDEF_Binding_Check':
+        if context.scene.blenrig_guide.guide_current_step == 'MDEF_Binding_Check':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Bind Mesh Deform (Fast)')
@@ -61,7 +64,7 @@ class BLENRIG_PT_mdef_guide(BLENRIG_PT_guide_assistant):
                 row.prop(mdef_cage.data, "use_mirror_topology")
                 col.prop(mdef_cage, "display_type")
 
-        if VIEW3D_OT_blenrig_guide_mdef.instance and context.scene.blenrig_guide.guide_current_step == 'MDEF_Final_Binding':
+        if context.scene.blenrig_guide.guide_current_step == 'MDEF_Final_Binding':
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Bind Mesh Deform (Final)')
