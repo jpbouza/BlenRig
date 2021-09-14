@@ -41,6 +41,11 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
     modes = {'OBJECT', 'POSE', 'EDIT'}  # En qué modo debe de estar.
     guide_name = ''
 
+    ''' Check Instance Owner. '''
+    @classmethod
+    def is_instantiated(cls):
+        return isinstance(BlenrigGuide_BaseOperator.instance, cls)
+
     ''' Initialization. '''
     @classmethod
     def poll(cls, ctx):
@@ -128,7 +133,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             return ModalReturn.CANCEL()
  
         BlenrigGuide_BaseOperator.draw_handler = bpy.types.SpaceView3D.draw_handler_add(draw_callback_px, (self, context), 'WINDOW', 'POST_PIXEL') #self._handle
-        BlenrigGuide_BaseOperator.instance = self #self.__class__.instance = self
+        BlenrigGuide_BaseOperator.instance = self # self.__class__.instance = self
         return ModalReturn.RUN()
 
     ''' LOAD-STEP FUNCTIONS. '''
@@ -197,7 +202,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         if not getattr(context, 'scene', None):
             context = bpy.context
         self.end_of_step_action(context)
-        BlenrigGuide_BaseOperator.instance = None #self.__class__.instance = None
+        BlenrigGuide_BaseOperator.instance = None # self.__class__.instance = None
         if self.timer:
             context.window_manager.event_timer_remove(self.timer)
         bpy.types.SpaceView3D.draw_handler_remove(BlenrigGuide_BaseOperator.draw_handler, 'WINDOW') #self._handle
