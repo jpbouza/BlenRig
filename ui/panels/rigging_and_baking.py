@@ -54,7 +54,7 @@ class BLENRIG_PT_Rigging_and_baking(bpy.types.Panel):
                     row.operator("blenrig.armature_baker_all_part_2", text="Custom Aligns")
 
         else:
-            box.enabled = False 
+            box.enabled = False
 
     def draw_header(self, context):
         scene  = context.scene
@@ -154,7 +154,7 @@ class BLENRIG_PT_baking(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     @classmethod
     def poll(cls, context):
         if not context.mode in ['OBJECT']:
@@ -209,5 +209,8 @@ class BLENRIG_PT_baking(bpy.types.Panel):
             row = box.row()
             row.operator("blenrig.reset_constraints", text="BlenRig 6 Reset Constraints")
             row.operator("blenrig.reset_deformers", text="Reset Deformers")
+            row = box.row()
+            row.operator("blenrig.calculate_pole_angles", text="Calculate Pole Angles")
+            row.operator("blenrig.calculate_floor_offsets", text="Calculate Floor Offsets")
         else:
             box.enabled = False
