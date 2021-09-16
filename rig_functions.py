@@ -1,7 +1,6 @@
 import bpy
 from math import radians
-
-#### File to append to the rig via game logic when the intention is to use it in a system that doesn't have the BlenRig addon installed
+import numpy
 
 ####### Bones Hiding System #######
 
@@ -1878,3 +1877,36 @@ def set_vol_preservation(context):
     #Toes Down R
     Set_VP_Transforms('properties_leg_R', 'volume_preservation_toes_down_R', 'Toes_VP_Down_R_NOREP', 'to_max_y', 1)
     return {"FINISHED"}
+
+
+##############
+# Pole Angle #
+# by Jerryno #
+##############
+
+def calculate_pole_angle(upper_bone, lower_bone, pole_bone):
+
+    arm_obj = bpy.context.active_object
+
+    def signed_angle(vector_u, vector_v, normal):
+        # Normal specifies orientation
+        angle = vector_u.angle(vector_v)
+        if vector_u.cross(vector_v).angle(normal) < 1:
+            angle = -angle
+        return angle
+
+    def get_pole_angle(base_bone, ik_bone, pole_location):
+        pole_normal = (ik_bone.tail - base_bone.head).cross(pole_location - base_bone.head)
+        projected_pole_axis = pole_normal.cross(base_bone.tail - base_bone.head)
+        return signed_angle(base_bone.x_axis, projected_pole_axis, base_bone.tail - base_bone.head)
+
+    base_bone = arm_obj.pose.bones[upper_bone]
+    ik_bone   = arm_obj.pose.bones[lower_bone]
+    pole_bone = arm_obj.pose.bones[pole_bone]
+
+    pole_angle_in_radians = get_pole_angle(
+        base_bone,
+        ik_bone,
+        pole_bone.matrix.translation)
+
+    return numpy.rad2deg(pole_angle_in_radians)

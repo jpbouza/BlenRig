@@ -479,6 +479,7 @@ class ARMATURE_OT_armature_baker_all_part_2(bpy.types.Operator):
         bpy.ops.blenrig.reset_constraints()
         context.object.data.pose_position = 'REST'
         bpy.ops.blenrig.reset_deformers()
+        bpy.ops.blenrig.calculate_pole_angles()
         context.object.data.pose_position = 'POSE'
         context.object.data.reproportion = False
         context.scene.cursor.location = [0,0,0]
@@ -606,9 +607,13 @@ class ARMATURE_OT_advanced_armature_baker(bpy.types.Operator):
                 except:
                     pass
 
+    def calc_poles(self, context):
+        bpy.ops.blenrig.calculate_pole_angles()
+
     def execute(self, context):
         self.bake_armature(context)
         self.armature_update_values(context)
+        self.calc_poles(context)
         self.report({'INFO'}, "Baking done")
         return{'FINISHED'}
 

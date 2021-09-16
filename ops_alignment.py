@@ -1,5 +1,5 @@
 import bpy
-
+from math import radians
 
 ##################################### Bone Alignment Operators #######################################
 
@@ -1370,3 +1370,148 @@ class Operator_Mirror_RJ_Constraints(bpy.types.Operator):
                                                                     bl[Lprop[0]] = br[Rprop[0]]
 
         return {"FINISHED"}
+
+#### Calculate Pole Angles ####
+
+class Operator_blenrig_calculate_pole_angles(bpy.types.Operator):
+
+    bl_idname = "blenrig.calculate_pole_angles"
+    bl_label = "BlenRig Calculate IK Pole Angles"
+    bl_description = "Calculate IK Pole Angles"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if context.active_object is not None:
+            return (bpy.context.object.type == 'ARMATURE')
+        else:
+            return False
+
+    def calc_pole_angles(self, context):
+        from .rig_functions import calculate_pole_angle
+        arm_obj = bpy.context.active_object
+        pbones = arm_obj.pose.bones
+
+        try:
+            pbones['forearm_ik_L'].constraints["IK_NOREP"].pole_angle = radians(calculate_pole_angle('arm_ik_L', 'forearm_ik_L', 'elbow_pole_L'))
+        except:
+            pass
+        try:
+            pbones['forearm_ik_R'].constraints["IK_NOREP"].pole_angle = radians(calculate_pole_angle('arm_ik_R', 'forearm_ik_R', 'elbow_pole_R'))
+        except:
+            pass
+        try:
+            pbones['arm_elbow_pin_L'].constraints["IK_NOREP"].pole_angle = radians(calculate_pole_angle('shoulder_mstr_L', 'arm_elbow_pin_L', 'elbow_pole_L'))
+        except:
+            pass
+        try:
+            pbones['arm_elbow_pin_R'].constraints["IK_NOREP"].pole_angle = radians(calculate_pole_angle('shoulder_mstr_R', 'arm_elbow_pin_R', 'elbow_pole_R'))
+        except:
+            pass
+        try:
+            pbones['shin_ik_L'].constraints["IK_NOREP"].pole_angle = radians(calculate_pole_angle('thigh_ik_L', 'shin_ik_L', 'knee_pole_L'))
+        except:
+            pass
+        try:
+            pbones['shin_ik_R'].constraints["IK_NOREP"].pole_angle = radians(calculate_pole_angle('thigh_ik_R', 'shin_ik_R', 'knee_pole_R'))
+        except:
+            pass
+
+    def refresh_hack(self, context):
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode='POSE')
+
+    def rest_position(self, context):
+        arm_obj = bpy.context.active_object
+        arm_obj.data.pose_position = 'REST'
+
+    def pose_position(self, context):
+        arm_obj = bpy.context.active_object
+        arm_obj.data.pose_position = 'POSE'
+
+    def execute(self, context):
+        self.rest_position(context)
+        self.refresh_hack(context)
+        self.calc_pole_angles(context)
+        self.refresh_hack(context)
+        self.pose_position(context)
+
+        return {"FINISHED"}
+
+#### Calculate Floor Offsets ####
+
+class Operator_blenrig_calculate_floor_offsets(bpy.types.Operator):
+
+    bl_idname = "blenrig.calculate_floor_offsets"
+    bl_label = "BlenRig Calculate Floor Offsets"
+    bl_description = "Calculate Floor Offsets"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if context.active_object is not None:
+            return (bpy.context.object.type == 'ARMATURE')
+        else:
+            return False
+
+    def update_values(self, context):
+        armobj = bpy.context.active_object
+
+        #Bone Length Properties Update
+        for b in armobj.pose.bones:
+            if b.keys() != '[]':
+                if 'b_length_L' in b.keys():
+                    b['b_length_L'] = b.bone.length
+                if 'b_length_R' in b.keys():
+                    b['b_length_R'] = b.bone.length
+                if 'b_length' in b.keys():
+                    b['b_length'] = b.bone.length
+        #Floor constraints distance calculation
+        for b in armobj.pose.bones:
+            for C in b.constraints:
+                if C.type == 'FLOOR':
+                    if 'Floor_Lips' in C.name:
+                        C.offset = abs((b.head[2] - armobj.pose.bones[C.subtarget].head[2]) * 0.9)
+                    if 'Floor_Foot' in C.name:
+                        C.offset = abs(b.head[2] - armobj.pose.bones[b.custom_shape_transform.name].head[2])
+
+        #Blink rate calculation
+        for b in armobj.pose.bones:
+            if b.name == 'blink_ctrl_L':
+                try:
+                    b['Blink_Rate_L'] = abs(armobj.pose.bones['eyelid_up_ctrl_L'].head[2] - armobj.pose.bones['eyelid_low_ctrl_L'].head[2])
+                except:
+                    pass
+            if b.name == 'blink_ctrl_R':
+                try:
+                    b['Blink_Rate_R'] = abs(armobj.pose.bones['eyelid_up_ctrl_R'].head[2] - armobj.pose.bones['eyelid_low_ctrl_R'].head[2])
+                except:
+                    pass
+
+
+    def refresh_hack(self, context):
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.mode_set(mode='POSE')
+
+    def rest_position(self, context):
+        arm_obj = bpy.context.active_object
+        arm_obj.data.pose_position = 'REST'
+
+    def pose_position(self, context):
+        arm_obj = bpy.context.active_object
+        arm_obj.data.pose_position = 'POSE'
+
+    def execute(self, context):
+        self.rest_position(context)
+        self.refresh_hack(context)
+        self.update_values(context)
+        self.refresh_hack(context)
+        self.pose_position(context)
+
+        return {"FINISHED"}
+
+
+
+
+
+

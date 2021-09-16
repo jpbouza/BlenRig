@@ -165,7 +165,7 @@ def snap_points_update(self, context):
         bm.normal_update()
         vert.co = old_vec + vert.normal*float("%f" % props)
         bmesh.update_edit_mesh(active_obj.data)
-        
+
     bpy.ops.mesh.select_all(action='DESELECT')
     nombre_vertex_group = 'center_loop'
     bpy.context.active_object.vertex_groups.active = bpy.context.active_object.vertex_groups.get(nombre_vertex_group)
@@ -2155,7 +2155,9 @@ from .ops_alignment import (
     Operator_BlenRig_Restore_Roll_Angles,
     Operator_BlenRig_Reset_Dynamic,
     Operator_Mirror_VP_Constraints,
-    Operator_Mirror_RJ_Constraints
+    Operator_Mirror_RJ_Constraints,
+    Operator_blenrig_calculate_pole_angles,
+    Operator_blenrig_calculate_floor_offsets
     )
 
 ####### Load BlenRig 6 Snapping Operators
@@ -2889,7 +2891,9 @@ alignment_classes = [
     Operator_BlenRig_Restore_Roll_Angles,
     Operator_BlenRig_Reset_Dynamic,
     Operator_Mirror_VP_Constraints,
-    Operator_Mirror_RJ_Constraints
+    Operator_Mirror_RJ_Constraints,
+    Operator_blenrig_calculate_pole_angles,
+    Operator_blenrig_calculate_floor_offsets
 ]
 # BlenRig Layers Schemes Operators
 schemes_classes = [
