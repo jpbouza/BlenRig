@@ -73,6 +73,7 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode, shapekeys_
         set_active_object(context, mesh_edit_obj)
         guide_props.active_shp_obj = mesh_edit_obj
         guide_props.active_wp_obj = mesh_edit_obj
+        guide_props.mdef_cage_obj.display_type = 'WIRE'
     #Hands
     elif shp_obj == 'hands':
         mesh_edit_obj = guide_props.character_hands_obj
@@ -895,8 +896,8 @@ def SHAPEKEYS_Char_Frown_Up(operator, context):
     True)
 
     guide_props = bpy.context.scene.blenrig_guide
-    guide_props.arm_obj.pose.bones['brow_mstr_L'].location[2] = get_driver_transform_loc('brow_1_up_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_mid'].length * 0.75))
-    guide_props.arm_obj.pose.bones['brow_mstr_R'].location[2] = get_driver_transform_loc('brow_1_up_L', -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_mid'].length * 0.75))
+    guide_props.arm_obj.pose.bones['brow_mstr_L'].location[2] = get_driver_transform_loc('brow_1_up_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_mid'].length * 0.75)
+    guide_props.arm_obj.pose.bones['brow_mstr_R'].location[2] = get_driver_transform_loc('brow_1_up_L', bpy.context.scene.blenrig_guide.arm_obj.pose.bones['forehead_def_mid'].length * 0.75)
 
 def SHAPEKEYS_Char_Frown_Down(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Frown_Up', 'head',
@@ -1163,7 +1164,7 @@ def SHAPEKEYS_Char_Mouth_Corner_Base(operator, context):
     (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.1, 0.0, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].DOWN_LIMIT_L)), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (-(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].OUT_LIMIT_L) * 0.25, -(bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].BACK_LIMIT_L), 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].FORW_LIMIT_L, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
-    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (bpy.context.scene.blenrig_guide.arm_obj.pose.bones["mouth_corner_L"].IN_LIMIT_L, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
     1],
     'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
     ['mouth_corner_L'],
@@ -1171,7 +1172,7 @@ def SHAPEKEYS_Char_Mouth_Corner_Base(operator, context):
     ['mouth_corner_L'],
     ['lip_low_outer_def_4_1_L'],
     'shpaekey_edit',
-    ['mouth_corner_out_L', 'mouth_corner_up_L', 'mouth_corner_down_L', 'mouth_corner_back_L', 'mouth_corner_forw_L', ''],
+    ['mouth_corner_out_L', 'mouth_corner_up_L', 'mouth_corner_down_L', 'mouth_corner_back_L', 'mouth_corner_forw_L', 'mouth_corner_in_L'],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''],
     ['', '', '', '', '', ''], 1,
@@ -1663,6 +1664,8 @@ def shapekeys_end_generic(context):
     try:
         ob.use_shape_key_edit_mode = True
         ob.show_only_shape_key = False
+        ob.data.use_mirror_x = True
+        guide_props.mdef_cage_obj.display_type = 'SOLID'
     except:
         pass
 

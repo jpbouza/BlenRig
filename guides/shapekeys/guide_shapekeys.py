@@ -524,19 +524,6 @@ GUIDE_STEPS_SHAPEKEYS = (
             },
         'accion': SHAPEKEYS_Char_Mouth_Corner_Fix_2
     },
-    #Mouth Coner In
-    {
-        'imagen': 'DT_Finish_A.jpg',
-        'titulo': {
-            'EN': 'Mouth Coner In',
-            'ES': 'Paso 1'
-            },
-        'texto': {
-            'EN': "Edit the Mouth Corner In Shapekey",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
-            },
-        'accion': SHAPEKEYS_Char_Mouth_Corner_In
-    },
     #Mouth Shapekeys Vertex Groups
     {
         'imagen': 'DT_Finish_A.jpg',
