@@ -268,6 +268,40 @@ def Reprop_Head(operator, context):
     # Add OpenGL Highlight to bones
     operator.draw_bones(context, "head_mid_1_str", "head_mid_2_str")
 
+def Reprop_Head_Toon(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Head_Toon'
+
+    reproportion_on(context)
+
+    # Set View
+    set_view_perspective(context, False)
+    set_viewpoint('RIGHT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "neck_ctrl_4_str", "head_str")
+
+    #
+    bones = (
+        "face_toon_low", "face_toon_up"
+    )
+    unhide_all_bones(context)
+    select_all_pose_bones(context)
+    deselect_pose_bones(context, *bones)
+    hide_selected_pose_bones(context)
+
+    #Add bones to list for hiding toggle
+    scn = bpy.context.scene
+    scn.blenrig_wp_bones.clear()
+    for b in bones:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
+    # Add OpenGL Highlight to bones
+    operator.draw_bones(context, "face_toon_low", "face_toon_up")
+
+
 def Reprop_Breasts_Pecs(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -1254,12 +1288,12 @@ def Reprop_Face_Toon(operator, context):
     set_viewpoint('FRONT')
 
     # Adjust view to Bones.
-    frame_bones(context, 'eyelid_ctrl_out_mstr_L', 'eyelid_ctrl_out_mstr_R', 'face_toon_low')
+    frame_bones(context, 'eyelid_ctrl_out_mstr_L', 'eyelid_ctrl_out_mstr_R')
 
     #
     bones = (
         'toon_brow_L', 'toon_brow_R', 'toon_eye_up_L', 'toon_eye_out_L', 'toon_eye_in_L', 'toon_eye_low_L',
-        'lattice_eye_L', 'toon_eye_up_R', 'toon_eye_out_R', 'toon_eye_in_R', 'toon_eye_low_R', 'lattice_eye_R', 'face_toon_low'
+        'lattice_eye_L', 'toon_eye_up_R', 'toon_eye_out_R', 'toon_eye_in_R', 'toon_eye_low_R', 'lattice_eye_R'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)

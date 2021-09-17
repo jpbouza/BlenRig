@@ -108,6 +108,19 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'accion': Reprop_Head
     },
+    # Head Toon
+    {
+        'imagen': 'Reprop_Head.jpg',
+        'titulo': {
+            'EN': 'Head Toon',
+            'ES': 'Articulacion de la cabeza'
+            },
+        'texto': {
+            'EN': 'Place the lower and middle Head Toon Controllers',
+            'ES': 'Posiciona los controles de los ojos como se muestra en la imagen.'
+            },
+        'accion': Reprop_Head_Toon
+    },
     # Breasts / Pecs
     {
         'imagen': 'Reprop_Breasts_Pecs.jpg',
