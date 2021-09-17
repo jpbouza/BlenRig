@@ -68,6 +68,11 @@ def mute_constraints(constraint_name, c_mute):
 
 #### ACTIONS STEPS ####
 
+def ACTIONS_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'ACTIONS_Intro'
+
 def ACTIONS_Fingers_Spread_X_Up(operator, context):
     edit_action(operator, context,
     'ACTIONS_Fingers_Spread_X_Up',

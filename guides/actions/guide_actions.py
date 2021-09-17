@@ -8,6 +8,19 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'DT_Finish_A.jpg',
         'titulo': {
+            'EN': 'Introduction',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "In this Guide you will customize all the predefined motions of the rig",
+            'ES': ""
+            },
+        'accion': ACTIONS_Intro
+    },
+    #Fingers Spread Up
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
             'EN': 'Fingers Spread Up',
             'ES': 'Paso 1'
             },
