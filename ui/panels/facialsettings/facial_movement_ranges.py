@@ -162,3 +162,42 @@ class BLENRIG_PT_Rig_Body_settings_facial_movement_ranges(bpy.types.Panel):
                                 if 'ACTION' not in cust_prop:
                                     if 'FLOOR' not in cust_prop:
                                         col_L.prop(b, cust_prop, text = "{}".format(cust_prop.replace('_LIMIT', '').replace('_L', '')),  toggle=True)
+
+            # Fleshy Eyes
+            box = col.box()
+            box.label(text='Fleshy Eyes Rate')
+            fleshy_row = box.row()
+            col_1 = fleshy_row.column()
+            col_1.scale_x = 1
+            col_1.scale_y = 1
+            col_1.alignment = 'CENTER'
+            col_2 = fleshy_row.column()
+            col_2.scale_x = 1
+            col_2.scale_y = 1
+            col_2.alignment = 'CENTER'
+            col_1.prop(p_bones['look_R'], '["FLESHY_EYE_R"]', text="Eye_R", slider=True)
+            col_2.prop(p_bones['look_L'], '["FLESHY_EYE_L"]', text="Eye_L", slider=True)
+            box.separator()
+
+            # Fleshy Mouth
+            box = col.box()
+            fleshy_row = box.row()
+            col_2 = fleshy_row.column()
+            col_2.label(text='Fleshy Mouth Rate')
+            col_2.scale_x = 1
+            col_2.scale_y = 1
+            col_2.alignment = 'CENTER'
+            try:
+                col_2.prop(p_bones['mouth_ctrl'], '["FLESHY_MOUTH"]', text="Rate", slider=True)
+            except:
+                pass
+            # Fleshy Nose
+            col_1 = fleshy_row.column()
+            col_1.label(text='Fleshy Nose Rate')
+            col_1.scale_x = 1
+            col_1.scale_y = 1
+            col_1.alignment = 'CENTER'
+            try:
+                col_1.prop(p_bones['nose_ctrl'], '["FLESHY_NOSE"]', text="Rate", slider=True)
+            except:
+                pass

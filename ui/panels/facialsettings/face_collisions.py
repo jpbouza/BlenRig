@@ -130,3 +130,23 @@ class BLENRIG_PT_Rig_Body_settings_face_collisions(bpy.types.Panel):
             except:
                 pass
             col.separator()
+
+            # Collisions Toggle
+            head_col = col.box()
+            head_col.scale_x = 1
+            head_col.scale_y = 1
+            head_col.alignment = 'CENTER'
+            head_col.label(text='Collisions Toggles')
+            teeth_row = head_col.row()
+            col_1 = teeth_row.column()
+            col_1.scale_x = 1
+            col_1.scale_y = 1
+            col_1.alignment = 'CENTER'
+            col_2 = teeth_row.column()
+            col_2.scale_x = 1
+            col_2.scale_y = 1
+            col_2.alignment = 'CENTER'
+            col_1.prop(p_bones['eyelid_low_ctrl_R'], '["EYELID_FLOOR_TOGGLE_R"]', text="Eyelids R Floor", toggle=True)
+            col_2.prop(p_bones['eyelid_low_ctrl_L'], '["EYELID_FLOOR_TOGGLE_L"]', text="Eyelids L Floor", toggle=True)
+            col_1.prop(p_bones['mouth_ctrl'], '["LIPS_FLOOR_TOGGLE"]', text="Lips Floor", toggle=True)
+            head_col.separator()
