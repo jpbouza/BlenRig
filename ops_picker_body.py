@@ -122,10 +122,26 @@ class Operator_Keyframe_Main_Props(bpy.types.Operator):
         pbones["properties_leg_R"].keyframe_insert(data_path='pin_knee_R')
         pbones["properties_leg_R"].keyframe_insert(data_path='ik_toes_all_R')
         #Extra Properties
-        # pbones["properties_head"].keyframe_insert(data_path='hat_free')
-        # pbones["properties_head"].keyframe_insert(data_path='glasses_free')
-        # pbones["properties_arm_L"].keyframe_insert(data_path='hand_accessory_L')
-        # pbones["properties_arm_R"].keyframe_insert(data_path='hand_accessory_R')
+        #Props
+        pbones["properties_head"].keyframe_insert(data_path='["hat_free"]')
+        pbones["properties_head"].keyframe_insert(data_path='["glasses_free"]')
+        pbones["properties_arm_L"].keyframe_insert(data_path='["hand_accessory_L"]')
+        pbones["properties_arm_R"].keyframe_insert(data_path='["hand_accessory_R"]')
+        #Curve
+        pbones["properties_arm_L"].keyframe_insert(data_path='["curved_arm_L"]')
+        pbones["properties_arm_L"].keyframe_insert(data_path='["curved_arm_tweak_L"]')
+        pbones["properties_leg_L"].keyframe_insert(data_path='["curved_leg_L"]')
+        pbones["properties_leg_L"].keyframe_insert(data_path='["curved_leg_tweak_L"]')
+        pbones["properties_arm_R"].keyframe_insert(data_path='["curved_arm_R"]')
+        pbones["properties_arm_R"].keyframe_insert(data_path='["curved_arm_tweak_R"]')
+        pbones["properties_leg_R"].keyframe_insert(data_path='["curved_leg_R"]')
+        pbones["properties_leg_R"].keyframe_insert(data_path='["curved_leg_tweak_R"]')
+        #Face
+        pbones["properties_head"].keyframe_insert(data_path='["toon_teeth_up"]')
+        pbones["properties_head"].keyframe_insert(data_path='["toon_teeth_low"]')
+        pbones["properties_head"].keyframe_insert(data_path='["teeth_up_follow_mouth"]')
+        pbones["properties_head"].keyframe_insert(data_path='["teeth_low_follow_mouth"]')
+        pbones["properties_head"].keyframe_insert(data_path='["tongue_follow_mouth"]')
 
         return {"FINISHED"}
 
