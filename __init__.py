@@ -97,7 +97,7 @@ def prop_update(self, context):
     bone_auto_hide(context)
 
 def reprop_update(self, context):
-    reproportion_toggle(context)
+    reproportion_toggle(self, context)
 
 def rig_toggles_update(self, context):
     rig_toggles(context)
@@ -189,9 +189,9 @@ def snap_points_update(self, context):
 # from bpy.app.handlers import persistent
 
 @persistent
-def load_reprop_handler(context):
+def load_reprop_handler(self, context):
     bone_auto_hide(context)
-    reproportion_toggle(context)
+    reproportion_toggle(self, context)
 
 
 @persistent

@@ -289,7 +289,7 @@ listaDeEstados = []
 
 mode = []
 layers = []
-def reproportion_toggle(context):
+def reproportion_toggle(self, context):
     if context:
         mode.append(context.active_object.mode)
         layers.append(bpy.context.active_object.data.layers[:])
