@@ -24,21 +24,23 @@ class BLENRIG_PT_actions_guide(BLENRIG_PT_guide_assistant):
 
         layout = self.layout
 
+        Exclude = ['ACTIONS_Intro']
+
         Face_Steps = ['ACTIONS_Eyelids_Up_Up', 'ACTIONS_Eyelids_Up_Down_1', 'ACTIONS_Eyelids_Up_Down_2', 'ACTIONS_Eyelids_Low_Down', 'ACTIONS_Eyelids_Low_Up_1', 'ACTIONS_Eyelids_Low_Up_2', 'ACTIONS_Eyelids_Out', 'ACTIONS_Eyelids_In',
         'ACTIONS_Cheek_Up', 'ACTIONS_Cheek_Down', 'ACTIONS_Cheek_Frown', 'ACTIONS_Nose_Frown', 'ACTIONS_Nose_Frown_Max', 'ACTIONS_Jaw_Down', 'ACTIONS_Jaw_Up', 'ACTIONS_Mouth_Corner_Out', 'ACTIONS_Mouth_Corner_In', 'ACTIONS_Mouth_Corner_Up',
         'ACTIONS_Mouth_Corner_Down', 'ACTIONS_Mouth_Corner_Back', 'ACTIONS_Mouth_Corner_Forw', 'ACTIONS_Mouth_Corner_Up_Out_Corrective', 'ACTIONS_Mouth_Corner_Down_Out_Corrective', 'ACTIONS_U_Thicker_Lips', 'ACTIONS_U_Thinner_Lips',
         'ACTIONS_U', 'ACTIONS_O', 'ACTIONS_M', 'ACTIONS_Mouth_Frown', 'ACTIONS_Chin_Frown_Up', 'ACTIONS_Chin_Frown_Down',
         'ACTIONS_Mouth_Corner_In_Zipper', 'ACTIONS_U_Zipper', 'ACTIONS_O_Zipper', 'ACTIONS_U_Narrow_Corrective_Zipper']
-
-        steps = layout.column(align=True)
-        box = steps.box()
-        box.prop(pose, "use_mirror_x")
-        if not pose.use_mirror_x:
-            box.label(text= 'WARNING! Pose will not be mirrored to the other side. Using X-Mirror is recommended.', icon='ERROR')
-        layout.row().prop(context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
-        for step in Face_Steps:
-            if step == current_step:
-                box.prop(context.scene.blenrig_guide.arm_obj.data, "layers", index=27, text='Show Deformation Bones')
+        if current_step not in Exclude:
+            steps = layout.column(align=True)
+            box = steps.box()
+            box.prop(pose, "use_mirror_x")
+            if not pose.use_mirror_x:
+                box.label(text= 'WARNING! Pose will not be mirrored to the other side. Using X-Mirror is recommended.', icon='ERROR')
+            layout.row().prop(context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
+            for step in Face_Steps:
+                if step == current_step:
+                    box.prop(context.scene.blenrig_guide.arm_obj.data, "layers", index=27, text='Show Deformation Bones')
 
         # Propiedades específicas de cada STEP.
         if current_step == 'ACTIONS_Eyelids_Up_Up_Range':
