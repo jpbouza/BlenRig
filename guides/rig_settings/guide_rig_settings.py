@@ -4,6 +4,19 @@ from .. rig_settings.guide_rig_settings_actions import *
 images_dir = join(dirname(__file__), 'images')
 
 GUIDE_STEPS_SETTINGS = (
+    #Settings Intro
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Introduction',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "In this Guide we will fine tune some of the parameters of the Rig",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SETTINGS_Intro
+    },
     #Shoulder Automatic Movement
     {
         'imagen': 'DT_Finish_A.jpg',

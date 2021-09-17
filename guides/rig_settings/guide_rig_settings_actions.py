@@ -107,6 +107,11 @@ bone_list, layers_list, active_bone_list):
 
 #### RIG SETTTINGS STEPS ####
 
+def SETTINGS_Intro(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'SETTINGS_Intro'
+
 def SETTINGS_Shoulder_Movement(operator, context):
     weight_step(operator, context, 'SETTINGS_Shoulder_Movement',
     'x2', ['arm_fk_ctrl_L',
