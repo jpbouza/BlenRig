@@ -5129,6 +5129,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
             ob = context.active_object
             if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
                 return True
+        elif (context.active_object.type in ["ARMATURE"]):
+            ob = bpy.context.scene.blenrig_guide.active_shp_obj
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
         else:
             return False
 
@@ -5137,7 +5141,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
         from . utils import bone_local_transforms
 
-        ob = context.active_object
+        if context.active_object.type == 'MESH':
+            ob = context.active_object
+        elif context.active_object.type == 'ARMATURE':
+            ob = bpy.context.scene.blenrig_guide.active_shp_obj
         active_shapekey = ob.active_shape_key.name
 
         driver_target = []
@@ -5204,7 +5211,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
         from . utils import bone_local_transforms
 
-        ob = context.active_object
+        if context.active_object.type == 'MESH':
+            ob = context.active_object
+        elif context.active_object.type == 'ARMATURE':
+            ob = bpy.context.scene.blenrig_guide.active_shp_obj
         active_shapekey = ob.active_shape_key.name
         blenrig_arm = context.scene.blenrig_guide.arm_obj
         pbones = blenrig_arm.pose.bones
@@ -5307,7 +5317,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
 
         from . utils import bone_local_transforms
 
-        ob = context.active_object
+        if context.active_object.type == 'MESH':
+            ob = context.active_object
+        elif context.active_object.type == 'ARMATURE':
+            ob = bpy.context.scene.blenrig_guide.active_shp_obj
         active_shapekey = ob.active_shape_key.name
         blenrig_arm = context.scene.blenrig_guide.arm_obj
         pbones = blenrig_arm.pose.bones
@@ -5363,7 +5376,10 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
     brow_shapekeys = ['brow_up_L', 'brow_up_R', 'brow_down_L', 'brow_down_R']
 
     def execute(self, context):
-        ob = context.active_object
+        if context.active_object.type == 'MESH':
+            ob = context.active_object
+        if context.active_object.type == 'ARMATURE':
+            ob = bpy.context.scene.blenrig_guide.active_shp_obj
         active_shapekey = ob.active_shape_key.name
         #Facial Shapkeys Exception
         if active_shapekey in self.facial_shapekeys:
