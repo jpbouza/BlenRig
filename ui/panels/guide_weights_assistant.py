@@ -19,7 +19,7 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
         p_bones = guide_props.arm_obj.pose.bones
         layout = self.layout
 
-        exclude_list = ['WEIGHTS_Intro']
+        exclude_list = ['WEIGHTS_Intro', 'WEIGHTS_Finish']
 
         steps = layout.column(align=True)
         if guide_props.guide_current_step not in exclude_list:
@@ -29,17 +29,31 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                 box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'mdef_cage'
             else:
                 box_weight.operator("blenrig.toggle_weight_painting", text='Toggle Weight Painting').paint_object = 'char'
+            if active_mode == 'WEIGHT_PAINT':
+                box_weight.label(text='Symmetry Options')
+                mirror_row = box_weight.row()
+                mirror_row.prop(active, "use_mesh_mirror_x", text='Enable X Symmetry')
+                mirror_row.prop(active.data, "use_mirror_vertex_groups")
+                mirror_row.prop(active.data, "use_mirror_topology")
+            box_weight.label(text='Pose Options')
             mirror_row = box_weight.row()
             mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
             if active_mode == 'WEIGHT_PAINT':
-                mirror_row.prop(active.data, "use_mirror_vertex_groups")
-                mirror_row.prop(active.data, "use_mirror_topology")
-                if '_Char_' in guide_props.guide_current_step:
+                if '_Char_' in guide_props.guide_current_step and '_Lattice' not in guide_props.guide_current_step:
                     box_weight.operator("blenrig.select_vgroup", text='Select Mesh Deform Vgroup').vgroup = 'no_mdef'
-            if active_mode != 'WEIGHT_PAINT':
-                box_weight.operator("blenrig.edit_corrective_smooth_vgroup", text='Edit Corrective Smooth Vgroup')
-            else:
-                box_weight.operator("blenrig.select_vgroup", text='Select Corrective Smooth Vgroup').vgroup = 'corrective_smooth'
+                if '_Lattice_Head' in guide_props.guide_current_step:
+                    box_weight.operator("blenrig.select_vgroup", text='Select Head Lattice Vgroup').vgroup = 'lattice_head'
+                if '_Lattice_Brow' in guide_props.guide_current_step:
+                    box_weight.operator("blenrig.select_vgroup", text='Select Eyebrow Lattice Vgroup').vgroup = 'lattice_brow'
+                if '_Lattice_Mouth' in guide_props.guide_current_step:
+                    box_weight.operator("blenrig.select_vgroup", text='Select Mouth Lattice Vgroup').vgroup = 'lattice_mouth'
+                if '_Lattice_Eye' in guide_props.guide_current_step:
+                    box_weight.operator("blenrig.select_vgroup", text='Select Eye Lattice Vgroup').vgroup = 'lattice_eye_L'
+            if '_Lattice' not in guide_props.guide_current_step:
+                if active_mode != 'WEIGHT_PAINT':
+                    box_weight.operator("blenrig.edit_corrective_smooth_vgroup", text='Edit Corrective Smooth Vgroup')
+                else:
+                    box_weight.operator("blenrig.select_vgroup", text='Select Corrective Smooth Vgroup').vgroup = 'corrective_smooth'
             box_row = box_weight.row()
             box_row.prop(guide_props, 'guide_show_wp_bones')
             box_row.prop(guide_props.arm_obj, 'show_in_front')
