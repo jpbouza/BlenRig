@@ -495,9 +495,15 @@ class BlenrigGuideData(PropertyGroup):
     )
     #Toggle All Bones
     guide_show_wp_bones : BoolProperty(default=0,
-    description="Toggle Bone Visibility in BlenRig Weight Painting Guide",
+    description="Toggle Bone Visibility in BlenRig Guides",
     update=show_wp_bones_update,
-    name="Show Bones"
+    name="Show All Bones"
+    )
+    #Toggle Deformation Bones
+    guide_show_def_bones : BoolProperty(default=0,
+    description="Toggle Deformation Bone Visibility in BlenRig Actions Guide",
+    update=show_def_bones_update,
+    name="Show Deformation Bones"
     )
     #Toggle Mdef Cage
     guide_show_mdef_cage : BoolProperty(default=0,

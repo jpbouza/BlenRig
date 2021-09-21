@@ -1883,11 +1883,35 @@ def show_wp_bones_update(self, context):
                 if b.name == B:
                     b.bone.hide = False
 
+def show_def_bones_update(self, context):
+    scn = bpy.context.scene
+    guide_props = scn.blenrig_guide
+    arm = guide_props.arm_obj
+    pbones = arm.pose.bones
+    prop_value = guide_props.guide_show_def_bones
 
-        # unhide_all_bones(context)
-        # select_all_pose_bones(context)
-        # deselect_pose_bones(context, *bones)
-        # hide_selected_pose_bones(context)
+    if prop_value == True:
+        #Turn Layers on
+        on_layers = [27]
+        off_layers = []
+        for l in on_layers:
+            arm.data.layers[l] = True
+        #Unhide Bones
+        for b in pbones:
+            if b.bone.layers[27] == True:
+                b.bone.hide = False
+    else:
+        #Turn Layers off
+        off_layers = [27]
+        for l in off_layers:
+            arm.data.layers[l] = False
+        bones = [b.bone for b in scn.blenrig_wp_bones]
+        for b in pbones:
+            b.bone.hide = True
+        for B in bones:
+            for b in pbones:
+                if b.name == B:
+                    b.bone.hide = False
 
 #Set Active Shapekey for Editting
 def set_active_shapekey(shapekey_name):
