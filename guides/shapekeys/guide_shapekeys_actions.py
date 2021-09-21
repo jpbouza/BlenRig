@@ -1698,7 +1698,7 @@ def end_of_step_action(context):
     blenrig_bones = guide_props.arm_obj.pose.bones
     current_step = guide_props.guide_current_step
     shapekeys_end_generic(context)
-    Leg_Steps = ['SHAPEKEYS_Cage_Shoulder', 'SHAPEKEYS_Cage_Foot_Toe', 'SHAPEKEYS_Cage_Knee', 'SHAPEKEYS_Cage_Thigh']
+    Leg_Steps = ['SHAPEKEYS_Cage_Ankle', 'SHAPEKEYS_Cage_Foot_Toe', 'SHAPEKEYS_Cage_Knee', 'SHAPEKEYS_Cage_Thigh']
     #Leg IK Switch
     for step in Leg_Steps:
         if current_step == step:
@@ -1712,7 +1712,7 @@ def end_of_step_action(context):
     if current_step == 'SHAPEKEYS_Cage_Neck':
         #Turn Organic Spine Back On
         blenrig_bones["properties_head"]["organic_neck"] = 1
-    Arm_Steps = ['SHAPEKEYS_Cage_Ankle', 'SHAPEKEYS_Cage_Elbow', 'SHAPEKEYS_Cage_Wrist', 'SHAPEKEYS_Char_Wrist']
+    Arm_Steps = ['SHAPEKEYS_Cage_Shoulder', 'SHAPEKEYS_Cage_Elbow', 'SHAPEKEYS_Cage_Wrist', 'SHAPEKEYS_Char_Wrist']
     #Arm IK Switch
     for step in Arm_Steps:
         if current_step == step:
