@@ -16,8 +16,11 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     deselect_all_objects(context)
 
     #Armature for setting view
-    armature = bpy.context.scene.blenrig_guide.arm_obj
+    scn = bpy.context.scene
+    guide_props = scn.blenrig_guide
+    armature = guide_props.arm_obj
     armature.hide_viewport = False
+    armature.show_in_front = True
 
     #Select Armature
     go_blenrig_pose_mode(context)
@@ -46,6 +49,14 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     #Bones
     bones = bone_list
 
+    #Clear Bone List
+    scn.blenrig_wp_bones.clear()
+
+    #Add bones to list
+    for b in bone_list:
+        add_item = scn.blenrig_wp_bones.add()
+        add_item.bone = b
+
     unhide_all_bones(context)
     select_all_pose_bones(context)
     deselect_pose_bones(context, *bones)
@@ -57,6 +68,13 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
 
     #Lock Object Mode Off
     bpy.context.scene.tool_settings.lock_object_mode = True
+
+    #Make Deform Bones not Selectable
+    exclude_list = ['foot_ctrl_frame_L', 'foot_ctrl_frame_R']
+    for b in guide_props.arm_obj.pose.bones:
+        if b.name not in exclude_list:
+            if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
+                b.bone.hide_select = True
 
 def mute_constraints(constraint_name, c_mute):
     guide_props = bpy.context.scene.blenrig_guide
@@ -489,6 +507,10 @@ def ACTIONS_Nose_Frown_Range(operator, context):
     guide_props = bpy.context.scene.blenrig_guide
     guide_props.guide_nose_frown = guide_props.arm_obj.pose.bones["nose_frown_ctrl_L"].FROWN_LIMIT_L
 
+    #Diable Action Constraints
+    mute_constraints('Nose_Frown_L_NOREP', True)
+    mute_constraints('Nose_Frown_R_NOREP', True)
+
 def ACTIONS_Nose_Frown(operator, context):
     edit_action(operator, context,
     'ACTIONS_Nose_Frown',
@@ -508,7 +530,7 @@ def ACTIONS_Nose_Frown_Max(operator, context):
     'FRONT',
     'zrig_nose_frown_max', 1,
     ['cheek_line_ctrl_1_L', 'cheek_line_ctrl_2_L', 'eyelid_low_ctrl_L', 'eyelid_up_ctrl_L', 'eyelid_up_ctrl_2_mstr_L', 'eyelid_ctrl_in_mstr_L', 'eyelid_up_ctrl_1_mstr_L',
-    'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_ctrl_1_mstr_L', 'frown_ctrl', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_2_L', 'brow_low_ctrl_1_L', 'brow_low_ctrl_2_L', 'brow_low_ctrl_3_L',
+    'eyelid_low_ctrl_2_mstr_L', 'eyelid_low_ctrl_1_mstr_L', 'frown_ctrl', 'eyelid_rim_low_ctrl_1_L', 'eyelid_rim_low_ctrl_2_L', 'brow_ctrl_1_L', 'brow_ctrl_2_L', 'brow_ctrl_3_L', 'brow_ctrl_4_L',
     'nose_bridge_up_ctrl_L', 'smile_line_ctrl_1_L', 'nostril_up_ctrl_L', 'nose_root_ctrl_L', 'cheekbone_ctrl_2_L', 'cheekbone_ctrl_1_L', 'nostril_ctrl_L'],
     'cheek_line_ctrl_1_L',
     [0, 1, 28]
@@ -1174,6 +1196,11 @@ def actions_end_generic(context):
     #Force Pose Position
     bpy.context.active_object.data.pose_position = 'POSE'
 
+    #Make Deform Bones Selectable
+    for b in guide_props.arm_obj.pose.bones:
+        if b.lock_location[:] == (True, True, True) and b.lock_rotation[:] == (True, True, True) and b.lock_scale[:] == (True, True, True):
+            b.bone.hide_select = False
+
     #Ensure Symmetry
     unhide_all_bones(context)
     deselect_all_pose_bones(context)
@@ -1197,9 +1224,14 @@ def actions_end_generic(context):
     toggle_pose_x_mirror(context, False)
 
     #Turn Layers off
+    on_layers = [0, 1, 3, 4, 5, 6, 7, 9, 16, 17, 18, 20, 22, 23]
     off_layers = [24, 25, 26, 27, 28, 29, 30, 31]
+    for l in on_layers:
+        context.object.data.layers[l] = True
     for l in off_layers:
-        guide_props.arm_obj.data.layers[l] = False
+        context.object.data.layers[l] = False
+
+    guide_props.arm_obj.show_in_front = False
 
     #Lock Object Mode Off
     bpy.context.scene.tool_settings.lock_object_mode = False
@@ -1261,6 +1293,10 @@ def end_of_step_action(context):
         #Turn Action Constraint back On
         guide_props.arm_obj.pose.bones["cheek_ctrl_L"]["ACTION_CHEEK_TOGGLE_L"] = 1
         guide_props.arm_obj.pose.bones["cheek_ctrl_R"]["ACTION_CHEEK_TOGGLE_R"] = 1
+    if current_step == 'ACTIONS_Nose_Frown_Range':
+        #Enable Action Constraints
+        mute_constraints('Nose_Frown_L_NOREP', False)
+        mute_constraints('Nose_Frown_R_NOREP', False)
     if current_step == 'ACTIONS_Jaw_Up' or current_step == 'ACTIONS_Jaw_Down':
         #Turn Action Constraint back On
         guide_props.arm_obj.pose.bones["maxi"]["ACTION_UP_DOWN_TOGGLE"] = 1
