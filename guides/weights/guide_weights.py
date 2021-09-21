@@ -329,6 +329,71 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'accion': WEIGHTS_Char_Inner_Mouth
     },
+    #Lattice Head
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Lattice Head',
+            'ES': 'Interior de la Boca'
+            },
+        'texto': {
+            'EN': "Paint the Head Lattice Vertex Group",
+            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            },
+        'accion': WEIGHTS_Char_Lattice_Head
+    },
+    #Lattice Mouth
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Lattice Mouth',
+            'ES': 'Interior de la Boca'
+            },
+        'texto': {
+            'EN': "Paint the Mouth Lattice Vertex Group",
+            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            },
+        'accion': WEIGHTS_Char_Lattice_Mouth
+    },
+        #Lattice Eyebrow
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Lattice Eyebrow',
+            'ES': 'Interior de la Boca'
+            },
+        'texto': {
+            'EN': "Paint the Eyebrow Lattice Vertex Group",
+            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            },
+        'accion': WEIGHTS_Char_Lattice_Brow
+    },
+        #Lattice Eye
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Lattice Eye',
+            'ES': 'Interior de la Boca'
+            },
+        'texto': {
+            'EN': "Paint the Eye Lattice Vertex Group",
+            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            },
+        'accion': WEIGHTS_Char_Lattice_Eye
+    },
+        #Lattice Finish
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Lattice Eye',
+            'ES': 'Interior de la Boca'
+            },
+        'texto': {
+            'EN': "Move on to the Actions Guide!",
+            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            },
+        'accion': WEIGHTS_Finish
+    },
 )
 
 

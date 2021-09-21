@@ -173,6 +173,11 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode):
                 set_mode('WEIGHT_PAINT')
                 bpy.ops.blenrig.toggle_weight_painting(paint_object='char')
 
+    #Enable X-Mirror
+    guide_props.active_wp_obj.use_mesh_mirror_x = True
+    guide_props.active_wp_obj.data.use_mirror_vertex_groups = True
+    guide_props.active_wp_obj.data.use_mirror_topology = True
+
 #### WEIGHTS STEPS ####
 
 def WEIGHTS_Intro(operator, context):
@@ -706,6 +711,94 @@ def WEIGHTS_Char_Inner_Mouth(operator, context):
     ['maxi'],
     ['maxi'],
     'weight_paint',)
+
+def WEIGHTS_Char_Lattice_Head(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Lattice_Head', 'head',
+    'x2', ['head_toon',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'RIGHT',
+    ['head_toon', 'face_toon_mid', 'face_toon_up', 'face_toon_low'],
+    [14],
+    ['head_toon'],
+    ['lattice_head'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Lattice_Mouth(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Lattice_Mouth', 'head',
+    'x2', ['maxi',
+    (0.0, 0.0, 0.0), (-30, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'RIGHT',
+    ['maxi'],
+    [13],
+    ['maxi'],
+    ['lattice_mouth'],
+    'weight_paint',)
+
+    #Active VGroup Fix
+    set_active_vgroup(bpy.context.scene.blenrig_guide.guide_active_wp_group)
+
+def WEIGHTS_Char_Lattice_Brow(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Lattice_Brow', 'head',
+    'x2', ['toon_brow_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'jaw_line_ctrl_mid', 'head_stretch', 'FRONT',
+    ['toon_brow_L', 'toon_brow_R'],
+    [13],
+    ['toon_brow_L'],
+    ['lattice_brow'],
+    'weight_paint',)
+
+def WEIGHTS_Char_Lattice_Eye(operator, context):
+    weight_step(operator, context, 'WEIGHTS_Char_Lattice_Eye', 'head',
+    'x2', ['toon_eye_up_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'eyelid_up_ctrl_L', 'eyelid_low_ctrl_L', 'FRONT',
+    ['toon_eye_up_L', 'toon_eye_out_L', 'toon_eye_in_L', 'toon_eye_low_L'],
+    [13],
+    ['toon_eye_up_L'],
+    ['lattice_eye_L'],
+    'weight_paint',)
+
+def WEIGHTS_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'WEIGHTS_Finish'
+
+    deselect_all_objects(context)
+
+    #Show Armature
+    show_armature(context)
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
 
 #### END OF STEP ACTIONS ####
 
