@@ -5159,7 +5159,7 @@ class Operator_blenrig_update_shapekey_driver(bpy.types.Operator):
             driver_transform_type[:] = []
             if d_path == 'key_blocks["' + active_shapekey + '"].value':
                 #For MAX type
-                if driver.driver.type == 'MAX':
+                if driver.driver.type == 'MAX' or driver.driver.type == 'SUM':
                     for var in driver.driver.variables:
                         if var.type == 'TRANSFORMS':
                             driver_target.append(var.targets[0].id)
