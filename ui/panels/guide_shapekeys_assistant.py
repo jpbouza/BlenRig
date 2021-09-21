@@ -38,7 +38,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 box_weight.label(text='Pose Options')
                 mirror_row = box_weight.row()
                 mirror_row.prop(guide_props.arm_obj.pose, "use_mirror_x", text='X-Axis Mirror (Pose)')
-                mirror_row.prop(guide_props, 'guide_show_wp_bones')
+                mirror_row.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
             if active_mode == 'EDIT' or active_mode == 'WEIGHT_PAINT':
                 box_weight.label(text='Shapekeys Editting Options')
                 mirror_row = box_weight.row()
