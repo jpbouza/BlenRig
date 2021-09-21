@@ -34,14 +34,15 @@ class BLENRIG_PT_actions_guide(BLENRIG_PT_guide_assistant):
         if current_step not in Exclude:
             steps = layout.column(align=True)
             box = steps.box()
-            box.prop(pose, "use_mirror_x")
+            row = box.row()
+            row.prop(pose, "use_mirror_x")
+            row.prop(arm, "show_in_front")
             if not pose.use_mirror_x:
                 box.label(text= 'WARNING! Pose will not be mirrored to the other side. Using X-Mirror is recommended.', icon='ERROR')
+            row2 = box.row()
+            row2.prop(arm_obj_props, 'guide_show_def_bones')
+            row2.prop(arm_obj_props, 'guide_show_wp_bones', text='Show All Bones')
             layout.row().prop(context.scene.blenrig_guide.arm_obj.data, "pose_position",text='Toggle Rest Pose', expand=True)
-            for step in Face_Steps:
-                if step == current_step:
-                    box.prop(context.scene.blenrig_guide.arm_obj.data, "layers", index=27, text='Show Deformation Bones')
-
         # Propiedades específicas de cada STEP.
         if current_step == 'ACTIONS_Eyelids_Up_Up_Range':
             steps = layout.column(align=True)
@@ -52,7 +53,6 @@ class BLENRIG_PT_actions_guide(BLENRIG_PT_guide_assistant):
         elif current_step == 'ACTIONS_Eyelids_Up_Down_Range':
             steps = layout.column(align=True)
             box_set = steps.box()
-            box_set.label(text='Define Range of Motion')
             box_set.label(text='Define Range of Motion')
             box_set.prop(arm_obj_props, "guide_eyelid_up_down")
 
