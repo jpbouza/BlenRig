@@ -1611,6 +1611,23 @@ def SHAPEKEYS_Char_Mouth_Frown_Side_In(operator, context):
     guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = True
     guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_euler[2] = get_driver_transform_loc('mouth_frown_side_L', 45)
 
+def SHAPEKEYS_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'SHAPEKEYS_Finish'
+
+    deselect_all_objects(context)
+
+    #Show Armature
+    show_armature(context)
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
 #### END OF STEP ACTIONS ####
 
 def shapekeys_end_generic(context):

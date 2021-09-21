@@ -680,6 +680,19 @@ GUIDE_STEPS_SHAPEKEYS = (
             },
         'accion': SHAPEKEYS_Char_Mouth_Frown_Side_In
     },
+    #Shapekeys Finish
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Finish',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Congratulations! Your character should be ready! Have a great time using it!",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Finish
+    },
 )
 
 
