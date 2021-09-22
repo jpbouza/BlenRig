@@ -1550,6 +1550,8 @@ def SHAPEKEYS_Char_Mouth_Frown_Side(operator, context):
     guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Copy Transforms'].mute = True
     guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = True
     guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_euler[2] = get_driver_transform_loc('mouth_frown_side_L', 45)
+    #Show In Front
+    guide_props.arm_obj.show_in_front = True
 
 def SHAPEKEYS_Char_Mouth_Frown_Side_Out(operator, context):
     shapekey_step(operator, context, 'SHAPEKEYS_Char_Mouth_Frown_Side_Out', 'head',
@@ -1806,3 +1808,4 @@ def end_of_step_action(context):
         guide_props.arm_obj.pose.bones['mouth_mstr_ik'].rotation_mode = 'QUATERNION'
         guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Copy Transforms'].mute = False
         guide_props.arm_obj.pose.bones['mouth_mstr_ik'].constraints['Damped Track'].mute = False
+        guide_props.arm_obj.show_in_front = False
