@@ -131,36 +131,49 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 # Bbone Y Values
                 vert = curvey.row()
                 vert.alignment = 'CENTER'
-                vert.label(text="Vertical")
                 curveiny = curvey.row()
-                try:
-                    curveiny.prop(p_bones['brow_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                    curveiny.prop(p_bones['brow_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
-                except:
-                    pass
-                curveouty = curvey.row()
-                try:
-                    curveouty.prop(p_bones['brow_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                    curveouty.prop(p_bones['brow_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
-                except:
-                    pass
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_in_brows", text="Vertical In")
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_out_brows",  text="Vertical Out")
                 # Bbone X Values
                 curvex = box.column()
                 depth = curvex.row()
                 depth.alignment = 'CENTER'
-                depth.label(text="Depth")
                 curveinx = curvex.row()
-                try:
-                    curveinx.prop(p_bones['brow_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
-                    curveinx.prop(p_bones['brow_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
-                except:
-                    pass
-                curveoutx = curvex.row()
-                try:
-                    curveoutx.prop(p_bones['brow_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
-                    curveoutx.prop(p_bones['brow_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
-                except:
-                    pass
+                curveinx.prop(guide_props, "guide_bbone_depth_curve_in_brows", text="Depth in")
+                curveinx.prop(guide_props, "guide_bbone_depth_curve_out_brows",  text="Depth Out")
+                # # Bbone Y Values
+                # vert = curvey.row()
+                # vert.alignment = 'CENTER'
+                # vert.label(text="Vertical")
+                # curveiny = curvey.row()
+                # try:
+                #     curveiny.prop(p_bones['brow_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
+                #     curveiny.prop(p_bones['brow_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                # except:
+                #     pass
+                # curveouty = curvey.row()
+                # try:
+                #     curveouty.prop(p_bones['brow_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
+                #     curveouty.prop(p_bones['brow_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                # except:
+                #     pass
+                # # Bbone X Values
+                # curvex = box.column()
+                # depth = curvex.row()
+                # depth.alignment = 'CENTER'
+                # depth.label(text="Depth")
+                # curveinx = curvex.row()
+                # try:
+                #     curveinx.prop(p_bones['brow_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
+                #     curveinx.prop(p_bones['brow_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
+                # except:
+                #     pass
+                # curveoutx = curvex.row()
+                # try:
+                #     curveoutx.prop(p_bones['brow_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
+                #     curveoutx.prop(p_bones['brow_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
+                # except:
+                #     pass
 
             # Set Mouth Curve Values Step
             if context.scene.blenrig_guide.guide_current_step == 'Reprop_Mouth_Curves':
@@ -171,109 +184,143 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 # Bbone Y Values
                 vert = curvey.row()
                 vert.alignment = 'CENTER'
-                vert.label(text="Vertical")
                 # Lip Up
                 lipup = curvey.row()
                 lipup.alignment = 'LEFT'
                 lipup.label(text="Upper Lips")
                 curveiny = curvey.row()
-                try:
-                    curveiny.prop(p_bones['lip_up_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                    curveiny.prop(p_bones['lip_up_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
-                except:
-                    pass
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_in_lip_up", text="Vertical In")
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_out_lip_up",  text="Vertical Out")
                 curveouty = curvey.row()
-                try:
-                    curveouty.prop(p_bones['lip_up_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                    curveouty.prop(p_bones['lip_up_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
-                except:
-                    pass
+                curveouty.prop(guide_props, "guide_bbone_depth_curve_in_lip_up", text="Depth In")
+                curveouty.prop(guide_props, "guide_bbone_depth_curve_out_lip_up",  text="Depth Out")
                 # Lip Zipper
                 lipzip = curvey.row()
                 lipzip.alignment = 'LEFT'
                 lipzip.label(text="Zipper")
                 curveiny = curvey.row()
-                try:
-                    curveiny.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                    curveiny.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
-                except:
-                    pass
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_in_lip_zipper", text="Vertical In")
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_out_lip_zipper",  text="Vertical Out")
                 curveouty = curvey.row()
-                try:
-                    curveouty.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                    curveouty.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
-                except:
-                    pass
+                curveouty.prop(guide_props, "guide_bbone_depth_curve_in_lip_zipper", text="Depth In")
+                curveouty.prop(guide_props, "guide_bbone_depth_curve_out_lip_zipper",  text="Depth Out")
                 # Lip Low
                 lipzip = curvey.row()
                 lipzip.alignment = 'LEFT'
                 lipzip.label(text="Lower Lips")
                 curveiny = curvey.row()
-                try:
-                    curveiny.prop(p_bones['lip_low_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                    curveiny.prop(p_bones['lip_low_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
-                except:
-                    pass
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_in_lip_low", text="Vertical In")
+                curveiny.prop(guide_props, "guide_bbone_vertical_curve_out_lip_low",  text="Vertical Out")
                 curveouty = curvey.row()
-                try:
-                    curveouty.prop(p_bones['lip_low_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                    curveouty.prop(p_bones['lip_low_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
-                except:
-                    pass
+                curveouty.prop(guide_props, "guide_bbone_depth_curve_in_lip_low", text="Depth In")
+                curveouty.prop(guide_props, "guide_bbone_depth_curve_out_lip_low",  text="Depth Out")
 
-                # Bbone X Values
-                curvex = box.column()
-                depth = curvex.row()
-                depth.alignment = 'CENTER'
-                depth.label(text="Depth")
-                # Lip Up
-                lipup = curvex.row()
-                lipup.alignment = 'LEFT'
-                lipup.label(text="Upper Lips")
-                curveinx = curvex.row()
-                try:
-                    curveinx.prop(p_bones['lip_up_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
-                    curveinx.prop(p_bones['lip_up_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
-                except:
-                    pass
-                curveoutx = curvex.row()
-                try:
-                    curveoutx.prop(p_bones['lip_up_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
-                    curveoutx.prop(p_bones['lip_up_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
-                except:
-                    pass
-                # Lip Zipper
-                lipup = curvex.row()
-                lipup.alignment = 'LEFT'
-                lipup.label(text="Zipper")
-                curveinx = curvex.row()
-                try:
-                    curveinx.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
-                    curveinx.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
-                except:
-                    pass
-                curveoutx = curvex.row()
-                try:
-                    curveoutx.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
-                    curveoutx.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
-                except:
-                    pass
-                # Lip Low
-                lipup = curvex.row()
-                lipup.alignment = 'LEFT'
-                lipup.label(text="Lower Lips")
-                curveinx = curvex.row()
-                try:
-                    curveinx.prop(p_bones['lip_low_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
-                    curveinx.prop(p_bones['lip_low_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
-                except:
-                    pass
-                curveoutx = curvex.row()
-                try:
-                    curveoutx.prop(p_bones['lip_low_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
-                    curveoutx.prop(p_bones['lip_low_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
-                except:
-                    pass
+                # # Bbone Y Values
+                # vert = curvey.row()
+                # vert.alignment = 'CENTER'
+                # vert.label(text="Vertical")
+                # # Lip Up
+                # lipup = curvey.row()
+                # lipup.alignment = 'LEFT'
+                # lipup.label(text="Upper Lips")
+                # curveiny = curvey.row()
+                # try:
+                #     curveiny.prop(p_bones['lip_up_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_up_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                # except:
+                #     pass
+                # curveouty = curvey.row()
+                # try:
+                #     curveouty.prop(p_bones['lip_up_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_up_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                # except:
+                #     pass
+                # # Lip Zipper
+                # lipzip = curvey.row()
+                # lipzip.alignment = 'LEFT'
+                # lipzip.label(text="Zipper")
+                # curveiny = curvey.row()
+                # try:
+                #     curveiny.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                # except:
+                #     pass
+                # curveouty = curvey.row()
+                # try:
+                #     curveouty.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                # except:
+                #     pass
+                # # Lip Low
+                # lipzip = curvey.row()
+                # lipzip.alignment = 'LEFT'
+                # lipzip.label(text="Lower Lips")
+                # curveiny = curvey.row()
+                # try:
+                #     curveiny.prop(p_bones['lip_low_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_low_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                # except:
+                #     pass
+                # curveouty = curvey.row()
+                # try:
+                #     curveouty.prop(p_bones['lip_low_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_low_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                # except:
+                #     pass
+
+                # # Bbone X Values
+                # curvex = box.column()
+                # depth = curvex.row()
+                # depth.alignment = 'CENTER'
+                # depth.label(text="Depth")
+                # # Lip Up
+                # lipup = curvex.row()
+                # lipup.alignment = 'LEFT'
+                # lipup.label(text="Upper Lips")
+                # curveinx = curvex.row()
+                # try:
+                #     curveinx.prop(p_bones['lip_up_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
+                #     curveinx.prop(p_bones['lip_up_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
+                # except:
+                #     pass
+                # curveoutx = curvex.row()
+                # try:
+                #     curveoutx.prop(p_bones['lip_up_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
+                #     curveoutx.prop(p_bones['lip_up_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
+                # except:
+                #     pass
+                # # Lip Zipper
+                # lipup = curvex.row()
+                # lipup.alignment = 'LEFT'
+                # lipup.label(text="Zipper")
+                # curveinx = curvex.row()
+                # try:
+                #     curveinx.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
+                #     curveinx.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
+                # except:
+                #     pass
+                # curveoutx = curvex.row()
+                # try:
+                #     curveoutx.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
+                #     curveoutx.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
+                # except:
+                #     pass
+                # # Lip Low
+                # lipup = curvex.row()
+                # lipup.alignment = 'LEFT'
+                # lipup.label(text="Lower Lips")
+                # curveinx = curvex.row()
+                # try:
+                #     curveinx.prop(p_bones['lip_low_line_R'].bone, "bbone_curveinx", text="Curve in X Right")
+                #     curveinx.prop(p_bones['lip_low_line_L'].bone, "bbone_curveinx",  text="Curve in X Left")
+                # except:
+                #     pass
+                # curveoutx = curvex.row()
+                # try:
+                #     curveoutx.prop(p_bones['lip_low_line_R'].bone, "bbone_curveoutx", text="Curve out X Right")
+                #     curveoutx.prop(p_bones['lip_low_line_L'].bone, "bbone_curveoutx",  text="Curve out X Left")
+                # except:
+                #     pass
 
             # Diplay Bake Button
             if context.scene.blenrig_guide.guide_current_step == 'Reprop_Bake':
@@ -298,20 +345,34 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
             if context.scene.blenrig_guide.guide_current_step == 'Reprop_IK_Check':
                 steps = layout.column(align=True)
                 box = steps.box()
-                box.label(text="Ik Rotation Override")
+                box.label(text="IK Rotation Override")
                 row_props = box.row()
                 col_R = row_props.column()
                 col_L = row_props.column()
                 for b in p_bones:
                     if '_R' in b.name:
-                        for C in b.constraints:
-                            if C.name == 'Ik_Initial_Rotation':
-                                col_R.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
+                        if 'forearm' in b.name:
+                            for C in b.constraints:
+                                if C.name == 'IK_Initial_Rotation':
+                                    col_R.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
+                for b in p_bones:
+                    if '_R' in b.name:
+                        if 'shin' in b.name:
+                            for C in b.constraints:
+                                if C.name == 'IK_Initial_Rotation':
+                                    col_R.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
                 for b in p_bones:
                     if '_L' in b.name:
-                        for C in b.constraints:
-                            if C.name == 'Ik_Initial_Rotation':
-                                col_L.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
+                        if 'forearm' in b.name:
+                            for C in b.constraints:
+                                if C.name == 'IK_Initial_Rotation':
+                                    col_L.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
+                for b in p_bones:
+                    if '_L' in b.name:
+                        if 'shin' in b.name:
+                            for C in b.constraints:
+                                if C.name == 'IK_Initial_Rotation':
+                                    col_L.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
 
         # Edit Mask
         if context.scene.blenrig_guide.guide_current_step == 'Reprop_Edit_Face':
