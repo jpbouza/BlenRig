@@ -390,6 +390,92 @@ class BlenrigGuideData(PropertyGroup):
     update=lip_override_update,
     name="Lip 3 motion Override"
     )
+    #BBone Curves
+    #Brows
+    guide_bbone_vertical_curve_in_brows : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_brows_update,
+    name="Vertical Curve In"
+    )
+    guide_bbone_vertical_curve_out_brows : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_brows_update,
+    name="Vertical Curve In"
+    )
+    guide_bbone_depth_curve_in_brows : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_brows_update,
+    name="Depth Curve In"
+    )
+    guide_bbone_depth_curve_out_brows : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_brows_update,
+    name="Depth Curve In"
+    )
+    #Lip Up
+    guide_bbone_vertical_curve_in_lip_up : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_lips_update,
+    name="Vertical Curve In"
+    )
+    guide_bbone_vertical_curve_out_lip_up : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_lips_update,
+    name="Vertical Curve Out"
+    )
+    guide_bbone_depth_curve_in_lip_up : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_lips_update,
+    name="Depth Curve In"
+    )
+    guide_bbone_depth_curve_out_lip_up : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_lips_update,
+    name="Depth Curve Out"
+    )
+    #Lip Low
+    guide_bbone_vertical_curve_in_lip_low : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_lips_update,
+    name="Vertical Curve In"
+    )
+    guide_bbone_vertical_curve_out_lip_low : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_lips_update,
+    name="Vertical Curve Out"
+    )
+    guide_bbone_depth_curve_in_lip_low : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_lips_update,
+    name="Depth Curve In"
+    )
+    guide_bbone_depth_curve_out_lip_low : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_lips_update,
+    name="Depth Curve Out"
+    )
+    #Lip Zipper
+    guide_bbone_vertical_curve_in_lip_zipper : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_lips_update,
+    name="Vertical Curve In"
+    )
+    guide_bbone_vertical_curve_out_lip_zipper : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Vertical Curvature",
+    update=bbone_curve_lips_update,
+    name="Vertical Curve Out"
+    )
+    guide_bbone_depth_curve_in_lip_zipper : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_lips_update,
+    name="Depth Curve In"
+    )
+    guide_bbone_depth_curve_out_lip_zipper : FloatProperty(default=-0.000, min=-1000.000, max=1000.000, precision=3,
+    description="Define BBone Depth Curvature",
+    update=bbone_curve_lips_update,
+    name="Depth Curve Out"
+    )
+
 ## Weights Properties ##
     #Bone to transform
     guide_transformation_bone: StringProperty('')

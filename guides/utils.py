@@ -1540,6 +1540,88 @@ def lip_override_update(self, context):
                 pbones["lip_low_ctrl_3_mstr_R"]["CORNER_FOLLOW_Z_R"] = lip_3_curvature_z_override
                 drivers_update()
 
+def bbone_curve_brows_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                guide_props = bpy.context.scene.blenrig_guide
+                arm = guide_props.arm_obj
+                brows_vert_in = guide_props.guide_bbone_vertical_curve_in_brows
+                brows_vert_out = guide_props.guide_bbone_vertical_curve_out_brows
+                brows_depth_in = guide_props.guide_bbone_depth_curve_in_brows
+                brows_depth_out = guide_props.guide_bbone_depth_curve_out_brows
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["brow_line_L"].bone.bbone_curveiny = brows_vert_in
+                pbones["brow_line_L"].bone.bbone_curveouty = brows_vert_out
+                pbones["brow_line_L"].bone.bbone_curveinx = brows_depth_in
+                pbones["brow_line_L"].bone.bbone_curveoutx = brows_depth_out
+                pbones["brow_line_R"].bone.bbone_curveiny = brows_vert_in
+                pbones["brow_line_R"].bone.bbone_curveouty = brows_vert_out
+                pbones["brow_line_R"].bone.bbone_curveinx = -(brows_depth_in)
+                pbones["brow_line_R"].bone.bbone_curveoutx = -(brows_depth_out)
+
+def bbone_curve_lips_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                guide_props = bpy.context.scene.blenrig_guide
+                arm = guide_props.arm_obj
+                lip_up_vert_in = guide_props.guide_bbone_vertical_curve_in_lip_up
+                lip_up_vert_out = guide_props.guide_bbone_vertical_curve_out_lip_up
+                lip_up_depth_in = guide_props.guide_bbone_depth_curve_in_lip_up
+                lip_up_depth_out = guide_props.guide_bbone_depth_curve_out_lip_up
+                lip_low_vert_in = guide_props.guide_bbone_vertical_curve_in_lip_low
+                lip_low_vert_out = guide_props.guide_bbone_vertical_curve_out_lip_low
+                lip_low_depth_in = guide_props.guide_bbone_depth_curve_in_lip_low
+                lip_low_depth_out = guide_props.guide_bbone_depth_curve_out_lip_low
+                lip_zipper_vert_in = guide_props.guide_bbone_vertical_curve_in_lip_zipper
+                lip_zipper_vert_out = guide_props.guide_bbone_vertical_curve_out_lip_zipper
+                lip_zipper_depth_in = guide_props.guide_bbone_depth_curve_in_lip_zipper
+                lip_zipper_depth_out = guide_props.guide_bbone_depth_curve_out_lip_zipper
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["lip_up_line_L"].bone.bbone_curveiny = lip_up_vert_in
+                pbones["lip_up_line_L"].bone.bbone_curveouty = lip_up_vert_out
+                pbones["lip_up_line_L"].bone.bbone_curveinx = lip_up_depth_in
+                pbones["lip_up_line_L"].bone.bbone_curveoutx = lip_up_depth_out
+                pbones["lip_up_line_R"].bone.bbone_curveiny = lip_up_vert_in
+                pbones["lip_up_line_R"].bone.bbone_curveouty = lip_up_vert_out
+                pbones["lip_up_line_R"].bone.bbone_curveinx = -(lip_up_depth_in)
+                pbones["lip_up_line_R"].bone.bbone_curveoutx = -(lip_up_depth_out)
+                pbones["lip_low_line_L"].bone.bbone_curveiny = lip_low_vert_in
+                pbones["lip_low_line_L"].bone.bbone_curveouty = lip_low_vert_out
+                pbones["lip_low_line_L"].bone.bbone_curveinx = lip_low_depth_in
+                pbones["lip_low_line_L"].bone.bbone_curveoutx = lip_low_depth_out
+                pbones["lip_low_line_R"].bone.bbone_curveiny = lip_low_vert_in
+                pbones["lip_low_line_R"].bone.bbone_curveouty = lip_low_vert_out
+                pbones["lip_low_line_R"].bone.bbone_curveinx = -(lip_low_depth_in)
+                pbones["lip_low_line_R"].bone.bbone_curveoutx = -(lip_low_depth_out)
+                pbones["lip_zipper_line_L"].bone.bbone_curveiny = lip_zipper_vert_in
+                pbones["lip_zipper_line_L"].bone.bbone_curveouty = lip_zipper_vert_out
+                pbones["lip_zipper_line_L"].bone.bbone_curveinx = lip_zipper_depth_in
+                pbones["lip_zipper_line_L"].bone.bbone_curveoutx = lip_zipper_depth_out
+                pbones["lip_zipper_line_R"].bone.bbone_curveiny = lip_zipper_vert_in
+                pbones["lip_zipper_line_R"].bone.bbone_curveouty = lip_zipper_vert_out
+                pbones["lip_zipper_line_R"].bone.bbone_curveinx = -(lip_zipper_depth_in)
+                pbones["lip_zipper_line_R"].bone.bbone_curveoutx = -(lip_zipper_depth_out)
+
 # Assign Actions
 
 def assign_action(action_name, frame):
