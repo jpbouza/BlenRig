@@ -131,7 +131,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
         if not context.window_manager.modal_handler_add(self):
             return ModalReturn.CANCEL()
- 
+
         BlenrigGuide_BaseOperator.draw_handler = bpy.types.SpaceView3D.draw_handler_add(draw_callback_px, (self, context), 'WINDOW', 'POST_PIXEL') #self._handle
         BlenrigGuide_BaseOperator.instance = self # self.__class__.instance = self
         return ModalReturn.RUN()
@@ -217,10 +217,10 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
     # El Modal...
     def modal(self, context, event):
         # Condicion de salida.
-        if event.type == 'ESC':
-            self.finish(context)
-            self.area.tag_redraw()
-            return ModalReturn.CANCEL()
+        # if event.type == 'ESC':
+        #     self.finish(context)
+        #     self.area.tag_redraw()
+        #     return ModalReturn.CANCEL()
 
         # Comprobación de estado del contexto.
         res = self.check(context)
