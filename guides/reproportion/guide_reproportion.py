@@ -363,7 +363,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de la curva de la ceja'
             },
         'texto': {
-            'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the middle controller.",
+            'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the Brow controller.",
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Eyebrows_Curve_Ctrls
@@ -376,7 +376,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curva de las Cejas'
             },
         'texto': {
-            'EN': "Modify the curve values so that the Curve conforms the shape of the character's Eyebrow structure.",
+            'EN': "Modify the curve values so that the Eyebrow Curve conforms the shape of the character's Eyebrow structure. Then Place the Eyebrow Middle Controller at the center of the Eyebrow Curve ",
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Eyebrows_Curve
@@ -545,7 +545,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curva del labio'
             },
         'texto': {
-            'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth.',
+            'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth. Finally place Upper and Lower the Controllers at the Center of the Curves',
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Mouth_Curves

@@ -284,7 +284,7 @@ def Reprop_Head_Toon(operator, context):
 
     #
     bones = (
-        "face_toon_low", "face_toon_up"
+        "face_toon_low", "face_toon_mid", "face_toon_up"
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -299,7 +299,7 @@ def Reprop_Head_Toon(operator, context):
         add_item.bone = b
 
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context, "face_toon_low", "face_toon_up")
+    operator.draw_bones(context, "face_toon_low", "face_toon_mid", "face_toon_up")
 
 
 def Reprop_Breasts_Pecs(operator, context):
@@ -421,6 +421,13 @@ def Reprop_Sole_Bottom(operator, context):
     # Set View
     set_view_perspective(context, False)
     set_viewpoint('BOTTOM')
+
+    #Make Roll Frame Selectable
+    try:
+        bpy.context.scene.blenrig_guide.arm_obj.pose.bones['foot_ctrl_frame_L'].bone.hide_select = False
+        bpy.context.scene.blenrig_guide.arm_obj.pose.bones['foot_ctrl_frame_R'].bone.hide_select = False
+    except:
+        pass
 
     # Adjust view to Bones.
     frame_bones(context, "foot_roll_ctrl_L", "foot_roll_ctrl_R", "foot_ctrl_frame_L", "foot_ctrl_frame_R")
@@ -1091,7 +1098,7 @@ def Reprop_Eyebrows_Curve_Ctrls(operator, context):
 
     #
     bones = (
-        'brow_def_5_L', 'brow_line_L', 'brow_ctrl_curve_L', 'brow_ctrl_in_L', 'brow_ctrl_out_L', 'brow_def_5_R', 'brow_line_R', 'brow_ctrl_curve_R', 'brow_ctrl_in_R', 'brow_ctrl_out_R',
+        'brow_def_5_L', 'brow_line_L', 'brow_ctrl_in_L', 'brow_ctrl_out_L', 'brow_def_5_R', 'brow_line_R', 'brow_ctrl_in_R', 'brow_ctrl_out_R',
         'frown_ctrl_mstr', 'frown_def', 'frown_low_def_R', 'brow_def_1_R', 'frown_up_def_R', 'brow_low_def_1_R', 'brow_def_2_R', 'brow_up_def_1_R', 'brow_low_def_2_R', 'brow_def_3_R', 'brow_up_def_2_R',
         'brow_low_def_3_R', 'brow_def_4_R', 'brow_up_def_3_R', 'brow_low_def_4_R', 'brow_up_def_4_R', 'brow_low_def_4_L', 'brow_up_def_4_L', 'frown_low_def_L', 'brow_def_1_L', 'frown_up_def_L', 'brow_low_def_1_L',
         'brow_def_2_L', 'brow_up_def_1_L', 'brow_low_def_2_L', 'brow_def_3_L', 'brow_up_def_2_L', 'brow_low_def_3_L', 'brow_def_4_L', 'brow_up_def_3_L', 'brow_low_def_5_R', 'brow_up_def_5_R', 'brow_low_def_5_L', 'brow_up_def_5_L'
@@ -1109,13 +1116,15 @@ def Reprop_Eyebrows_Curve_Ctrls(operator, context):
         add_item.bone = b
 
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context, 'brow_ctrl_curve_L', 'brow_ctrl_in_L', 'brow_ctrl_out_L', 'brow_ctrl_curve_R', 'brow_ctrl_in_R', 'brow_ctrl_out_R'
+    operator.draw_bones(context, 'brow_ctrl_in_L', 'brow_ctrl_out_L', 'brow_ctrl_in_R', 'brow_ctrl_out_R', 'frown_ctrl_mstr'
     )
 
 def Reprop_Eyebrows_Curve(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Eyebrows_Curve'
+
+    guide_props = bpy.context.scene.blenrig_guide
 
     reproportion_on(context)
 
@@ -1135,7 +1144,8 @@ def Reprop_Eyebrows_Curve(operator, context):
         'brow_def_5_L', 'brow_line_L', 'brow_def_5_R', 'brow_line_R',
         'frown_def', 'frown_low_def_R', 'brow_def_1_R', 'frown_up_def_R', 'brow_low_def_1_R', 'brow_def_2_R', 'brow_up_def_1_R', 'brow_low_def_2_R', 'brow_def_3_R', 'brow_up_def_2_R',
         'brow_low_def_3_R', 'brow_def_4_R', 'brow_up_def_3_R', 'brow_low_def_4_R', 'brow_up_def_4_R', 'brow_low_def_4_L', 'brow_up_def_4_L', 'frown_low_def_L', 'brow_def_1_L', 'frown_up_def_L', 'brow_low_def_1_L',
-        'brow_def_2_L', 'brow_up_def_1_L', 'brow_low_def_2_L', 'brow_def_3_L', 'brow_up_def_2_L', 'brow_low_def_3_L', 'brow_def_4_L', 'brow_up_def_3_L', 'brow_low_def_5_R', 'brow_up_def_5_R', 'brow_low_def_5_L', 'brow_up_def_5_L'
+        'brow_def_2_L', 'brow_up_def_1_L', 'brow_low_def_2_L', 'brow_def_3_L', 'brow_up_def_2_L', 'brow_low_def_3_L', 'brow_def_4_L', 'brow_up_def_3_L', 'brow_low_def_5_R', 'brow_up_def_5_R', 'brow_low_def_5_L', 'brow_up_def_5_L',
+        'brow_ctrl_curve_L', 'brow_ctrl_curve_R'
     )
     unhide_all_bones(context)
     select_all_pose_bones(context)
@@ -1149,8 +1159,22 @@ def Reprop_Eyebrows_Curve(operator, context):
         add_item = scn.blenrig_wp_bones.add()
         add_item.bone = b
 
+    #Collect Values
+    pbones = guide_props.arm_obj.pose.bones
+    vert_in = pbones["brow_line_L"].bone.bbone_curveiny
+    vert_out = pbones["brow_line_L"].bone.bbone_curveouty
+    depth_in = pbones["brow_line_L"].bone.bbone_curveinx
+    depth_out = pbones["brow_line_L"].bone.bbone_curveoutx
+
+    #Assign BBone Values
+    guide_props.guide_bbone_vertical_curve_in_brows = vert_in
+    guide_props.guide_bbone_vertical_curve_out_brows = vert_out
+    guide_props.guide_bbone_depth_curve_in_brows = depth_in
+    guide_props.guide_bbone_depth_curve_out_brows = depth_out
+
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context)
+    operator.draw_bones(context, 'brow_ctrl_curve_L', 'brow_ctrl_curve_R'
+    )
 
 def Reprop_Eyebrows_Ctrls(operator, context):
     #Perform end of step action and set current step name
@@ -1581,7 +1605,7 @@ def Reprop_Mouth_Curves_Ctrls(operator, context):
     frame_bones(context, 'head_str', 'neck_ctrl_4_str')
 
     #
-    bones = ('lip_low_ctrl', 'lip_low_ctrl_curve_L', 'lip_low_ctrl_curve_R', 'lip_up_ctrl', 'lip_up_ctrl_curve_L', 'lip_up_ctrl_curve_R', 'mouth_corner_str_L', 'mouth_corner_str_R',
+    bones = ('lip_low_ctrl', 'lip_up_ctrl', 'mouth_corner_str_L', 'mouth_corner_str_R',
     'lip_low_def_3_R', 'lip_low_def_2_R', 'lip_low_rim_def_3_R', 'lip_low_line_def_3_R', 'lip_low_def_1_R', 'lip_low_rim_def_2_R', 'lip_low_line_def_2_R', 'lip_low_def_3_L', 'lip_low_def_2_L',
     'lip_low_rim_def_3_L', 'lip_low_line_def_3_L', 'lip_low_def_1_L', 'lip_low_rim_def_2_L', 'lip_low_line_def_2_L', 'lip_low_def_mid', 'lip_low_rim_def_1_R', 'lip_low_rim_def_1_L', 'lip_low_line_def_1_L', 'lip_low_line_def_1_R',
     'lip_low_rim_def_4_R', 'lip_up_rim_def_4_R', 'lip_low_line_def_4_R', 'lip_up_line_def_4_R', 'lip_low_rim_def_4_L', 'lip_up_rim_def_4_L', 'lip_low_line_def_4_L', 'lip_up_line_def_4_L', 'lip_up_def_mid',
@@ -1603,12 +1627,13 @@ def Reprop_Mouth_Curves_Ctrls(operator, context):
         add_item.bone = b
 
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context, 'lip_low_ctrl', 'lip_low_ctrl_curve_L', 'lip_low_ctrl_curve_R', 'lip_up_ctrl', 'lip_up_ctrl_curve_L', 'lip_up_ctrl_curve_R', 'mouth_corner_str_L', 'mouth_corner_str_R')
+    operator.draw_bones(context, 'lip_low_ctrl', 'lip_up_ctrl', 'mouth_corner_str_L', 'mouth_corner_str_R')
 
 def Reprop_Mouth_Curves(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Mouth_Curves'
+    guide_props = bpy.context.scene.blenrig_guide
 
     reproportion_on(context)
 
@@ -1629,7 +1654,8 @@ def Reprop_Mouth_Curves(operator, context):
     'lip_low_rim_def_4_R', 'lip_up_rim_def_4_R', 'lip_low_line_def_4_R', 'lip_up_line_def_4_R', 'lip_low_rim_def_4_L', 'lip_up_rim_def_4_L', 'lip_low_line_def_4_L', 'lip_up_line_def_4_L', 'lip_up_def_mid',
     'lip_up_rim_def_1_R', 'lip_up_rim_def_1_L', 'lip_up_line_def_1_L', 'lip_up_line_def_1_R', 'lip_up_def_1_L', 'lip_up_rim_def_2_L', 'lip_up_line_def_2_L', 'lip_up_def_1_R', 'lip_up_rim_def_2_R', 'lip_up_line_def_2_R',
     'lip_up_def_2_R', 'lip_up_rim_def_3_R', 'lip_up_line_def_3_R', 'lip_up_def_2_L', 'lip_up_rim_def_3_L', 'lip_up_line_def_3_L', 'lip_up_def_3_L', 'lip_up_def_3_R',
-    'lip_low_line_L', 'lip_low_line_R', 'lip_up_line_L', 'lip_up_line_R', 'lip_zipper_line_L', 'lip_zipper_line_R', 'lip_low_def_4_L', 'lip_low_def_4_R'
+    'lip_low_line_L', 'lip_low_line_R', 'lip_up_line_L', 'lip_up_line_R', 'lip_zipper_line_L', 'lip_zipper_line_R', 'lip_low_def_4_L', 'lip_low_def_4_R',
+    'lip_up_ctrl_curve_L', 'lip_up_ctrl_curve_R', 'lip_low_ctrl_curve_L', 'lip_low_ctrl_curve_R'
     )
 
     unhide_all_bones(context)
@@ -1645,7 +1671,35 @@ def Reprop_Mouth_Curves(operator, context):
         add_item.bone = b
 
     # Add OpenGL Highlight to bones
-    operator.draw_bones(context)
+    operator.draw_bones(context, 'lip_up_ctrl_curve_L', 'lip_up_ctrl_curve_R', 'lip_low_ctrl_curve_L', 'lip_low_ctrl_curve_R')
+
+    #Collect Values
+    pbones = guide_props.arm_obj.pose.bones
+    lip_up_vert_in = pbones["lip_up_line_L"].bone.bbone_curveiny
+    lip_up_vert_out = pbones["lip_up_line_L"].bone.bbone_curveouty
+    lip_up_depth_in = pbones["lip_up_line_L"].bone.bbone_curveinx
+    lip_up_depth_out = pbones["lip_up_line_L"].bone.bbone_curveoutx
+    lip_low_vert_in = pbones["lip_low_line_L"].bone.bbone_curveiny
+    lip_low_vert_out = pbones["lip_low_line_L"].bone.bbone_curveouty
+    lip_low_depth_in = pbones["lip_low_line_L"].bone.bbone_curveinx
+    lip_low_depth_out = pbones["lip_low_line_L"].bone.bbone_curveoutx
+    lip_zipper_vert_in = pbones["lip_zipper_line_L"].bone.bbone_curveiny
+    lip_zipper_vert_out = pbones["lip_zipper_line_L"].bone.bbone_curveouty
+    lip_zipper_depth_in = pbones["lip_zipper_line_L"].bone.bbone_curveinx
+    lip_zipper_depth_out = pbones["lip_zipper_line_L"].bone.bbone_curveoutx
+    #Assign BBone Values
+    guide_props.guide_bbone_vertical_curve_in_lip_up = lip_up_vert_in
+    guide_props.guide_bbone_vertical_curve_out_lip_up = lip_up_vert_out
+    guide_props.guide_bbone_depth_curve_in_lip_up = lip_up_depth_in
+    guide_props.guide_bbone_depth_curve_out_lip_up = lip_up_depth_out
+    guide_props.guide_bbone_vertical_curve_in_lip_low = lip_low_vert_in
+    guide_props.guide_bbone_vertical_curve_out_lip_low = lip_low_vert_out
+    guide_props.guide_bbone_depth_curve_in_lip_low = lip_low_depth_in
+    guide_props.guide_bbone_depth_curve_out_lip_low = lip_low_depth_out
+    guide_props.guide_bbone_vertical_curve_in_lip_zipper = lip_zipper_vert_in
+    guide_props.guide_bbone_vertical_curve_out_lip_zipper = lip_zipper_vert_out
+    guide_props.guide_bbone_depth_curve_in_lip_zipper = lip_zipper_depth_in
+    guide_props.guide_bbone_depth_curve_out_lip_zipper = lip_zipper_depth_out
 
 def Reprop_Mouth_Ctrls(operator, context):
     #Perform end of step action and set current step name
@@ -2069,6 +2123,9 @@ def Reprop_Custom_Alignments(operator, context):
 
     set_mode('EDIT')
 
+    #Set pivot to Individual Origins
+    context.scene.tool_settings.transform_pivot_point = 'INDIVIDUAL_ORIGINS'
+
     #Turn Layers on
     on_layers = [29]
     for L in on_layers:
@@ -2093,7 +2150,7 @@ def Reprop_IK_Check(operator, context):
     frame_bones(context, 'head_str', 'master')
 
     #Turn Layers on
-    on_layers = [6, 9, 16, 23, 27]
+    on_layers = [6, 7, 9, 16, 23, 27]
     for L in on_layers:
         context.object.data.layers[L] = True
         for l in range(len(context.object.data.layers)):
@@ -2210,6 +2267,13 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['foot_roll_ctrl_L'].lock_location[1] = True
         context.pose_object.pose.bones['foot_roll_ctrl_R'].lock_location[1] = True
         context.scene.blenrig_guide.guide_current_step = ''
+    if current_step == 'Reprop_Sole_Bottom':
+        #Make Roll Frame Non-Selectable
+        try:
+            bpy.context.scene.blenrig_guide.arm_obj.pose.bones['foot_ctrl_frame_L'].bone.hide_select = True
+            bpy.context.scene.blenrig_guide.arm_obj.pose.bones['foot_ctrl_frame_R'].bone.hide_select = True
+        except:
+            pass
     if current_step == 'Reprop_Toes':
         context.pose_object.pose.bones['toes_spread_L'].lock_location[0] = True
         context.pose_object.pose.bones['toes_spread_L'].lock_location[1] = True
@@ -2286,4 +2350,6 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['blink_ctrl_R'].lock_location[1] = True
     if current_step == 'Reprop_Custom_Alignments':
         go_blenrig_pose_mode(context)
+        #Set pivot to Median Point
+        context.scene.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
         context.scene.blenrig_guide.guide_current_step = ''
