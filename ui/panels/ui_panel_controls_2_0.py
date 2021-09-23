@@ -328,6 +328,7 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
             col_3 = animation_row.row(align=False)
             col_3.alignment = 'RIGHT'
 
+            col_3.prop(armobj.pose,"use_mirror_x")
             col_3.prop(armobj,"show_in_front")
             col_3.prop(ovlay,"show_bones")
             col_3.prop(ovlay,"show_overlays")
