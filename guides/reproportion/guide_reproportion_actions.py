@@ -2141,6 +2141,7 @@ def Reprop_IK_Check(operator, context):
 
     reproportion_on(context)
     reproportion_off(context)
+    bpy.context.scene.blenrig_guide.arm_obj.show_in_front = True
 
     # Set View
     set_view_perspective(context, False)
