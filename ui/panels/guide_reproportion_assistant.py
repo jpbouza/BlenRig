@@ -22,7 +22,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
             p_bones = arm.pose.bones
 
             #General
-            exclude = ['Reprop_Bake', 'Reprop_Custom_Alignments', 'Reprop_IK_Check', 'Reprop_Finish']
+            exclude = ['Reprop_Bake', 'Reprop_Custom_Alignments', 'Reprop_Finish']
             if guide_props.guide_current_step not in exclude:
                 steps = layout.column(align=True)
                 box = steps.box()
