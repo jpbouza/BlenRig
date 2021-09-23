@@ -126,6 +126,7 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     col_L.label(text=' ')
                     try:
                         col_R.prop(p_bones['foot_toe_fix_low_1_L'].constraints['Foot_Toe_1_Low_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        col_L.prop(p_bones['foot_toe_fix_low_1_L'].constraints['Foot_Toe_1_Low_VP_Down_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
                     except:
                         pass
                 if guide_props.guide_joint_transforms_X4 == 2:
@@ -136,9 +137,10 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     col_L.label(text=' ')
                     try:
                         col_R.prop(p_bones['foot_toe_fix_up_1_L'].constraints['Foot_Toe_1_Up_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        col_L.prop(p_bones['foot_toe_fix_up_1_L'].constraints['Foot_Toe_1_Up_VP_Up_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
                     except:
                         pass
-            #Foot Toe 1
+            #Foot Toe 2
             if guide_props.guide_transformation_bone == 'foot_toe_2_fk_L':
                 box_pose.prop(guide_props, "guide_joint_transforms_X4", text='Foot Toe 2 Pose')
                 if guide_props.guide_joint_transforms_X4 == 1:
@@ -149,6 +151,7 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     col_L.label(text=' ')
                     try:
                         col_R.prop(p_bones['foot_toe_fix_low_2_L'].constraints['Foot_Toe_2_Low_VP_Down_L_NOREP'], 'to_max_y', text="Outwards", toggle=True)
+                        col_L.prop(p_bones['foot_toe_fix_low_2_L'].constraints['Foot_Toe_2_Low_VP_Down_L_NOREP'], 'to_max_z', text="Vertical", toggle=True)
                     except:
                         pass
                 if guide_props.guide_joint_transforms_X4 == 2:
@@ -159,6 +162,7 @@ class BLENRIG_PT_weights_guide(BLENRIG_PT_guide_assistant):
                     col_L.label(text=' ')
                     try:
                         col_R.prop(p_bones['foot_toe_fix_up_2_L'].constraints['Foot_Toe_2_Up_VP_Up_L_NOREP'], 'to_min_y', text="Outwards", toggle=True)
+                        col_L.prop(p_bones['foot_toe_fix_up_2_L'].constraints['Foot_Toe_2_Up_VP_Up_L_NOREP'], 'to_min_z', text="Vertical", toggle=True)
                     except:
                         pass
             if guide_props.guide_joint_transforms_X4 != 0:
