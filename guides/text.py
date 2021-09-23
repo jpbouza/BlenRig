@@ -3,7 +3,7 @@ from blf import (
     SHADOW, shadow as text_shadow, shadow_offset as text_shadow_offset,
     color as text_color, position as text_position, size as text_size,
     dimensions as text_dim, draw as text_draw, ROTATION, rotation as text_rotation,
-    clipping as text_clipping, CLIPPING, KERNING_DEFAULT, WORD_WRAP, MONOCHROME, word_wrap as text_wrap
+    clipping as text_clipping, CLIPPING, WORD_WRAP, MONOCHROME, word_wrap as text_wrap, KERNING_DEFAULT
 )
 
 

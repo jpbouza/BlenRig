@@ -39,10 +39,8 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
             box = layout.column()
             col = box.column()
             row = col.row()
-            # row.alignment = 'CENTER'
             row = layout.row(align=True)
             comb = row.row()
-            # row = layout.row(heading="Mirror")
             sub = row.row(align=True)
             sub.prop(mesh, "use_mirror_x",text= "X-Mirror")
             row.prop(mesh, "use_mirror_topology")
