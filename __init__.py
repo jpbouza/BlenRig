@@ -883,6 +883,138 @@ bpy.types.PoseBone.toon_leg_R = FloatProperty(
     name="toon_leg_R"
 )
 
+#Stretchy Fingers
+
+bpy.types.PoseBone.toon_fing_thumb_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_thumb_L"
+)
+
+bpy.types.PoseBone.toon_fing_index_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_index_L"
+)
+
+bpy.types.PoseBone.toon_fing_middle_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_middle_L"
+)
+
+bpy.types.PoseBone.toon_fing_ring_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_ring_L"
+)
+
+bpy.types.PoseBone.toon_fing_little_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_little_L"
+)
+
+bpy.types.PoseBone.toon_fing_thumb_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_thumb_R"
+)
+
+bpy.types.PoseBone.toon_fing_index_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_index_R"
+)
+
+bpy.types.PoseBone.toon_fing_middle_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_middle_R"
+)
+
+bpy.types.PoseBone.toon_fing_ring_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_ring_R"
+)
+
+bpy.types.PoseBone.toon_fing_little_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Stretchy IK Toggle",
+    update=prop_update,
+    name="toon_fing_little_R"
+)
+
 #Pin
 
 bpy.types.PoseBone.pin_elbow_L = FloatProperty(
