@@ -342,8 +342,6 @@ def reproportion_toggle(self, context):
                                 C.mute = False
                             if ('NOREP' in C.name):
                                 C.mute = True
-                    fingers_toggles(self, context)
-                    toes_toggles(self, context)
                 else:
                     contador = 0
                     try :
@@ -357,8 +355,6 @@ def reproportion_toggle(self, context):
                                     C.mute = True
                                 if ('NOREP' in C.name):
                                     C.mute = False
-                        fingers_toggles(self, context)
-                        toes_toggles(self, context)
                     except:
                         pass
 
