@@ -8,9 +8,10 @@ from mathutils import Matrix, Vector
 def find_blenrig_armature_object(context):
     for ob in context.scene.objects:
         if ob.type == 'ARMATURE':
-            if ob.data.rig_name == 'BlenRig':
-                context.scene.blenrig_guide.arm_obj = ob
-                return ob
+            for prop in ob.data.items():
+                if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                    context.scene.blenrig_guide.arm_obj = ob
+                    return ob
     return None
 
 def get_armature_object(context):
