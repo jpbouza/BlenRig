@@ -21,7 +21,7 @@ class BLENRIG_PT_mdef_guide(BLENRIG_PT_guide_assistant):
             steps = layout.column(align=True)
             box_set = steps.box()
             box_set.label(text='Define Objects that use Mesh Deform')
-            box_set.operator("blenrig.add_body_modifiers", text = 'Set Body Objects')
+            box_set.operator("blenrig.guide_add_body_modifiers", text = 'Set Body Objects')
         if context.scene.blenrig_guide.guide_current_step == 'MDEF_Edit_Mdef_Cage':
             props = context.window_manager.blenrig_6_props
             ob = context.active_object
