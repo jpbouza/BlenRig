@@ -24,25 +24,31 @@ def DT_Weight_Mesh_Shapekey_Head(operator, context):
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Weight_Mesh_Shapekey_Head'
 
     guide_props = bpy.context.scene.blenrig_guide
+    head_weights_obj = guide_props.mdef_head_weights_transfer_obj
 
     deselect_all_objects(context)
 
-    # Show MDefHeadWeightsModel
-    mdef_weights_model_objects = collect_mdef_head_weights_model()
-    collect_mdef_head_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
+    if head_weights_obj == None:
+        # Show MDefHeadWeightsModel
+        mdef_weights_model_objects = collect_mdef_head_weights_model()
+        collect_mdef_head_weights_model()
+        blenrig_temp_link(mdef_weights_model_objects)
 
-    for ob in mdef_weights_model_objects:
-        set_active_object(context, ob)
-        guide_props.mdef_head_weights_transfer_obj = ob
-        guide_props.mdef_head_weights_transfer_obj.hide_viewport = False
+        for ob in mdef_weights_model_objects:
+            set_active_object(context, ob)
+            head_weights_obj = ob
+            head_weights_obj.hide_viewport = False
+    else:
+        blenrig_temp_link([head_weights_obj])
+        head_weights_obj.hide_viewport = False
+        set_active_object(context, head_weights_obj)
 
     #Add and Edit Face Shapekey
-    if hasattr(guide_props.mdef_head_weights_transfer_obj, 'data'):
+    if hasattr(head_weights_obj, 'data'):
         basis_shapekey_fix(context)
         add_shapekey(context, 'Weights_Transfer_Head')
-        guide_props.mdef_head_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].value = 1.0
-        guide_props.mdef_head_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].mute = False
+        head_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].value = 1.0
+        head_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].mute = False
 
     #Set to Local_View
     switch_out_local_view()
@@ -52,8 +58,8 @@ def DT_Weight_Mesh_Shapekey_Head(operator, context):
             bpy.ops.view3d.localview()
 
     #Turn Off modifiers for proper Editing
-    if hasattr(guide_props.mdef_head_weights_transfer_obj, 'modifiers'):
-        for mod in guide_props.mdef_head_weights_transfer_obj.modifiers:
+    if hasattr(head_weights_obj, 'modifiers'):
+        for mod in head_weights_obj.modifiers:
             mod.show_in_editmode = False
 
     set_mode('EDIT')
@@ -192,26 +198,32 @@ def DT_Weight_Mesh_Shapekey_Hands(operator, context):
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Weight_Mesh_Shapekey_Hands'
 
     guide_props = bpy.context.scene.blenrig_guide
+    hands_weights_obj = guide_props.mdef_hands_weights_transfer_obj
 
     deselect_all_objects(context)
 
-    # Show MDefHandsWeightsModel
-    mdef_weights_model_objects = collect_mdef_hands_weights_model()
-    collect_mdef_hands_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
+    if hands_weights_obj == None:
+        # Show MDefHandsWeightsModel
+        mdef_weights_model_objects = collect_mdef_hands_weights_model()
+        collect_mdef_hands_weights_model()
+        blenrig_temp_link(mdef_weights_model_objects)
 
-    for ob in mdef_weights_model_objects:
-        set_active_object(context, ob)
-        guide_props.mdef_hands_weights_transfer_obj = ob
-        guide_props.mdef_hands_weights_transfer_obj.hide_viewport = False
-        set_mode('EDIT')
+        for ob in mdef_weights_model_objects:
+            set_active_object(context, ob)
+            hands_weights_obj = ob
+            hands_weights_obj.hide_viewport = False
+            set_mode('EDIT')
+    else:
+        blenrig_temp_link([hands_weights_obj])
+        hands_weights_obj.hide_viewport = False
+        set_active_object(context, hands_weights_obj)
 
     #Add and Edit Fingers Shapekey
-    if hasattr(guide_props.mdef_hands_weights_transfer_obj, 'data'):
+    if hasattr(hands_weights_obj, 'data'):
         basis_shapekey_fix(context)
         add_shapekey(context, 'Weights_Transfer_Hands')
-        guide_props.mdef_hands_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 1.0
-        guide_props.mdef_hands_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].mute = False
+        hands_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 1.0
+        hands_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].mute = False
 
     #Set to Local_View
     switch_out_local_view()
@@ -221,8 +233,8 @@ def DT_Weight_Mesh_Shapekey_Hands(operator, context):
             bpy.ops.view3d.localview()
 
     #Turn Off modifiers for proper Editing
-    if hasattr(guide_props.mdef_hands_weights_transfer_obj, 'modifiers'):
-        for mod in guide_props.mdef_hands_weights_transfer_obj.modifiers:
+    if hasattr(hands_weights_obj, 'modifiers'):
+        for mod in hands_weights_obj.modifiers:
             mod.show_in_editmode = False
 
     set_mode('EDIT')
