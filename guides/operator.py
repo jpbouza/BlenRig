@@ -351,17 +351,8 @@ class Operator_blenrig_add_eyes_modifiers(bpy.types.Operator):
 
     side : bpy.props.StringProperty()
 
-    def add_vgroup(self, context, vgroup):
-        from .utils import check_vgroup_name
-        #Check if Vgroups Exist
-        if check_vgroup_name(vgroup):
-            pass
-        else:
-            bpy.context.active_object.vertex_groups.new(name=vgroup)
-            bpy.ops.object.vertex_group_assign()
-
     def execute(self, context):
-        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, add_vgroup, set_mode
 
         #Add Deform Modifiers to Character's Eye
         active = context.active_object
@@ -382,9 +373,18 @@ class Operator_blenrig_add_eyes_modifiers(bpy.types.Operator):
         #Left Eye
         if self.side == 'Left':
             #Add Vgroups
-            if active.mode == 'EDIT':
-                self.add_vgroup(context, 'eye_def_L')
-                self.add_vgroup(context, 'lattice_eye_L')
+            if active.mode == 'OBJECT':
+                set_mode('EDIT')
+                if active.mode == 'EDIT':
+                    bpy.ops.mesh.select_all(action='SELECT')
+                    add_vgroup(self, context, 'eye_def_L')
+                    add_vgroup(self, context, 'lattice_eye_L')
+                    bpy.ops.mesh.select_all(action='DESELECT')
+                set_mode('OBJECT')
+            else:
+                if active.mode == 'EDIT':
+                    add_vgroup(self, context, 'eye_def_L')
+                    add_vgroup(self, context, 'lattice_eye_L')
             #Eye Lattice
             if check_mod_type_name('LATTICE', 'LATTICE_EYE_L'):
                 pass
@@ -401,9 +401,18 @@ class Operator_blenrig_add_eyes_modifiers(bpy.types.Operator):
         #Right Eye
         if self.side == 'Right':
             #Add Vgroups
-            if active.mode == 'EDIT':
-                self.add_vgroup(context, 'eye_def_R')
-                self.add_vgroup(context, 'lattice_eye_R')
+            if active.mode == 'OBJECT':
+                set_mode('EDIT')
+                if active.mode == 'EDIT':
+                    bpy.ops.mesh.select_all(action='SELECT')
+                    add_vgroup(self, context, 'eye_def_R')
+                    add_vgroup(self, context, 'lattice_eye_R')
+                    bpy.ops.mesh.select_all(action='DESELECT')
+                set_mode('OBJECT')
+            else:
+                if active.mode == 'EDIT':
+                    add_vgroup(self, context, 'eye_def_R')
+                    add_vgroup(self, context, 'lattice_eye_R')
             #Eye Lattice
             if check_mod_type_name('LATTICE', 'LATTICE_EYE_R'):
                 pass
@@ -417,19 +426,19 @@ class Operator_blenrig_add_eyes_modifiers(bpy.types.Operator):
                                 mod.object = ob
                 mod.vertex_group = 'lattice_eye_R'
                 mod.show_expanded = False
-
-        if check_mod_type_name('LATTICE', 'LATTICE_HEAD'):
-            pass
-        else:
-            mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
-            # set modifier properties
-            for ob in bpy.data.objects:
-                if ob.type == 'LATTICE':
-                    if 'LATTICE_HEAD' in ob.name:
-                        if ob.parent == context.scene.blenrig_guide.arm_obj:
-                            mod.object = ob
-            mod.vertex_group = 'lattice_head'
-            mod.show_expanded = False
+        #Remove Lattice Head
+        head_lattice_mod = [mod for mod in active.modifiers if mod.name == 'LATTICE_HEAD']
+        if head_lattice_mod:
+            active.modifiers.remove(head_lattice_mod[-1])
+        mod = active.modifiers.new(name= "LATTICE_HEAD",type= 'LATTICE')
+        # set modifier properties
+        for ob in bpy.data.objects:
+            if ob.type == 'LATTICE':
+                if 'LATTICE_HEAD' in ob.name:
+                    if ob.parent == context.scene.blenrig_guide.arm_obj:
+                        mod.object = ob
+        mod.vertex_group = 'lattice_head'
+        mod.show_expanded = False
 
         #Subsurf
         subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
@@ -614,7 +623,78 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
 
     def execute(self, context):
 
-        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects, set_mode, add_vgroup
+
+        #Add Deform Modifiers to defined Character's body object
+        selected_list = context.selected_objects
+        for ob in selected_list:
+            deselect_all_objects(context)
+            set_active_object(context, ob)
+            active = context.active_object
+
+            #Mesh Deform
+            if check_mod_type('MESH_DEFORM'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "MeshDeform",type= 'MESH_DEFORM')
+                # set modifier properties
+                mod.object = context.scene.blenrig_guide.mdef_cage_obj
+                mod.invert_vertex_group = True
+                mod.vertex_group = 'no_mdef'
+                mod.show_expanded = True
+                mod.show_in_editmode = True
+                mod.show_on_cage = True
+
+            #Corrective Smooth
+            #Add Vgroups
+            set_mode('EDIT')
+            if active.mode == 'EDIT':
+                bpy.ops.mesh.select_all(action='SELECT')
+                bpy.ops.mesh.select_all(action='DESELECT')
+                add_vgroup(self, context, 'corrective_smooth')
+            set_mode('OBJECT')
+            if check_mod_type('CORRECTIVE_SMOOTH'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "CorrectiveSmooth",type= 'CORRECTIVE_SMOOTH')
+                # set modifier properties
+                mod.smooth_type = 'SIMPLE'
+                mod.rest_source = 'ORCO'
+                mod.vertex_group = 'corrective_smooth'
+                mod.show_expanded = False
+
+            #Subsurf
+            subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
+            if subsurf_mods:
+                active.modifiers.remove(subsurf_mods[-1])
+            mod = active.modifiers.new(name= "Subdivision",type= 'SUBSURF')
+            # set modifier properties
+            mod.subdivision_type = 'CATMULL_CLARK'
+            mod.levels = 0
+            mod.render_levels = 3
+            mod.show_expanded = True
+
+        return {"FINISHED"}
+
+class Operator_blenrig_guide_add_body_modifiers(bpy.types.Operator):
+
+    bl_idname = "blenrig.guide_add_body_modifiers"
+    bl_label = "BlenRig add Body Modifiers"
+    bl_description = "Add Mesh Deform modifier"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects, set_mode, add_vgroup
 
         #Clear List
         context.scene.blenrig_character_body_obj.clear()
@@ -643,6 +723,24 @@ class Operator_blenrig_add_body_modifiers(bpy.types.Operator):
                 mod.show_expanded = True
                 mod.show_in_editmode = True
                 mod.show_on_cage = True
+
+            #Corrective Smooth
+            #Add Vgroups
+            set_mode('EDIT')
+            if active.mode == 'EDIT':
+                bpy.ops.mesh.select_all(action='SELECT')
+                bpy.ops.mesh.select_all(action='DESELECT')
+                add_vgroup(self, context, 'corrective_smooth')
+            set_mode('OBJECT')
+            if check_mod_type('CORRECTIVE_SMOOTH'):
+                pass
+            else:
+                mod = active.modifiers.new(name= "CorrectiveSmooth",type= 'CORRECTIVE_SMOOTH')
+                # set modifier properties
+                mod.smooth_type = 'SIMPLE'
+                mod.rest_source = 'ORCO'
+                mod.vertex_group = 'corrective_smooth'
+                mod.show_expanded = False
 
             #Subsurf
             subsurf_mods = [mod for mod in active.modifiers if mod.type == 'SUBSURF']
