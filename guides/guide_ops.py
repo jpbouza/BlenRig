@@ -60,7 +60,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         # Sólo debe de haber una instancia (independientemente de qué guía sea),
         # y el operator base/padre se encarga de almacenar la referencia.
         if BlenrigGuide_BaseOperator.instance: # cls.instance:
-            print("WARN! Trying to open a new Blenrig Guide instance when there's one active instance")
+            # print("WARN! Trying to open a new Blenrig Guide instance when there's one active instance")
             return False
         return True
 
