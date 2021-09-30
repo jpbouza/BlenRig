@@ -783,6 +783,7 @@ def Reprop_Fingers(operator, context):
     context.pose_object.pose.bones['fing_spread_R'].lock_scale[0] = False
     context.pose_object.pose.bones['fing_spread_R'].lock_scale[2] = False
     set_locks(['hand_close_L', 'hand_close_R'], False, False, False, False, False, False, False, False, False)
+
 def Reprop_Limbs_Adjust_Shape(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -1259,7 +1260,14 @@ def Reprop_Eyelids_Ctrls(operator, context):
     context.pose_object.pose.bones['blink_ctrl_L'].lock_location[1] = False
     context.pose_object.pose.bones['blink_ctrl_R'].lock_location[0] = False
     context.pose_object.pose.bones['blink_ctrl_R'].lock_location[1] = False
-
+    context.pose_object.pose.bones['blink_ctrl_L'].lock_rotation[0] = False
+    context.pose_object.pose.bones['blink_ctrl_L'].lock_rotation[2] = False
+    context.pose_object.pose.bones['blink_ctrl_L'].lock_scale[0] = False
+    context.pose_object.pose.bones['blink_ctrl_L'].lock_scale[1] = False
+    context.pose_object.pose.bones['blink_ctrl_R'].lock_rotation[0] = False
+    context.pose_object.pose.bones['blink_ctrl_R'].lock_rotation[2] = False
+    context.pose_object.pose.bones['blink_ctrl_R'].lock_scale[0] = False
+    context.pose_object.pose.bones['blink_ctrl_R'].lock_scale[1] = False
 
 def Reprop_Eyelids_Rim_Ctrls(operator, context):
     #Perform end of step action and set current step name
@@ -2349,8 +2357,18 @@ def end_of_step_action(context):
         context.pose_object.pose.bones['blink_ctrl_L'].lock_location[1] = True
         context.pose_object.pose.bones['blink_ctrl_R'].lock_location[0] = True
         context.pose_object.pose.bones['blink_ctrl_R'].lock_location[1] = True
+        context.pose_object.pose.bones['blink_ctrl_L'].lock_rotation[0] = True
+        context.pose_object.pose.bones['blink_ctrl_L'].lock_rotation[2] = True
+        context.pose_object.pose.bones['blink_ctrl_L'].lock_scale[0] = True
+        context.pose_object.pose.bones['blink_ctrl_L'].lock_scale[1] = True
+        context.pose_object.pose.bones['blink_ctrl_R'].lock_rotation[0] = True
+        context.pose_object.pose.bones['blink_ctrl_R'].lock_rotation[2] = True
+        context.pose_object.pose.bones['blink_ctrl_R'].lock_scale[0] = True
+        context.pose_object.pose.bones['blink_ctrl_R'].lock_scale[1] = True
     if current_step == 'Reprop_Custom_Alignments':
         go_blenrig_pose_mode(context)
         #Set pivot to Median Point
         context.scene.tool_settings.transform_pivot_point = 'MEDIAN_POINT'
         context.scene.blenrig_guide.guide_current_step = ''
+
+

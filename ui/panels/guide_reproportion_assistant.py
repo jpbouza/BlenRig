@@ -26,15 +26,13 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
             if guide_props.guide_current_step not in exclude:
                 steps = layout.column(align=True)
                 box = steps.box()
-                box.prop(guide_props, "guide_lock_center_bones")
-                box.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
+                row_bones = box.row()
+                row_bones.prop(guide_props, "guide_lock_center_bones")
+                row_bones.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
+                row_display = box.row()
+                row_display.prop(pose, "use_mirror_x")
+                row_display.prop(arm, "show_in_front")
                 box.prop(guide_props.arm_obj.data, "display_type")
-            # Step 0 X-Mirror
-            if context.scene.blenrig_guide.guide_current_step == 'Reprop_Symmetry':
-                steps = layout.column(align=True)
-                box = steps.box()
-                box.prop(pose, "use_mirror_x")
-
             # Set Spine Curve Values Step
             if context.scene.blenrig_guide.guide_current_step == 'Reprop_Spine_Line':
                 steps = layout.column(align=True)
