@@ -129,7 +129,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select the Left Eye and In Edit mode select all of its vertices. Press the 'Add Left Eye Modifiers' Button. Repeat the same procedure with the Right eye and press the 'Add Right Eye Modifiers'.",
+            'EN': "Select the Left Eye and press the 'Add Left Eye Modifiers' Button. Same for the Right Eye. If both Eyes belong to a single object, go into Edit Mode, select the geometry of each Eye and press the corresponding button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Eyes
