@@ -430,6 +430,14 @@ def check_vgroup_name(vgroup_name):
             if hasattr(vgroup, 'name'):
                 if vgroup.name == vgroup_name:
                     return True
+### Add Vgroup
+def add_vgroup(self, context, vgroup):
+    #Check if Vgroups Exist
+    if check_vgroup_name(vgroup):
+        pass
+    else:
+        bpy.context.active_object.vertex_groups.new(name=vgroup)
+        bpy.ops.object.vertex_group_assign()
 
 #### Shapekeys
 
