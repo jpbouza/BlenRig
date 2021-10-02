@@ -10077,15 +10077,15 @@ def rotcopy(item, mat):
     else:
         item.rotation_euler = mat.to_3x3().to_euler(item.rotation_mode)
 
-def pVisLocExec(bone, active):
+def pVisLocExec(bone, active, context):
     bone.location = getmat(bone, active, False).to_translation()
 
-def pVisRotExec(bone, active):
+def pVisRotExec(bone, active, context):
     obj_bone = bone.id_data
     rotcopy(bone, getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_rotation))
 
 
-def pVisScaExec(bone, active):
+def pVisScaExec(bone, active, context):
     obj_bone = bone.id_data
     bone.scale = getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_scale)\
         .to_scale()
