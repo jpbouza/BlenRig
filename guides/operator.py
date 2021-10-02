@@ -6335,3 +6335,112 @@ class Operator_blenrig_snap_bone_to_cursor(bpy.types.Operator):
         else:
             snap_selected_to_cursor()
         return {"FINISHED"}
+
+#Mirror Vertex Groups
+class Operator_blenrig_mirror_vertex_groups(bpy.types.Operator):
+
+    bl_idname = "blenrig.mirror_vertex_groups"
+    bl_label = "BlenRig Mirror Vertex Groups"
+    bl_description = "Mirror Vertex Groups"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    #All Option
+    All : BoolProperty()
+
+    #Topology Option
+    Topology : BoolProperty()
+
+    #Choose Side Property
+    Side : EnumProperty(
+        items = (
+            ('L to R', 'Left to Right', '', 0),
+            ('R to L', 'Right to Left', '', 1),
+            ),
+            name="Choose Side", default='L to R')
+    #All Groups
+    def mirror_all_vgroups(self, context, side_1, side_2):
+
+        ob = bpy.context.active_object
+
+        #Delete Side_2 Groups
+        for vgroup in ob.vertex_groups:
+            if vgroup.name.endswith(side_2):
+                vg = ob.vertex_groups.get(vgroup.name)
+                if vg is not None:
+                    ob.vertex_groups.remove(vg)
+
+        #Mirror
+        ob.vertex_groups.active_index = 0
+
+        for i in range(len(bpy.context.active_object.vertex_groups)):
+            ind = ob.vertex_groups.active.index
+            if ob.vertex_groups.active.name.endswith(side_1):
+                bpy.ops.object.vertex_group_copy()
+                if self.Topology:
+                    bpy.ops.object.vertex_group_mirror(use_topology=True)
+                else:
+                    bpy.ops.object.vertex_group_mirror(use_topology=False)
+                ob.vertex_groups.active.name = ob.vertex_groups.active.name.replace(side_1, side_2).replace("_copy", "")
+
+            bpy.context.object.vertex_groups.active_index = (ind + 1)
+
+        bpy.ops.object.vertex_group_sort(sort_type = "NAME")
+
+    #Active Group
+    def mirror_active_vgroup(self, context, side_1, side_2):
+
+        ob = bpy.context.active_object
+        if not ob.vertex_groups.active.name.endswith(side_1) and not ob.vertex_groups.active.name.endswith(side_2):
+            self.report({'ERROR'}, 'Vertex Group is Not Left or Right')
+
+        #Delete Side_2 Group
+        if ob.vertex_groups.active.name.endswith(side_1):
+            for vgroup in ob.vertex_groups:
+                if vgroup.name == ob.vertex_groups.active.name[:-2] + side_2:
+                    vg = ob.vertex_groups.get(vgroup.name)
+                    if vg is not None:
+                        ob.vertex_groups.remove(vg)
+        elif ob.vertex_groups.active.name.endswith(side_2):
+            for vgroup in ob.vertex_groups:
+                if vgroup.name == ob.vertex_groups.active.name[:-2] + side_1:
+                    vg = ob.vertex_groups.get(vgroup.name)
+                    if vg is not None:
+                        ob.vertex_groups.remove(vg)
+
+        #Mirror
+        if ob.vertex_groups.active.name.endswith(side_1):
+            bpy.ops.object.vertex_group_copy()
+            if self.Topology:
+                bpy.ops.object.vertex_group_mirror(use_topology=True)
+            else:
+                bpy.ops.object.vertex_group_mirror(use_topology=False)
+            ob.vertex_groups.active.name = ob.vertex_groups.active.name.replace(side_1, side_2).replace("_copy", "")
+
+        elif ob.vertex_groups.active.name.endswith(side_2):
+            bpy.ops.object.vertex_group_copy()
+            if self.Topology:
+                bpy.ops.object.vertex_group_mirror(use_topology=True)
+            else:
+                bpy.ops.object.vertex_group_mirror(use_topology=False)
+            ob.vertex_groups.active.name = ob.vertex_groups.active.name.replace(side_2, side_1).replace("_copy", "")
+
+        bpy.ops.object.vertex_group_sort(sort_type = "NAME")
+
+    def execute(self, context):
+        if self.All:
+            if self.Side == 'L to R':
+                self.mirror_all_vgroups(context, '_L', '_R')
+            if self.Side == 'R to L':
+                self.mirror_all_vgroups(context, '_R', '_L')
+        else:
+            self.mirror_active_vgroup(context, '_L', '_R')
+        return {"FINISHED"}
