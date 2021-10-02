@@ -2387,7 +2387,6 @@ from .ops_snapping import (
     Operator_Leg_R_Snap_FK_IK,
     Operator_Leg_R_Snap_IK_FK
     )
-from .ops_snapping import *
 
 ####### Load BlenRig 6 Body Picker Operators
 # Biped

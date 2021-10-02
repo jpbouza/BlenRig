@@ -3,158 +3,6 @@ from mathutils import Matrix
 from bpy.props import StringProperty
 from bpy.types import (Operator)
 
-#Matrix Functions (Taken from Copy Attributes Menu Addon)
-
-def getmat(bone, active, ignoreparent):
-    """Helper function for visual transform copy,
-       gets the active transform in bone space
-    """
-    obj_bone = bone.id_data
-    obj_active = active.id_data
-    data_bone = obj_bone.data.bones[bone.name]
-    # all matrices are in armature space unless commented otherwise
-    active_to_selected = obj_bone.matrix_world.inverted() @ obj_active.matrix_world
-    active_matrix = active_to_selected @ active.matrix
-    otherloc = active_matrix  # final 4x4 mat of target, location.
-    bonemat_local = data_bone.matrix_local.copy()  # self rest matrix
-    if data_bone.parent:
-        parentposemat = obj_bone.pose.bones[data_bone.parent.name].matrix.copy()
-        parentbonemat = data_bone.parent.matrix_local.copy()
-    else:
-        parentposemat = parentbonemat = Matrix()
-    if parentbonemat == parentposemat or ignoreparent:
-        newmat = bonemat_local.inverted() @ otherloc
-    else:
-        bonemat = parentbonemat.inverted() @ bonemat_local
-
-        newmat = bonemat.inverted() @ parentposemat.inverted() @ otherloc
-    return newmat
-
-def rotcopy(item, mat):
-    """Copy rotation to item from matrix mat depending on item.rotation_mode"""
-    if item.rotation_mode == 'QUATERNION':
-        item.rotation_quaternion = mat.to_3x3().to_quaternion()
-    elif item.rotation_mode == 'AXIS_ANGLE':
-        rot = mat.to_3x3().to_quaternion().to_axis_angle()    # returns (Vector((x, y, z)), w)
-        axis_angle = rot[1], rot[0][0], rot[0][1], rot[0][2]  # convert to w, x, y, z
-        item.rotation_axis_angle = axis_angle
-    else:
-        item.rotation_euler = mat.to_3x3().to_euler(item.rotation_mode)
-
-def pVisLocExec(bone, active):
-    bone.location = getmat(bone, active, False).to_translation()
-
-def pVisRotExec(bone, active):
-    obj_bone = bone.id_data
-    rotcopy(bone, getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_rotation))
-
-
-def pVisScaExec(bone, active):
-    obj_bone = bone.id_data
-    bone.scale = getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_scale)\
-        .to_scale()
-
-#Copy Matrix from Bone to Self after Space change
-def paste_visual_matrix(bone, parent_bone, bone_world, bone_matrix, transform_type):
-    """Helper function for visual transform copy,
-       given a bone transform (bone_world and bone_matrix), it pastes back the visual transform after changing the space property.
-       The parent_bone has changed with the Armature constraint.
-    """
-
-    armobj = bpy.context.active_object
-    pbones = armobj.pose.bones
-    dbones = armobj.data.bones
-
-    #Get Matrix in previous space
-    bone_previous_world = bone_world
-    bone_previous_mat = bone_matrix
-
-    #Paste Matrix in new Space
-    obj_bone = pbones[bone].id_data
-    data_bone = obj_bone.data.bones[bone]
-    # all matrices are in armature space unless commented otherwise
-    active_to_selected = obj_bone.matrix_world.inverted() @ bone_previous_world
-    active_matrix = active_to_selected @ bone_previous_mat
-    otherloc = active_matrix  # final 4x4 mat of target, location.
-    bonemat_local = data_bone.matrix_local.copy()  # self rest matrix
-
-    parentposemat = pbones[parent_bone].matrix.copy()
-    parentbonemat = dbones[parent_bone].matrix_local.copy()
-
-    if parentbonemat == parentposemat:
-        newmat = bonemat_local.inverted() @ otherloc
-    else:
-        bonemat = parentbonemat.inverted() @ bonemat_local
-
-        newmat = bonemat.inverted() @ parentposemat.inverted() @ otherloc
-
-    if transform_type == 'Location':
-        pbones[bone].location = newmat.to_translation()
-        refresh_hack()
-    if transform_type == 'Rotation':
-        rotcopy(pbones[bone], newmat)
-        refresh_hack()
-    if transform_type == 'Scale':
-        bone.scale = newmat.to_scale()
-        refresh_hack()
-
-#Armature Refresh Hack
-def refresh_hack():
-    bpy.ops.object.mode_set(mode='OBJECT')
-    bpy.ops.object.mode_set(mode='POSE')
-
-#Insert Bone Keyframes Function
-def insert_bkeys(b_name, key_type):
-    armobj = bpy.context.active_object
-    pbones = armobj.pose.bones
-
-    if pbones.get(b_name) != None:
-        if key_type == 'Loc':
-            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
-
-        if key_type == 'Rot':
-            if pbones[b_name].rotation_mode == 'QUATERNION':
-                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
-            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
-                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
-            else:
-                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
-
-        if key_type == 'Scale':
-            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
-
-        if key_type == 'LocRot':
-            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
-            if pbones[b_name].rotation_mode == 'QUATERNION':
-                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
-            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
-                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
-            else:
-                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
-
-        if key_type == 'LocScale':
-            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
-            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
-
-        if key_type == 'RotScale':
-            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
-            if pbones[b_name].rotation_mode == 'QUATERNION':
-                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
-            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
-                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
-            else:
-                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
-
-        if key_type == 'LocRotScale':
-            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
-            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
-            if pbones[b_name].rotation_mode == 'QUATERNION':
-                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
-            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
-                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
-            else:
-                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
-
 ##### Left Ops #####
 
 ##### Arm_L IK>FK #####
@@ -9006,18 +8854,18 @@ def sel_act_bones(b1, b2, copy_op): #args will be replaced by the actual bone na
     Bone1.bone.select = 1
     copy_operator = ['rot', 'loc', 'scale', 'loc_rot', 'loc_rot_scale']
     if copy_operator[0] == copy_op:
-        bpy.ops.blenRig_pose.copy_pose_vis_rot()
+        bpy.ops.blenrig_pose.copy_pose_vis_rot()
     elif copy_operator[1] == copy_op:
-        bpy.ops.blenRig_pose.copy_pose_vis_loc()
+        bpy.ops.blenrig_pose.copy_pose_vis_loc()
     elif copy_operator[2] == copy_op:
-        bpy.ops.blenRig_pose.copy_pose_vis_sca()
+        bpy.ops.blenrig_pose.copy_pose_vis_sca()
     elif copy_operator[3] == copy_op:
-        bpy.ops.blenRig_pose.copy_pose_vis_loc()
-        bpy.ops.blenRig_pose.copy_pose_vis_rot()
+        bpy.ops.blenrig_pose.copy_pose_vis_loc()
+        bpy.ops.blenrig_pose.copy_pose_vis_rot()
     elif copy_operator[4] == copy_op:
-        bpy.ops.blenRig_pose.copy_pose_vis_loc()
-        bpy.ops.blenRig_pose.copy_pose_vis_rot()
-        bpy.ops.blenRig_pose.copy_pose_vis_sca()
+        bpy.ops.blenrig_pose.copy_pose_vis_loc()
+        bpy.ops.blenrig_pose.copy_pose_vis_rot()
+        bpy.ops.blenrig_pose.copy_pose_vis_sca()
     Bone1.bone.select = 0
     Bone2.bone.select = 0
 
@@ -10189,12 +10037,167 @@ class Operator_Leg_R_Snap_FK_IK(bpy.types.Operator):
 
         return {"FINISHED"}
 
+
+#########################################################################################################
+#Matrix Functions (Taken from Copy Attributes Menu Addon)
+
+def getmat(bone, active, ignoreparent):
+    """Helper function for visual transform copy,
+       gets the active transform in bone space
+    """
+    obj_bone = bone.id_data
+    obj_active = active.id_data
+    data_bone = obj_bone.data.bones[bone.name]
+    # all matrices are in armature space unless commented otherwise
+    active_to_selected = obj_bone.matrix_world.inverted() @ obj_active.matrix_world
+    active_matrix = active_to_selected @ active.matrix
+    otherloc = active_matrix  # final 4x4 mat of target, location.
+    bonemat_local = data_bone.matrix_local.copy()  # self rest matrix
+    if data_bone.parent:
+        parentposemat = obj_bone.pose.bones[data_bone.parent.name].matrix.copy()
+        parentbonemat = data_bone.parent.matrix_local.copy()
+    else:
+        parentposemat = parentbonemat = Matrix()
+    if parentbonemat == parentposemat or ignoreparent:
+        newmat = bonemat_local.inverted() @ otherloc
+    else:
+        bonemat = parentbonemat.inverted() @ bonemat_local
+
+        newmat = bonemat.inverted() @ parentposemat.inverted() @ otherloc
+    return newmat
+
+def rotcopy(item, mat):
+    """Copy rotation to item from matrix mat depending on item.rotation_mode"""
+    if item.rotation_mode == 'QUATERNION':
+        item.rotation_quaternion = mat.to_3x3().to_quaternion()
+    elif item.rotation_mode == 'AXIS_ANGLE':
+        rot = mat.to_3x3().to_quaternion().to_axis_angle()    # returns (Vector((x, y, z)), w)
+        axis_angle = rot[1], rot[0][0], rot[0][1], rot[0][2]  # convert to w, x, y, z
+        item.rotation_axis_angle = axis_angle
+    else:
+        item.rotation_euler = mat.to_3x3().to_euler(item.rotation_mode)
+
+def pVisLocExec(bone, active):
+    bone.location = getmat(bone, active, False).to_translation()
+
+def pVisRotExec(bone, active):
+    obj_bone = bone.id_data
+    rotcopy(bone, getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_rotation))
+
+
+def pVisScaExec(bone, active):
+    obj_bone = bone.id_data
+    bone.scale = getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_scale)\
+        .to_scale()
+
+#Copy Matrix from Bone to Self after Space change
+def paste_visual_matrix(bone, parent_bone, bone_world, bone_matrix, transform_type):
+    """Helper function for visual transform copy,
+       given a bone transform (bone_world and bone_matrix), it pastes back the visual transform after changing the space property.
+       The parent_bone has changed with the Armature constraint.
+    """
+
+    armobj = bpy.context.active_object
+    pbones = armobj.pose.bones
+    dbones = armobj.data.bones
+
+    #Get Matrix in previous space
+    bone_previous_world = bone_world
+    bone_previous_mat = bone_matrix
+
+    #Paste Matrix in new Space
+    obj_bone = pbones[bone].id_data
+    data_bone = obj_bone.data.bones[bone]
+    # all matrices are in armature space unless commented otherwise
+    active_to_selected = obj_bone.matrix_world.inverted() @ bone_previous_world
+    active_matrix = active_to_selected @ bone_previous_mat
+    otherloc = active_matrix  # final 4x4 mat of target, location.
+    bonemat_local = data_bone.matrix_local.copy()  # self rest matrix
+
+    parentposemat = pbones[parent_bone].matrix.copy()
+    parentbonemat = dbones[parent_bone].matrix_local.copy()
+
+    if parentbonemat == parentposemat:
+        newmat = bonemat_local.inverted() @ otherloc
+    else:
+        bonemat = parentbonemat.inverted() @ bonemat_local
+
+        newmat = bonemat.inverted() @ parentposemat.inverted() @ otherloc
+
+    if transform_type == 'Location':
+        pbones[bone].location = newmat.to_translation()
+        refresh_hack()
+    if transform_type == 'Rotation':
+        rotcopy(pbones[bone], newmat)
+        refresh_hack()
+    if transform_type == 'Scale':
+        bone.scale = newmat.to_scale()
+        refresh_hack()
+
+#Armature Refresh Hack
+def refresh_hack():
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.ops.object.mode_set(mode='POSE')
+
+#Insert Bone Keyframes Function
+def insert_bkeys(b_name, key_type):
+    armobj = bpy.context.active_object
+    pbones = armobj.pose.bones
+
+    if pbones.get(b_name) != None:
+        if key_type == 'Loc':
+            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
+
+        if key_type == 'Rot':
+            if pbones[b_name].rotation_mode == 'QUATERNION':
+                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
+            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
+                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
+            else:
+                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
+
+        if key_type == 'Scale':
+            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
+
+        if key_type == 'LocRot':
+            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
+            if pbones[b_name].rotation_mode == 'QUATERNION':
+                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
+            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
+                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
+            else:
+                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
+
+        if key_type == 'LocScale':
+            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
+            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
+
+        if key_type == 'RotScale':
+            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
+            if pbones[b_name].rotation_mode == 'QUATERNION':
+                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
+            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
+                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
+            else:
+                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
+
+        if key_type == 'LocRotScale':
+            pbones[b_name].keyframe_insert(data_path="location", group=b_name)
+            pbones[b_name].keyframe_insert(data_path="scale", group=b_name)
+            if pbones[b_name].rotation_mode == 'QUATERNION':
+                pbones[b_name].keyframe_insert(data_path="rotation_quaternion", group=b_name)
+            elif pbones[b_name].rotation_mode == 'AXIS_ANGLE':
+                pbones[b_name].keyframe_insert(data_path="rotation_axis_angle", group=b_name)
+            else:
+                pbones[b_name].keyframe_insert(data_path="rotation_euler", group=b_name)
+
 def build_exec(loopfunc, func):
     """Generator function that returns exec functions for operators """
 
     def exec_func(self, context):
         loopfunc(self, context, func)
         return {'FINISHED'}
+        print(loopfunc)
     return exec_func
 
 def build_invoke(loopfunc, func):
@@ -10208,14 +10211,14 @@ def build_invoke(loopfunc, func):
 def build_op(idname, label, description, fpoll, fexec, finvoke):
     """Generator function that returns the basic operator"""
 
-    class myopic(Operator):
+    class blenrig_myopic(Operator):
         bl_idname = idname
         bl_label = label
         bl_description = description
         execute = fexec
         poll = fpoll
         invoke = finvoke
-    return myopic
+    return blenrig_myopic
 
 def genops(copylist, oplist, prefix, poll_func, loopfunc):
     """Generate ops from the copy list and its associated functions"""
@@ -10224,6 +10227,7 @@ def genops(copylist, oplist, prefix, poll_func, loopfunc):
         invoke_func = build_invoke(loopfunc, op[3])
         opclass = build_op(prefix + op[0], "Copy " + op[1], op[2],
                            poll_func, exec_func, invoke_func)
+
         oplist.append(opclass)
 
 def pLoopExec(self, context, funk):
@@ -10248,6 +10252,19 @@ def pose_poll_func(cls, context):
     return(context.mode == 'POSE')
 
 pose_ops = []  # list of pose mode copy operators
-genops(pose_copies, pose_ops, "blenRig_pose.copy_", pose_poll_func, pLoopExec)
+genops(pose_copies, pose_ops, "blenrig_pose.copy_", pose_poll_func, pLoopExec)
 
-# classes = (*pose_ops)
+snapping_attributes_classes = (*pose_ops,)
+
+def register():
+    from bpy.utils import register_class
+    for cls in snapping_attributes_classes:
+        register_class(cls)
+
+def unregister():
+    from bpy.utils import unregister_class
+    for cls in snapping_attributes_classes:
+        unregister_class(cls)
+
+
+register()
