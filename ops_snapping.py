@@ -1,6 +1,7 @@
 import bpy
 from mathutils import Matrix
 from bpy.props import StringProperty
+from bpy.types import (Operator)
 
 #Matrix Functions (Taken from Copy Attributes Menu Addon)
 
@@ -9005,18 +9006,18 @@ def sel_act_bones(b1, b2, copy_op): #args will be replaced by the actual bone na
     Bone1.bone.select = 1
     copy_operator = ['rot', 'loc', 'scale', 'loc_rot', 'loc_rot_scale']
     if copy_operator[0] == copy_op:
-        bpy.ops.pose.copy_pose_vis_rot()
+        bpy.ops.blenRig_pose.copy_pose_vis_rot()
     elif copy_operator[1] == copy_op:
-        bpy.ops.pose.copy_pose_vis_loc()
+        bpy.ops.blenRig_pose.copy_pose_vis_loc()
     elif copy_operator[2] == copy_op:
-        bpy.ops.pose.copy_pose_vis_sca()
+        bpy.ops.blenRig_pose.copy_pose_vis_sca()
     elif copy_operator[3] == copy_op:
-        bpy.ops.pose.copy_pose_vis_loc()
-        bpy.ops.pose.copy_pose_vis_rot()
+        bpy.ops.blenRig_pose.copy_pose_vis_loc()
+        bpy.ops.blenRig_pose.copy_pose_vis_rot()
     elif copy_operator[4] == copy_op:
-        bpy.ops.pose.copy_pose_vis_loc()
-        bpy.ops.pose.copy_pose_vis_rot()
-        bpy.ops.pose.copy_pose_vis_sca()
+        bpy.ops.blenRig_pose.copy_pose_vis_loc()
+        bpy.ops.blenRig_pose.copy_pose_vis_rot()
+        bpy.ops.blenRig_pose.copy_pose_vis_sca()
     Bone1.bone.select = 0
     Bone2.bone.select = 0
 
@@ -10187,3 +10188,66 @@ class Operator_Leg_R_Snap_FK_IK(bpy.types.Operator):
             arm_data.layers[30] = False
 
         return {"FINISHED"}
+
+def build_exec(loopfunc, func):
+    """Generator function that returns exec functions for operators """
+
+    def exec_func(self, context):
+        loopfunc(self, context, func)
+        return {'FINISHED'}
+    return exec_func
+
+def build_invoke(loopfunc, func):
+    """Generator function that returns invoke functions for operators"""
+
+    def invoke_func(self, context, event):
+        loopfunc(self, context, func)
+        return {'FINISHED'}
+    return invoke_func
+
+def build_op(idname, label, description, fpoll, fexec, finvoke):
+    """Generator function that returns the basic operator"""
+
+    class myopic(Operator):
+        bl_idname = idname
+        bl_label = label
+        bl_description = description
+        execute = fexec
+        poll = fpoll
+        invoke = finvoke
+    return myopic
+
+def genops(copylist, oplist, prefix, poll_func, loopfunc):
+    """Generate ops from the copy list and its associated functions"""
+    for op in copylist:
+        exec_func = build_exec(loopfunc, op[3])
+        invoke_func = build_invoke(loopfunc, op[3])
+        opclass = build_op(prefix + op[0], "Copy " + op[1], op[2],
+                           poll_func, exec_func, invoke_func)
+        oplist.append(opclass)
+
+def pLoopExec(self, context, funk):
+    """Loop over selected bones and execute funk on them"""
+    active = context.active_pose_bone
+    selected = context.selected_pose_bones
+    selected.remove(active)
+    for bone in selected:
+        funk(bone, active, context)
+
+pose_copies = (
+    ('pose_vis_loc', "Visual Location",
+     "Copy Location from Active to Selected", pVisLocExec),
+    ('pose_vis_rot', "Visual Rotation",
+     "Copy Rotation from Active to Selected", pVisRotExec),
+    ('pose_vis_sca', "Visual Scale",
+     "Copy Scale from Active to Selected", pVisScaExec)
+)
+
+@classmethod
+def pose_poll_func(cls, context):
+    return(context.mode == 'POSE')
+
+pose_ops = []  # list of pose mode copy operators
+genops(pose_copies, pose_ops, "blenRig_pose.copy_", pose_poll_func, pLoopExec)
+
+# classes = (*pose_ops)

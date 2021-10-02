@@ -2387,6 +2387,7 @@ from .ops_snapping import (
     Operator_Leg_R_Snap_FK_IK,
     Operator_Leg_R_Snap_IK_FK
     )
+from .ops_snapping import *
 
 ####### Load BlenRig 6 Body Picker Operators
 # Biped
@@ -3587,7 +3588,7 @@ blenrig_rigs_classes = [
     Operator_BlenRig5_Add_Biped
 ]
 
-addon_dependencies = ["space_view3d_copy_attributes"]
+# addon_dependencies = ["space_view3d_copy_attributes"]
 
 panels_classes = [
     BLENRIG_PT_Rig_Body_settings,
@@ -3711,11 +3712,11 @@ def register():
 
 
     # load dependency add-ons
-    import addon_utils
-    for addon_id in addon_dependencies:
-        default_state, loaded_state = addon_utils.check(addon_id)
-        if not loaded_state:
-            addon_utils.enable(addon_id, default_set=False, persistent=True)
+    # import addon_utils
+    # for addon_id in addon_dependencies:
+    #     default_state, loaded_state = addon_utils.check(addon_id)
+    #     if not loaded_state:
+    #         addon_utils.enable(addon_id, default_set=False, persistent=True)
 
     # load BlenRig internal classes
     for c in armature_classes:
@@ -3834,9 +3835,9 @@ def unregister():
     unregister_class(visual_assistant_props)
 
     # unload add-on dependencies
-    import addon_utils
-    for addon_id in addon_dependencies:
-        addon_utils.disable(addon_id, default_set=False)
+    # import addon_utils
+    # for addon_id in addon_dependencies:
+    #     addon_utils.disable(addon_id, default_set=False)
 
 #######################register Guide ###################
     from .guides.register import unregister
