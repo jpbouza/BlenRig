@@ -73,6 +73,11 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         box_modifiers.operator("blenrig.add_face_shapekeys", text = 'Add Face Shapekeys')
         box_modifiers.operator("blenrig.mirror_active_shapekey", text = 'Mirror Shapekey')
         box_modifiers.operator("blenrig.mirror_all_shapekeys", text = 'Mirror All Shapekeys')
+        #Mirror Vgroups
+        box_modifiers = col_buttons.box()
+        box_modifiers.label(text='Mirror Vertex Groups')
+        box_modifiers.operator("blenrig.mirror_vertex_groups", text = 'Mirror All Vertex Groups').All = True
+        box_modifiers.operator("blenrig.mirror_vertex_groups", text = 'Mirror Active Vertex Group').All = False
         #Bind Mesh Deform
         box_modifiers = col_buttons.box()
         box_modifiers.label(text='Bind Mesh Deform')
