@@ -10077,18 +10077,34 @@ def rotcopy(item, mat):
     else:
         item.rotation_euler = mat.to_3x3().to_euler(item.rotation_mode)
 
-def pVisLocExec(bone, active, context):
+def pVisLocExec(bone, active):
     bone.location = getmat(bone, active, False).to_translation()
 
-def pVisRotExec(bone, active, context):
+def pVisRotExec(bone, active):
     obj_bone = bone.id_data
     rotcopy(bone, getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_rotation))
 
 
-def pVisScaExec(bone, active, context):
+def pVisScaExec(bone, active):
     obj_bone = bone.id_data
     bone.scale = getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_scale)\
         .to_scale()
+
+############ Legacy mode ################
+
+def pVisLocExec_legacy(bone, active, context):
+    bone.location = getmat(bone, active, False).to_translation()
+
+def pVisRotExec_legacy(bone, active, context):
+    obj_bone = bone.id_data
+    rotcopy(bone, getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_rotation))
+
+
+def pVisScaExec_legacy(bone, active, context):
+    obj_bone = bone.id_data
+    bone.scale = getmat(bone, active, not obj_bone.data.bones[bone.name].use_inherit_scale)\
+        .to_scale()
+
 
 #Copy Matrix from Bone to Self after Space change
 def paste_visual_matrix(bone, parent_bone, bone_world, bone_matrix, transform_type):
@@ -10240,11 +10256,11 @@ def pLoopExec(self, context, funk):
 
 pose_copies = (
     ('pose_vis_loc', "Visual Location",
-     "Copy Location from Active to Selected", pVisLocExec),
+     "Copy Location from Active to Selected", pVisLocExec_legacy),
     ('pose_vis_rot', "Visual Rotation",
-     "Copy Rotation from Active to Selected", pVisRotExec),
+     "Copy Rotation from Active to Selected", pVisRotExec_legacy),
     ('pose_vis_sca', "Visual Scale",
-     "Copy Scale from Active to Selected", pVisScaExec)
+     "Copy Scale from Active to Selected", pVisScaExec_legacy)
 )
 
 @classmethod

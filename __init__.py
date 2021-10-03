@@ -3708,15 +3708,6 @@ def register():
     register()
     #########################################################
 
-
-
-    # load dependency add-ons
-    # import addon_utils
-    # for addon_id in addon_dependencies:
-    #     default_state, loaded_state = addon_utils.check(addon_id)
-    #     if not loaded_state:
-    #         addon_utils.enable(addon_id, default_set=False, persistent=True)
-
     # load BlenRig internal classes
     for c in armature_classes:
         register_class(c)
@@ -3832,11 +3823,6 @@ def unregister():
         unregister_class(c)
 
     unregister_class(visual_assistant_props)
-
-    # unload add-on dependencies
-    # import addon_utils
-    # for addon_id in addon_dependencies:
-    #     addon_utils.disable(addon_id, default_set=False)
 
 #######################register Guide ###################
     from .guides.register import unregister
