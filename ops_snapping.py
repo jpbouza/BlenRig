@@ -10213,37 +10213,24 @@ def build_exec(loopfunc, func):
     def exec_func(self, context):
         loopfunc(self, context, func)
         return {'FINISHED'}
-        print(loopfunc)
     return exec_func
 
-def build_invoke(loopfunc, func):
-    """Generator function that returns invoke functions for operators"""
-
-    def invoke_func(self, context, event):
-        loopfunc(self, context, func)
-        return {'FINISHED'}
-    return invoke_func
-
-def build_op(idname, label, description, fpoll, fexec, finvoke):
+def build_op(idname, label, description, fpoll, fexec):
     """Generator function that returns the basic operator"""
-
     class blenrig_myopic(Operator):
         bl_idname = idname
         bl_label = label
         bl_description = description
         execute = fexec
         poll = fpoll
-        invoke = finvoke
     return blenrig_myopic
 
 def genops(copylist, oplist, prefix, poll_func, loopfunc):
     """Generate ops from the copy list and its associated functions"""
     for op in copylist:
         exec_func = build_exec(loopfunc, op[3])
-        invoke_func = build_invoke(loopfunc, op[3])
         opclass = build_op(prefix + op[0], "Copy " + op[1], op[2],
-                           poll_func, exec_func, invoke_func)
-
+                           poll_func, exec_func)
         oplist.append(opclass)
 
 def pLoopExec(self, context, funk):
@@ -10281,6 +10268,4 @@ def unregister():
     from bpy.utils import unregister_class
     for cls in snapping_attributes_classes:
         unregister_class(cls)
-
-
 register()
