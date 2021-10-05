@@ -1037,6 +1037,7 @@ class Operator_blenrig_guide_edit_mdef_cage(bpy.types.Operator):
 
         #Unbind Mdef
         bpy.ops.blenrig.guide_unbind_mdef_modifiers()
+        deselect_all_objects(context)
         #Show Mdef Cage
         guide_props.guide_show_mdef_cage = True
         set_active_object(context, guide_props.mdef_cage_obj)
