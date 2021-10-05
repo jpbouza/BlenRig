@@ -147,6 +147,19 @@ GUIDE_STEPS_DATATRANSFER = (
             },
         'accion': DT_Inner_Mouth
     },
+    #Clean Symmetry
+    {
+        'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),
+        'titulo': {
+            'EN': "Clean Vgroups Symmetry",
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Select the head of the character and press the 'Mirror all Vertex Groups' button to clean the Symmetry of the Vgroups. Do the same with the Hands object. This operation might take a bit.",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': DT_Clean_Symmetry
+    },
     #Weights Transfer Finish
     {
         'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),

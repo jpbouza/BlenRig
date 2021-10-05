@@ -103,20 +103,27 @@ def DT_Edit_Head(operator, context):
 
     guide_props = bpy.context.scene.blenrig_guide
     armature =guide_props.arm_obj
+    head_weights_obj = guide_props.mdef_head_weights_transfer_obj
 
     deselect_all_objects(context)
 
-    # Show MDefHeadWeightsModel
-    mdef_weights_model_objects = collect_mdef_head_weights_model()
-    collect_mdef_head_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
-    for ob in mdef_weights_model_objects:
-        set_active_object(context, ob)
-        guide_props.mdef_head_weights_transfer_obj = ob
-        guide_props.mdef_head_weights_transfer_obj.hide_viewport = False
+    if head_weights_obj == None:
+        # Show MDefHeadWeightsModel
+        mdef_weights_model_objects = collect_mdef_head_weights_model()
+        collect_mdef_head_weights_model()
+        blenrig_temp_link(mdef_weights_model_objects)
 
-    guide_props.mdef_head_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].value = 1.0
-    guide_props.mdef_head_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].mute = False
+        for ob in mdef_weights_model_objects:
+            set_active_object(context, ob)
+            head_weights_obj = ob
+            head_weights_obj.hide_viewport = False
+    else:
+        blenrig_temp_link([head_weights_obj])
+        head_weights_obj.hide_viewport = False
+        set_active_object(context, head_weights_obj)
+
+    head_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].value = 1.0
+    head_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].mute = False
 
     #Select Head Object
     set_active_object(context, guide_props.character_head_obj)
@@ -128,7 +135,6 @@ def DT_Edit_Head(operator, context):
         set_active_shapekey('Weights_Transfer_Head')
         guide_props.character_head_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].value = 1.0
         guide_props.character_head_obj.data.shape_keys.key_blocks['Weights_Transfer_Head'].mute = False
-
 
     #Set to Local_View
     switch_out_local_view()
@@ -145,6 +151,14 @@ def DT_Edit_Head(operator, context):
 
     #Set Shading to Material to enable transparency
     set_viewport_shading_type('SOLID', 'MATERIAL')
+
+    #Turn Off modifiers for proper Editing
+    if hasattr(head_weights_obj, 'modifiers'):
+        for mod in head_weights_obj.modifiers:
+            mod.show_in_editmode = False
+    if hasattr(guide_props.character_head_obj, 'modifiers'):
+        for mod in guide_props.character_head_obj.modifiers:
+            mod.show_in_editmode = False
 
 def DT_Test_Face(operator, context):
     #Perform end of step action and set current step name
@@ -278,20 +292,28 @@ def DT_Edit_Hands(operator, context):
 
     guide_props = bpy.context.scene.blenrig_guide
     armature =guide_props.arm_obj
+    hands_weights_obj = guide_props.mdef_hands_weights_transfer_obj
 
     deselect_all_objects(context)
 
-    # Show MDefHeadWeightsModel
-    mdef_weights_model_objects = collect_mdef_hands_weights_model()
-    collect_mdef_hands_weights_model()
-    blenrig_temp_link(mdef_weights_model_objects)
-    for ob in mdef_weights_model_objects:
-        set_active_object(context, ob)
-        guide_props.mdef_hands_weights_transfer_obj = ob
-        guide_props.mdef_hands_weights_transfer_obj.hide_viewport = False
+    if hands_weights_obj == None:
+        # Show MDefHandsWeightsModel
+        mdef_weights_model_objects = collect_mdef_hands_weights_model()
+        collect_mdef_hands_weights_model()
+        blenrig_temp_link(mdef_weights_model_objects)
 
-    guide_props.mdef_hands_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 1.0
-    guide_props.mdef_hands_weights_transfer_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].mute = False
+        for ob in mdef_weights_model_objects:
+            set_active_object(context, ob)
+            hands_weights_obj = ob
+            hands_weights_obj.hide_viewport = False
+            set_mode('EDIT')
+    else:
+        blenrig_temp_link([hands_weights_obj])
+        hands_weights_obj.hide_viewport = False
+        set_active_object(context, hands_weights_obj)
+
+    hands_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].value = 1.0
+    hands_weights_obj.data.shape_keys.key_blocks['Weights_Transfer_Hands'].mute = False
 
     #Select Hands Object
     set_active_object(context, guide_props.character_hands_obj)
@@ -320,6 +342,14 @@ def DT_Edit_Hands(operator, context):
 
     #Set Shading to Material to enable transparency
     set_viewport_shading_type('SOLID', 'MATERIAL')
+
+    #Turn Off modifiers for proper Editing
+    if hasattr(hands_weights_obj, 'modifiers'):
+        for mod in hands_weights_obj.modifiers:
+            mod.show_in_editmode = False
+    if hasattr(guide_props.character_hands_obj, 'modifiers'):
+        for mod in guide_props.character_hands_obj.modifiers:
+            mod.show_in_editmode = False
 
 def DT_Test_Hands(operator, context):
     #Perform end of step action and set current step name
@@ -442,6 +472,40 @@ def DT_Inner_Mouth(operator, context):
     except:
         pass
 
+def DT_Clean_Symmetry(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Clean_Symmetry'
+
+    guide_props = bpy.context.scene.blenrig_guide
+
+    #Select Armature
+    deselect_all_objects(context)
+    armature = guide_props.arm_obj
+    armature.hide_viewport = False
+
+    #Select Armature
+    go_blenrig_pose_mode(context)
+
+    # Adjust view to Bones.
+    frame_bones(context, "master", "head_stretch")
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    deselect_all_objects(context)
+    armature.hide_viewport = True
+
+    # Hide MDefHeadWeightsModel
+    blenrig_temp_unlink()
+
+    #Select Character's Head
+    try:
+        set_active_object(context, guide_props.character_head_obj)
+    except:
+        pass
+
 def DT_Finish(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
@@ -528,4 +592,32 @@ def datatransfer_end_generic(context):
 def end_of_step_action(context):
     datatransfer_end_generic(context)
     guide_props = bpy.context.scene.blenrig_guide
+    head_weights_obj = guide_props.mdef_head_weights_transfer_obj
+    hands_weights_obj = guide_props.mdef_hands_weights_transfer_obj
     current_step = context.scene.blenrig_guide.guide_current_step
+    if current_step == 'DT_Weight_Mesh_Shapekey_Head':
+        #Turn Off modifiers for proper Editing
+        if hasattr(head_weights_obj, 'modifiers'):
+            for mod in head_weights_obj.modifiers:
+                mod.show_in_editmode = True
+    if current_step == 'DT_Edit_Head':
+        #Turn Off modifiers for proper Editing
+        if hasattr(head_weights_obj, 'modifiers'):
+            for mod in head_weights_obj.modifiers:
+                mod.show_in_editmode = True
+        if hasattr(guide_props.character_head_obj, 'modifiers'):
+            for mod in guide_props.character_head_obj.modifiers:
+                mod.show_in_editmode = True
+    if current_step == 'DT_Weight_Mesh_Shapekey_Hands':
+        #Turn Off modifiers for proper Editing
+        if hasattr(hands_weights_obj, 'modifiers'):
+            for mod in hands_weights_obj.modifiers:
+                mod.show_in_editmode = True
+    if current_step == 'DT_Edit_Hands':
+        #Turn Off modifiers for proper Editing
+        if hasattr(hands_weights_obj, 'modifiers'):
+            for mod in hands_weights_obj.modifiers:
+                mod.show_in_editmode = True
+        if hasattr(guide_props.character_hands_obj, 'modifiers'):
+            for mod in guide_props.character_hands_obj.modifiers:
+                mod.show_in_editmode = True
