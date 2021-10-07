@@ -363,7 +363,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de la curva de la ceja'
             },
         'texto': {
-            'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the Brow controller.",
+            'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the Frown controller.",
             'ES': 'Coloca “master_torso” a la altura de las caderas.'
             },
         'accion': Reprop_Eyebrows_Curve_Ctrls
