@@ -13,7 +13,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'This Guide will take you through the process of adjusting the Rig to you Character.',
-            'ES': 'Esta guía le llevará a través del proceso de ajuste del Rig a su personaje.'
+            'ES': 'Esta guía te llevará a través del proceso de ajuste del Rig a su personaje.'
             },
         'accion': Reprop_Intro
     },
@@ -91,7 +91,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the neck and head joints.',
-            'ES': 'Mueva el cursor 3d al centro del globo ocular.' # 'Determinar el centro del globo ocular. Mover el cursor 3d a esa posición.'
+            'ES': 'Mueve el cursor 3d al centro del globo ocular.' # 'Determinar el centro del globo ocular. Mover el cursor 3d a esa posición.'
             },
         'accion': Reprop_Neck
     },
@@ -130,7 +130,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the Breasts bones',
-            'ES': 'Coloque los huesos de los pechos'
+            'ES': 'Coloca los huesos de los pechos'
             },
         'accion': Reprop_Breasts_Pecs
     },
@@ -143,7 +143,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the Lattice controllers for the body',
-            'ES': 'Coloque los controladores Lattice para el cuerpo'
+            'ES': 'Coloca los controladores Lattice para el cuerpo'
             },
         'accion': Reprop_Body_Lattice
     },
@@ -169,7 +169,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Move the sole bone horizontally to place it at the middle of the heel. Adjust the Front Pivot Point. Place foot_ctrl_frame in front of the foot.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Mueve el hueso de la suela horizontalmente para colocarlo en el centro del talón. Ajusta el punto de pivote delantero. Coloque "foot_ctrl_frame" delante del pie.'
             },
         'accion': Reprop_Sole_Bottom
     },
@@ -182,7 +182,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Make the horizontal roll controllers match the shape of the foot.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Haz que los controladores de rotacion horizontal coincidan con el contorno del pie.'
             },
         'accion': Reprop_Foot_Side_Rolls
     },
@@ -191,11 +191,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Legs_Front.jpg',
         'titulo': {
             'EN': 'Leg',
-            'ES': 'Pierna hacia delante'
+            'ES': 'Pierna'
             },
         'texto': {
             'EN': 'Place the leg joints.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca las articulaciones de las piernas.'
             },
         'accion': Reprop_Legs
     },
@@ -208,7 +208,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the foot joints.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca las articulaciones de los pies'
             },
         'accion': Reprop_Feet
     },
@@ -221,7 +221,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the joints of the Toes and the toes_spread controller. You can also disable Toes completely or individually with the Toes Toggles',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca las articulaciones de los dedos de los pies y el controlador "toes_spread". También puedes desactivar los dedos de los pies por completo o individualmente con los checkbox de los dedos de los pies'
             },
         'accion': Reprop_Toes
     },
@@ -234,7 +234,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the arm joints. You can also scale the wrist controller to give the size of the hand a first approximation',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca las articulaciones del brazo. También puedes escalar el control de la muñeca para dar una primera aproximación al tamaño de la mano'
             },
         'accion': Reprop_Arms
     },
@@ -247,7 +247,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the hand joint at the root of the fingers.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca la articulación de la mano en el inicio de cada uno los dedos.'
             },
         'accion': Reprop_Hands
     },
@@ -259,8 +259,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de las manos'
             },
         'texto': {
-            'EN': 'Place the joints of the Fingers, the fingers_spread controller and the hand_close controller. You can also disable Fingers completely or individually with the Fingers Toggles',
-            'ES': 'Si tu personaje tiene dedos, coloca las articulaciones de estos, y si no tiene, desactiva el "toggle fingers".'
+            'EN': 'Place the joints of the Fingers, the "fingers_spread" controller and the "hand_close" controller. You can also disable Fingers completely or individually with the Fingers Toggles',
+            'ES': 'Coloca las articulaciones de los dedos, el controlador "fingers_spread" y el controlador "hand_close". También puedes desactivar los dedos por completo o de forma individual con los "checkbox" de los dedos'
             },
         'accion': Reprop_Fingers
     },
@@ -273,7 +273,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Optionally, you can better adjust the deformation bones to the shape of the limbs of the character.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Opcionalmente, puedes ajustar mejor los huesos de deformación a la forma de las extremidades del personaje..'
             },
         'accion': Reprop_Limbs_Adjust_Shape
     },
@@ -286,7 +286,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Optionally, you can better adjust the Mesh Deform Cage to your character by scaling the toon controllers.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Opcionalmente, puedes ajustar mejor el "Mesh Deform Cage" a la malla a tu personaje escalando los controladores del toon.'
             },
         'accion': Reprop_Toon_Scale
     },
@@ -299,7 +299,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Use the Face controller to match the Face Mask to the Face of the character as best as possible.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Utiliza el controlador de la cara para hacer coincidir la máscara facial con la cara del personaje lo mejor posible.'
             },
         'accion': Reprop_Face_Mstr
     },
@@ -312,7 +312,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Edit the Face Mask. Snap the vertices to the face of the character. You can toggle between Wire and Textured mode. Textured mode will let you see the different areas of the Face Mask.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Edita la máscara facial. Ajusta los vértices a la cara del personaje. Puedes alternar entre el modo de alambre y el de textura. El modo de textura te permitirá ver las diferentes áreas de la máscara facial.'
             },
         'accion': Reprop_Edit_Face
     },
@@ -325,7 +325,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': "Select the character's Left Eye object. Go into Edit Mode and select the Center Loop . Move Cursor to Selection with Shift+S.",
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Selecciona el objeto Ojo Izquierdo del personaje. Vaya al Modo Edición y seleccione el Bucle Central . Mueva el Cursor a la Selección con Shift+S.'
             },
         'accion': Reprop_Eye_Loop
     },
@@ -337,8 +337,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Comprobación de la ubicación de los controles oculares'
             },
         'texto': {
-            'EN': 'With the Eye control selected, press the "Snap Eye to Cursor" Button ',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'EN': 'With the Eye control selected, press the "Snap Eye to Cursor" Button.',
+            'ES': 'Con el control del ojo seleccionado, pulse el botón "Snap Eye to Cursor".'
             },
         'accion': Reprop_Set_Eyes
     },
@@ -364,7 +364,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the Frown controller.",
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': "Utiliza los controles interior y exterior de la ceja para colocar la curva a lo largo del arco de la ceja. Por último, coloque el control de la ceja."
             },
         'accion': Reprop_Eyebrows_Curve_Ctrls
     },
@@ -390,7 +390,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the controllers at the center of each joint of the Eyebrow.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores en el centro de cada junta de la ceja.'
             },
         'accion': Reprop_Eyebrows_Ctrls
     },
@@ -403,7 +403,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the controllers for the Eyelids.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores para los párpados.'
             },
         'accion': Reprop_Eyelids_Ctrls
     },
@@ -416,7 +416,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the controllers for the Outer Rim of the Eyelids.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores para el borde exterior de los párpados.'
             },
         'accion': Reprop_Eyelids_Rim_Ctrls
     },
@@ -429,7 +429,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the facial toon controllers.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores faciales de toon.'
             },
         'accion': Reprop_Face_Toon
     },
@@ -442,7 +442,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the controllers for the Cheeks and the Nose Frowns',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores para las mejillas y el ceño de la nariz'
             },
         'accion': Reprop_Cheek_Ctrls
     },
@@ -455,7 +455,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Use the controllers to fit the nose bones to the nose structure of the model. Place the Nostrils controls.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Utiliza los controles para ajustar los huesos de la nariz a la estructura de la nariz del modelo. Coloca los controles de las fosas nasales.'
             },
         'accion': Reprop_Nose
     },
@@ -468,7 +468,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Position the jaw from its joint point to the chin.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca la mandíbula desde su punto de unión hasta el mentón.'
             },
         'accion': Reprop_Jaw
     },
@@ -481,7 +481,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the lower face joint from the base of the nose to the chin. This bone usually goes through the mouth corners, defining an orientation place for the mouth.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca la articulación inferior de la cara desde la base de la nariz hasta el mentón. Este hueso suele pasar por las comisuras de la boca, definiendo un lugar de orientación para la misma.'
             },
         'accion': Reprop_Face_Low
     },
@@ -494,7 +494,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place "mouth_mstr_str" at the center of the mouth. Move "mouth_mstr_ik_pivot" inside of the mouth cavity to define the pivoting point of the arch that makes the lips slide over the teeth.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca "mouth_mstr_str" en el centro de la boca. Mueve "mouth_mstr_ik_pivot" dentro de la cavidad bucal para definir el punto de pivote del arco que hace que los labios se deslicen sobre los dientes.'
             },
         'accion': Reprop_Mouth_IK
     },
@@ -507,7 +507,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the upper and lower lips centers',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los centros de los labios superior e inferior'
             },
         'accion': Reprop_Lips_Centers
     },
@@ -520,7 +520,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the controller of the mouth where it best visually fits the character. Place the cheek puff controllers.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca el controlador de la boca donde mejor se adapte visualmente al personaje. Coloca los controladores de las mejillas.'
             },
         'accion': Reprop_Mouth_Ctrl
     },
@@ -533,7 +533,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Use the mouth corner controllers and the middle lips controllers to place the curves along the lips.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Utiliza los controladores de las comisuras de la boca y los controladores de los labios centrales para colocar las curvas a lo largo de los labios.'
             },
         'accion': Reprop_Mouth_Curves_Ctrls
     },
@@ -546,7 +546,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth. Finally place Upper and Lower the Controllers at the Center of the Curves',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Utiliza los valores de las curvas para que las curvas superior, media e inferior se ajusten a la forma de la boca. Finalmente coloque los controladores superior e inferior en el centro de las curvas'
             },
         'accion': Reprop_Mouth_Curves
     },
@@ -559,7 +559,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the lips controllers at the middle of each lip joint.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores de los labios en el centro de cada junta labial.'
             },
         'accion': Reprop_Mouth_Ctrls
     },
@@ -572,7 +572,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the controllers for the first and second outer rings of the mouth.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores para el primer y segundo anillo exterior de la boca.'
             },
         'accion': Reprop_Mouth_Outer_Ctrls
     },
@@ -585,7 +585,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Move "teeth_up_str" to where the teeth object is and place the Upper Teeth controls.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Mueve "teeth_up_str" hasta donde está el objeto de los dientes y coloca los controles de los dientes superiores.'
             },
         'accion': Reprop_Teeth_Up
     },
@@ -598,7 +598,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Move "teeth_low_str" to where the teeth object is and place the Lower Teeth controls.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Mueve "teeth_low_str" hasta donde está el objeto de los dientes y coloca los controles de los dientes inferiores.'
             },
         'accion': Reprop_Teeth_Low
     },
@@ -611,7 +611,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Move "tongue_str" to the root of the tongue object and place the controllers along the tongue',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Mueve "tongue_str" al comienzo del objeto lengua y coloca los controladores a lo largo de la lengua'
             },
         'accion': Reprop_Tongue
     },
@@ -624,7 +624,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the inner mouth area controllers',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores de la zona interior de la boca'
             },
         'accion': Reprop_Inner_Mouth
     },
@@ -637,7 +637,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the Ears controllers.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores de las orejas.'
             },
         'accion': Reprop_Ears
     },
@@ -650,7 +650,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the Hat and Glasses pivot controllers.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca los controladores de pivote del sombrero y las gafas.'
             },
         'accion': Reprop_Hat_Glasses
     },
@@ -663,7 +663,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the Look controller. Scale it to fit the width of the eyes.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Coloca el controlador de la mirada. Escálalo para que se ajuste a la anchura de los ojos.'
             },
         'accion': Reprop_Look
     },
@@ -676,7 +676,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Press the Bake button to bake the current state of the rig and the deformation objects.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Pulse el botón Bake para bakear el estado actual del rig y los objetos de deformación.'
             },
         'accion': Reprop_Bake
     },
@@ -689,7 +689,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Check the bone roll orientations and press the Custom Alignments Button.',
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Comprueba las orientaciones de los "bone roll" y pulse el botón "Custom Alignments".'
             },
         'accion': Reprop_Custom_Alignments
     },
@@ -702,7 +702,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': "Move the controllers and check that the limbs bend correcly. In case the arms or legs don't bend, Use the 'IK Rotation Override' Sliders to make them bend.",
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Mueve los controladores y comprueba que las extremidades se doblan correctamente. En caso de que los brazos o las piernas no se doblen, utiliza los deslizadores de "IK Rotation Override" para que se doblen.'
             },
         'accion': Reprop_IK_Check
     },
@@ -715,7 +715,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': "You're done with Reproportion. Now start the 'Weights Transfer Guide!'",
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'ES': 'Has terminado con la Reproporción. Ahora comienza la "Guía de Transferencia de Pesos".'
             },
         'accion': Reprop_Finish
     }
