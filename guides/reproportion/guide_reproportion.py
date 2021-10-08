@@ -26,7 +26,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'If the character is symmetric, please enable the X-Mirror option.',
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror.'
             },
         'accion': Reprop_Symmetry
     },
@@ -39,7 +39,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Scale the overall size of the rig so that it better fits the character.',
-            'ES': 'Modifica la escala general del rig para que se ajuste más al personaje'
+            'ES': 'Modifica la escala general del rig para que se ajuste más al personaje.'
             },
         'accion': Reprop_Master
     },
@@ -78,7 +78,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Adjust the curve of the Spine Line so that it best matches the shape of the spine bones.',
-            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            'ES': 'Ajusta la curva de la línea de la columna vertebral para que se adapte mejor a la forma de los huesos de la columna.'
             },
         'accion': Reprop_Spine_Line
     },
@@ -91,7 +91,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the neck and head joints.',
-            'ES': 'Mueve el cursor 3d al centro del globo ocular.' # 'Determinar el centro del globo ocular. Mover el cursor 3d a esa posición.'
+            'ES': 'Coloca las articulaciones del cuello y la cabeza.'
             },
         'accion': Reprop_Neck
     },
@@ -104,7 +104,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the inner head joints, one at the height of the eyes and the other one the height of the base of the nose.',
-            'ES': 'Posiciona los controles de los ojos como se muestra en la imagen.'
+            'ES': 'Coloca las articulaciones interiores de la cabeza, una a la altura de los ojos y la otra a la altura de la base de la nariz.'
             },
         'accion': Reprop_Head
     },
@@ -116,8 +116,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Articulacion de la cabeza'
             },
         'texto': {
-            'EN': 'Place the lower and middle Head Toon Controllers',
-            'ES': 'Posiciona los controles de los ojos como se muestra en la imagen.'
+            'EN': 'Place the lower and middle Head Toon Controllers.',
+            'ES': 'Coloca los controles "Head Toon" inferior y medio.'
             },
         'accion': Reprop_Head_Toon
     },
@@ -129,8 +129,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Pechos / Pectorales'
             },
         'texto': {
-            'EN': 'Place the Breasts bones',
-            'ES': 'Coloca los huesos de los pechos'
+            'EN': 'Place the Breasts bones.',
+            'ES': 'Coloca los huesos de los pechos.'
             },
         'accion': Reprop_Breasts_Pecs
     },
@@ -142,8 +142,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Deformador Lattice del cuerpo'
             },
         'texto': {
-            'EN': 'Place the Lattice controllers for the body',
-            'ES': 'Coloca los controladores Lattice para el cuerpo'
+            'EN': 'Place the Lattice controllers for the body.',
+            'ES': 'Coloca los controladores Lattice para el cuerpo.'
             },
         'accion': Reprop_Body_Lattice
     },
@@ -208,7 +208,7 @@ GUIDE_STEPS_REPROPORTION = (
             },
         'texto': {
             'EN': 'Place the foot joints.',
-            'ES': 'Coloca las articulaciones de los pies'
+            'ES': 'Coloca las articulaciones de los pies.'
             },
         'accion': Reprop_Feet
     },
@@ -220,8 +220,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de los pies'
             },
         'texto': {
-            'EN': 'Place the joints of the Toes and the toes_spread controller. You can also disable Toes completely or individually with the Toes Toggles',
-            'ES': 'Coloca las articulaciones de los dedos de los pies y el controlador "toes_spread". También puedes desactivar los dedos de los pies por completo o individualmente con los checkbox de los dedos de los pies'
+            'EN': 'Place the joints of the Toes and the toes_spread controller. You can also disable Toes completely or individually with the Toes Toggles.',
+            'ES': 'Coloca las articulaciones de los dedos de los pies y el controlador "toes_spread". También puedes desactivar los dedos de los pies por completo o individualmente con los checkbox de los dedos de los pies.'
             },
         'accion': Reprop_Toes
     },
@@ -233,8 +233,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Brazo hacia adelante'
             },
         'texto': {
-            'EN': 'Place the arm joints. You can also scale the wrist controller to give the size of the hand a first approximation',
-            'ES': 'Coloca las articulaciones del brazo. También puedes escalar el control de la muñeca para dar una primera aproximación al tamaño de la mano'
+            'EN': 'Place the arm joints. You can also scale the wrist controller to give the size of the hand a first approximation.',
+            'ES': 'Coloca las articulaciones del brazo. También puedes escalar el control de la muñeca para dar una primera aproximación al tamaño de la mano.'
             },
         'accion': Reprop_Arms
     },
@@ -259,8 +259,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de las manos'
             },
         'texto': {
-            'EN': 'Place the joints of the Fingers, the "fingers_spread" controller and the "hand_close" controller. You can also disable Fingers completely or individually with the Fingers Toggles',
-            'ES': 'Coloca las articulaciones de los dedos, el controlador "fingers_spread" y el controlador "hand_close". También puedes desactivar los dedos por completo o de forma individual con los "checkbox" de los dedos'
+            'EN': 'Place the joints of the Fingers, the "fingers_spread" controller and the "hand_close" controller. You can also disable Fingers completely or individually with the Fingers Toggles.',
+            'ES': 'Coloca las articulaciones de los dedos, el controlador "fingers_spread" y el controlador "hand_close". También puedes desactivar los dedos por completo o de forma individual con los "checkbox" de los dedos.'
             },
         'accion': Reprop_Fingers
     },
@@ -376,8 +376,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curva de las Cejas'
             },
         'texto': {
-            'EN': "Modify the curve values so that the Eyebrow Curve conforms the shape of the character's Eyebrow structure. Then Place the Eyebrow Middle Controller at the center of the Eyebrow Curve ",
-            'ES': 'Coloca “master_torso” a la altura de las caderas.'
+            'EN': "Modify the curve values so that the Eyebrow Curve conforms the shape of the character's Eyebrow structure. Then Place the Eyebrow Middle Controller at the center of the Eyebrow Curve.",
+            'ES': 'Modifica los valores de la curva para que la Curva de la Ceja se ajuste a la forma de la estructura de la Ceja del personaje. A continuación, coloca el controlador del medio de la ceja en el centro de la curva de la ceja.'
             },
         'accion': Reprop_Eyebrows_Curve
     },
@@ -441,8 +441,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Control de la mejilla'
             },
         'texto': {
-            'EN': 'Place the controllers for the Cheeks and the Nose Frowns',
-            'ES': 'Coloca los controladores para las mejillas y el ceño de la nariz'
+            'EN': 'Place the controllers for the Cheeks and the Nose Frowns.',
+            'ES': 'Coloca los controladores para las mejillas y el ceño de la nariz.'
             },
         'accion': Reprop_Cheek_Ctrls
     },
@@ -506,8 +506,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Superior e Inferior del centro del labio'
             },
         'texto': {
-            'EN': 'Place the upper and lower lips centers',
-            'ES': 'Coloca los centros de los labios superior e inferior'
+            'EN': 'Place the upper and lower lips centers.',
+            'ES': 'Coloca los centros de los labios superior e inferior.'
             },
         'accion': Reprop_Lips_Centers
     },
@@ -545,8 +545,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curva del labio'
             },
         'texto': {
-            'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth. Finally place Upper and Lower the Controllers at the Center of the Curves',
-            'ES': 'Utiliza los valores de las curvas para que las curvas superior, media e inferior se ajusten a la forma de la boca. Finalmente coloque los controladores superior e inferior en el centro de las curvas'
+            'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth. Finally place Upper and Lower the Controllers at the Center of the Curves.',
+            'ES': 'Utiliza los valores de las curvas para que las curvas superior, media e inferior se ajusten a la forma de la boca. Finalmente coloque los controladores superior e inferior en el centro de las curvas.'
             },
         'accion': Reprop_Mouth_Curves
     },
@@ -610,8 +610,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Lengua'
             },
         'texto': {
-            'EN': 'Move "tongue_str" to the root of the tongue object and place the controllers along the tongue',
-            'ES': 'Mueve "tongue_str" al comienzo del objeto lengua y coloca los controladores a lo largo de la lengua'
+            'EN': 'Move "tongue_str" to the root of the tongue object and place the controllers along the tongue.',
+            'ES': 'Mueve "tongue_str" al comienzo del objeto lengua y coloca los controladores a lo largo de la lengua.'
             },
         'accion': Reprop_Tongue
     },
@@ -623,8 +623,8 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Interior de la Boca'
             },
         'texto': {
-            'EN': 'Place the inner mouth area controllers',
-            'ES': 'Coloca los controladores de la zona interior de la boca'
+            'EN': 'Place the inner mouth area controllers.',
+            'ES': 'Coloca los controladores de la zona interior de la boca.'
             },
         'accion': Reprop_Inner_Mouth
     },
@@ -714,7 +714,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Reproporcion Finalizada'
             },
         'texto': {
-            'EN': "You're done with Reproportion. Now start the 'Weights Transfer Guide!'",
+            'EN': "You're done with Reproportion. Now start the 'Weights Transfer Guide'.",
             'ES': 'Has terminado con la Reproporción. Ahora comienza la "Guía de Transferencia de Pesos".'
             },
         'accion': Reprop_Finish
