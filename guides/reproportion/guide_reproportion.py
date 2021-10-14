@@ -6,13 +6,13 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_REPROPORTION = (
     # Introduction
     {
-        'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
+        'imagen': 'Reprop_Intro.jpg',
         'titulo': {
             'EN': 'Introduction',
             'ES': 'Introducción'
             },
         'texto': {
-            'EN': 'This Guide will take you through the process of adjusting the Rig to you Character.',
+            'EN': 'This Guide will take you through the process of adjusting the Rig to your Character.',
             'ES': 'Esta guía te llevará a través del proceso de ajuste del Rig a su personaje.'
             },
         'accion': Reprop_Intro
@@ -110,7 +110,7 @@ GUIDE_STEPS_REPROPORTION = (
     },
     # Head Toon
     {
-        'imagen': 'Reprop_Head.jpg',
+        'imagen': 'Reprop_Head_Toon.jpg',
         'titulo': {
             'EN': 'Head Toon',
             'ES': 'Articulacion de la cabeza'
@@ -214,7 +214,7 @@ GUIDE_STEPS_REPROPORTION = (
     },
     # Toes
     {
-        'imagen': 'Reprop_Toes.jpg',
+        'imagen': ('Reprop_Toes_A.jpg', 'Reprop_Toes_B.jpg'),
         'titulo': {
             'EN': 'Toes',
             'ES': 'Dedos de los pies'
@@ -253,7 +253,7 @@ GUIDE_STEPS_REPROPORTION = (
     },
     # Fingers
     {
-        'imagen': 'Reprop_Fingers.jpg',
+        'imagen': ('Reprop_Fingers_A.jpg','Reprop_Fingers_B.jpg'),
         'titulo': {
             'EN': 'Fingers',
             'ES': 'Dedos de las manos'
@@ -331,7 +331,7 @@ GUIDE_STEPS_REPROPORTION = (
     },
     # Eye Controls Placement Check
     {
-        'imagen': 'Reprop_Set_Eyes.jpg',
+        'imagen': ('Reprop_Set_Eyes_A.jpg', 'Reprop_Set_Eyes_B.jpg'),
         'titulo': {
             'EN': 'Eye Controls Placement Check',
             'ES': 'Comprobación de la ubicación de los controles oculares'
@@ -480,7 +480,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Articulacion inferior de la cara'
             },
         'texto': {
-            'EN': 'Place the lower face joint from the base of the nose to the chin. This bone usually goes through the mouth corners, defining an orientation place for the mouth.',
+            'EN': 'Place the lower face joint from the base of the nose to the chin. This bone usually goes through the mouth corners, defining an orientation plane for the mouth.',
             'ES': 'Coloca la articulación inferior de la cara desde la base de la nariz hasta el mentón. Este hueso suele pasar por las comisuras de la boca, definiendo un lugar de orientación para la misma.'
             },
         'accion': Reprop_Face_Low
@@ -519,7 +519,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de la Boca'
             },
         'texto': {
-            'EN': 'Place the controller of the mouth where it best visually fits the character. Place the cheek puff controllers.',
+            'EN': 'Place the controller of the mouth where it best fits the character visually. Place the cheek puff controllers.',
             'ES': 'Coloca el controlador de la boca donde mejor se adapte visualmente al personaje. Coloca los controladores de las mejillas.'
             },
         'accion': Reprop_Mouth_Ctrl
@@ -539,7 +539,7 @@ GUIDE_STEPS_REPROPORTION = (
     },
     # Lips Curves
     {
-        'imagen': ('Reprop_Mouth_Curves_A.jpg', 'Reprop_Mouth_Curves_B.jpg'),
+        'imagen': ('Reprop_Mouth_Curves_A.jpg', 'Reprop_Mouth_Curves_B.jpg', 'Reprop_Mouth_Curves_C.jpg'),
         'titulo': {
             'EN': 'Lips Curves',
             'ES': 'Curva del labio'
