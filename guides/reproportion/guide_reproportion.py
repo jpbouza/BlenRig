@@ -682,20 +682,20 @@ GUIDE_STEPS_REPROPORTION = (
     },
     # Custom Alignments
     {
-        'imagen': 'Reprop_Custom_Alignments.jpg',
+        'imagen': ('Reprop_Custom_Alignments_A.jpg', 'Reprop_Custom_Alignments_B.jpg'),
         'titulo': {
             'EN': 'Custom Alignments',
             'ES': 'Alineaciones personalizadas'
             },
         'texto': {
-            'EN': 'Check the bone roll orientations and press the Custom Alignments Button.',
+            'EN': 'Check the Bone Roll orientations. Most of the time, only the fingers need to be tweaked. The Z axis of the finger bones should be pointing to the inner part of the hand. Change bone rolls with Ctrl+R. Finally press the Custom Alignments Button.',
             'ES': 'Comprueba las orientaciones de los "bone roll" y pulse el botón "Custom Alignments".'
             },
         'accion': Reprop_Custom_Alignments
     },
     # Ik Check
     {
-        'imagen': 'Reprop_Custom_Alignments.jpg',
+        'imagen': ('Reprop_IK_Check_A.jpg', 'Reprop_IK_Check_B.jpg', 'Reprop_IK_Check_C.jpg'),
         'titulo': {
             'EN': 'IK Check',
             'ES': 'Alineaciones personalizadas'
