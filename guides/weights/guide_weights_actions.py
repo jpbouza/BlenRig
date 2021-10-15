@@ -13,15 +13,25 @@ def select_armature(context):
 
 def show_mdef_cage(context):
     deselect_all_objects(context)
-    # Show Mdef
-    mdef_cage_objects = collect_cage()
-    collect_cage()
-    blenrig_temp_link(mdef_cage_objects)
 
-    for ob in mdef_cage_objects:
-        set_active_object(context, ob)
-        bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
-        bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
+    guide_props = bpy.context.scene.blenrig_guide
+    mdef_cage = guide_props.mdef_cage_obj
+
+    if mdef_cage == None:
+        # Show MdefCage
+        mdef_cage_objects = collect_cage()
+        collect_cage()
+        blenrig_temp_link(mdef_cage_objects)
+        # Unhide
+        collect_cage()
+        for ob in mdef_cage_objects:
+            set_active_object(context, ob)
+            bpy.context.scene.blenrig_guide.mdef_cage_obj = ob
+            bpy.context.scene.blenrig_guide.mdef_cage_obj.hide_viewport = False
+    else:
+        blenrig_temp_link([mdef_cage])
+        mdef_cage.hide_viewport = False
+        set_active_object(context, mdef_cage)
 
 def joint_rotations(BONE, LOC_1, ROT_1, SCALE_1, LOC_2, ROT_2, SCALE_2, LOC_3, ROT_3, SCALE_3, LOC_4, ROT_4, SCALE_4, LOC_5, ROT_5, SCALE_5, LOC_6, ROT_6, SCALE_6, PROP_VALUE):
     #Set Bone and Angles
