@@ -6,7 +6,7 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_DATATRANSFER = (
     #Introduction
     {
-        'imagen': ('DT_Weight_Mesh_Shapekey_Head_A.jpg', 'DT_Weight_Mesh_Shapekey_Head_B.jpg', 'DT_Weight_Mesh_Shapekey_Head_C.jpg', 'DT_Weight_Mesh_Shapekey_Head_D.jpg'),
+        'imagen': 'DT_Intro.jpg',
         'titulo': {
             'EN': 'Introduction',
             'ES': 'Introducción'
@@ -32,7 +32,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Select Character's Head
     {
-        'imagen': 'DT_Select_Head.jpg',
+        'imagen': ('DT_Select_Head_A.jpg', 'DT_Select_Head_B.jpg'),
         'titulo': {
             'EN': "Select Character's Head Object",
             'ES': 'Paso 1'
