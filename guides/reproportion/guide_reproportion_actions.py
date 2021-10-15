@@ -827,6 +827,9 @@ def Reprop_Toon_Scale(operator, context):
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'Reprop_Toon_Scale'
 
+    guide_props = bpy.context.scene.blenrig_guide
+    mdef_cage = guide_props.mdef_cage_obj
+
     reproportion_on(context)
 
     # Set View
@@ -862,14 +865,19 @@ def Reprop_Toon_Scale(operator, context):
 
     deselect_all_pose_bones(context)
 
-    # Show MdefCage
-    mdef_cage_objects = collect_cage()
-    collect_cage()
-    blenrig_temp_link(mdef_cage_objects)
-    # Unhide
-    collect_cage()
-    for ob in mdef_cage_objects:
-        ob.hide_viewport = False
+    if mdef_cage == None:
+        # Show MdefCage
+        mdef_cage_objects = collect_cage()
+        collect_cage()
+        blenrig_temp_link(mdef_cage_objects)
+        # Unhide
+        collect_cage()
+        for ob in mdef_cage_objects:
+            ob.hide_viewport = False
+    else:
+        blenrig_temp_link([mdef_cage])
+        mdef_cage.hide_viewport = False
+        set_active_object(context, mdef_cage)
 
     #Set Locks
     set_locks(['neck_2_toon', 'neck_3_toon', 'spine_2_toon', 'spine_3_toon', 'spine_4_toon', 'shoulder_toon_R', 'shoulder_toon_L', 'pelvis_toon', 'spine_1_toon', 'pelvis_toon_R', 'pelvis_toon_L',
