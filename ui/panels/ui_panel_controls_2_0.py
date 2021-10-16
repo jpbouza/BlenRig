@@ -2830,12 +2830,19 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
 
                     else:
                         #Properties Only GUI
+                        col_key = box.column()
+                        col_key.alignment = 'CENTER'
+                        row_key = col_key.row(align = 1)
+                        row_key.scale_x = 1
+                        row_key.scale_y = 1
+                        row_key.alignment = 'CENTER'
+                        row_key.operator("keyframe.main_props", text='Keyframe All Properties', icon='KEYINGSET', emboss = 1)
 
                         # Look slider
 
                         col.separator()
 
-                        col_look = box_row.column()
+                        col_look = box.column()
                         col_look.alignment = 'CENTER'
                         row_look_title = col_look.row(align = 1)
                         row_look_title.scale_x = 0.7
@@ -2873,7 +2880,7 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                         row_look.prop(arm_bones['properties_head'], 'look_switch', text="Eyes Target", slider=True)
 
                         # Head sliders
-
+                        
                         row_head = box.row()
                         row_head.alignment = 'CENTER'
                         col_head = row_head.column()
