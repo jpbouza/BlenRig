@@ -2828,7 +2828,7 @@ class BLENRIG_PT_blenrig_6_Interface_2_0(bpy.types.Panel):
                             col_foot_L_props.label(text="TOES")
                             col_sliders_L.prop(arm_bones['properties_leg_L'], 'ik_toes_all_L', text="{}".format("FK" if arm_bones['properties_leg_L']['ik_toes_all_L'] == 1 else "IK"), toggle=True, icon_only = 1, emboss = 1)
 
-                    else:
+                    elif props.gui_picker_body_props:
                         #Properties Only GUI
                         col_key = box.column()
                         col_key.alignment = 'CENTER'
