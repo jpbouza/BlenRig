@@ -461,6 +461,273 @@ bpy.types.PoseBone.ik_fing_all_L = FloatProperty(
     name="ik_fing_all_L"
 )
 
+# LEGACY HINGE
+
+bpy.types.PoseBone.hinge_head = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_head"
+)
+bpy.types.PoseBone.hinge_neck = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_neck"
+)
+bpy.types.PoseBone.hinge_arm_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_arm_L"
+)
+bpy.types.PoseBone.hinge_arm_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_arm_R"
+)
+bpy.types.PoseBone.hinge_hand_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_hand_L"
+)
+bpy.types.PoseBone.hinge_hand_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_hand_R"
+)
+bpy.types.PoseBone.hinge_fing_ind_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_ind_L"
+)
+bpy.types.PoseBone.hinge_fing_mid_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_mid_L"
+)
+bpy.types.PoseBone.hinge_fing_ring_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_mid_L"
+)
+bpy.types.PoseBone.hinge_fing_lit_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_lit_L"
+)
+bpy.types.PoseBone.hinge_fing_thumb_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_thumb_L"
+)
+bpy.types.PoseBone.hinge_fing_ind_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_ind_R"
+)
+bpy.types.PoseBone.hinge_fing_mid_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_mid_R"
+)
+bpy.types.PoseBone.hinge_fing_ring_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_mid_R"
+)
+bpy.types.PoseBone.hinge_fing_lit_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_lit_R"
+)
+bpy.types.PoseBone.hinge_fing_thumb_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_thumb_R"
+)
+bpy.types.PoseBone.hinge_fing_all_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_all_R"
+)
+bpy.types.PoseBone.hinge_fing_all_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_fing_all_L"
+)
+bpy.types.PoseBone.hinge_leg_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_leg_L"
+)
+bpy.types.PoseBone.hinge_toes_all_L = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_toes_all_L"
+)
+bpy.types.PoseBone.hinge_leg_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_leg_R"
+)
+bpy.types.PoseBone.hinge_toes_all_R = FloatProperty(
+    default=0.000,
+    min=0.000,
+    max=1.000,
+    precision=0,
+    step=100,
+    options={'ANIMATABLE'},
+    override={'LIBRARY_OVERRIDABLE'},
+    description="Isolate Rotation",
+    update=prop_update,
+    name="hinge_toes_all_R"
+)
+
 # SPACE
 
 bpy.types.PoseBone.space_head = FloatProperty(
