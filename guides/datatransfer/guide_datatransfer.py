@@ -45,7 +45,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Edit Character's Head
     {
-        'imagen': ('DT_Edit_Head_A.jpg', 'DT_Edit_Head_B.jpg', 'DT_Edit_Head_C.jpg'),
+        'imagen': ('DT_Edit_Head_A.jpg', 'DT_Edit_Head_B.jpg', 'DT_Edit_Head_C.jpg', 'DT_Edit_Head_D.jpg'),
         'titulo': {
             'EN': "Edit Character's Head",
             'ES': 'Paso 1'
@@ -58,7 +58,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Test Character's Face
     {
-        'imagen': ('DT_Edit_Head_A.jpg', 'DT_Edit_Head_B.jpg', 'DT_Edit_Head_C.jpg'),
+        'imagen': ('DT_Test_Head_A.jpg', 'DT_Test_Head_B.jpg', 'DT_Test_Head_C.jpg'),
         'titulo': {
             'EN': "Test Character's Face",
             'ES': 'Paso 1'
@@ -84,7 +84,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Select Character's Hands
     {
-        'imagen': 'DT_Select_Hands.jpg',
+        'imagen': ('DT_Select_Hands_A.jpg', 'DT_Select_Hands_B.jpg'),
         'titulo': {
             'EN': "Select Character's Hands Object",
             'ES': 'Paso 1'
@@ -110,7 +110,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Test Character's Hands
     {
-        'imagen': ('DT_Edit_Hands_A.jpg', 'DT_Edit_Hands_B.jpg', 'DT_Edit_Hands_C.jpg'),
+        'imagen': ('DT_Test_Hands_A.jpg', 'DT_Test_Hands_B.jpg', 'DT_Test_Hands_C.jpg'),
         'titulo': {
             'EN': "Test Character's Hands",
             'ES': 'Paso 1'
@@ -123,7 +123,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Eyes Setup
     {
-        'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),
+        'imagen': ('DT_Eyes_A.jpg', 'DT_Eyes_B.jpg'),
         'titulo': {
             'EN': "Eyes Setup",
             'ES': 'Paso 1'
@@ -136,7 +136,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Inner Mouth Setup
     {
-        'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),
+        'imagen': ('DT_Inner_Mouth_A.jpg', 'DT_Inner_Mouth_B.jpg'),
         'titulo': {
             'EN': "Inner Mouth Setup",
             'ES': 'Paso 1'
@@ -149,7 +149,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Clean Symmetry
     {
-        'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),
+        'imagen': 'DT_Clean_Symmetry.jpg',
         'titulo': {
             'EN': "Clean Vgroups Symmetry",
             'ES': 'Paso 1'
@@ -162,7 +162,7 @@ GUIDE_STEPS_DATATRANSFER = (
     },
     #Weights Transfer Finish
     {
-        'imagen': ('DT_Finish_A.jpg', 'DT_Finish_B.jpg', 'DT_Finish_C.jpg', 'DT_Finish_D.jpg'),
+        'imagen': 'DT_Finish.jpg',
         'titulo': {
             'EN': "Weights Transfer Finish",
             'ES': 'Paso 1'
