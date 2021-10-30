@@ -6,7 +6,7 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_MDEF = (
     #Define Character Body Objects
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'MDEF_Intro.jpg',
         'titulo': {
             'EN': 'Mesh Deform intro',
             'ES': 'Define los objetos que componen el cuerpo de tu personaje'
@@ -19,7 +19,7 @@ GUIDE_STEPS_MDEF = (
     },
     #Define Character Body Objects
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('MDEF_Select_Body_Objects_A.jpg', 'MDEF_Select_Body_Objects_B.jpg'),
         'titulo': {
             'EN': 'Define Character Body Objects',
             'ES': 'Define los objetos que componen el cuerpo de tu personaje'
@@ -32,7 +32,7 @@ GUIDE_STEPS_MDEF = (
     },
     #Edit the Mesh Deform Cage
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('MDEF_Edit_Mdef_Cage_A.jpg', 'MDEF_Edit_Mdef_Cage_B.jpg', 'MDEF_Edit_Mdef_Cage_C.jpg'),
         'titulo': {
             'EN': 'Edit the Mesh Deform Cage',
             'ES': 'Edita el Mesh Deform Cage'
@@ -45,7 +45,7 @@ GUIDE_STEPS_MDEF = (
 },
     #Check Mesh Deform Binding
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('MDEF_Binding_Check_A.jpg', 'MDEF_Binding_Check_B.jpg', 'MDEF_Binding_Check_C.jpg'),
         'titulo': {
             'EN': 'Check Mesh Deform Binding',
             'ES': 'Comprueba la vinculacion de la malla de deformación'
@@ -58,7 +58,7 @@ GUIDE_STEPS_MDEF = (
 },
     #Mesh Deform Final Binding
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'MDEF_Final_Binding.jpg',
         'titulo': {
             'EN': 'Mesh Deform Final Binding',
             'ES': 'Finalización de la vinculacion del Mesh Deform'
@@ -71,7 +71,7 @@ GUIDE_STEPS_MDEF = (
 },
     #Mesh Finish
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'MDEF_Finish.jpg',
         'titulo': {
             'EN': 'Mesh Finish',
             'ES': 'Finalización de la vinculacion del Mesh Deform'
