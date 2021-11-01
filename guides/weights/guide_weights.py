@@ -6,26 +6,26 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_WEIGHTS = (
     #Intro
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Intro.jpg',
         'titulo': {
             'EN': 'Weights Guide Intro',
             'ES': 'Intro Guia de Pesos'
             },
         'texto': {
-            'EN': "In this Guide you will be able to adjust the Character's and Mdef Cage Weights if needed. You will also be able to adjust the values of the Volume Preservation Bones and the Realistic Joints values to simulate Sekeltal Structure volume in the Joints. Keep in mind that this will be the initial deformation setup, if you need to fine tune it, you will be able to do it in the Shapekeys Guide",
+            'EN': "In this Guide you will be able to adjust the Character's and Mdef Cage Weights if needed. You will set the values of the Volume Preservation Bones and the Realistic Joints to simulate Sekeltal Structure volume. This is just the initial deformation setup, further refinements will be done in the Shapekeys Guide",
             'ES': 'En esta Guía podrás ajustar los Pesos del Personaje y del "Mdef Cage" si es necesario. También podrás ajustar los valores de los Huesos de Preservación del Volumen y los valores de las Juntas Realistas para simular el volumen de la Estructura Sekeltal en las Juntas. Ten en cuenta que esta será la configuración inicial de la deformación, si necesitas afinarla, podrás hacerlo en la Guía de Shapekeys.'
             },
         'accion': WEIGHTS_Intro
     },
     #Ankle Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Ankle_A.jpg', 'WEIGHTS_Cage_Ankle_B.jpg', 'WEIGHTS_Cage_Ankle_C.jpg', 'WEIGHTS_Cage_Ankle_D.jpg', 'WEIGHTS_Cage_Ankle_E.jpg'),
         'titulo': {
             'EN': 'Ankle',
             'ES': 'Tobillo'
             },
         'texto': {
-            'EN': "Check the Ankle deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button.",
+            'EN': "Ankle. Scroll through the key Poses with the slider. Adjust the RJ and VP values first. Select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting' button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Ankle
