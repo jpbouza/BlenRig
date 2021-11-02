@@ -32,13 +32,13 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Foot Toe Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Foot_Toe_A.jpg', 'WEIGHTS_Cage_Foot_Toe_B.jpg', 'WEIGHTS_Cage_Foot_Toe_C.jpg', 'WEIGHTS_Cage_Foot_Toe_D.jpg', 'WEIGHTS_Cage_Foot_Toe_E.jpg', 'WEIGHTS_Cage_Foot_Toe_F.jpg'),
         'titulo': {
             'EN': 'Foot Toe',
             'ES': 'Dedos del Pie'
             },
         'texto': {
-            'EN': "Check the 'Foot Toe joints' deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "'Foot Toe joints'. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key poses and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Foot_Toe
