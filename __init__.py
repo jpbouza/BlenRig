@@ -2459,14 +2459,15 @@ bpy.types.PoseBone.volume_preservation_toes_down_R = FloatProperty(
 )
 
 ####### Load BlenRig 6 Controls Panel
-from .ui.panels.ui_panel_controls import BLENRIG_PT_blenrig_6_Interface
+from .ui.panels.ui_legacy_panel_controls import BLENRIG_PT_legacy_blenrig_5_Interface
 from .ui.panels.ui_panel_blenrig import BLENRIG_PT_blenrig_6_general,BLENRIG_PT_blenrig_6_general_SubPanel
-from .ui.panels.ui_panel_controls_2_0 import BLENRIG_PT_blenrig_6_Interface_2_0
+from .ui.panels.ui_panel_controls import BLENRIG_PT_blenrig_6_Interface
+from .ui.panels.ui_legacy_panel_controls_1_5 import BLENRIG_PT_legacy_blenrig_5_5_Interface
 from .snap_points import BLENRIG_OT_SnapPoints
 from .ui.panels.cage_snapping_panel import BLENRIG_PT_Cage_snapping_panel
 
 ####### Load BlenRig 6 Rigging Panel
-from .ui.panels.ui_panel_rigging import BLENRIG_PT_blenrig_5_rigging_panel
+from .ui.panels.ui_legacy_panel_rigging import BLENRIG_PT_legacy_blenrig_5_rigging_panel
 
 ####### Load BlenRig 6 Objects Panel
 from .ui.panels.ui_panel_objects import (
@@ -3871,11 +3872,12 @@ panels_classes = [
     BLENRIG_PT_baking,
     BLENRIG_PT_visual_assistant,
     BLENRIG_PT_Rig_version_info,
-    BLENRIG_PT_blenrig_6_Interface_2_0,
     BLENRIG_PT_blenrig_6_Interface,
+    BLENRIG_PT_legacy_blenrig_5_5_Interface,
+    BLENRIG_PT_legacy_blenrig_5_Interface,
     BLENRIG_OT_SnapPoints,
     blenrig_6_props,
-    BLENRIG_PT_blenrig_5_rigging_panel,
+    BLENRIG_PT_legacy_blenrig_5_rigging_panel,
     BLENRIG_PT_blenrig_6_mesh_panel,
     BLENRIG_PT_blenrig_6_lattice_panel,
     BLENRIG_MT_bw_specials,
