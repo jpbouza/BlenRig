@@ -25,7 +25,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Tobillo'
             },
         'texto': {
-            'EN': "Ankle. Scroll through the key Poses with the slider. Adjust the RJ and VP values first. Select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting' button.",
+            'EN': "Ankle. Scroll through the key Poses with the slider (0-6). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting' button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Ankle
@@ -38,14 +38,14 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Dedos del Pie'
             },
         'texto': {
-            'EN': "'Foot Toe joints'. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key poses and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
+            'EN': "'Foot Toe joints'. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key poses (0-4) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Foot_Toe
     },
     #Knee Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Knee_A.jpg', 'WEIGHTS_Cage_Knee_B.jpg'),
         'titulo': {
             'EN': 'Knee',
             'ES': 'Rodilla'
@@ -58,7 +58,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Thigh Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Cage_Thigh.jpg',
         'titulo': {
             'EN': 'Thigh',
             'ES': 'Muslo'
@@ -71,10 +71,10 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Torso Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Torso_A.jpg', 'WEIGHTS_Cage_Torso_B.jpg', 'WEIGHTS_Cage_Torso_C.jpg', 'WEIGHTS_Cage_Torso_D.jpg', 'WEIGHTS_Cage_Torso_E.jpg', 'WEIGHTS_Cage_Torso_F.jpg'),
         'titulo': {
-            'EN': 'Define Character Body Objects',
-            'ES': 'Definir los objetos del cuerpo del personaje'
+            'EN': 'Torso',
+            'ES': 'Torso'
             },
         'texto': {
             'EN': "Check the Torso deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
@@ -84,7 +84,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Neck Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Neck_A.jpg', 'WEIGHTS_Cage_Neck_B.jpg', 'WEIGHTS_Cage_Neck_C.jpg'),
         'titulo': {
             'EN': 'Neck',
             'ES': 'Cuello'
@@ -97,7 +97,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Clavicle Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Clavicle_A.jpg', 'WEIGHTS_Cage_Clavicle_B.jpg'),
         'titulo': {
             'EN': 'Clavicle',
             'ES': 'Clavicula'
@@ -110,7 +110,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Arm Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Cage_Shoulder.jpg',
         'titulo': {
             'EN': 'Arm / Shoulder',
             'ES': 'Brazo / Hombro '
@@ -123,7 +123,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Forearm Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Cage_Elbow_A.jpg', 'WEIGHTS_Cage_Elbow_B.jpg'),
         'titulo': {
             'EN': 'Elbow',
             'ES': 'Codo'
@@ -136,7 +136,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Wrist Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Cage_Wrist.jpg',
         'titulo': {
             'EN': 'Wrist',
             'ES': 'Muñeca'
@@ -149,7 +149,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Character Mesh Wrist Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Wrist_A.jpg', 'WEIGHTS_Char_Wrist_B.jpg', 'WEIGHTS_Char_Wrist_C.jpg', 'WEIGHTS_Char_Wrist_D.jpg', 'WEIGHTS_Char_Wrist_E.jpg'),
         'titulo': {
             'EN': 'Hands Mdef Vertex Group',
             'ES': 'Mdef Grupo de Vertices de las Manos'
@@ -162,7 +162,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Hand Volume Preservation Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Hand_VP_A.jpg', 'WEIGHTS_Char_Hand_VP_B.jpg', 'WEIGHTS_Char_Hand_VP_C.jpg', 'WEIGHTS_Char_Hand_VP_D.jpg', 'WEIGHTS_Char_Hand_VP_E.jpg', 'WEIGHTS_Char_Hand_VP_F.jpg'),
         'titulo': {
             'EN': 'Hands General VP & RJ Values',
             'ES': 'Paso 1'
@@ -175,7 +175,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Fingers 1 Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Fings_1_A.jpg', 'WEIGHTS_Char_Fings_1_B.jpg', 'WEIGHTS_Char_Fings_1_C.jpg', 'WEIGHTS_Char_Fings_1_D.jpg', 'WEIGHTS_Char_Fings_1_E.jpg', 'WEIGHTS_Char_Fings_1_F.jpg', 'WEIGHTS_Char_Fings_1_G.jpg', 'WEIGHTS_Char_Fings_1_H.jpg', 'WEIGHTS_Char_Fings_1_I.jpg'),
         'titulo': {
             'EN': 'Palm',
             'ES': 'Palma'
@@ -188,7 +188,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Fingers 1 Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Fings_2_A.jpg', 'WEIGHTS_Char_Fings_2_B.jpg', 'WEIGHTS_Char_Fings_2_C.jpg'),
         'titulo': {
             'EN': 'Fingers',
             'ES': 'Dedos'
@@ -201,7 +201,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Head Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Head_A.jpg', 'WEIGHTS_Char_Head_B.jpg', 'WEIGHTS_Char_Head_C.jpg', 'WEIGHTS_Char_Head_D.jpg', 'WEIGHTS_Char_Head_E.jpg'),
         'titulo': {
             'EN': 'Head Mdef Vertex Group',
             'ES': 'Mdef Grupo de Vertices de la Cabeza'
@@ -214,7 +214,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Head Joints Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Head_Joints_A.jpg', 'WEIGHTS_Char_Head_Joints_B.jpg', 'WEIGHTS_Char_Head_Joints_C.jpg'),
         'titulo': {
             'EN': 'Head Joints',
             'ES': 'Articulaciones de la cabeza'
@@ -227,7 +227,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Ear Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Ears_A.jpg', 'WEIGHTS_Char_Ears_B.jpg', 'WEIGHTS_Char_Ears_C.jpg'),
         'titulo': {
             'EN': 'Ear',
             'ES': 'Oreja'
@@ -240,7 +240,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Eyebrows Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Eyebrows_A.jpg', 'WEIGHTS_Char_Eyebrows_B.jpg', 'WEIGHTS_Char_Eyebrows_C.jpg'),
         'titulo': {
             'EN': 'Eyebrows',
             'ES': 'Cejas'
@@ -253,7 +253,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Eye Sockets
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Char_Eye_Socket.jpg',
         'titulo': {
             'EN': 'Eye Socket',
             'ES': 'Caja del Ojo'
@@ -266,7 +266,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Eyelids Poses
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Eyelids_A.jpg', 'WEIGHTS_Char_Eyelids_B.jpg', 'WEIGHTS_Char_Eyelids_C.jpg', 'WEIGHTS_Char_Eyelids_D.jpg', 'WEIGHTS_Char_Eyelids_E.jpg'),
         'titulo': {
             'EN': 'Eyelids',
             'ES': 'Pestañas'
@@ -279,7 +279,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Cheeks
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Cheeks_A.jpg', 'WEIGHTS_Char_Cheeks_B.jpg', 'WEIGHTS_Char_Cheeks_C.jpg', 'WEIGHTS_Char_Cheeks_D.jpg'),
         'titulo': {
             'EN': 'Cheeks',
             'ES': 'Mejillas'
@@ -292,7 +292,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Nose
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Nose_A.jpg', 'WEIGHTS_Char_Nose_B.jpg', 'WEIGHTS_Char_Nose_C.jpg', 'WEIGHTS_Char_Nose_D.jpg', 'WEIGHTS_Char_Nose_E.jpg'),
         'titulo': {
             'EN': 'Nose',
             'ES': 'Nariz'
@@ -305,7 +305,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Mouth
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('WEIGHTS_Char_Mouth_A.jpg', 'WEIGHTS_Char_Mouth_B.jpg', 'WEIGHTS_Char_Mouth_C.jpg', 'WEIGHTS_Char_Mouth_D.jpg'),
         'titulo': {
             'EN': 'Mouth',
             'ES': 'Boca'
@@ -318,7 +318,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Inner Mouth
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Char_Inner_Mouth.jpg',
         'titulo': {
             'EN': 'Inner Mouth',
             'ES': 'Interior de la Boca'
@@ -331,7 +331,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Lattice Head
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Char_Lattice_Head.jpg',
         'titulo': {
             'EN': 'Lattice Head',
             'ES': 'Interior de la Boca'
@@ -344,7 +344,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
     #Lattice Mouth
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Char_Lattice_Mouth.jpg',
         'titulo': {
             'EN': 'Lattice Mouth',
             'ES': 'Interior de la Boca'
@@ -357,7 +357,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
         #Lattice Eyebrow
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Char_Lattice_Brow.jpg',
         'titulo': {
             'EN': 'Lattice Eyebrow',
             'ES': 'Interior de la Boca'
@@ -370,7 +370,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
         #Lattice Eye
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Char_Lattice_Eye.jpg',
         'titulo': {
             'EN': 'Lattice Eye',
             'ES': 'Interior de la Boca'
@@ -383,7 +383,7 @@ GUIDE_STEPS_WEIGHTS = (
     },
         #Lattice Finish
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'WEIGHTS_Finish.jpg',
         'titulo': {
             'EN': 'Lattice Eye',
             'ES': 'Interior de la Boca'
