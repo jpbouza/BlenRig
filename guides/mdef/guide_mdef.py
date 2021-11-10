@@ -9,7 +9,7 @@ GUIDE_STEPS_MDEF = (
         'imagen': 'MDEF_Intro.jpg',
         'titulo': {
             'EN': 'Mesh Deform intro',
-            'ES': 'Define los objetos que componen el cuerpo de tu personaje'
+            'ES': 'Mesh Deform Introduccion'
             },
         'texto': {
             'EN': "In this Guide you will setup Mesh Deform Deformation. In this method, the body of the character is deformed with Low Resolution Mesh that is much easier to setup than weight painting directly on the character. Head, Hands and eventually Toes don't get deformed with this method.",

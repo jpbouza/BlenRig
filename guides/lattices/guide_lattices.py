@@ -91,7 +91,7 @@ GUIDE_STEPS_LATTICES = (
             },
         'texto': {
             'EN': "Done! Move to the Weight Painting Guide!",
-            'ES': "Ajuste el Lattice del cuerpo, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
+            'ES': "Hecho! Ahora puedes pasar a la guia 'Weigth Painting'."
             },
         'accion': LATTICES_Finish
     }
