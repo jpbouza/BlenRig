@@ -14,11 +14,11 @@ texts_dict = {
         'ES': 'Paso'
     },
     'Next' : {
-        'EN': 'Next',
+        'EN': '▶',
         'ES': '▶'
     },
     'Prev' : {
-        'EN': 'Prev',
+        'EN': '◀',
         'ES': '◀'
     }
 }
