@@ -6,7 +6,7 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_ACTIONS = (
     #Fingers Spread Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Intro_A.jpg', 'ACTIONS_Intro_B.jpg', 'ACTIONS_Intro_C.jpg'),
         'titulo': {
             'EN': 'Introduction',
             'ES': 'Paso 1'
@@ -19,7 +19,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Fingers Spread Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Fingers_Spread_X_Up.jpg',
         'titulo': {
             'EN': 'Fingers Spread Up',
             'ES': 'Paso 1'
@@ -32,7 +32,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Fingers Spread Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Fingers_Spread_X_Down.jpg',
         'titulo': {
             'EN': 'Fingers Spread Down',
             'ES': 'Paso 1'
@@ -45,7 +45,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Fingers Spread Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Fingers_Spread_Z_Out.jpg',
         'titulo': {
             'EN': 'Fingers Spread Out',
             'ES': 'Paso 1'
@@ -58,7 +58,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Fingers Spread In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Fingers_Spread_Z_In.jpg',
         'titulo': {
             'EN': 'Fingers Spread In',
             'ES': 'Paso 1'
@@ -71,7 +71,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Fingers Curl In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Fingers_Curl_In.jpg',
         'titulo': {
             'EN': 'Fingers Curl In',
             'ES': 'Paso 1'
@@ -84,7 +84,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Fingers Curl Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Fingers_Curl_Out.jpg',
         'titulo': {
             'EN': 'Fingers Curl Out',
             'ES': 'Paso 1'
@@ -97,7 +97,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Hand Close
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Hand_Close.jpg',
         'titulo': {
             'EN': 'Hand Close',
             'ES': 'Paso 1'
@@ -110,7 +110,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Hand Open
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Hand_Open.jpg',
         'titulo': {
             'EN': 'Hand Open',
             'ES': 'Paso 1'
@@ -123,7 +123,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Breathe In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Breathing_in_A.jpg', 'ACTIONS_Breathing_in_B.jpg'),
         'titulo': {
             'EN': 'Breathe In',
             'ES': 'Paso 1'
@@ -136,7 +136,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Breathe Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Breathing_Out_A.jpg', 'ACTIONS_Breathing_Out_B.jpg'),
         'titulo': {
             'EN': 'Breathe Out',
             'ES': 'Paso 1'
@@ -149,7 +149,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Upper Eyelids Upwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Up_Up_Range.jpg',
         'titulo': {
             'EN': 'Upper Eyelids Upwards Range',
             'ES': 'Paso 1'
@@ -162,7 +162,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Upper Eyelids Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Eyelids_Up_Up_A.jpg', 'ACTIONS_Eyelids_Up_Up_B.jpg'),
         'titulo': {
             'EN': 'Upper Eyelids Up',
             'ES': 'Paso 1'
@@ -175,7 +175,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Upper Eyelids Downwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Up_Down_Range.jpg',
         'titulo': {
             'EN': 'Upper Eyelids Downwards Range',
             'ES': 'Paso 1'
@@ -188,7 +188,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Upper Eyelids Down to Middle
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Up_Down_1.jpg',
         'titulo': {
             'EN': 'Upper Eyelids Down to Middle',
             'ES': 'Paso 1'
@@ -201,7 +201,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Upper Eyelids Down to Bottom
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Up_Down_2.jpg',
         'titulo': {
             'EN': 'Upper Eyelids Down to Bottom',
             'ES': 'Paso 1'
@@ -214,7 +214,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Lower Eyelids Downwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Low_Down_Range.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Downwards Range',
             'ES': 'Paso 1'
@@ -227,7 +227,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Lower Eyelids Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Eyelids_Low_Down_A.jpg', 'ACTIONS_Eyelids_Low_Down_B.jpg'),
         'titulo': {
             'EN': 'Lower Eyelids Down',
             'ES': 'Paso 1'
@@ -240,7 +240,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Lower Eyelids Upwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Low_Up_Range.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Upwards Range',
             'ES': 'Paso 1'
@@ -253,7 +253,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Lower Eyelids Up to Middle
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Low_Up_1.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Up to Middle',
             'ES': 'Paso 1'
@@ -266,7 +266,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Lower Eyelids Up to Top
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Eyelids_Low_Up_2.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Up to Top',
             'ES': 'Paso 1'
@@ -279,7 +279,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Eyelids Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Eyelids_Out_A.jpg', 'ACTIONS_Eyelids_Out_B.jpg'),
         'titulo': {
             'EN': 'Eyelids Out',
             'ES': 'Paso 1'
@@ -292,7 +292,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Eyelids In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Eyelids_In_A.jpg', 'ACTIONS_Eyelids_In_B.jpg'),
         'titulo': {
             'EN': 'Eyelids In',
             'ES': 'Paso 1'
@@ -305,7 +305,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Cheek Upwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Cheek_Up_Range.jpg',
         'titulo': {
             'EN': 'Cheek Upwards Range',
             'ES': 'Paso 1'
@@ -318,7 +318,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Cheek Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Cheek_Up_A.jpg', 'ACTIONS_Cheek_Up_B.jpg', 'ACTIONS_Cheek_Up_C.jpg'),
         'titulo': {
             'EN': 'Cheek Up',
             'ES': 'Paso 1'
@@ -331,7 +331,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Cheek Frown
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Cheek_Frown_A.jpg', 'ACTIONS_Cheek_Frown_B.jpg'),
         'titulo': {
             'EN': 'Cheek Frown',
             'ES': 'Paso 1'
@@ -344,7 +344,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Cheek Downwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Cheek_Down_Range.jpg',
         'titulo': {
             'EN': 'Cheek Downwards Range',
             'ES': 'Paso 1'
@@ -357,7 +357,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Cheek Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Cheek_Down_A.jpg', 'ACTIONS_Cheek_Down_B.jpg', 'ACTIONS_Cheek_Down_C.jpg'),
         'titulo': {
             'EN': 'Cheek Down',
             'ES': 'Paso 1'
@@ -370,7 +370,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Nose Frown Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Nose_Frown_Range.jpg',
         'titulo': {
             'EN': 'Nose Frown Range',
             'ES': 'Paso 1'
@@ -383,7 +383,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Nose Frown
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Nose_Frown_A.jpg', 'ACTIONS_Nose_Frown_B.jpg', 'ACTIONS_Nose_Frown_C.jpg'),
         'titulo': {
             'EN': 'Nose Frown',
             'ES': 'Paso 1'
@@ -396,7 +396,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Nose Frown Max
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Nose_Frown_Max_A.jpg', 'ACTIONS_Nose_Frown_Max_B.jpg'),
         'titulo': {
             'EN': 'Nose Frown Max',
             'ES': 'Paso 1'
@@ -409,7 +409,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Jaw Down Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Jaw_Down_Range.jpg',
         'titulo': {
             'EN': 'Jaw Down Range',
             'ES': 'Paso 1'
@@ -422,7 +422,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Jaw Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Jaw_Down_A.jpg', 'ACTIONS_Jaw_Down_B.jpg'),
         'titulo': {
             'EN': 'Jaw Down',
             'ES': 'Paso 1'
@@ -435,7 +435,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Jaw Up Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Jaw_Up_Range.jpg',
         'titulo': {
             'EN': 'Jaw Up Range',
             'ES': 'Paso 1'
@@ -448,7 +448,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Jaw Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Jaw_Up_A.jpg', 'ACTIONS_Jaw_Up_B.jpg'),
         'titulo': {
             'EN': 'Jaw Up',
             'ES': 'Paso 1'
@@ -461,7 +461,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner Out Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Corner_Out_Range.jpg',
         'titulo': {
             'EN': 'Mouth Corner Out Range',
             'ES': 'Paso 1'
@@ -474,7 +474,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Out_A.jpg', 'ACTIONS_Mouth_Corner_Out_B.jpg', 'ACTIONS_Mouth_Corner_Out_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Out',
             'ES': 'Paso 1'
@@ -487,7 +487,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner Up Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Corner_Up_Range.jpg',
         'titulo': {
             'EN': 'Mouth Corner Up Range',
             'ES': 'Paso 1'
@@ -500,7 +500,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Up_A.jpg', 'ACTIONS_Mouth_Corner_Up_B.jpg', 'ACTIONS_Mouth_Corner_Up_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Up',
             'ES': 'Paso 1'
@@ -513,7 +513,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner Down Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Corner_Down_Range.jpg',
         'titulo': {
             'EN': 'Mouth Corner Down Range',
             'ES': 'Paso 1'
@@ -526,7 +526,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Down_A.jpg', 'ACTIONS_Mouth_Corner_Down_B.jpg', 'ACTIONS_Mouth_Corner_Down_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Down',
             'ES': 'Paso 1'
@@ -539,7 +539,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner Back Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Corner_Back_Range.jpg',
         'titulo': {
             'EN': 'Mouth Corner Back Range',
             'ES': 'Paso 1'
@@ -552,7 +552,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner Back
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Back_A.jpg', 'ACTIONS_Mouth_Corner_Back_B.jpg', 'ACTIONS_Mouth_Corner_Back_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Back',
             'ES': 'Paso 1'
@@ -565,7 +565,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner Forwards Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Corner_Forw_Range.jpg',
         'titulo': {
             'EN': 'Mouth Corner Forwards Range',
             'ES': 'Paso 1'
@@ -578,7 +578,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner Forwards
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Forw_A.jpg', 'ACTIONS_Mouth_Corner_Forw_B.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Forwards',
             'ES': 'Paso 1'
@@ -591,7 +591,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner In Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Corner_In_Range.jpg',
         'titulo': {
             'EN': 'Mouth Corner In Range',
             'ES': 'Paso 1'
@@ -604,7 +604,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_In_A.jpg', 'ACTIONS_Mouth_Corner_In_B.jpg', 'ACTIONS_Mouth_Corner_In_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner In',
             'ES': 'Paso 1'
@@ -617,7 +617,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner In Zipper
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_In_Zipper_A.jpg', 'ACTIONS_Mouth_Corner_In_Zipper_B.jpg'),
         'titulo': {
             'EN': 'Mouth Corner In Zipper',
             'ES': 'Paso 1'
@@ -630,7 +630,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Corner Up Out Corrective
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Up_Out_Corrective_A.jpg', 'ACTIONS_Mouth_Corner_Up_Out_Corrective_B.jpg', 'ACTIONS_Mouth_Corner_Up_Out_Corrective_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Up Out Corrective',
             'ES': 'Paso 1'
@@ -643,7 +643,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Mouth Corner Down Out Corrective
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Mouth_Corner_Down_Out_Corrective_A.jpg', 'ACTIONS_Mouth_Corner_Down_Out_Corrective_B.jpg', 'ACTIONS_Mouth_Corner_Down_Out_Corrective_C.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Down Out Corrective',
             'ES': 'Paso 1'
@@ -656,7 +656,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #U_O_M Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_U_O_M_Range.jpg',
         'titulo': {
             'EN': 'U_O_M Range',
             'ES': 'Paso 1'
@@ -669,7 +669,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #U
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_U_A.jpg', 'ACTIONS_U_B.jpg', 'ACTIONS_U_C.jpg', 'ACTIONS_U_D.jpg'),
         'titulo': {
             'EN': 'U',
             'ES': 'Paso 1'
@@ -682,7 +682,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #O
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_O_A.jpg', 'ACTIONS_O_B.jpg', 'ACTIONS_O_C.jpg', 'ACTIONS_O_D.jpg', 'ACTIONS_O_E.jpg'),
         'titulo': {
             'EN': 'O',
             'ES': 'Paso 1'
@@ -695,7 +695,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #U Zipper
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_U_Zipper.jpg',
         'titulo': {
             'EN': 'U Zipper',
             'ES': 'Paso 1'
@@ -708,7 +708,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #O Zipper
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_O_Zipper.jpg',
         'titulo': {
             'EN': 'O Zipper',
             'ES': 'Paso 1'
@@ -721,7 +721,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #U Narrow Corrective
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_U_Narrow_Corrective_A.jpg', 'ACTIONS_U_Narrow_Corrective_B.jpg', 'ACTIONS_U_Narrow_Corrective_C.jpg'),
         'titulo': {
             'EN': 'U Narrow Corrective',
             'ES': 'Paso 1'
@@ -734,7 +734,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #U Narrow Corrective Zipper
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_U_Narrow_Corrective_Zipper.jpg',
         'titulo': {
             'EN': 'U Narrow Corrective Zipper',
             'ES': 'Paso 1'
@@ -747,7 +747,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Thicker Lips
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_U_Thicker_Lips_A.jpg', 'ACTIONS_U_Thicker_Lips_B.jpg'),
         'titulo': {
             'EN': 'Thicker Lips',
             'ES': 'Paso 1'
@@ -760,7 +760,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Thinner Lips
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_U_Thinner_Lips_A.jpg', 'ACTIONS_U_Thinner_Lips_B.jpg'),
         'titulo': {
             'EN': 'Thinner Lips',
             'ES': 'Paso 1'
@@ -773,7 +773,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #M
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_M_A.jpg', 'ACTIONS_M_B.jpg', 'ACTIONS_M_C.jpg', 'ACTIONS_M_D.jpg'),
         'titulo': {
             'EN': 'M',
             'ES': 'Paso 1'
@@ -786,7 +786,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Frown Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Frown_Range.jpg',
         'titulo': {
             'EN': 'Mouth Frown Range',
             'ES': 'Paso 1'
@@ -799,7 +799,7 @@ GUIDE_STEPS_ACTIONS = (
     },
     #Mouth Frown
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Mouth_Frown.jpg',
         'titulo': {
             'EN': 'Mouth Frown',
             'ES': 'Paso 1'
@@ -812,7 +812,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Chin Frown Range
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'ACTIONS_Chin_Frown_Range.jpg',
         'titulo': {
             'EN': 'Chin Frown Range',
             'ES': 'Paso 1'
@@ -825,7 +825,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Chin Frown Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Chin_Frown_Up_A.jpg', 'ACTIONS_Chin_Frown_Up_B.jpg'),
         'titulo': {
             'EN': 'Chin Frown Up',
             'ES': 'Paso 1'
@@ -838,7 +838,7 @@ GUIDE_STEPS_ACTIONS = (
     },
         #Chin Frown Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('ACTIONS_Chin_Frown_Down_A.jpg', 'ACTIONS_Chin_Frown_Down_B.jpg'),
         'titulo': {
             'EN': 'Chin Frown Down',
             'ES': 'Paso 1'
@@ -849,6 +849,19 @@ GUIDE_STEPS_ACTIONS = (
             },
         'accion': ACTIONS_Chin_Frown_Down
     },
+        #Actions Finish
+    {
+        'imagen': 'ACTIONS_Finish.jpg',
+        'titulo': {
+            'EN': 'Actions Finish',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Excellent! Move to the Advanced Settings Guide!",
+            'ES': ""
+            },
+        'accion': ACTIONS_Finish
+    }
 )
 
 

@@ -1175,6 +1175,18 @@ def ACTIONS_Chin_Frown_Down(operator, context):
     [0, 1, 28]
     )
 
+def ACTIONS_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'ACTIONS_Finish'
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
 #### END OF STEP ACTIONS ####
 
 def actions_end_generic(context):
