@@ -147,6 +147,19 @@ GUIDE_STEPS_SETTINGS = (
             },
         'accion': SETTINGS_Eyelids_Floor
     },
+    #Blink Rate
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Blink Rate',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Modify the 'Blink Rate' slider value so that the eyelids touch at the middle of the Eye",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SETTINGS_Blink
+    },
     #Eye Movement Follow
     {
         'imagen': 'DT_Finish_A.jpg',
@@ -159,6 +172,19 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Eyelids_Follow
+    },
+    #Fleshy Eyes
+    {
+        'imagen': 'DT_Finish_A.jpg',
+        'titulo': {
+            'EN': 'Fleshy Eyes',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Move the Look Controller horizontally and modify the 'Fleshy Eyes' slider to define how much the Eyeball moves when looking to the side. This effect is specially interesting for Cartoony characters. ",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SETTINGS_Fleshy_Eyes
     },
     #Eyelid Cheek Movement Follow
     {

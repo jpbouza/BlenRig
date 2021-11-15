@@ -165,6 +165,12 @@ def SETTINGS_Torso_Rotation(operator, context):
     [7, 27],
     ['torso_fk_ctrl'])
 
+    guide_props = bpy.context.scene.blenrig_guide
+    p_bones =  guide_props.arm_obj.pose.bones
+
+    #Set Rig Control Properties
+    p_bones["properties_torso"].ik_torso = 1.0
+
 def SETTINGS_Neck_Rotation(operator, context):
     weight_step(operator, context, 'SETTINGS_Neck_Rotation',
     'x2', ['neck_fk_ctrl',
@@ -195,6 +201,12 @@ def SETTINGS_Torso_Inv_Rotation(operator, context):
     [18, 27],
     ['torso_fk_ctrl_inv'])
 
+    guide_props = bpy.context.scene.blenrig_guide
+    p_bones =  guide_props.arm_obj.pose.bones
+
+    #Set Rig Control Properties
+    p_bones["properties_torso"].ik_torso = 1.0
+
 def SETTINGS_Torso_Stretching(operator, context):
     weight_step(operator, context, 'SETTINGS_Torso_Stretching',
     'x2', ['pelvis_ctrl',
@@ -210,6 +222,12 @@ def SETTINGS_Torso_Stretching(operator, context):
     [7, 27],
     ['pelvis_ctrl'])
 
+    guide_props = bpy.context.scene.blenrig_guide
+    p_bones =  guide_props.arm_obj.pose.bones
+
+    #Set Rig Control Properties
+    p_bones["properties_torso"].ik_torso = 1.0
+
 def SETTINGS_Pelvis_Compensation(operator, context):
     weight_step(operator, context, 'SETTINGS_Pelvis_Compensation',
     'x2', ['pelvis_ctrl',
@@ -224,6 +242,12 @@ def SETTINGS_Pelvis_Compensation(operator, context):
     ['pelvis_ctrl', 'spine_1_def', 'spine_2_def', 'spine_3_def', 'pelvis_def'],
     [7, 27],
     ['pelvis_ctrl'])
+
+    guide_props = bpy.context.scene.blenrig_guide
+    p_bones =  guide_props.arm_obj.pose.bones
+
+    #Set Rig Control Properties
+    p_bones["properties_torso"].ik_torso = 1.0
 
 def SETTINGS_Foot_Roll(operator, context):
     weight_step(operator, context, 'SETTINGS_Foot_Roll',
@@ -337,6 +361,29 @@ def SETTINGS_Eyelids_Floor(operator, context):
     guide_props.guide_eyelid_2_floor = eyelid_2
     guide_props.guide_eyelid_3_floor = eyelid_3
 
+def SETTINGS_Blink(operator, context):
+    weight_step(operator, context, 'SETTINGS_Blink',
+    'x2', ['blink_ctrl_L',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 0.25),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'blink_ctrl_L', 'blink_ctrl_R', 'FRONT',
+    ['blink_ctrl_L'],
+    [0],
+    ['blink_ctrl_L'])
+
+    guide_props = bpy.context.scene.blenrig_guide
+    p_bones =  guide_props.arm_obj.pose.bones
+
+    #Collect values, then Assign values to scene property
+    blink_L = p_bones["blink_ctrl_L"]["Blink_Rate_L"]
+
+    guide_props.blink_rate = blink_L
+
 def SETTINGS_Eyelids_Follow(operator, context):
     weight_step(operator, context, 'SETTINGS_Eyelids_Follow',
     'x2', ['look',
@@ -365,6 +412,29 @@ def SETTINGS_Eyelids_Follow(operator, context):
     guide_props.guide_eyelid_up_down_follow = up_down
     guide_props.guide_eyelid_low_up_follow = low_up
     guide_props.guide_eyelid_low_down_follow = low_down
+
+def SETTINGS_Fleshy_Eyes(operator, context):
+    weight_step(operator, context, 'SETTINGS_Fleshy_Eyes',
+    'x2', ['look',
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    (0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (1.0, 1.0, 1.0),
+    1],
+    'eyelid_up_ctrl_L', 'eyelid_up_ctrl_R', 'FRONT',
+    ['look'],
+    [0],
+    ['look'])
+
+    guide_props = bpy.context.scene.blenrig_guide
+    p_bones =  guide_props.arm_obj.pose.bones
+
+    #Collect values, then Assign values to scene property
+    fleshy_eyes = p_bones["look_L"]["FLESHY_EYE_L"]
+
+    guide_props.fleshy_eyes_rate = fleshy_eyes
 
 def SETTINGS_Eyelids_Cheek_Follow(operator, context):
     weight_step(operator, context, 'SETTINGS_Eyelids_Cheek_Follow',
