@@ -20,6 +20,12 @@ class BLENRIG_PT_rig_settings_guide(BLENRIG_PT_guide_assistant):
         layout = self.layout
 
         steps = layout.column(align=True)
+        box_display = steps.box()
+        box_display.label(text='Display Options')
+        row_display = box_display.row()
+        row_display.prop(guide_props.arm_obj, "show_in_front")
+        row_display.prop(guide_props.arm_obj.data, "display_type")
+        steps.separator()
         #Shoulder Automatic Movement
         if guide_props.guide_current_step == 'SETTINGS_Shoulder_Movement':
             box_pose = steps.box()
@@ -89,6 +95,11 @@ class BLENRIG_PT_rig_settings_guide(BLENRIG_PT_guide_assistant):
             box_pose.prop(guide_props, 'guide_eyelid_1_floor', toggle=True)
             box_pose.prop(guide_props, 'guide_eyelid_2_floor', toggle=True)
             box_pose.prop(guide_props, 'guide_eyelid_3_floor', toggle=True)
+        #Blink Rate
+        if guide_props.guide_current_step == 'SETTINGS_Blink':
+            box_pose = steps.box()
+            box_pose.label(text='Blink Rate:')
+            box_pose.prop(guide_props, 'blink_rate', toggle=True)
         #Eyelids Eye Follow
         if guide_props.guide_current_step == 'SETTINGS_Eyelids_Follow':
             box_pose = steps.box()
@@ -98,6 +109,11 @@ class BLENRIG_PT_rig_settings_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Eye Upwards Downwards Follow:', icon='SORT_ASC')
             box_pose.prop(guide_props, 'guide_eyelid_up_down_follow', text='Upper Eyelid', toggle=True)
             box_pose.prop(guide_props, 'guide_eyelid_low_down_follow', text='Lower Eyelid', toggle=True)
+        #Fleshy Eyes
+        if guide_props.guide_current_step == 'SETTINGS_Fleshy_Eyes':
+            box_pose = steps.box()
+            box_pose.label(text='Fleshy Eyes:')
+            box_pose.prop(guide_props, 'fleshy_eyes_rate', toggle=True)
         #Eyelid Cheek Follow
         if guide_props.guide_current_step == 'SETTINGS_Eyelids_Cheek_Follow':
             box_pose = steps.box()
