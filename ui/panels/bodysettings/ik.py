@@ -7,7 +7,7 @@ class BLENRIG_PT_Rig_Body_settings_ik(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_options = {'DEFAULT_CLOSED'}
-    
+
     def draw(self, context):
         arm = context.active_object
         arm_data = context.active_object.data
@@ -30,10 +30,10 @@ class BLENRIG_PT_Rig_Body_settings_ik(bpy.types.Panel):
             for b in p_bones:
                 if '_R' in b.name:
                     for C in b.constraints:
-                        if C.name == 'Ik_Initial_Rotation':
+                        if C.name == 'IK_Initial_Rotation':
                             col_R.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
             for b in p_bones:
                 if '_L' in b.name:
                     for C in b.constraints:
-                        if C.name == 'Ik_Initial_Rotation':
+                        if C.name == 'IK_Initial_Rotation':
                             col_L.prop(C, 'to_min_x_rot', text = "{}".format(b.name), toggle=True)
