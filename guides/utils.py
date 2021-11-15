@@ -1184,6 +1184,46 @@ def eyelid_in_update(self, context):
                 pbones["eye_def_L"].rotation_euler[2] = radians(-(prop_value))
                 pbones["eye_def_R"].rotation_euler[2] = radians(prop_value)
 
+def blink_rate_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.blink_rate
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["blink_ctrl_L"]["Blink_Rate_L"] = prop_value
+                pbones["blink_ctrl_R"]["Blink_Rate_R"] = prop_value
+                drivers_update()
+
+def fleshy_eyes_rate_update(self, context):
+    if not bpy.context.screen:
+        return False
+    if bpy.context.screen.is_animation_playing == True:
+        return False
+    if not bpy.context.active_object:
+        return False
+    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
+        for prop in bpy.context.active_object.data.items():
+            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+
+                arm = bpy.context.scene.blenrig_guide.arm_obj
+                prop_value = bpy.context.scene.blenrig_guide.fleshy_eyes_rate
+                pbones = arm.pose.bones
+
+                #Update Properties
+                pbones["look_L"]["FLESHY_EYE_L"] = prop_value
+                pbones["look_R"]["FLESHY_EYE_R"] = prop_value
+                drivers_update()
+
 #Shoulder Automatic Movement
 def auto_shoulder_update(self, context):
     if not bpy.context.screen:

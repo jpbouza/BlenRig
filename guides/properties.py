@@ -224,6 +224,18 @@ class BlenrigGuideData(PropertyGroup):
     update=eyelid_in_update,
     name="Eyelid In Limit"
     )
+    #Blink Rate
+    blink_rate : FloatProperty(default=0.000, min=0.000, max=1.000, precision=5, step = 0.01,
+    description="Define the Blink Rate",
+    update=blink_rate_update,
+    name="Blink Rate"
+    )
+    #Fleshy Eyes
+    fleshy_eyes_rate : FloatProperty(default=0.000, min=0.000, max=1.000, precision=3,
+    description="Define the Blink Rate",
+    update=fleshy_eyes_rate_update,
+    name="Blink Rate"
+    )
     #Shoulder Automatic Movement
     guide_shoulder_auto_forw : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
     description="Shoulder Automatic Forwards Rotation on Arm movement",
