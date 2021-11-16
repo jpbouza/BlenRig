@@ -234,7 +234,7 @@ class BlenrigGuideData(PropertyGroup):
     fleshy_eyes_rate : FloatProperty(default=0.000, min=0.000, max=1.000, precision=3,
     description="Define the Blink Rate",
     update=fleshy_eyes_rate_update,
-    name="Blink Rate"
+    name="Fleshy Eyes Rate"
     )
     #Shoulder Automatic Movement
     guide_shoulder_auto_forw : FloatProperty(default=0.000, min=0.000, max=100.000, precision=3,
