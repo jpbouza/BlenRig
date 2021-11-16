@@ -6,7 +6,7 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_SETTINGS = (
     #Settings Intro
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SETTINGS_Intro.jpg',
         'titulo': {
             'EN': 'Introduction',
             'ES': 'Paso 1'
@@ -19,7 +19,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Shoulder Automatic Movement
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Shoulder_Movement_A.jpg', 'SETTINGS_Shoulder_Movement_B.jpg', 'SETTINGS_Shoulder_Movement_C.jpg', 'SETTINGS_Shoulder_Movement_D.jpg'),
         'titulo': {
             'EN': 'Shoulder Movement',
             'ES': 'Paso 1'
@@ -32,7 +32,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Torso Rotation
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SETTINGS_Torso_Rotation.jpg',
         'titulo': {
             'EN': 'Torso Rotation Rate',
             'ES': 'Paso 1'
@@ -45,7 +45,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Neck Rotation
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SETTINGS_Neck_Rotation.jpg',
         'titulo': {
             'EN': 'Neck Rotation Rate',
             'ES': 'Paso 1'
@@ -58,7 +58,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Torso Inverted Rotation
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SETTINGS_Torso_Inv_Rotation.jpg',
         'titulo': {
             'EN': 'Inverted Torso Rotation Rate',
             'ES': 'Paso 1'
@@ -71,7 +71,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Torso Stretching Curve
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Torso_Stretching_A.jpg', 'SETTINGS_Torso_Stretching_B.jpg', 'SETTINGS_Torso_Stretching_C.jpg'),
         'titulo': {
             'EN': 'Torso Stretching Curve',
             'ES': 'Paso 1'
@@ -84,7 +84,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Torso Pelvis Compensation
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Pelvis_Compensation_A.jpg', 'SETTINGS_Pelvis_Compensation_B.jpg'),
         'titulo': {
             'EN': 'Torso Pelvis Compensation',
             'ES': 'Paso 1'
@@ -97,7 +97,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Foot Roll
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Foot_Roll_A.jpg', 'SETTINGS_Foot_Roll_B.jpg', 'SETTINGS_Foot_Roll_C.jpg', 'SETTINGS_Foot_Roll_D.jpg'),
         'titulo': {
             'EN': 'Foot Roll',
             'ES': 'Paso 1'
@@ -110,7 +110,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Volume Variation
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Volume_Variation_A.jpg', 'SETTINGS_Volume_Variation_B.jpg', 'SETTINGS_Volume_Variation_A.jpg', 'SETTINGS_Volume_Variation_C.jpg'),
         'titulo': {
             'EN': 'Volume Variation',
             'ES': 'Paso 1'
@@ -123,7 +123,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Foot Floor
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Feet_Floor_A.jpg', 'SETTINGS_Feet_Floor_B.jpg'),
         'titulo': {
             'EN': 'Foot Floor',
             'ES': 'Paso 1'
@@ -136,7 +136,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Eyelids Floor
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Eyelids_Floor_A.jpg', 'SETTINGS_Eyelids_Floor_B.jpg', 'SETTINGS_Eyelids_Floor_C.jpg'),
         'titulo': {
             'EN': 'Eyelids Collision',
             'ES': 'Paso 1'
@@ -149,7 +149,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Blink Rate
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SETTINGS_Blink.jpg',
         'titulo': {
             'EN': 'Blink Rate',
             'ES': 'Paso 1'
@@ -162,7 +162,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Eye Movement Follow
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Eyelids_Follow_A.jpg', 'SETTINGS_Eyelids_Follow_B.jpg', 'SETTINGS_Eyelids_Follow_C.jpg', 'SETTINGS_Eyelids_Follow_D.jpg', 'SETTINGS_Eyelids_Follow_E.jpg'),
         'titulo': {
             'EN': 'Eye Movement Follow',
             'ES': 'Paso 1'
@@ -175,7 +175,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Fleshy Eyes
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Fleshy_Eyes_A.jpg', 'SETTINGS_Fleshy_Eyes_B.jpg', 'SETTINGS_Fleshy_Eyes_C.jpg'),
         'titulo': {
             'EN': 'Fleshy Eyes',
             'ES': 'Paso 1'
@@ -188,7 +188,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Eyelid Cheek Movement Follow
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Eyelids_Cheek_Follow_A.jpg', 'SETTINGS_Eyelids_Cheek_Follow_B.jpg'),
         'titulo': {
             'EN': 'Eyelid Cheek Movement Follow',
             'ES': 'Paso 1'
@@ -201,7 +201,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Cheek Smile Movement Follow
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Cheek_Smile_Follow_A.jpg', 'SETTINGS_Cheek_Smile_Follow_B.jpg'),
         'titulo': {
             'EN': 'Cheek Smile Movement Follow',
             'ES': 'Paso 1'
@@ -214,7 +214,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Mouth Corner Auto Back
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Coner_Auto_Back_A.jpg', 'SETTINGS_Coner_Auto_Back_B.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Auto Back',
             'ES': 'Paso 1'
@@ -227,7 +227,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Lips Floor
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Lips_Floor_A.jpg', 'SETTINGS_Lips_Floor_B.jpg', 'SETTINGS_Lips_Floor_C.jpg'),
         'titulo': {
             'EN': 'Lips Collision',
             'ES': 'Paso 1'
@@ -240,7 +240,7 @@ GUIDE_STEPS_SETTINGS = (
     },
     #Lip Curvature & Rigidity
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SETTINGS_Lip_Curvature_A.jpg', 'SETTINGS_Lip_Curvature_B.jpg'),
         'titulo': {
             'EN': 'Lips Settings',
             'ES': 'Paso 1'
@@ -250,6 +250,19 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Lip_Curvature
+    },
+    #Finish
+    {
+        'imagen': 'SETTINGS_Finish.jpg',
+        'titulo': {
+            'EN': 'Settings FInish',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Great! Finish refining Deformation with the Shapekeys Guide ",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SETTINGS_Finish
     },
 )
 

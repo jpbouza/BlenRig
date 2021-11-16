@@ -581,6 +581,18 @@ def SETTINGS_Lip_Curvature(operator, context):
     guide_props.guide_lip_3_curvature_override[1] = curvature_override_3_y
     guide_props.guide_lip_3_curvature_override[2] = curvature_override_3_z
 
+def SETTINGS_Finish(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'SETTINGS_Finish'
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
 #### END OF STEP ACTIONS ####
 
 def rig_settings_end_generic(context):
