@@ -39,9 +39,9 @@ def draw_callback_px(self, context):
     s = Vector((self.widget_size.x, self.header_height))
     Draw_Rectangle(p, s, (.12, .12, .12, 1))
 
-    text = self.step_text + ' ' + str(self.step+1)
+    text = self.title
     dim = SetSizeGetDim(0, 16, self.dpi, '#')
-    Draw_Text(*p + Vector((margin*2, margin/2+dim[1]/2)), text, 16, self.dpi, 0, 1, 1, 1, 1)
+    Draw_Text(*p + Vector((margin*2, margin/2+dim[1]/2)), text, 13, self.dpi, 0, 1, 1, 1, 1)
 
     # Imagen.
     bgl.glEnable(bgl.GL_BLEND)
