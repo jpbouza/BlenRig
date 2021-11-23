@@ -246,6 +246,23 @@ def SHAPEKEYS_Intro(operator, context):
     # Adjust view to Bones.
     frame_bones(context, "head_str", "master")
 
+def SHAPEKEYS_Intro_2(operator, context):
+    #Perform end of step action and set current step name
+    end_of_step_action(context)
+    bpy.context.scene.blenrig_guide.guide_current_step = 'SHAPEKEYS_Intro_2'
+
+    deselect_all_objects(context)
+
+    #Show Armature
+    show_armature(context)
+
+    # Front View.
+    set_view_perspective(context, False)
+    set_viewpoint('FRONT')
+
+    # Adjust view to Bones.
+    frame_bones(context, "head_str", "master")
+
 def SHAPEKEYS_Cage_Add_Body_Shapes(operator, context):
 
     scn = bpy.context.scene

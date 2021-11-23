@@ -6,20 +6,33 @@ images_dir = join(dirname(__file__), 'images')
 GUIDE_STEPS_SHAPEKEYS = (
     #Shapekeys Intro
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Intro.jpg',
         'titulo': {
             'EN': 'Shapekeys Intro',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "In this Guide you will Edit the Shapekeys to achieve the final deformation of the character. Notice that at any time you can Toggle outside of Shapekeys Editting and manipulate the rig to tweak the pose of the current Shapekey. Then you can press the 'Update Driver with Current Pose' Button.",
+            'EN': "Edit the Shapekeys to achieve the final deformation of the character. If you need to tweak the pose of the active shapekey, you can Toggle outside of Shapekeys Editting and manipulate the rig. Then you can press the 'Update Driver with Current Pose' Button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Intro
     },
+    #Shapekeys Intro 2
+    {
+        'imagen': ('SHAPEKEYS_Intro_2_A.jpg', 'SHAPEKEYS_Intro_2_B.jpg'),
+        'titulo': {
+            'EN': 'Shapekeys Intro',
+            'ES': 'Paso 1'
+            },
+        'texto': {
+            'EN': "Edit the Shapekeys to achieve the final deformation of the character. If you need to tweak the pose of the active shapekey, you can Toggle outside of Shapekeys Editting and manipulate the rig. Then you can press the 'Update Driver with Current Pose' Button.",
+            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            },
+        'accion': SHAPEKEYS_Intro_2
+    },
     #Add Body Shapekeys
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Cage_Add_Body_Shapes.jpg',
         'titulo': {
             'EN': 'Add Body Shapekeys',
             'ES': 'Paso 1'
@@ -32,7 +45,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Ankle
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Ankle_A.jpg', 'SHAPEKEYS_Cage_Ankle_B.jpg', 'SHAPEKEYS_Cage_Ankle_C.jpg', 'SHAPEKEYS_Cage_Ankle_D.jpg',),
         'titulo': {
             'EN': 'Ankle',
             'ES': 'Paso 1'
@@ -45,7 +58,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Foot Toe
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Foot_Toe_A.jpg', 'SHAPEKEYS_Cage_Foot_Toe_B.jpg'),
         'titulo': {
             'EN': 'Foot Toe',
             'ES': 'Paso 1'
@@ -58,7 +71,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Knee
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Knee_A.jpg', 'SHAPEKEYS_Cage_Knee_B.jpg'),
         'titulo': {
             'EN': 'Knee',
             'ES': 'Paso 1'
@@ -71,7 +84,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Thigh
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Cage_Thigh.jpg',
         'titulo': {
             'EN': 'Thigh',
             'ES': 'Paso 1'
@@ -84,7 +97,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Torso
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Torso_A.jpg', 'SHAPEKEYS_Cage_Torso_B.jpg', 'SHAPEKEYS_Cage_Torso_C.jpg', 'SHAPEKEYS_Cage_Torso_D.jpg', 'SHAPEKEYS_Cage_Torso_E.jpg', 'SHAPEKEYS_Cage_Torso_F.jpg'),
         'titulo': {
             'EN': 'Torso',
             'ES': 'Paso 1'
@@ -97,7 +110,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Breathing
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Breathing_A.jpg', 'SHAPEKEYS_Cage_Breathing_B.jpg'),
         'titulo': {
             'EN': 'Breathing In',
             'ES': 'Paso 1'
@@ -110,7 +123,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Neck
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Neck_A.jpg', 'SHAPEKEYS_Cage_Neck_B.jpg', 'SHAPEKEYS_Cage_Neck_C.jpg', 'SHAPEKEYS_Cage_Neck_D.jpg'),
         'titulo': {
             'EN': 'Neck',
             'ES': 'Paso 1'
@@ -123,7 +136,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Clavicle
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Clavicle_A.jpg', 'SHAPEKEYS_Cage_Clavicle_B.jpg'),
         'titulo': {
             'EN': 'Clavicle',
             'ES': 'Paso 1'
@@ -136,7 +149,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Shoulder
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Shoulder_A.jpg', 'SHAPEKEYS_Cage_Shoulder_B.jpg', 'SHAPEKEYS_Cage_Shoulder_C.jpg', 'SHAPEKEYS_Cage_Shoulder_D.jpg'),
         'titulo': {
             'EN': 'Arm / Shoulder',
             'ES': 'Paso 1'
@@ -149,7 +162,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Elbow
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Elbow_A.jpg', 'SHAPEKEYS_Cage_Elbow_B.jpg'),
         'titulo': {
             'EN': 'Elbow',
             'ES': 'Paso 1'
@@ -162,7 +175,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Wrist
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Cage_Wrist_A.jpg', 'SHAPEKEYS_Cage_Wrist_B.jpg'),
         'titulo': {
             'EN': 'Wrist',
             'ES': 'Paso 1'
@@ -175,7 +188,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Add Fingers Shapekeys
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Char_Add_Fingers_Shapes.jpg',
         'titulo': {
             'EN': 'Add Fingers Shapekeys',
             'ES': 'Paso 1'
@@ -188,7 +201,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Thumb Finger Palm
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Thumb_1_A.jpg', 'SHAPEKEYS_Char_Thumb_1_B.jpg', 'SHAPEKEYS_Char_Thumb_1_C.jpg'),
         'titulo': {
             'EN': 'Thumb Finger Palm',
             'ES': 'Paso 1'
@@ -201,7 +214,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Little Finger Palm
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Lit_1_A.jpg', 'SHAPEKEYS_Char_Lit_1_B.jpg', 'SHAPEKEYS_Char_Lit_1_C.jpg'),
         'titulo': {
             'EN': 'Little Finger Palm',
             'ES': 'Paso 1'
@@ -214,7 +227,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Thumb Finger
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Thumb_Joints_A.jpg', 'SHAPEKEYS_Char_Thumb_Joints_B.jpg'),
         'titulo': {
             'EN': 'Thumb Finger',
             'ES': 'Paso 1'
@@ -227,7 +240,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Index Finger
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Index_Joints_A.jpg', 'SHAPEKEYS_Char_Index_Joints_B.jpg', 'SHAPEKEYS_Char_Index_Joints_C.jpg'),
         'titulo': {
             'EN': 'Index Finger',
             'ES': 'Paso 1'
@@ -240,7 +253,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Middle Finger
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Middle_Joints_A.jpg', 'SHAPEKEYS_Char_Middle_Joints_B.jpg', 'SHAPEKEYS_Char_Middle_Joints_C.jpg'),
         'titulo': {
             'EN': 'Middle Finger',
             'ES': 'Paso 1'
@@ -253,7 +266,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Ring Finger
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Ring_Joints_A.jpg', 'SHAPEKEYS_Char_Ring_Joints_B.jpg', 'SHAPEKEYS_Char_Ring_Joints_C.jpg'),
         'titulo': {
             'EN': 'Ring Finger',
             'ES': 'Paso 1'
@@ -266,7 +279,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Little Finger
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Little_Joints_A.jpg', 'SHAPEKEYS_Char_Little_Joints_B.jpg', 'SHAPEKEYS_Char_Little_Joints_C.jpg'),
         'titulo': {
             'EN': 'Little Finger',
             'ES': 'Paso 1'
@@ -279,7 +292,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Add Face Shapekeys
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Char_Add_Face_Shapes.jpg',
         'titulo': {
             'EN': 'Add Face Shapekeys',
             'ES': 'Paso 1'
@@ -292,7 +305,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Eyebrow Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyebrow_Up_A.jpg', 'SHAPEKEYS_Char_Eyebrow_Up_B.jpg', 'SHAPEKEYS_Char_Eyebrow_Up_C.jpg'),
         'titulo': {
             'EN': 'Eyebrow Up',
             'ES': 'Paso 1'
@@ -305,7 +318,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Eyebrow Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyebrow_Down_A.jpg', 'SHAPEKEYS_Char_Eyebrow_Down_B.jpg', 'SHAPEKEYS_Char_Eyebrow_Down_C.jpg'),
         'titulo': {
             'EN': 'Eyebrow Down',
             'ES': 'Paso 1'
@@ -318,7 +331,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Eyebrow Vertex Groups
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyebrow_Weight_A.jpg', 'SHAPEKEYS_Char_Eyebrow_Weight_B.jpg', 'SHAPEKEYS_Char_Eyebrow_Weight_C.jpg', 'SHAPEKEYS_Char_Eyebrow_Weight_D.jpg', 'SHAPEKEYS_Char_Eyebrow_Weight_E.jpg'),
         'titulo': {
             'EN': 'Eyebrow Vertex Groups',
             'ES': 'Paso 1'
@@ -331,7 +344,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Frown Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Frown_Up_A.jpg', 'SHAPEKEYS_Char_Frown_Up_B.jpg'),
         'titulo': {
             'EN': 'Frown Up',
             'ES': 'Paso 1'
@@ -344,7 +357,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Frown Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Frown_Down_A.jpg', 'SHAPEKEYS_Char_Frown_Down_B.jpg'),
         'titulo': {
             'EN': 'Frown Down',
             'ES': 'Paso 1'
@@ -357,7 +370,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Eyebrow In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyebrow_In_A.jpg', 'SHAPEKEYS_Char_Eyebrow_In_B.jpg', 'SHAPEKEYS_Char_Eyebrow_In_C.jpg', 'SHAPEKEYS_Char_Eyebrow_In_D.jpg'),
         'titulo': {
             'EN': 'Eyebrow In',
             'ES': 'Paso 1'
@@ -370,7 +383,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Upper Eyelid Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Char_Eyelid_Up_Up.jpg',
         'titulo': {
             'EN': 'Eyelid Up',
             'ES': 'Paso 1'
@@ -383,7 +396,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Upper Eyelid Half Way Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyelid_Up_Down_1_A.jpg', 'SHAPEKEYS_Char_Eyelid_Up_Down_1_B.jpg', 'SHAPEKEYS_Char_Eyelid_Up_Down_1_C.jpg', 'SHAPEKEYS_Char_Eyelid_Up_Down_1_D.jpg'),
         'titulo': {
             'EN': 'Upper Eyelid Half Way Down',
             'ES': 'Paso 1'
@@ -396,7 +409,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Upper Eyelid Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyelid_Up_Down_2_A.jpg', 'SHAPEKEYS_Char_Eyelid_Up_Down_2_B.jpg'),
         'titulo': {
             'EN': 'Upper Eyelid Down',
             'ES': 'Paso 1'
@@ -409,7 +422,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Lower Eyelid Down
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': 'SHAPEKEYS_Char_Eyelid_Low_Down.jpg',
         'titulo': {
             'EN': 'Lower Eyelid Down',
             'ES': 'Paso 1'
@@ -422,7 +435,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Lower Eyelid Half Way Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyelid_Low_Up_1_A.jpg', 'SHAPEKEYS_Char_Eyelid_Low_Up_1_B.jpg', 'SHAPEKEYS_Char_Eyelid_Low_Up_1_C.jpg', 'SHAPEKEYS_Char_Eyelid_Low_Up_1_D.jpg'),
         'titulo': {
             'EN': 'Lower Eyelid Half Way Up',
             'ES': 'Paso 1'
@@ -435,7 +448,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Lower Eyelid Up
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Eyelid_Low_Up_2_A.jpg', 'SHAPEKEYS_Char_Eyelid_Low_Up_2_B.jpg'),
         'titulo': {
             'EN': 'Lower Eyelid Up',
             'ES': 'Paso 1'
@@ -448,7 +461,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Cheeks
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Cheeks_A.jpg', 'SHAPEKEYS_Char_Cheeks_B.jpg'),
         'titulo': {
             'EN': 'Cheeks',
             'ES': 'Paso 1'
@@ -461,7 +474,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Nose Frown
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Nose_Frown_A.jpg', 'SHAPEKEYS_Char_Nose_Frown_B.jpg'),
         'titulo': {
             'EN': 'Nose Frown',
             'ES': 'Paso 1'
@@ -474,7 +487,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Nostril
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Nostril_A.jpg', 'SHAPEKEYS_Char_Nostril_B.jpg'),
         'titulo': {
             'EN': 'Nostril',
             'ES': 'Paso 1'
@@ -487,7 +500,8 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Corner Base
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Corner_Base_A.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_B.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_C.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_D.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_E.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_F.jpg',
+        'SHAPEKEYS_Char_Mouth_Corner_Base_G.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_H.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_I.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_J.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_K.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Base_L.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Base',
             'ES': 'Paso 1'
@@ -500,7 +514,8 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Corner Out Combinations 1
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Corner_Fix_1_A.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_B.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_C.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_D.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_E.jpg',
+        'SHAPEKEYS_Char_Mouth_Corner_Fix_1_F.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_G.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_H.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Out Combinations 1',
             'ES': 'Paso 1'
@@ -513,7 +528,8 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Corner Out Combinations 2
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Corner_Fix_2_A.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_B.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_C.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_D.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_E.jpg',
+        'SHAPEKEYS_Char_Mouth_Corner_Fix_2_F.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_G.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_H.jpg'),
         'titulo': {
             'EN': 'Mouth Corner Out Combinations 2',
             'ES': 'Paso 1'
@@ -526,7 +542,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Shapekeys Vertex Groups
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Weight_A.jpg', 'SHAPEKEYS_Char_Mouth_Weight_B.jpg', 'SHAPEKEYS_Char_Mouth_Weight_C.jpg', 'SHAPEKEYS_Char_Mouth_Weight_D.jpg'),
         'titulo': {
             'EN': 'Mouth Shapekeys Vertex Groups',
             'ES': 'Paso 1'
@@ -539,7 +555,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #U Vowel
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_U_A.jpg', 'SHAPEKEYS_Char_Mouth_U_B.jpg', 'SHAPEKEYS_Char_Mouth_U_C.jpg'),
         'titulo': {
             'EN': 'U Vowel',
             'ES': 'Paso 1'
@@ -552,7 +568,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #U Thicken
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_U_Thickness_A.jpg', 'SHAPEKEYS_Char_Mouth_U_Thickness_B.jpg', 'SHAPEKEYS_Char_Mouth_U_Thickness_C.jpg'),
         'titulo': {
             'EN': 'U Thicken',
             'ES': 'Paso 1'
@@ -565,7 +581,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #M
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_M_A.jpg', 'SHAPEKEYS_Char_Mouth_M_B.jpg', 'SHAPEKEYS_Char_Mouth_M_C.jpg'),
         'titulo': {
             'EN': 'M',
             'ES': 'Paso 1'
@@ -578,9 +594,9 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Movement
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Open_Close_A.jpg', 'SHAPEKEYS_Char_Mouth_Open_Close_B.jpg'),
         'titulo': {
-            'EN': 'Mouth Movement',
+            'EN': 'Mouth Open',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -591,7 +607,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Open Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Open_Out_A.jpg', 'SHAPEKEYS_Char_Mouth_Open_Out_B.jpg'),
         'titulo': {
             'EN': 'Mouth Open Out',
             'ES': 'Paso 1'
@@ -604,7 +620,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Open In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Open_In_A.jpg', 'SHAPEKEYS_Char_Mouth_Open_In_B.jpg'),
         'titulo': {
             'EN': 'Mouth Open In',
             'ES': 'Paso 1'
@@ -617,7 +633,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Close Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Close_Out_A.jpg', 'SHAPEKEYS_Char_Mouth_Close_Out_B.jpg'),
         'titulo': {
             'EN': 'Mouth Close Out',
             'ES': 'Paso 1'
@@ -630,7 +646,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Close In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Close_In_A.jpg', 'SHAPEKEYS_Char_Mouth_Close_In_B.jpg'),
         'titulo': {
             'EN': 'Mouth Close In',
             'ES': 'Paso 1'
@@ -643,7 +659,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Frown to the Side
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Frown_Side_A.jpg', 'SHAPEKEYS_Char_Mouth_Frown_Side_B.jpg'),
         'titulo': {
             'EN': 'Mouth Frown to the Side',
             'ES': 'Paso 1'
@@ -656,7 +672,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Side Out
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Frown_Side_Out_A.jpg', 'SHAPEKEYS_Char_Mouth_Frown_Side_Out_B.jpg'),
         'titulo': {
             'EN': 'Mouth Side Out',
             'ES': 'Paso 1'
@@ -669,7 +685,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Mouth Side In
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Char_Mouth_Frown_Side_In_A.jpg', 'SHAPEKEYS_Char_Mouth_Frown_Side_In_B.jpg'),
         'titulo': {
             'EN': 'Mouth Side In',
             'ES': 'Paso 1'
@@ -682,7 +698,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Shapekeys Finish
     {
-        'imagen': 'DT_Finish_A.jpg',
+        'imagen': ('SHAPEKEYS_Finish_A.jpg', 'SHAPEKEYS_Finish_B.jpg'),
         'titulo': {
             'EN': 'Finish',
             'ES': 'Paso 1'
