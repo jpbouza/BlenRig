@@ -163,7 +163,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             context.window_manager.event_timer_remove(self.timer)
             #print("Remove Timer")
         step_data = self.guide_steps[self.step]
-        self.title = step_data['titulo'][self.language]
+        self.title = str(self.step + 1) + '- ' + step_data['titulo'][self.language]
         self.text = step_data['texto'][self.language]
         self.load_step_imagen(context, step_data['imagen'])
         step_data['accion'](self, context)
