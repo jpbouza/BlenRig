@@ -12,7 +12,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "In this Guide we will fine tune some of the parameters of the Rig",
+            'EN': "In this Guide we will fine tune some of the parameters of the Rig.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Intro
@@ -25,7 +25,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define how much the Shoulder moves along with the Arm with the Automatic Movement Values. Move the Character's hand around to preview the result.",
+            'EN': "Define how much the Shoulder moves along with the Arm with the Automatic Movement Values. Move the Character's Hand around to preview the result.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Shoulder_Movement
@@ -77,7 +77,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the curvature of the Joints when the Spine stretches",
+            'EN': "Define the curvature of the Spine Joints when the Torso stretches.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Torso_Stretching
@@ -103,7 +103,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Tweak the Foot Roll behavior. Define the 'Rasing Start Angle' values that better suit your character. Preview the result by rotating 'foot_roll_ctrl_L'.",
+            'EN': "Tweak the Foot Roll behavior. Define the 'Rasing Start Angle' values that better suit your Character. Preview the result by rotating 'foot_roll_ctrl_L'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Foot_Roll
@@ -116,7 +116,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use the Controllers to Squash and Stretch body parts. Define how their volume changes on this motions with the Volume Variation Values. A range between 0.0 and 4.0 is recommended",
+            'EN': "Use the Controllers to Squash and Stretch the different parts of the body. Define how their volume changes on these motions with the Volume Variation Values. A range between 0.0 and 4.0 is recommended.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Volume_Variation
@@ -129,7 +129,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Move the Foot Floor Controller up and check if it collides correctly with the character's foot. Tweak the Collision value if needed.",
+            'EN': "Move the Foot Floor Controller up and check if it collides correctly with the Character's Foot. Tweak the Collision value if needed.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Feet_Floor
@@ -168,7 +168,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Move the Look Controller Upwards and define how much the Eyelids follow the movement of the Eye with the Upwards Movement Values. Then, move the Look Controller Downwards and do the same with the Downwards Movement Values.",
+            'EN': "Move the 'Look' Controller Upwards and define how much the Eyelids follow the movement of the Eye with the Upwards Movement Values. Move the Look Controller Downwards and do the same with the Downwards Movement Values.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Eyelids_Follow
@@ -181,7 +181,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Move the Look Controller horizontally and modify the 'Fleshy Eyes' slider to define how much the Eyeball moves when looking to the side. This effect is specially interesting for Cartoony characters. ",
+            'EN': "Move the 'Look' Controller horizontally and modify the 'Fleshy Eyes' slider to define how much the Eyeball moves when looking to the side. This effect is specially interesting for Cartoony characters. ",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Fleshy_Eyes
@@ -190,7 +190,7 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': ('SETTINGS_Eyelids_Cheek_Follow_A.jpg', 'SETTINGS_Eyelids_Cheek_Follow_B.jpg'),
         'titulo': {
-            'EN': 'Eyelid Cheek Movement Follow',
+            'EN': 'Eyelid Cheek Follow',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -203,7 +203,7 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': ('SETTINGS_Cheek_Smile_Follow_A.jpg', 'SETTINGS_Cheek_Smile_Follow_B.jpg'),
         'titulo': {
-            'EN': 'Cheek Smile Movement Follow',
+            'EN': 'Cheek Smile Follow',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -246,7 +246,7 @@ GUIDE_STEPS_SETTINGS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Basic Curvature of the Lips. If needed tweak the Rigidity values to define how much the Joints stretch towards the Mouth Corner. Finally you can override the amount in which the Joints follow the Mouth Corner in XYZ. Move the Mouth Corner around to preview the result",
+            'EN': "Define the Basic Curvature of the Lips. If needed tweak the Rigidity values to define how much the Joints stretch towards the Mouth Corner. Finally you can override the amount in which the Joints follow the Mouth Corner in XYZ.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SETTINGS_Lip_Curvature
@@ -255,7 +255,7 @@ GUIDE_STEPS_SETTINGS = (
     {
         'imagen': 'SETTINGS_Finish.jpg',
         'titulo': {
-            'EN': 'Settings FInish',
+            'EN': 'Advanced Settings FInish',
             'ES': 'Paso 1'
             },
         'texto': {
