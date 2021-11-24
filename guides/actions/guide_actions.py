@@ -12,7 +12,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "In this Guide you will customize all the predefined motions of the rig",
+            'EN': "In this Guide you will customize all the predefined motions of the Rig. Just pose it as you see it in the example image. Poses will be automatically saved.",
             'ES': ""
             },
         'accion': ACTIONS_Intro
@@ -25,7 +25,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the fingers into the Spread Up position.",
+            'EN': "Pose the Fingers into the Spread Up position.",
             'ES': ""
             },
         'accion': ACTIONS_Fingers_Spread_X_Up
@@ -38,7 +38,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the fingers into the Spread Down position",
+            'EN': "Pose the Fingers into the Spread Down position.",
             'ES': ""
             },
         'accion': ACTIONS_Fingers_Spread_X_Down
@@ -51,7 +51,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the fingers into the Spread Out position.",
+            'EN': "Pose the Fingers into the Spread Out position.",
             'ES': ""
             },
         'accion': ACTIONS_Fingers_Spread_Z_Out
@@ -77,7 +77,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Adjust the curling pose of the fingers so that the finger tips touch the palm",
+            'EN': "Adjust the curling pose of the Fingers so that the finger tips touch the palm.",
             'ES': ""
             },
         'accion': ACTIONS_Fingers_Curl_In
@@ -90,7 +90,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Adjust the outwards curling pose of the fingers",
+            'EN': "Adjust the outwards curling pose of the Fingers.",
             'ES': ""
             },
         'accion': ACTIONS_Fingers_Curl_Out
@@ -103,7 +103,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Adjust the closed fist position of the hand. Scale the main finger controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly.",
+            'EN': "Adjust the 'Closed Fist' position of the Hand. Scale the main Finger controllers to curl them. Move and Rotate the MSTR controllers to place the Fingers correctly.",
             'ES': "Adjust the closed fist position of the hand. Scale the main finger controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly."
             },
         'accion': ACTIONS_Hand_Close
@@ -116,7 +116,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Adjust the 'wide opened' position of the hand. Scale the main fingers controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly.",
+            'EN': "Adjust the 'Wide Opened' position of the Hand. Scale the main Fingers controllers to curl them. Move and Rotate the MSTR controllers to place the Fingers correctly.",
             'ES': ""
             },
         'accion': ACTIONS_Hand_Open
@@ -129,7 +129,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Spine and Neck into a Breathing In position. Using the 'spine_ctrl_curve' bone is recommended for this. Don't worry about rib cage Expansion, this will be done with a Shapekey in a later Step. You can Switch between Pose and Rest Position to visualize the resulting motion.",
+            'EN': "Pose the Spine and Neck into a Breathing In position. Using the 'spine_ctrl_curve' bone is recommended for this. Rib Cage Expansion, will be done with a Shapekey later. Switch between Pose and Rest Position to visualize the motion.",
             'ES': ""
             },
         'accion': ACTIONS_Breathing_in
@@ -142,7 +142,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Spine and Neck into a Breathing Out position. Using the 'spine_ctrl_curve' bone is recommended for this. Don't worry about rib cage Compression, this will be done with a Shapekey in a later Step. You can Switch between Pose and Rest Position to visualize the resulting motion.",
+            'EN': "Pose the Spine and Neck into a Breathing Out position. Using the 'spine_ctrl_curve' bone is recommended for this. Rib Cage Expansion, will be done with a Shapekey later. Switch between Pose and Rest Position to visualize the motion.",
             'ES': ""
             },
         'accion': ACTIONS_Breathing_Out
@@ -151,11 +151,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Eyelids_Up_Up_Range.jpg',
         'titulo': {
-            'EN': 'Upper Eyelids Upwards Range',
+            'EN': 'Upper Eyelid Upwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Upwards Motion of the Upper Eyelid Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Upwards Motion of the Upper Eyelid Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Up_Up_Range
@@ -177,11 +177,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Eyelids_Up_Down_Range.jpg',
         'titulo': {
-            'EN': 'Upper Eyelids Downwards Range',
+            'EN': 'Upper Eyelids Down Range',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Downwards Motion of the Upper Eyelid Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Downwards Motion of the Upper Eyelid Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Up_Down_Range
@@ -190,11 +190,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Eyelids_Up_Down_1.jpg',
         'titulo': {
-            'EN': 'Upper Eyelids Down to Middle',
+            'EN': 'Eyelids Down to Middle',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Upper Eyelids so that the Eye is half closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
+            'EN': "Pose the Upper Eyelids so that the Eye is Half Closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Up_Down_1
@@ -203,11 +203,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Eyelids_Up_Down_2.jpg',
         'titulo': {
-            'EN': 'Upper Eyelids Down to Bottom',
+            'EN': 'Eyelids Down to Bottom',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Upper Eyelids into a fully closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
+            'EN': "Pose the Upper Eyelids into a Fully Closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Up_Down_2
@@ -216,11 +216,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Eyelids_Low_Down_Range.jpg',
         'titulo': {
-            'EN': 'Lower Eyelids Downwards Range',
+            'EN': 'Lower Eyelids Down Range',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Downwards Motion of the Lower Eyelid Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Downwards Motion of the Lower Eyelid Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Low_Down_Range
@@ -242,11 +242,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Eyelids_Low_Up_Range.jpg',
         'titulo': {
-            'EN': 'Lower Eyelids Upwards Range',
+            'EN': 'Lower Eyelids Up Range',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Upwards Motion of the Lower Eyelid Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Upwards Motion of the Lower Eyelid Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Low_Up_Range
@@ -259,7 +259,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Lower Eyelids so that the Eye is half closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
+            'EN': "Pose the Lower Eyelids so that the Eye is Half Closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Low_Up_1
@@ -272,7 +272,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Lower Eyelids into a fully closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Don't worry about the Eyelids clipping through the Eyes, this will be fixed with a Shapekey in a later Step. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
+            'EN': "Pose the Lower Eyelids into a Fully Closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Low_Up_2
@@ -281,11 +281,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': ('ACTIONS_Eyelids_Out_A.jpg', 'ACTIONS_Eyelids_Out_B.jpg'),
         'titulo': {
-            'EN': 'Eyelids Out',
+            'EN': 'Eyelids Outwards',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Eyelids so that they react to the Eye looking Out.",
+            'EN': "Pose the Eyelids so that they react to the Eye looking Outwards.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_Out
@@ -294,11 +294,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': ('ACTIONS_Eyelids_In_A.jpg', 'ACTIONS_Eyelids_In_B.jpg'),
         'titulo': {
-            'EN': 'Eyelids In',
+            'EN': 'Eyelids Inwards',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Eyelids so that they react to the Eye looking In.",
+            'EN': "Pose the Eyelids so that they react to the Eye looking Inwards.",
             'ES': ""
             },
         'accion': ACTIONS_Eyelids_In
@@ -311,7 +311,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Upwards Motion of the Cheek Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Upwards Motion of the Cheek Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Cheek_Up_Range
@@ -324,7 +324,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Cheek Controllers into the Cheek Upwards position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
+            'EN': "Define the Cheek Upwards position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Deformation will be done in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Cheek_Up
@@ -350,7 +350,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Downwards Motion of the Cheek Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Downwards Motion of the Cheek Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Cheek_Down_Range
@@ -363,7 +363,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Cheek Controllers into the Cheek Downwards position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
+            'EN': "Define the Cheek Downwards position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Cheek_Down
@@ -376,7 +376,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Upwards Motion of the Nose Frown Controller. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Upwards Motion of the Nose Frown Controller. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Nose_Frown_Range
@@ -389,7 +389,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the Controllers into a Nose Frowning  position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Mesh Deformation will be done in the Shapekeys Steps.",
+            'EN': "Pose the Controllers into a Nose Frowning  position. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Fine tuning of Deformation will be done in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Nose_Frown
@@ -402,7 +402,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Make Nose Frowning a bit more extreme, as if the character was furious. You can involve the Eyelids and Eyebrows in this pose.",
+            'EN': "Make Nose Frowning a bit more extreme, as if the character was furious. You can involve the Eyelids and Eyebrows in this Pose.",
             'ES': ""
             },
         'accion': ACTIONS_Nose_Frown_Max
@@ -411,7 +411,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Jaw_Down_Range.jpg',
         'titulo': {
-            'EN': 'Jaw Down Range',
+            'EN': 'Jaw Downwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -428,7 +428,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Opened Mouth Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
+            'EN': "Fine tune the Opened Mouth Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Deformation will be enhanced in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Jaw_Down
@@ -437,11 +437,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': 'ACTIONS_Jaw_Up_Range.jpg',
         'titulo': {
-            'EN': 'Jaw Up Range',
+            'EN': 'Jaw Upwards Range',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Upwards Rotation of the Jaw. Do this with the Range Slider",
+            'EN': "Define the Maximum Upwards Rotation of the Jaw. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Jaw_Up_Range
@@ -454,7 +454,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Closed Mouth Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
+            'EN': "Fine tune the 'Extreme Closed Mouth' Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Jaw_Up
@@ -467,7 +467,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Outwards motion of the Mouth Corner. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Outwards motion of the Mouth Corner. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Out_Range
@@ -480,7 +480,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Mouth Corner Outwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
+            'EN': "Fine tune the Mouth Corner Outwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Deformation will be enhanced in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Out
@@ -493,7 +493,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Upwards motion of the Mouth Corner. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Upwards motion of the Mouth Corner. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Up_Range
@@ -506,7 +506,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Mouth Corner Upwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
+            'EN': "Fine tune the Mouth Corner Upwards Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Deformation will be enhanced in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Up
@@ -519,7 +519,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Downwards motion of the Mouth Corner. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Downwards motion of the Mouth Corner. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Down_Range
@@ -545,7 +545,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Backwards motion of the Mouth Corner. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Backwards motion of the Mouth Corner. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Back_Range
@@ -571,7 +571,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Forwards motion of the Mouth Corner. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Forwards motion of the Mouth Corner. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_Forw_Range
@@ -597,7 +597,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Inwards motion of the Mouth Corner. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of Inwards motion of the Mouth Corner. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_In_Range
@@ -623,7 +623,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Lips Zipper Joints for when the mouth is narrowed inwards.",
+            'EN': "Fine tune the Lips Zipper controllers for when the mouth is narrowed inwards.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Corner_In_Zipper
@@ -632,7 +632,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': ('ACTIONS_Mouth_Corner_Up_Out_Corrective_A.jpg', 'ACTIONS_Mouth_Corner_Up_Out_Corrective_B.jpg', 'ACTIONS_Mouth_Corner_Up_Out_Corrective_C.jpg'),
         'titulo': {
-            'EN': 'Mouth Corner Up Out Corrective',
+            'EN': 'Corner Up Out Corrective',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -645,7 +645,7 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': ('ACTIONS_Mouth_Corner_Down_Out_Corrective_A.jpg', 'ACTIONS_Mouth_Corner_Down_Out_Corrective_B.jpg', 'ACTIONS_Mouth_Corner_Down_Out_Corrective_C.jpg'),
         'titulo': {
-            'EN': 'Mouth Corner Down Out Corrective',
+            'EN': 'Corner Down Out Corrective',
             'ES': 'Paso 1'
             },
         'texto': {
@@ -662,7 +662,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the Maximum Range of motion of the Upper and Lower Mouth Controllers. This motion triggers the 'U Vowel' and 'M' poses. Do this with the Range Slider",
+            'EN': "Define the Maximum Range of motion of the Upper and Lower Mouth Controllers. This controllers trigger the 'U Vowel' and 'M' poses. Do this with the Range Slider.",
             'ES': ""
             },
         'accion': ACTIONS_U_O_M_Range
@@ -671,11 +671,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': ('ACTIONS_U_A.jpg', 'ACTIONS_U_B.jpg', 'ACTIONS_U_C.jpg', 'ACTIONS_U_D.jpg'),
         'titulo': {
-            'EN': 'U',
+            'EN': 'Subtle U Vowel',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips out. The idea is to achieve a 'Subtle U Vowel' or 'Whistling' pose. Use 'mouth_corner_mstr_L' to move the mouth corner slightly forwards.  Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps. ",
+            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips forwards. The idea is to achieve a 'Subtle U Vowel' Pose. Use 'mouth_corner_mstr_L' to move the Mouth Corners slightly forwards.",
             'ES': ""
             },
         'accion': ACTIONS_U
@@ -684,11 +684,11 @@ GUIDE_STEPS_ACTIONS = (
     {
         'imagen': ('ACTIONS_O_A.jpg', 'ACTIONS_O_B.jpg', 'ACTIONS_O_C.jpg', 'ACTIONS_O_D.jpg', 'ACTIONS_O_E.jpg'),
         'titulo': {
-            'EN': 'O',
+            'EN': 'Opened O Vowel',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips out a bit further. The idea is to achieve a 'O Vowel' pose. Use 'mouth_corner_mstr_L' to move the mouth corner forwards. Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps. ",
+            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips forwards a bit further than in the previous step. The idea is to achieve an opened 'O Vowel' Pose. Use 'mouth_corner_mstr_L' to move the Mouth Corners forwards.",
             'ES': ""
             },
         'accion': ACTIONS_O
@@ -701,7 +701,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Lips Zipper Joints for the 'Subtle U Vowel'.",
+            'EN': "Fine tune the Lips Zipper controllers for the 'Subtle U Vowel'.",
             'ES': ""
             },
         'accion': ACTIONS_U_Zipper
@@ -714,7 +714,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Lips Zipper Joints for the 'O Vowel'.",
+            'EN': "Fine tune the Lips Zipper controllers for the 'O Vowel'.",
             'ES': ""
             },
         'accion': ACTIONS_O_Zipper
@@ -727,7 +727,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Pose the 'MSTR' controllers to conform a 'Strong U Vowel'. Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
+            'EN': "Pose the 'MSTR' controllers to conform a 'Closed U Vowel'. Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints.",
             'ES': ""
             },
         'accion': ACTIONS_U_Narrow_Corrective
@@ -740,7 +740,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Fine tune the Lips Zipper Joints for the 'Strong U Vowel'.",
+            'EN': "Fine tune the Lips Zipper controllers for the 'Closed U Vowel'.",
             'ES': ""
             },
         'accion': ACTIONS_U_Narrow_Corrective_Zipper
@@ -753,7 +753,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use the 'lip_low_line_ctrl' bones to make the lips thicker. Use the rest of the controllers to achieve this compressed pose on the Lips",
+            'EN': "Use the 'lip_line_ctrl' bones to make the lips thicker, as in a 'Whistling' Pose. Use the rest of the controllers to achieve this compressed pose on the Lips",
             'ES': ""
             },
         'accion': ACTIONS_U_Thicker_Lips
@@ -766,7 +766,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to open the lips. Use the 'lip_low_line_ctrl' bones and the rest of the controllers to make the lips thinner.",
+            'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to open the lips. Use the 'lip_line_ctrl' bones and the rest of the controllers to make the lips thinner.",
             'ES': ""
             },
         'accion': ACTIONS_U_Thinner_Lips
@@ -779,7 +779,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Move and Rotate 'lip_up_ctrl_collision_override' and 'lip_low_ctrl_collision_override' to achieve an 'M' pose. Use the rest of the controllers to seal and fine tune the pose. Mesh Deformation will be enhanced in the Shapekeys Steps.",
+            'EN': "Move and Rotate 'lip_up_ctrl_collision_override' and 'lip_low_ctrl_collision_override' to achieve an 'M' Pose. Use the rest of the controllers to seal and fine tune the Pose. Deformation will be enhanced in the Shapekeys Steps.",
             'ES': ""
             },
         'accion': ACTIONS_M
@@ -805,7 +805,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use the controllers to achieve a Frowning Mouth Corner pose",
+            'EN': "Use the controllers to achieve a 'Frowning Mouth' Pose.",
             'ES': ""
             },
         'accion': ACTIONS_Mouth_Frown
@@ -831,7 +831,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use the controllers to achieve an Upwards Frowning Chin pose. This should also compress the Lower Lips",
+            'EN': "Use the controllers to achieve an 'Upwards Frowning Chin' Pose. This should also compress the Lower Lips",
             'ES': ""
             },
         'accion': ACTIONS_Chin_Frown_Up
@@ -844,7 +844,7 @@ GUIDE_STEPS_ACTIONS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Use the controllers to achieve an Downwards Frowning Chin pose.",
+            'EN': "Use the controllers to achieve an 'Downwards Frowning Chin' Pose.",
             'ES': ""
             },
         'accion': ACTIONS_Chin_Frown_Down
