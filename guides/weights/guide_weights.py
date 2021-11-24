@@ -8,11 +8,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': 'WEIGHTS_Intro.jpg',
         'titulo': {
-            'EN': 'Weights Guide Intro',
+            'EN': 'Introduction',
             'ES': 'Intro Guia de Pesos'
             },
         'texto': {
-            'EN': "In this Guide you will be able to adjust the Character's and Mdef Cage Weights if needed. You will set the values of the Volume Preservation Bones and the Realistic Joints to simulate Sekeltal Structure volume. This is just the initial deformation setup, further refinements will be done in the Shapekeys Guide",
+            'EN': "Adjust the Weights of the Mdef Cage and the Character if needed. Set the values of the Realistic Joints and the Volume Preservation Bones to simulate Sekeltal Structure volume.",
             'ES': 'En esta Guía podrás ajustar los Pesos del Personaje y del "Mdef Cage" si es necesario. También podrás ajustar los valores de los Huesos de Preservación del Volumen y los valores de las Juntas Realistas para simular el volumen de la Estructura Sekeltal en las Juntas. Ten en cuenta que esta será la configuración inicial de la deformación, si necesitas afinarla, podrás hacerlo en la Guía de Shapekeys.'
             },
         'accion': WEIGHTS_Intro
@@ -25,7 +25,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Tobillo'
             },
         'texto': {
-            'EN': "Ankle. Scroll through the key Poses with the slider (0-6). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting' button.",
+            'EN': "Scroll through the Poses with the slider (0-6). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Ankle
@@ -38,7 +38,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Dedos del Pie'
             },
         'texto': {
-            'EN': "'Foot Toe joints'. Change the active Joint with the 'Set Joint Number' Button. Scroll through the key poses (0-4) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-4) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Foot_Toe
@@ -51,7 +51,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Rodilla'
             },
         'texto': {
-            'EN': "Check the Knee deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Knee
@@ -64,7 +64,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Muslo'
             },
         'texto': {
-            'EN': "Check the Thigh deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Thigh
@@ -77,7 +77,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Torso'
             },
         'texto': {
-            'EN': "Check the Torso deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-6) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Torso
@@ -90,7 +90,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Cuello'
             },
         'texto': {
-            'EN': "Check the Neck deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-6) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Neck
@@ -103,7 +103,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Clavicula'
             },
         'texto': {
-            'EN': "Check the Clavicle deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Clavicle
@@ -116,7 +116,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Brazo / Hombro '
             },
         'texto': {
-            'EN': "Check the Shoulder deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Shoulder
@@ -129,7 +129,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Codo'
             },
         'texto': {
-            'EN': "Check the Elbow deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Elbow
@@ -142,7 +142,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Muñeca'
             },
         'texto': {
-            'EN': "Check the Wrist deformation. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Realistic Joints and Volume Preservation values first. Select the Character's Mesh and enhance deformation with the 'Edit Corrective Smooth Vgroup' Button. If you need to adjust the weights press the 'Toggle Weight Painting' button",
+            'EN': "Scroll through the Poses with the slider (0-6). Adjust the RJ and VP values first. Adjust the weights with 'Toggle Weight Painting'. Further adjustments will be made in the next Step",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Cage_Wrist
@@ -151,7 +151,7 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': ('WEIGHTS_Char_Wrist_A.jpg', 'WEIGHTS_Char_Wrist_B.jpg', 'WEIGHTS_Char_Wrist_C.jpg', 'WEIGHTS_Char_Wrist_D.jpg', 'WEIGHTS_Char_Wrist_E.jpg'),
         'titulo': {
-            'EN': 'Hands Mdef Vertex Group',
+            'EN': 'Hands Mdef VGroup',
             'ES': 'Mdef Grupo de Vertices de las Manos'
             },
         'texto': {
@@ -164,11 +164,11 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': ('WEIGHTS_Char_Hand_VP_A.jpg', 'WEIGHTS_Char_Hand_VP_B.jpg', 'WEIGHTS_Char_Hand_VP_C.jpg', 'WEIGHTS_Char_Hand_VP_D.jpg', 'WEIGHTS_Char_Hand_VP_E.jpg', 'WEIGHTS_Char_Hand_VP_F.jpg'),
         'titulo': {
-            'EN': 'Hands General VP & RJ Values',
+            'EN': 'Hand VP & RJ Values',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Define the general values of Realistic Joints and Volume Preservation for the hands. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Define the general values of Realistic Joints and Volume Preservation of the Fingers. Scroll through the key Poses with the 'Set Joint Transform' slider.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Hand_VP
@@ -186,7 +186,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'accion': WEIGHTS_Char_Fings_1
     },
-    #Fingers 1 Poses
+    #Fingers 2 Poses
     {
         'imagen': ('WEIGHTS_Char_Fings_2_A.jpg', 'WEIGHTS_Char_Fings_2_B.jpg', 'WEIGHTS_Char_Fings_2_C.jpg'),
         'titulo': {
@@ -194,7 +194,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Dedos'
             },
         'texto': {
-            'EN': "Edit the Weights of the Fingers. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Adjust the Volume Preservation values first. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses with the slider (0-2). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Fings_2
@@ -203,7 +203,7 @@ GUIDE_STEPS_WEIGHTS = (
     {
         'imagen': ('WEIGHTS_Char_Head_A.jpg', 'WEIGHTS_Char_Head_B.jpg', 'WEIGHTS_Char_Head_C.jpg', 'WEIGHTS_Char_Head_D.jpg', 'WEIGHTS_Char_Head_E.jpg'),
         'titulo': {
-            'EN': 'Head Mdef Vertex Group',
+            'EN': 'Head Mdef VGroup',
             'ES': 'Mdef Grupo de Vertices de la Cabeza'
             },
         'texto': {
@@ -220,7 +220,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Articulaciones de la cabeza'
             },
         'texto': {
-            'EN': "Edit the Weights of the Head Joints. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-4) and set the VP values. You can always edit Corrective Smooth on the model.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Head_Joints
@@ -233,7 +233,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Oreja'
             },
         'texto': {
-            'EN': "Edit the Weights of the Ear Joints. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-2) and set the VP values. You can always edit Corrective Smooth on the model.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Ears
@@ -246,7 +246,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Cejas'
             },
         'texto': {
-            'EN': "Quickly go through the joints cleaning up the Weights of the Eyebrows. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Eyebrows. Change the active Controller with the 'Set Joint Number' Button. You can always edit Corrective Smooth on the model.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Eyebrows
@@ -259,7 +259,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Caja del Ojo'
             },
         'texto': {
-            'EN': "Paint the inner part of the Eyelids with the Eye_Mstr_STR bone",
+            'EN': "Paint the Inner part of the Eyelids with the 'Eye_Mstr_STR' bone",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Eye_Socket
@@ -272,7 +272,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Pestañas'
             },
         'texto': {
-            'EN': "Quickly go through the joints cleaning up the Weights of the Eyelids. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Do NOT Paint the Eyelids with the Corrective Smooth Vertex Group.",
+            'EN': "Clean up the Weights. Change the controller with 'Set Joint Number'. Make sure that the Borders of the Eyelids are only painted with the Border bones. Do NOT Paint the Eyelids with the Corrective Smooth Vertex Group",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Eyelids
@@ -285,7 +285,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Mejillas'
             },
         'texto': {
-            'EN': "Quickly go through the joints cleaning up the Weights of the Cheeks. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Cheeks. Change the active Controller with the 'Set Joint Number' Button. You can always edit Corrective Smooth on the model.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Cheeks
@@ -298,7 +298,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Nariz'
             },
         'texto': {
-            'EN': "Quickly go through the joints cleaning up the Weights of the Nose. Change the active Controller with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Enhance deformation with the 'Select Corrective Smooth Vgroup' Button",
+            'EN': "Quickly go through the joints cleaning up the Weights of the Nose. Change the active Controller with the 'Set Joint Number' Button. You can always edit Corrective Smooth on the model.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': WEIGHTS_Char_Nose
@@ -311,7 +311,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Boca'
             },
         'texto': {
-            'EN': "Quickly go through the joints cleaning up the Weights of the Mouth area. Move the controllers around to check deformation on the area. Do NOT Paint the Lips with the Corrective Smooth Vertex Group",
+            'EN': "Clean up the Weights of the Mouth area. Move the controllers around to check deformation on the area. Do NOT Paint the Lips with the Corrective Smooth Vertex Group. Also paint the Inner parts of the Cheeks",
             'ES': 'Recorre rápidamente las articulaciones limpiando los pesos de la zona de la boca. Mueve los controladores alrededor para comprobar la deformación del área. NO Pinte los labios en el "Corrective Smooth Vertex Group"'
             },
         'accion': WEIGHTS_Char_Mouth
@@ -324,7 +324,7 @@ GUIDE_STEPS_WEIGHTS = (
             'ES': 'Interior de la Boca'
             },
         'texto': {
-            'EN': "Paint the Teeth, Gums, Uvula and Tongue. You might want to enable the Auto Normalize and Face Masks options to clean up intrecate areas. Once things look good, you might need to go back to the previous step in order to paint the inner parts of the cheeks and lips. Alternatively you can activate the 'Show Bones' options to unhide all the deformation bones.",
+            'EN': "Paint the Teeth, Gums, Uvula and Tongue. You might want to enable the Auto Normalize and Face Masks options to clean up intrecate areas. Alternatively you can activate the 'Show Bones' options to unhide all the deformation bones.",
             'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
             },
         'accion': WEIGHTS_Char_Inner_Mouth
