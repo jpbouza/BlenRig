@@ -12,7 +12,7 @@ GUIDE_STEPS_LATTICES = (
             'ES': 'Introducción'
             },
         'texto': {
-            'EN': "In this Guide you will adjust the placement of the Lattices of the rig. Lattices will allow you to achieve extra deformations, most commonly used for toon characters.",
+            'EN': "In this Guide you will adjust the placement of the Lattices of the rig. Lattices will allow you to achieve extra deformations, most commonly used for cartoony characters.",
             'ES': "En esta Guia, tu podras ajustar el posicionamiento del Lattices del rig. El Lattices te permitira lograr una deformaciones adicionales,más comúnmente utilizadas para los personajes toon."
             },
         'accion': LATTICES_Intro
@@ -77,7 +77,7 @@ GUIDE_STEPS_LATTICES = (
             'ES': 'Edita el Lattice de los ojos'
             },
         'texto': {
-            'EN': "Adjust the Lattice of the Left Eye. Press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button. Finally Mirror the position to the Right Eye Lattice with the 'Mirror Lattice Transforms' button",
+            'EN': "Adjust the Lattice of the Left Eye. Press the 'Edit Lattice Position' to move the lattice, then press the 'Apply Lattice Position' button. Finally, Mirror the position to the Right Eye Lattice with the 'Mirror Lattice Transforms' button",
             'ES': "Edita el Lattice de los ojos, pulsa el botón 'Edit Lattice Position' para mover el lattice, luego pulse el botón 'Apply Lattice Position'."
             },
         'accion': LATTICES_Adjust_Eyes
