@@ -21,8 +21,8 @@ GUIDE_STEPS_REPROPORTION = (
     {
         'imagen': ('Reprop_Symmetry_A.jpg', 'Reprop_Symmetry_B.jpg'),
         'titulo': {
-            'EN': 'Symmetry Option',
-            'ES': 'Opcion de Simetria.'
+            'EN': 'Symmetry',
+            'ES': 'Simetria.'
             },
         'texto': {
             'EN': 'If the character is symmetric, please enable the X-Mirror option.',
@@ -61,11 +61,11 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': 'Reprop_Spine.jpg',
         'titulo': {
             'EN': 'Spine Joints',
-            'ES': 'Articulaciones de la columna'
+            'ES': 'Columna'
             },
         'texto': {
-            'EN': 'Place the hips and spine joints.',
-            'ES': 'Alinea la cadera, torso, cuello y cabeza.'
+            'EN': 'Place the Hips and Spine joints.',
+            'ES': 'Alinea la cadera y torso'
             },
         'accion': Reprop_Spine
     },
@@ -74,10 +74,10 @@ GUIDE_STEPS_REPROPORTION = (
         'imagen': ('Reprop_Spine_Line_A.jpg', 'Reprop_Spine_Line_B.jpg', 'Reprop_Spine_Line_C.jpg'),
         'titulo': {
             'EN': 'Spine Line Curvature',
-            'ES': 'Curvatura de la linea de la columna'
+            'ES': 'Curvatura la columna'
             },
         'texto': {
-            'EN': 'Adjust the curve of the Spine Line so that it best matches the shape of the spine bones.',
+            'EN': 'Adjust the curve of the Spine Line so that it matches the shape of the spine bones.',
             'ES': 'Ajusta la curva de la línea de la columna vertebral para que se adapte mejor a la forma de los huesos de la columna.'
             },
         'accion': Reprop_Spine_Line
@@ -90,7 +90,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Articulacion del cuello'
             },
         'texto': {
-            'EN': 'Place the neck and head joints.',
+            'EN': 'Place the Neck and Head joints.',
             'ES': 'Coloca las articulaciones del cuello y la cabeza.'
             },
         'accion': Reprop_Neck
@@ -116,7 +116,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Articulacion de la cabeza'
             },
         'texto': {
-            'EN': 'Place the lower and middle Head Toon Controllers.',
+            'EN': 'Place the Lower Head, Middle Head and Chin Toon Controllers.',
             'ES': 'Coloca los controles "Head Toon" inferior y medio.'
             },
         'accion': Reprop_Head_Toon
@@ -142,7 +142,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Deformador Lattice del cuerpo'
             },
         'texto': {
-            'EN': 'Place the Lattice controllers for the body.',
+            'EN': 'Place the Lattice controllers of the body.',
             'ES': 'Coloca los controladores Lattice para el cuerpo.'
             },
         'accion': Reprop_Body_Lattice
@@ -168,7 +168,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Tacón medio'
             },
         'texto': {
-            'EN': 'Move the sole bone horizontally to place it at the middle of the heel. Adjust the Front Pivot Point. Place foot_ctrl_frame in front of the foot.',
+            'EN': 'Move the Sole bone horizontally to place it at the middle of the Heel. Adjust the Front Pivot Point. Place "foot_ctrl_frame" in front of the foot.',
             'ES': 'Mueve el hueso de la suela horizontalmente para colocarlo en el centro del talón. Ajusta el punto de pivote delantero. Coloque "foot_ctrl_frame" delante del pie.'
             },
         'accion': Reprop_Sole_Bottom
@@ -220,7 +220,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dedos de los pies'
             },
         'texto': {
-            'EN': 'Place the joints of the Toes and the toes_spread controller. You can also disable Toes completely or individually with the Toes Toggles.',
+            'EN': 'Place the joints of the Toes and the "Toes_Spread" controller. You can also disable Toes completely or individually with the Toes Toggles.',
             'ES': 'Coloca las articulaciones de los dedos de los pies y el controlador "toes_spread". También puedes desactivar los dedos de los pies por completo o individualmente con los checkbox de los dedos de los pies.'
             },
         'accion': Reprop_Toes
@@ -233,7 +233,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Brazo hacia adelante'
             },
         'texto': {
-            'EN': 'Place the arm joints. You can also scale the wrist controller to give the size of the hand a first approximation.',
+            'EN': 'Place the Arm joints. You can also scale the Wrist controller to make a first approximation for the size of the Hand.',
             'ES': 'Coloca las articulaciones del brazo. También puedes escalar el control de la muñeca para dar una primera aproximación al tamaño de la mano.'
             },
         'accion': Reprop_Arms
@@ -246,7 +246,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Articulacion de la Mano'
             },
         'texto': {
-            'EN': 'Place the hand joint at the root of the fingers.',
+            'EN': 'Place the Hand joint at the root of the Fingers.',
             'ES': 'Coloca la articulación de la mano en el inicio de cada uno los dedos.'
             },
         'accion': Reprop_Hands
@@ -272,7 +272,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Escala de deformaciones Toon'
             },
         'texto': {
-            'EN': 'Optionally, you can better adjust the deformation bones to the shape of the limbs of the character.',
+            'EN': 'Optionally, you can adjust the deformation bones of the limbs to better fit the shape of the character.',
             'ES': 'Opcionalmente, puedes ajustar mejor los huesos de deformación a la forma de las extremidades del personaje..'
             },
         'accion': Reprop_Limbs_Adjust_Shape
@@ -285,7 +285,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Escala de deformaciones Toon'
             },
         'texto': {
-            'EN': 'Optionally, you can better adjust the Mesh Deform Cage to your character by scaling the toon controllers.',
+            'EN': 'You can also do a rough adjustment of the Mesh Deform Cage to your character by scaling the toon controllers.',
             'ES': 'Opcionalmente, puedes ajustar mejor el "Mesh Deform Cage" a la malla a tu personaje escalando los controladores del toon.'
             },
         'accion': Reprop_Toon_Scale
@@ -298,7 +298,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Colocacion general de la cara'
             },
         'texto': {
-            'EN': 'Use the Face controller to match the Face Mask to the Face of the character as best as possible.',
+            'EN': 'Use the controller to match the Face Mask to the Face of the character.',
             'ES': 'Utiliza el controlador de la cara para hacer coincidir la máscara facial con la cara del personaje lo mejor posible.'
             },
         'accion': Reprop_Face_Mstr
@@ -324,7 +324,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Ajuste del loop del ojo'
             },
         'texto': {
-            'EN': "Select the character's Left Eye object. Go into Edit Mode and select the Center Loop . Move Cursor to Selection with Shift+S.",
+            'EN': "Select the character's Left Eye object. Go into Edit Mode and select the Center Loop . Press Shift+S and get the cursor into position with 'Cursor to Selected'.",
             'ES': 'Selecciona el objeto Ojo Izquierdo del personaje. Vaya al Modo Edición y seleccione el Bucle Central . Mueva el Cursor a la Selección con Shift+S.'
             },
         'accion': Reprop_Eye_Loop
@@ -333,7 +333,7 @@ GUIDE_STEPS_REPROPORTION = (
     {
         'imagen': ('Reprop_Set_Eyes_A.jpg', 'Reprop_Set_Eyes_B.jpg'),
         'titulo': {
-            'EN': 'Eye Controls Placement Check',
+            'EN': 'Eye Pivot Placement',
             'ES': 'Comprobación de la ubicación de los controles oculares'
             },
         'texto': {
@@ -363,7 +363,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de la curva de la ceja'
             },
         'texto': {
-            'EN': "Use the Eyebrow's inner and outer controls to place the curve along the Eyebrow arch. Finally, place the Frown controller.",
+            'EN': "Use the Inner and Outer controllers to place the curve along the arch of the Eyebrow. Finally, place the Frown controller.",
             'ES': "Utiliza los controles interior y exterior de la ceja para colocar la curva a lo largo del arco de la ceja. Por último, coloque el control de la ceja."
             },
         'accion': Reprop_Eyebrows_Curve_Ctrls
@@ -376,7 +376,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curva de las Cejas'
             },
         'texto': {
-            'EN': "Modify the curve values so that the Eyebrow Curve conforms the shape of the character's Eyebrow structure. Then Place the Eyebrow Middle Controller at the center of the Eyebrow Curve.",
+            'EN': "Modify the curve values so that the Eyebrow Curve conforms to the shape of the character's Eyebrow structure. Then, Place the Eyebrow Middle Controller at the center of the Eyebrow Curve.",
             'ES': 'Modifica los valores de la curva para que la Curva de la Ceja se ajuste a la forma de la estructura de la Ceja del personaje. A continuación, coloca el controlador del medio de la ceja en el centro de la curva de la ceja.'
             },
         'accion': Reprop_Eyebrows_Curve
@@ -402,7 +402,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de los Parpados'
             },
         'texto': {
-            'EN': 'Place the controllers for the Eyelids.',
+            'EN': 'Place the controllers of the Eyelids.',
             'ES': 'Coloca los controladores para los párpados.'
             },
         'accion': Reprop_Eyelids_Ctrls
@@ -415,7 +415,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Borde del párpado'
             },
         'texto': {
-            'EN': 'Place the controllers for the Outer Rim of the Eyelids.',
+            'EN': 'Place the controllers of the Outer Rim of the Eyelids.',
             'ES': 'Coloca los controladores para el borde exterior de los párpados.'
             },
         'accion': Reprop_Eyelids_Rim_Ctrls
@@ -428,7 +428,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles Faciales Toon'
             },
         'texto': {
-            'EN': 'Place the facial toon controllers.',
+            'EN': 'Place the Facial Toon controllers.',
             'ES': 'Coloca los controladores faciales de toon.'
             },
         'accion': Reprop_Face_Toon
@@ -441,7 +441,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Control de la mejilla'
             },
         'texto': {
-            'EN': 'Place the controllers for the Cheeks and the Nose Frowns.',
+            'EN': 'Place the controllers of the Cheeks and the Nose Frown.',
             'ES': 'Coloca los controladores para las mejillas y el ceño de la nariz.'
             },
         'accion': Reprop_Cheek_Ctrls
@@ -454,7 +454,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Nariz'
             },
         'texto': {
-            'EN': 'Use the controllers to fit the nose bones to the nose structure of the model. Place the Nostrils controls.',
+            'EN': 'Use the controllers to fit the Nose bones to the Nose structure of the model. ALso, place the Nostrils controls.',
             'ES': 'Utiliza los controles para ajustar los huesos de la nariz a la estructura de la nariz del modelo. Coloca los controles de las fosas nasales.'
             },
         'accion': Reprop_Nose
@@ -467,7 +467,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Mandibula'
             },
         'texto': {
-            'EN': 'Position the jaw from its joint point to the chin.',
+            'EN': 'Position the Jaw, going from its articulation point to the chin.',
             'ES': 'Coloca la mandíbula desde su punto de unión hasta el mentón.'
             },
         'accion': Reprop_Jaw
@@ -480,7 +480,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Articulacion inferior de la cara'
             },
         'texto': {
-            'EN': 'Place the lower face joint from the base of the nose to the chin. This bone usually goes through the mouth corners, defining an orientation plane for the mouth.',
+            'EN': 'Place the Lower Face joint. It goes from the base of the Nose to the Chin. This bone usually passes through the mouth corners, defining an orientation plane for the mouth.',
             'ES': 'Coloca la articulación inferior de la cara desde la base de la nariz hasta el mentón. Este hueso suele pasar por las comisuras de la boca, definiendo un lugar de orientación para la misma.'
             },
         'accion': Reprop_Face_Low
@@ -493,7 +493,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Centro de la Boca y Arco'
             },
         'texto': {
-            'EN': 'Place "mouth_mstr_str" at the center of the mouth. Move "mouth_mstr_ik_pivot" inside of the mouth cavity to define the pivoting point of the arch that makes the lips slide over the teeth.',
+            'EN': 'Place "mouth_mstr_str" at the center of the mouth. Place "mouth_mstr_ik_pivot" inside of the mouth cavity. This defines the pivoting point of the mouth joint.',
             'ES': 'Coloca "mouth_mstr_str" en el centro de la boca. Mueve "mouth_mstr_ik_pivot" dentro de la cavidad bucal para definir el punto de pivote del arco que hace que los labios se deslicen sobre los dientes.'
             },
         'accion': Reprop_Mouth_IK
@@ -506,7 +506,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Superior e Inferior del centro del labio'
             },
         'texto': {
-            'EN': 'Place the upper and lower lips centers.',
+            'EN': 'Place the Upper and Lower Lips centers.',
             'ES': 'Coloca los centros de los labios superior e inferior.'
             },
         'accion': Reprop_Lips_Centers
@@ -519,7 +519,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de la Boca'
             },
         'texto': {
-            'EN': 'Place the controller of the mouth where it best fits the character visually. Place the cheek puff controllers.',
+            'EN': 'Place the controller of the mouth where it best fits the character visually. Then, place the Cheek Puff controllers.',
             'ES': 'Coloca el controlador de la boca donde mejor se adapte visualmente al personaje. Coloca los controladores de las mejillas.'
             },
         'accion': Reprop_Mouth_Ctrl
@@ -532,7 +532,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curvas de control de la boca'
             },
         'texto': {
-            'EN': 'Use the mouth corner controllers and the middle lips controllers to place the curves along the lips.',
+            'EN': 'Use the Mouth Corner controllers and the Middle Lips controllers to place the curves along the Lips.',
             'ES': 'Utiliza los controladores de las comisuras de la boca y los controladores de los labios centrales para colocar las curvas a lo largo de los labios.'
             },
         'accion': Reprop_Mouth_Curves_Ctrls
@@ -545,7 +545,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Curva del labio'
             },
         'texto': {
-            'EN': 'Use the curves values to make the upper, middle and lower curves fit the shape of the mouth. Finally place Upper and Lower the Controllers at the Center of the Curves.',
+            'EN': 'Use the curves values to make the Upper, Middle and Lower curves fit the shape of the Mouth. Finally place the Upper and Lower controllers at the Center of the Curves.',
             'ES': 'Utiliza los valores de las curvas para que las curvas superior, media e inferior se ajusten a la forma de la boca. Finalmente coloque los controladores superior e inferior en el centro de las curvas.'
             },
         'accion': Reprop_Mouth_Curves
@@ -558,7 +558,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles de labio'
             },
         'texto': {
-            'EN': 'Place the lips controllers at the middle of each lip joint.',
+            'EN': 'Place the Lips controllers at the middle of each Lip joint.',
             'ES': 'Coloca los controladores de los labios en el centro de cada junta labial.'
             },
         'accion': Reprop_Mouth_Ctrls
@@ -571,7 +571,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Controles Exterior de la Boca'
             },
         'texto': {
-            'EN': 'Place the controllers for the first and second outer rings of the mouth.',
+            'EN': 'Place the controllers for the outer rings of the Mouth.',
             'ES': 'Coloca los controladores para el primer y segundo anillo exterior de la boca.'
             },
         'accion': Reprop_Mouth_Outer_Ctrls
@@ -584,7 +584,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dientes Superiores'
             },
         'texto': {
-            'EN': 'Move "teeth_up_str" to where the teeth object is and place the Upper Teeth controls.',
+            'EN': 'Move "teeth_up_str" to where the Upper Teeth Object is and place the Upper Teeth controls.',
             'ES': 'Mueve "teeth_up_str" hasta donde está el objeto de los dientes y coloca los controles de los dientes superiores.'
             },
         'accion': Reprop_Teeth_Up
@@ -597,7 +597,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Dientes inferiores'
             },
         'texto': {
-            'EN': 'Move "teeth_low_str" to where the teeth object is and place the Lower Teeth controls.',
+            'EN': 'Move "teeth_low_str" to where the Lower Teeth Object is and place the Lower Teeth controls.',
             'ES': 'Mueve "teeth_low_str" hasta donde está el objeto de los dientes y coloca los controles de los dientes inferiores.'
             },
         'accion': Reprop_Teeth_Low
@@ -610,7 +610,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Lengua'
             },
         'texto': {
-            'EN': 'Move "tongue_str" to the root of the tongue object and place the controllers along the tongue.',
+            'EN': 'Move "tongue_str" to where the root of the Tongue Object is and place the controllers along the Tongue.',
             'ES': 'Mueve "tongue_str" al comienzo del objeto lengua y coloca los controladores a lo largo de la lengua.'
             },
         'accion': Reprop_Tongue
@@ -623,7 +623,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Interior de la Boca'
             },
         'texto': {
-            'EN': 'Place the inner mouth area controllers.',
+            'EN': 'Place the Inner Mouth controllers.',
             'ES': 'Coloca los controladores de la zona interior de la boca.'
             },
         'accion': Reprop_Inner_Mouth
@@ -675,7 +675,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Bake Rig'
             },
         'texto': {
-            'EN': 'Press the Bake button to bake the current state of the rig and the deformation objects.',
+            'EN': 'Press the Bake All button to bake the current state of the Rig and the Deformation Objects. After the baking is finished, go to the Next Step',
             'ES': 'Pulse el botón Bake para bakear el estado actual del rig y los objetos de deformación.'
             },
         'accion': Reprop_Bake
@@ -684,11 +684,11 @@ GUIDE_STEPS_REPROPORTION = (
     {
         'imagen': ('Reprop_Custom_Alignments_A.jpg', 'Reprop_Custom_Alignments_B.jpg'),
         'titulo': {
-            'EN': 'Custom Alignments',
+            'EN': 'Bone Rolls',
             'ES': 'Alineaciones personalizadas'
             },
         'texto': {
-            'EN': 'Check the Bone Roll orientations. Most of the time, only the fingers need to be tweaked. The Z axis of the finger bones should be pointing to the inner part of the hand. Change bone rolls with Ctrl+R. Finally press the Custom Alignments Button.',
+            'EN': 'Usually, only the fingers need to be tweaked. The Z axis of the finger bones should be pointing to the Inner part of the Hand. Change the Bone Rolls with Ctrl+R. Finally press the Custom Alignments Button.',
             'ES': 'Comprueba las orientaciones de los "bone roll" y pulse el botón "Custom Alignments".'
             },
         'accion': Reprop_Custom_Alignments
@@ -701,7 +701,7 @@ GUIDE_STEPS_REPROPORTION = (
             'ES': 'Alineaciones personalizadas'
             },
         'texto': {
-            'EN': "Move the controllers and check that the limbs bend correcly. In case the arms or legs don't bend, Use the 'IK Rotation Override' Sliders to make them bend.",
+            'EN': "Move the controllers and check that the limbs bend correcly. In case the Arms or Legs don't bend, Use the 'IK Rotation Override' Sliders to make them bend.",
             'ES': 'Mueve los controladores y comprueba que las extremidades se doblan correctamente. En caso de que los brazos o las piernas no se doblen, utiliza los deslizadores de "IK Rotation Override" para que se doblen.'
             },
         'accion': Reprop_IK_Check
