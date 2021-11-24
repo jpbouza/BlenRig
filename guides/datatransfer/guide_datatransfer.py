@@ -12,7 +12,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Introducción'
             },
         'texto': {
-            'EN': "In this Guide you will Transfer the Weights from the BlenRig pre-weighted Meshes to the meshes of your character. This will give you a first weighting iteration that will let you continue with the rigging process",
+            'EN': "In this Guide you will Transfer the Weights from the BlenRig pre-weighted Meshes to the meshes of your character. This will give you a first weighting pass that will let you continue with the rigging process",
             'ES': 'En esta guía transferirás los pesos de las mallas pre-pesadas de BlenRig a las mallas de tu personaje. Esto le dará una primera iteración de pesos que le permitirá continuar con el proceso de rigging'
             },
         'accion': DT_Intro
@@ -21,11 +21,11 @@ GUIDE_STEPS_DATATRANSFER = (
     {
         'imagen': ('DT_Weight_Mesh_Shapekey_Head_A.jpg', 'DT_Weight_Mesh_Shapekey_Head_B.jpg', 'DT_Weight_Mesh_Shapekey_Head_C.jpg', 'DT_Weight_Mesh_Shapekey_Head_D.jpg'),
         'titulo': {
-            'EN': 'Edit Weight Transfer Model Head Shape',
+            'EN': 'Edit Weights Transfer Head',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Head of the Head Weights Transfer Model to avoid overlapping geometry, specially in the mouth.",
+            'EN': "Edit the Head of the Weights Transfer Model to avoid overlapping geometry, specially on the mouth.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Weight_Mesh_Shapekey_Head
@@ -34,7 +34,7 @@ GUIDE_STEPS_DATATRANSFER = (
     {
         'imagen': ('DT_Select_Head_A.jpg', 'DT_Select_Head_B.jpg'),
         'titulo': {
-            'EN': "Select Character's Head Object",
+            'EN': "Character's Head Object",
             'ES': 'Paso 1'
             },
         'texto': {
@@ -51,7 +51,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Head of the character to get the mouth opened and match the shape of the Weight Transfer Model. You can also edit the Transfer Mesh further. Once you are done, press the Transfer Weights Button",
+            'EN': "Edit the Head of the character to get the mouth opened and match the shape of the Weights Transfer Model. You can also edit the Transfer Mesh further. Once you are done, press the Transfer Weights Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Edit_Head
@@ -64,7 +64,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "With the Character's Head selected, press the 'Add Head Modifiers' Button. Then press the 'Test Deformation' Button. Keep in mind that this is just a first approximation, deformation should not be perfect. If you feel you need to refine the weights transfer, you can go back to the previous step.",
+            'EN': "With the Head selected, press the 'Add Head Modifiers' Button. Then press the 'Test Deformation' Button. This is just a first approximation, deformation might not be perfect.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Test_Face
@@ -73,11 +73,11 @@ GUIDE_STEPS_DATATRANSFER = (
     {
         'imagen': ('DT_Weight_Mesh_Shapekey_Hands_A.jpg', 'DT_Weight_Mesh_Shapekey_Hands_B.jpg'),
         'titulo': {
-            'EN': 'Edit Weith Transfer Model Hands Shape',
+            'EN': 'Edit Weights Transfer Hands',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Check the Fingers of the Weight Transfer Model to avoid overlapping geometry.",
+            'EN': "Edit the Fingers of the Weights Transfer Model to avoid overlapping geometry.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Weight_Mesh_Shapekey_Hands
@@ -86,7 +86,7 @@ GUIDE_STEPS_DATATRANSFER = (
     {
         'imagen': ('DT_Select_Hands_A.jpg', 'DT_Select_Hands_B.jpg'),
         'titulo': {
-            'EN': "Select Character's Hands Object",
+            'EN': "Character's Hands Object",
             'ES': 'Paso 1'
             },
         'texto': {
@@ -103,7 +103,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Hands to match the shape of the Hands Weight Transfer Model. You can also edit the Transfer Mesh further. Once you are done, press the Transfer Weights Button",
+            'EN': "Edit the Hands to match the shape of the Hands Weights Transfer Model. You can also edit the Transfer Mesh further. Once you are done, press the Transfer Weights Button",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Edit_Hands
@@ -116,7 +116,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "With the Character's Hands selected, press the 'Add Hands Modifiers' Button. Then press the 'Test Deformation' Button. Keep in mind that this is just a first approximation, deformation should not be perfect. If you feel you need to refine the weights transfer, you can go back to the previous step.",
+            'EN': "With the Hands selected, press the 'Add Hands Modifiers' Button. Then press the 'Test Deformation' Button. This is just a first approximation, deformation might not be perfect.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Test_Hands
@@ -142,7 +142,7 @@ GUIDE_STEPS_DATATRANSFER = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select all the loose objects that conform the inner mouth. Press the 'Add Inner Mouth Modifiers' Button.",
+            'EN': "Select all the loose objects that conform the Inner Mouth. Press the 'Add Inner Mouth Modifiers' Button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': DT_Inner_Mouth
