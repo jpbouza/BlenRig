@@ -8,11 +8,11 @@ GUIDE_STEPS_SHAPEKEYS = (
     {
         'imagen': 'SHAPEKEYS_Intro.jpg',
         'titulo': {
-            'EN': 'Shapekeys Intro',
+            'EN': 'Introduction',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Shapekeys to achieve the final deformation of the character. If you need to tweak the pose of the active shapekey, you can Toggle outside of Shapekeys Editting and manipulate the rig. Then you can press the 'Update Driver with Current Pose' Button.",
+            'EN': "Edit the Shapekeys to achieve the Final Deformation of the Character. The idea is to 'Correct what you see'. You won't need to select any Shapekey or Mirror them, just go correcting the poses on the fly.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Intro
@@ -21,11 +21,11 @@ GUIDE_STEPS_SHAPEKEYS = (
     {
         'imagen': ('SHAPEKEYS_Intro_2_A.jpg', 'SHAPEKEYS_Intro_2_B.jpg'),
         'titulo': {
-            'EN': 'Shapekeys Intro',
+            'EN': 'Workflow',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Shapekeys to achieve the final deformation of the character. If you need to tweak the pose of the active shapekey, you can Toggle outside of Shapekeys Editting and manipulate the rig. Then you can press the 'Update Driver with Current Pose' Button.",
+            'EN': "To tweak the pose of the active shapekey, you can Toggle outside of Shapekeys Editting and manipulate the rig. Then press the 'Update Driver with Current Pose' Button. Don't edit the Shapekey if the color marking is Red.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Intro_2
@@ -51,7 +51,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Ankle Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. At any time you can tweak the pose and set it as the new target pose of the driver.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-6). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Ankle
@@ -64,7 +64,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the 'Foot Toe' Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Foot_Toe
@@ -77,7 +77,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Knee Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Knee
@@ -90,7 +90,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Thigh Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Thigh
@@ -103,7 +103,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Torso Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Torso
@@ -129,7 +129,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Neck Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Neck
@@ -142,7 +142,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Clavicle Movement Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Clavicle
@@ -155,7 +155,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Shoulder Area Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Shoulder
@@ -168,7 +168,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Elbow Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Elbow
@@ -181,7 +181,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Wrist Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-6). On each Pose, edit the Mdef Cage to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Cage_Wrist
@@ -194,7 +194,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Select the Hands and press the 'Add Fingers Shapekeys' Button",
+            'EN': "Select the Hands and press the 'Add Fingers Shapekeys' Button.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Add_Fingers_Shapes
@@ -207,7 +207,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Palm Shapekeys for when the Thumb Fnger moves around. Scroll through the key Poses with the 'Set Joint Transform' slider. Remember you can tweak the pose at any time and assign it as the new targe for the shapekey with the 'Update Driver with Current Pose' Button.",
+            'EN': "Edit the Palm Shapekeys for when the Thumb Fnger moves around. Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Thumb_1
@@ -220,7 +220,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Muscle Bulging of the Palm when the Little Finger moves In",
+            'EN': "Edit the Muscle Bulging of the Palm when the Little Finger moves In.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Lit_1
@@ -233,7 +233,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Thumb Finger Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-2). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Thumb_Joints
@@ -246,7 +246,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Index Finger Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-2). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Index_Joints
@@ -259,7 +259,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Middle Finger Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-2). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Middle_Joints
@@ -272,7 +272,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Ring Finger Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-2). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Ring_Joints
@@ -285,7 +285,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Little Finger Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider. Change the active Joint with the 'Set Joint Number' Button.",
+            'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the key Poses with the 'Set Joint Transform' slider (0-2). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Little_Joints
@@ -311,7 +311,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Eyebrow Up General Shapekey. Once satisfied, press the 'Apply Shape' Button to propagate the Shapekey to the Rigged Eyebrow Shapekeys ",
+            'EN': "Edit the Eyebrow Up General Shapekey. Once satisfied, press the 'Apply Shape' Button to propagate the Shapekey to the corresponding Eyebrow Shapekeys ",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyebrow_Up
@@ -324,7 +324,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Eyebrow Down General Shapekey. Once satisfied, press the 'Apply Shape' Button to propagate the Shapekey to the Rigged Eyebrow Shapekeys ",
+            'EN': "Edit the Eyebrow Down General Shapekey. Once satisfied, press the 'Apply Shape' Button to propagate the Shapekey to the corresponding Eyebrow Shapekeys ",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyebrow_Down
@@ -337,7 +337,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit Eyebrow 1 to 5 Vertex groups. They define how the Eyebrow Shapekey is mixed among the Eyebrow Joints. Change the Active Vertex Group with the 'Select Shapekey Vertex Group' Buttons. Paint the transition between the groups with a 0.5 value.",
+            'EN': "Edit Eyebrow 1 to 5 Vertex Groups. This defines how the Eyebrow Shapekey is mixed among the Eyebrow Joints. Change the Active Vertex Group with 'Select Shapekey Vertex Group'. Paint the transition between the groups with a 0.5 value.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyebrow_Weight
@@ -350,7 +350,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Frown Up Shapekey",
+            'EN': "Edit the Frown Up Shapekey.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Frown_Up
@@ -363,7 +363,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Frown Down Shapekey",
+            'EN': "Edit the Frown Down Shapekey.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Frown_Down
@@ -376,7 +376,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Eyebrow In Shapekey. This Shapekey should define the Wrinkle that appears on the Frown when the character gets Angry",
+            'EN': "This Shapekey should define the Wrinkle that appears on the Frown when the character gets Angry.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyebrow_In
@@ -389,7 +389,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Upper Eyelid Up Shapekey",
+            'EN': "Edit the Upper Eyelid Upwards Shapekey.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyelid_Up_Up
@@ -402,7 +402,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Place the Upper Eyelid Border at the middle of the Eye. Press the 'Toggle Shapekey Editting' Button and press the 'Update Driver with Current Pose' Button. Then Edit The Eyelid Shapekey in this Half Way pose.",
+            'EN': "Place the Upper Eyelid Border at the middle of the Eye. Then, press 'Update Driver with Current Pose' to update values. Finally Press 'Toggle Shapekey Editting' and edit the Mesh in this Half Way pose.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyelid_Up_Down_1
@@ -415,7 +415,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Closed Upper Eyelid Shapekey.",
+            'EN': "Edit the Closed Upper Eyelid Shapekey. If the Eye is clipping through the Eyelid, this is the time to fix it.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyelid_Up_Down_2
@@ -428,7 +428,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Lower Eyelid Down Shapekey",
+            'EN': "Edit the Lower Eyelid Downwards Shapekey",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyelid_Low_Down
@@ -441,7 +441,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Place the Lower Eyelid Border at the middle of the Eye. Press the 'Toggle Shapekey Editting' Button and press the 'Update Driver with Current Pose' Button. Then Edit The Eyelid Shapekey in this Half Way pose.",
+            'EN': "Place the Lower Eyelid Border at the middle of the Eye. Then, press 'Update Driver with Current Pose' to update values. Finally Press 'Toggle Shapekey Editting' and edit the Mesh in this Half Way pose.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyelid_Low_Up_1
@@ -454,7 +454,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Closed Lower Eyelid Shapekey.",
+            'EN': "Edit the Closed Lower Eyelid Shapekey. If the Eye is clipping through the Eyelid, this is the time to fix it.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Eyelid_Low_Up_2
@@ -467,7 +467,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Cheeks Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-2). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Cheeks
@@ -487,7 +487,7 @@ GUIDE_STEPS_SHAPEKEYS = (
     },
     #Nostril
     {
-        'imagen': ('SHAPEKEYS_Char_Nostril_A.jpg', 'SHAPEKEYS_Char_Nostril_B.jpg'),
+        'imagen': ('SHAPEKEYS_Char_Nostril_A.jpg', 'SHAPEKEYS_Char_Nostril_B.jpg', 'SHAPEKEYS_Char_Nostril_A.jpg', 'SHAPEKEYS_Char_Nostril_C.jpg'),
         'titulo': {
             'EN': 'Nostril',
             'ES': 'Paso 1'
@@ -507,7 +507,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mouth Corner Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Scroll through the key Poses with the 'Set Joint Transform' slider (0-6). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Corner_Base
@@ -517,11 +517,11 @@ GUIDE_STEPS_SHAPEKEYS = (
         'imagen': ('SHAPEKEYS_Char_Mouth_Corner_Fix_1_A.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_B.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_C.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_D.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_E.jpg',
         'SHAPEKEYS_Char_Mouth_Corner_Fix_1_F.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_G.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_1_H.jpg'),
         'titulo': {
-            'EN': 'Mouth Corner Out Combinations 1',
+            'EN': 'Mouth Corner Corrective 1',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the first level of Mouth Corner Outwards Corrective Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Edit the first level of Mouth Corner Combinations Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Corner_Fix_1
@@ -531,11 +531,11 @@ GUIDE_STEPS_SHAPEKEYS = (
         'imagen': ('SHAPEKEYS_Char_Mouth_Corner_Fix_2_A.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_B.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_C.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_D.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_E.jpg',
         'SHAPEKEYS_Char_Mouth_Corner_Fix_2_F.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_G.jpg', 'SHAPEKEYS_Char_Mouth_Corner_Fix_2_H.jpg'),
         'titulo': {
-            'EN': 'Mouth Corner Out Combinations 2',
+            'EN': 'Mouth Corner Corrective 2',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the second level of Mouth Corner Outwards Corrective Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider.",
+            'EN': "Edit the second level of Mouth Corner Combinations Shapekeys. Scroll through the key Poses with the 'Set Joint Transform' slider (0-4). On each Pose, edit the Mesh to achieve the Final Deformaion of the Character.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Corner_Fix_2
@@ -544,11 +544,11 @@ GUIDE_STEPS_SHAPEKEYS = (
     {
         'imagen': ('SHAPEKEYS_Char_Mouth_Weight_A.jpg', 'SHAPEKEYS_Char_Mouth_Weight_B.jpg', 'SHAPEKEYS_Char_Mouth_Weight_C.jpg', 'SHAPEKEYS_Char_Mouth_Weight_D.jpg'),
         'titulo': {
-            'EN': 'Mouth Shapekeys Vertex Groups',
+            'EN': 'Mouth Vertex Groups',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Paint the Mouth Shapekeys Vertex Groups. Change the Active Vertex Group with the 'Select Shapekey Vertex Group' Buttons. Paint the transition between the groups with a 0.5 value.",
+            'EN': "Paint the Mouth Shapekeys Vertex Groups. Change the Active Vertex Group with 'Select Shapekey Vertex Group'. Paint the transition between the groups with a 0.5 value.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Weight
@@ -561,7 +561,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the General 'U Vowel' Shapekey. When you're done, press the 'Apply Shape' Button to propagar the Shapekeys to the Rigged 'U Vowel' Shapekeys",
+            'EN': "Edit the General 'U Vowel' Shapekey. When you're done, press the 'Apply Shape' Button to propagate the Shapekey to the corresponding 'U Vowel' Shapekeys.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_U
@@ -574,7 +574,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the General 'U Thicken Lips' Shapekey. When you're done, press the 'Apply Shape' Button to propagar the Shapekeys to the Rigged 'U Thicken' Shapekeys",
+            'EN': "Edit the General 'U Thicken Lips' Shapekey. When you're done, press the 'Apply Shape' Button to propagate the Shapekey to the corresponding 'U Thicken' Shapekeys.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_U_Thickness
@@ -587,20 +587,20 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the General 'M' Shapekey. When you're done, press the 'Apply Shape' Button to propagar the Shapekeys to the Rigged 'M' Shapekeys",
+            'EN': "Edit the General 'M' Shapekey. When you're done, press the 'Apply Shape' Button to propagate the Shapekey to the corresponding 'M' Shapekeys.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_M
     },
-    #Mouth Movement
+    #Mouth Open CLose
     {
-        'imagen': ('SHAPEKEYS_Char_Mouth_Open_Close_A.jpg', 'SHAPEKEYS_Char_Mouth_Open_Close_B.jpg'),
+        'imagen': ('SHAPEKEYS_Char_Mouth_Open_Close_A.jpg', 'SHAPEKEYS_Char_Mouth_Open_Close_B.jpg', 'SHAPEKEYS_Char_Mouth_Open_Close_C.jpg', 'SHAPEKEYS_Char_Mouth_Open_Close_D.jpg'),
         'titulo': {
-            'EN': 'Mouth Open',
+            'EN': 'Mouth Open / Close',
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mouth Open Shapekey. Afterwards, Shift to the Mouth Close Shapekey with the 'Set Joint Transform' slider and edit it..",
+            'EN': "Edit the Mouth Open Shapekey. Afterwards, Shift to the Mouth Close Shapekey with the 'Set Joint Transform' slider and edit it.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Open_Close
@@ -613,7 +613,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mouth Open with Mouth Corner Out combination",
+            'EN': "Edit the Mouth Open with Mouth Corner Out combination.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Open_Out
@@ -626,7 +626,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mouth Open with Mouth Corner In combination",
+            'EN': "Edit the Mouth Open with Mouth Corner In combination.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Open_In
@@ -639,7 +639,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mouth Close with Mouth Corner Out combination",
+            'EN': "Edit the Mouth Close with Mouth Corner Out combination.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Close_Out
@@ -652,7 +652,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the Mouth Close with Mouth Corner In combination",
+            'EN': "Edit the Mouth Close with Mouth Corner In combination.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Close_In
@@ -665,7 +665,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the 'Mouth Frown to the Side' Shapekey",
+            'EN': "Edit the 'Mouth Frown to the Side' Shapekey.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Frown_Side
@@ -678,7 +678,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the 'Mouth Frown to the Side' with Mouth Corner Out combination",
+            'EN': "Edit the 'Mouth Frown to the Side' with Mouth Corner Out combination.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Frown_Side_Out
@@ -691,7 +691,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Edit the 'Mouth Frown to the Side' with Mouth Corner In combination",
+            'EN': "Edit the 'Mouth Frown to the Side' with Mouth Corner In combination.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Char_Mouth_Frown_Side_In
@@ -704,7 +704,7 @@ GUIDE_STEPS_SHAPEKEYS = (
             'ES': 'Paso 1'
             },
         'texto': {
-            'EN': "Congratulations! Your character should be ready! Have a great time using it!",
+            'EN': "Congratulations! Your character should be ready! Have a great time using it! If needed, you can edit the Bone Shapes with the Bone Shapes Tools in the Tools Tab.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': SHAPEKEYS_Finish
