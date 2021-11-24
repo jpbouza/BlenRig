@@ -8,11 +8,11 @@ GUIDE_STEPS_MDEF = (
     {
         'imagen': 'MDEF_Intro.jpg',
         'titulo': {
-            'EN': 'Mesh Deform intro',
+            'EN': 'introduction',
             'ES': 'Mesh Deform Introduccion'
             },
         'texto': {
-            'EN': "In this Guide you will setup Mesh Deform Deformation. In this method, the body of the character is deformed with Low Resolution Mesh that is much easier to setup than weight painting directly on the character. Head, Hands and eventually Toes don't get deformed with this method.",
+            'EN': "In this Guide you will setup Mesh Deform. With this method, the body of the character is deformed with a Low Resolution Mesh. Head, Hands and eventually Toes are excluded from this.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Intro
@@ -21,7 +21,7 @@ GUIDE_STEPS_MDEF = (
     {
         'imagen': ('MDEF_Select_Body_Objects_A.jpg', 'MDEF_Select_Body_Objects_B.jpg'),
         'titulo': {
-            'EN': 'Define Character Body Objects',
+            'EN': 'Character Body Objects',
             'ES': 'Define los objetos que componen el cuerpo de tu personaje'
             },
         'texto': {
@@ -38,7 +38,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Edita el Mesh Deform Cage'
             },
         'texto': {
-            'EN': "Edit the Mesh Deform Cage so that it wraps around the charcter's mesh. You can use the 'Adjust Cage' button to get a first approximation. Keep in mind that the closer the cage is from the character, the stiffer the deformation, the further away, the smoother the deformation. Use this strategically to get better deformation in difficult areas, such as the shoulders.",
+            'EN': "The Mesh Deform Cage should wrap the character around. The closer the cage is from the character, the stiffer the deformation, the further away, the smoother. Keep this in mind for difficult areas, such as the shoulders.",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Edit_Mdef_Cage
@@ -51,7 +51,7 @@ GUIDE_STEPS_MDEF = (
             'ES': 'Comprueba la vinculacion de la malla de deformación'
             },
         'texto': {
-            'EN': "Press the Bind Mesh Deform Button. Move the character away and check that all of its vertices are moving along with the rig. Otherwise, press the 'Edit Mdef Cage' Button, tweak the cage and Bind again until all the body vertices move with the rig",
+            'EN': "Press the Bind Mesh Deform Button. Move the character away. All of its vertices should move along with the rig. Otherwise, press the 'Edit Mdef Cage' Button, tweak the cage and Bind again until all the body vertices move with the rig",
             'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
             },
         'accion': MDEF_Binding_Check
@@ -73,7 +73,7 @@ GUIDE_STEPS_MDEF = (
     {
         'imagen': 'MDEF_Finish.jpg',
         'titulo': {
-            'EN': 'Mesh Finish',
+            'EN': 'Mesh Deform Finish',
             'ES': 'Finalización de la vinculacion del Mesh Deform'
             },
         'texto': {
