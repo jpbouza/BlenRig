@@ -2562,6 +2562,8 @@ from .ops_alignment import (
 
 ####### Load BlenRig 6 Snapping Operators
 from .ops_snapping import (
+    Operator_Snap_TorsoFKtoIK,
+    Operator_Snap_TorsoIKtoFK,
     Operator_Align_Spine,
     Operator_Knee_UnPin_L,
     Operator_Knee_UnPin_R,
@@ -3306,6 +3308,8 @@ rig_updater_classes = [
 ]
 # BlenRig IK/FK Snapping Operators
 snapping_classes = [
+    Operator_Snap_TorsoFKtoIK,
+    Operator_Snap_TorsoIKtoFK,
     Operator_Align_Spine,
     Operator_Knee_UnPin_L,
     Operator_Knee_UnPin_R,

@@ -2,7 +2,7 @@ import bpy
 from mathutils import Matrix
 from bpy.props import StringProperty
 from bpy.types import (Operator)
-
+from .guides.utils import bone_local_transforms
 ##### Left Ops #####
 
 ##### Arm_L IK>FK #####
@@ -8512,6 +8512,423 @@ class Operator_Reset_Master_Pivot(bpy.types.Operator):
 
                     insert_bkeys('master', 'LocRotScale')
                     insert_bkeys('master_pivot_point', 'LocRotScale')
+
+        return {"FINISHED"}
+
+##### Torso #####
+
+class Operator_Snap_TorsoIKtoFK(bpy.types.Operator):
+
+    bl_idname = "snap.torso_ik_to_fk"
+    bl_label = "BlenRig Torso IK to FK"
+    bl_description = "Switch Torso to FK preserving pose"
+    bl_options = {'REGISTER', 'UNDO','INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["ARMATURE"]):
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                    for prop in bpy.context.active_object.data.items():
+                        if prop[0] == 'rig_version' and str(prop[1]) >= '2.0.0':
+                            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        armobj = bpy.context.active_object
+        pbones = armobj.pose.bones
+        anim_data = armobj.animation_data
+
+        if armobj.pose.bones["properties_torso"].ik_torso < 0.1:
+
+            #Collect Matrix
+            TorsoIKMat = pbones['torso_ik_ctrl'].matrix.copy()
+            TorsoIKLoc = pbones['torso_ik_ctrl'].location.copy()
+            TorsoIKScale = pbones['torso_ik_ctrl'].scale.copy()
+            TorsoFKMat = pbones['torso_fk_ctrl'].matrix.copy()
+            TorsoFKLoc = pbones['torso_fk_ctrl'].location.copy()
+            TorsoFKScale = pbones['torso_fk_ctrl'].scale.copy()
+            PelvisMat = pbones['pelvis_ctrl'].matrix.copy()
+            PelvisLoc = pbones['pelvis_ctrl'].location.copy()
+            PelvisScale = pbones['pelvis_ctrl'].scale.copy()
+            Spine1FKMat = pbones['spine_1_fk'].matrix.copy()
+            Spine1FKLoc = pbones['spine_1_fk'].location.copy()
+            Spine1FKScale = pbones['spine_1_fk'].scale.copy()
+            Spine2FKMat = pbones['spine_2_fk'].matrix.copy()
+            Spine2FKLoc = pbones['spine_2_fk'].location.copy()
+            Spine2FKScale = pbones['spine_2_fk'].scale.copy()
+            Spine3FKMat = pbones['spine_3_fk'].matrix.copy()
+            Spine3FKLoc = pbones['spine_3_fk'].location.copy()
+            Spine3FKScale = pbones['spine_3_fk'].scale.copy()
+            Spine1ToonMat = pbones['spine_1_toon'].matrix.copy()
+            Spine1ToonLoc = pbones['spine_1_toon'].location.copy()
+            Spine1ToonScale = pbones['spine_1_toon'].scale.copy()
+            Spine2ToonMat = pbones['spine_2_toon'].matrix.copy()
+            Spine2ToonLoc = pbones['spine_2_toon'].location.copy()
+            Spine2ToonScale = pbones['spine_2_toon'].scale.copy()
+            Spine3ToonMat = pbones['spine_3_toon'].matrix.copy()
+            Spine3ToonLoc = pbones['spine_3_toon'].location.copy()
+            Spine3ToonScale = pbones['spine_3_toon'].scale.copy()
+            Spine4ToonMat = pbones['spine_4_toon'].matrix.copy()
+            Spine4ToonLoc = pbones['spine_4_toon'].location.copy()
+            Spine4ToonScale = pbones['spine_4_toon'].scale.copy()
+            SpineCurveMat = pbones['spine_ctrl_curve'].matrix.copy()
+            SpineCurveLoc = pbones['spine_ctrl_curve'].location.copy()
+            SpineCurveScale = pbones['spine_ctrl_curve'].scale.copy()
+            SpineToonCurveMat = pbones['spine_toon_ctrl_curve'].matrix.copy()
+            SpineToonCurveLoc = pbones['spine_toon_ctrl_curve'].location.copy()
+            SpineToonCurveScale = pbones['spine_toon_ctrl_curve'].scale.copy()
+
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_torso"].keyframe_insert(data_path='ik_torso')
+                        insert_bkeys('master_torso', 'LocRotScale')
+                        insert_bkeys('torso_ik_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('spine_toon_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('pelvis_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_1_fk', 'LocRotScale')
+                        insert_bkeys('spine_2_fk', 'LocRotScale')
+                        insert_bkeys('spine_3_fk', 'LocRotScale')
+                        insert_bkeys('spine_1_toon', 'LocRotScale')
+                        insert_bkeys('spine_2_toon', 'LocRotScale')
+                        insert_bkeys('spine_3_toon', 'LocRotScale')
+                        insert_bkeys('spine_4_toon', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl_inv', 'LocRotScale')
+                        insert_bkeys('spine_3_fk_inv', 'LocRotScale')
+                        insert_bkeys('spine_2_fk_inv', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl', 'LocRotScale')
+
+            #Collect pose and save new Matrix
+            pVisLocExec (pbones['torso_fk_ctrl'], pbones['spine_3_fk'])
+            refresh_hack()
+            TorsoFKMat2 = pbones['torso_fk_ctrl'].matrix.copy()
+
+            armobj.pose.bones["properties_torso"].ik_torso = 1.0
+            refresh_hack()
+
+            #Paste Matrix
+            pVisLocExec (pbones['master_torso'], pbones['snap_master_torso'])
+            pVisRotExec (pbones['master_torso'], pbones['snap_master_torso'])
+            refresh_hack()
+            pbones['pelvis_ctrl'].matrix = PelvisMat
+            refresh_hack()
+            pbones['torso_fk_ctrl'].matrix = TorsoFKMat2
+            refresh_hack()
+            # pbones['spine_ctrl_curve'].matrix = SpineCurveMat
+            # refresh_hack()
+            pbones['spine_1_fk'].matrix = Spine1FKMat
+            refresh_hack()
+            pbones['spine_2_fk'].matrix = Spine2FKMat
+            refresh_hack()
+            pbones['spine_3_fk'].matrix = Spine3FKMat
+            refresh_hack()
+            # pbones['spine_toon_ctrl_curve'].matrix = SpineToonCurveMat
+            # refresh_hack()
+            # pbones['spine_1_toon'].matrix = Spine1ToonMat
+            # refresh_hack()
+            pbones['spine_2_toon'].matrix = Spine2ToonMat
+            refresh_hack()
+            # pbones['spine_3_toon'].matrix = Spine3ToonMat
+            # refresh_hack()
+            # pbones['spine_4_toon'].matrix = Spine4ToonMat
+            # refresh_hack()
+
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        MasterTorsoRotEuler = pbones['master_torso'].rotation_euler.copy()
+                        MasterTorsoLoc = pbones['master_torso'].location.copy()
+                        MasterTorsoScale = pbones['master_torso'].scale.copy()
+
+                        PelvisRotEuler = pbones['pelvis_ctrl'].rotation_euler.copy()
+                        PelvisLoc = pbones['pelvis_ctrl'].location.copy()
+                        PelvisScale = pbones['pelvis_ctrl'].scale.copy()
+
+                        Spine1FKRotEuler = pbones['spine_1_fk'].rotation_euler.copy()
+                        Spine1FKLoc = pbones['spine_1_fk'].location.copy()
+                        Spine1FKScale = pbones['spine_1_fk'].scale.copy()
+
+                        Spine2FKRotEuler = pbones['spine_2_fk'].rotation_euler.copy()
+                        Spine2FKLoc = pbones['spine_2_fk'].location.copy()
+                        Spine2FKScale = pbones['spine_2_fk'].scale.copy()
+
+                        Spine3FKRotEuler = pbones['spine_3_fk'].rotation_euler.copy()
+                        Spine3FKLoc = pbones['spine_3_fk'].location.copy()
+                        Spine3FKScale = pbones['spine_3_fk'].scale.copy()
+
+                        TorsoFkCtrlRotEuler = pbones['torso_fk_ctrl'].rotation_euler.copy()
+                        TorsoFkCtrlLoc = pbones['torso_fk_ctrl'].location.copy()
+                        TorsoFkCtrlScale = pbones['torso_fk_ctrl'].scale.copy()
+
+                        Spine2ToonRotEuler = pbones['spine_2_toon'].rotation_euler.copy()
+                        Spine2ToonLoc = pbones['spine_2_toon'].location.copy()
+                        Spine2ToonScale = pbones['spine_2_toon'].scale.copy()
+
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+
+                        #Key Property
+                        armobj.pose.bones["properties_torso"].ik_torso = 1.0
+                        refresh_hack()
+                        pbones["properties_torso"].keyframe_insert(data_path='ik_torso')
+
+                        #Re-Paste Transforms
+                        pbones['master_torso'].rotation_euler = MasterTorsoRotEuler
+                        pbones['master_torso'].location = MasterTorsoLoc
+                        pbones['master_torso'].scale = MasterTorsoScale
+                        refresh_hack()
+                        pbones['pelvis_ctrl'].rotation_euler = PelvisRotEuler
+                        pbones['pelvis_ctrl'].location = PelvisLoc
+                        pbones['pelvis_ctrl'].scale = PelvisScale
+                        refresh_hack()
+                        pbones['spine_1_fk'].rotation_euler = Spine1FKRotEuler
+                        pbones['spine_1_fk'].location = Spine1FKLoc
+                        pbones['spine_1_fk'].scale = Spine1FKScale
+                        refresh_hack()
+                        pbones['spine_2_fk'].rotation_euler = Spine2FKRotEuler
+                        pbones['spine_2_fk'].location = Spine2FKLoc
+                        pbones['spine_2_fk'].scale = Spine2FKScale
+                        refresh_hack()
+                        pbones['spine_3_fk'].rotation_euler = Spine3FKRotEuler
+                        pbones['spine_3_fk'].location = Spine3FKLoc
+                        pbones['spine_3_fk'].scale = Spine3FKScale
+                        refresh_hack()
+                        pbones['torso_fk_ctrl'].rotation_euler = TorsoFkCtrlRotEuler
+                        pbones['torso_fk_ctrl'].location = TorsoFkCtrlLoc
+                        pbones['torso_fk_ctrl'].scale = TorsoFkCtrlScale
+                        refresh_hack()
+                        pbones['spine_2_toon'].rotation_euler = Spine2ToonRotEuler
+                        pbones['spine_2_toon'].location = Spine2ToonLoc
+                        pbones['spine_2_toon'].scale = Spine2ToonScale
+                        refresh_hack()
+
+                        insert_bkeys('master_torso', 'LocRotScale')
+                        insert_bkeys('torso_ik_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('spine_toon_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('pelvis_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_1_fk', 'LocRotScale')
+                        insert_bkeys('spine_2_fk', 'LocRotScale')
+                        insert_bkeys('spine_3_fk', 'LocRotScale')
+                        insert_bkeys('spine_1_toon', 'LocRotScale')
+                        insert_bkeys('spine_2_toon', 'LocRotScale')
+                        insert_bkeys('spine_3_toon', 'LocRotScale')
+                        insert_bkeys('spine_4_toon', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl_inv', 'LocRotScale')
+                        insert_bkeys('spine_3_fk_inv', 'LocRotScale')
+                        insert_bkeys('spine_2_fk_inv', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl', 'LocRotScale')
+
+        return {"FINISHED"}
+
+class Operator_Snap_TorsoFKtoIK(bpy.types.Operator):
+
+    bl_idname = "snap.torso_fk_to_ik"
+    bl_label = "BlenRig Torso FK to IK"
+    bl_description = "Switch Torso to IK preserving pose"
+    bl_options = {'REGISTER', 'UNDO','INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["ARMATURE"]):
+            for prop in bpy.context.active_object.data.items():
+                if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                    for prop in bpy.context.active_object.data.items():
+                        if prop[0] == 'rig_version' and str(prop[1]) >= '2.0.0':
+                            return True
+        else:
+            return False
+
+    def execute(self, context):
+
+        armobj = bpy.context.active_object
+        pbones = armobj.pose.bones
+        anim_data = armobj.animation_data
+
+        if armobj.pose.bones["properties_torso"].ik_torso > 0.9:
+
+            #Collect Matrix
+            TorsoIKMat = pbones['torso_ik_ctrl'].matrix.copy()
+            TorsoIKLoc = pbones['torso_ik_ctrl'].location.copy()
+            TorsoIKScale = pbones['torso_ik_ctrl'].scale.copy()
+            TorsoFKMat = pbones['torso_fk_ctrl'].matrix.copy()
+            TorsoFKLoc = pbones['torso_fk_ctrl'].location.copy()
+            TorsoFKScale = pbones['torso_fk_ctrl'].scale.copy()
+            PelvisMat = pbones['pelvis_ctrl'].matrix.copy()
+            PelvisLoc = pbones['pelvis_ctrl'].location.copy()
+            PelvisScale = pbones['pelvis_ctrl'].scale.copy()
+            Spine1FKMat = pbones['spine_1_fk'].matrix.copy()
+            Spine1FKLoc = pbones['spine_1_fk'].location.copy()
+            Spine1FKScale = pbones['spine_1_fk'].scale.copy()
+            Spine2FKMat = pbones['spine_2_fk'].matrix.copy()
+            Spine2FKLoc = pbones['spine_2_fk'].location.copy()
+            Spine2FKScale = pbones['spine_2_fk'].scale.copy()
+            Spine3FKMat = pbones['spine_3_fk'].matrix.copy()
+            Spine3FKLoc = pbones['spine_3_fk'].location.copy()
+            Spine3FKScale = pbones['spine_3_fk'].scale.copy()
+            Spine1ToonMat = pbones['spine_1_toon'].matrix.copy()
+            Spine1ToonLoc = pbones['spine_1_toon'].location.copy()
+            Spine1ToonScale = pbones['spine_1_toon'].scale.copy()
+            Spine2ToonMat = pbones['spine_2_toon'].matrix.copy()
+            Spine2ToonLoc = pbones['spine_2_toon'].location.copy()
+            Spine2ToonScale = pbones['spine_2_toon'].scale.copy()
+            Spine3ToonMat = pbones['spine_3_toon'].matrix.copy()
+            Spine3ToonLoc = pbones['spine_3_toon'].location.copy()
+            Spine3ToonScale = pbones['spine_3_toon'].scale.copy()
+            Spine4ToonMat = pbones['spine_4_toon'].matrix.copy()
+            Spine4ToonLoc = pbones['spine_4_toon'].location.copy()
+            Spine4ToonScale = pbones['spine_4_toon'].scale.copy()
+            SpineCurveMat = pbones['spine_ctrl_curve'].matrix.copy()
+            SpineCurveLoc = pbones['spine_ctrl_curve'].location.copy()
+            SpineCurveScale = pbones['spine_ctrl_curve'].scale.copy()
+            SpineToonCurveMat = pbones['spine_toon_ctrl_curve'].matrix.copy()
+            SpineToonCurveLoc = pbones['spine_toon_ctrl_curve'].location.copy()
+            SpineToonCurveScale = pbones['spine_toon_ctrl_curve'].scale.copy()
+
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        pbones["properties_torso"].keyframe_insert(data_path='ik_torso')
+                        insert_bkeys('master_torso', 'LocRotScale')
+                        insert_bkeys('torso_ik_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('spine_toon_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('pelvis_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_1_fk', 'LocRotScale')
+                        insert_bkeys('spine_2_fk', 'LocRotScale')
+                        insert_bkeys('spine_3_fk', 'LocRotScale')
+                        insert_bkeys('spine_1_toon', 'LocRotScale')
+                        insert_bkeys('spine_2_toon', 'LocRotScale')
+                        insert_bkeys('spine_3_toon', 'LocRotScale')
+                        insert_bkeys('spine_4_toon', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl_inv', 'LocRotScale')
+                        insert_bkeys('spine_3_fk_inv', 'LocRotScale')
+                        insert_bkeys('spine_2_fk_inv', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl', 'LocRotScale')
+
+            #Paste Matrix
+            pbones['pelvis_ctrl'].matrix = PelvisMat
+            refresh_hack()
+            pVisLocExec (pbones['torso_ik_ctrl'], pbones['lattice_body'])
+            pVisRotExec (pbones['torso_ik_ctrl'], pbones['lattice_body'])
+            pVisScaExec (pbones['torso_ik_ctrl'], pbones['lattice_body'])
+
+            armobj.pose.bones["properties_torso"].ik_torso = 0.0
+            refresh_hack()
+
+            pbones['torso_fk_ctrl'].matrix = TorsoFKMat
+            pbones['torso_fk_ctrl'].rotation_euler[:] = (0.0, 0.0, 0.0)
+            pbones['torso_fk_ctrl'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+            refresh_hack()
+            pbones['spine_1_fk'].matrix = Spine1FKMat
+            refresh_hack()
+            pbones['spine_2_fk'].matrix = Spine2FKMat
+            refresh_hack()
+            pbones['spine_3_fk'].matrix = Spine3FKMat
+            refresh_hack()
+            pbones['spine_2_toon'].matrix = Spine2ToonMat
+            refresh_hack()
+
+
+            #Insert Keyframes if Action present
+            if anim_data:
+                if anim_data.action:
+                    if bpy.context.scene.tool_settings.use_keyframe_insert_auto == True:
+                        #Collect Local Transforms
+                        PelvisRotEuler = pbones['pelvis_ctrl'].rotation_euler.copy()
+                        PelvisLoc = pbones['pelvis_ctrl'].location.copy()
+                        PelvisScale = pbones['pelvis_ctrl'].scale.copy()
+
+                        Spine1FKRotEuler = pbones['spine_1_fk'].rotation_euler.copy()
+                        Spine1FKLoc = pbones['spine_1_fk'].location.copy()
+                        Spine1FKScale = pbones['spine_1_fk'].scale.copy()
+
+                        Spine2FKRotEuler = pbones['spine_2_fk'].rotation_euler.copy()
+                        Spine2FKLoc = pbones['spine_2_fk'].location.copy()
+                        Spine2FKScale = pbones['spine_2_fk'].scale.copy()
+
+                        Spine3FKRotEuler = pbones['spine_3_fk'].rotation_euler.copy()
+                        Spine3FKLoc = pbones['spine_3_fk'].location.copy()
+                        Spine3FKScale = pbones['spine_3_fk'].scale.copy()
+
+                        TorsoFkCtrlRotEuler = pbones['torso_fk_ctrl'].rotation_euler.copy()
+                        TorsoFkCtrlLoc = pbones['torso_fk_ctrl'].location.copy()
+                        TorsoFkCtrlScale = pbones['torso_fk_ctrl'].scale.copy()
+
+                        TorsoIkCtrlRotEuler = pbones['torso_ik_ctrl'].rotation_euler.copy()
+                        TorsoIkCtrlLoc = pbones['torso_ik_ctrl'].location.copy()
+                        TorsoIkCtrlScale = pbones['torso_ik_ctrl'].scale.copy()
+
+                        Spine2ToonRotEuler = pbones['spine_2_toon'].rotation_euler.copy()
+                        Spine2ToonLoc = pbones['spine_2_toon'].location.copy()
+                        Spine2ToonScale = pbones['spine_2_toon'].scale.copy()
+
+                        #Jump to next Frame
+                        bpy.context.scene.frame_set (bpy.context.scene.frame_current + 1)
+
+                        #Key Property
+                        armobj.pose.bones["properties_torso"].ik_torso = 0.0
+                        refresh_hack()
+                        pbones["properties_torso"].keyframe_insert(data_path='ik_torso')
+
+                        #Re-Paste Transforms
+                        pbones['torso_ik_ctrl'].rotation_euler = TorsoIkCtrlRotEuler
+                        pbones['torso_ik_ctrl'].location = TorsoIkCtrlLoc
+                        pbones['torso_ik_ctrl'].scale = TorsoIkCtrlScale
+                        refresh_hack()
+                        pbones['pelvis_ctrl'].rotation_euler = PelvisRotEuler
+                        pbones['pelvis_ctrl'].location = PelvisLoc
+                        pbones['pelvis_ctrl'].scale = PelvisScale
+                        refresh_hack()
+                        pbones['spine_1_fk'].rotation_euler = Spine1FKRotEuler
+                        pbones['spine_1_fk'].location = Spine1FKLoc
+                        pbones['spine_1_fk'].scale = Spine1FKScale
+                        refresh_hack()
+                        pbones['spine_2_fk'].rotation_euler = Spine2FKRotEuler
+                        pbones['spine_2_fk'].location = Spine2FKLoc
+                        pbones['spine_2_fk'].scale = Spine2FKScale
+                        refresh_hack()
+                        pbones['spine_3_fk'].rotation_euler = Spine3FKRotEuler
+                        pbones['spine_3_fk'].location = Spine3FKLoc
+                        pbones['spine_3_fk'].scale = Spine3FKScale
+                        refresh_hack()
+                        pbones['torso_fk_ctrl'].rotation_euler = TorsoFkCtrlRotEuler
+                        pbones['torso_fk_ctrl'].location = TorsoFkCtrlLoc
+                        pbones['torso_fk_ctrl'].scale = TorsoFkCtrlScale
+                        refresh_hack()
+                        pbones['spine_2_toon'].rotation_euler = Spine2ToonRotEuler
+                        pbones['spine_2_toon'].location = Spine2ToonLoc
+                        pbones['spine_2_toon'].scale = Spine2ToonScale
+                        refresh_hack()
+
+                        insert_bkeys('master_torso', 'LocRotScale')
+                        insert_bkeys('torso_ik_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('spine_toon_ctrl_curve', 'LocRotScale')
+                        insert_bkeys('pelvis_ctrl', 'LocRotScale')
+                        insert_bkeys('spine_1_fk', 'LocRotScale')
+                        insert_bkeys('spine_2_fk', 'LocRotScale')
+                        insert_bkeys('spine_3_fk', 'LocRotScale')
+                        insert_bkeys('spine_1_toon', 'LocRotScale')
+                        insert_bkeys('spine_2_toon', 'LocRotScale')
+                        insert_bkeys('spine_3_toon', 'LocRotScale')
+                        insert_bkeys('spine_4_toon', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl_inv', 'LocRotScale')
+                        insert_bkeys('spine_3_fk_inv', 'LocRotScale')
+                        insert_bkeys('spine_2_fk_inv', 'LocRotScale')
+                        insert_bkeys('torso_fk_ctrl', 'LocRotScale')
 
         return {"FINISHED"}
 
