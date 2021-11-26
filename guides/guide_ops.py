@@ -108,7 +108,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
         factor_dpi = self.dpi / 72
         margin = 5 * factor_dpi
-        self.widget_pos = Vector((50, 100)) * factor_dpi
+        self.widget_pos = Vector((50, 150)) * factor_dpi
         self.header_height = 30 * factor_dpi
         self.text_box_height = 100 * factor_dpi
         self.image_size = Vector((300, 300)) *self.image_scale * factor_dpi
