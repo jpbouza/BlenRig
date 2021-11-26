@@ -727,6 +727,8 @@ def bone_local_transforms(armature, bname, transform_type):
         transform = local_diff.to_scale()[1]
     if transform_type == 'scale_z':
         transform = local_diff.to_scale()[2]
+    if transform_type == 'matrix':
+        transform = local_diff
     return transform
 
 #Actions Guide Properties Functions
