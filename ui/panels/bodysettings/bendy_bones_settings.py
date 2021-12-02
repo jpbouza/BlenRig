@@ -69,8 +69,8 @@ class BLENRIG_PT_Rig_Body_settings_bendy_bones_settings(bpy.types.Panel):
             row_props = box.row()
             col = row_props.column()
             try:
-                col.prop(p_bones['spine_line'].bone, "bbone_curveouty", text="Upper Curvature")
-                col.prop(p_bones['spine_line'].bone, "bbone_curveiny",  text="Lower Curvature")
+                col.prop(p_bones['spine_line'].bone, bbone_curveouty, text="Upper Curvature")
+                col.prop(p_bones['spine_line'].bone, bbone_curveiny,  text="Lower Curvature")
             except:
                 pass
 

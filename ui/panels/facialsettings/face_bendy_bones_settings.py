@@ -13,9 +13,12 @@ class BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings(bpy.types.Panel):
         if bpy.app.version < (3,0,0):
             bbone_curveiny = "bbone_curveiny"
             bbone_curveouty = "bbone_curveouty"
+            axis = " Y "
+            
         else:
             bbone_curveouty = "bbone_curveoutz"
             bbone_curveiny = "bbone_curveinz"
+            axis = " Z "
 
         arm = context.active_object
         arm_data = context.active_object.data
@@ -38,14 +41,14 @@ class BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings(bpy.types.Panel):
             vert.label(text="Vertical")
             curveiny = curvey.row()
             try:
-                curveiny.prop(p_bones['brow_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                curveiny.prop(p_bones['brow_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                curveiny.prop(p_bones['brow_line_R'].bone, bbone_curveiny, text="Curve in" + axis + "Right")
+                curveiny.prop(p_bones['brow_line_L'].bone, bbone_curveiny,  text="Curve in" + axis + "Left")
             except:
                 pass
             curveouty = curvey.row()
             try:
-                curveouty.prop(p_bones['brow_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                curveouty.prop(p_bones['brow_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                curveouty.prop(p_bones['brow_line_R'].bone, bbone_curveouty, text="Curve out" + axis + "Right")
+                curveouty.prop(p_bones['brow_line_L'].bone, bbone_curveouty,  text="Curve out" + axis + "Left")
             except:
                 pass
             # Bbone X Values
@@ -81,14 +84,14 @@ class BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings(bpy.types.Panel):
             lipup.label(text="Upper Lips")
             curveiny = curvey.row()
             try:
-                curveiny.prop(p_bones['lip_up_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                curveiny.prop(p_bones['lip_up_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                curveiny.prop(p_bones['lip_up_line_R'].bone, bbone_curveiny, text="Curve in" + axis + "Right")
+                curveiny.prop(p_bones['lip_up_line_L'].bone, bbone_curveiny,  text="Curve in" + axis + "Left")
             except:
                 pass
             curveouty = curvey.row()
             try:
-                curveouty.prop(p_bones['lip_up_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                curveouty.prop(p_bones['lip_up_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                curveouty.prop(p_bones['lip_up_line_R'].bone, bbone_curveouty, text="Curve out" + axis + "Right")
+                curveouty.prop(p_bones['lip_up_line_L'].bone, bbone_curveouty,  text="Curve out" + axis + "Left")
             except:
                 pass
             # Lip Zipper
@@ -97,14 +100,14 @@ class BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings(bpy.types.Panel):
             lipzip.label(text="Zipper")
             curveiny = curvey.row()
             try:
-                curveiny.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                curveiny.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                curveiny.prop(p_bones['lip_zipper_line_R'].bone, bbone_curveiny, text="Curve in" + axis + "Right")
+                curveiny.prop(p_bones['lip_zipper_line_L'].bone, bbone_curveiny,  text="Curve in" + axis + "Left")
             except:
                 pass
             curveouty = curvey.row()
             try:
-                curveouty.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                curveouty.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                curveouty.prop(p_bones['lip_zipper_line_R'].bone, bbone_curveouty, text="Curve out" + axis + "Right")
+                curveouty.prop(p_bones['lip_zipper_line_L'].bone, bbone_curveouty,  text="Curve out" + axis + "Left")
             except:
                 pass
             # Lip Low
@@ -113,14 +116,14 @@ class BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings(bpy.types.Panel):
             lipzip.label(text="Lower Lips")
             curveiny = curvey.row()
             try:
-                curveiny.prop(p_bones['lip_low_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                curveiny.prop(p_bones['lip_low_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                curveiny.prop(p_bones['lip_low_line_R'].bone, bbone_curveiny, text="Curve in" + axis + "Right")
+                curveiny.prop(p_bones['lip_low_line_L'].bone, bbone_curveiny,  text="Curve in" + axis + "Left")
             except:
                 pass
             curveouty = curvey.row()
             try:
-                curveouty.prop(p_bones['lip_low_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                curveouty.prop(p_bones['lip_low_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                curveouty.prop(p_bones['lip_low_line_R'].bone, bbone_curveouty, text="Curve out" + axis + "Right")
+                curveouty.prop(p_bones['lip_low_line_L'].bone, bbone_curveouty,  text="Curve out" + axis + "Left")
             except:
                 pass
 
