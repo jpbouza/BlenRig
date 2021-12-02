@@ -9,6 +9,14 @@ class BLENRIG_PT_Rig_Body_settings_face_bendy_bones_settings(bpy.types.Panel):
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
+
+        if bpy.app.version < (3,0,0):
+            bbone_curveiny = "bbone_curveiny"
+            bbone_curveouty = "bbone_curveouty"
+        else:
+            bbone_curveouty = "bbone_curveoutz"
+            bbone_curveiny = "bbone_curveinz"
+
         arm = context.active_object
         arm_data = context.active_object.data
         p_bones = arm.pose.bones

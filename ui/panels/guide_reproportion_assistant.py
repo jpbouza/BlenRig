@@ -12,6 +12,13 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
     def draw(self, context):
         if not VIEW3D_OT_blenrig_guide_reproportion.is_instantiated():
             return
+        
+        if bpy.app.version < (3,0,0):
+            bbone_curveiny = "bbone_curveiny"
+            bbone_curveouty = "bbone_curveouty"
+        else:
+            bbone_curveouty = "bbone_curveoutz"
+            bbone_curveiny = "bbone_curveinz"
 
         layout = self.layout
         arm = context.active_object
@@ -41,9 +48,11 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 row_props = box.row()
                 col = row_props.column()
                 try:
-                    col.prop(p_bones['spine_line'].bone, "bbone_curveouty", text="Upper Curvature")
-                    col.prop(p_bones['spine_line'].bone, "bbone_curveiny",  text="Lower Curvature")
+                    col.prop(p_bones['spine_line'].bone, bbone_curveoutz, text="Upper Curvature")
+                    col.prop(p_bones['spine_line'].bone, bbone_curveinz,  text="Lower Curvature")
                 except:
+                    col.prop(p_bones['spine_line'].bone, bbone_curveouty, text="Upper Curvature")
+                    col.prop(p_bones['spine_line'].bone, bbone_curveiny,  text="Lower Curvature")
                     pass
             # Fingers Toggles
             if context.scene.blenrig_guide.guide_current_step == 'Reprop_Fingers':
@@ -145,16 +154,18 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 # vert.label(text="Vertical")
                 # curveiny = curvey.row()
                 # try:
-                #     curveiny.prop(p_bones['brow_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                #     curveiny.prop(p_bones['brow_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                #     curveiny.prop(p_bones['brow_line_R'].bone, bbone_curveinz, text="Curve in Y Right")
+                #     curveiny.prop(p_bones['brow_line_L'].bone, bbone_curveinz,  text="Curve in Y Left")
                 # except:
-                #     pass
+                #     curveiny.prop(p_bones['brow_line_R'].bone, bbone_curveiny, text="Curve in Y Right")
+                #     curveiny.prop(p_bones['brow_line_L'].bone, bbone_curveiny,  text="Curve in Y Left")
                 # curveouty = curvey.row()
                 # try:
-                #     curveouty.prop(p_bones['brow_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                #     curveouty.prop(p_bones['brow_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                #     curveouty.prop(p_bones['brow_line_R'].bone, bbone_curveoutz, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['brow_line_L'].bone, bbone_curveoutz,  text="Curve out Y Left")
                 # except:
-                #     pass
+                #     curveouty.prop(p_bones['brow_line_R'].bone, bbone_curveouty, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['brow_line_L'].bone, bbone_curveouty,  text="Curve out Y Left")
                 # # Bbone X Values
                 # curvex = box.column()
                 # depth = curvex.row()
@@ -223,48 +234,54 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 # lipup.label(text="Upper Lips")
                 # curveiny = curvey.row()
                 # try:
+                #     curveiny.prop(p_bones['lip_up_line_R'].bone, "bbone_curveinz", text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_up_line_L'].bone, "bbone_curveinz",  text="Curve in Y Left")
+                # except:
                 #     curveiny.prop(p_bones['lip_up_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
                 #     curveiny.prop(p_bones['lip_up_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
-                # except:
-                #     pass
                 # curveouty = curvey.row()
                 # try:
-                #     curveouty.prop(p_bones['lip_up_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                #     curveouty.prop(p_bones['lip_up_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                #     curveouty.prop(p_bones['lip_up_line_R'].bone, bbone_curveoutz, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_up_line_L'].bone, bbone_curveoutz,  text="Curve out Y Left")
                 # except:
-                #     pass
+                #     curveouty.prop(p_bones['lip_up_line_R'].bone, bbone_curveouty, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_up_line_L'].bone, bbone_curveouty,  text="Curve out Y Left")
                 # # Lip Zipper
                 # lipzip = curvey.row()
                 # lipzip.alignment = 'LEFT'
                 # lipzip.label(text="Zipper")
                 # curveiny = curvey.row()
                 # try:
-                #     curveiny.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                #     curveiny.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                #     curveiny.prop(p_bones['lip_zipper_line_R'].bone, bbone_curveinz, text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_zipper_line_L'].bone, bbone_curveinz,  text="Curve in Y Left")
                 # except:
-                #     pass
+                #     curveiny.prop(p_bones['lip_zipper_line_R'].bone, bbone_curveiny, text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_zipper_line_L'].bone, bbone_curveiny,  text="Curve in Y Left")
                 # curveouty = curvey.row()
                 # try:
-                #     curveouty.prop(p_bones['lip_zipper_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                #     curveouty.prop(p_bones['lip_zipper_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                #     curveouty.prop(p_bones['lip_zipper_line_R'].bone, bbone_curveoutz, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_zipper_line_L'].bone, bbone_curveoutz,  text="Curve out Y Left")
                 # except:
-                #     pass
+                #     curveouty.prop(p_bones['lip_zipper_line_R'].bone, bbone_curveouty, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_zipper_line_L'].bone, bbone_curveouty,  text="Curve out Y Left")
                 # # Lip Low
                 # lipzip = curvey.row()
                 # lipzip.alignment = 'LEFT'
                 # lipzip.label(text="Lower Lips")
                 # curveiny = curvey.row()
                 # try:
-                #     curveiny.prop(p_bones['lip_low_line_R'].bone, "bbone_curveiny", text="Curve in Y Right")
-                #     curveiny.prop(p_bones['lip_low_line_L'].bone, "bbone_curveiny",  text="Curve in Y Left")
+                #     curveiny.prop(p_bones['lip_low_line_R'].bone, bbone_curveinz, text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_low_line_L'].bone, bbone_curveinz,  text="Curve in Y Left")
                 # except:
-                #     pass
+                #     curveiny.prop(p_bones['lip_low_line_R'].bone, bbone_curveiny, text="Curve in Y Right")
+                #     curveiny.prop(p_bones['lip_low_line_L'].bone, bbone_curveiny,  text="Curve in Y Left")
                 # curveouty = curvey.row()
                 # try:
-                #     curveouty.prop(p_bones['lip_low_line_R'].bone, "bbone_curveouty", text="Curve out Y Right")
-                #     curveouty.prop(p_bones['lip_low_line_L'].bone, "bbone_curveouty",  text="Curve out Y Left")
+                #     curveouty.prop(p_bones['lip_low_line_R'].bone, bbone_curveoutz, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_low_line_L'].bone, bbone_curveoutz,  text="Curve out Y Left")
                 # except:
-                #     pass
+                #     curveouty.prop(p_bones['lip_low_line_R'].bone, bbone_curveouty, text="Curve out Y Right")
+                #     curveouty.prop(p_bones['lip_low_line_L'].bone, bbone_curveouty,  text="Curve out Y Left")
 
                 # # Bbone X Values
                 # curvex = box.column()

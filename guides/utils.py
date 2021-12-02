@@ -1611,12 +1611,18 @@ def bbone_curve_brows_update(self, context):
                 pbones = arm.pose.bones
 
                 #Update Properties
-                pbones["brow_line_L"].bone.bbone_curveiny = brows_vert_in
-                pbones["brow_line_L"].bone.bbone_curveouty = brows_vert_out
+                if bpy.app.version < (3,0,0):
+                    pbones["brow_line_L"].bone.bbone_curveiny = brows_vert_in
+                    pbones["brow_line_L"].bone.bbone_curveouty = brows_vert_out
+                    pbones["brow_line_R"].bone.bbone_curveiny = brows_vert_in
+                    pbones["brow_line_R"].bone.bbone_curveouty = brows_vert_out
+                else:
+                    pbones["brow_line_L"].bone.bbone_curveinz = brows_vert_in
+                    pbones["brow_line_L"].bone.bbone_curveoutz = brows_vert_out
+                    pbones["brow_line_R"].bone.bbone_curveinz = brows_vert_in
+                    pbones["brow_line_R"].bone.bbone_curveoutz = brows_vert_out
                 pbones["brow_line_L"].bone.bbone_curveinx = brows_depth_in
-                pbones["brow_line_L"].bone.bbone_curveoutx = brows_depth_out
-                pbones["brow_line_R"].bone.bbone_curveiny = brows_vert_in
-                pbones["brow_line_R"].bone.bbone_curveouty = brows_vert_out
+                pbones["brow_line_L"].bone.bbone_curveoutx = brows_depth_out                
                 pbones["brow_line_R"].bone.bbone_curveinx = -(brows_depth_in)
                 pbones["brow_line_R"].bone.bbone_curveoutx = -(brows_depth_out)
 
@@ -1648,28 +1654,43 @@ def bbone_curve_lips_update(self, context):
                 pbones = arm.pose.bones
 
                 #Update Properties
-                pbones["lip_up_line_L"].bone.bbone_curveiny = lip_up_vert_in
-                pbones["lip_up_line_L"].bone.bbone_curveouty = lip_up_vert_out
+                if bpy.app.version < (3,0,0):
+                    pbones["lip_up_line_L"].bone.bbone_curveiny = lip_up_vert_in
+                    pbones["lip_up_line_L"].bone.bbone_curveouty = lip_up_vert_out
+                    pbones["lip_up_line_R"].bone.bbone_curveiny = lip_up_vert_in
+                    pbones["lip_up_line_R"].bone.bbone_curveouty = lip_up_vert_out
+                    pbones["lip_low_line_L"].bone.bbone_curveiny = lip_low_vert_in
+                    pbones["lip_low_line_L"].bone.bbone_curveouty = lip_low_vert_out
+                    pbones["lip_low_line_R"].bone.bbone_curveiny = lip_low_vert_in
+                    pbones["lip_low_line_R"].bone.bbone_curveouty = lip_low_vert_out
+                    pbones["lip_zipper_line_L"].bone.bbone_curveiny = lip_zipper_vert_in
+                    pbones["lip_zipper_line_L"].bone.bbone_curveouty = lip_zipper_vert_out
+                    pbones["lip_zipper_line_R"].bone.bbone_curveiny = lip_zipper_vert_in
+                    pbones["lip_zipper_line_R"].bone.bbone_curveouty = lip_zipper_vert_out
+                else:
+                    pbones["lip_up_line_L"].bone.bbone_curveinz = lip_up_vert_in
+                    pbones["lip_up_line_L"].bone.bbone_curveoutz = lip_up_vert_out
+                    pbones["lip_up_line_R"].bone.bbone_curveinz = lip_up_vert_in
+                    pbones["lip_up_line_R"].bone.bbone_curveoutz = lip_up_vert_out
+                    pbones["lip_low_line_L"].bone.bbone_curveinz = lip_low_vert_in
+                    pbones["lip_low_line_L"].bone.bbone_curveoutz = lip_low_vert_out
+                    pbones["lip_low_line_R"].bone.bbone_curveinz = lip_low_vert_in
+                    pbones["lip_low_line_R"].bone.bbone_curveoutz = lip_low_vert_out
+                    pbones["lip_zipper_line_L"].bone.bbone_curveinz = lip_zipper_vert_in
+                    pbones["lip_zipper_line_L"].bone.bbone_curveoutz = lip_zipper_vert_out
+                    pbones["lip_zipper_line_R"].bone.bbone_curveinz = lip_zipper_vert_in
+                    pbones["lip_zipper_line_R"].bone.bbone_curveoutz = lip_zipper_vert_out
+                
                 pbones["lip_up_line_L"].bone.bbone_curveinx = lip_up_depth_in
-                pbones["lip_up_line_L"].bone.bbone_curveoutx = lip_up_depth_out
-                pbones["lip_up_line_R"].bone.bbone_curveiny = lip_up_vert_in
-                pbones["lip_up_line_R"].bone.bbone_curveouty = lip_up_vert_out
+                pbones["lip_up_line_L"].bone.bbone_curveoutx = lip_up_depth_out                
                 pbones["lip_up_line_R"].bone.bbone_curveinx = -(lip_up_depth_in)
-                pbones["lip_up_line_R"].bone.bbone_curveoutx = -(lip_up_depth_out)
-                pbones["lip_low_line_L"].bone.bbone_curveiny = lip_low_vert_in
-                pbones["lip_low_line_L"].bone.bbone_curveouty = lip_low_vert_out
+                pbones["lip_up_line_R"].bone.bbone_curveoutx = -(lip_up_depth_out)                
                 pbones["lip_low_line_L"].bone.bbone_curveinx = lip_low_depth_in
-                pbones["lip_low_line_L"].bone.bbone_curveoutx = lip_low_depth_out
-                pbones["lip_low_line_R"].bone.bbone_curveiny = lip_low_vert_in
-                pbones["lip_low_line_R"].bone.bbone_curveouty = lip_low_vert_out
+                pbones["lip_low_line_L"].bone.bbone_curveoutx = lip_low_depth_out                
                 pbones["lip_low_line_R"].bone.bbone_curveinx = -(lip_low_depth_in)
-                pbones["lip_low_line_R"].bone.bbone_curveoutx = -(lip_low_depth_out)
-                pbones["lip_zipper_line_L"].bone.bbone_curveiny = lip_zipper_vert_in
-                pbones["lip_zipper_line_L"].bone.bbone_curveouty = lip_zipper_vert_out
+                pbones["lip_low_line_R"].bone.bbone_curveoutx = -(lip_low_depth_out)                
                 pbones["lip_zipper_line_L"].bone.bbone_curveinx = lip_zipper_depth_in
-                pbones["lip_zipper_line_L"].bone.bbone_curveoutx = lip_zipper_depth_out
-                pbones["lip_zipper_line_R"].bone.bbone_curveiny = lip_zipper_vert_in
-                pbones["lip_zipper_line_R"].bone.bbone_curveouty = lip_zipper_vert_out
+                pbones["lip_zipper_line_L"].bone.bbone_curveoutx = lip_zipper_depth_out                
                 pbones["lip_zipper_line_R"].bone.bbone_curveinx = -(lip_zipper_depth_in)
                 pbones["lip_zipper_line_R"].bone.bbone_curveoutx = -(lip_zipper_depth_out)
 
