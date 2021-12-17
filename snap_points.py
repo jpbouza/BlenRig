@@ -72,6 +72,22 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
             bmesh.update_edit_mesh(active_obj.data)
         return {'FINISHED'}
 
+    def center_loop_cage():
+        active_obj = bpy.context.active_object
+        bpy.ops.mesh.select_all(action='DESELECT')
+        nombre_vertex_group = 'center_loop'
+        bpy.context.active_object.vertex_groups.active = bpy.context.active_object.vertex_groups.get(nombre_vertex_group)
+        bpy.ops.object.vertex_group_select()
+        bm = bmesh.from_edit_mesh(active_obj.data)
+        bm.normal_update()
+        sel_center_verts = [v for v in bm.verts if v.select]
+
+        for vert in sel_center_verts:
+            vert.co[0] = 0
+            vert.select = False
+            bm.normal_update()
+            bmesh.update_edit_mesh(active_obj.data)
+
 def append_attribute_to_obj(obj, attribute, value):
     v = str(value.x) + " " + str(value.y) + " " + str(value.z)
     obj[attribute] = str(v)
