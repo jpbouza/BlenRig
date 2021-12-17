@@ -74,7 +74,12 @@ class BLENRIG_PT_visual_assistant(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        if not  context.mode in ['OBJECT','EDIT_ARMATURE'] and context.active_object.data.reproportion:
+        BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
+        if not BlenRigPanelOptions.displayContext == 'RIGTOOLS':
+            return False
+        if not context.active_object.data.layers[27]:
+            return False
+        if not context.mode in ['OBJECT','EDIT_ARMATURE']:
             return True
 
     def draw(self, context):
@@ -87,65 +92,57 @@ class BLENRIG_PT_visual_assistant(bpy.types.Panel):
             row = col.row()
             box = col.row()
 
-            if context.mode == 'POSE':
-                box.enabled = True
-            else:
-                box.enabled = False
             box = col.row()
-            if context.active_object.data.reproportion or context.active_object.data.layers[27]:
-                box.enabled = True
-                ao = context.active_object
-                if ao.type == 'ARMATURE':
-                    visual_assistant = context.active_object.data.visual_assistant
+            box.enabled = True
+            ao = context.active_object
+            if ao.type in ['ARMATURE']:
+                visual_assistant = context.active_object.data.visual_assistant
+            row = box.row(align=True)
 
-                row = box.row(align=True)
+            icon = 'HIDE_OFF' if not visual_assistant.right_side else 'HIDE_ON'
+            row.prop(visual_assistant, "right_side", text="R_Side", icon=icon, toggle=True)
+            icon = 'HIDE_OFF' if not visual_assistant.left_side else 'HIDE_ON'
+            row.prop(visual_assistant, "left_side", text="L_Side", icon=icon, toggle=True)
 
-                icon = 'HIDE_OFF' if not visual_assistant.right_side else 'HIDE_ON'
-                row.prop(visual_assistant, "right_side", text="R_Side", icon=icon, toggle=True)
-                icon = 'HIDE_OFF' if not visual_assistant.left_side else 'HIDE_ON'
-                row.prop(visual_assistant, "left_side", text="L_Side", icon=icon, toggle=True)
+            box = col.row()
+            box.use_property_split = True
+            box.use_property_decorate = False
 
-                box = col.row()
-                box.use_property_split = True
-                box.use_property_decorate = False
+            flow = box.grid_flow(align=True)
 
-                flow = box.grid_flow(align=True)
+            col = flow.column()
+            icon = 'HIDE_ON' if not visual_assistant.eyes else 'HIDE_OFF'
+            col.prop(visual_assistant, "eyes", icon=icon, text="Eyes", toggle=True)
 
-                col = flow.column()
-                icon = 'HIDE_ON' if not visual_assistant.eyes else 'HIDE_OFF'
-                col.prop(visual_assistant, "eyes", icon=icon, text="Eyes", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.face else 'HIDE_OFF'
+            col.prop(visual_assistant, "face", icon=icon, text="Face", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.face else 'HIDE_OFF'
-                col.prop(visual_assistant, "face", icon=icon, text="Face", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.face_controls else 'HIDE_OFF'
+            col.prop(visual_assistant, "face_controls", icon=icon , text="Face Controls", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.face_controls else 'HIDE_OFF'
-                col.prop(visual_assistant, "face_controls", icon=icon , text="Face Controls", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.eyebrows else 'HIDE_OFF'
+            col.prop(visual_assistant, "eyebrows", icon=icon, text="Eyerbrows", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.eyebrows else 'HIDE_OFF'
-                col.prop(visual_assistant, "eyebrows", icon=icon, text="Eyerbrows", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.lips else 'HIDE_OFF'
+            col.prop(visual_assistant, "lips", icon=icon , text="Lips", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.lips else 'HIDE_OFF'
-                col.prop(visual_assistant, "lips", icon=icon , text="Lips", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.face_mech else 'HIDE_OFF'
+            col.prop(visual_assistant, "face_mech", icon=icon, text="Face Mech", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.face_mech else 'HIDE_OFF'
-                col.prop(visual_assistant, "face_mech", icon=icon, text="Face Mech", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.inner_mouth else 'HIDE_OFF'
+            col.prop(visual_assistant, "inner_mouth", icon=icon, text="Inner Mouth", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.inner_mouth else 'HIDE_OFF'
-                col.prop(visual_assistant, "inner_mouth", icon=icon, text="Inner Mouth", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.hands else 'HIDE_OFF'
+            col.prop(visual_assistant, "hands", icon=icon, text="Hands", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.hands else 'HIDE_OFF'
-                col.prop(visual_assistant, "hands", icon=icon, text="Hands", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.toes else 'HIDE_OFF'
+            col.prop(visual_assistant, "toes", icon=icon, text="Toes", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.toes else 'HIDE_OFF'
-                col.prop(visual_assistant, "toes", icon=icon, text="Toes", toggle=True)
+            icon = 'HIDE_ON' if not visual_assistant.body else 'HIDE_OFF'
+            col.prop(visual_assistant, "body", icon=icon, text="Body", toggle=True)
 
-                icon = 'HIDE_ON' if not visual_assistant.body else 'HIDE_OFF'
-                col.prop(visual_assistant, "body", icon=icon, text="Body", toggle=True)
-
-                icon = 'HIDE_ON' if not visual_assistant.others else 'HIDE_OFF'
-                col.prop(visual_assistant, "others", icon=icon, text="Others", toggle=True)
-        else:
-            box.enabled = False
+            icon = 'HIDE_ON' if not visual_assistant.others else 'HIDE_OFF'
+            col.prop(visual_assistant, "others", icon=icon, text="Others", toggle=True)
 
 class BLENRIG_PT_baking(bpy.types.Panel):
     bl_label = "Advanced Baking"
