@@ -1947,8 +1947,8 @@ bpy.types.PoseBone.SMILE_LIMIT = FloatProperty(
 )
 
 bpy.types.PoseBone.U_M_CTRL_LIMIT = FloatProperty(
-    default=0.000,
-    min=0.000,
+    default=0.02,
+    min=0.0001,
     max=1.000,
     precision=3,
     description="Transformation amount for U_M controllers",
