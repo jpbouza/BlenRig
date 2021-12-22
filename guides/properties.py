@@ -175,7 +175,7 @@ class BlenrigGuideData(PropertyGroup):
     name="Nose Frown Limit"
     )
     #Mouth U_O_M
-    guide_u_o_m : FloatProperty(default=0.000, min=0.000, max=10.000, precision=3,
+    guide_u_o_m : FloatProperty(default=0.02, min=0.0001, max=1.000, precision=3,
     description="Define the maximum amount of movement of the U vowel controller",
     update=u_o_m_update,
     name="U_O_M Limit"
