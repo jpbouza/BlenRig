@@ -72,7 +72,18 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
             bmesh.update_edit_mesh(active_obj.data)
         return {'FINISHED'}
 
-    def center_loop_cage():
+def append_attribute_to_obj(obj, attribute, value):
+    v = str(value.x) + " " + str(value.y) + " " + str(value.z)
+    obj[attribute] = str(v)
+
+
+class BLENRIG_OT_center_loop_cage(bpy.types.Operator):
+    bl_idname = "blenrig.center_loop_cage"
+    bl_label = "Center loop Cage"
+    bl_description = "Center loop Cage"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):    
         active_obj = bpy.context.active_object
         bpy.ops.mesh.select_all(action='DESELECT')
         nombre_vertex_group = 'center_loop'
@@ -87,7 +98,4 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
             vert.select = False
             bm.normal_update()
             bmesh.update_edit_mesh(active_obj.data)
-
-def append_attribute_to_obj(obj, attribute, value):
-    v = str(value.x) + " " + str(value.y) + " " + str(value.z)
-    obj[attribute] = str(v)
+        return {'FINISHED'}

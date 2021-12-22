@@ -1,5 +1,5 @@
 import bpy
-from ...snap_points import BLENRIG_OT_SnapPoints
+from ...snap_points import BLENRIG_OT_SnapPoints,BLENRIG_OT_center_loop_cage
 
 class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
     bl_label = "Cage_snapping"
@@ -45,8 +45,10 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
             sub.prop(mesh, "use_mirror_x",text= "X-Mirror")
             row.prop(mesh, "use_mirror_topology")
             col.operator("blenrig.snap_points", text="Ajust Cage", icon="NONE")
+            col.operator("blenrig.center_loop_cage", text="Center loop Cage", icon="NONE")
             row = layout.row(heading="Distance Cage")
             row.prop(props,"ajust_distance_cage",text="value")
+            
             # row =layout.column()
             # row =layout.row()
             # row = layout.row(heading="Smooth Cage")            

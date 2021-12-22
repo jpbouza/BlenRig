@@ -2463,7 +2463,7 @@ from .ui.panels.ui_legacy_panel_controls import BLENRIG_PT_legacy_blenrig_5_Inte
 from .ui.panels.ui_panel_blenrig import BLENRIG_PT_blenrig_6_general,BLENRIG_PT_blenrig_6_general_SubPanel
 from .ui.panels.ui_panel_controls import BLENRIG_PT_blenrig_6_Interface
 from .ui.panels.ui_legacy_panel_controls_1_5 import BLENRIG_PT_legacy_blenrig_5_5_Interface
-from .snap_points import BLENRIG_OT_SnapPoints
+from .snap_points import BLENRIG_OT_SnapPoints,BLENRIG_OT_center_loop_cage
 from .ui.panels.cage_snapping_panel import BLENRIG_PT_Cage_snapping_panel
 
 ####### Load BlenRig 6 Rigging Panel
@@ -3880,6 +3880,7 @@ panels_classes = [
     BLENRIG_PT_legacy_blenrig_5_5_Interface,
     BLENRIG_PT_legacy_blenrig_5_Interface,
     BLENRIG_OT_SnapPoints,
+    BLENRIG_OT_center_loop_cage,
     blenrig_6_props,
     BLENRIG_PT_legacy_blenrig_5_rigging_panel,
     BLENRIG_PT_blenrig_6_mesh_panel,
