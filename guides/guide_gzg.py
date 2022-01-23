@@ -10,8 +10,8 @@ class BLENRIG_GZG_guide(GZG):
     bl_region_type = 'WINDOW'
     bl_options = {'PERSISTENT', 'SHOW_MODAL_ALL'}
 
-    modes = {'POSE', 'OBJECT', 'EDIT'}
-    object_types = {'ARMATURE'}
+    #modes = {'POSE', 'OBJECT', 'EDIT'}
+    #object_types = {'ARMATURE'}
 
     _instance = None
 
@@ -21,10 +21,10 @@ class BLENRIG_GZG_guide(GZG):
             return False
         if ctx.area.type != 'VIEW_3D':
             return False
-        if cls.object_types and ctx.active_object.type not in cls.object_types:
-            return False
-        if cls.modes and ctx.mode not in cls.modes:
-            return False
+        #if cls.object_types and ctx.active_object.type not in cls.object_types:
+        #    return False
+        #if cls.modes and ctx.mode not in cls.modes:
+        #    return False
         #print(ctx.scene.blenrig_guide.enabled)
         return ctx.scene.blenrig_guide.enabled
 
