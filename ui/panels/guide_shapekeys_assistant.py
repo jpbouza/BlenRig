@@ -10,7 +10,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
 
     def draw(self, context):
-        if not VIEW3D_OT_blenrig_guide_shapekeys.is_instantiated():
+        if not VIEW3D_OT_blenrig_guide_shapekeys.is_instantiated(context):
             return
 
         guide_props = context.scene.blenrig_guide

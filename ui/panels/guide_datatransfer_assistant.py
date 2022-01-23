@@ -10,7 +10,7 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
 
     def draw(self, context):
-        if not VIEW3D_OT_blenrig_guide_datatransfer.is_instantiated():
+        if not VIEW3D_OT_blenrig_guide_datatransfer.is_instantiated(context):
             return
 
         guide_props = bpy.context.scene.blenrig_guide

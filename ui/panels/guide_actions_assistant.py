@@ -12,7 +12,7 @@ class BLENRIG_PT_actions_guide(BLENRIG_PT_guide_assistant):
     def draw(self, context):
         # Primero verificamos que la guía esté activa. Sino... un return para parar el dibujado.
         # NOTE: mejor podemos ponerlo en un poll { return VIEW3D_OT_blenrig_guide_actions.is_instantiated() }
-        if not VIEW3D_OT_blenrig_guide_actions.is_instantiated():
+        if not VIEW3D_OT_blenrig_guide_actions.is_instantiated(context):
             return
 
         arm_obj_props = context.scene.blenrig_guide

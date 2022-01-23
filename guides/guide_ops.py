@@ -44,8 +44,12 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
     ''' Check Instance Owner. '''
     @classmethod
-    def is_instantiated(cls):
-        return isinstance(BlenrigGuide_BaseOperator.instance, cls)
+    def is_instantiated(cls, context=bpy.context):
+        if USE_MODAL:
+            return isinstance(BlenrigGuide_BaseOperator.instance, cls)
+        else: # USE_GIZMO:
+            blenrig_guide = context.scene.blenrig_guide
+            return blenrig_guide.enabled and cls.guide_name == blenrig_guide.active_guide_name
 
     ''' Initialization. '''
     @classmethod

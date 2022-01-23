@@ -84,6 +84,7 @@ class BlenrigGuideData(PropertyGroup):
 
     enabled : BoolProperty(default=False)
     active_guide_id : StringProperty(default='', update=update)
+    active_guide_name : StringProperty(default='')
 
     def enable(self, guide_id: 'GuideSteps' or 'BlenrigGuide_BaseOperator' or str, start_step: int = 0):
         DEBUG("GuideData::enable (%s)" % str(guide_id))
@@ -104,12 +105,14 @@ class BlenrigGuideData(PropertyGroup):
             DEBUG("GuideData::enable >> invalid type for guide idname")
             return
         self.enabled = True
+        self.active_guide_name = guide_id
         self.active_guide_id = '%s#%s' % (guide_id, start_step)
 
     def disable(self):
         DEBUG("GuideData::disable")
         self.enabled = False
         self.active_guide_id = ''
+        self.active_guide_name = ''
 
     ##########################################
 
