@@ -266,6 +266,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         if step < 0 or step > self.max_step_index:
             DEBUG("\t>> cancel")
             return False
+        self.bones_to_display.clear() # Force to clear bones to display.
         self.step = step
         if self.step == self.max_step_index:
             self.button_text = 'Close'
