@@ -218,10 +218,10 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         self.load_step_imagen(context, step_data['imagen'])
         if step_data['accion']:
             if not hasattr(context, 'scene') or not hasattr(context, 'space_data') or context.scene==None or context.space_data==None:
-                #def call_action_safe_context():
-                #    step_data['accion'](self, bpy.context)
-                #BLENRIG_WG_guide.time_fun(call_action_safe_context, time=0.01)
-                self.needs_call_action_safe = True
+                def call_action_safe_context():
+                    step_data['accion'](self, bpy.context)
+                BLENRIG_WG_guide.time_fun(call_action_safe_context, time=0.01)
+                
             else:
                 step_data['accion'](self, context)
         DEBUG("GZ::load_step >> end")
