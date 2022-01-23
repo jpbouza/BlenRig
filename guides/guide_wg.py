@@ -5,6 +5,8 @@ import bpy
 from mathutils import Vector
 from bpy.app import timers
 from bpy import ops as OP
+from bpy.types import Operator
+from bpy.props import IntProperty, StringProperty, BoolProperty
 
 from . text import SetSizeGetDim
 from . traductor import texts_dict as dictionary
@@ -21,6 +23,64 @@ from . guide_ops import ModalReturn
 from . dev import DEBUG
 
 counter = 0
+
+
+# Este Operator ejecuta la acción de la guía y step que le digas.
+class BlenrigGuide_SafeCallStepAction(Operator):
+    bl_label = "Call Step Action within a safe context"
+    bl_idname = 'blenrig_guide.safe_call_step_action'
+
+    guide_id : StringProperty(default='')
+    step : IntProperty(default=0)
+
+    end_action : BoolProperty(default=False)
+
+    @classmethod
+    def poll(cls, ctx):
+        if ctx.active_object is None:
+            return False
+        return ctx.scene.blenrig_guide.enabled
+
+    def invoke(self, context, event):
+        from . guide_gz import BLENRIG_GZ_guide as Gizmo
+        gz = Gizmo.get()
+        if not gz:
+            DEBUG("ERROR! Could not call the guide action, gizmo not found!")
+            return ModalReturn.FINISH()
+        guide_steps, guide_endstep_action = GuideSteps.get(self.guide_id)
+        if self.end_action:
+            DEBUG("* Executing '%s' end-step action *" % (self.guide_id))
+            guide_endstep_action(context)
+        else:
+            DEBUG("* Executing '%s' ( Step-%i ) action *" % (self.guide_id, self.step))
+            guide_steps[self.step]['accion'](gz, context)
+        return ModalReturn.FINISH()
+
+# Este Operator carga las imagenes de la guía y step indicados, en un contexto seguro.
+class BlenrigGuide_SafeLoadStepImages(Operator):
+    bl_label = "Load Step Images within a safe context"
+    bl_idname = 'blenrig_guide.safe_load_step_images'
+
+    guide_id : StringProperty(default='')
+    step : IntProperty(default=0)
+
+    @classmethod
+    def poll(cls, ctx):
+        if ctx.active_object is None:
+            return False
+        return ctx.scene.blenrig_guide.enabled
+
+    def invoke(self, context, event):
+        from . guide_gz import BLENRIG_GZ_guide as Gizmo
+        gz = Gizmo.get()
+        if not gz:
+            DEBUG("ERROR! Could not load step images, gizmo not found!")
+            return ModalReturn.FINISH()
+        context.area.tag_redraw()
+        guide_steps, _ = GuideSteps.get(self.guide_id)
+        DEBUG("* Loading '%s' ( Step-%i ) images *" % (self.guide_id, self.step))
+        gz.load_step_imagen(context, guide_steps[self.step]['imagen'])
+        return ModalReturn.FINISH()
 
 
 class BlenrigGuideFunctions:
@@ -122,6 +182,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         from . guides import GuideSteps
         guide_props = ctx.scene.blenrig_guide
         guide_id, step = guide_props.active_guide_id.split('#')
+        self.guide_id = guide_id
         guide_steps, guide_endstep_action = GuideSteps.get(guide_id)
         self.guide_steps = guide_steps
         self.step = int(step)
@@ -135,11 +196,12 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
                     for reg in area.regions:
                         if reg.type == 'WINDOW':
                             reg.tag_redraw()
-            if not self.load_step(bpy.context, self.step):
+            if not self.load_step(None, self.step):
                 DEBUG("Guide could not be loaded [update]")
                 guide_props.disable()
             return
         BLENRIG_WG_guide.time_fun(load, time=0.01)
+
         DEBUG("GZ::update >> end")
 
     def get_trans(self):
@@ -215,15 +277,29 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         step_data = self.guide_steps[self.step]
         self.title = str(self.step + 1) + '- ' + (step_data['titulo'][self.language]).upper()
         self.text = step_data['texto'][self.language]
-        self.load_step_imagen(context, step_data['imagen'])
-        if step_data['accion']:
-            if not hasattr(context, 'scene') or not hasattr(context, 'space_data') or context.scene==None or context.space_data==None:
-                def call_action_safe_context():
-                    step_data['accion'](self, bpy.context)
-                BLENRIG_WG_guide.time_fun(call_action_safe_context, time=0.01)
-                
-            else:
-                step_data['accion'](self, context)
+        if not context or not hasattr(context, 'scene') or not hasattr(context, 'space_data') or context.scene==None or context.space_data==None:
+            #def call_action_safe_context():
+            #    step_data['accion'](self, bpy.context)
+            #BLENRIG_WG_guide.time_fun(call_action_safe_context, time=0.01)
+
+            for window in bpy.context.window_manager.windows:
+                screen = window.screen
+                for area in screen.areas:
+                    if area.type == 'VIEW_3D':
+                        override_context = {'window': window, 'screen': screen, 'area': area}
+                        break
+            execution_context = 'INVOKE_DEFAULT'
+            undo = False
+            args = (override_context, execution_context, undo)
+            kwargs = {
+                'guide_id' : self.guide_id,
+                'step' : self.step
+            }
+            bpy.ops.blenrig_guide.safe_load_step_images(*args, **kwargs)
+            bpy.ops.blenrig_guide.safe_call_step_action(*args, **kwargs)
+        else:
+            self.load_step_imagen(context, step_data['imagen'])
+            step_data['accion'](self, context)
         DEBUG("GZ::load_step >> end")
         return True
 
@@ -252,24 +328,25 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
             return ModalReturn.PASS()
 
         mpos = self.__class__.get_cursor(evt)
-           
+
         if inside(mpos, self.x_button_pos , [self.button_size.y]*2):
             DEBUG("CLOSE GUIDE!")
+            self.end_of_step_action(ctx)
             self.finish(ctx)
             return ModalReturn.FINISH()
 
         if self.next_button_enabled and inside(mpos, self.next_button_pos , self.button_size):
-            if not self.load_next_step(ctx):
-                return ModalReturn.FINISH()
-            self.end_of_step_action(ctx)
             ctx.region.tag_redraw()
+            if not self.load_next_step(ctx):
+                self.end_of_step_action(ctx)
+                return ModalReturn.FINISH()
             return ModalReturn.FINISH()
 
         if self.prev_button_enabled and inside(mpos, self.prev_button_pos , self.button_size):
-            if not self.load_prev_step(ctx):
-                return ModalReturn.FINISH()
-            self.end_of_step_action(ctx)
             ctx.region.tag_redraw()
+            if not self.load_prev_step(ctx):
+                self.end_of_step_action(ctx)
+                return ModalReturn.FINISH()
             return ModalReturn.FINISH()
 
         return ModalReturn.PASS()
@@ -280,6 +357,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
             self.stop_image_timer()
         context.scene.blenrig_guide.disable()
         context.area.tag_redraw()
+
 
     def draw(self, context):
         draw_callback_px(self, context)

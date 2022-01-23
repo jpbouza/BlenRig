@@ -38,8 +38,11 @@ def register():
     # Registrar clases de gizmos.
     from . guide_gzg import BLENRIG_GZG_guide
     from . guide_gz import BLENRIG_GZ_guide
+    from . guide_wg import BlenrigGuide_SafeCallStepAction, BlenrigGuide_SafeLoadStepImages
     register_class(BLENRIG_GZG_guide)
     register_class(BLENRIG_GZ_guide)
+    register_class(BlenrigGuide_SafeCallStepAction)
+    register_class(BlenrigGuide_SafeLoadStepImages)
 
     # Registrar PANELes y OPERATORs. 
     from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
@@ -124,8 +127,11 @@ def unregister():
     # Unregister gizmos.
     from . guide_gzg import BLENRIG_GZG_guide
     from . guide_gz import BLENRIG_GZ_guide
+    from . guide_wg import BlenrigGuide_SafeCallStepAction, BlenrigGuide_SafeLoadStepImages
     unregister_class(BLENRIG_GZG_guide)
     unregister_class(BLENRIG_GZ_guide)
+    unregister_class(BlenrigGuide_SafeCallStepAction)
+    unregister_class(BlenrigGuide_SafeLoadStepImages)
 
     # Unregister Operators.
     from .panel import BlenRigGuidePanel, BlenRigGuidePanel_options

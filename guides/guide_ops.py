@@ -29,7 +29,6 @@ class ModalReturn(Enum):
 ########################
 #### Base Operator. ####
 
-
 class BlenrigGuide_BaseOperator(bpy.types.Operator):
     bl_description = "Run Blenrig interactive guide and show it inside 3d viewport"
 
