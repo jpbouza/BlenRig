@@ -40,5 +40,12 @@ class GuideSteps(Enum):
     def get_steps(cls, operator: 'BlenrigGuide_BaseOperator') -> tuple:
         return getattr(cls, operator.guide_name.upper())()
 
+    @classmethod
+    def get(cls,  idname: str) -> tuple:
+        return getattr(cls, idname.upper(), None)()
+
     def __call__(self) -> tuple:
         return self.value
+    
+    def get_id(self) -> str:
+        return self.name

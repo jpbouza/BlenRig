@@ -3,6 +3,8 @@ from bpy.types import PropertyGroup, Object, Image
 from bpy.props import *
 from . traductor import languages
 from . utils import *
+from . dev import DEBUG
+
 
 class BlenRigBodyObj(PropertyGroup):
     character_body_obj : PointerProperty(type=Object)
@@ -24,15 +26,106 @@ class BlenrigGuideImages(PropertyGroup):
     image : PointerProperty(type=Image)
 
 class BlenrigGuideData(PropertyGroup):
+
+    ##########################################
+
+    '''
+    def init(self, context, gz: 'BLENRIG_GZ_guide' = None):
+        print("GUIDE::init")
+        if not self.enabled:
+            return
+        if not self.active_guide_id:
+            return
+        if not gz:
+            from . guide_gz import BLENRIG_GZ_guide
+            gz = BLENRIG_GZ_guide.get()
+            if not gz:
+                print("No Gizmo, it will init data once it is instanciated!")
+                return
+        from . guides import GuideSteps
+        guide_id, step = self.active_guide_id.split('#')
+        guide_steps, guide_endstep_action = GuideSteps.get(guide_id)
+        gz.guide_steps = guide_steps
+        gz.max_step_index = len(guide_steps) - 1
+        gz.guide_name = guide_id.lower()
+        gz.end_of_step_action = guide_endstep_action
+        gz.load_step(context, int(step))
+
+        #from . guide_wg import BLENRIG_WG_guide
+        #BLENRIG_WG_guide.time_fun(
+        #    ,
+        #    time=0.5
+        #)
+    '''
+
+    def update(self, context):
+        if not self.enabled:
+            return
+        if not self.active_guide_id:
+            return
+        DEBUG("GuideData::update")
+        from . guide_gz import BLENRIG_GZ_guide
+        gz = BLENRIG_GZ_guide.get()
+        if not gz:
+            DEBUG("\t|- No Gizmo detected!")
+            return
+        gz.needs_update = True
+        return
+        #gz.init(context, update=True)
+        from . guides import GuideSteps
+        guide_id, step = self.active_guide_id.split('#')
+        guide_steps, guide_endstep_action = GuideSteps.get(guide_id)
+        gz.guide_steps = guide_steps
+        gz.max_step_index = len(guide_steps) - 1
+        gz.guide_name = guide_id.lower()
+        gz.end_of_step_action = guide_endstep_action
+        gz.load_step(context, int(step))
+        DEBUG("GuideData::update >> end")
+
+    enabled : BoolProperty(default=False)
+    active_guide_id : StringProperty(default='', update=update)
+
+    def enable(self, guide_id: 'GuideSteps' or 'BlenrigGuide_BaseOperator' or str, start_step: int = 0):
+        DEBUG("GuideData::enable (%s)" % str(guide_id))
+        from . guides import GuideSteps
+        from . guide_ops import BlenrigGuide_BaseOperator
+        if isinstance(guide_id, str):
+            if hasattr(GuideSteps, guide_id.upper()):
+                guide_id = guide_id.upper()
+            else:
+                DEBUG("GuideData::enable >> invalid string for guide idname")
+                return
+        elif isinstance(guide_id, GuideSteps):
+            guide_id = guide_id.get_id()
+        elif isinstance(guide_id, BlenrigGuide_BaseOperator):
+            start_step = guide_id.step
+            guide_id = guide_id.guide_name
+        else:
+            DEBUG("GuideData::enable >> invalid type for guide idname")
+            return
+        self.enabled = True
+        self.active_guide_id = '%s#%s' % (guide_id, start_step)
+
+    def disable(self):
+        DEBUG("GuideData::disable")
+        self.enabled = False
+        self.active_guide_id = ''
+
+    ##########################################
+
     # TODO: Port to PyGPU.
     def load_image(self, idx: int = 0):
-        if idx < len(self.images):
-            img = self.images[idx].image
-            if img:
-                img.gl_load()
-                self.active_image = img
+        DEBUG("GuideData::load_image (%i)" % idx)
+        if idx >= len(self.images) or idx < 0:
+            return
+        img = self.images[idx].image
+        if not img:
+            return
+        img.gl_load()
+        self.active_image = img
 
     def load_next_image(self):
+        DEBUG("GuideData::load_next_image")
         if self.image_index == (len(self.images)-1):
             self.image_index = 0
         else:
@@ -40,7 +133,9 @@ class BlenrigGuideData(PropertyGroup):
         self.load_image(self.image_index)
 
     def add_image(self, img: Image = None):
+        DEBUG("GuideData::add_image (%s)" % str(img))
         if not img or not isinstance(img, Image):
+            DEBUG("\t|- Could not add image, invalid or null!")
             return
         if not self.active_image:
             img.gl_load()
@@ -49,8 +144,11 @@ class BlenrigGuideData(PropertyGroup):
         container.image = img
 
     def clear_images(self):
-        while self.images:
+        nimages = len(self.images)
+        DEBUG("GuideData::clear_images (%i)" % nimages)
+        while nimages > 0: # self.images:
             self.images.remove(0)
+            nimages -= 1
         self.active_image = None
         self.image_index = 0
 

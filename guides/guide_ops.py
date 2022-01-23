@@ -1,3 +1,4 @@
+from ast import Not
 from enum import Enum
 
 import bpy
@@ -8,6 +9,7 @@ from . draw import draw_callback_px
 from . utils import set_mode, inside, get_armature_object, load_guide_image, get_armature_object, get_viewport_resolution
 from . traductor import texts_dict
 from . guides import GuideSteps
+from . dev import USE_MODAL, DEBUG
 
 
 #########################
@@ -73,6 +75,13 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         # para que otras partes de la guia, como las diferentes actions, puedan hacer uso de este.
         if not get_armature_object(context):
             return ModalReturn.CANCEL()
+
+        if not USE_MODAL:
+            #############################
+            context.scene.blenrig_guide.enable(self)
+            context.area.tag_redraw()
+            return ModalReturn.FINISH()
+            #############################
 
         context.scene.blenrig_guide.obj = context.active_object
         self.timer = None
@@ -161,7 +170,6 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         self.prev_button_enabled = step != 0
         if self.timer:
             context.window_manager.event_timer_remove(self.timer)
-            #print("Remove Timer")
         step_data = self.guide_steps[self.step]
         self.title = str(self.step + 1) + '- ' + (step_data['titulo'][self.language]).upper()
         self.text = step_data['texto'][self.language]

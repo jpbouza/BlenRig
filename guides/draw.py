@@ -17,6 +17,9 @@ def draw_callback_px(self, context):
     except ReferenceError as e:
         print(e)
         return
+    if not context or not hasattr(context, 'area') or not context.area or not hasattr(context, 'scene') or context.scene == None:
+        print("Unsafe context!")
+        return
     arm_obj = get_armature_object(context)
     if not arm_obj:
         return
@@ -46,7 +49,8 @@ def draw_callback_px(self, context):
     # Imagen.
     bgl.glEnable(bgl.GL_BLEND)
     Draw_Rectangle(self.widget_pos+Vector((0, self.text_box_height)), self.image_size, (0, 0, 0, .9))
-    Draw_Image(self.widget_pos+Vector((5, self.text_box_height+5)), self.image_size-Vector((10, 10)), guide_props.active_image)
+    if guide_props.active_image:
+        Draw_Image(self.widget_pos+Vector((5, self.text_box_height+5)), self.image_size-Vector((10, 10)), guide_props.active_image)
 
     # Caja de texto.
     s = Vector((self.widget_size.x, self.text_box_height))

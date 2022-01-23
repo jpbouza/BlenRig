@@ -238,6 +238,8 @@ def orbit_viewpoint(value, direction='ORBITLEFT'):
      bpy.ops.view3d.view_orbit(angle=value, type=direction)
 
 def set_view_perspective(context, enable: bool):
+    if not context:
+        context = bpy.context
     if enable and not context.space_data.region_3d.is_perspective:
         bpy.ops.view3d.view_persportho()
     elif not enable and context.space_data.region_3d.is_perspective:
@@ -256,6 +258,7 @@ guides_dir = dirname(__file__)
 def load_guide_image(guide_name: str, img_name: str, ghost: bool = True):
     path = join(guides_dir, guide_name, 'images', img_name)
     if not exists(path) or not isfile(path):
+        print("[Blenrig-Guide] Could not load guide image!")
         return None
     img = bpy.data.images.load(path, check_existing=True)
     if ghost:

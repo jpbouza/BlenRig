@@ -13,6 +13,8 @@
 import bpy
 
 def register():
+    from bpy.utils import register_class
+    
     # Registrar los handlers.
     from . handlers import register as REGISTER_HANDLERS
     REGISTER_HANDLERS()
@@ -21,7 +23,6 @@ def register():
     from .properties import BlenrigGuideImages, BlenrigGuideData, BlenRigBodyObj, BlenRigJointChain, BlenRigWPBones, BlenRigShapekeysList
     from bpy.types import Scene as scn
     from bpy.props import PointerProperty as Pointer
-    from bpy.utils import register_class
     register_class(BlenrigGuideImages)
     register_class(BlenrigGuideData)
     scn.blenrig_guide = Pointer(type=BlenrigGuideData, name="Blenrig Guide")
@@ -34,6 +35,13 @@ def register():
     register_class(BlenRigShapekeysList)
     scn.blenrig_shapekeys_list = bpy.props.CollectionProperty(type=BlenRigShapekeysList, name='Active Shapekeys List for Shapekeys Editting')
 
+    # Registrar clases de gizmos.
+    from . guide_gzg import BLENRIG_GZG_guide
+    from . guide_gz import BLENRIG_GZ_guide
+    register_class(BLENRIG_GZG_guide)
+    register_class(BLENRIG_GZ_guide)
+
+    # Registrar PANELes y OPERATORs. 
     from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
     from .guide_ops import (
         VIEW3D_OT_blenrig_guide_reproportion,
@@ -107,9 +115,17 @@ def register():
     register_class(BlenRigGuidePanel)
 
 def unregister():
+    from bpy.utils import unregister_class
+
     # Unregister handlers.
     from . handlers import unregister as UNREGISTER_HANDLERS
     UNREGISTER_HANDLERS()
+
+    # Unregister gizmos.
+    from . guide_gzg import BLENRIG_GZG_guide
+    from . guide_gz import BLENRIG_GZ_guide
+    unregister_class(BLENRIG_GZG_guide)
+    unregister_class(BLENRIG_GZ_guide)
 
     # Unregister Operators.
     from .panel import BlenRigGuidePanel, BlenRigGuidePanel_options
@@ -135,7 +151,6 @@ def unregister():
     Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down, Operator_blenrig_snap_bone_to_cursor, Operator_blenrig_add_eyes_modifiers, Operator_blenrig_add_teeth_modifiers,
     Operator_Guide_Transfer_Test_Rig, Operator_blenrig_guide_edit_mdef_cage, Operator_blenrig_mirror_vertex_groups)
 
-    from bpy.utils import unregister_class
     unregister_class(BlenRigGuidePanel_options)
     unregister_class(BlenRigGuidePanel)
     unregister_class(VIEW3D_OT_blenrig_guide_reproportion)
