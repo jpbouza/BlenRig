@@ -131,7 +131,7 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
         if context.scene.blenrig_guide.guide_current_step == 'DT_Inner_Mouth':
             steps = layout.column(align=True)
             box_modifiers = steps.box()
-            box_modifiers.label(text='Eyes Deformation')
+            box_modifiers.label(text='Inner Mouth Deformation')
             box_modifiers.operator("blenrig.add_teeth_modifiers", text = 'Add Inner Mouth Modifiers')
         if context.scene.blenrig_guide.guide_current_step == 'DT_Clean_Symmetry':
             steps = layout.column(align=True)

@@ -206,7 +206,7 @@ class BlenrigGuideData(PropertyGroup):
             ("RIGSETTINGS", "Rig Settgins", "Show Steps Rig Settings", 'DOWNARROW_HLT', 6),
             ("SHAPEKEYS", "Shape Keys", "Show Steps Guide Shapekeys", 'DOWNARROW_HLT', 7),
         ),
-        name="Collision Shape",
+        name="Steps",
         description="Show Steps Guide",
         default="REPROPORTION",
         update=expand_steps
