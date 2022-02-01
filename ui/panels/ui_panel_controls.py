@@ -1,3 +1,5 @@
+from ...guides.utils import BL_Ver
+from click import utils
 import bpy
 from ...custom_selection import *
 
@@ -2413,7 +2415,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_head_props = col_sliders_R.row()
-                            row_head_props.scale_x = 2.5
+                            row_head_props.scale_x = BL_Ver(4, 2.5)
                             row_head_props.scale_y = 1
                             row_head_props.alignment = 'CENTER'
                             row_head_props.label(text="HEAD")
@@ -2428,7 +2430,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_sliders_R.separator()
 
                             row_head_props = col_sliders_R.row()
-                            row_head_props.scale_x = 2.5
+                            row_head_props.scale_x = BL_Ver(4, 2.5)
                             row_head_props.scale_y = 1
                             row_head_props.alignment = 'CENTER'
                             row_head_props.label(text="NECK")
@@ -2448,18 +2450,25 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_arm_R_props = col_sliders_R.row()
-                            row_arm_R_props.scale_x = 2.5
+                            row_arm_R_props.scale_x = BL_Ver(4, 2.5)
                             row_arm_R_props.scale_y = 1
                             row_arm_R_props.alignment = 'CENTER'
                             row_arm_R_props.label(text="ARM RIGHT")
                             row_fk = col_sliders_R.row(align=True)
                             row_fk.alignment = 'CENTER'
-                            row_fk.scale_x = 2
                             row_fk.scale_y = 1
-                            row_fk.operator("snap.arm_fk_to_ik_r", text = "", icon='PLAY_REVERSE', emboss=True)
-                            row_fk.label(text="{}".format("  FK" if arm_bones['properties_arm_R']['ik_arm_R'] == 1 else "  IK"),)
-                            row_fk.operator("snap.arm_ik_to_fk_r", text = "", icon='PLAY', emboss=True)
-                            col_prop = row_fk.column(align=True)
+                            row_fk_1 = row_fk.row()
+                            row_fk_1.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_1.operator("snap.arm_fk_to_ik_r", text = "", icon='PLAY_REVERSE', emboss=True)
+                            row_fk_2 = row_fk.row()
+                            row_fk_2.scale_x = BL_Ver(0.7, 0.7)
+                            row_fk_2.label(text="{}".format("  FK" if arm_bones['properties_arm_R']['ik_arm_R'] == 1 else "  IK"),)
+                            row_fk_3 = row_fk.row()
+                            row_fk_3.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_3.operator("snap.arm_ik_to_fk_r", text = "", icon='PLAY', emboss=True)
+                            row_fk_4 = row_fk.row()
+                            row_fk_4.scale_x = BL_Ver(2, 2)
+                            col_prop = row_fk_4.column(align=True)
                             col_prop.scale_x = 0.6
                             col_prop.prop(arm_bones['properties_arm_R'], 'ik_arm_R', toggle=True, icon_only = 1, emboss = 1)
                             row_switch = col_sliders_R.row(align=True)
@@ -2473,7 +2482,11 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop = row_switch.column(align=True)
                             col_prop.scale_x = 0.5
                             col_prop.prop(arm_bones['properties_arm_R'], 'space_arm_R', toggle=True, icon_only = 1, emboss = 1)
-                            col_sliders_R.prop(arm_bones['properties_arm_R'], 'toon_arm_R', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
+                            row_stretchy = col_sliders_R.row(align=True)
+                            row_stretchy.alignment = 'CENTER'
+                            row_stretchy.scale_x = 2.5
+                            row_stretchy.scale_y = 1
+                            row_stretchy.prop(arm_bones['properties_arm_R'], 'toon_arm_R', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_R.column()
                             col_space.scale_x = 2.5
@@ -2482,11 +2495,12 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_pole_R_props = col_sliders_R.row()
-                            row_pole_R_props.scale_x = 2.5
+                            row_pole_R_props.scale_x = BL_Ver(4, 2.5)
                             row_pole_R_props.scale_y = 1.5
                             row_pole_R_props.alignment = 'CENTER'
                             row_pole_R_props.label(text="ELBOW POLE")
-                            row_pole_R_props.prop(arm_bones['properties_arm_R'], 'toggle_arm_ik_pole_R', text = "")
+                            row_pole_R_prop = row_pole_R_props.row()
+                            row_pole_R_prop.prop(arm_bones['properties_arm_R'], 'toggle_arm_ik_pole_R', text = "")
                             row_switch = col_sliders_R.row(align=True)
                             row_switch.alignment = 'CENTER'
                             row_switch.scale_x = 2.5
@@ -2496,16 +2510,18 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop.scale_x = 0.5
                             col_prop.prop(arm_bones['properties_arm_R'], 'space_arm_ik_pole_R', toggle=True, icon_only = 1, emboss = 1)
                             row_pin = col_sliders_R.row(align=True)
-                            row_pin.scale_x = 2.2
+                            row_pin.scale_x = BL_Ver(3.8, 2.2)
                             row_pin.scale_y = 1
                             row_pin.alignment = 'CENTER'
                             row_pin.label(text="Pin Elbow")
+                            row_pin_op = row_pin.row()
+                            row_pin_op.scale_x = BL_Ver(1, 1.5)
                             if arm_bones['properties_arm_R']['pin_elbow_R'] < 0.1:
-                                row_pin.operator("pin.elbow_r", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
+                                row_pin_op.operator("pin.elbow_r", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
                             else:
-                                row_pin.operator("unpin.elbow_r", emboss= 0, icon = "CHECKBOX_HLT", text = "")
+                                row_pin_op.operator("unpin.elbow_r", emboss= 0, icon = "CHECKBOX_HLT", text = "")
                             col_prop = row_pin.column(align=True)
-                            col_prop.scale_x = 0.55
+                            col_prop.scale_x = BL_Ver(0.45, 0.55)
                             col_prop.prop(arm_bones['properties_arm_R'], 'pin_elbow_R', toggle=True, icon_only = 1, emboss = 1)
 
 
@@ -2516,7 +2532,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_hand_R_props = col_sliders_R.row()
-                            col_hand_R_props.scale_x = 2.5
+                            col_hand_R_props.scale_x = BL_Ver(4, 2.5)
                             col_hand_R_props.scale_y = 1
                             col_hand_R_props.alignment = 'CENTER'
                             col_hand_R_props.label(text="HAND RIGHT")
@@ -2541,7 +2557,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_fing_R_props = col_sliders_R.row()
-                            col_fing_R_props.scale_x = 2.5
+                            col_fing_R_props.scale_x = BL_Ver(4, 2.5)
                             col_fing_R_props.scale_y = 1
                             col_fing_R_props.alignment = 'CENTER'
                             col_fing_R_props.label(text="FINGERS")
@@ -2568,18 +2584,25 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_leg_R_props = col_sliders_R.row()
-                            col_leg_R_props.scale_x = 2.5
+                            col_leg_R_props.scale_x = BL_Ver(4, 2.5)
                             col_leg_R_props.scale_y = 1
                             col_leg_R_props.alignment = 'CENTER'
                             col_leg_R_props.label(text="LEG RIGHT")
                             row_fk = col_sliders_R.row(align=True)
                             row_fk.alignment = 'CENTER'
-                            row_fk.scale_x = 2
                             row_fk.scale_y = 1
-                            row_fk.operator("snap.leg_fk_to_ik_r", text = "", icon='PLAY_REVERSE', emboss=True)
-                            row_fk.label(text="{}".format("FK" if arm_bones['properties_leg_R']['ik_leg_R'] == 1 else "IK"))
-                            row_fk.operator("snap.leg_ik_to_fk_r", text = "", icon='PLAY', emboss=True)
-                            col_prop = row_fk.column(align=True)
+                            row_fk_1 = row_fk.row()
+                            row_fk_1.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_1.operator("snap.leg_fk_to_ik_r", text = "", icon='PLAY_REVERSE', emboss=True)
+                            row_fk_2 = row_fk.row()
+                            row_fk_2.scale_x = BL_Ver(0.7, 0.7)
+                            row_fk_2.label(text="{}".format("  FK" if arm_bones['properties_leg_R']['ik_leg_R'] == 1 else "  IK"))
+                            row_fk_3 = row_fk.row()
+                            row_fk_3.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_3.operator("snap.leg_ik_to_fk_r", text = "", icon='PLAY', emboss=True)
+                            row_fk_4 = row_fk.row()
+                            row_fk_4.scale_x = BL_Ver(2, 2)
+                            col_prop = row_fk_4.column(align=True)
                             col_prop.scale_x = 0.6
                             col_prop.prop(arm_bones['properties_leg_R'], 'ik_leg_R', toggle=True, icon_only = 1, emboss = 1)
                             row_switch = col_sliders_R.row(align=True)
@@ -2590,7 +2613,11 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop = row_switch.column(align=True)
                             col_prop.scale_x = 0.6
                             col_prop.prop(arm_bones['properties_leg_R'], 'space_leg_R', toggle=True, icon_only = 1, emboss = 1)
-                            col_sliders_R.prop(arm_bones['properties_leg_R'], 'toon_leg_R', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
+                            row_stretchy = col_sliders_R.row(align=True)
+                            row_stretchy.alignment = 'CENTER'
+                            row_stretchy.scale_x = 2.5
+                            row_stretchy.scale_y = 1
+                            row_stretchy.prop(arm_bones['properties_leg_R'], 'toon_leg_R', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_R.column()
                             col_space.scale_x = 2.5
@@ -2599,11 +2626,12 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_pole_R_props = col_sliders_R.row()
-                            row_pole_R_props.scale_x = 2.5
+                            row_pole_R_props.scale_x = BL_Ver(4, 2.5)
                             row_pole_R_props.scale_y = 1.5
                             row_pole_R_props.alignment = 'CENTER'
                             row_pole_R_props.label(text="KNEE POLE")
-                            row_pole_R_props.prop(arm_bones['properties_leg_R'], 'toggle_leg_ik_pole_R', text = "")
+                            row_pole_R_prop = row_pole_R_props.row()
+                            row_pole_R_prop.prop(arm_bones['properties_leg_R'], 'toggle_leg_ik_pole_R', text = "")
                             row_switch = col_sliders_R.row(align=True)
                             row_switch.alignment = 'CENTER'
                             row_switch.scale_x = 2.5
@@ -2614,16 +2642,18 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop.scale_x = 0.5
                             col_prop.prop(arm_bones['properties_leg_R'], 'space_leg_ik_pole_R', toggle=True, icon_only = 1, emboss = 1)
                             row_pin = col_sliders_R.row(align=True)
-                            row_pin.scale_x = 2.2
+                            row_pin.scale_x = BL_Ver(3.8, 2.2)
                             row_pin.scale_y = 1
                             row_pin.alignment = 'CENTER'
                             row_pin.label(text="Pin Knee")
+                            row_pin_op = row_pin.row()
+                            row_pin_op.scale_x = BL_Ver(1, 1.5)
                             if arm_bones['properties_leg_R']['pin_knee_R'] < 0.1:
-                                row_pin.operator("pin.knee_r", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
+                                row_pin_op.operator("pin.knee_r", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
                             else:
-                                row_pin.operator("unpin.knee_r", emboss= 0, icon = "CHECKBOX_HLT", text = "")
+                                row_pin_op.operator("unpin.knee_r", emboss= 0, icon = "CHECKBOX_HLT", text = "")
                             col_prop = row_pin.column(align=True)
-                            col_prop.scale_x = 0.55
+                            col_prop.scale_x = BL_Ver(0.45, 0.55)
                             col_prop.prop(arm_bones['properties_leg_R'], 'pin_knee_R', toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_R.column()
@@ -2633,7 +2663,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_foot_R_props = col_sliders_R.row()
-                            col_foot_R_props.scale_x = 2.5
+                            col_foot_R_props.scale_x = BL_Ver(4, 2.5)
                             col_foot_R_props.scale_y = 1
                             col_foot_R_props.alignment = 'CENTER'
                             col_foot_R_props.label(text="TOES")
@@ -2653,18 +2683,25 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_arm_L_props = col_sliders_L.row()
-                            row_arm_L_props.scale_x = 2.5
+                            row_arm_L_props.scale_x = BL_Ver(4, 2.5)
                             row_arm_L_props.scale_y = 1
                             row_arm_L_props.alignment = 'CENTER'
                             row_arm_L_props.label(text="ARM LEFT")
                             row_fk = col_sliders_L.row(align=True)
                             row_fk.alignment = 'CENTER'
-                            row_fk.scale_x = 2
                             row_fk.scale_y = 1
-                            row_fk.operator("snap.arm_fk_to_ik_l", text = "", icon='PLAY_REVERSE', emboss=True)
-                            row_fk.label(text="{}".format("  FK" if arm_bones['properties_arm_L']['ik_arm_L'] == 1 else "  IK"),)
-                            row_fk.operator("snap.arm_ik_to_fk_l", text = "", icon='PLAY', emboss=True)
-                            col_prop = row_fk.column(align=True)
+                            row_fk_1 = row_fk.row()
+                            row_fk_1.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_1.operator("snap.arm_fk_to_ik_l", text = "", icon='PLAY_REVERSE', emboss=True)
+                            row_fk_2 = row_fk.row()
+                            row_fk_2.scale_x = BL_Ver(0.7, 0.7)
+                            row_fk_2.label(text="{}".format("  FK" if arm_bones['properties_arm_L']['ik_arm_L'] == 1 else "  IK"),)
+                            row_fk_3 = row_fk.row()
+                            row_fk_3.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_3.operator("snap.arm_ik_to_fk_l", text = "", icon='PLAY', emboss=True)
+                            row_fk_4 = row_fk.row()
+                            row_fk_4.scale_x = BL_Ver(2, 2)
+                            col_prop = row_fk_4.column(align=True)
                             col_prop.scale_x = 0.6
                             col_prop.prop(arm_bones['properties_arm_L'], 'ik_arm_L', toggle=True, icon_only = 1, emboss = 1)
                             row_switch = col_sliders_L.row(align=True)
@@ -2678,7 +2715,11 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop = row_switch.column(align=True)
                             col_prop.scale_x = 0.5
                             col_prop.prop(arm_bones['properties_arm_L'], 'space_arm_L', toggle=True, icon_only = 1, emboss = 1)
-                            col_sliders_L.prop(arm_bones['properties_arm_L'], 'toon_arm_L', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
+                            row_stretchy = col_sliders_L.row(align=True)
+                            row_stretchy.alignment = 'CENTER'
+                            row_stretchy.scale_x = 2.5
+                            row_stretchy.scale_y = 1
+                            row_stretchy.prop(arm_bones['properties_arm_L'], 'toon_arm_L', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_L.column()
                             col_space.scale_x = 2.5
@@ -2687,11 +2728,12 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_pole_L_props = col_sliders_L.row()
-                            row_pole_L_props.scale_x = 2.5
+                            row_pole_L_props.scale_x = BL_Ver(4, 2.5)
                             row_pole_L_props.scale_y = 1.5
                             row_pole_L_props.alignment = 'CENTER'
                             row_pole_L_props.label(text="ELBOW POLE")
-                            row_pole_L_props.prop(arm_bones['properties_arm_L'], 'toggle_arm_ik_pole_L', text = "")
+                            row_pole_L_prop = row_pole_L_props.row()
+                            row_pole_L_prop.prop(arm_bones['properties_arm_L'], 'toggle_arm_ik_pole_L', text = "")
                             row_switch = col_sliders_L.row(align=True)
                             row_switch.alignment = 'CENTER'
                             row_switch.scale_x = 2.5
@@ -2701,16 +2743,18 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop.scale_x = 0.5
                             col_prop.prop(arm_bones['properties_arm_L'], 'space_arm_ik_pole_L', toggle=True, icon_only = 1, emboss = 1)
                             row_pin = col_sliders_L.row(align=True)
-                            row_pin.scale_x = 2.2
+                            row_pin.scale_x = BL_Ver(3.8, 2.2)
                             row_pin.scale_y = 1
                             row_pin.alignment = 'CENTER'
                             row_pin.label(text="Pin Elbow")
+                            row_pin_op = row_pin.row()
+                            row_pin_op.scale_x = BL_Ver(1, 1.5)
                             if arm_bones['properties_arm_L']['pin_elbow_L'] < 0.1:
-                                row_pin.operator("pin.elbow_l", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
+                                row_pin_op.operator("pin.elbow_l", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
                             else:
-                                row_pin.operator("unpin.elbow_l", emboss= 0, icon = "CHECKBOX_HLT", text = "")
+                                row_pin_op.operator("unpin.elbow_l", emboss= 0, icon = "CHECKBOX_HLT", text = "")
                             col_prop = row_pin.column(align=True)
-                            col_prop.scale_x = 0.55
+                            col_prop.scale_x = BL_Ver(0.45, 0.55)
                             col_prop.prop(arm_bones['properties_arm_L'], 'pin_elbow_L', toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_L.column()
@@ -2720,7 +2764,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_hand_L_props = col_sliders_L.row()
-                            col_hand_L_props.scale_x = 2.5
+                            col_hand_L_props.scale_x = BL_Ver(4, 2.5)
                             col_hand_L_props.scale_y = 1
                             col_hand_L_props.alignment = 'CENTER'
                             col_hand_L_props.label(text="HAND LEFT")
@@ -2745,7 +2789,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_fing_L_props = col_sliders_L.row()
-                            col_fing_L_props.scale_x = 2.5
+                            col_fing_L_props.scale_x = BL_Ver(4, 2.5)
                             col_fing_L_props.scale_y = 1
                             col_fing_L_props.alignment = 'CENTER'
                             col_fing_L_props.label(text="FINGERS")
@@ -2772,18 +2816,25 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_leg_L_props = col_sliders_L.row()
-                            col_leg_L_props.scale_x = 2.5
+                            col_leg_L_props.scale_x = BL_Ver(4, 2.5)
                             col_leg_L_props.scale_y = 1
                             col_leg_L_props.alignment = 'CENTER'
                             col_leg_L_props.label(text="LEG LEFT")
                             row_fk = col_sliders_L.row(align=True)
                             row_fk.alignment = 'CENTER'
-                            row_fk.scale_x = 2
                             row_fk.scale_y = 1
-                            row_fk.operator("snap.leg_fk_to_ik_l", text = "", icon='PLAY_REVERSE', emboss=True)
-                            row_fk.label(text="{}".format("FK" if arm_bones['properties_leg_L']['ik_leg_L'] == 1 else "IK"))
-                            row_fk.operator("snap.leg_ik_to_fk_l", text = "", icon='PLAY', emboss=True)
-                            col_prop = row_fk.column(align=True)
+                            row_fk_1 = row_fk.row()
+                            row_fk_1.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_1.operator("snap.leg_fk_to_ik_l", text = "", icon='PLAY_REVERSE', emboss=True)
+                            row_fk_2 = row_fk.row()
+                            row_fk_2.scale_x = BL_Ver(0.7, 0.7)
+                            row_fk_2.label(text="{}".format("FK" if arm_bones['properties_leg_L']['ik_leg_L'] == 1 else "IK"))
+                            row_fk_3 = row_fk.row()
+                            row_fk_3.scale_x = BL_Ver(2.1, 2.1)
+                            row_fk_3.operator("snap.leg_ik_to_fk_l", text = "", icon='PLAY', emboss=True)
+                            row_fk_4 = row_fk.row()
+                            row_fk_4.scale_x = BL_Ver(2, 2)
+                            col_prop = row_fk_4.column(align=True)
                             col_prop.scale_x = 0.6
                             col_prop.prop(arm_bones['properties_leg_L'], 'ik_leg_L', toggle=True, icon_only = 1, emboss = 1)
                             row_switch = col_sliders_L.row(align=True)
@@ -2794,7 +2845,11 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop = row_switch.column(align=True)
                             col_prop.scale_x = 0.6
                             col_prop.prop(arm_bones['properties_leg_L'], 'space_leg_L', toggle=True, icon_only = 1, emboss = 1)
-                            col_sliders_L.prop(arm_bones['properties_leg_L'], 'toon_leg_L', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
+                            row_stretchy = col_sliders_L.row(align=True)
+                            row_stretchy.alignment = 'CENTER'
+                            row_stretchy.scale_x = 2.5
+                            row_stretchy.scale_y = 1
+                            row_stretchy.prop(arm_bones['properties_leg_L'], 'toon_leg_L', text="Stretchy IK", toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_L.column()
                             col_space.scale_x = 2.5
@@ -2803,11 +2858,12 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             row_pole_L_props = col_sliders_L.row()
-                            row_pole_L_props.scale_x = 2.5
+                            row_pole_L_props.scale_x = BL_Ver(4, 2.5)
                             row_pole_L_props.scale_y = 1.5
                             row_pole_L_props.alignment = 'CENTER'
                             row_pole_L_props.label(text="KNEE POLE")
-                            row_pole_L_props.prop(arm_bones['properties_leg_L'], 'toggle_leg_ik_pole_L', text = "")
+                            row_pole_L_prop = row_pole_L_props.row()
+                            row_pole_L_prop.prop(arm_bones['properties_leg_L'], 'toggle_leg_ik_pole_L', text = "")
                             row_switch = col_sliders_L.row(align=True)
                             row_switch.alignment = 'CENTER'
                             row_switch.scale_x = 2.5
@@ -2818,16 +2874,18 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_prop.scale_x = 0.5
                             col_prop.prop(arm_bones['properties_leg_L'], 'space_leg_ik_pole_L', toggle=True, icon_only = 1, emboss = 1)
                             row_pin = col_sliders_L.row(align=True)
-                            row_pin.scale_x = 2.2
+                            row_pin.scale_x = BL_Ver(3.8, 2.2)
                             row_pin.scale_y = 1
                             row_pin.alignment = 'CENTER'
                             row_pin.label(text="Pin Knee")
+                            row_pin_op = row_pin.row()
+                            row_pin_op.scale_x = BL_Ver(1, 1.5)
                             if arm_bones['properties_leg_L']['pin_knee_L'] < 0.1:
-                                row_pin.operator("pin.knee_l", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
+                                row_pin_op.operator("pin.knee_l", emboss= 0, icon = "CHECKBOX_DEHLT", text = "")
                             else:
-                                row_pin.operator("unpin.knee_l", emboss= 0, icon = "CHECKBOX_HLT", text = "")
+                                row_pin_op.operator("unpin.knee_l", emboss= 0, icon = "CHECKBOX_HLT", text = "")
                             col_prop = row_pin.column(align=True)
-                            col_prop.scale_x = 0.55
+                            col_prop.scale_x = BL_Ver(0.45, 0.55)
                             col_prop.prop(arm_bones['properties_leg_L'], 'pin_knee_L', toggle=True, icon_only = 1, emboss = 1)
 
                             col_space = col_sliders_L.column()
@@ -2837,7 +2895,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                             col_space.separator()
 
                             col_foot_L_props = col_sliders_L.row()
-                            col_foot_L_props.scale_x = 2.5
+                            col_foot_L_props.scale_x = BL_Ver(4, 2.5)
                             col_foot_L_props.scale_y = 1
                             col_foot_L_props.alignment = 'CENTER'
                             col_foot_L_props.label(text="TOES")
