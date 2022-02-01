@@ -871,7 +871,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                         row_torso_props.label(text="{}".format("  FK" if arm_bones['properties_torso']['ik_torso'] == 1 else "  IK"),)
                         row_torso_props.operator("snap.torso_ik_to_fk", text = "", icon='PLAY', emboss=True)
                         col_prop = row_torso_props.column(align=True)
-                        col_prop.scale_x = 0.4
+                        col_prop.scale_x = BL_Ver(0.45, 0.4)
                         col_prop.prop(arm_bones['properties_torso'], 'ik_torso', toggle=True, icon_only = 1, emboss = 1)
 
                         if props.gui_picker_body_props:
