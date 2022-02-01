@@ -37,43 +37,48 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         layout = self.layout
         col = layout.column()
         col.scale_y = 1.5
-        col = col.box().column(align=True)
+        mainrow = col.box().row(align=True)
+        col1 = mainrow.column(align=True)
+        col2 = mainrow.column(align=True)
         steps = layout.column(align=True)
         col.label(text="Rigging Assistants :")
 
-        button = col.row(align=True)
-        button_2 = col.row(align=True)
-        button_3 = col.row(align=True)
-        button_4 = col.row(align=True)
-        button_5 = col.row(align=True)
-        button_6 = col.row(align=True)
-        button_7 = col.row(align=True)
-        button_8 = col.row(align=True)
-        button_9 = col.row(align=True)
+        button_1 = col1.row(align=True)
+        button_2 = col1.row(align=True)
+        button_3 = col1.row(align=True)
+        button_4 = col1.row(align=True)
+        button_5 = col1.row(align=True)
+        button_6 = col1.row(align=True)
+        button_7 = col1.row(align=True)
+        button_8 = col1.row(align=True)
+        # button_9 = col.row(align=True)
 
-        button.operator("view3d.blenrig_guide_reproportion", text = '1 - Reproportion Guide')
-        button.prop(guide, 'show_steps_guide_reproportion',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_reproportion else 'DOWNARROW_HLT', emboss=True)
+        button_1.operator("view3d.blenrig_guide_reproportion", text = '1 - Reproportion Guide')
+        # button_1.prop(guide, 'show_steps_guide_reproportion',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_reproportion else 'DOWNARROW_HLT', emboss=True)
 
         button_2.operator("view3d.blenrig_guide_datatransfer", text = '2 - Weights Transfer Guide')
-        button_2.prop(guide, 'show_steps_guide_datatransfer',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_datatransfer else 'DOWNARROW_HLT', emboss=True)
+        # button_2.prop(guide, 'show_steps_guide_datatransfer',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_datatransfer else 'DOWNARROW_HLT', emboss=True)
 
         button_3.operator("view3d.blenrig_guide_mdef", text = '3 - Mesh Deform Guide')
-        button_3.prop(guide, 'show_steps_guide_mdef',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_mdef else 'DOWNARROW_HLT', emboss=True)
+        # button_3.prop(guide, 'show_steps_guide_mdef',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_mdef else 'DOWNARROW_HLT', emboss=True)
 
         button_4.operator("view3d.blenrig_guide_lattices", text = '4 - Lattices Guide')
-        button_4.prop(guide, 'show_steps_guide_lattices',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_lattices else 'DOWNARROW_HLT', emboss=True)
+        # button_4.prop(guide, 'show_steps_guide_lattices',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_lattices else 'DOWNARROW_HLT', emboss=True)
 
         button_5.operator("view3d.blenrig_guide_weights", text = '5 - Weight Painting Guide')
-        button_5.prop(guide, 'show_steps_guide_weights',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_weights else 'DOWNARROW_HLT', emboss=True)
+        # button_5.prop(guide, 'show_steps_guide_weights',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_weights else 'DOWNARROW_HLT', emboss=True)
 
         button_6.operator("view3d.blenrig_guide_actions", text = '6 - Actions Guide')
-        button_6.prop(guide, 'show_steps_guide_actions',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_actions else 'DOWNARROW_HLT', emboss=True)
+        # button_6.prop(guide, 'show_steps_guide_actions',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_actions else 'DOWNARROW_HLT', emboss=True)
 
         button_7.operator("view3d.blenrig_guide_rig_settings", text = '7 - Advanced Settings Guide')
-        button_7.prop(guide, 'show_steps_guide_rig_settings',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_rig_settings else 'DOWNARROW_HLT', emboss=True)
+        # button_7.prop(guide, 'show_steps_guide_rig_settings',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_rig_settings else 'DOWNARROW_HLT', emboss=True)
 
         button_8.operator("view3d.blenrig_guide_shapekeys", text = '8 - Shapekeys Guide')
-        button_8.prop(guide, 'show_steps_guide_shapekeys',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_shapekeys else 'DOWNARROW_HLT', emboss=True)
+        # button_8.prop(guide, 'show_steps_guide_shapekeys',text = '', icon='TRIA_DOWN' if guide.show_steps_guide_shapekeys else 'DOWNARROW_HLT', emboss=True)
+
+        col2.prop(guide, 'show_steps_guide', text='', expand=True, toggle=True)
+
         layout.separator()
 
         step_list = steps.box().column(align=True)
@@ -81,37 +86,47 @@ class BlenRigGuidePanel(BlenRigGuidePanel_menu,Panel):
         step_list.scale_y = 0.7
 
         if guide.show_steps:
-            if guide.show_steps_guide_reproportion:
+
+            # if guide.show_steps_guide_reproportion:
+            if guide.show_steps_guide == 'REPROPORTION':
                 for i, step in enumerate(GUIDE_STEPS_REPROPORTION):
                     step_list.operator("view3d.blenrig_guide_reproportion", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_datatransfer:
+            # if guide.show_steps_guide_datatransfer:
+            if guide.show_steps_guide == 'DATATRANFER':
                 for i, step in enumerate(GUIDE_STEPS_DATATRANSFER):
                     step_list.operator("view3d.blenrig_guide_datatransfer", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_mdef:
+            # if guide.show_steps_guide_mdef:
+            if guide.show_steps_guide == 'MDEF':
                 for i, step in enumerate(GUIDE_STEPS_MDEF):
                     step_list.operator("view3d.blenrig_guide_mdef", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_lattices:
+            # if guide.show_steps_guide_lattices:
+            if guide.show_steps_guide == 'LATTICES':
                 for i, step in enumerate(GUIDE_STEPS_LATTICES):
                     step_list.operator("view3d.blenrig_guide_lattices", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_actions:
+            # if guide.show_steps_guide_actions:
+            if guide.show_steps_guide == 'ACTIONS':
                 for i, step in enumerate(GUIDE_STEPS_ACTIONS):
                     step_list.operator("view3d.blenrig_guide_actions", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_weights:
+            # if guide.show_steps_guide_weights:
+            if guide.show_steps_guide == 'WHEIGHTS':
                 for i, step in enumerate(GUIDE_STEPS_WEIGHTS):
                     step_list.operator("view3d.blenrig_guide_weights", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_rig_settings:
+            # if guide.show_steps_guide_rig_settings:
+            if guide.show_steps_guide == 'RIGSETTINGS':
                 for i, step in enumerate(GUIDE_STEPS_SETTINGS):
                     step_list.operator("view3d.blenrig_guide_rig_settings", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
 
-            if guide.show_steps_guide_shapekeys:
+            # if guide.show_steps_guide_shapekeys:
+            if guide.show_steps_guide == 'SHAPEKEYS':
                 for i, step in enumerate(GUIDE_STEPS_SHAPEKEYS):
                     step_list.operator("view3d.blenrig_guide_shapekeys", text=str(i + 1) + "- " + str(step['titulo'][guide.language])).step=i
+
 
 class BlenRigGuidePanel_options(BlenRigGuidePanel_menu,Panel):
     bl_label = "Options"

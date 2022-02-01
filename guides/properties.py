@@ -159,20 +159,59 @@ class BlenrigGuideData(PropertyGroup):
         items=languages,
         name="Language"
     )
+
+    def only_one_visible(self, context):
+        print(self.name)
+        targets = [
+                    self.show_steps_guide_reproportion,
+                    self.show_steps_guide_datatransfer,
+                    self.show_steps_guide_mdef,
+                    self.show_steps_guide_lattices,
+                    self.show_steps_guide_actions,
+                    self.show_steps_guide_weights,
+                    self.show_steps_guide_rig_settings,
+                    self.show_steps_guide_shapekeys
+                ]
+        for prop in targets:
+            print('prop', prop)
+
     dpi : IntProperty(default=72, min=72, max=300, name="Screen DPI")
     active_image : PointerProperty(type=Image)
     image_index : IntProperty(default=0)
     images : CollectionProperty(type=BlenrigGuideImages)
     image_scale : FloatProperty(default=1, min=0.5, max=4, name="Image Scale")
     show_steps : BoolProperty(default=False, name="Steps Guide")
-    show_steps_guide_reproportion : BoolProperty(default=False, name="Show Steps Guide Reproportion")
-    show_steps_guide_datatransfer : BoolProperty(default=False, name="Show Steps Guide Datatransfer")
-    show_steps_guide_mdef : BoolProperty(default=False, name="Show Steps Guide Mdef")
-    show_steps_guide_lattices : BoolProperty(default=False, name="Show Steps Guide Lattices")
-    show_steps_guide_actions : BoolProperty(default=False, name="Show Steps Guide Actions")
-    show_steps_guide_weights : BoolProperty(default=False, name="Show Steps Guide Weights")
-    show_steps_guide_rig_settings : BoolProperty(default=False, name="Show Steps Rig Settings")
-    show_steps_guide_shapekeys : BoolProperty(default=False, name="Show Steps Guide Shapekeys")
+
+    # show_steps_guide_reproportion : BoolProperty(default=False, name="Show Steps Guide Reproportion", update=only_one_visible)
+    # show_steps_guide_datatransfer : BoolProperty(default=False, name="Show Steps Guide Datatransfer", update=only_one_visible)
+    # show_steps_guide_mdef : BoolProperty(default=False, name="Show Steps Guide Mdef")
+    # show_steps_guide_lattices : BoolProperty(default=False, name="Show Steps Guide Lattices")
+    # show_steps_guide_actions : BoolProperty(default=False, name="Show Steps Guide Actions")
+    # show_steps_guide_weights : BoolProperty(default=False, name="Show Steps Guide Weights")
+    # show_steps_guide_rig_settings : BoolProperty(default=False, name="Show Steps Rig Settings")
+    # show_steps_guide_shapekeys : BoolProperty(default=False, name="Show Steps Guide Shapekeys")
+
+    def expand_steps(self, context):
+        if not context.scene.blenrig_guide.show_steps:
+            context.scene.blenrig_guide.show_steps = True
+
+    show_steps_guide: EnumProperty(
+        items=(
+            ("REPROPORTION", "Reproportion", "Show Steps Guide Reproportion", 'DOWNARROW_HLT', 0),
+            ("DATATRANFER", "Data Transfer", "Show Steps Guide Datatransfer", 'DOWNARROW_HLT', 1),
+            ("MDEF", "Mesh Deform", "Show Steps Guide Mdef", 'DOWNARROW_HLT', 2),
+            ("LATTICES", "Lattices", "Show Steps Guide Lattices", 'DOWNARROW_HLT', 3),
+            ("ACTIONS", "Actions", "Show Steps Guide Actions", 'DOWNARROW_HLT', 4),
+            ("WHEIGHTS", "Weights", "Show Steps Guide Weight", 'DOWNARROW_HLT', 5),
+            ("RIGSETTINGS", "Rig Settgins", "Show Steps Rig Settings", 'DOWNARROW_HLT', 6),
+            ("SHAPEKEYS", "Shape Keys", "Show Steps Guide Shapekeys", 'DOWNARROW_HLT', 7),
+        ),
+        name="Collision Shape",
+        description="Show Steps Guide",
+        default="REPROPORTION",
+        update=expand_steps
+    )
+
     guide_current_step : StringProperty('')
     #BlenRig Armature
     obj : PointerProperty(type=Object) # temporal object slot.
