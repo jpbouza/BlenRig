@@ -1,7 +1,7 @@
-from ...guides.utils import BL_Ver
-from click import utils
 import bpy
 from ...custom_selection import *
+from ...guides.utils import BL_Ver
+
 
 # global group lists
 all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = head = torso = []
