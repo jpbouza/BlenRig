@@ -131,7 +131,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
 
         self.next_button_enabled = False
         self.prev_button_enabled = False
-        
+
 
         # CONTEXTS.
         self.area = context.area
@@ -141,7 +141,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
 
         # DATA (Properties).
         data = context.scene.blenrig_guide
-        self.dpi = data.dpi
+        self.dpi = int(data.dpi * get_viewport_resolution() * 0.84)
         self.language = data.language
         self.image_scale = data.image_scale
 
@@ -150,10 +150,10 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         self.step_text = dictionary['Step'][self.language]
 
         self.next_button_text = dictionary['Next'][self.language]
-        next_dim = SetSizeGetDim(0, self.button_text_size, self.dpi, self.next_button_text)
+        next_dim = SetSizeGetDim(0, int(self.button_text_size + 4 * get_viewport_resolution()), self.dpi, self.next_button_text)
 
         self.prev_button_text = dictionary['Prev'][self.language]
-        prev_dim = SetSizeGetDim(0, self.button_text_size, self.dpi, self.prev_button_text)
+        prev_dim = SetSizeGetDim(0, int(self.button_text_size + 4 * get_viewport_resolution()), self.dpi, self.prev_button_text)
 
         # SIZES.
         max_button_width = max(next_dim[0], prev_dim[0])
@@ -173,7 +173,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         self.prev_button_pos = self.next_button_pos - Vector((margin + self.button_size[0], 0))
 
         #context.scene.blenrig_guide.init(context, self)
-        
+
         DEBUG("GZ::__init__ >> end")
 
     def update(self, ctx):
