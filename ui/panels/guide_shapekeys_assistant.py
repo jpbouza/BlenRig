@@ -1,6 +1,7 @@
 import bpy
 from ...guides.guide_ops import VIEW3D_OT_blenrig_guide_shapekeys
 from . assistant_base import BLENRIG_PT_guide_assistant
+from ...guides.utils import BL_Ver
 
 ####### Shapekeys assistant Guide
 
@@ -71,7 +72,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -104,7 +105,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -132,7 +133,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -196,7 +197,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -214,7 +215,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -232,7 +233,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -250,7 +251,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -268,7 +269,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Joint Number', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -301,7 +302,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Shapekey Vertex Group', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
@@ -351,7 +352,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
             box_pose.label(text='Select Shapekey Vertex Group', icon='BONE_DATA')
             joint_row = box_pose.row()
             joint_row.alignment = 'CENTER'
-            joint_row.scale_x = 0.9
+            joint_row.scale_x = BL_Ver(1, 0.9)
             joint_col_1 = joint_row.column()
             joint_col_1.alignment = 'CENTER'
             joint_col_2 = joint_row.column()
