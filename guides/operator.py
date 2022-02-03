@@ -6162,8 +6162,11 @@ class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
     def execute(self, context):
-        from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup
+        from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup, set_mode, deselect_all_objects, set_active_object
         guide_props = context.scene.blenrig_guide
+        arm_obj =  guide_props.arm_obj
+        obj = guide_props.active_wp_obj
+        active = bpy.context.active_object
         joint_list = context.scene.blenrig_joint_chain_list
         index = []
 
@@ -6181,6 +6184,23 @@ class Operator_blenrig_wp_joint_chain_up(bpy.types.Operator):
                 guide_props.guide_joint_transforms_X4 = guide_props.guide_joint_transforms_X4
             elif guide_props.guide_transform_steps == 'x2':
                 guide_props.guide_joint_transforms_X2 = guide_props.guide_joint_transforms_X2
+
+        if active == obj:
+            if arm_obj.mode != 'POSE':
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+                set_active_object(context, obj)
+        elif active == arm_obj:
+            if arm_obj.mode != 'POSE':
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+        else:
+            deselect_all_objects(context)
+            set_active_object(context, arm_obj)
+            set_mode('POSE')
+            set_active_object(context, obj)
         deselect_all_pose_bones(context)
         select_pose_bone(context, guide_props.guide_transformation_bone)
         set_active_vgroup(guide_props.guide_active_wp_group)
@@ -6194,8 +6214,11 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
     def execute(self, context):
-        from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup
+        from .utils import deselect_all_pose_bones, select_pose_bone, set_active_vgroup, set_mode, deselect_all_objects, set_active_object
         guide_props = context.scene.blenrig_guide
+        arm_obj =  guide_props.arm_obj
+        obj = guide_props.active_wp_obj
+        active = bpy.context.active_object
         joint_list = context.scene.blenrig_joint_chain_list
         index = []
 
@@ -6213,6 +6236,23 @@ class Operator_blenrig_wp_joint_chain_down(bpy.types.Operator):
                 guide_props.guide_joint_transforms_X4 = guide_props.guide_joint_transforms_X4
             elif guide_props.guide_transform_steps == 'x2':
                 guide_props.guide_joint_transforms_X2 = guide_props.guide_joint_transforms_X2
+
+        if active == obj:
+            if arm_obj.mode != 'POSE':
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+                set_active_object(context, obj)
+        elif active == arm_obj:
+            if arm_obj.mode != 'POSE':
+                deselect_all_objects(context)
+                set_active_object(context, arm_obj)
+                set_mode('POSE')
+        else:
+            deselect_all_objects(context)
+            set_active_object(context, arm_obj)
+            set_mode('POSE')
+            set_active_object(context, obj)
         deselect_all_pose_bones(context)
         select_pose_bone(context, guide_props.guide_transformation_bone)
         set_active_vgroup(guide_props.guide_active_wp_group)
