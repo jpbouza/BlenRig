@@ -9,11 +9,11 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Intro.jpg',
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Intro Guia de Pesos'
+            'ES': 'Introduccion'
             },
         'texto': {
             'EN': "Adjust the Weights of the Mdef Cage and the Character if needed. Set the values of the Realistic Joints and the Volume Preservation Bones to simulate Sekeltal Structure volume.",
-            'ES': 'En esta Guía podrás ajustar los Pesos del Personaje y del "Mdef Cage" si es necesario. También podrás ajustar los valores de los Huesos de Preservación del Volumen y los valores de las Juntas Realistas para simular el volumen de la Estructura Sekeltal en las Juntas. Ten en cuenta que esta será la configuración inicial de la deformación, si necesitas afinarla, podrás hacerlo en la Guía de Shapekeys.'
+            'ES': 'Ajuste los Pesos del "Mdef Cage" y del Personaje si es necesario. Ajusta los valores de las Articulaciones Realistas y de los Huesos de Preservación del Volumen para simular el volumen de la Estructura Osea.'
             },
         'accion': WEIGHTS_Intro
     },
@@ -26,7 +26,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-6). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las Poses con el control deslizante (0-6). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Corrective Smooth Vgroup". Ajuste los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Ankle
     },
@@ -39,7 +39,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-4) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Cambia la articulación activa con "Seleccionar número de articulación". Desplázate por las poses (0-4) y establezca los valores de VP. Siempre puedes editar el "Corrective Smooth" en el modelo o editar los pesos del "Mdef Cage."'
             },
         'accion': WEIGHTS_Cage_Foot_Toe
     },
@@ -52,7 +52,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las poses con el control deslizante (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Vgroup Corrective smooth". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Knee
     },
@@ -65,7 +65,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las poses con el control deslizante (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Vgroup Corrective smooth". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Thigh
     },
@@ -78,7 +78,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-6) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Cambia la articulación activa con "Select Joint Number". Desplázate por las Poses (0-6) y establece los valores de VP. Siempre puedes editar "Correctivo smooth" en el modelo o editar los Pesos del Mdef Cage.'
             },
         'accion': WEIGHTS_Cage_Torso
     },
@@ -334,7 +334,7 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Char_Lattice_Head.jpg',
         'titulo': {
             'EN': 'Lattice Head',
-            'ES': 'Interior de la Boca'
+            'ES': 'Lattice de la cabeza'
             },
         'texto': {
             'EN': "Paint the Head Lattice Vertex Group",
@@ -347,7 +347,7 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Char_Lattice_Mouth.jpg',
         'titulo': {
             'EN': 'Lattice Mouth',
-            'ES': 'Interior de la Boca'
+            'ES': 'lattice Interior de la Boca'
             },
         'texto': {
             'EN': "Paint the Mouth Lattice Vertex Group",
@@ -360,7 +360,7 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Char_Lattice_Brow.jpg',
         'titulo': {
             'EN': 'Lattice Eyebrow',
-            'ES': 'Interior de la Boca'
+            'ES': 'Lattice de las Cejas'
             },
         'texto': {
             'EN': "Paint the Eyebrow Lattice Vertex Group",
@@ -373,11 +373,11 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Char_Lattice_Eye.jpg',
         'titulo': {
             'EN': 'Lattice Eye',
-            'ES': 'Interior de la Boca'
+            'ES': 'Lattice del Ojo'
             },
         'texto': {
             'EN': "Paint the Eye Lattice Vertex Group",
-            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            'ES': 'Pinta los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
             },
         'accion': WEIGHTS_Char_Lattice_Eye
     },
@@ -386,11 +386,11 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Finish.jpg',
         'titulo': {
             'EN': 'Lattice Eye',
-            'ES': 'Interior de la Boca'
+            'ES': 'Lattice del Ojo'
             },
         'texto': {
             'EN': "Move on to the Actions Guide!",
-            'ES': 'Pinte los pesos de los dientes, las encías, la úvula y la lengua. Es posible que quiera activar las opciones de Normalización automática y Máscaras faciales para limpiar las áreas intrecatas. Una vez que las cosas se vean bien, es posible que tenga que volver al paso anterior para pintar las partes internas de las mejillas y los labios. También puedes activar las opciones "Mostrar huesos" para desocultar todos los huesos de la deformación.'
+            'ES': '¡Pasa a la Guía de Acciones!'
             },
         'accion': WEIGHTS_Finish
     },
