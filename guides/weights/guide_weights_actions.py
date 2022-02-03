@@ -536,7 +536,7 @@ def WEIGHTS_Char_Head(operator, context):
 
 def WEIGHTS_Char_Head_Joints(operator, context):
     weight_step(operator, context, 'WEIGHTS_Char_Head_Joints', 'head',
-    'x4', ['head_mid_ctrl',
+    'x4', ['head_fk',
     (0.0, 0.0, 0.0), (-33, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (15, 0.0, 0.0), (1.0, 1.0, 1.0),
     (0.0, 0.0, 0.0), (0.0, 0.0, 33), (1.0, 1.0, 1.0),
@@ -547,8 +547,8 @@ def WEIGHTS_Char_Head_Joints(operator, context):
     'neck_1_fk', 'head_stretch', 'RIGHT',
     ['head_fk', 'head_def_1', 'head_def_2', 'head_def_3', 'head_mid_ctrl', 'head_top_ctrl'],
     [27],
-    ['head_mid_ctrl', 'head_top_ctrl'],
-    ['head_def_2', 'head_def_3'],
+    ['head_fk','head_mid_ctrl', 'head_top_ctrl'],
+    ['head_def_1', 'head_def_2', 'head_def_3'],
     'weight_paint',)
 
 def WEIGHTS_Char_Ears(operator, context):
