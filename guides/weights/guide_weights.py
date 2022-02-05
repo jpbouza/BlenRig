@@ -9,11 +9,11 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': 'WEIGHTS_Intro.jpg',
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Intro Guia de Pesos'
+            'ES': 'Introduccion'
             },
         'texto': {
             'EN': "Adjust the Weights of the Mdef Cage and the Character if needed. Set the values of the Realistic Joints and the Volume Preservation Bones to simulate Sekeltal Structure volume.",
-            'ES': 'En esta Guía podrás ajustar los Pesos del Personaje y del "Mdef Cage" si es necesario. También podrás ajustar los valores de los Huesos de Preservación del Volumen y los valores de las Juntas Realistas para simular el volumen de la Estructura Sekeltal en las Juntas. Ten en cuenta que esta será la configuración inicial de la deformación, si necesitas afinarla, podrás hacerlo en la Guía de Shapekeys.'
+            'ES': 'Ajuste los Pesos del "Mdef Cage" y del Personaje si es necesario. Ajusta los valores de las Articulaciones Realistas y de los Huesos de Preservación del Volumen para simular el volumen de la Estructura ósea.'
             },
         'accion': WEIGHTS_Intro
     },
@@ -26,7 +26,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-6). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las Poses con el control deslizante (0-6). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Corrective Smooth Vgroup". Ajuste los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Ankle
     },
@@ -39,7 +39,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-4) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Cambia la articulación activa con "Seleccionar número de articulación". Desplázate por las poses (0-4) y establezca los valores de VP. Siempre puedes editar el "Corrective Smooth" en el modelo o editar los pesos del "Mdef Cage".'
             },
         'accion': WEIGHTS_Cage_Foot_Toe
     },
@@ -52,7 +52,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las poses con el control deslizante (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Vgroup Corrective smooth". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Knee
     },
@@ -65,7 +65,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las poses con el control deslizante (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Vgroup Corrective smooth". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Thigh
     },
@@ -78,7 +78,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-6) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Cambia la articulación activa con "Select Joint Number". Desplázate por las Poses (0-6) y establece los valores de VP. Siempre puedes editar "Correctivo smooth" en el modelo o editar los Pesos del Mdef Cage.'
             },
         'accion': WEIGHTS_Cage_Torso
     },
@@ -91,7 +91,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Change the active Joint with 'Select Joint Number'. Scroll through the Poses (0-6) and set the VP values. You can always edit Corrective Smooth on the model or edit the Mdef Cage Weights.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Cambia la articulación activa con "Select Joint Number". Desplaza por las Posturas (0-6) y establece los valores de VP. Siempre puedes editar el "Corrective Smooth" en el modelo o editar los Pesos del "Mdef Cage".'
             },
         'accion': WEIGHTS_Cage_Neck
     },
@@ -104,7 +104,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las Poses con el deslizador (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Corrective Smooth Vgroup". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Clavicle
     },
@@ -117,7 +117,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las Poses con el deslizador (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Corrective Smooth Vgroup". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Shoulder
     },
@@ -130,7 +130,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-4). Adjust the RJ and VP values first. If needed, select the Character to enhance deformation with 'Edit Corrective Smooth Vgroup'. Adjust the weights with 'Toggle Weight Painting'.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las Poses con el deslizador (0-4). Ajusta primero los valores de RJ y VP. Si es necesario, selecciona el Personaje para mejorar la deformación con "Edit Corrective Smooth Vgroup". Ajusta los pesos con "Toggle Weight Painting".'
             },
         'accion': WEIGHTS_Cage_Elbow
     },
@@ -143,7 +143,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Scroll through the Poses with the slider (0-6). Adjust the RJ and VP values first. Adjust the weights with 'Toggle Weight Painting'. Further adjustments will be made in the next Step",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Desplázate por las Poses con el deslizador (0-6). Ajuste primero los valores de RJ y VP. Ajuste los pesos con "Toggle Weight Painting". Otros ajustes se harán en el siguiente Paso'
             },
         'accion': WEIGHTS_Cage_Wrist
     },
@@ -156,7 +156,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Edit the 'no_mdef' Vertex Group to define the area of influence of the Mesh Deform and the Armature Modifier. Hands should have full influence of this group. Transition should happen at the Wrist area.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Edita el Grupo de Vértices "no_mdef" para definir el área de influencia del "Mesh Deform" y del Modificador de Armadura. Las manos deben tener toda la influencia de este grupo. La transición debe ocurrir en el área de la muñeca.'
             },
         'accion': WEIGHTS_Char_Wrist
     },
@@ -165,11 +165,11 @@ GUIDE_STEPS_WEIGHTS = (
         'imagen': ('WEIGHTS_Char_Hand_VP_A.jpg', 'WEIGHTS_Char_Hand_VP_B.jpg', 'WEIGHTS_Char_Hand_VP_C.jpg', 'WEIGHTS_Char_Hand_VP_D.jpg', 'WEIGHTS_Char_Hand_VP_E.jpg', 'WEIGHTS_Char_Hand_VP_F.jpg'),
         'titulo': {
             'EN': 'Hand VP & RJ Values',
-            'ES': 'Paso 1'
+            'ES': 'Valores VP y RJ de la mano'
             },
         'texto': {
             'EN': "Define the general values of Realistic Joints and Volume Preservation of the Fingers. Scroll through the key Poses with the 'Set Joint Transform' slider.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Define los valores generales de Articulaciones Realistas y Preservación del Volumen de los Dedos. Desplaza te a través de las posturas clave con el deslizador "Set Joint Transform".'
             },
         'accion': WEIGHTS_Char_Hand_VP
     },
@@ -182,7 +182,7 @@ GUIDE_STEPS_WEIGHTS = (
             },
         'texto': {
             'EN': "Edit the Weights of the Palm and the first Joint of the Fingers. Change the active Finger with the 'Set Joint Number' Button. Scroll through the key Poses with the 'Set Joint Transform' slider. Adjust the Volume Preservation values first",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Edita los pesos de la palma y la primera articulación de los dedos. Cambia el Dedo activo con el Botón "Set Joint Number". Desplaza te a través de las posturas clave con el deslizador "Set Joint Transform". Ajusta primero los valores de Preservación del Volumen.'
             },
         'accion': WEIGHTS_Char_Fings_1
     },
