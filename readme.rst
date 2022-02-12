@@ -7,7 +7,7 @@ BlenRig 6 (Beta) - Rigging System for Blender 2.8
 **Email:** jpbouza@gmail.com
 
 
-BlenRig is an Auto-rigging and skinning system that provides the user of a Feature Film quality rig (including an advanced facial system).
+BlenRig is an Auto-rigging and skinning system for the Blender 2.9 and 3.0 families. It provides the user with a Feature Film quality rig (including an advanced facial system).
 
 The current version only supports Biped characters, but more presets will be supported in the future.
 
