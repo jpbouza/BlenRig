@@ -26,4 +26,4 @@ Usage
 
 You will find the rig in the **Object Add Panel**, under the **Armature Menu**.
 
-In the **View3d Sidebar** (N Key) you will find all controls and tools. Rig your character by starting up the Automated Rigging Guides in the Rigging Assistant sectionion of the BlenRig GUI.
+In the **View3d Sidebar** (N Key) you will find all controls and tools. Rig your character by starting up the **Automated Rigging Guides** in the **Rigging Assistant** sectionion of the BlenRig GUI.
