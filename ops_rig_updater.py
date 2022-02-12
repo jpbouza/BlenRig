@@ -62,3 +62,39 @@ class Operator_Biped_Updater(bpy.types.Operator):
         else:
             self.report({'INFO'}, 'Armature already up to date')
         return {"FINISHED"}
+
+#Library Overrides
+
+class Operator_Set_Lib_Override_On(bpy.types.Operator):
+    bl_idname = "blenrig.set_lib_overrides_on"
+    bl_label = "Set Library Overrides On for Legacy Rigs"
+    bl_description = "Set Library Overrides On for Legacy Rigs"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not bpy.context.active_object:
+            return False
+        if (bpy.context.active_object.type in ["ARMATURE"]):
+            if bpy.app.version > (2,9,0):
+                for prop in bpy.context.active_object.data.items():
+                    if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                        return True
+
+    def execute(self, context):
+        list =[]
+
+        for b in bpy.context.active_object.pose.bones:
+            for prop in b.items():
+                list.append(str("[") + str('"') + str(prop[0]) + str('"') + str("]"))
+
+        for b in bpy.context.active_object.pose.bones:
+            for l in list:
+                try:
+                    b.property_overridable_library_set(l, True)
+                except:
+                    pass
+        self.report({'INFO'}, 'All Properties set to Library Overrides On')
+        return {"FINISHED"}
+
+

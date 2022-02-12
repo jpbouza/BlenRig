@@ -85,7 +85,7 @@ def bone_auto_hide(context):
 
                             # Arm_L FK/IK
                                 prop = int(b.ik_arm_L)
-                                prop_hinge = int(b.space_hand_L)
+                                prop_hinge = int(b.hinge_hand_L)
                                 for bone in arm.bones:
                                     if (bone.name in b['bones_fk_L']):
                                         if prop == 1:
@@ -187,7 +187,7 @@ def bone_auto_hide(context):
 
                             # Arm_R FK/IK
                                 prop = int(b.ik_arm_R)
-                                prop_hinge = int(b.space_hand_R)
+                                prop_hinge = int(b.hinge_hand_R)
                                 for bone in arm.bones:
                                     if (bone.name in b['bones_fk_R']):
                                         if prop == 1:

@@ -3121,7 +3121,8 @@ from .blenrig_biped.ops_biped_layers_scheme import (
 
 ####### Load BlenRig 6 Rig Updater Operators
 from .ops_rig_updater import (
-    Operator_Biped_Updater
+    Operator_Biped_Updater,
+    Operator_Set_Lib_Override_On
 )
 
 ####### Load BlenRig 6 Rig Presets Operators
@@ -3304,7 +3305,8 @@ schemes_classes = [
 ]
 # BlenRig Rig Updater Operators
 rig_updater_classes = [
-    Operator_Biped_Updater
+    Operator_Biped_Updater,
+    Operator_Set_Lib_Override_On
 ]
 # BlenRig IK/FK Snapping Operators
 snapping_classes = [
