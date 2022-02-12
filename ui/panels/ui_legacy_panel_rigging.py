@@ -1003,3 +1003,5 @@ class BLENRIG_PT_legacy_blenrig_5_rigging_panel(bpy.types.Panel):
         col = layout.column()
         row = col.row()
         row.label(text="Armature Ver. " + str(arm_data['rig_version']))
+        overrides = col.row()
+        overrides.operator("blenrig.set_lib_overrides_on", text="Set Library Overrides On")
