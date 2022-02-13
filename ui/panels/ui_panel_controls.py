@@ -4383,7 +4383,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                         row_accessory.alignment = 'CENTER'
                         row_accessory.scale_x = 2.5
                         row_accessory.scale_y = 1
-                        row_accessory.operator("show.hand_accessory_list", text="{}".format("      Free      " if arm_bones['properties_arm_L']['hand_accessory_L'] == 0 else "Follow Hand_L"), emboss=True)
+                        row_accessory.operator("show.hand_accessory_list", text="{}".format("      Free      " if arm_bones['properties_arm_L']['hand_accessory_L'] == 0 and arm_bones['properties_arm_R']['hand_accessory_R']== 0 else ("Follow Hand_L" if arm_bones['properties_arm_R']['hand_accessory_R'] == 0 else "Follow Hand_R")) , emboss=True)
                         col_prop = row_accessory.column(align=True)
                         col_prop.scale_x = 0.25
                         col_prop.prop(arm_bones['properties_arm_L'], '["hand_accessory_L"]', toggle=True, icon_only = 1, emboss = 1)
