@@ -17,6 +17,10 @@ class BlenRigGuidePanel_menu:
     @classmethod
     def poll(cls, context):
         BlenRigPanelOptions = context.window_manager.BlenRigPanelSettings
+
+        for prop in context.active_object.data.items():
+            if prop[0] == 'rig_version' and str(prop[1]) < '2.0.0':
+                return False
         if not BlenRigPanelOptions.displayContext == 'GUIDES':
             return False
 
