@@ -886,6 +886,9 @@ def Reprop_Toon_Scale(operator, context):
 
     #Set Shading to Material to enable transparency
     set_viewport_shading_type('SOLID', 'MATERIAL')
+    
+    deselect_all_objects(context)
+    select_armature(context)
 
 def Reprop_Face_Mstr(operator, context):
     #Perform end of step action and set current step name
