@@ -71,7 +71,8 @@ def DT_Select_Head(operator, context):
     #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Select_Head'
-
+    
+    
     armature = bpy.context.scene.blenrig_guide.arm_obj
     armature.hide_viewport = False
 
@@ -84,6 +85,8 @@ def DT_Select_Head(operator, context):
     #Set back Object Mode
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
+
+    BlenRig_Empty(context)
 
     armature.hide_viewport = True
 

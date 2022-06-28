@@ -32,6 +32,15 @@ def go_blenrig_pose_mode(context):
     set_mode('POSE')
     return True
 
+def go_blenrig_object_mode(context):
+    arm = get_armature_object(context)
+    # if not arm:
+    #     return False
+    if context.mode != 'OBJECT':
+        set_mode('OBJECT')
+    if context.active_object != arm:
+        set_active_object(context, arm)
+
 def show_armature(context):
     #Armature for setting view
     armature = get_armature_object(context)
@@ -2204,3 +2213,11 @@ def BL_Ver(BL_3, BL_2):
     else:
         width = BL_3
     return(width)
+
+# Empty for no object active in Guide
+
+def BlenRig_Empty(context):    
+    bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0, align='WORLD', location=(0, 0, -1000), scale=(1, 1, 1))
+    bpy.context.object.name = "BlenRig_Empty"
+    blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
+    set_active_object(context,blenrig_empty)
