@@ -502,7 +502,7 @@ def basis_shapekey_fix(context):
                 bpy.ops.mesh.select_all(action = 'DESELECT')
                 set_mode('OBJECT')
 
-#Propagate shapekey y other shapekeys
+#Propagate shapekey and other shapekeys
 def blend_from_shape(source_shape, destination_keys):
     ob = bpy.context.active_object
     shapekeys_list = destination_keys
