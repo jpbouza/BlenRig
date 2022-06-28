@@ -40,10 +40,10 @@ def MDEF_Select_Body_Objects(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
+    go_blenrig_object_mode(context)
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
-
     deselect_all_objects(context)
-
+    
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')

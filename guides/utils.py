@@ -32,6 +32,15 @@ def go_blenrig_pose_mode(context):
     set_mode('POSE')
     return True
 
+def go_blenrig_object_mode(context):
+    arm = get_armature_object(context)
+    # if not arm:
+    #     return False
+    if context.mode != 'OBJECT':
+        set_mode('OBJECT')
+    if context.active_object != arm:
+        set_active_object(context, arm)
+
 def show_armature(context):
     #Armature for setting view
     armature = get_armature_object(context)
