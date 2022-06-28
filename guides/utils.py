@@ -2213,3 +2213,11 @@ def BL_Ver(BL_3, BL_2):
     else:
         width = BL_3
     return(width)
+
+# Empty for no object active in Guide
+
+def BlenRig_Empty(context):    
+    bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0, align='WORLD', location=(0, 0, -1000), scale=(1, 1, 1))
+    bpy.context.object.name = "BlenRig_Empty"
+    blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
+    set_active_object(context,blenrig_empty)
