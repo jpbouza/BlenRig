@@ -1154,6 +1154,11 @@ class Operator_BlenRig_Reset_Dynamic(bpy.types.Operator):
         arm = bpy.context.active_object
         pbones = arm.pose.bones
 
+        #Armature Refresh Hack
+        def refresh_hack():
+            bpy.ops.object.mode_set(mode='OBJECT')
+            bpy.ops.object.mode_set(mode='POSE')
+
         #Legacy Rig
         if arm.data['rig_type'] == 'Biped':
             if str(arm.data['rig_version']) < "1.1.0":
@@ -1192,7 +1197,8 @@ class Operator_BlenRig_Reset_Dynamic(bpy.types.Operator):
                 pbones["properties_leg_L"]["flex_shin_width_L"] = 1.0
                 pbones["properties_leg_L"]["flex_foot_scale_L"] = 1.0
                 pbones["properties_leg_L"]["flex_foot_loc_L"] = 0.0
-                scene.update()
+                #scene.update()
+                refresh_hack()
         #1.1.0 Rig
         if arm.data['rig_type'] == 'Biped':
             if str(arm.data['rig_version']) >= "1.1.0":
@@ -1231,7 +1237,8 @@ class Operator_BlenRig_Reset_Dynamic(bpy.types.Operator):
                 pbones["properties_leg_L"]["dynamic_shin_width_L"] = 1.0
                 pbones["properties_leg_L"]["dynamic_foot_scale_L"] = 1.0
                 pbones["properties_leg_L"]["dynamic_foot_loc_L"] = 0.0
-                scene.update()
+                #scene.update()
+                refresh_hack()
 
     def update_scene(self, context):
         current = bpy.context.scene.frame_current
