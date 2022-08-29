@@ -8985,11 +8985,12 @@ class Operator_Align_Spine(bpy.types.Operator):
         Spine4ToonMat = pbones['spine_4_toon'].matrix.copy()
         Spine4ToonLoc = pbones['spine_4_toon'].location.copy()
         Spine4ToonScale = pbones['spine_4_toon'].scale.copy()
-        LookMat = pbones['look'].matrix.copy()
         ElbowLMat = pbones['elbow_pole_L'].matrix.copy()
         ElbowRMat = pbones['elbow_pole_R'].matrix.copy()
         KneeLMat = pbones['knee_pole_L'].matrix.copy()
         KneeRMat = pbones['knee_pole_R'].matrix.copy()
+        Look_world_mat = pbones['look'].id_data.matrix_world.copy()
+        Look_mat = pbones['look'].matrix.copy()
 
         #Insert Keyframes if Action present
         if anim_data:
@@ -9076,8 +9077,6 @@ class Operator_Align_Spine(bpy.types.Operator):
         pbones['spine_4_toon'].matrix = Spine4ToonMat
         pbones['spine_4_toon'].rotation_euler[:] = (0.0, 0.0, 0.0)
         refresh_hack()
-        pbones['look'].matrix = LookMat
-        refresh_hack()
         pbones['elbow_pole_L'].matrix = ElbowLMat
         refresh_hack()
         pbones['elbow_pole_R'].matrix = ElbowRMat
@@ -9085,6 +9084,19 @@ class Operator_Align_Spine(bpy.types.Operator):
         pbones['knee_pole_L'].matrix = KneeLMat
         refresh_hack()
         pbones['knee_pole_R'].matrix = KneeRMat
+        refresh_hack()
+        if bpy.context.active_object.pose.bones["properties_head"].look_switch == 0.0:
+            paste_visual_matrix('look', 'look_free', Look_world_mat, Look_mat, 'Location')
+            paste_visual_matrix('look', 'look_free', Look_world_mat, Look_mat, 'Rotation')
+        if bpy.context.active_object.pose.bones["properties_head"].look_switch == 1.0:
+            paste_visual_matrix('look', 'master_body_pivot', Look_world_mat, Look_mat, 'Location')
+            paste_visual_matrix('look', 'master_body_pivot', Look_world_mat, Look_mat, 'Rotation')
+        if bpy.context.active_object.pose.bones["properties_head"].look_switch == 2.0:
+            paste_visual_matrix('look', 'master_torso_pivot', Look_world_mat, Look_mat, 'Location')
+            paste_visual_matrix('look', 'master_torso_pivot', Look_world_mat, Look_mat, 'Rotation')
+        if bpy.context.active_object.pose.bones["properties_head"].look_switch == 3.0:
+            paste_visual_matrix('look', 'head_fk', Look_world_mat, Look_mat, 'Location')
+            paste_visual_matrix('look', 'head_fk', Look_world_mat, Look_mat, 'Rotation')
         refresh_hack()
 
         #Insert Keyframes if Action present
