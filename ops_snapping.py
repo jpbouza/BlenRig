@@ -3351,7 +3351,8 @@ class Operator_Knee_UnPin_L(bpy.types.Operator):
                     Spine4ToonMat = pbones['spine_4_toon'].matrix.copy()
                     Spine4ToonLoc = pbones['spine_4_toon'].location.copy()
                     Spine4ToonScale = pbones['spine_4_toon'].scale.copy()
-                    LookMat = pbones['look'].matrix.copy()
+                    Look_world_mat = pbones['look'].id_data.matrix_world.copy()
+                    Look_mat = pbones['look'].matrix.copy()
                     ElbowLMat = pbones['elbow_pole_L'].matrix.copy()
                     ElbowRMat = pbones['elbow_pole_R'].matrix.copy()
                     KneeLMat = pbones['knee_pole_L'].matrix.copy()
@@ -3491,8 +3492,6 @@ class Operator_Knee_UnPin_L(bpy.types.Operator):
                     pbones['spine_4_toon'].matrix = Spine4ToonMat
                     pbones['spine_4_toon'].rotation_euler[:] = (0.0, 0.0, 0.0)
                     refresh_hack()
-                    pbones['look'].matrix = LookMat
-                    refresh_hack()
                     pbones['elbow_pole_L'].matrix = ElbowLMat
                     refresh_hack()
                     pbones['elbow_pole_R'].matrix = ElbowRMat
@@ -3513,6 +3512,19 @@ class Operator_Knee_UnPin_L(bpy.types.Operator):
                     pbones['foot_fk_L'].matrix = FootFKMat
                     pbones['foot_fk_L'].location = FootFKLoc
                     pbones['foot_fk_L'].scale = FootFkScale
+                    refresh_hack()
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 0.0:
+                        paste_visual_matrix('look', 'look_free', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'look_free', Look_world_mat, Look_mat, 'Rotation')
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 1.0:
+                        paste_visual_matrix('look', 'master_body_pivot', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'master_body_pivot', Look_world_mat, Look_mat, 'Rotation')
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 2.0:
+                        paste_visual_matrix('look', 'master_torso_pivot', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'master_torso_pivot', Look_world_mat, Look_mat, 'Rotation')
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 3.0:
+                        paste_visual_matrix('look', 'head_fk', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'head_fk', Look_world_mat, Look_mat, 'Rotation')
                     refresh_hack()
                     #Insert Keyframes if Action present
                     if anim_data:
@@ -3617,6 +3629,18 @@ class Operator_Knee_UnPin_L(bpy.types.Operator):
                                 pbones['master_torso'].location = MasterTorsoLoc
                                 pbones['master_torso'].scale = MasterTorsoScale
                                 refresh_hack()
+                                pbones['torso_fk_ctrl_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['torso_fk_ctrl_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+                                pbones['torso_fk_ctrl_inv'].location[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
+                                pbones['spine_3_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['spine_3_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+                                pbones['spine_3_fk_inv'].location[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
+                                pbones['spine_2_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['spine_2_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+                                pbones['spine_2_fk_inv'].location[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
                                 pbones['pelvis_ctrl'].rotation_euler = PelvisRotEuler
                                 pbones['pelvis_ctrl'].location = PelvisLoc
                                 pbones['pelvis_ctrl'].scale = PelvisScale
@@ -3652,18 +3676,6 @@ class Operator_Knee_UnPin_L(bpy.types.Operator):
                                 pbones['torso_fk_ctrl'].rotation_euler = TorsoFkCtrlRotEuler
                                 pbones['torso_fk_ctrl'].location = TorsoFkCtrlLoc
                                 pbones['torso_fk_ctrl'].scale = TorsoFkCtrlScale
-                                refresh_hack()
-                                pbones['torso_fk_ctrl_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
-                                pbones['torso_fk_ctrl_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
-                                pbones['torso_fk_ctrl_inv'].location[:] = (0.0, 0.0, 0.0)
-                                refresh_hack()
-                                pbones['spine_3_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
-                                pbones['spine_3_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
-                                pbones['spine_3_fk_inv'].location[:] = (0.0, 0.0, 0.0)
-                                refresh_hack()
-                                pbones['spine_2_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
-                                pbones['spine_2_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
-                                pbones['spine_2_fk_inv'].location[:] = (0.0, 0.0, 0.0)
                                 refresh_hack()
                                 pbones['look'].rotation_euler = LookRotEuler
                                 pbones['look'].location = LookLoc
@@ -7102,7 +7114,6 @@ class Operator_Knee_UnPin_R(bpy.types.Operator):
                     Spine4ToonMat = pbones['spine_4_toon'].matrix.copy()
                     Spine4ToonLoc = pbones['spine_4_toon'].location.copy()
                     Spine4ToonScale = pbones['spine_4_toon'].scale.copy()
-                    LookMat = pbones['look'].matrix.copy()
                     ElbowLMat = pbones['elbow_pole_R'].matrix.copy()
                     ElbowRMat = pbones['elbow_pole_R'].matrix.copy()
                     KneeLMat = pbones['knee_pole_R'].matrix.copy()
@@ -7119,6 +7130,8 @@ class Operator_Knee_UnPin_R(bpy.types.Operator):
                     FootFKMat = pbones['foot_fk_R'].matrix.copy()
                     FootFKLoc = pbones['foot_fk_R'].location.copy()
                     FootFkScale = pbones['foot_fk_R'].scale.copy()
+                    Look_world_mat = pbones['look'].id_data.matrix_world.copy()
+                    Look_mat = pbones['look'].matrix.copy()
 
                     #Insert Keyframes if Action present
                     if anim_data:
@@ -7242,8 +7255,6 @@ class Operator_Knee_UnPin_R(bpy.types.Operator):
                     pbones['spine_4_toon'].matrix = Spine4ToonMat
                     pbones['spine_4_toon'].rotation_euler[:] = (0.0, 0.0, 0.0)
                     refresh_hack()
-                    pbones['look'].matrix = LookMat
-                    refresh_hack()
                     pbones['elbow_pole_R'].matrix = ElbowLMat
                     refresh_hack()
                     pbones['elbow_pole_R'].matrix = ElbowRMat
@@ -7264,6 +7275,19 @@ class Operator_Knee_UnPin_R(bpy.types.Operator):
                     pbones['foot_fk_R'].matrix = FootFKMat
                     pbones['foot_fk_R'].location = FootFKLoc
                     pbones['foot_fk_R'].scale = FootFkScale
+                    refresh_hack()
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 0.0:
+                        paste_visual_matrix('look', 'look_free', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'look_free', Look_world_mat, Look_mat, 'Rotation')
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 1.0:
+                        paste_visual_matrix('look', 'master_body_pivot', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'master_body_pivot', Look_world_mat, Look_mat, 'Rotation')
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 2.0:
+                        paste_visual_matrix('look', 'master_torso_pivot', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'master_torso_pivot', Look_world_mat, Look_mat, 'Rotation')
+                    if bpy.context.active_object.pose.bones["properties_head"].look_switch == 3.0:
+                        paste_visual_matrix('look', 'head_fk', Look_world_mat, Look_mat, 'Location')
+                        paste_visual_matrix('look', 'head_fk', Look_world_mat, Look_mat, 'Rotation')
                     refresh_hack()
                     #Insert Keyframes if Action present
                     if anim_data:
@@ -7368,6 +7392,18 @@ class Operator_Knee_UnPin_R(bpy.types.Operator):
                                 pbones['master_torso'].location = MasterTorsoLoc
                                 pbones['master_torso'].scale = MasterTorsoScale
                                 refresh_hack()
+                                pbones['torso_fk_ctrl_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['torso_fk_ctrl_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+                                pbones['torso_fk_ctrl_inv'].location[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
+                                pbones['spine_3_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['spine_3_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+                                pbones['spine_3_fk_inv'].location[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
+                                pbones['spine_2_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
+                                pbones['spine_2_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
+                                pbones['spine_2_fk_inv'].location[:] = (0.0, 0.0, 0.0)
+                                refresh_hack()
                                 pbones['pelvis_ctrl'].rotation_euler = PelvisRotEuler
                                 pbones['pelvis_ctrl'].location = PelvisLoc
                                 pbones['pelvis_ctrl'].scale = PelvisScale
@@ -7403,18 +7439,6 @@ class Operator_Knee_UnPin_R(bpy.types.Operator):
                                 pbones['torso_fk_ctrl'].rotation_euler = TorsoFkCtrlRotEuler
                                 pbones['torso_fk_ctrl'].location = TorsoFkCtrlLoc
                                 pbones['torso_fk_ctrl'].scale = TorsoFkCtrlScale
-                                refresh_hack()
-                                pbones['torso_fk_ctrl_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
-                                pbones['torso_fk_ctrl_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
-                                pbones['torso_fk_ctrl_inv'].location[:] = (0.0, 0.0, 0.0)
-                                refresh_hack()
-                                pbones['spine_3_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
-                                pbones['spine_3_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
-                                pbones['spine_3_fk_inv'].location[:] = (0.0, 0.0, 0.0)
-                                refresh_hack()
-                                pbones['spine_2_fk_inv'].rotation_euler[:] = (0.0, 0.0, 0.0)
-                                pbones['spine_2_fk_inv'].rotation_quaternion[:] = (1.0,0.0, 0.0, 0.0)
-                                pbones['spine_2_fk_inv'].location[:] = (0.0, 0.0, 0.0)
                                 refresh_hack()
                                 pbones['look'].rotation_euler = LookRotEuler
                                 pbones['look'].location = LookLoc
