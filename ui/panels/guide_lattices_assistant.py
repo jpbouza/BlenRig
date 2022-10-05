@@ -8,6 +8,7 @@ class BLENRIG_PT_lattices_guide(BLENRIG_PT_guide_assistant):
     bl_label = "Lattices Assistant Guide"
     bl_idname = "BLENRIG_PT_lattices_guide"
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
+    bl_order = 2
 
     def draw(self, context):
         if not VIEW3D_OT_blenrig_guide_lattices.is_instantiated(context):

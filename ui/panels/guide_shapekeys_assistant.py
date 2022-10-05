@@ -9,6 +9,7 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
     bl_label = "Shapekeys Assistant Guide"
     bl_idname = "BLENRIG_PT_shapekeys_guide"
     bl_parent_id = "BLENRIG_PT_blenrig_6_general"
+    bl_order = 2
 
     def draw(self, context):
         if not VIEW3D_OT_blenrig_guide_shapekeys.is_instantiated(context):
