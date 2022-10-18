@@ -12,7 +12,7 @@ boneshapes=[]
 
 ###### Search name of MDef_cage  #####
 def mdef_search(type):
-    mdef_cage_objects =[]
+    mdef_cage_objects = []
     mdef_cage_names = []
     sdef_cage_objects = []
     sdef_cage_names = []
@@ -51,6 +51,17 @@ def mdef_search(type):
 ###### Search objets with modifiers  #####
 def search_mod(type):
     arm = bpy.context.active_object.name
+
+#Clean Variables
+    mdef_cage_name =[]
+    sdef_cage_name = []
+    surface_deform = []
+    mesh_deform = []
+    armature = []
+    surface_deform_name = []
+    mesh_deform_name = []
+    armature_name = []
+
     mdef_cage_name = mdef_search('MESH_DEFORM')
     sdef_cage_name = mdef_search('SURFACE_DEFORM')
     for ob in bpy.data.objects:
