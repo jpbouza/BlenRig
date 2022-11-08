@@ -403,3 +403,7 @@ class BLENRIG_PT_reproportion_guide(BLENRIG_PT_guide_assistant):
                 mirror_row.prop(guide_props, 'guide_show_wp_bones', text='Show All Bones')
                 box.prop(active, "display_type")
 
+                steps = layout.column(align=True)
+                box = steps.box()
+                box.label(text="Snap vertex to Face")
+                box.operator("blenrig.snap_points", text="Snap")

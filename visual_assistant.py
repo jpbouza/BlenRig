@@ -43,7 +43,7 @@ def toggle_bone_visibility(left_side, right_side, target, bones):
 
 def get_properties(context):
     ao = context.active_object
-    if ao.type == 'ARMATURE':
+    if ao.type in ['MESH','ARMATURE']:
         visual_assistant = context.active_object.data.visual_assistant
     if visual_assistant:
         return visual_assistant

@@ -24,6 +24,9 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
             for mod in context.active_object.modifiers:
                 if (mod.type in ["ARMATURE", "MESH_DEFORM"]):
                     return True
+        for prop in context.active_object.items():
+                if prop[0] == 'BlenRig':
+                    return True
 
     def draw(self, context):
         arm = context.active_object
