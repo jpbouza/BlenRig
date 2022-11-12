@@ -166,7 +166,7 @@ class BlenrigGuideData(PropertyGroup):
                     self.show_steps_guide_reproportion,
                     self.show_steps_guide_datatransfer,
                     self.show_steps_guide_mdef,
-                    self.show_steps_guide_lattices,                    
+                    self.show_steps_guide_lattices,
                     self.show_steps_guide_weights,
                     self.show_steps_guide_actions,
                     self.show_steps_guide_rig_settings,
@@ -191,7 +191,7 @@ class BlenrigGuideData(PropertyGroup):
             ("REPROPORTION", "Reproportion", "Show Steps Guide Reproportion", 'DOWNARROW_HLT', 0),
             ("DATATRANFER", "Data Transfer", "Show Steps Guide Datatransfer", 'DOWNARROW_HLT', 1),
             ("MDEF", "Mesh Deform", "Show Steps Guide Mdef", 'DOWNARROW_HLT', 2),
-            ("LATTICES", "Lattices", "Show Steps Guide Lattices", 'DOWNARROW_HLT', 3),            
+            ("LATTICES", "Lattices", "Show Steps Guide Lattices", 'DOWNARROW_HLT', 3),
             ("WHEIGHTS", "Weights", "Show Steps Guide Weight", 'DOWNARROW_HLT', 4),
             ("ACTIONS", "Actions", "Show Steps Guide Actions", 'DOWNARROW_HLT', 5),
             ("RIGSETTINGS", "Rig Settgins", "Show Steps Rig Settings", 'DOWNARROW_HLT', 6),
@@ -492,7 +492,7 @@ class BlenrigGuideData(PropertyGroup):
     update=eyelids_low_follow_update,
     name="Lower Eylid Down Follow"
     )
-    guide_eyelid_auto_cheek : FloatProperty(default=0.000, min=-0.000, max=100.000, precision=3,
+    guide_eyelid_auto_cheek : IntProperty(default=15, min=-0, max=100,
     description="Define how much the Lower Eyelid follows the Upwards movement of the Cheek",
     update=eyelid_auto_cheek_update,
     name="Lower Eylid Cheek Follow"
