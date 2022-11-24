@@ -4041,11 +4041,12 @@ def register():
     )
 
     # Add shortcuts to the keymap.
-    wm = bpy.context.window_manager
-    km = wm.keyconfigs.addon.keymaps.new(name='Pose')
-    kmi = km.keymap_items.new('wm.call_menu', 'W', 'PRESS', alt=True, shift=True)
-    kmi.properties.name = 'POSE_MT_selection_sets_select'
-    addon_keymaps.append((km, kmi))
+    if not bpy.app.background:
+        wm = bpy.context.window_manager
+        km = wm.keyconfigs.addon.keymaps.new(name='Pose')
+        kmi = km.keymap_items.new('wm.call_menu', 'W', 'PRESS', alt=True, shift=True)
+        kmi.properties.name = 'POSE_MT_selection_sets_select'
+        addon_keymaps.append((km, kmi))
 
     # Add entries to menus.
     bpy.types.VIEW3D_MT_select_pose.append(menu_func_select_selection_set)
