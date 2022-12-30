@@ -29,8 +29,8 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
 
 # Panel Properties
 
-    bpy.types.Scene.widget_list = bpy.props.EnumProperty(
-        name="Shape", items=itemsSort, description="Shape")
+    bpy.types.Scene.blenrig_widget_list = bpy.props.EnumProperty(
+        items=itemsSort, name="Shape", description="Shape")
 
     bpy.types.Scene.match_bone_transforms_toggle = bpy.props.BoolProperty(
         default=True, description="Automatic Match Bone Transforms")
@@ -45,14 +45,9 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             col = box.column()
             box = col.box()
             row = box.row()
-            if bpy.context.mode in {"POSE"}:
-                try:
-                    if len(bpy.types.Scene.widget_list.keywords['items']) < 6:
-                        row.prop(context.scene, "widget_list", expand=True)
-                    if len(bpy.types.Scene.widget_list[1]['items']) < 6:
-                        row.prop(context.scene, "widget_list", expand=True)
-                except:
-                    row.prop(context.scene, "widget_list",
+            
+            if bpy.context.mode in {"POSE"}:            
+                row.prop(context.scene, "blenrig_widget_list",
                         expand=False, text="Shapes Select")
 
             if bpy.context.mode in {'POSE', "OBJECT"}:
