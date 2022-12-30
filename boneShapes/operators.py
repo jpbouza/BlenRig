@@ -79,7 +79,7 @@ class BLENRIG_OT_createShapes(bpy.types.Operator):
     def execute(self, context):
         wgts = readShapess()
         for bone in bpy.context.selected_pose_bones:
-            createShapes(bone, wgts[context.scene.widget_list], self.relative_size, self.global_size, [
+            createShapes(bone, wgts[context.scene.blenrig_widget_list], self.relative_size, self.global_size, [
                         1, 1, 1], self.location, self.rotation, getCollection(context))
         UnlinkCollection(context)
         return {'FINISHED'}
@@ -185,6 +185,11 @@ class BLENRIG_OT_addShapess(bpy.types.Operator):
     """Add selected mesh object to Bone Shapes Library"""
     bl_idname = "blenrig.add_shapes"
     bl_label = "Add Shapess"
+    
+    @classmethod
+    def poll(cls, context):
+        return (context.object and context.object.type == 'MESH' and context.object.mode == 'OBJECT'
+                and context.active_object is not None)
 
     def execute(self, context):
         objects = []
@@ -199,7 +204,7 @@ class BLENRIG_OT_addShapess(bpy.types.Operator):
         if not objects:
             self.report({'INFO'}, 'Select Meshes or Pose_bones')
 
-        addRemoveShapess(context, "add", bpy.types.Scene.widget_list[1]['items'], objects)
+        addRemoveShapess(context, "add", bpy.types.Scene.blenrig_widget_list.keywords['items'], objects)
 
         return {'FINISHED'}
 
@@ -210,8 +215,8 @@ class BLENRIG_OT_removeShapess(bpy.types.Operator):
     bl_label = "Remove Shapess"
 
     def execute(self, context):
-        objects = bpy.context.scene.widget_list
-        addRemoveShapess(context, "remove", bpy.types.Scene.widget_list[1]['items'], objects)
+        objects = bpy.context.scene.blenrig_widget_list
+        addRemoveShapess(context, "remove", bpy.types.Scene.blenrig_widget_list.keywords['items'], objects)
         return {'FINISHED'}
 
 

@@ -34,12 +34,19 @@ def objectDataToDico(object):
 def readShapess():
     wgts = {}
 
-    jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'shapes.json')
+    jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'blenrig_shapes.json')
     if os.path.exists(jsonFile):
         f = open(jsonFile, 'r')
         wgts = json.load(f)
 
     return (wgts)
+
+def writeshapes(wgts):
+    jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'blenrig_shapes.json')
+    if os.path.exists(jsonFile):
+        f = open(jsonFile, 'w')
+        f.write(json.dumps(wgts))
+        f.close()
 
 
 def addRemoveShapess(context, addOrRemove, items, shapes):
@@ -48,6 +55,9 @@ def addRemoveShapess(context, addOrRemove, items, shapes):
     widget_items = []
     for widget_item in items:
         widget_items.append(widget_item[1])
+
+    activeShape = None
+    ob_name = None
 
     if addOrRemove == 'add':
 
@@ -58,23 +68,31 @@ def addRemoveShapess(context, addOrRemove, items, shapes):
                 ob_name = ob.name[len(bw_widget_prefix):]
             else:
                 ob_name = ob.name
-            wgts[ob_name] = objectDataToDico(ob)
+            
             if (ob_name) not in widget_items:
                 widget_items.append(ob_name)
+                wgts[ob_name] = objectDataToDico(ob)
+                activeShape = ob_name
 
     elif addOrRemove == 'remove':
         del wgts[shapes]
         widget_items.remove(shapes)
+        activeShape = widget_items[0]
 
-    del bpy.types.Scene.widget_list
+    if activeShape is not None:
+        del bpy.types.Scene.blenrig_widget_list
 
-    widget_itemsSorted = []
-    for w in sorted(widget_items):
-        widget_itemsSorted.append((w, w, ""))
+        widget_itemsSorted = []
+        for w in sorted(widget_items):
+            widget_itemsSorted.append((w, w, ""))
 
-    bpy.types.Scene.widget_list = bpy.props.EnumProperty(items=widget_itemsSorted)
+        bpy.types.Scene.blenrig_widget_list = bpy.props.EnumProperty(items=widget_itemsSorted, name="Shape", description="Shape")
 
-    jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'shapes.json')
+        writeshapes(wgts)
+    elif ob_name is not None:
+        return "Widget - " + ob_name + " already exists!"
+
+    jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'blenrig_shapes.json')
     if os.path.exists(jsonFile):
         f = open(jsonFile, 'w')
         f.write(json.dumps(wgts))
