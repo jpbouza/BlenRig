@@ -1,5 +1,5 @@
 import bpy
-from .functions import (readShapess, getViewLayerCollection,)
+from .functions import (readShapes, getViewLayerCollection,)
 from bpy.types import Menu
 
 
@@ -20,7 +20,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             return True
 
     items = []
-    for key, value in readShapess().items():
+    for key, value in readShapes().items():
         items.append(key)
 
     itemsSort = []
@@ -46,13 +46,16 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
             box = col.box()
             row = box.row()
             
-            if bpy.context.mode in {"POSE"}:            
+            if bpy.context.mode in {'POSE', "OBJECT"}:
+                row = row.row(align=True)
                 row.prop(context.scene, "blenrig_widget_list",
-                        expand=False, text="Shapes Select")
+                        expand=False, text="Shapes Select")                
+                row.menu("BLENRIG_MT_bw_specials", icon='DOWNARROW_HLT', text="")            
+                
 
             if bpy.context.mode in {'POSE', "OBJECT"}:
                 row = box.row()
-                row.menu("BLENRIG_MT_bw_specials", icon='DOWNARROW_HLT', text="")
+                
                 row.operator("blenrig.create_widget", icon="OBJECT_DATAMODE")
 
             if bpy.context.mode in {"POSE"}:
@@ -106,7 +109,7 @@ class BLENRIG_PT_posemode_panel(bpy.types.Panel):
 
             if bpy.context.mode in {'POSE'}:
                 layout.operator("blenrig.delete_unused_shapes",
-                                icon='TRASH', text="Delete Unused Shapess")
+                                icon='TRASH', text="Delete Unused Shapes")
 class BLENRIG_MT_bw_specials(Menu):
     bl_label = "Bone Shapes Specials"
 

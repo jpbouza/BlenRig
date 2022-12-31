@@ -10,13 +10,13 @@ from .functions import (
     createShapes,
     editShapes,
     returnToArmature,
-    addRemoveShapess,
-    readShapess,
+    addRemoveShapes,
+    readShapes,
     objectDataToDico,
     getCollection,
     getViewLayerCollection,
-    deleteUnusedShapess,
-    clearBoneShapess,
+    deleteUnusedShapes,
+    clearBoneShapes,
     resyncShapesNames,
     UnlinkCollection,
     LinkCollection,
@@ -77,7 +77,7 @@ class BLENRIG_OT_createShapes(bpy.types.Operator):
         row.prop(self, "rotation", expand=True)
 
     def execute(self, context):
-        wgts = readShapess()
+        wgts = readShapes()
         for bone in bpy.context.selected_pose_bones:
             createShapes(bone, wgts[context.scene.blenrig_widget_list], self.relative_size, self.global_size, [
                         1, 1, 1], self.location, self.rotation, getCollection(context))
@@ -181,10 +181,10 @@ class BLENRIG_OT_matchSymmetrizeShape(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class BLENRIG_OT_addShapess(bpy.types.Operator):
+class BLENRIG_OT_addShapes(bpy.types.Operator):
     """Add selected mesh object to Bone Shapes Library"""
     bl_idname = "blenrig.add_shapes"
-    bl_label = "Add Shapess"
+    bl_label = "Add Shapes"
     
     @classmethod
     def poll(cls, context):
@@ -204,19 +204,19 @@ class BLENRIG_OT_addShapess(bpy.types.Operator):
         if not objects:
             self.report({'INFO'}, 'Select Meshes or Pose_bones')
 
-        addRemoveShapess(context, "add", bpy.types.Scene.blenrig_widget_list.keywords['items'], objects)
+        addRemoveShapes(context, "add", bpy.types.Scene.blenrig_widget_list.keywords['items'], objects)
 
         return {'FINISHED'}
 
 
-class BLENRIG_OT_removeShapess(bpy.types.Operator):
+class BLENRIG_OT_removeShapes(bpy.types.Operator):
     """Remove selected widget object from the Bone Shapes Library"""
     bl_idname = "blenrig.remove_shapes"
-    bl_label = "Remove Shapess"
+    bl_label = "Remove Shapes"
 
     def execute(self, context):
         objects = bpy.context.scene.blenrig_widget_list
-        addRemoveShapess(context, "remove", bpy.types.Scene.blenrig_widget_list.keywords['items'], objects)
+        addRemoveShapes(context, "remove", bpy.types.Scene.blenrig_widget_list.keywords['items'], objects)
         return {'FINISHED'}
 
 
@@ -235,10 +235,10 @@ class BLENRIG_OT_toggleCollectionVisibility(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class BLENRIG_OT_deleteUnusedShapess(bpy.types.Operator):
+class BLENRIG_OT_deleteUnusedShapes(bpy.types.Operator):
     """Delete unused objects in the WDGT collection"""
     bl_idname = "blenrig.delete_unused_shapes"
-    bl_label = "Delete Unused Shapess"
+    bl_label = "Delete Unused Shapes"
 
     @classmethod
     def poll(cls, context):
@@ -246,23 +246,23 @@ class BLENRIG_OT_deleteUnusedShapess(bpy.types.Operator):
 
     def execute(self, context):
         getCollection(context)
-        deleteUnusedShapess()
+        deleteUnusedShapes()
         UnlinkCollection(context)
         self.report({'INFO'},"Delete Unused Shapes")
         return {'FINISHED'}
 
 
-class BLENRIG_OT_clearBoneShapess(bpy.types.Operator):
+class BLENRIG_OT_clearBoneShapes(bpy.types.Operator):
     """Clear shapes from selected pose bones"""
     bl_idname = "blenrig.clear_shapes"
-    bl_label = "Clear Shapess"
+    bl_label = "Clear Shapes"
 
     @classmethod
     def poll(cls, context):
         return (context.object and context.object.type == 'ARMATURE' and context.object.pose)
 
     def execute(self, context):
-        clearBoneShapess()
+        clearBoneShapes()
         return {'FINISHED'}
 
 

@@ -2477,16 +2477,16 @@ from .ui.panels.ui_panel_objects import (
 
 ####### Load BlenRig 6 Boneshapes Operators and Preferences
 from .boneShapes.operators import (
-    BLENRIG_OT_removeShapess,
-    BLENRIG_OT_addShapess,
+    BLENRIG_OT_removeShapes,
+    BLENRIG_OT_addShapes,
     BLENRIG_OT_matchSymmetrizeShape,
     BLENRIG_OT_matchBoneTransforms,
     BLENRIG_OT_returnToArmature,
     BLENRIG_OT_editShapes,
     BLENRIG_OT_createShapes,
     BLENRIG_OT_toggleCollectionVisibility,
-    BLENRIG_OT_deleteUnusedShapess,
-    BLENRIG_OT_clearBoneShapess,
+    BLENRIG_OT_deleteUnusedShapes,
+    BLENRIG_OT_clearBoneShapes,
     BLENRIG_OT_resyncShapesNames,
     BLENRIG_OT_shape_scale,
     BLENRIG_OT_Make_Unique
@@ -3269,16 +3269,16 @@ bone_selecction_set_classes = [
 
 # BlenRig BoneShapes
 boneshapes_classes = [
-    BLENRIG_OT_removeShapess,
-    BLENRIG_OT_addShapess,
+    BLENRIG_OT_removeShapes,
+    BLENRIG_OT_addShapes,
     BLENRIG_OT_matchSymmetrizeShape,
     BLENRIG_OT_matchBoneTransforms,
     BLENRIG_OT_returnToArmature,
     BLENRIG_OT_editShapes,
     BLENRIG_OT_createShapes,
     BLENRIG_OT_toggleCollectionVisibility,
-    BLENRIG_OT_deleteUnusedShapess,
-    BLENRIG_OT_clearBoneShapess,
+    BLENRIG_OT_deleteUnusedShapes,
+    BLENRIG_OT_clearBoneShapes,
     BLENRIG_OT_resyncShapesNames,
     BLENRIG_OT_shape_scale,
     BLENRIG_OT_Make_Unique,

@@ -168,7 +168,7 @@ def symmetrizeShapes(bone, collection):
     mirrorBone.bone.show_wire = True
 
 
-def deleteUnusedShapess():
+def deleteUnusedShapes():
     C = bpy.context
     D = bpy.data
     bw_collection_search_name = "BlenRig_temp"
@@ -229,7 +229,7 @@ def editShapes(active_bone):
 
         bpy.ops.object.mode_set(mode='EDIT')
     except:
-        UnlinkCollection(context)
+        UnlinkCollection(C)
         print("No Active Bone Selected")
 
 
@@ -333,7 +333,7 @@ def resyncShapesNames():
             D.objects[v.name].name = str(bw_widget_prefix + k.name)
 
 
-def clearBoneShapess():
+def clearBoneShapes():
     C = bpy.context
     D = bpy.data
 

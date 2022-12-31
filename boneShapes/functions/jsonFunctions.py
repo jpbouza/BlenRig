@@ -31,7 +31,7 @@ def objectDataToDico(object):
     return(wgts)
 
 
-def readShapess():
+def readShapes():
     wgts = {}
 
     jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'blenrig_shapes.json')
@@ -49,8 +49,8 @@ def writeshapes(wgts):
         f.close()
 
 
-def addRemoveShapess(context, addOrRemove, items, shapes):
-    wgts = readShapess()
+def addRemoveShapes(context, addOrRemove, items, shapes):
+    wgts = readShapes()
 
     widget_items = []
     for widget_item in items:
@@ -87,13 +87,7 @@ def addRemoveShapess(context, addOrRemove, items, shapes):
             widget_itemsSorted.append((w, w, ""))
 
         bpy.types.Scene.blenrig_widget_list = bpy.props.EnumProperty(items=widget_itemsSorted, name="Shape", description="Shape")
-
+        bpy.context.scene.blenrig_widget_list = activeShape
         writeshapes(wgts)
     elif ob_name is not None:
         return "Widget - " + ob_name + " already exists!"
-
-    jsonFile = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'blenrig_shapes.json')
-    if os.path.exists(jsonFile):
-        f = open(jsonFile, 'w')
-        f.write(json.dumps(wgts))
-        f.close()
