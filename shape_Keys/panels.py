@@ -218,27 +218,17 @@ class BLENRIG_PT_shape_keys_plus(bpy.types.Panel):
             operator='object.blenrig_shape_key_remove',
             icon='REMOVE',
             text="")
+        row.menu(
+            menu='MESH_MT_blenrig_shape_key_other_specials',icon='DOWNARROW_HLT',
+            text="")
 
         op.type = 'DEFAULT'
-
-        # mnu = row.column()
-
-        # mnu.menu(
-        #     menu='MESH_MT_blenrig_shape_key_add_specials',
-        #     icon='DOWNARROW_HLT',
-        #     text="")
 
         #########################
         ######## SPECIAL ########
         #########################
 
         row = col.row(align=False)
-
-        row.menu(
-            menu='MESH_MT_blenrig_shape_key_other_specials',
-            icon='DOWNARROW_HLT',
-            text="")
-
         row.scale_x = 2.0
 
         if not active_key:
