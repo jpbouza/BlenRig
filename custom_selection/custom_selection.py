@@ -30,6 +30,13 @@ class SelectionSet(PropertyGroup):
     bone_ids: CollectionProperty(type=SelectionEntry)
     is_selected: BoolProperty(name="Is Selected")
 
+    def visible_update(self, context):
+        arm = context.object
+        for bone in self.bone_ids:
+            arm.data.bones[bone.name].hide = not self.visible
+
+    visible: BoolProperty(default=True, update=visible_update)
+
 
 # UI Panel w/ UIList ##########################################################
 
@@ -47,10 +54,12 @@ class BLENRIG_MT_selection_sets_context_menu(Menu):
 
 class BLENRIG_UL_selection_set(UIList):
     def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-        sel_set = item
+
         layout.prop(item, "name", text="", icon='GROUP_BONE', emboss=False)
-        if self.layout_type in ('DEFAULT', 'COMPACT'):
-            layout.prop(item, "is_selected", text="")
+        layout.prop(item, "visible", text="", icon='HIDE_OFF' if item.visible else 'HIDE_ON', emboss=False)
+
+        # if self.layout_type in ('DEFAULT', 'COMPACT'):
+        #     layout.prop(item, "is_selected", text="")
 
 
 class BLENRIG_MT_selection_set_create(Menu):
