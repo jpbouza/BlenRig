@@ -141,54 +141,47 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     if bone.count("spine") or bone.count("pelvis") or bone.count("torso") or bone.count("omoplate") or bone.count("chest") or bone.count("body") or bone.count("ball") or bone.count("dicky") or bone.count("butt") or bone.count("back") or bone.count("clavi") or bone.count("look") or bone.count("hip"):
                         torso.append(bone)
 
-    ########### PANEL #############################################################################
+            # PANEL ####################################################################################################
 
-    # Armature Layers
+            # Armature Layers:
             if "gui_layers" in arm:
                 main_col = layout.box().column(align=True)
                 col = main_col.column(align=True)
                 row = col.row(align=True)
 
-            if "gui_layers" in arm and arm["gui_layers"]:
                 row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
                 row.label(text=" Armature Layers")
 
                 # zebus3d
-                col.separator()
-                arm_layers = col.grid_flow(row_major=True, even_columns=True, even_rows=True, align=True, columns=3)
-                arm_layers.scale_y = 0.9
+                if arm["gui_layers"]:
+                    col.separator()
+                    arm_layers = col.grid_flow(row_major=True, even_columns=True, even_rows=True, align=True, columns=3)
+                    arm_layers.scale_y = 0.9
 
-                layers_count = arm["layers_count"]
+                    layers_count = arm["layers_count"]
 
-                # con json:
-                import json
-                data = None
-                with open("data_jsons/armature_layers.json", "r") as jsonFile:
-                    data = json.load(jsonFile)
+                    # con json:
+                    import json
+                    data = None
+                    with open("data_jsons/armature_layers.json", "r") as jsonFile:
+                        data = json.load(jsonFile)
 
-                if data:
-                    for key, value in data.items():
-                        idx = value[0]
-                        if idx < layers_count:
-                            arm_layers.prop(arm, "layers", index=idx, toggle=True, text=key)
+                    if data:
+                        for key, value in data.items():
+                            idx = value[0]
+                            if idx < layers_count:
+                                arm_layers.prop(arm, "layers", index=idx, toggle=True, text=key)
 
-                # sin json pero desordenados por no tener el index en el mismo orden:
-                # for key, value in arm.items():
+                    # sin json pero desordenados por no tener el index en el mismo orden:
+                    # for key, value in arm.items():
+                    #     if key != "layer_list":
+                    #         continue
+                    #     valid_names = value.split(", ")
+                    # for idx, name in enumerate(valid_names):
+                    #     if idx < layers_count:
+                    #         arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
 
-                #     if key != "layer_list":
-                #         continue
-
-                #     valid_names = value.split(", ")
-
-                # for idx, name in enumerate(valid_names):
-                #     if idx < layers_count:
-                #         arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
-
-            elif "gui_layers" in arm:
-                row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
-                row.label(text=" Armature Layers")
-
-    ######################### gui custom layers ##############################
+            # gui custom layers panel ############################################################
 
             col = layout.box().column(align=True)
             row = col.row(align=True)
@@ -197,7 +190,6 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
             row.label(text=" Armature Custom Layers")
 
             if props.gui_custom_layers:
-                #################### Custom Layers Panel #################
 
                 arm2 = context.object
 
@@ -238,7 +230,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 sub.operator("blenrig.selection_set_select", text="Select")
                 sub.operator("blenrig.selection_set_deselect", text="Deselect")
 
-    ######################### gui custom layers ##############################
+             # End gui custom layers ############################################################
 
             # expanded box
             box = layout.column()
