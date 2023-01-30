@@ -163,7 +163,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 # con json:
                 import json
                 data = None
-                with open("data_jsons/layers.json", "r") as jsonFile:
+                with open("data_jsons/armature_layers.json", "r") as jsonFile:
                     data = json.load(jsonFile)
 
                 if data:
