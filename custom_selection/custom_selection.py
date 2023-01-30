@@ -19,6 +19,8 @@ from bpy.props import (
 
 # Note: bones are stored by name, this means that if the bone is renamed,
 # there can be problems. However, bone renaming is unlikely during animation.
+
+
 class SelectionEntry(PropertyGroup):
     name: StringProperty(name="Bone Name")
 
@@ -267,18 +269,23 @@ class BLENRIG_OT_selection_set_select(NeedSelSetPluginOperator):
 
     def execute(self, context):
         arm = context.object
+
         bpy.ops.pose.reveal()
-        bpy.ops.pose.select_all(action='DESELECT')
+        # bpy.ops.pose.select_all(action='DESELECT')
+
         if self.selection_set_index == -1:
             idx = arm.blenrig_active_selection_set
         else:
             idx = self.selection_set_index
+
         sel_set = arm.blenrig_selection_sets[idx]
 
         for bone in context.visible_pose_bones:
             if bone.name in sel_set.bone_ids:
                 bone.bone.select = True
-        bpy.ops.pose.hide(unselected =True)
+
+        # bpy.ops.pose.hide(unselected=True)
+
         return {'FINISHED'}
 
 
