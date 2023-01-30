@@ -175,9 +175,6 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 # sin json pero desordenados por no tener el index en el mismo orden:
                 # for key, value in arm.items():
 
-                #     if key == "layers_count":
-                #         layers_count = value
-
                 #     if key != "layer_list":
                 #         continue
 
