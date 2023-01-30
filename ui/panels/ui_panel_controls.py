@@ -148,6 +148,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 main_col = layout.box().column(align=True)
                 col = main_col.column(align=True)
                 row = col.row(align=True)
+
             if "gui_layers" in arm and arm["gui_layers"]:
                 row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
                 row.label(text="Armature Layers")
@@ -157,24 +158,37 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 arm_layers = col.grid_flow(row_major=True, even_columns=True, even_rows=True, align=True, columns=3)
                 arm_layers.scale_y = 0.9
 
-                layers_count = None
+                layers_count = arm["layers_count"]
 
-                for key, value in arm.items():
+                # con json:
+                import json
+                data = None
+                with open("data_jsons/layers.json", "r") as jsonFile:
+                    data = json.load(jsonFile)
 
-                    if key == "layers_count":
-                        layers_count = value
+                if data:
+                    for key, value in data.items():
+                        idx = value[0]
+                        if idx < layers_count:
+                            arm_layers.prop(arm, "layers", index=idx, toggle=True, text=key)
 
-                    if key != "layer_list":
-                        continue
+                # sin json pero desordenados por no tener el index en el mismo orden:
+                # for key, value in arm.items():
 
-                    valid_names = value.split(", ")
+                #     if key == "layers_count":
+                #         layers_count = value
 
-                for idx, name in enumerate(valid_names):
-                    if idx < layers_count:
-                        arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
+                #     if key != "layer_list":
+                #         continue
+
+                #     valid_names = value.split(", ")
+
+                # for idx, name in enumerate(valid_names):
+                #     if idx < layers_count:
+                #         arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
 
             elif "gui_layers" in arm:
-                row.operator("gui.blenrig_6_tabs", icon="RENDER_RESULT", emboss=1).tab = "gui_layers"
+                row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
                 row.label(text="Armature Layers")
 
     ######################### gui custom layers ##############################
