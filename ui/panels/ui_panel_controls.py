@@ -158,24 +158,26 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 arm_layers.scale_y = 0.9
 
                 valid_names = []
+                layers_count = None
 
-                for idx, names in arm.items():
+                for key, value in arm.items():
 
-                    if idx != "layer_list":
+                    if key == "layers_count":
+                        layers_count = value
+
+                    if key != "layer_list":
                         continue
 
-                    data_array_names = names.split(", ")
+                    data_array_names = value.split(", ")
 
                     for name in data_array_names:
                         if name not in valid_names:
                             valid_names.append(name)
 
                 for idx, name in enumerate(valid_names):
-                    arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
+                    if idx < layers_count:
+                        arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
 
-                # col2.separator()
-
-                # collapsed box
             elif "gui_layers" in arm:
                 row.operator("gui.blenrig_6_tabs", icon="RENDER_RESULT", emboss=1).tab = "gui_layers"
                 row.label(text="Armature Layers")
