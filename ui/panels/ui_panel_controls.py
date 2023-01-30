@@ -155,6 +155,11 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 # zebus3d
                 if arm["gui_layers"]:
                     col.separator()
+
+                    slider = col.row(align=True)
+                    slider.prop(arm, '["layers_count"]', text="Maximum Layers", toggle=True)
+                    col.separator()
+
                     arm_layers = col.grid_flow(row_major=True, even_columns=True, even_rows=True, align=True, columns=3)
                     arm_layers.scale_y = 0.9
 
