@@ -49,12 +49,10 @@ class SelectionSet(PropertyGroup):
         # guardo todos los que si son visibles por los grupos:
         all_vivible_bones = self.get_all_visible_bones_in_list(context)
         for bone in self.bone_ids:
-            bone_obj = arm.data.bones[bone.name]
-            bone_obj.hide = visibility
+            arm.data.bones[bone.name].hide = visibility
         # restauramos todos los que si era visibles
         for bone_name in all_vivible_bones:
-            bone_obj = arm.data.bones[bone_name]
-            bone_obj.hide = False
+            arm.data.bones[bone_name].hide = False
 
     visible: BoolProperty(default=True, update=visible_update)
 
