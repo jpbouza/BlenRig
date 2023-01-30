@@ -30,10 +30,31 @@ class SelectionSet(PropertyGroup):
     bone_ids: CollectionProperty(type=SelectionEntry)
     is_selected: BoolProperty(name="Is Selected")
 
+    def get_all_visible_bones_in_list(self, context):
+        arm = context.object
+        # el activo de la lista = arm.blenrig_active_selection_set
+        bones_list = arm.blenrig_selection_sets
+        all_visible_bones = []
+        for item_list in bones_list:
+            if item_list.visible:
+                for bone in item_list.bone_ids:
+                    if bone.name not in all_visible_bones:
+                        all_visible_bones.append(bone.name)
+        if all_visible_bones:
+            return all_visible_bones
+
     def visible_update(self, context):
         arm = context.object
+        visibility = not self.visible
+        # guardo todos los que si son visibles por los grupos:
+        all_vivible_bones = self.get_all_visible_bones_in_list(context)
         for bone in self.bone_ids:
-            arm.data.bones[bone.name].hide = not self.visible
+            bone_obj = arm.data.bones[bone.name]
+            bone_obj.hide = visibility
+        # restauramos todos los que si era visibles
+        for bone_name in all_vivible_bones:
+            bone_obj = arm.data.bones[bone_name]
+            bone_obj.hide = False
 
     visible: BoolProperty(default=True, update=visible_update)
 
