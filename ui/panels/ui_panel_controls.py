@@ -232,8 +232,8 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 sub.operator("blenrig.selection_set_unassign", text="Remove")
 
                 # sub = buttons.row(align=True)
-                sub.operator("blenrig.selection_set_select", text="Select")
-                sub.operator("blenrig.selection_set_deselect", text="Deselect")
+                # sub.operator("blenrig.selection_set_select", text="Select")
+                # sub.operator("blenrig.selection_set_deselect", text="Deselect")
 
              # End gui custom layers ############################################################
 
