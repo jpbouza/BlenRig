@@ -157,7 +157,6 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 arm_layers = col.grid_flow(row_major=True, even_columns=True, even_rows=True, align=True, columns=3)
                 arm_layers.scale_y = 0.9
 
-                valid_names = []
                 layers_count = None
 
                 for key, value in arm.items():
@@ -168,11 +167,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     if key != "layer_list":
                         continue
 
-                    data_array_names = value.split(", ")
-
-                    for name in data_array_names:
-                        if name not in valid_names:
-                            valid_names.append(name)
+                    valid_names = value.split(", ")
 
                 for idx, name in enumerate(valid_names):
                     if idx < layers_count:
