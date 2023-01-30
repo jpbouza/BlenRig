@@ -151,7 +151,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
 
             if "gui_layers" in arm and arm["gui_layers"]:
                 row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
-                row.label(text="Armature Layers")
+                row.label(text=" Armature Layers")
 
                 # zebus3d
                 col.separator()
@@ -186,28 +186,28 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
 
             elif "gui_layers" in arm:
                 row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
-                row.label(text="Armature Layers")
+                row.label(text=" Armature Layers")
 
     ######################### gui custom layers ##############################
 
-            box = layout.column()
-            col = box.column()
-            row = col.row()
+            col = layout.box().column(align=True)
+            row = col.row(align=True)
+
+            row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_custom_layers"
+            row.label(text=" Armature Custom Layers")
 
             if props.gui_custom_layers:
-                row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_custom_layers"
-                row.label(text="ARMATURE CUSTOM LAYERS")
-
                 #################### Custom Layers Panel #################
 
                 arm2 = context.object
 
-                row = layout.row()
-                row.enabled = (context.mode == 'POSE')
+                col.separator()
+                row_list = col.row(align=True)
+                row_list.enabled = (context.mode == 'POSE')
 
                 # UI list
-                rows = 4 if len(arm2.blenrig_selection_sets) > 0 else 1
-                row.template_list(
+                rows = 4 if len(arm2.blenrig_selection_sets) > 0 else 2
+                row_list.template_list(
                     "BLENRIG_UL_selection_set", "",  # type and unique id
                     arm2, "blenrig_selection_sets",  # pointer to the CollectionProperty
                     arm2, "blenrig_active_selection_set",  # pointer to the active identifier
@@ -215,35 +215,32 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                 )
 
                 # add/remove/specials UI list Menu
-                col = row.column(align=True)
-                col.operator("blenrig.selection_set_add", icon='ADD', text="")
-                col.operator("blenrig.selection_set_remove", icon='REMOVE', text="")
-                col.menu("BLENRIG_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
+                col_list = row_list.column(align=True)
+                col_list.operator("blenrig.selection_set_add", icon='ADD', text="")
+                col_list.operator("blenrig.selection_set_remove", icon='REMOVE', text="")
+                col_list.menu("BLENRIG_MT_selection_sets_context_menu", icon='DOWNARROW_HLT', text="")
 
                 # move up/down arrows
                 if len(arm2.blenrig_selection_sets) > 0:
-                    col.separator()
-                    col.operator("blenrig.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
-                    col.operator("blenrig.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+                    # col_list.separator()
+                    col_list.operator("blenrig.selection_set_move", icon='TRIA_UP', text="").direction = 'UP'
+                    col_list.operator("blenrig.selection_set_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
 
                 # buttons
-                row = layout.row()
+                col.separator()
+                buttons = col.row()
 
-                sub = row.row(align=True)
+                sub = buttons.row(align=True)
                 sub.operator("blenrig.selection_set_assign", text="Assign")
                 sub.operator("blenrig.selection_set_unassign", text="Remove")
 
-                sub = row.row(align=True)
+                # sub = buttons.row(align=True)
                 sub.operator("blenrig.selection_set_select", text="Select")
                 sub.operator("blenrig.selection_set_deselect", text="Deselect")
 
-            else:
-                row.operator("gui.blenrig_6_tabs", icon="RENDER_RESULT", emboss=1).tab = "gui_custom_layers"
-                row.label(text="ARMATURE CUSTOM LAYERS")
     ######################### gui custom layers ##############################
 
             # expanded box
-            col.separator()
             box = layout.column()
             col2 = box.column(align=1)
             row_layers = col2.row(align=1)
