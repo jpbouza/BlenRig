@@ -51,8 +51,9 @@ class SelectionSet(PropertyGroup):
         for bone in self.bone_ids:
             arm.data.bones[bone.name].hide = visibility
         # restauramos todos los que si era visibles
-        for bone_name in all_vivible_bones:
-            arm.data.bones[bone_name].hide = False
+        if all_vivible_bones:
+            for bone_name in all_vivible_bones:
+                arm.data.bones[bone_name].hide = False
 
     visible: BoolProperty(default=True, update=visible_update)
 
