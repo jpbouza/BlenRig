@@ -40,6 +40,16 @@ class SelectionSet(PropertyGroup):
 
 # UI Panel w/ UIList ##########################################################
 
+class BLENRIG_UL_selection_set(UIList):
+    def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
+
+        layout.prop(item, "name", text="", icon='GROUP_BONE', emboss=False)
+        layout.prop(item, "visible", text="", icon='HIDE_OFF' if item.visible else 'HIDE_ON', emboss=False)
+
+        # if self.layout_type in ('DEFAULT', 'COMPACT'):
+        #     layout.prop(item, "is_selected", text="")
+
+
 class BLENRIG_MT_selection_sets_context_menu(Menu):
     bl_label = "Selection Sets Specials"
 
@@ -50,16 +60,6 @@ class BLENRIG_MT_selection_sets_context_menu(Menu):
         layout.operator("blenrig.selection_set_remove_bones", icon='X')
         layout.operator("blenrig.selection_set_copy", icon='COPYDOWN')
         layout.operator("blenrig.selection_set_paste", icon='PASTEDOWN')
-
-
-class BLENRIG_UL_selection_set(UIList):
-    def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-
-        layout.prop(item, "name", text="", icon='GROUP_BONE', emboss=False)
-        layout.prop(item, "visible", text="", icon='HIDE_OFF' if item.visible else 'HIDE_ON', emboss=False)
-
-        # if self.layout_type in ('DEFAULT', 'COMPACT'):
-        #     layout.prop(item, "is_selected", text="")
 
 
 class BLENRIG_MT_selection_set_create(Menu):
