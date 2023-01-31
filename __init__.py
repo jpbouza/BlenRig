@@ -1390,7 +1390,6 @@ bpy.types.Armature.toggle_body_drivers = BoolProperty(
 bpy.types.PoseBone.toggle_fingers_L = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
-    # update=rig_toggles_update,
     update=lambda self, context: rig_toggles_update(
             self,
             context,
@@ -1434,7 +1433,6 @@ bpy.types.PoseBone.toggle_fingers_thumb_L = BoolProperty(
 bpy.types.PoseBone.toggle_toes_L = BoolProperty(
     default=0,
     description="Toggle toes in rig",
-    # update=rig_toggles_update,
     update=lambda self, context: rig_toggles_update(
             self,
             context,
@@ -1478,7 +1476,6 @@ bpy.types.PoseBone.toggle_toes_big_L = BoolProperty(
 bpy.types.PoseBone.toggle_fingers_R = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
-    # update=rig_toggles_update,
     update=lambda self, context: rig_toggles_update(
             self,
             context,
@@ -1522,7 +1519,6 @@ bpy.types.PoseBone.toggle_fingers_thumb_R = BoolProperty(
 bpy.types.PoseBone.toggle_toes_R = BoolProperty(
     default=0,
     description="Toggle toes in rig",
-    # update=rig_toggles_update,
     update=lambda self, context: rig_toggles_update(
             self,
             context,
