@@ -384,7 +384,9 @@ def rig_toggles(context, call_from:str, call_from_side):
         #         continue
 
         #     valid_bones.append(b)
-        
+
+        # Para poder optimizar el computo a la mitad:
+        # como solo se llama desde toes (pies) y fingers (manos) lo he acotado tanto al tipo como a si es Left o Right:
         valid_bones_phase_1 = [b for b in p_bones if b.name.endswith(call_from_side)]
     
         if call_from == "fingers":
