@@ -376,14 +376,16 @@ def rig_toggles(context):
         arm = amr_obj.data
         p_bones = amr_obj.pose.bones
 
-        valid_bones = []
-        for b in p_bones:
+        # valid_bones = []
+        # for b in p_bones:
 
-            # si no contiene ni el sufijo _L ni _R pasamos al siguiente:
-            if all([not b.name.endswith("_L"), not b.name.endswith("_R")]):
-                continue
+        #     # si no contiene ni el sufijo _L ni _R pasamos al siguiente:
+        #     if all([not b.name.endswith("_L"), not b.name.endswith("_R")]):
+        #         continue
 
-            valid_bones.append(b)
+        #     valid_bones.append(b)
+
+        valid_bones = [b for b in p_bones if any([b.name.endswith("_L"), b.name.endswith("_R")])]
 
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
