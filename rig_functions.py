@@ -392,7 +392,7 @@ def rig_toggles(context, call_from:str, call_from_side):
         if call_from == "fingers":
             valid_bones_phase_2 = [b for b in valid_bones_phase_1 if any([b.name.startswith("fing"), b.name.startswith("hand")])]
         elif call_from == "toes":
-            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if "str" in b.name or "spread" in b.name and any([b.name.startswith("toe")])]
+            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if "str" in b.name or "spread" in b.name and b.name.startswith("toe")]
         
 
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
