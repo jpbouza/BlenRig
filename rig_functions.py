@@ -389,10 +389,10 @@ def rig_toggles(context):
 
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
-            for B in bone_list:
+            for bl in bone_list:
                 for b in valid_bones:
 
-                    if b.name != str(B[0:-2] + side):
+                    if b.name != str(bl[0:-2] + side):
                         continue
 
                     b.bone.layers = [i in layer_list for i in range(len(b.bone.layers))]
