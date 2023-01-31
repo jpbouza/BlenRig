@@ -362,54 +362,57 @@ def reproportion_toggle(self, context):
 
 # Legacy Function for BlenRig 5 Rigs
 
+# zebus
+
 
 def rig_toggles(context):
     from datetime import datetime
     start = datetime.now()
 
-    if not context.screen:
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
 
-    if context.screen.is_animation_playing == True:
-        return False
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        amr_obj = context.active_object
+        arm = amr_obj.data
+        p_bones = amr_obj.pose.bones
 
-    if not context.active_object:
-        return False
+        def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
-    amr_obj = context.active_object
-    arm = amr_obj.data
-    p_bones = amr_obj.pose.bones
+            for B in bone_list:
+                for b in p_bones:
 
-    # zebus 3d
-    def rig_toggles_set_bone_layers(bone_list, layer_list, constraints_state):
+                    if b.name != str(B[0:-2] + side):
+                        continue
 
-        for b_name in bone_list:
+                    for i in range(len(b.bone.layers)):
+                        b.bone.layers[i] = i in layer_list
 
-            b = p_bones[b_name]
+                    for const in b.constraints:
+                        const.mute = False
 
-            for i in range(len(b.bone.layers)):
-                b.bone.layers[i] = i in layer_list
+                        if constraints_state:
 
-            for const in b.constraints:
-                const.mute = False
+                            if 'REPROP' in const.name:
+                                const.mute = not arm.reproportion
+                            elif 'NOREP' in const.name:
+                                const.mute = arm.reproportion
 
-                if constraints_state:
+                        else:
+                            const.mute = True
 
-                    if 'REPROP' in const.name:
-                        const.mute = not arm.reproportion
-                    elif 'NOREP' in const.name:
-                        const.mute = arm.reproportion
-
-                else:
-                    const.mute = True
-
-    if context.active_object.type == 'ARMATURE' and context.active_object.mode == 'POSE':
-
-        valid_bones = [bone for bone in p_bones if bone.name.startswith("properties_")]
         fingers_bones = ['hand_close_L', 'fing_spread_L']
         foot_toes_str = ['toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L']
 
-        for b in valid_bones:
+        for b in p_bones:
+
+            # si no empieza por properties pasamos al siguiente:
+            if not b.name.startswith("properties"):
+                continue
+
+            # si no contiene ni arm ni leg pasamos al siguiente:
+            if all(["arm" not in b.name, "leg" not in b.name]):
+                continue
 
             toggle_fingers_L = b.toggle_fingers_L
             toggle_fingers_R = b.toggle_fingers_R
@@ -426,9 +429,9 @@ def rig_toggles(context):
                     b.toggle_fingers_ring_L = toggle_fingers_L
                     b.toggle_fingers_little_L = toggle_fingers_L
                     if toggle_fingers_L:
-                        rig_toggles_set_bone_layers(fingers_bones, [5, 16, 24, 25, 31], toggle_fingers_L)
+                        set_bone_layers(fingers_bones, [5, 16, 24, 25, 31], toggle_fingers_L, '_L')
                     else:
-                        rig_toggles_set_bone_layers(fingers_bones, [24], toggle_fingers_L)
+                        set_bone_layers(fingers_bones, [24], toggle_fingers_L, '_L')
 
                 # Fingers_R
                 elif b.name.endswith('_R'):
@@ -438,9 +441,9 @@ def rig_toggles(context):
                     b.toggle_fingers_ring_R = toggle_fingers_R
                     b.toggle_fingers_little_R = toggle_fingers_R
                     if toggle_fingers_R:
-                        rig_toggles_set_bone_layers(fingers_bones, [3, 6, 24, 25, 31], toggle_fingers_R)
+                        set_bone_layers(fingers_bones, [3, 6, 24, 25, 31], toggle_fingers_R, '_R')
                     else:
-                        rig_toggles_set_bone_layers(fingers_bones, [24], toggle_fingers_R)
+                        set_bone_layers(fingers_bones, [24], toggle_fingers_R, '_R')
 
             elif 'leg' in b.name:
 
@@ -452,13 +455,13 @@ def rig_toggles(context):
                     b.toggle_toes_fourth_L = toggle_toes_L
                     b.toggle_toes_little_L = toggle_toes_L
                     if toggle_toes_L:
-                        rig_toggles_set_bone_layers(['toes_spread_L'], [10, 24, 25, 31], toggle_toes_L)
-                        rig_toggles_set_bone_layers(['toes_ik_ctrl_L'], [9, 24, 25], toggle_toes_L)
-                        rig_toggles_set_bone_layers(foot_toes_str, [24, 31], toggle_toes_L)
+                        set_bone_layers(['toes_spread_L'], [10, 24, 25, 31], toggle_toes_L, '_L')
+                        set_bone_layers(['toes_ik_ctrl_L'], [9, 24, 25], toggle_toes_L, '_L')
+                        set_bone_layers(foot_toes_str, [24, 31], toggle_toes_L, '_L')
                     else:
-                        rig_toggles_set_bone_layers(['toes_spread_L'], [24], toggle_toes_L)
-                        rig_toggles_set_bone_layers(['toes_ik_ctrl_L'], [24], toggle_toes_L)
-                        rig_toggles_set_bone_layers(foot_toes_str, [24], toggle_toes_L)
+                        set_bone_layers(['toes_spread_L'], [24], toggle_toes_L, '_L')
+                        set_bone_layers(['toes_ik_ctrl_L'], [24], toggle_toes_L, '_L')
+                        set_bone_layers(foot_toes_str, [24], toggle_toes_L, '_L')
 
                 # Toes_R
                 elif b.name.endswith('_R'):
@@ -468,13 +471,13 @@ def rig_toggles(context):
                     b.toggle_toes_fourth_R = toggle_toes_R
                     b.toggle_toes_little_R = toggle_toes_R
                     if toggle_toes_R:
-                        rig_toggles_set_bone_layers(['toes_spread_R'], [10, 24, 25, 31], toggle_toes_R)
-                        rig_toggles_set_bone_layers(['toes_ik_ctrl_R'], [23, 24, 25], toggle_toes_R)
-                        rig_toggles_set_bone_layers(foot_toes_str, [24, 31], toggle_toes_R)
+                        set_bone_layers(['toes_spread_R'], [10, 24, 25, 31], toggle_toes_R, '_R')
+                        set_bone_layers(['toes_ik_ctrl_R'], [23, 24, 25], toggle_toes_R, '_R')
+                        set_bone_layers(foot_toes_str, [24, 31], toggle_toes_R, '_R')
                     else:
-                        rig_toggles_set_bone_layers(['toes_spread_R'], [24], toggle_toes_R)
-                        rig_toggles_set_bone_layers(['toes_ik_ctrl_R'], [24], toggle_toes_R)
-                        rig_toggles_set_bone_layers(foot_toes_str, [24], toggle_toes_R)
+                        set_bone_layers(['toes_spread_R'], [24], toggle_toes_R, '_R')
+                        set_bone_layers(['toes_ik_ctrl_R'], [24], toggle_toes_R, '_R')
+                        set_bone_layers(foot_toes_str, [24], toggle_toes_R, '_R')
 
     print('### TIME:', datetime.now()-start)
 
