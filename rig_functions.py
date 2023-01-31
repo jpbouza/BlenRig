@@ -362,10 +362,9 @@ def reproportion_toggle(self, context):
 
 # Legacy Function for BlenRig 5 Rigs
 
-# zebus
-
 
 def rig_toggles(context):
+    # zebus
     from datetime import datetime
     start = datetime.now()
 
@@ -414,6 +413,10 @@ def rig_toggles(context):
             if all(["arm" not in b.name, "leg" not in b.name]):
                 continue
 
+            # si no contiene ni el sufijo _L ni _R pasamos al siguiente:
+            if all([not b.name.endswith("_L"), not b.name.endswith("_R")]):
+                continue
+
             toggle_fingers_L = b.toggle_fingers_L
             toggle_fingers_R = b.toggle_fingers_R
             toggle_toes_L = b.toggle_toes_L
@@ -434,7 +437,7 @@ def rig_toggles(context):
                         set_bone_layers(fingers_bones, [24], toggle_fingers_L, '_L')
 
                 # Fingers_R
-                elif b.name.endswith('_R'):
+                else:
                     b.toggle_fingers_thumb_R = toggle_fingers_R
                     b.toggle_fingers_index_R = toggle_fingers_R
                     b.toggle_fingers_middle_R = toggle_fingers_R
@@ -464,7 +467,7 @@ def rig_toggles(context):
                         set_bone_layers(foot_toes_str, [24], toggle_toes_L, '_L')
 
                 # Toes_R
-                elif b.name.endswith('_R'):
+                else:
                     b.toggle_toes_big_R = toggle_toes_R
                     b.toggle_toes_index_R = toggle_toes_R
                     b.toggle_toes_middle_R = toggle_toes_R
