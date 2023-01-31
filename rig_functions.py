@@ -376,10 +376,24 @@ def rig_toggles(context):
         arm = amr_obj.data
         p_bones = amr_obj.pose.bones
 
+        valid_bones = []
+        for b in p_bones:
+
+            # si no contiene ni el sufijo _L ni _R pasamos al siguiente:
+            if all([not b.name.endswith("_L"), not b.name.endswith("_R")]):
+                continue
+
+            valid_bones.append(b)
+
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
             for B in bone_list:
-                for b in p_bones:
+                for b in valid_bones:
+
+                    # if all(["str" not in b.name, "spread" not in b.name]):
+                    #     continue
+
+                    # print(b.name)
 
                     if b.name != str(B[0:-2] + side):
                         continue
@@ -388,22 +402,17 @@ def rig_toggles(context):
                         b.bone.layers[i] = i in layer_list
 
                     for const in b.constraints:
-                        const.mute = False
-
-                        if constraints_state:
-
-                            if 'REPROP' in const.name:
-                                const.mute = not arm.reproportion
-                            elif 'NOREP' in const.name:
-                                const.mute = arm.reproportion
-
+                        if 'REPROP' in const.name:
+                            const.mute = not arm.reproportion
+                        elif 'NOREP' in const.name:
+                            const.mute = arm.reproportion
                         else:
-                            const.mute = True
+                            const.mute = not constraints_state
 
         fingers_bones = ['hand_close_L', 'fing_spread_L']
         foot_toes_str = ['toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L']
 
-        for b in p_bones:
+        for b in valid_bones:
 
             # si no empieza por properties pasamos al siguiente:
             if not b.name.startswith("properties"):
@@ -411,10 +420,6 @@ def rig_toggles(context):
 
             # si no contiene ni arm ni leg pasamos al siguiente:
             if all(["arm" not in b.name, "leg" not in b.name]):
-                continue
-
-            # si no contiene ni el sufijo _L ni _R pasamos al siguiente:
-            if all([not b.name.endswith("_L"), not b.name.endswith("_R")]):
                 continue
 
             toggle_fingers_L = b.toggle_fingers_L
