@@ -393,16 +393,19 @@ def rig_toggles(context):
                     if b.name != str(B[0:-2] + side):
                         continue
 
-                    for i in range(len(b.bone.layers)):
-                        b.bone.layers[i] = i in layer_list
+            # new_valid_bones = [vb for vb in valid_bones if vb.name == str(bl[0:-2] + side for bl in bone_list)]
+            # for b in new_valid_bones:
 
-                    for const in b.constraints:
-                        if 'REPROP' in const.name:
-                            const.mute = not arm.reproportion
-                        elif 'NOREP' in const.name:
-                            const.mute = arm.reproportion
-                        else:
-                            const.mute = not constraints_state
+                for i in range(len(b.bone.layers)):
+                    b.bone.layers[i] = i in layer_list
+
+                for const in b.constraints:
+                    if 'REPROP' in const.name:
+                        const.mute = not arm.reproportion
+                    elif 'NOREP' in const.name:
+                        const.mute = arm.reproportion
+                    else:
+                        const.mute = not constraints_state
 
         fingers_bones = ['hand_close_L', 'fing_spread_L']
         foot_toes_str = ['toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L']
