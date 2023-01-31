@@ -390,11 +390,6 @@ def rig_toggles(context):
             for B in bone_list:
                 for b in valid_bones:
 
-                    # if all(["str" not in b.name, "spread" not in b.name]):
-                    #     continue
-
-                    # print(b.name)
-
                     if b.name != str(B[0:-2] + side):
                         continue
 
