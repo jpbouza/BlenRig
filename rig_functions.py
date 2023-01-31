@@ -1,6 +1,6 @@
 import bpy
 from math import radians
-import numpy
+import numpy as np
 
 ####### Bones Hiding System #######
 
@@ -1999,4 +1999,4 @@ def calculate_pole_angle(upper_bone, lower_bone, pole_bone):
         ik_bone,
         pole_bone.matrix.translation)
 
-    return numpy.rad2deg(pole_angle_in_radians)
+    return np.rad2deg(pole_angle_in_radians)
