@@ -395,8 +395,7 @@ def rig_toggles(context):
                     if b.name != str(B[0:-2] + side):
                         continue
 
-                    for i in range(len(b.bone.layers)):
-                        b.bone.layers[i] = i in layer_list
+                    b.bone.layers = [i in layer_list for i in range(len(b.bone.layers))]
 
                     for const in b.constraints:
                         if 'REPROP' in const.name:
