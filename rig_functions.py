@@ -363,7 +363,7 @@ def reproportion_toggle(self, context):
 # Legacy Function for BlenRig 5 Rigs
 
 
-def rig_toggles(context):
+def rig_toggles(context, call_from:str, call_from_side):
     # zebus
     from datetime import datetime
     start = datetime.now()
@@ -384,13 +384,19 @@ def rig_toggles(context):
         #         continue
 
         #     valid_bones.append(b)
-
-        valid_bones = [b for b in p_bones if any([b.name.endswith("_L"), b.name.endswith("_R")])]
+        
+        valid_bones_phase_1 = [b for b in p_bones if b.name.endswith(call_from_side)]
+    
+        if call_from == "fingers":
+            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if any([b.name.startswith("fing"), b.name.startswith("hand")])]
+        elif call_from == "toes":
+            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if "str" in b.name or "spread" in b.name and any([b.name.startswith("toe")])]
+        
 
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
             for bl in bone_list:
-                for b in valid_bones:
+                for b in valid_bones_phase_2:
 
                     if b.name != str(bl[0:-2] + side):
                         continue
@@ -408,7 +414,7 @@ def rig_toggles(context):
         fingers_bones = ['hand_close_L', 'fing_spread_L']
         foot_toes_str = ['toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L']
 
-        for b in valid_bones:
+        for b in valid_bones_phase_1:
 
             # si no empieza por properties pasamos al siguiente:
             if not b.name.startswith("properties"):

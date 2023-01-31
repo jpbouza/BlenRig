@@ -99,8 +99,8 @@ def prop_update(self, context):
 def reprop_update(self, context):
     reproportion_toggle(self, context)
 
-def rig_toggles_update(self, context):
-    rig_toggles(context)
+def rig_toggles_update(self, context, call_from:str, call_from_side:str):
+    rig_toggles(context, call_from, call_from_side)
 
 def fingers_toggles_update(self, context):
     fingers_toggles(self, context)
@@ -1390,7 +1390,13 @@ bpy.types.Armature.toggle_body_drivers = BoolProperty(
 bpy.types.PoseBone.toggle_fingers_L = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
-    update=rig_toggles_update,
+    # update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'fingers',
+            '_L',
+        ),
     name="toggle_fingers_L"
 )
 bpy.types.PoseBone.toggle_fingers_index_L = BoolProperty(
@@ -1428,7 +1434,13 @@ bpy.types.PoseBone.toggle_fingers_thumb_L = BoolProperty(
 bpy.types.PoseBone.toggle_toes_L = BoolProperty(
     default=0,
     description="Toggle toes in rig",
-    update=rig_toggles_update,
+    # update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_L"
 )
 bpy.types.PoseBone.toggle_toes_index_L = BoolProperty(
@@ -1466,7 +1478,13 @@ bpy.types.PoseBone.toggle_toes_big_L = BoolProperty(
 bpy.types.PoseBone.toggle_fingers_R = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
-    update=rig_toggles_update,
+    # update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'fingers',
+            '_R',
+        ),
     name="toggle_fingers_R"
 )
 bpy.types.PoseBone.toggle_fingers_index_R = BoolProperty(
@@ -1504,7 +1522,13 @@ bpy.types.PoseBone.toggle_fingers_thumb_R = BoolProperty(
 bpy.types.PoseBone.toggle_toes_R = BoolProperty(
     default=0,
     description="Toggle toes in rig",
-    update=rig_toggles_update,
+    # update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_R"
 )
 bpy.types.PoseBone.toggle_toes_index_R = BoolProperty(
