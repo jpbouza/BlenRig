@@ -422,67 +422,82 @@ def rig_toggles(context):
             toggle_toes_L = b.toggle_toes_L
             toggle_toes_R = b.toggle_toes_R
 
-            if "arm" in b.name:
-
+            if b.name.endswith('_L'):
                 # Fingers_L
-                if b.name.endswith('_L'):
+                if "arm" in b.name:
+
                     b.toggle_fingers_thumb_L = toggle_fingers_L
                     b.toggle_fingers_index_L = toggle_fingers_L
                     b.toggle_fingers_middle_L = toggle_fingers_L
                     b.toggle_fingers_ring_L = toggle_fingers_L
                     b.toggle_fingers_little_L = toggle_fingers_L
+
                     if toggle_fingers_L:
-                        set_bone_layers(fingers_bones, [5, 16, 24, 25, 31], toggle_fingers_L, '_L')
+                        layers_hardcoded = [5, 16, 24, 25, 31]
                     else:
-                        set_bone_layers(fingers_bones, [24], toggle_fingers_L, '_L')
+                        layers_hardcoded = [24]
 
-                # Fingers_R
-                else:
-                    b.toggle_fingers_thumb_R = toggle_fingers_R
-                    b.toggle_fingers_index_R = toggle_fingers_R
-                    b.toggle_fingers_middle_R = toggle_fingers_R
-                    b.toggle_fingers_ring_R = toggle_fingers_R
-                    b.toggle_fingers_little_R = toggle_fingers_R
-                    if toggle_fingers_R:
-                        set_bone_layers(fingers_bones, [3, 6, 24, 25, 31], toggle_fingers_R, '_R')
-                    else:
-                        set_bone_layers(fingers_bones, [24], toggle_fingers_R, '_R')
-
-            elif 'leg' in b.name:
+                    set_bone_layers(fingers_bones, layers_hardcoded, toggle_fingers_L, '_L')
 
                 # Toes_L
-                if b.name.endswith('_L'):
+                elif 'leg' in b.name:
                     b.toggle_toes_big_L = toggle_toes_L
                     b.toggle_toes_index_L = toggle_toes_L
                     b.toggle_toes_middle_L = toggle_toes_L
                     b.toggle_toes_fourth_L = toggle_toes_L
                     b.toggle_toes_little_L = toggle_toes_L
+
                     if toggle_toes_L:
-                        set_bone_layers(['toes_spread_L'], [10, 24, 25, 31], toggle_toes_L, '_L')
-                        set_bone_layers(['toes_ik_ctrl_L'], [9, 24, 25], toggle_toes_L, '_L')
-                        set_bone_layers(foot_toes_str, [24, 31], toggle_toes_L, '_L')
+                        layers_hardcoded_1 = [10, 24, 25, 31]
+                        layers_hardcoded_2 = [9, 24, 25]
+                        layers_hardcoded_3 = [24, 31]
                     else:
-                        set_bone_layers(['toes_spread_L'], [24], toggle_toes_L, '_L')
-                        set_bone_layers(['toes_ik_ctrl_L'], [24], toggle_toes_L, '_L')
-                        set_bone_layers(foot_toes_str, [24], toggle_toes_L, '_L')
+                        layers_hardcoded_1 = [24]
+                        layers_hardcoded_2 = [24]
+                        layers_hardcoded_3 = [24]
+
+                    set_bone_layers(['toes_spread_L'], layers_hardcoded_1, toggle_toes_L, '_L')
+                    set_bone_layers(['toes_ik_ctrl_L'], layers_hardcoded_2, toggle_toes_L, '_L')
+                    set_bone_layers(foot_toes_str, layers_hardcoded_3, toggle_toes_L, '_L')
+
+            else:
+                # Fingers_R
+                if "arm" in b.name:
+                    b.toggle_fingers_thumb_R = toggle_fingers_R
+                    b.toggle_fingers_index_R = toggle_fingers_R
+                    b.toggle_fingers_middle_R = toggle_fingers_R
+                    b.toggle_fingers_ring_R = toggle_fingers_R
+                    b.toggle_fingers_little_R = toggle_fingers_R
+
+                    if toggle_fingers_R:
+                        layers_hardcoded = [3, 6, 24, 25, 31]
+                    else:
+                        layers_hardcoded = [24]
+
+                    set_bone_layers(fingers_bones, layers_hardcoded, toggle_fingers_R, '_R')
 
                 # Toes_R
-                else:
+                elif 'leg' in b.name:
                     b.toggle_toes_big_R = toggle_toes_R
                     b.toggle_toes_index_R = toggle_toes_R
                     b.toggle_toes_middle_R = toggle_toes_R
                     b.toggle_toes_fourth_R = toggle_toes_R
                     b.toggle_toes_little_R = toggle_toes_R
-                    if toggle_toes_R:
-                        set_bone_layers(['toes_spread_R'], [10, 24, 25, 31], toggle_toes_R, '_R')
-                        set_bone_layers(['toes_ik_ctrl_R'], [23, 24, 25], toggle_toes_R, '_R')
-                        set_bone_layers(foot_toes_str, [24, 31], toggle_toes_R, '_R')
-                    else:
-                        set_bone_layers(['toes_spread_R'], [24], toggle_toes_R, '_R')
-                        set_bone_layers(['toes_ik_ctrl_R'], [24], toggle_toes_R, '_R')
-                        set_bone_layers(foot_toes_str, [24], toggle_toes_R, '_R')
 
-    print('### TIME:', datetime.now()-start)
+                    if toggle_toes_R:
+                        layers_hardcoded_1 = [10, 24, 25, 31]
+                        layers_hardcoded_2 = [23, 24, 25]
+                        layers_hardcoded_3 = [24, 31]
+                    else:
+                        layers_hardcoded_1 = [24]
+                        layers_hardcoded_2 = [24]
+                        layers_hardcoded_3 = [24]
+
+                    set_bone_layers(['toes_spread_R'], layers_hardcoded_1, toggle_toes_R, '_R')
+                    set_bone_layers(['toes_ik_ctrl_R'], layers_hardcoded_2, toggle_toes_R, '_R')
+                    set_bone_layers(foot_toes_str, layers_hardcoded_3, toggle_toes_R, '_R')
+
+    print('[###] zebus TIME rig_toggles:', datetime.now()-start)
 
 
 def fingers_toggles(self, context):
