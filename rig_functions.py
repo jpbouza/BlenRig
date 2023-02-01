@@ -1754,14 +1754,12 @@ def Set_VP_Transforms(b_name, prop_name, C_name, to_mapping, factor):
 
 
 def set_eyelids(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 # Eyelid Up L
@@ -1792,14 +1790,12 @@ def set_eyelids(context):
 
 
 def set_frowns(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 # Nose Frown L
@@ -1818,14 +1814,12 @@ def set_frowns(context):
 
 
 def set_cheeks(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 # Cheeks L
@@ -1840,14 +1834,12 @@ def set_cheeks(context):
 
 
 def set_mouth_corners(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 # Mouth Corner L
@@ -1882,14 +1874,12 @@ def set_mouth_corners(context):
 
 
 def set_mouth_ctrl(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 # Mouth Ctrl
@@ -1908,14 +1898,12 @@ def set_mouth_ctrl(context):
 
 
 def set_rj_transforms(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    # if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-    #     for prop in bpy.context.active_object.data.items():
+
+    # if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+    #     for prop in context.active_object.data.items():
     #         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
     # Arms L
@@ -1980,14 +1968,12 @@ def set_rj_transforms(context):
 
 
 def set_vol_variation(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
                 # Arms L
@@ -2023,14 +2009,12 @@ def set_vol_variation(context):
 
 
 def set_vol_preservation(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    # if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-    #     for prop in bpy.context.active_object.data.items():
+
+    # if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+    #     for prop in context.active_object.data.items():
     #         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
     # Fingers Down L
