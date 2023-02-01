@@ -363,7 +363,7 @@ def reproportion_toggle(self, context):
 # Legacy Function for BlenRig 5 Rigs
 
 
-def rig_toggles(context, call_from:str, call_from_side):
+def rig_toggles(context, call_from: str, call_from_side: str):
     # zebus
     from datetime import datetime
     start = datetime.now()
@@ -388,12 +388,13 @@ def rig_toggles(context, call_from:str, call_from_side):
         # Para poder optimizar el computo a la mitad:
         # como solo se llama desde toes (pies) y fingers (manos) lo he acotado tanto al tipo como a si es Left o Right:
         valid_bones_phase_1 = [b for b in p_bones if b.name.endswith(call_from_side)]
-    
+
         if call_from == "fingers":
-            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if any([b.name.startswith("fing"), b.name.startswith("hand")])]
+            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if any(
+                [b.name.startswith("fing"), b.name.startswith("hand")])]
         elif call_from == "toes":
-            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if "str" in b.name or "spread" in b.name and b.name.startswith("toe")]
-        
+            valid_bones_phase_2 = [b for b in valid_bones_phase_1
+                                   if "str" in b.name or "spread" in b.name and b.name.startswith("toe")]
 
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
