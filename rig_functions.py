@@ -6,6 +6,11 @@ import numpy as np
 
 from bpy.props import FloatProperty, IntProperty, BoolProperty
 
+import json
+target_bones = None
+with open("data_jsons/all_bones_names.json", "r") as jsonFile:
+    target_bones = json.load(jsonFile)
+
 
 def bone_auto_hide(context):
     if not bpy.context.screen:
@@ -364,7 +369,7 @@ def reproportion_toggle(self, context):
 
 
 def rig_toggles(context, call_from: str, call_from_side: str):
-    # zebus
+    # zebus 1
     from datetime import datetime
     start = datetime.now()
 
@@ -387,21 +392,22 @@ def rig_toggles(context, call_from: str, call_from_side: str):
 
         # Para poder optimizar el computo a la mitad:
         # como solo se llama desde toes (pies) y fingers (manos) lo he acotado tanto al tipo como a si es Left o Right:
-        valid_bones_phase_1 = [b for b in p_bones if b.name.endswith(call_from_side)]
+        # valid_bones_phase_1 = [b for b in p_bones if b.name.endswith(call_from_side)]
+        pack_bones_1 = [p_bones[finger_name+call_from_side] for finger_name in target_bones["HUMANOID"]["PROPERTIES"]]
 
         if call_from == "fingers":
-            valid_bones_phase_2 = [b for b in valid_bones_phase_1 if any(
-                [b.name.startswith("fing"), b.name.startswith("hand")])]
+            target_key = "HAND"
         elif call_from == "toes":
-            valid_bones_phase_2 = [b for b in valid_bones_phase_1
-                                   if "str" in b.name or "spread" in b.name and b.name.startswith("toe")]
+            target_key = "TOES"
+
+        pack_bones_2 = [p_bones[finger_name+call_from_side] for finger_name in target_bones["HUMANOID"][target_key]]
 
         def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
             for bl in bone_list:
-                for b in valid_bones_phase_2:
+                for b in pack_bones_2:
 
-                    if b.name != str(bl[0:-2] + side):
+                    if b.name != str(bl + side):
                         continue
 
                     b.bone.layers = [i in layer_list for i in range(len(b.bone.layers))]
@@ -414,18 +420,18 @@ def rig_toggles(context, call_from: str, call_from_side: str):
                         else:
                             const.mute = not constraints_state
 
-        fingers_bones = ['hand_close_L', 'fing_spread_L']
-        foot_toes_str = ['toes_str_1_L', 'toes_str_2_L', 'toes_str_3_L']
+        fingers_bones = ['hand_close', 'fing_spread']
+        foot_toes_str = ['toes_str_1', 'toes_str_2', 'toes_str_3']
 
-        for b in valid_bones_phase_1:
+        for b in pack_bones_1:
 
-            # si no empieza por properties pasamos al siguiente:
-            if not b.name.startswith("properties"):
-                continue
+            # # si no empieza por properties pasamos al siguiente:
+            # if not b.name.startswith("properties"):
+            #     continue
 
-            # si no contiene ni arm ni leg pasamos al siguiente:
-            if all(["arm" not in b.name, "leg" not in b.name]):
-                continue
+            # # si no contiene ni arm ni leg pasamos al siguiente:
+            # if all(["arm" not in b.name, "leg" not in b.name]):
+            #     continue
 
             toggle_fingers_L = b.toggle_fingers_L
             toggle_fingers_R = b.toggle_fingers_R
@@ -433,6 +439,11 @@ def rig_toggles(context, call_from: str, call_from_side: str):
             toggle_toes_R = b.toggle_toes_R
 
             if b.name.endswith('_L'):
+                side = '_L'
+            elif b.name.endswith('_R'):
+                side = '_R'
+
+            if side == '_L':
                 # Fingers_L
                 if "arm" in b.name:
 
@@ -447,7 +458,7 @@ def rig_toggles(context, call_from: str, call_from_side: str):
                     else:
                         layers_hardcoded = [24]
 
-                    set_bone_layers(fingers_bones, layers_hardcoded, toggle_fingers_L, '_L')
+                    set_bone_layers(fingers_bones, layers_hardcoded, toggle_fingers_L, side)
 
                 # Toes_L
                 elif 'leg' in b.name:
@@ -466,9 +477,9 @@ def rig_toggles(context, call_from: str, call_from_side: str):
                         layers_hardcoded_2 = [24]
                         layers_hardcoded_3 = [24]
 
-                    set_bone_layers(['toes_spread_L'], layers_hardcoded_1, toggle_toes_L, '_L')
-                    set_bone_layers(['toes_ik_ctrl_L'], layers_hardcoded_2, toggle_toes_L, '_L')
-                    set_bone_layers(foot_toes_str, layers_hardcoded_3, toggle_toes_L, '_L')
+                    set_bone_layers(['toes_spread'], layers_hardcoded_1, toggle_toes_L, side)
+                    set_bone_layers(['toes_ik_ctrl'], layers_hardcoded_2, toggle_toes_L, side)
+                    set_bone_layers(foot_toes_str, layers_hardcoded_3, toggle_toes_L, side)
 
             else:
                 # Fingers_R
@@ -484,7 +495,7 @@ def rig_toggles(context, call_from: str, call_from_side: str):
                     else:
                         layers_hardcoded = [24]
 
-                    set_bone_layers(fingers_bones, layers_hardcoded, toggle_fingers_R, '_R')
+                    set_bone_layers(fingers_bones, layers_hardcoded, toggle_fingers_R, side)
 
                 # Toes_R
                 elif 'leg' in b.name:
@@ -503,9 +514,9 @@ def rig_toggles(context, call_from: str, call_from_side: str):
                         layers_hardcoded_2 = [24]
                         layers_hardcoded_3 = [24]
 
-                    set_bone_layers(['toes_spread_R'], layers_hardcoded_1, toggle_toes_R, '_R')
-                    set_bone_layers(['toes_ik_ctrl_R'], layers_hardcoded_2, toggle_toes_R, '_R')
-                    set_bone_layers(foot_toes_str, layers_hardcoded_3, toggle_toes_R, '_R')
+                    set_bone_layers(['toes_spread'], layers_hardcoded_1, toggle_toes_R, side)
+                    set_bone_layers(['toes_ik_ctrl'], layers_hardcoded_2, toggle_toes_R, side)
+                    set_bone_layers(foot_toes_str, layers_hardcoded_3, toggle_toes_R, side)
 
     print('[###] zebus TIME rig_toggles:', datetime.now()-start)
 
@@ -838,300 +849,406 @@ def fingers_toggles(self, context):
                                     set_bone_layers(little_mech_list, [24], 'Off', '_R')
 
 
-def toes_toggles(self, context):
-    if not bpy.context.screen:
+def toes_toggles(self, context, call_from: str, call_from_side: str):
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
-            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                amr_obj = bpy.context.active_object
-                arm = amr_obj.data
-                p_bones = amr_obj.pose.bones
 
-                # Toes List
-                toe_big_fk_list = ['toe_big_2_L', 'toe_big_3_L']
-                toe_big_ctrl_list = ['toe_big_ctrl_L']
-                toe_big_toon_list = ['toe_big_4_toon_L', 'toe_big_3_toon_L', 'toe_big_2_toon_L', 'toe_big_1_toon_L']
-                toe_big_ik_list = ['toe_big_ik_L']
-                toe_big_str_list = ['toe_big_str_2_L', 'toe_big_str_3_L', 'toe_big_str_4_L', 'toe_big_str_1_L']
-                toe_big_def_list = ['toe_big_3_def_L', 'toe_big_2_def_L', 'toe_big_1_def_L']
-                toe_big_fix_list = ['toe_big_fix_up_2_L', 'toe_big_fix_low_2_L',
-                                    'toe_big_fix_up_1_L', 'toe_big_fix_low_1_L']
-                toe_big_mech_list = ['toe_big_ctrl_mstr_L', 'toe_big_shp_at_L',
-                                     'toe_big_1_L', 'toe_big_ctrl_shp_at_L', 'toe_big_2_rot_L']
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        amr_obj = context.active_object
+        arm = amr_obj.data
+        p_bones = amr_obj.pose.bones
 
-                toe_index_fk_list = ['toe_ind_2_L', 'toe_ind_3_L', 'toe_ind_4_L']
-                toe_index_ctrl_list = ['toe_ind_ctrl_L']
-                toe_index_toon_list = ['toe_ind_5_toon_L', 'toe_ind_4_toon_L',
-                                       'toe_ind_3_toon_L', 'toe_ind_2_toon_L', 'toe_ind_1_toon_L']
-                toe_index_ik_list = ['toe_ind_ik_L']
-                toe_index_str_list = ['toe_ind_str_2_L', 'toe_ind_str_4_L',
-                                      'toe_ind_str_3_L', 'toe_ind_str_5_L', 'toe_ind_str_1_L']
-                toe_index_def_list = ['toe_ind_4_def_L', 'toe_ind_3_def_L', 'toe_ind_2_def_L', 'toe_ind_1_def_L']
-                toe_index_fix_list = ['toe_ind_fix_up_3_L', 'toe_ind_fix_low_3_L', 'toe_ind_fix_up_2_L',
-                                      'toe_ind_fix_low_2_L', 'toe_ind_fix_up_1_L', 'toe_ind_fix_low_1_L']
-                toe_index_mech_list = ['toe_ind_ctrl_mstr_L', 'toe_ind_shp_at_L',
-                                       'toe_ind_1_L', 'toe_ind_ctrl_shp_at_L', 'toe_ind_2_rot_L']
+        # pack_bones_1 = [b for b in p_bones if all([not b.name.endswith("_L"), not b.name.endswith("_R")])]
+        pack_bones_1 = [p_bones[finger_name+call_from_side] for finger_name in target_bones["HUMANOID"]["PROPERTIES"]]
 
-                toe_middle_fk_list = ['toe_mid_2_L', 'toe_mid_3_L', 'toe_mid_4_L']
-                toe_middle_ctrl_list = ['toe_mid_ctrl_L']
-                toe_middle_toon_list = ['toe_mid_5_toon_L', 'toe_mid_4_toon_L',
-                                        'toe_mid_3_toon_L', 'toe_mid_2_toon_L', 'toe_mid_1_toon_L']
-                toe_middle_ik_list = ['toe_mid_ik_L']
-                toe_middle_str_list = ['toe_mid_str_2_L', 'toe_mid_str_4_L',
-                                       'toe_mid_str_3_L', 'toe_mid_str_5_L', 'toe_mid_str_1_L']
-                toe_middle_def_list = ['toe_mid_4_def_L', 'toe_mid_3_def_L', 'toe_mid_2_def_L', 'toe_mid_1_def_L']
-                toe_middle_fix_list = ['toe_mid_fix_up_3_L', 'toe_mid_fix_low_3_L', 'toe_mid_fix_up_2_L',
-                                       'toe_mid_fix_low_2_L', 'toe_mid_fix_up_1_L', 'toe_mid_fix_low_1_L']
-                toe_middle_mech_list = ['toe_mid_ctrl_mstr_L', 'toe_mid_shp_at_L',
-                                        'toe_mid_1_L', 'toe_mid_ctrl_shp_at_L', 'toe_mid_2_rot_L']
+        # if call_from == "fingers":
+        #     target_key = "HAND"
+        # elif call_from == "toes":
+        #     target_key = "TOES"
 
-                toe_fourth_fk_list = ['toe_fourth_2_L', 'toe_fourth_3_L', 'toe_fourth_4_L']
-                toe_fourth_ctrl_list = ['toe_fourth_ctrl_L']
-                toe_fourth_toon_list = ['toe_fourth_5_toon_L', 'toe_fourth_4_toon_L',
-                                        'toe_fourth_3_toon_L', 'toe_fourth_2_toon_L', 'toe_fourth_1_toon_L']
-                toe_fourth_ik_list = ['toe_fourth_ik_L']
-                toe_fourth_str_list = ['toe_fourth_str_2_L', 'toe_fourth_str_4_L',
-                                       'toe_fourth_str_3_L', 'toe_fourth_str_5_L', 'toe_fourth_str_1_L']
-                toe_fourth_def_list = ['toe_fourth_4_def_L', 'toe_fourth_3_def_L',
-                                       'toe_fourth_2_def_L', 'toe_fourth_1_def_L']
-                toe_fourth_fix_list = [
-                    'toe_fourth_fix_up_3_L', 'toe_fourth_fix_low_3_L', 'toe_fourth_fix_up_2_L',
-                    'toe_fourth_fix_low_2_L', 'toe_fourth_fix_up_1_L', 'toe_fourth_fix_low_1_L']
-                toe_fourth_mech_list = ['toe_fourth_ctrl_mstr_L', 'toe_fourth_shp_at_L',
-                                        'toe_fourth_1_L', 'toe_fourth_ctrl_shp_at_L', 'toe_fourth_2_rot_L']
+        # print('call_from_side', call_from_side)
+        # pack_bones_2 = [p_bones[finger_name+call_from_side] for finger_name in target_bones["HUMANOID"][target_key]]
+        # print(pack_bones_2)
 
-                toe_little_fk_list = ['toe_lit_2_L', 'toe_lit_3_L']
-                toe_little_ctrl_list = ['toe_lit_ctrl_L']
-                toe_little_toon_list = ['toe_lit_4_toon_L', 'toe_lit_3_toon_L', 'toe_lit_2_toon_L', 'toe_lit_1_toon_L']
-                toe_little_ik_list = ['toe_lit_ik_L']
-                toe_little_str_list = ['toe_lit_str_2_L', 'toe_lit_str_3_L', 'toe_lit_str_4_L', 'toe_lit_str_1_L']
-                toe_little_def_list = ['toe_lit_3_def_L', 'toe_lit_2_def_L', 'toe_lit_1_def_L']
-                toe_little_fix_list = ['toe_lit_fix_up_2_L', 'toe_lit_fix_low_2_L',
-                                       'toe_lit_fix_up_1_L', 'toe_lit_fix_low_1_L']
-                toe_little_mech_list = ['toe_lit_ctrl_mstr_L', 'toe_lit_shp_at_L',
-                                        'toe_lit_1_L', 'toe_lit_ctrl_shp_at_L', 'toe_lit_2_rot_L']
+        def set_bone_layers(bone_list, layer_list, constraints_state, side):
 
-                def set_bone_layers(bone_list, layer_list, constraints_state, side):
-                    bones = bone_list
-                    layers = layer_list
-                    for B in bones:
-                        for b in p_bones:
-                            if b.name == str(B[0:-2] + side):
-                                for L in layers:
-                                    b.bone.layers[L] = 1
-                                    for l in range(len(b.bone.layers)):
-                                        if l not in layers:
-                                            b.bone.layers[l] = 0
-                                if constraints_state == 'On':
-                                    for C in b.constraints:
-                                        C.mute = False
-                                        if bpy.context.active_object.data.reproportion:
-                                            if ('REPROP' in C.name):
-                                                C.mute = False
-                                            if ('NOREP' in C.name):
-                                                C.mute = True
-                                        else:
-                                            if ('REPROP' in C.name):
-                                                C.mute = True
-                                            if ('NOREP' in C.name):
-                                                C.mute = False
-                                if constraints_state == 'Off':
-                                    for C in b.constraints:
-                                        C.mute = True
-
+            for bl in bone_list:
                 for b in p_bones:
-                    if ('properties' in b.name):
-                        # Toes_L
-                        if b.name.endswith('_L'):
-                            if ('leg' in b.name):
-                                if b.toggle_toes_big_L:
-                                    set_bone_layers(toe_big_fk_list, [12, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_big_ctrl_list, [10, 24, 25, 29], 'On', '_L')
-                                    set_bone_layers(toe_big_toon_list, [14, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_big_ik_list, [10, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_big_str_list, [24, 25, 31], 'On', '_L')
-                                    set_bone_layers(toe_big_def_list, [24, 27, 29, 31], 'On', '_L')
-                                    set_bone_layers(toe_big_fix_list, [24, 27], 'On', '_L')
-                                    set_bone_layers(toe_big_mech_list, [26, 24], 'On', '_L')
-                                else:
-                                    set_bone_layers(toe_big_fk_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_ctrl_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_toon_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_ik_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_str_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_def_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_fix_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_big_mech_list, [24], 'Off', '_L')
-                                if b.toggle_toes_index_L:
-                                    set_bone_layers(toe_index_fk_list, [12, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_index_ctrl_list, [10, 24, 25, 29], 'On', '_L')
-                                    set_bone_layers(toe_index_toon_list, [14, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_index_ik_list, [10, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_index_str_list, [24, 25, 31], 'On', '_L')
-                                    set_bone_layers(toe_index_def_list, [24, 27, 29, 31], 'On', '_L')
-                                    set_bone_layers(toe_index_fix_list, [24, 27], 'On', '_L')
-                                    set_bone_layers(toe_index_mech_list, [26, 24], 'On', '_L')
-                                else:
-                                    set_bone_layers(toe_index_fk_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_ctrl_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_toon_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_ik_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_str_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_def_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_fix_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_index_mech_list, [24], 'Off', '_L')
-                                if b.toggle_toes_middle_L:
-                                    set_bone_layers(toe_middle_fk_list, [12, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_middle_ctrl_list, [10, 24, 25, 29], 'On', '_L')
-                                    set_bone_layers(toe_middle_toon_list, [14, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_middle_ik_list, [10, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_middle_str_list, [24, 25, 31], 'On', '_L')
-                                    set_bone_layers(toe_middle_def_list, [24, 27, 29, 31], 'On', '_L')
-                                    set_bone_layers(toe_middle_fix_list, [24, 27], 'On', '_L')
-                                    set_bone_layers(toe_middle_mech_list, [26, 24], 'On', '_L')
-                                else:
-                                    set_bone_layers(toe_middle_fk_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_ctrl_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_toon_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_ik_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_str_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_def_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_fix_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_middle_mech_list, [24], 'Off', '_L')
-                                if b.toggle_toes_fourth_L:
-                                    set_bone_layers(toe_fourth_fk_list, [12, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_fourth_ctrl_list, [10, 24, 25, 29], 'On', '_L')
-                                    set_bone_layers(toe_fourth_toon_list, [14, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_fourth_ik_list, [10, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_fourth_str_list, [24, 25, 31], 'On', '_L')
-                                    set_bone_layers(toe_fourth_def_list, [24, 27, 29, 31], 'On', '_L')
-                                    set_bone_layers(toe_fourth_fix_list, [24, 27], 'On', '_L')
-                                    set_bone_layers(toe_fourth_mech_list, [26, 24], 'On', '_L')
-                                else:
-                                    set_bone_layers(toe_fourth_fk_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_ctrl_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_toon_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_ik_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_str_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_def_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_fix_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_fourth_mech_list, [24], 'Off', '_L')
-                                if b.toggle_toes_little_L:
-                                    set_bone_layers(toe_little_fk_list, [12, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_little_ctrl_list, [10, 24, 25, 29], 'On', '_L')
-                                    set_bone_layers(toe_little_toon_list, [14, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_little_ik_list, [10, 24, 25], 'On', '_L')
-                                    set_bone_layers(toe_little_str_list, [24, 25, 31], 'On', '_L')
-                                    set_bone_layers(toe_little_def_list, [24, 27, 29, 31], 'On', '_L')
-                                    set_bone_layers(toe_little_fix_list, [24, 27], 'On', '_L')
-                                    set_bone_layers(toe_little_mech_list, [26, 24], 'On', '_L')
-                                else:
-                                    set_bone_layers(toe_little_fk_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_ctrl_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_toon_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_ik_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_str_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_def_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_fix_list, [24], 'Off', '_L')
-                                    set_bone_layers(toe_little_mech_list, [24], 'Off', '_L')
-                        # Toes_R
-                        if b.name.endswith('_R'):
-                            if ('leg' in b.name):
-                                if b.toggle_toes_big_R:
-                                    set_bone_layers(toe_big_fk_list, [12, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_big_ctrl_list, [10, 24, 25, 29], 'On', '_R')
-                                    set_bone_layers(toe_big_toon_list, [14, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_big_ik_list, [10, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_big_str_list, [24, 25, 31], 'On', '_R')
-                                    set_bone_layers(toe_big_def_list, [24, 27, 29, 31], 'On', '_R')
-                                    set_bone_layers(toe_big_fix_list, [24, 27], 'On', '_R')
-                                    set_bone_layers(toe_big_mech_list, [26, 24], 'On', '_R')
-                                else:
-                                    set_bone_layers(toe_big_fk_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_ctrl_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_toon_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_ik_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_str_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_def_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_fix_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_big_mech_list, [24], 'Off', '_R')
-                                if b.toggle_toes_index_R:
-                                    set_bone_layers(toe_index_fk_list, [12, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_index_ctrl_list, [10, 24, 25, 29], 'On', '_R')
-                                    set_bone_layers(toe_index_toon_list, [14, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_index_ik_list, [10, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_index_str_list, [24, 25, 31], 'On', '_R')
-                                    set_bone_layers(toe_index_def_list, [24, 27, 29, 31], 'On', '_R')
-                                    set_bone_layers(toe_index_fix_list, [24, 27], 'On', '_R')
-                                    set_bone_layers(toe_index_mech_list, [26, 24], 'On', '_R')
-                                else:
-                                    set_bone_layers(toe_index_fk_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_ctrl_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_toon_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_ik_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_str_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_def_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_fix_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_index_mech_list, [24], 'Off', '_R')
-                                if b.toggle_toes_middle_R:
-                                    set_bone_layers(toe_middle_fk_list, [12, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_middle_ctrl_list, [10, 24, 25, 29], 'On', '_R')
-                                    set_bone_layers(toe_middle_toon_list, [14, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_middle_ik_list, [10, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_middle_str_list, [24, 25, 31], 'On', '_R')
-                                    set_bone_layers(toe_middle_def_list, [24, 27, 29, 31], 'On', '_R')
-                                    set_bone_layers(toe_middle_fix_list, [24, 27], 'On', '_R')
-                                    set_bone_layers(toe_middle_mech_list, [26, 24], 'On', '_R')
-                                else:
-                                    set_bone_layers(toe_middle_fk_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_ctrl_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_toon_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_ik_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_str_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_def_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_fix_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_middle_mech_list, [24], 'Off', '_R')
-                                if b.toggle_toes_fourth_R:
-                                    set_bone_layers(toe_fourth_fk_list, [12, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_fourth_ctrl_list, [10, 24, 25, 29], 'On', '_R')
-                                    set_bone_layers(toe_fourth_toon_list, [14, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_fourth_ik_list, [10, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_fourth_str_list, [24, 25, 31], 'On', '_R')
-                                    set_bone_layers(toe_fourth_def_list, [24, 27, 29, 31], 'On', '_R')
-                                    set_bone_layers(toe_fourth_fix_list, [24, 27], 'On', '_R')
-                                    set_bone_layers(toe_fourth_mech_list, [26, 24], 'On', '_R')
-                                else:
-                                    set_bone_layers(toe_fourth_fk_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_ctrl_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_toon_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_ik_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_str_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_def_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_fix_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_fourth_mech_list, [24], 'Off', '_R')
-                                if b.toggle_toes_little_R:
-                                    set_bone_layers(toe_little_fk_list, [12, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_little_ctrl_list, [10, 24, 25, 29], 'On', '_R')
-                                    set_bone_layers(toe_little_toon_list, [14, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_little_ik_list, [10, 24, 25], 'On', '_R')
-                                    set_bone_layers(toe_little_str_list, [24, 25, 31], 'On', '_R')
-                                    set_bone_layers(toe_little_def_list, [24, 27, 29, 31], 'On', '_R')
-                                    set_bone_layers(toe_little_fix_list, [24, 27], 'On', '_R')
-                                    set_bone_layers(toe_little_mech_list, [26, 24], 'On', '_R')
-                                else:
-                                    set_bone_layers(toe_little_fk_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_ctrl_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_toon_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_ik_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_str_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_def_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_fix_list, [24], 'Off', '_R')
-                                    set_bone_layers(toe_little_mech_list, [24], 'Off', '_R')
+
+                    # print('b.name != str(bl + side)', b.name != str(bl + side))
+                    if b.name != str(bl + side):
+                        continue
+
+                    if "toes_spread" in bl:
+                        print(b.name, bl + side)
+
+                    b.bone.layers = [i in layer_list for i in range(len(b.bone.layers))]
+
+                    for const in b.constraints:
+                        if 'REPROP' in const.name:
+                            const.mute = not arm.reproportion
+                        elif 'NOREP' in const.name:
+                            const.mute = arm.reproportion
+                        else:
+                            const.mute = not constraints_state
+
+        # zebus 0
+        toe_big_fk_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_FK"]]
+        toe_big_ctrl_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_CRTL"]]
+        toe_big_toon_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_TOON"]]
+        toe_big_ik_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_IK"]]
+        toe_big_str_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_STR"]]
+
+        toe_big_def_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_DEF"]]
+        toe_big_fix_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_FIX"]]
+        toe_big_mech_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_BIG_MECH"]]
+
+        toe_index_fk_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_FK"]]
+        toe_index_ctrl_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_CTRL"]]
+        toe_index_toon_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_TOON"]]
+        toe_index_ik_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_IK"]]
+        toe_index_str_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_STR"]]
+
+        toe_index_def_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_DEF"]]
+        toe_index_fix_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_FIX"]]
+        toe_index_mech_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_INDEX_MECH"]]
+
+        toe_middle_fk_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_FK"]]
+        toe_middle_ctrl_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_CTRL"]]
+        toe_middle_toon_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_TOON"]]
+        toe_middle_ik_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_IK"]]
+        toe_middle_str_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_STR"]]
+        toe_middle_def_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_DEF"]]
+        toe_middle_fix_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_FIX"]]
+        toe_middle_mech_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_MIDDLE_MECH"]]
+
+        toe_fourth_fk_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_FK"]]
+        toe_fourth_ctrl_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_CRTL"]]
+        toe_fourth_toon_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_TOON"]]
+        toe_fourth_ik_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_IK"]]
+        toe_fourth_str_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_STR"]]
+        toe_fourth_def_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_DEF"]]
+        toe_fourth_fix_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_FIX"]]
+        toe_fourth_mech_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_FOURTH_MECH"]]
+
+        toe_little_fk_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_FK"]]
+        toe_little_ctrl_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_CTRL"]]
+        toe_little_toon_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_TOON"]]
+        toe_little_ik_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_IK"]]
+        toe_little_str_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_STR"]]
+        toe_little_def_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_DEF"]]
+        toe_little_fix_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_FIX"]]
+        toe_little_mech_list = [finger_name for finger_name in target_bones["HUMANOID"]["TOE_LITTLE_MECH"]]
+
+        for b in pack_bones_1:
+
+            # si no contiene leg pasamos al siguiente:
+            if "leg" not in b.name:
+                continue
+
+            if b.name.endswith('_L'):
+                side = '_L'
+                toggle_toes_big_L = b.toggle_toes_big_L
+                toggle_toes_index_L = b.toggle_toes_index_L
+                toggle_toes_middle_L = b.toggle_toes_middle_L
+                toggle_toes_fourth_L = b.toggle_toes_fourth_L
+                toggle_toes_little_L = b.toggle_toes_little_L
+            elif b.name.endswith('_R'):
+                side = '_R'
+                toggle_toes_big_R = b.toggle_toes_big_R
+                toggle_toes_index_R = b.toggle_toes_index_R
+                toggle_toes_middle_R = b.toggle_toes_middle_R
+                toggle_toes_fourth_R = b.toggle_toes_fourth_R
+                toggle_toes_little_R = b.toggle_toes_little_R
+
+            # Toes_L
+            if side == '_L':
+
+                if toggle_toes_big_L:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_big_fk_list, layers_hardcoded1, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_ctrl_list, layers_hardcoded2, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_toon_list, layers_hardcoded3, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_ik_list, layers_hardcoded4, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_str_list, layers_hardcoded5, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_def_list, layers_hardcoded6, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_fix_list, layers_hardcoded7, toggle_toes_big_L, side)
+                set_bone_layers(toe_big_mech_list, layers_hardcoded8, toggle_toes_big_L, side)
+
+                if toggle_toes_index_L:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_index_fk_list, layers_hardcoded1, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_ctrl_list, layers_hardcoded2, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_toon_list, layers_hardcoded3, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_ik_list, layers_hardcoded4, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_str_list, layers_hardcoded5, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_def_list, layers_hardcoded6, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_fix_list, layers_hardcoded7, toggle_toes_index_L, side)
+                set_bone_layers(toe_index_mech_list, layers_hardcoded8, toggle_toes_index_L, side)
+
+                if toggle_toes_middle_L:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_middle_fk_list, layers_hardcoded1, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_ctrl_list, layers_hardcoded2, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_toon_list, layers_hardcoded3, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_ik_list, layers_hardcoded4, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_str_list, layers_hardcoded5, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_def_list, layers_hardcoded6, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_fix_list, layers_hardcoded7, toggle_toes_middle_L, side)
+                set_bone_layers(toe_middle_mech_list, layers_hardcoded8, toggle_toes_middle_L, side)
+
+                if toggle_toes_fourth_L:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_fourth_fk_list, layers_hardcoded1, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_ctrl_list, layers_hardcoded2, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_toon_list, layers_hardcoded3, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_ik_list, layers_hardcoded4, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_str_list, layers_hardcoded5, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_def_list, layers_hardcoded6, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_fix_list, layers_hardcoded7, toggle_toes_fourth_L, side)
+                set_bone_layers(toe_fourth_mech_list, layers_hardcoded8, toggle_toes_fourth_L, side)
+
+                if toggle_toes_little_L:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_little_fk_list, layers_hardcoded1, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_ctrl_list, layers_hardcoded2, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_toon_list, layers_hardcoded3, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_ik_list, layers_hardcoded4, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_str_list, layers_hardcoded5, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_def_list, layers_hardcoded6, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_fix_list, layers_hardcoded7, toggle_toes_little_L, side)
+                set_bone_layers(toe_little_mech_list, layers_hardcoded8, toggle_toes_little_L, side)
+
+            # Toes_R
+            elif side == '_R':
+
+                if toggle_toes_big_R:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_big_fk_list, layers_hardcoded1, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_ctrl_list, layers_hardcoded2, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_toon_list, layers_hardcoded3, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_ik_list, layers_hardcoded4, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_str_list, layers_hardcoded5, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_def_list, layers_hardcoded6, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_fix_list, layers_hardcoded7, toggle_toes_big_R, side)
+                set_bone_layers(toe_big_mech_list, layers_hardcoded8, toggle_toes_big_R, side)
+
+                if toggle_toes_index_R:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_index_fk_list, layers_hardcoded1, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_ctrl_list, layers_hardcoded2, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_toon_list, layers_hardcoded3, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_ik_list, layers_hardcoded4, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_str_list, layers_hardcoded5, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_def_list, layers_hardcoded6, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_fix_list, layers_hardcoded7, toggle_toes_index_R, side)
+                set_bone_layers(toe_index_mech_list, layers_hardcoded8, toggle_toes_index_R, side)
+
+                if toggle_toes_middle_R:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_middle_fk_list, layers_hardcoded1, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_ctrl_list, layers_hardcoded2, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_toon_list, layers_hardcoded3, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_ik_list, layers_hardcoded4, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_str_list, layers_hardcoded5, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_def_list, layers_hardcoded6, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_fix_list, layers_hardcoded7, toggle_toes_middle_R, side)
+                set_bone_layers(toe_middle_mech_list, layers_hardcoded8, toggle_toes_middle_R, side)
+
+                if toggle_toes_fourth_R:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_fourth_fk_list, layers_hardcoded1, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_ctrl_list, layers_hardcoded2, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_toon_list, layers_hardcoded3, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_ik_list, layers_hardcoded4, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_str_list, layers_hardcoded5, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_def_list, layers_hardcoded6, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_fix_list, layers_hardcoded7, toggle_toes_fourth_R, side)
+                set_bone_layers(toe_fourth_mech_list, layers_hardcoded8, toggle_toes_fourth_R, side)
+
+                if toggle_toes_little_R:
+                    layers_hardcoded1 = [12, 24, 25]
+                    layers_hardcoded2 = [10, 24, 25, 29]
+                    layers_hardcoded3 = [14, 24, 25]
+                    layers_hardcoded4 = [10, 24, 25]
+                    layers_hardcoded5 = [24, 25, 31]
+                    layers_hardcoded6 = [24, 27, 29, 31]
+                    layers_hardcoded7 = [24, 27]
+                    layers_hardcoded8 = [26, 24]
+                else:
+                    layers_hardcoded1 = [24]
+                    layers_hardcoded2 = [24]
+                    layers_hardcoded3 = [24]
+                    layers_hardcoded4 = [24]
+                    layers_hardcoded5 = [24]
+                    layers_hardcoded6 = [24]
+                    layers_hardcoded7 = [24]
+                    layers_hardcoded8 = [24]
+
+                set_bone_layers(toe_little_fk_list, layers_hardcoded1, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_ctrl_list, layers_hardcoded2, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_toon_list, layers_hardcoded3, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_ik_list, layers_hardcoded4, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_str_list, layers_hardcoded5, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_def_list, layers_hardcoded6, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_fix_list, layers_hardcoded7, toggle_toes_little_R, side)
+                set_bone_layers(toe_little_mech_list, layers_hardcoded8, toggle_toes_little_R, side)
+
+
 ####### Rig Optimizations #######
 
 ####### Toggle Face Drivers #######

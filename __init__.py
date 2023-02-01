@@ -105,8 +105,8 @@ def rig_toggles_update(self, context, call_from:str, call_from_side:str):
 def fingers_toggles_update(self, context):
     fingers_toggles(self, context)
 
-def toes_toggles_update(self, context):
-    toes_toggles(self, context)
+def toes_toggles_update(self, context, call_from:str, call_from_side:str):
+    toes_toggles(self, context, call_from, call_from_side)
 
 def optimize_face(self, context):
     toggle_face_drivers(context)
@@ -1444,31 +1444,56 @@ bpy.types.PoseBone.toggle_toes_L = BoolProperty(
 bpy.types.PoseBone.toggle_toes_index_L = BoolProperty(
     default=1,
     description="Toggle index toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_index_L"
 )
 bpy.types.PoseBone.toggle_toes_middle_L = BoolProperty(
     default=1,
     description="Toggle middle toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_middle_L"
 )
 bpy.types.PoseBone.toggle_toes_fourth_L = BoolProperty(
     default=1,
     description="Toggle fourth toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_fourth_L"
 )
 bpy.types.PoseBone.toggle_toes_little_L = BoolProperty(
     default=1,
     description="Toggle little toe in rig",
-    update=toes_toggles_update,
+        update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toe_little_L"
 )
 bpy.types.PoseBone.toggle_toes_big_L = BoolProperty(
     default=1,
     description="Toggle big toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_big_L"
 )
 
@@ -1530,31 +1555,56 @@ bpy.types.PoseBone.toggle_toes_R = BoolProperty(
 bpy.types.PoseBone.toggle_toes_index_R = BoolProperty(
     default=1,
     description="Toggle index toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_index_R"
 )
 bpy.types.PoseBone.toggle_toes_middle_R = BoolProperty(
     default=1,
     description="Toggle middle toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_middle_R"
 )
 bpy.types.PoseBone.toggle_toes_fourth_R = BoolProperty(
     default=1,
     description="Toggle fourth toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_fourth_R"
 )
 bpy.types.PoseBone.toggle_toes_little_R = BoolProperty(
     default=1,
     description="Toggle little toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toe_little_R"
 )
 bpy.types.PoseBone.toggle_toes_big_R = BoolProperty(
     default=1,
     description="Toggle big toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_big_R"
 )
 

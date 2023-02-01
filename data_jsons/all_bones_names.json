@@ -1,0 +1,286 @@
+{
+    "HUMANOID": {
+        "PROPERTIES": [
+            "properties_arm",
+            "properties_leg"
+        ],
+        "HAND": [
+            "hand_close",
+            "fing_spread",
+            "wrist_str",
+            "fing_lit_str_1",
+            "fing_ring_str_1",
+            "fing_ind_str_1",
+            "fing_mid_str_1",
+            "fing_thumb_str_1",
+            "fing_thumb_str_2",
+            "fing_thumb_str_3",
+            "fing_thumb_str_4",
+            "hand_str",
+            "fing_lit_str_2",
+            "fing_lit_str_3",
+            "fing_lit_str_4",
+            "fing_lit_str_5",
+            "fing_ring_str_2",
+            "fing_ring_str_3",
+            "fing_ring_str_4",
+            "fing_ring_str_5",
+            "fing_ind_str_2",
+            "fing_ind_str_3",
+            "fing_ind_str_4",
+            "fing_ind_str_5",
+            "fing_mid_str_2",
+            "fing_mid_str_3",
+            "fing_mid_str_4",
+            "fing_mid_str_5",
+            "hand_toon"
+        ],
+        "TOES": [
+            "toes_spread",
+            "toes_str_1",
+            "toe_big_str_2",
+            "toe_mid_str_2",
+            "toe_fourth_str_2",
+            "toe_lit_str_2",
+            "toe_ind_str_2",
+            "toes_str_2",
+            "toe_fourth_str_3",
+            "toe_mid_str_4",
+            "toe_ind_str_4",
+            "toe_big_str_3",
+            "toe_mid_str_3",
+            "toe_fourth_str_4",
+            "toe_lit_str_3",
+            "toe_ind_str_3",
+            "toes_str_3",
+            "toe_lit_str_4",
+            "toe_fourth_str_5",
+            "toe_mid_str_5",
+            "toe_big_str_4",
+            "toe_ind_str_5",
+            "toe_lit_str_1",
+            "toe_fourth_str_1",
+            "toe_mid_str_1",
+            "toe_big_str_1",
+            "toe_ind_str_1"
+        ],
+        "TOE_BIG_FK": [
+            "toe_big_2",
+            "toe_big_3"
+        ],
+        "TOE_BIG_CRTL": [
+            "toe_big_ctrl"
+        ],
+        "TOE_BIG_TOON": [
+            "toe_big_4_toon",
+            "toe_big_3_toon",
+            "toe_big_2_toon",
+            "toe_big_1_toon"
+        ],
+        "TOE_BIG_IK": [
+            "toe_big_ik"
+        ],
+        "TOE_BIG_STR": [
+            "toe_big_str_2",
+            "toe_big_str_3",
+            "toe_big_str_4",
+            "toe_big_str_1"
+        ],
+        "TOE_BIG_DEF": [
+            "toe_big_3_def",
+            "toe_big_2_def",
+            "toe_big_1_def"
+        ],
+        "TOE_BIG_FIX": [
+            "toe_big_fix_up_2",
+            "toe_big_fix_low_2",
+            "toe_big_fix_up_1",
+            "toe_big_fix_low_1"
+        ],
+        "TOE_BIG_MECH": [
+            "toe_big_ctrl_mstr",
+            "toe_big_shp_at",
+            "toe_big_1",
+            "toe_big_ctrl_shp_at",
+            "toe_big_2_rot"
+        ],
+        "TOE_INDEX_FK": [
+            "toe_ind_2",
+            "toe_ind_3",
+            "toe_ind_4"
+        ],
+        "TOE_INDEX_CTRL": [
+            "toe_ind_ctrl"
+        ],
+        "TOE_INDEX_TOON": [
+            "toe_ind_5_toon",
+            "toe_ind_4_toon",
+            "toe_ind_3_toon",
+            "toe_ind_2_toon",
+            "toe_ind_1_toon"
+        ],
+        "TOE_INDEX_IK": [
+            "toe_ind_ik"
+        ],
+        "TOE_INDEX_STR": [
+            "toe_ind_str_2",
+            "toe_ind_str_4",
+            "toe_ind_str_3",
+            "toe_ind_str_5",
+            "toe_ind_str_1"
+        ],
+        "TOE_INDEX_DEF": [
+            "toe_ind_4_def",
+            "toe_ind_3_def",
+            "toe_ind_2_def",
+            "toe_ind_1_def"
+        ],
+        "TOE_INDEX_FIX": [
+            "toe_ind_fix_up_3",
+            "toe_ind_fix_low_3",
+            "toe_ind_fix_up_2",
+            "toe_ind_fix_low_2",
+            "toe_ind_fix_up_1",
+            "toe_ind_fix_low_1"
+        ],
+        "TOE_INDEX_MECH": [
+            "toe_ind_ctrl_mstr",
+            "toe_ind_shp_at",
+            "toe_ind_1",
+            "toe_ind_ctrl_shp_at",
+            "toe_ind_2_rot"
+        ],
+        "TOE_MIDDLE_FK": [
+            "toe_mid_2",
+            "toe_mid_3",
+            "toe_mid_4"
+        ],
+        "TOE_MIDDLE_CTRL": [
+            "toe_mid_ctrl"
+        ],
+        "TOE_MIDDLE_TOON": [
+            "toe_mid_5_toon",
+            "toe_mid_4_toon",
+            "toe_mid_3_toon",
+            "toe_mid_2_toon",
+            "toe_mid_1_toon"
+        ],
+        "TOE_MIDDLE_IK": [
+            "toe_mid_ik"
+        ],
+        "TOE_MIDDLE_STR": [
+            "toe_mid_str_2",
+            "toe_mid_str_4",
+            "toe_mid_str_3",
+            "toe_mid_str_5",
+            "toe_mid_str_1"
+        ],
+        "TOE_MIDDLE_DEF": [
+            "toe_mid_4_def",
+            "toe_mid_3_def",
+            "toe_mid_2_def",
+            "toe_mid_1_def"
+        ],
+        "TOE_MIDDLE_FIX": [
+            "toe_mid_fix_up_3",
+            "toe_mid_fix_low_3",
+            "toe_mid_fix_up_2",
+            "toe_mid_fix_low_2",
+            "toe_mid_fix_up_1",
+            "toe_mid_fix_low_1"
+        ],
+        "TOE_MIDDLE_MECH": [
+            "toe_mid_ctrl_mstr",
+            "toe_mid_shp_at",
+            "toe_mid_1",
+            "toe_mid_ctrl_shp_at",
+            "toe_mid_2_rot"
+        ],
+        "TOE_FOURTH_FK": [
+            "toe_fourth_2",
+            "toe_fourth_3",
+            "toe_fourth_4"
+        ],
+        "TOE_FOURTH_CRTL": [
+            "toe_fourth_ctrl"
+        ],
+        "TOE_FOURTH_TOON": [
+            "toe_fourth_5_toon",
+            "toe_fourth_4_toon",
+            "toe_fourth_3_toon",
+            "toe_fourth_2_toon",
+            "toe_fourth_1_toon"
+        ],
+        "TOE_FOURTH_IK": [
+            "toe_fourth_ik"
+        ],
+        "TOE_FOURTH_STR": [
+            "toe_fourth_str_2",
+            "toe_fourth_str_4",
+            "toe_fourth_str_3",
+            "toe_fourth_str_5",
+            "toe_fourth_str_1"
+        ],
+        "TOE_FOURTH_DEF": [
+            "toe_fourth_4_def",
+            "toe_fourth_3_def",
+            "toe_fourth_2_def",
+            "toe_fourth_1_def"
+        ],
+        "TOE_FOURTH_FIX": [
+            "toe_fourth_fix_up_3",
+            "toe_fourth_fix_low_3",
+            "toe_fourth_fix_up_2",
+            "toe_fourth_fix_low_2",
+            "toe_fourth_fix_up_1",
+            "toe_fourth_fix_low_1"
+        ],
+        "TOE_FOURTH_MECH": [
+            "toe_fourth_ctrl_mstr",
+            "toe_fourth_shp_at",
+            "toe_fourth_1",
+            "toe_fourth_ctrl_shp_at",
+            "toe_fourth_2_rot"
+        ],
+        "TOE_LITTLE_FK": [
+            "toe_lit_2",
+            "toe_lit_3"
+        ],
+        "TOE_LITTLE_CTRL": [
+            "toe_lit_ctrl"
+        ],
+        "TOE_LITTLE_TOON": [
+            "toe_lit_4_toon",
+            "toe_lit_3_toon",
+            "toe_lit_2_toon",
+            "toe_lit_1_toon"
+        ],
+        "TOE_LITTLE_IK": [
+            "toe_lit_ik"
+        ],
+        "TOE_LITTLE_STR": [
+            "toe_lit_str_2",
+            "toe_lit_str_3",
+            "toe_lit_str_4",
+            "toe_lit_str_1"
+        ],
+        "TOE_LITTLE_DEF": [
+            "toe_lit_3_def",
+            "toe_lit_2_def",
+            "toe_lit_1_def"
+        ],
+        "TOE_LITTLE_FIX": [
+            "toe_lit_fix_up_2",
+            "toe_lit_fix_low_2",
+            "toe_lit_fix_up_1",
+            "toe_lit_fix_low_1"
+        ],
+        "TOE_LITTLE_MECH": [
+            "toe_lit_ctrl_mstr",
+            "toe_lit_shp_at",
+            "toe_lit_1",
+            "toe_lit_ctrl_shp_at",
+            "toe_lit_2_rot"
+        ]
+    }
+}
