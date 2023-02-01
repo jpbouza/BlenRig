@@ -8,7 +8,7 @@ from bpy.props import FloatProperty, IntProperty, BoolProperty
 
 import json
 target_bones = None
-with open("data_jsons/all_bones_names.json", "r") as jsonFile:
+with open("data_jsons/toggle_bones_names.json", "r") as jsonFile:
     target_bones = json.load(jsonFile)
 
 
