@@ -13,21 +13,19 @@ with open("data_jsons/toggle_bones_names.json", "r") as jsonFile:
 
 
 def bone_auto_hide(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for b_prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for b_prop in context.active_object.data.items():
             if b_prop[0] == 'bone_auto_hide' and b_prop[1] == 0:
                 return False
-        for prop in bpy.context.active_object.data.items():
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
-                arm = bpy.context.active_object.data
-                p_bones = bpy.context.active_object.pose.bones
+                arm = context.active_object.data
+                p_bones = context.active_object.pose.bones
 
                 for b in p_bones:
                     if ('properties' in b.name):
@@ -300,7 +298,7 @@ layers = []
 def reproportion_toggle(self, context):
     if context:
         mode.append(context.active_object.mode)
-        layers.append(bpy.context.active_object.data.layers[:])
+        layers.append(context.active_object.data.layers[:])
 
         if context.active_object.data.reproportion:
             bpy.ops.object.mode_set(mode='POSE')
@@ -309,37 +307,34 @@ def reproportion_toggle(self, context):
             # if len(mode) > 1:
             #     bpy.ops.object.mode_set(mode=mode[-2])
             if len(layers) > 1:
-                bpy.context.active_object.data.layers = layers[-2]
+                context.active_object.data.layers = layers[-2]
 
         if len(mode) > 1:
             del mode[0]
         if len(layers) > 1:
             del layers[0]
 
-    if not bpy.context.screen:
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                prop = bool(bpy.context.active_object.data.reproportion)
-                p_bones = bpy.context.active_object.pose.bones
+                prop = bool(context.active_object.data.reproportion)
+                p_bones = context.active_object.pose.bones
                 if prop:
                     contador = 0
-                    for layer in bpy.context.active_object.data.layers:
+                    for layer in context.active_object.data.layers:
                         listaDeEstados.insert(contador, layer)
                         contador += 1
 
                     contador = 0
-                    for layer in bpy.context.active_object.data.layers:
+                    for layer in context.active_object.data.layers:
                         if layer:
-                            bpy.context.active_object.data.layers[contador] = not bpy.context.active_object.data.layers[contador]
+                            context.active_object.data.layers[contador] = not context.active_object.data.layers[contador]
 
                         contador += 1
-                        bpy.context.active_object.data.layers[31] = True
+                        context.active_object.data.layers[31] = True
 
                     for b in p_bones:
                         for C in b.constraints:
@@ -350,8 +345,8 @@ def reproportion_toggle(self, context):
                 else:
                     contador = 0
                     try:
-                        for layer in bpy.context.active_object.data.layers:
-                            bpy.context.active_object.data.layers[contador] = listaDeEstados[contador]
+                        for layer in context.active_object.data.layers:
+                            context.active_object.data.layers[contador] = listaDeEstados[contador]
                             contador += 1
 
                         for b in p_bones:
@@ -522,16 +517,14 @@ def rig_toggles(context, call_from: str, call_from_side: str):
 
 
 def fingers_toggles(self, context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                amr_obj = bpy.context.active_object
+                amr_obj = context.active_object
                 arm = amr_obj.data
                 p_bones = amr_obj.pose.bones
 
@@ -625,7 +618,7 @@ def fingers_toggles(self, context):
                                 if constraints_state == 'On':
                                     for C in b.constraints:
                                         C.mute = False
-                                        if bpy.context.active_object.data.reproportion:
+                                        if arm.reproportion:
                                             if ('REPROP' in C.name):
                                                 C.mute = False
                                             if ('NOREP' in C.name):
@@ -1255,18 +1248,14 @@ def toes_toggles(self, context, call_from: str, call_from_side: str):
 
 
 def toggle_face_drivers(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object and not context.armature:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if not context.armature:
-        return False
-    for prop in bpy.context.active_object.data.items():
+
+    for prop in context.active_object.data.items():
         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-            prop = bool(bpy.context.active_object.data.toggle_face_drivers)
-            armobj = bpy.context.active_object
+            prop = bool(context.active_object.data.toggle_face_drivers)
+            armobj = context.active_object
             drivers = armobj.animation_data.drivers
             data_path_list = ['pose.bones["mouth_corner_R"]["BACK_LIMIT_R"]',
                               'pose.bones["mouth_corner_R"]["DOWN_LIMIT_R"]',
@@ -1374,18 +1363,14 @@ def toggle_face_drivers(context):
 
 
 def toggle_flex_drivers(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object and not context.armature:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if not context.armature:
-        return False
-    for prop in bpy.context.active_object.data.items():
+
+    for prop in context.active_object.data.items():
         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-            prop = bool(bpy.context.active_object.data.toggle_flex_drivers)
-            armobj = bpy.context.active_object
+            prop = bool(context.active_object.data.toggle_flex_drivers)
+            armobj = context.active_object
             drivers = armobj.animation_data.drivers
             data_path_list = ['pose.bones["properties_head"]["flex_head_scale"]',
                               'pose.bones["properties_head"]["flex_neck_length"]',
@@ -1437,18 +1422,14 @@ def toggle_flex_drivers(context):
 
 
 def toggle_dynamic_drivers(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object and not context.armature:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if not context.armature:
-        return False
-    for prop in bpy.context.active_object.data.items():
+
+    for prop in context.active_object.data.items():
         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-            prop = bool(bpy.context.active_object.data.toggle_dynamic_drivers)
-            armobj = bpy.context.active_object
+            prop = bool(context.active_object.data.toggle_dynamic_drivers)
+            armobj = context.active_object
             drivers = armobj.animation_data.drivers
             data_path_list = ['pose.bones["properties_head"]["dynamic_head_scale"]',
                               'pose.bones["properties_head"]["dynamic_neck_length"]',
@@ -1500,18 +1481,14 @@ def toggle_dynamic_drivers(context):
 ####### Toggle Body Drivers #######
 
 def toggle_body_drivers(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object and not context.armature:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if not context.armature:
-        return False
-    for prop in bpy.context.active_object.data.items():
+
+    for prop in context.active_object.data.items():
         if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-            prop = bool(bpy.context.active_object.data.toggle_body_drivers)
-            armobj = bpy.context.active_object
+            prop = bool(context.active_object.data.toggle_body_drivers)
+            armobj = context.active_object
             drivers = armobj.animation_data.drivers
             data_path_list = ['pose.bones["forearm_ik_R"].constraints["Ik_Initial_Rotation"].to_min_x_rot',
                               'pose.bones["forearm_ik_L"].constraints["Ik_Initial_Rotation"].to_min_x_rot',
@@ -1559,17 +1536,15 @@ def toggle_body_drivers(context):
 
 
 def pole_toggles(context):
-    if not bpy.context.screen:
+
+    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
         return False
-    if bpy.context.screen.is_animation_playing == True:
-        return False
-    if not bpy.context.active_object:
-        return False
-    if (bpy.context.active_object.type in ["ARMATURE"]) and (bpy.context.active_object.mode == 'POSE'):
-        for prop in bpy.context.active_object.data.items():
+
+    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+        for prop in context.active_object.data.items():
             if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                p_bones = bpy.context.active_object.pose.bones
-                arm = bpy.context.active_object.data
+                p_bones = context.active_object.pose.bones
+                arm = context.active_object.data
 
                 for b in p_bones:
                     # Arm Pole L
