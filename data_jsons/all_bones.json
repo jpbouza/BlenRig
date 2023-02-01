@@ -1,6 +1,6 @@
 {
     "HUMANOID": {
-        "__FINGERS": "#################### Fingers ####################",
+        "__FINGERS__": "#################### Fingers ####################",
         "thumb_fk_list": [
             "fing_thumb_1_L",
             "fing_thumb_2_L",
@@ -263,7 +263,7 @@
             "fing_lit_ctrl_shp_at_L",
             "fing_lit_ctrl_bend_loc_L"
         ],
-        "__TOES": "#################### Toes ####################",
+        "__TOES__": "#################### Toes ####################",
         "toe_big_fk_list": [
             "toe_big_2_L",
             "toe_big_3_L"
