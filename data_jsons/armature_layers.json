@@ -1,11 +1,11 @@
 {
-    "FACIAL 1": [
+    "FACIAL1": [
         0
     ],
-    "FACIAL 2": [
+    "FACIAL2": [
         1
     ],
-    "FACIAL 3": [
+    "FACIAL3": [
         2
     ],
     "ARM_R FK": [
@@ -35,7 +35,7 @@
     "FINGERS IK": [
         19
     ],
-    "LEG_R FK": [
+    "LEG_R_FK": [
         20
     ],
     "PROPS": [
@@ -44,7 +44,7 @@
     "LEG_L FK": [
         22
     ],
-    "LEG_R IK": [
+    "LEG_R_IK": [
         23
     ],
     "EXTRAS": [

@@ -2,18 +2,11 @@ import json
 import bpy
 from ...custom_selection import *
 from ...guides.utils import BL_Ver
-
+from ...read_layers_json import SingletonClass
 
 # global group lists
 all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = head = torso = []
 
-
-# con json:
-# lo pongo aquí arriba para que no esté constantemente leyendo del disco
-# porque los paneles cada vez que cambia algo se ejecutan de nuevo
-armature_layers = None
-with open("data_jsons/armature_layers.json", "r") as jsonFile:
-    armature_layers = json.load(jsonFile)
 
 
 class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
@@ -174,12 +167,15 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
 
                     layers_count = arm["layers_count"]
 
-                    if armature_layers:
-                        # si se pudo leer correctamente el armature_layers.json:
-                        for key, value in armature_layers.items():
+                    # read ui data from singleton:
+                    # instancio el singleton para usarlo:
+                    singleton = SingletonClass()
+                    if singleton.armature_layers:
+                        for key, value in singleton.armature_layers.items():
                             idx = value[0]
                             if idx < layers_count:
                                 arm_layers.prop(arm, "layers", index=idx, toggle=True, text=key)
+
 
                     # sin json pero desordenados por no tener el index en el mismo orden:
                     # for key, value in arm.items():
