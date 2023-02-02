@@ -14,277 +14,280 @@ with open("data_jsons/toggle_bones_names.json", "r") as jsonFile:
 
 def bone_auto_hide(context):
 
-    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
-        return False
+    if context:
 
-    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
-        for b_prop in context.active_object.data.items():
-            if b_prop[0] == 'bone_auto_hide' and b_prop[1] == 0:
-                return False
-        for prop in context.active_object.data.items():
-            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+        if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
+            return False
 
-                arm = context.active_object.data
-                p_bones = context.active_object.pose.bones
+        if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+            for b_prop in context.active_object.data.items():
+                if b_prop[0] == 'bone_auto_hide' and b_prop[1] == 0:
+                    return False
+                    
+            for prop in context.active_object.data.items():
+                if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
-                for b in p_bones:
-                    if ('properties' in b.name):
-                        if ('torso' in b.name):
+                    arm = context.active_object.data
+                    p_bones = context.active_object.pose.bones
 
-                            # Torso FK/IK
-                            prop = int(b.ik_torso)
-                            prop_inv = int(b.inv_torso)
+                    for b in p_bones:
+                        if ('properties' in b.name):
+                            if ('torso' in b.name):
 
-                            for bone in arm.bones:
-                                if (bone.name in b['bones_ik']):
-                                    if prop == 1 or prop_inv == 1:
-                                        bone.hide = 1
-                                    else:
-                                        bone.hide = 0
-                                if (bone.name in b['bones_fk']):
-                                    if prop != 1 or prop_inv == 1:
-                                        bone.hide = 1
-                                    else:
-                                        bone.hide = 0
+                                # Torso FK/IK
+                                prop = int(b.ik_torso)
+                                prop_inv = int(b.inv_torso)
 
-                        # Torso INV
-                            for bone in arm.bones:
-                                if (bone.name in b['bones_inv']):
-                                    if prop_inv == 1:
-                                        bone.hide = 0
-                                    else:
-                                        bone.hide = 1
-                        if ('head' in b.name):
-                            # Neck FK/IK
-                            prop = int(b.ik_head)
-                            for bone in arm.bones:
-                                if (bone.name in b['bones_fk']):
-                                    if prop == 1:
-                                        bone.hide = 0
-                                    else:
-                                        bone.hide = 1
-                                if (bone.name in b['bones_ik']):
-                                    if prop == 0:
-                                        bone.hide = 0
-                                    else:
-                                        bone.hide = 1
-
-                        # Head Hinge
-                            prop_hinge = int(b.hinge_head)
-                            for bone in arm.bones:
-                                if (bone.name in b['bones_fk_hinge']):
-                                    if prop == 1 or prop_hinge == 0:
-                                        bone.hide = 0
-                                    else:
-                                        bone.hide = 1
-                                if (bone.name in b['bones_ik_hinge']):
-                                    if prop == 0 or prop_hinge == 1:
-                                        bone.hide = 0
-                                    else:
-                                        bone.hide = 1
-                        # Left Properties
-                        if ('_L' in b.name):
-                            if ('arm' in b.name):
-
-                                # Arm_L FK/IK
-                                prop = int(b.ik_arm_L)
-                                prop_hinge = int(b.hinge_hand_L)
                                 for bone in arm.bones:
-                                    if (bone.name in b['bones_fk_L']):
+                                    if (bone.name in b['bones_ik']):
+                                        if prop == 1 or prop_inv == 1:
+                                            bone.hide = 1
+                                        else:
+                                            bone.hide = 0
+                                    if (bone.name in b['bones_fk']):
+                                        if prop != 1 or prop_inv == 1:
+                                            bone.hide = 1
+                                        else:
+                                            bone.hide = 0
+
+                            # Torso INV
+                                for bone in arm.bones:
+                                    if (bone.name in b['bones_inv']):
+                                        if prop_inv == 1:
+                                            bone.hide = 0
+                                        else:
+                                            bone.hide = 1
+                            if ('head' in b.name):
+                                # Neck FK/IK
+                                prop = int(b.ik_head)
+                                for bone in arm.bones:
+                                    if (bone.name in b['bones_fk']):
                                         if prop == 1:
                                             bone.hide = 0
                                         else:
                                             bone.hide = 1
-                                    if (bone.name in b['bones_ik_L']):
+                                    if (bone.name in b['bones_ik']):
                                         if prop == 0:
                                             bone.hide = 0
                                         else:
                                             bone.hide = 1
 
-                            # HAND_L
-                                    if arm['rig_type'] == "Biped":
-                                        if (bone.name in b['bones_ik_hand_L']):
-                                            if prop == 1 and prop_hinge == 0:
-                                                bone.hide = 1
-                                            else:
-                                                bone.hide = 0
-                                        if (bone.name in b['bones_fk_hand_L']):
-                                            if prop_hinge == 1:
-                                                bone.hide = 1
-                                            else:
-                                                bone.hide = 0
-                                        if (bone.name in b['bones_ik_palm_L']):
-                                            if prop == 1 or prop_hinge == 0:
-                                                bone.hide = 1
-                                            else:
-                                                bone.hide = 0
-                                        if (bone.name in b['bones_fk_palm_L']):
-                                            if prop == 1 or prop_hinge == 0:
-                                                bone.hide = 0
-                                            else:
-                                                bone.hide = 1
-
-                            # Fingers_L
-                                prop_ik_all = int(b.ik_fing_all_L)
-                                prop_hinge_all = int(b.hinge_fing_all_L)
-
-                                def fingers_hide(b_name):
-                                    for bone in arm.bones:
-                                        ik_bones = [b_name]
-                                        if (bone.name == b_name):
-                                            if prop == 1 or prop_hinge == 1 or prop_ik_all == 1 or prop_hinge_all == 1:
-                                                bone.hide = 0
-                                            if prop == 0 and prop_hinge == 0 and prop_ik_all == 0 and prop_hinge_all == 0:
-                                                bone.hide = 1
-                                    return {"FINISHED"}
-
-                                prop_hinge = int(b.hinge_fing_ind_L)
-                                prop = int(b.ik_fing_ind_L)
-                                fingers_hide('fing_ind_ik_L')
-                                prop_hinge = int(b.hinge_fing_mid_L)
-                                prop = int(b.ik_fing_mid_L)
-                                fingers_hide('fing_mid_ik_L')
-                                prop_hinge = int(b.hinge_fing_ring_L)
-                                prop = int(b.ik_fing_ring_L)
-                                fingers_hide('fing_ring_ik_L')
-                                prop_hinge = int(b.hinge_fing_lit_L)
-                                prop = int(b.ik_fing_lit_L)
-                                fingers_hide('fing_lit_ik_L')
-                                prop_hinge = int(b.hinge_fing_thumb_L)
-                                prop = int(b.ik_fing_thumb_L)
-                                fingers_hide('fing_thumb_ik_L')
-
-                            if ('leg' in b.name):
-                                # Leg_L FK/IK
-                                prop = int(b.ik_leg_L)
+                            # Head Hinge
+                                prop_hinge = int(b.hinge_head)
                                 for bone in arm.bones:
-                                    if (bone.name in b['bones_fk_L']):
-                                        if prop == 1:
+                                    if (bone.name in b['bones_fk_hinge']):
+                                        if prop == 1 or prop_hinge == 0:
                                             bone.hide = 0
                                         else:
                                             bone.hide = 1
-                                    if (bone.name in b['bones_ik_L']):
-                                        if prop == 0:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
-
-                            # Toes_L FK/IK
-                                prop = int(b.ik_toes_all_L)
-                                prop_hinge = int(b.hinge_toes_all_L)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_fk_foot_L']):
-                                        if prop == 1:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
-                                    if (bone.name in b['bones_ik_foot_L']):
+                                    if (bone.name in b['bones_ik_hinge']):
                                         if prop == 0 or prop_hinge == 1:
                                             bone.hide = 0
                                         else:
                                             bone.hide = 1
+                            # Left Properties
+                            if ('_L' in b.name):
+                                if ('arm' in b.name):
 
-                        # Right Properties
-                        if ('_R' in b.name):
-                            if ('arm' in b.name):
-
-                                # Arm_R FK/IK
-                                prop = int(b.ik_arm_R)
-                                prop_hinge = int(b.hinge_hand_R)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_fk_R']):
-                                        if prop == 1:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
-                                    if (bone.name in b['bones_ik_R']):
-                                        if prop == 0:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
-
-                            # HAND_R
-                                    if arm['rig_type'] == "Biped":
-                                        if (bone.name in b['bones_ik_hand_R']):
-                                            if prop == 1 and prop_hinge == 0:
-                                                bone.hide = 1
-                                            else:
-                                                bone.hide = 0
-                                        if (bone.name in b['bones_fk_hand_R']):
-                                            if prop_hinge == 1:
-                                                bone.hide = 1
-                                            else:
-                                                bone.hide = 0
-                                        if (bone.name in b['bones_ik_palm_R']):
-                                            if prop == 1 or prop_hinge == 0:
-                                                bone.hide = 1
-                                            else:
-                                                bone.hide = 0
-                                        if (bone.name in b['bones_fk_palm_R']):
-                                            if prop == 1 or prop_hinge == 0:
-                                                bone.hide = 0
-                                            else:
-                                                bone.hide = 1
-
-                            # Fingers_R
-                                prop_ik_all = int(b.ik_fing_all_R)
-                                prop_hinge_all = int(b.hinge_fing_all_R)
-
-                                def fingers_hide(b_name):
+                                    # Arm_L FK/IK
+                                    prop = int(b.ik_arm_L)
+                                    prop_hinge = int(b.hinge_hand_L)
                                     for bone in arm.bones:
-                                        ik_bones = [b_name]
-                                        if (bone.name == b_name):
-                                            if prop == 1 or prop_hinge == 1 or prop_ik_all == 1 or prop_hinge_all == 1:
+                                        if (bone.name in b['bones_fk_L']):
+                                            if prop == 1:
                                                 bone.hide = 0
-                                            if prop == 0 and prop_hinge == 0 and prop_ik_all == 0 and prop_hinge_all == 0:
+                                            else:
                                                 bone.hide = 1
-                                    return {"FINISHED"}
+                                        if (bone.name in b['bones_ik_L']):
+                                            if prop == 0:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
 
-                                prop_hinge = int(b.hinge_fing_ind_R)
-                                prop = int(b.ik_fing_ind_R)
-                                fingers_hide('fing_ind_ik_R')
-                                prop_hinge = int(b.hinge_fing_mid_R)
-                                prop = int(b.ik_fing_mid_R)
-                                fingers_hide('fing_mid_ik_R')
-                                prop_hinge = int(b.hinge_fing_ring_R)
-                                prop = int(b.ik_fing_ring_R)
-                                fingers_hide('fing_ring_ik_R')
-                                prop_hinge = int(b.hinge_fing_lit_R)
-                                prop = int(b.ik_fing_lit_R)
-                                fingers_hide('fing_lit_ik_R')
-                                prop_hinge = int(b.hinge_fing_thumb_R)
-                                prop = int(b.ik_fing_thumb_R)
-                                fingers_hide('fing_thumb_ik_R')
+                                # HAND_L
+                                        if arm['rig_type'] == "Biped":
+                                            if (bone.name in b['bones_ik_hand_L']):
+                                                if prop == 1 and prop_hinge == 0:
+                                                    bone.hide = 1
+                                                else:
+                                                    bone.hide = 0
+                                            if (bone.name in b['bones_fk_hand_L']):
+                                                if prop_hinge == 1:
+                                                    bone.hide = 1
+                                                else:
+                                                    bone.hide = 0
+                                            if (bone.name in b['bones_ik_palm_L']):
+                                                if prop == 1 or prop_hinge == 0:
+                                                    bone.hide = 1
+                                                else:
+                                                    bone.hide = 0
+                                            if (bone.name in b['bones_fk_palm_L']):
+                                                if prop == 1 or prop_hinge == 0:
+                                                    bone.hide = 0
+                                                else:
+                                                    bone.hide = 1
 
-                            if ('leg' in b.name):
-                                # Leg_R FK/IK
-                                prop = int(b.ik_leg_R)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_fk_R']):
-                                        if prop == 1:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
-                                    if (bone.name in b['bones_ik_R']):
-                                        if prop == 0:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
+                                # Fingers_L
+                                    prop_ik_all = int(b.ik_fing_all_L)
+                                    prop_hinge_all = int(b.hinge_fing_all_L)
 
-                            # Toes_R FK/IK
-                                prop = int(b.ik_toes_all_R)
-                                prop_hinge = int(b.hinge_toes_all_R)
-                                for bone in arm.bones:
-                                    if (bone.name in b['bones_fk_foot_R']):
-                                        if prop == 1:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
-                                    if (bone.name in b['bones_ik_foot_R']):
-                                        if prop == 0 or prop_hinge == 1:
-                                            bone.hide = 0
-                                        else:
-                                            bone.hide = 1
+                                    def fingers_hide(b_name):
+                                        for bone in arm.bones:
+                                            ik_bones = [b_name]
+                                            if (bone.name == b_name):
+                                                if prop == 1 or prop_hinge == 1 or prop_ik_all == 1 or prop_hinge_all == 1:
+                                                    bone.hide = 0
+                                                if prop == 0 and prop_hinge == 0 and prop_ik_all == 0 and prop_hinge_all == 0:
+                                                    bone.hide = 1
+                                        return {"FINISHED"}
+
+                                    prop_hinge = int(b.hinge_fing_ind_L)
+                                    prop = int(b.ik_fing_ind_L)
+                                    fingers_hide('fing_ind_ik_L')
+                                    prop_hinge = int(b.hinge_fing_mid_L)
+                                    prop = int(b.ik_fing_mid_L)
+                                    fingers_hide('fing_mid_ik_L')
+                                    prop_hinge = int(b.hinge_fing_ring_L)
+                                    prop = int(b.ik_fing_ring_L)
+                                    fingers_hide('fing_ring_ik_L')
+                                    prop_hinge = int(b.hinge_fing_lit_L)
+                                    prop = int(b.ik_fing_lit_L)
+                                    fingers_hide('fing_lit_ik_L')
+                                    prop_hinge = int(b.hinge_fing_thumb_L)
+                                    prop = int(b.ik_fing_thumb_L)
+                                    fingers_hide('fing_thumb_ik_L')
+
+                                if ('leg' in b.name):
+                                    # Leg_L FK/IK
+                                    prop = int(b.ik_leg_L)
+                                    for bone in arm.bones:
+                                        if (bone.name in b['bones_fk_L']):
+                                            if prop == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+                                        if (bone.name in b['bones_ik_L']):
+                                            if prop == 0:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+
+                                # Toes_L FK/IK
+                                    prop = int(b.ik_toes_all_L)
+                                    prop_hinge = int(b.hinge_toes_all_L)
+                                    for bone in arm.bones:
+                                        if (bone.name in b['bones_fk_foot_L']):
+                                            if prop == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+                                        if (bone.name in b['bones_ik_foot_L']):
+                                            if prop == 0 or prop_hinge == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+
+                            # Right Properties
+                            if ('_R' in b.name):
+                                if ('arm' in b.name):
+
+                                    # Arm_R FK/IK
+                                    prop = int(b.ik_arm_R)
+                                    prop_hinge = int(b.hinge_hand_R)
+                                    for bone in arm.bones:
+                                        if (bone.name in b['bones_fk_R']):
+                                            if prop == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+                                        if (bone.name in b['bones_ik_R']):
+                                            if prop == 0:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+
+                                # HAND_R
+                                        if arm['rig_type'] == "Biped":
+                                            if (bone.name in b['bones_ik_hand_R']):
+                                                if prop == 1 and prop_hinge == 0:
+                                                    bone.hide = 1
+                                                else:
+                                                    bone.hide = 0
+                                            if (bone.name in b['bones_fk_hand_R']):
+                                                if prop_hinge == 1:
+                                                    bone.hide = 1
+                                                else:
+                                                    bone.hide = 0
+                                            if (bone.name in b['bones_ik_palm_R']):
+                                                if prop == 1 or prop_hinge == 0:
+                                                    bone.hide = 1
+                                                else:
+                                                    bone.hide = 0
+                                            if (bone.name in b['bones_fk_palm_R']):
+                                                if prop == 1 or prop_hinge == 0:
+                                                    bone.hide = 0
+                                                else:
+                                                    bone.hide = 1
+
+                                # Fingers_R
+                                    prop_ik_all = int(b.ik_fing_all_R)
+                                    prop_hinge_all = int(b.hinge_fing_all_R)
+
+                                    def fingers_hide(b_name):
+                                        for bone in arm.bones:
+                                            ik_bones = [b_name]
+                                            if (bone.name == b_name):
+                                                if prop == 1 or prop_hinge == 1 or prop_ik_all == 1 or prop_hinge_all == 1:
+                                                    bone.hide = 0
+                                                if prop == 0 and prop_hinge == 0 and prop_ik_all == 0 and prop_hinge_all == 0:
+                                                    bone.hide = 1
+                                        return {"FINISHED"}
+
+                                    prop_hinge = int(b.hinge_fing_ind_R)
+                                    prop = int(b.ik_fing_ind_R)
+                                    fingers_hide('fing_ind_ik_R')
+                                    prop_hinge = int(b.hinge_fing_mid_R)
+                                    prop = int(b.ik_fing_mid_R)
+                                    fingers_hide('fing_mid_ik_R')
+                                    prop_hinge = int(b.hinge_fing_ring_R)
+                                    prop = int(b.ik_fing_ring_R)
+                                    fingers_hide('fing_ring_ik_R')
+                                    prop_hinge = int(b.hinge_fing_lit_R)
+                                    prop = int(b.ik_fing_lit_R)
+                                    fingers_hide('fing_lit_ik_R')
+                                    prop_hinge = int(b.hinge_fing_thumb_R)
+                                    prop = int(b.ik_fing_thumb_R)
+                                    fingers_hide('fing_thumb_ik_R')
+
+                                if ('leg' in b.name):
+                                    # Leg_R FK/IK
+                                    prop = int(b.ik_leg_R)
+                                    for bone in arm.bones:
+                                        if (bone.name in b['bones_fk_R']):
+                                            if prop == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+                                        if (bone.name in b['bones_ik_R']):
+                                            if prop == 0:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+
+                                # Toes_R FK/IK
+                                    prop = int(b.ik_toes_all_R)
+                                    prop_hinge = int(b.hinge_toes_all_R)
+                                    for bone in arm.bones:
+                                        if (bone.name in b['bones_fk_foot_R']):
+                                            if prop == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
+                                        if (bone.name in b['bones_ik_foot_R']):
+                                            if prop == 0 or prop_hinge == 1:
+                                                bone.hide = 0
+                                            else:
+                                                bone.hide = 1
 
 
 ####### Reproportion Toggle #######
@@ -296,6 +299,7 @@ layers = []
 
 
 def reproportion_toggle(self, context):
+    
     if context:
         mode.append(context.active_object.mode)
         layers.append(context.active_object.data.layers[:])
@@ -314,49 +318,49 @@ def reproportion_toggle(self, context):
         if len(layers) > 1:
             del layers[0]
 
-    if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
-        return False
+        if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
+            return False
 
-    if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
-        for prop in context.active_object.data.items():
-            if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
-                prop = bool(context.active_object.data.reproportion)
-                p_bones = context.active_object.pose.bones
-                if prop:
-                    contador = 0
-                    for layer in context.active_object.data.layers:
-                        listaDeEstados.insert(contador, layer)
-                        contador += 1
-
-                    contador = 0
-                    for layer in context.active_object.data.layers:
-                        if layer:
-                            context.active_object.data.layers[contador] = not context.active_object.data.layers[contador]
-
-                        contador += 1
-                        context.active_object.data.layers[31] = True
-
-                    for b in p_bones:
-                        for C in b.constraints:
-                            if ('REPROP' in C.name):
-                                C.mute = False
-                            if ('NOREP' in C.name):
-                                C.mute = True
-                else:
-                    contador = 0
-                    try:
+        if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
+            for prop in context.active_object.data.items():
+                if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
+                    prop = bool(context.active_object.data.reproportion)
+                    p_bones = context.active_object.pose.bones
+                    if prop:
+                        contador = 0
                         for layer in context.active_object.data.layers:
-                            context.active_object.data.layers[contador] = listaDeEstados[contador]
+                            listaDeEstados.insert(contador, layer)
                             contador += 1
+
+                        contador = 0
+                        for layer in context.active_object.data.layers:
+                            if layer:
+                                context.active_object.data.layers[contador] = not context.active_object.data.layers[contador]
+
+                            contador += 1
+                            context.active_object.data.layers[31] = True
 
                         for b in p_bones:
                             for C in b.constraints:
                                 if ('REPROP' in C.name):
-                                    C.mute = True
-                                if ('NOREP' in C.name):
                                     C.mute = False
-                    except:
-                        pass
+                                if ('NOREP' in C.name):
+                                    C.mute = True
+                    else:
+                        contador = 0
+                        try:
+                            for layer in context.active_object.data.layers:
+                                context.active_object.data.layers[contador] = listaDeEstados[contador]
+                                contador += 1
+
+                            for b in p_bones:
+                                for C in b.constraints:
+                                    if ('REPROP' in C.name):
+                                        C.mute = True
+                                    if ('NOREP' in C.name):
+                                        C.mute = False
+                        except:
+                            pass
 
 ####### Rig Toggles #######
 
