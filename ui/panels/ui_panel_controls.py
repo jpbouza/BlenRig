@@ -2,7 +2,7 @@ import json
 import bpy
 from ...custom_selection import *
 from ...guides.utils import BL_Ver
-from ...read_layers_json import SingletonClass
+from ...singleton import SingletonClass
 
 # global group lists
 all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = head = torso = []

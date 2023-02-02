@@ -31,7 +31,7 @@
 
 # creo un singleton para no estar leyendo constantemente el file armature_layers.json:
 import json
-from .read_layers_json import SingletonClass
+from .singleton import SingletonClass
 
 # intancio y relleno el singleton:
 singleton = SingletonClass()

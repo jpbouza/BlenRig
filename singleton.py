@@ -1,4 +1,3 @@
-import json
 
 class SingletonClass(object):
   def __new__(cls):
