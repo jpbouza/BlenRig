@@ -52,6 +52,7 @@ class BLENRIG_PT_Rig_Layers_settings(bpy.types.Panel):
 
         renaming = col.box()
         renaming.label(text="Renaming Layers")
+        renaming.prop(arm_data, '["layers_count"]', text="Maximum Layers", toggle=True)
         arm_layers = renaming.grid_flow(row_major=True, even_columns=True, even_rows=True, align=True, columns=3)
         arm_layers.scale_y = 0.9
 
@@ -88,8 +89,11 @@ class BLENRIG_PT_Rig_Layers_settings(bpy.types.Panel):
                                  "arm_layers_renaming_snapping",
                                  "arm_layers_renaming_reproportion"]
 
+        arm = context.active_object.data
+        layers_count = arm["layers_count"]
         for idx, arm_prop in enumerate(armature_names_layers):
-            arm_layers.prop(blenrig_6_props, arm_prop, index=idx, text="")
+            if idx < layers_count:
+                arm_layers.prop(blenrig_6_props, arm_prop, index=idx, text="")
 
     def draw_header(self, context):
         scene = context.scene
