@@ -14,7 +14,7 @@ import bpy
 
 def register():
     from bpy.utils import register_class
-    
+
     # Registrar los handlers.
     from . handlers import register as REGISTER_HANDLERS
     REGISTER_HANDLERS()
@@ -44,7 +44,7 @@ def register():
     register_class(BlenrigGuide_SafeCallStepAction)
     register_class(BlenrigGuide_SafeLoadStepImages)
 
-    # Registrar PANELes y OPERATORs. 
+    # Registrar PANELes y OPERATORs.
     from .panel import BlenRigGuidePanel,BlenRigGuidePanel_options
     from .guide_ops import (
         VIEW3D_OT_blenrig_guide_reproportion,
@@ -63,8 +63,9 @@ def register():
     Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
     Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
-    Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
-    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
+    Operator_blenrig_define_body_area, Operator_blenrig_set_blenrig_armature, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
+    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_reset_shapekey, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
+    Operator_Create_Sculpt_Shapekey_Object_From_pose, Operator_Apply_Sculpt_Object_to_Shapekey,
     Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down, Operator_blenrig_snap_bone_to_cursor, Operator_blenrig_add_eyes_modifiers, Operator_blenrig_add_teeth_modifiers,
     Operator_Guide_Transfer_Test_Rig, Operator_blenrig_guide_edit_mdef_cage, Operator_blenrig_mirror_vertex_groups)
 
@@ -81,6 +82,7 @@ def register():
     register_class(Operator_blenrig_add_head_modifiers)
     register_class(Operator_blenrig_add_hands_modifiers)
     register_class(Operator_blenrig_define_body_area)
+    register_class(Operator_blenrig_set_blenrig_armature)
     register_class(Operator_blenrig_add_body_shapekeys)
     register_class(Operator_blenrig_add_fingers_shapekeys)
     register_class(Operator_blenrig_add_toes_shapekeys)
@@ -90,6 +92,9 @@ def register():
     register_class(Operator_blenrig_mirror_shapekeys_drivers)
     register_class(Operator_blenrig_mirror_active_shapekey_driver)
     register_class(Operator_blenrig_blend_from_shape)
+    register_class(Operator_blenrig_reset_shapekey)
+    register_class(Operator_Create_Sculpt_Shapekey_Object_From_pose)
+    register_class(Operator_Apply_Sculpt_Object_to_Shapekey)
     register_class(Operator_blenrig_mirror_active_shapekey)
     register_class(Operator_blenrig_mirror_all_shapekeys)
     register_class(Operator_blenrig_add_body_modifiers)
@@ -152,8 +157,9 @@ def unregister():
     Operator_blenrig_bind_mdef_modifiers, Operator_blenrig_guide_bind_mdef_modifiers, Operator_blenrig_unbind_mdef_modifiers, Operator_blenrig_guide_unbind_mdef_modifiers,
     Operator_blenrig_mirror_lattice_transforms,
     Operator_blenrig_toggle_weight_painting, Operator_blenrigmirror_vp_rj_values, Operator_blenrig_wp_joint_chain_up, Operator_blenrig_wp_joint_chain_down,
-    Operator_blenrig_define_body_area, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
-    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
+    Operator_blenrig_define_body_area, Operator_blenrig_set_blenrig_armature, Operator_blenrig_select_vgroup, Operator_blenrig_edit_corrective_smooth_vgroup,
+    Operator_blenrig_toggle_shapekey_editting, Operator_blenrig_blend_from_shape, Operator_blenrig_reset_shapekey, Operator_blenrig_mirror_active_shapekey, Operator_blenrig_mirror_all_shapekeys,
+    Operator_Create_Sculpt_Shapekey_Object_From_pose, Operator_Apply_Sculpt_Object_to_Shapekey,
     Operator_blenrig_wp_vgroup_chain_up, Operator_blenrig_wp_vgroup_chain_down, Operator_blenrig_snap_bone_to_cursor, Operator_blenrig_add_eyes_modifiers, Operator_blenrig_add_teeth_modifiers,
     Operator_Guide_Transfer_Test_Rig, Operator_blenrig_guide_edit_mdef_cage, Operator_blenrig_mirror_vertex_groups)
 
@@ -172,6 +178,7 @@ def unregister():
     unregister_class(Operator_blenrig_add_head_modifiers)
     unregister_class(Operator_blenrig_add_hands_modifiers)
     unregister_class(Operator_blenrig_define_body_area)
+    unregister_class(Operator_blenrig_set_blenrig_armature)
     unregister_class(Operator_blenrig_add_body_shapekeys)
     unregister_class(Operator_blenrig_add_fingers_shapekeys)
     unregister_class(Operator_blenrig_add_toes_shapekeys)
@@ -181,6 +188,9 @@ def unregister():
     unregister_class(Operator_blenrig_mirror_shapekeys_drivers)
     unregister_class(Operator_blenrig_mirror_active_shapekey_driver)
     unregister_class(Operator_blenrig_blend_from_shape)
+    unregister_class(Operator_blenrig_reset_shapekey)
+    unregister_class(Operator_Create_Sculpt_Shapekey_Object_From_pose)
+    unregister_class(Operator_Apply_Sculpt_Object_to_Shapekey)
     unregister_class(Operator_blenrig_mirror_active_shapekey)
     unregister_class(Operator_blenrig_mirror_all_shapekeys)
     unregister_class(Operator_blenrig_add_body_modifiers)

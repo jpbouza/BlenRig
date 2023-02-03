@@ -796,6 +796,26 @@ class Operator_blenrig_define_body_area(bpy.types.Operator):
             context.scene.blenrig_guide.mdef_hands_weights_transfer_obj = context.active_object
         return {"FINISHED"}
 
+class Operator_blenrig_set_blenrig_armature(bpy.types.Operator):
+
+    bl_idname = "blenrig.set_blenrig_armature"
+    bl_label = "BlenRig Set Active Armature as BlenRig Armature for Guide"
+    bl_description = "Set Active Armature as BlenRig Armature for Guide"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["ARMATURE"]):
+            return True
+        else:
+            return False
+
+    def execute(self, context):
+        context.scene.blenrig_guide.arm_obj = context.active_object
+        return {"FINISHED"}
+
 #Mesh Deform Binding Operators
 
 class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
@@ -5818,6 +5838,197 @@ class Operator_blenrig_blend_from_shape(bpy.types.Operator):
             blend_from_shape('U_thickness', ['U_thickness_up', 'U_thickness_low'])
         if self.operation == 'M':
             blend_from_shape('M', ['M_up', 'M_low'])
+        return {"FINISHED"}
+
+class Operator_blenrig_reset_shapekey(bpy.types.Operator):
+
+    bl_idname = "blenrig.reset_shapekey"
+    bl_label = "BlenRig Reset Active Shapekey"
+    bl_description = "Reset Active Shapekey"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    def execute(self, context):
+        from .utils import blend_from_shape, basis_search
+        ob = context.active_object
+        if basis_search:
+            blend_from_shape('Basis', [ob.active_shape_key.name])
+
+        else:
+            self.report({'WARNING'}, 'Could not find Basis Shapekey')
+
+        return {"FINISHED"}
+
+class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
+
+    bl_idname = "blenrig.create_sculpt_shapekey_object_form_pose"
+    bl_label = "BlenRig Create Object for Sculpting Shapekey from current Pose"
+    bl_description = "Create Object for Sculpting Shapekey from current Pose"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            ob = context.active_object
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                return True
+        else:
+            return False
+
+    #Code based from Pose Shapkeys addon by Mets
+    def execute(self, context):
+        from . utils import deselect_all_objects, set_active_object
+        ob = context.object
+        smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
+        #Disable Smooth Modifiers
+        for mod_type in smooth_modifiers:
+            for mod in ob.modifiers:
+                if mod.type == mod_type:
+                    mod.show_viewport = False
+
+        depsgraph = context.evaluated_depsgraph_get()
+        ob_eval = ob.evaluated_get(depsgraph)
+        ob_eval_mesh = ob_eval.data
+
+        sculpt_ob_name = ob.name + "_sculpt_shapekey"
+        sculpt_ob_mesh = bpy.data.meshes.new_from_object(ob)
+        sculpt_ob_mesh.name = sculpt_ob_name
+
+        sculpt_ob = bpy.data.objects.new(sculpt_ob_name, sculpt_ob_mesh)
+        context.scene.collection.objects.link(sculpt_ob)
+        sculpt_ob.location = ob.location
+        sculpt_ob.rotation_euler = ob.rotation_euler
+        sculpt_ob.rotation_quaternion = ob.rotation_quaternion
+        sculpt_ob.scale = ob.scale
+        sculpt_ob.location.x -= ob.dimensions.x * 1.1
+
+        #Store Objects in BlenRig Scene Props
+        context.scene.blenrig_guide.shapekeys_obj = ob
+        context.scene.blenrig_guide.sculpt_shapekey_obj = sculpt_ob
+
+        sculpt_ob.use_shape_key_edit_mode = True
+        sculpt_ob.shape_key_add(name="Basis")
+        target = sculpt_ob.shape_key_add(name="Sculpt_Pose")
+        adjust = sculpt_ob.shape_key_add(name="New_Sculpt", from_mix=True)
+        target.value = 1
+        adjust.value = 1
+        sculpt_ob.active_shape_key_index = 2
+
+        # Fix material assignments in case any material slots are linked to the
+        # object instead of the mesh.
+        for i, ms in enumerate(ob.material_slots):
+            if ms.link == 'OBJECT':
+                sculpt_ob.material_slots[i].link = 'OBJECT'
+                sculpt_ob.material_slots[i].material = ms.material
+
+        # Set the target shape to be the evaluated mesh.
+        for target_v, eval_v in zip(target.data, ob_eval_mesh.vertices):
+            target_v.co = eval_v.co
+
+        #X-Mirror Off
+        sculpt_ob.data.use_mirror_x = False
+
+        #Enable Smooth Modifiers
+        for mod_type in smooth_modifiers:
+            for mod in ob.modifiers:
+                if mod.type == mod_type:
+                    mod.show_viewport = True
+
+        #Set Sculpt as Active
+        deselect_all_objects(context)
+        set_active_object(context, sculpt_ob)
+        return {"FINISHED"}
+
+class Operator_Apply_Sculpt_Object_to_Shapekey(bpy.types.Operator):
+
+    bl_idname = "blenrig.apply_sculpt_object_to_shapekey"
+    bl_label = "BlenRig Apply Sculpt Object to Active Shapekey"
+    bl_description = "Apply Sculpt Object to Active Shapekey"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            if context.scene.blenrig_guide.shapekeys_obj != None:
+                return True
+        else:
+            return False
+
+    #Code based from Pose Shapkeys addon by Mets
+    def execute(self, context):
+        scene = bpy.context.scene
+        ob = scene.blenrig_guide.shapekeys_obj
+        sculpt_object = scene.blenrig_guide.sculpt_shapekey_obj
+        smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
+        #Disable Smooth Modifiers
+        for mod_type in smooth_modifiers:
+            for mod in ob.modifiers:
+                if mod.type == mod_type:
+                    mod.show_viewport = False
+
+        depsgraph = bpy.context.evaluated_depsgraph_get()
+
+        if sculpt_object.name not in bpy.context.view_layer.objects:
+            self.report({'ERROR'}, 'Sculpt object "{sculpt_object.name}" must be in view layer!')
+            raise Exception
+
+        # The Pose Key stores the vertex positions of a previous evaluated mesh.
+        # This, and the current vertex positions of the mesh are subtracted
+        # from each other to get the difference in their shape.
+        sculpt_eval_verts = sculpt_object.evaluated_get(depsgraph).data.vertices
+        ob_eval_verts = ob.evaluated_get(depsgraph).data.vertices
+
+        # Shape keys are relative to the base shape of the mesh, so that delta
+        # will be added to the base mesh to get the final shape key vertex positions.
+        rigged_base_verts = ob.data.vertices
+
+        # The CrazySpace provides us the matrix by which each vertex has been
+        # deformed by modifiers and shape keys. This matrix is necessary to
+        # calculate the correct delta.
+        ob.crazyspace_eval(depsgraph, scene)
+
+        for i, v in enumerate(sculpt_eval_verts):
+            if i > len(rigged_base_verts)-1:
+                break
+            sculpt_eval_co = Vector(v.co)
+            rigged_eval_co = ob_eval_verts[i].co
+
+            delta = sculpt_eval_co - rigged_eval_co
+
+            delta = ob.crazyspace_displacement_to_original(vertex_index=i, displacement=delta)
+
+            base_v = rigged_base_verts[i].co
+
+            if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+                active_shape = bpy.context.active_object.active_shape_key
+                shapekeys = ob.data.shape_keys.key_blocks
+                key_block = shapekeys[active_shape.name]
+                key_block.data[i].co = base_v+delta
+
+        ob.crazyspace_eval_clear()
+
+        #Enable Smooth Modifiers
+        for mod_type in smooth_modifiers:
+            for mod in ob.modifiers:
+                if mod.type == mod_type:
+                    mod.show_viewport = True
+
+        if len(sculpt_eval_verts) != len(ob_eval_verts):
+            self.report({'WARNING'}, 'Sculpt Object and Shapekeys Object Topology does not Match')
         return {"FINISHED"}
 
 class Operator_blenrig_mirror_active_shapekey(bpy.types.Operator):

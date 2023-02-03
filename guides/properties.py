@@ -213,6 +213,9 @@ class BlenrigGuideData(PropertyGroup):
     update=lock_center_bones_update,
     name="Lock Center Bones"
     )
+    #BlenRig Sculpt Shapekeys Objects
+    sculpt_shapekey_obj : PointerProperty(type=Object)
+    shapekeys_obj : PointerProperty(type=Object)
     #BlenRig Weights Transfer Meshes
     mdef_head_weights_transfer_obj : PointerProperty(type=Object)
     mdef_hands_weights_transfer_obj : PointerProperty(type=Object)

@@ -2133,6 +2133,13 @@ def blend_from_shape(source_shape, destination_keys):
     bpy.ops.mesh.select_all(action = 'DESELECT')
     set_mode('OBJECT')
 
+#Basis Shapekey Search
+def basis_search():
+    ob = context.active_object
+    for shape in ob.data.shape_keys.key_blocks:
+        if 'Basis' == shape.name:
+            return True
+
 #Get Screen Resolution for Automatic Guide Size
 def get_viewport_resolution():
     for a in bpy.context.screen.areas:
@@ -2216,7 +2223,7 @@ def BL_Ver(BL_3, BL_2):
 
 # Empty for no object active in Guide
 
-def BlenRig_Empty(context):    
+def BlenRig_Empty(context):
     bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0, align='WORLD', location=(0, 0, -1000), scale=(1, 1, 1))
     bpy.context.object.name = "BlenRig_Empty"
     blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
