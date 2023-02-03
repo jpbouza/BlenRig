@@ -209,5 +209,7 @@ class BLENRIG_PT_baking(bpy.types.Panel):
             row = box.row()
             row.operator("blenrig.calculate_pole_angles", text="Calculate Pole Angles")
             row.operator("blenrig.calculate_floor_offsets", text="Calculate Floor Offsets")
+            row = box.row()
+            row.operator("blenrig.set_blenrig_armature", text="Set Armature as BlenRig Armature")
         else:
             box.enabled = False

@@ -64,15 +64,27 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         box_modifiers.operator("blenrig.add_teeth_modifiers", text = 'Add Teeth Mofiiers')
         box_modifiers.operator("blenrig.add_eyes_modifiers", text = 'Add Left Eye Mofiiers').side = 'Left'
         box_modifiers.operator("blenrig.add_eyes_modifiers", text = 'Add Right Eye Mofiiers').side = 'Right'
+        #Shapekeys
         #Add Shapekeys Buttons
         box_modifiers = col_buttons.box()
-        box_modifiers.label(text='Add Shapekeys')
+        box_modifiers.label(text='Shapekeys Tools')
+        box_modifiers.label(text='Add')
         box_modifiers.operator("blenrig.add_body_shapekeys", text = 'Add Body Shapekeys')
         box_modifiers.operator("blenrig.add_fingers_shapekeys", text = 'Add Fingers Shapekeys')
         box_modifiers.operator("blenrig.add_toes_shapekeys", text = 'Add Toes Shapekeys')
         box_modifiers.operator("blenrig.add_face_shapekeys", text = 'Add Face Shapekeys')
-        box_modifiers.operator("blenrig.mirror_active_shapekey", text = 'Mirror Shapekey')
-        box_modifiers.operator("blenrig.mirror_all_shapekeys", text = 'Mirror All Shapekeys')
+        box_modifiers.label(text='Mirroring')
+        row_modifiers = box_modifiers.row()
+        row_modifiers.operator("blenrig.mirror_active_shapekey", text = 'Mirror Shapekey')
+        row_modifiers.operator("blenrig.mirror_all_shapekeys", text = 'Mirror All Shapekeys')
+        row_modifiers = box_modifiers.row()
+        row_modifiers.operator("blenrig.mirror_active_shapekey_driver", text = 'Mirror Shapekey Driver')
+        row_modifiers.operator("blenrig.mirror_shapekeys_drivers", text = 'Mirror All Shapekeys Drivers')
+        box_modifiers.label(text='Sculpting')
+        row_modifiers = box_modifiers.row()
+        row_modifiers.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object')
+        row_modifiers.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey')
+        box_modifiers.operator("blenrig.reset_shapekey", text = 'Reset Active Shapekey')
         #Mirror Vgroups
         box_modifiers = col_buttons.box()
         box_modifiers.label(text='Mirror Vertex Groups')
