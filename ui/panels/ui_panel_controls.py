@@ -2,7 +2,6 @@ import json
 import bpy
 from ...custom_selection import *
 from ...guides.utils import BL_Ver
-from ...singleton import SingletonClass
 
 # global group lists
 all_bones = hand_l = hand_r = arm_l = arm_r = leg_l = leg_r = foot_l = foot_r = head = torso = []
@@ -166,25 +165,46 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
                     arm_layers.scale_y = 0.9
 
                     layers_count = arm["layers_count"]
+                    
+                    # agregamos los layers buttons con sus textos obtenidos de las properties de Layer Settings
+                    armature_layers_props = ["arm_layers_renaming_facial1",
+                                 "arm_layers_renaming_facial2",
+                                 "arm_layers_renaming_facial3",
+                                 "arm_layers_renaming_arm_r_fk",
+                                 "arm_layers_renaming_neck_fk",
+                                 "arm_layers_renaming_arm_l_fk",
+                                 "arm_layers_renaming_arm_r_ik",
+                                 "arm_layers_renaming_torso_fk",
+                                 "arm_layers_renaming_arm_l_ik",
+                                 "arm_layers_renaming_fingers",
+                                 "arm_layers_renaming_torso_inv",
+                                 "arm_layers_renaming_fingers_ik",
+                                 "arm_layers_renaming_leg_r_fk",
+                                 "arm_layers_renaming_props",
+                                 "arm_layers_renaming_leg_l_fk",
+                                 "arm_layers_renaming_leg_r_ik",
+                                 "arm_layers_renaming_extras",
+                                 "arm_layers_renaming_leg_l_ik",
+                                 "arm_layers_renaming_toes",
+                                 "arm_layers_renaming_properties",
+                                 "arm_layers_renaming_toes_fk",
+                                 "arm_layers_renaming_toon_1",
+                                 "arm_layers_renaming_toon_2",
+                                 "arm_layers_renaming_scale",
+                                 "arm_layers_renaming_optionals",
+                                 "arm_layers_renaming_protected",
+                                 "arm_layers_renaming_mech",
+                                 "arm_layers_renaming_deformation",
+                                 "arm_layers_renaming_actions",
+                                 "arm_layers_renaming_bone_rolls",
+                                 "arm_layers_renaming_snapping",
+                                 "arm_layers_renaming_reproportion"]
 
-                    # read ui data from singleton:
-                    # instancio el singleton para usarlo:
-                    singleton = SingletonClass()
-                    if singleton.armature_layers:
-                        for key, value in singleton.armature_layers.items():
-                            idx = value[0]
-                            if idx < layers_count:
-                                arm_layers.prop(arm, "layers", index=idx, toggle=True, text=key)
-
-
-                    # sin json pero desordenados por no tener el index en el mismo orden:
-                    # for key, value in arm.items():
-                    #     if key != "layer_list":
-                    #         continue
-                    #     valid_names = value.split(", ")
-                    # for idx, name in enumerate(valid_names):
-                    #     if idx < layers_count:
-                    #         arm_layers.prop(arm, "layers", index=idx, toggle=True, text=name)
+                    wm = context.window_manager
+                    blenrig_6_props = wm.blenrig_6_props
+                    for idx, arm_prop in enumerate(armature_layers_props):
+                        if idx < layers_count:
+                            arm_layers.prop(arm, "layers", index=idx, toggle=True, text=getattr(blenrig_6_props, arm_prop))
 
             # gui custom layers panel ############################################################
 
