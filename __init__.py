@@ -29,6 +29,15 @@
 #
 # #########################################################################################################
 
+# creo un singleton para no estar leyendo constantemente el file armature_layers.json:
+import json
+from .singleton import SingletonClass
+
+# intancio y relleno el singleton:
+singleton = SingletonClass()
+with open("data_jsons/armature_layers.json", "r") as jsonFile:
+    singleton.armature_layers = json.load(jsonFile)
+
 bl_info = {
     'name': 'BlenRig 6',
     'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
@@ -3290,51 +3299,116 @@ class blenrig_6_props(PropertyGroup):
     contextOptions = [('PICKER', 'Picker', "Display Rig Picker", 'ARMATURE_DATA', 0),
                         ('RIGTOOLS', 'Rig Tools', "Rig Options and Tools", 'BONE_DATA', 1),
                         ('TOOLS', 'Tools', "Workflow Tools", 'TOOL_SETTINGS', 3),
-                        ('GUIDES', 'Rigging Assistant', "Automatic Rigging Assistant Guides", 'HELP', 4)]    
+                        ('GUIDES', 'Rigging Assistant', "Automatic Rigging Assistant Guides", 'HELP', 4)]
+
+    def displayContext_update(self, context):
+        # instancio el singleton para ustarlo
+        singleton = SingletonClass()
+        # actualizo su variable armature_layers con el nuevo data al hacer click en Pircker
+        with open("data_jsons/armature_layers.json", "r") as jsonFile:
+            singleton.armature_layers = json.load(jsonFile)
+    
 
     displayContext : EnumProperty(
         name='Display Context', 
         description="Type of context to display in this panel.", 
         items=contextOptions, 
-        default='PICKER'
+        default='PICKER', 
+        update=displayContext_update
     )
     contextOptions2 = [('BONESHAPES', 'BoneShapes', "BoneShapes Tools", 'POSE_HLT', 0),
                         ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
     displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')
     ajust_distance_cage : FloatProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
     
-    arm_layers_renaming_facial1: StringProperty(default="FACIAL1")
-    arm_layers_renaming_facial2: StringProperty(default="FACIAL2")
-    arm_layers_renaming_facial3: StringProperty(default="FACIAL3")
-    arm_layers_renaming_arm_r_fk: StringProperty(default="ARM_R FK")
-    arm_layers_renaming_neck_fk: StringProperty(default="NECK FK")
-    arm_layers_renaming_arm_l_fk: StringProperty(default="ARM_L FK")
-    arm_layers_renaming_arm_r_ik: StringProperty(default="ARM_R IK")
-    arm_layers_renaming_torso_fk: StringProperty(default="TORSO FK")
-    arm_layers_renaming_arm_l_ik: StringProperty(default="ARM_L IK")
-    arm_layers_renaming_fingers: StringProperty(default="FINGERS")
-    arm_layers_renaming_torso_inv: StringProperty(default="TORSO INV")
-    arm_layers_renaming_fingers_ik: StringProperty(default="FINGERS IK")
-    arm_layers_renaming_leg_r_fk: StringProperty(default="LEG_R_FK")
-    arm_layers_renaming_props: StringProperty(default="PROPS")
-    arm_layers_renaming_leg_l_fk: StringProperty(default="LEG_L FK")
-    arm_layers_renaming_leg_r_ik: StringProperty(default="LEG_R_IK")
-    arm_layers_renaming_extras: StringProperty(default="EXTRAS")
-    arm_layers_renaming_leg_l_ik: StringProperty(default="LEG_L IK")
-    arm_layers_renaming_toes: StringProperty(default="TOES")
-    arm_layers_renaming_properties: StringProperty(default="PROPERTIES")
-    arm_layers_renaming_toes_fk: StringProperty(default="TOES FK")
-    arm_layers_renaming_toon_1: StringProperty(default="TOON 1")
-    arm_layers_renaming_toon_2: StringProperty(default="TOON 2")
-    arm_layers_renaming_scale: StringProperty(default="SCALE")
-    arm_layers_renaming_optionals: StringProperty(default="OPTIONALS")
-    arm_layers_renaming_protected: StringProperty(default="PROTECTED")
-    arm_layers_renaming_mech: StringProperty(default="MECH")
-    arm_layers_renaming_deformation: StringProperty(default="DEFORMATION")
-    arm_layers_renaming_actions: StringProperty(default="ACTIONS")
-    arm_layers_renaming_bone_rolls: StringProperty(default="BONE-ROLLS")
-    arm_layers_renaming_snapping: StringProperty(default="SNAPPING")
-    arm_layers_renaming_reproportion: StringProperty(default="REPROPORTION")
+    # renaming aramture layers:
+    def arm_layers_renaming_update(self, context):
+        arm_props_layers = [self.arm_layers_renaming_facial1,
+                                 self.arm_layers_renaming_facial2,
+                                 self.arm_layers_renaming_facial3,
+                                 self.arm_layers_renaming_arm_r_fk,
+                                 self.arm_layers_renaming_neck_fk,
+                                 self.arm_layers_renaming_arm_l_fk,
+                                 self.arm_layers_renaming_arm_r_ik,
+                                 self.arm_layers_renaming_torso_fk,
+                                 self.arm_layers_renaming_arm_l_ik,
+                                 self.arm_layers_renaming_fingers,
+                                 self.arm_layers_renaming_torso_inv,
+                                 self.arm_layers_renaming_fingers_ik,
+                                 self.arm_layers_renaming_leg_r_fk,
+                                 self.arm_layers_renaming_props,
+                                 self.arm_layers_renaming_leg_l_fk,
+                                 self.arm_layers_renaming_leg_r_ik,
+                                 self.arm_layers_renaming_extras,
+                                 self.arm_layers_renaming_leg_l_ik,
+                                 self.arm_layers_renaming_toes,
+                                 self.arm_layers_renaming_properties,
+                                 self.arm_layers_renaming_toes_fk,
+                                 self.arm_layers_renaming_toon_1,
+                                 self.arm_layers_renaming_toon_2,
+                                 self.arm_layers_renaming_scale,
+                                 self.arm_layers_renaming_optionals,
+                                 self.arm_layers_renaming_protected,
+                                 self.arm_layers_renaming_mech,
+                                 self.arm_layers_renaming_deformation,
+                                 self.arm_layers_renaming_actions,
+                                 self.arm_layers_renaming_bone_rolls,
+                                 self.arm_layers_renaming_snapping,
+                                 self.arm_layers_renaming_reproportion]
+
+        # obteniendo el data para reemplazarlo:
+        armature_layers = None
+        with open("data_jsons/armature_layers.json", "r") as jsonFile:
+            armature_layers = json.load(jsonFile)
+
+        # reemplazando el data:
+        if armature_layers:
+            armature_layers_copy = list(armature_layers.keys())
+            for idx, key in enumerate(armature_layers_copy):
+                armature_layers[arm_props_layers[idx]] = armature_layers.pop(key)
+
+        # write data:
+        json_string = json.dumps(armature_layers, sort_keys=False, indent=4)
+        with open("data_jsons/armature_layers.json", 'w') as outfile:
+            outfile.write(json_string)
+        
+        wm = context.window_manager
+        blenrig_6_props = wm.blenrig_6_props
+        blenrig_6_props.armature_layers_read = True
+
+
+    arm_layers_renaming_facial1: StringProperty(default="FACIAL1", update=arm_layers_renaming_update)
+    arm_layers_renaming_facial2: StringProperty(default="FACIAL2", update=arm_layers_renaming_update)
+    arm_layers_renaming_facial3: StringProperty(default="FACIAL3", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_r_fk: StringProperty(default="ARM_R FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_neck_fk: StringProperty(default="NECK FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_l_fk: StringProperty(default="ARM_L FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_r_ik: StringProperty(default="ARM_R IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_torso_fk: StringProperty(default="TORSO FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_l_ik: StringProperty(default="ARM_L IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_fingers: StringProperty(default="FINGERS", update=arm_layers_renaming_update)
+    arm_layers_renaming_torso_inv: StringProperty(default="TORSO INV", update=arm_layers_renaming_update)
+    arm_layers_renaming_fingers_ik: StringProperty(default="FINGERS IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_r_fk: StringProperty(default="LEG_R_FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_props: StringProperty(default="PROPS", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_l_fk: StringProperty(default="LEG_L FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_r_ik: StringProperty(default="LEG_R_IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_extras: StringProperty(default="EXTRAS", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_l_ik: StringProperty(default="LEG_L IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_toes: StringProperty(default="TOES", update=arm_layers_renaming_update)
+    arm_layers_renaming_properties: StringProperty(default="PROPERTIES", update=arm_layers_renaming_update)
+    arm_layers_renaming_toes_fk: StringProperty(default="TOES FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_toon_1: StringProperty(default="TOON 1", update=arm_layers_renaming_update)
+    arm_layers_renaming_toon_2: StringProperty(default="TOON 2", update=arm_layers_renaming_update)
+    arm_layers_renaming_scale: StringProperty(default="SCALE", update=arm_layers_renaming_update)
+    arm_layers_renaming_optionals: StringProperty(default="OPTIONALS", update=arm_layers_renaming_update)
+    arm_layers_renaming_protected: StringProperty(default="PROTECTED", update=arm_layers_renaming_update)
+    arm_layers_renaming_mech: StringProperty(default="MECH", update=arm_layers_renaming_update)
+    arm_layers_renaming_deformation: StringProperty(default="DEFORMATION", update=arm_layers_renaming_update)
+    arm_layers_renaming_actions: StringProperty(default="ACTIONS", update=arm_layers_renaming_update)
+    arm_layers_renaming_bone_rolls: StringProperty(default="BONE-ROLLS", update=arm_layers_renaming_update)
+    arm_layers_renaming_snapping: StringProperty(default="SNAPPING", update=arm_layers_renaming_update)
+    arm_layers_renaming_reproportion: StringProperty(default="REPROPORTION", update=arm_layers_renaming_update)
 
 
 
