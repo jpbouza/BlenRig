@@ -5887,9 +5887,12 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         else:
             return False
 
+    Offset: bpy.props.BoolProperty(default=False)
+    X_Mirror: bpy.props.BoolProperty(default=False)
+
     #Code based from Pose Shapkeys addon by Mets
     def execute(self, context):
-        from . utils import deselect_all_objects, set_active_object
+        from . utils import deselect_all_objects, set_active_object, set_mode, switch_out_local_view
         ob = context.object
         smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
         #Disable Smooth Modifiers
@@ -5897,12 +5900,13 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
             for mod in ob.modifiers:
                 if mod.type == mod_type:
                     mod.show_viewport = False
+        set_mode('OBJECT')
 
         depsgraph = context.evaluated_depsgraph_get()
         ob_eval = ob.evaluated_get(depsgraph)
         ob_eval_mesh = ob_eval.data
 
-        sculpt_ob_name = ob.name + "_sculpt_shapekey"
+        sculpt_ob_name = ob.name + "_BlenRigSculptShapekey"
         sculpt_ob_mesh = bpy.data.meshes.new_from_object(ob)
         sculpt_ob_mesh.name = sculpt_ob_name
 
@@ -5912,7 +5916,9 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         sculpt_ob.rotation_euler = ob.rotation_euler
         sculpt_ob.rotation_quaternion = ob.rotation_quaternion
         sculpt_ob.scale = ob.scale
-        sculpt_ob.location.x -= ob.dimensions.x * 1.1
+
+        if self.Offset:
+            sculpt_ob.location.x -= ob.dimensions.x * 1.1
 
         #Store Objects in BlenRig Scene Props
         context.scene.blenrig_guide.shapekeys_obj = ob
@@ -5937,9 +5943,6 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         for target_v, eval_v in zip(target.data, ob_eval_mesh.vertices):
             target_v.co = eval_v.co
 
-        #X-Mirror Off
-        sculpt_ob.data.use_mirror_x = False
-
         #Enable Smooth Modifiers
         for mod_type in smooth_modifiers:
             for mod in ob.modifiers:
@@ -5949,6 +5952,17 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         #Set Sculpt as Active
         deselect_all_objects(context)
         set_active_object(context, sculpt_ob)
+        #Set to Local_View
+        switch_out_local_view()
+        for area in bpy.context.screen.areas:
+            if area.type == 'VIEW_3D':
+                space = area.spaces[0]
+                bpy.ops.view3d.localview()
+        set_mode('SCULPT')
+        if self.X_Mirror:
+            sculpt_ob.data.use_mirror_x = True
+        else:
+            sculpt_ob.data.use_mirror_x = False
         return {"FINISHED"}
 
 class Operator_Apply_Sculpt_Object_to_Shapekey(bpy.types.Operator):
@@ -5963,16 +5977,28 @@ class Operator_Apply_Sculpt_Object_to_Shapekey(bpy.types.Operator):
         if not context.active_object:
             return False
         if (context.active_object.type in ["MESH"]):
-            if context.scene.blenrig_guide.shapekeys_obj != None:
+            if context.scene.blenrig_guide.sculpt_shapekey_obj != None:
                 return True
         else:
             return False
 
+    Clear_Sculpt_Object: bpy.props.BoolProperty(default=True)
+
     #Code based from Pose Shapkeys addon by Mets
     def execute(self, context):
+        from . utils import deselect_all_objects, set_active_object, set_mode, switch_out_local_view
         scene = bpy.context.scene
         ob = scene.blenrig_guide.shapekeys_obj
         sculpt_object = scene.blenrig_guide.sculpt_shapekey_obj
+
+        #Switch Out of Local View
+        switch_out_local_view()
+        deselect_all_objects(context)
+        set_active_object(context, ob)
+
+        #Reset Active Shapekey in order for the Visual Sculpt to Transferred and no just the Difference between the Shapekey and Sculpt
+        bpy.ops.blenrig.reset_shapekey()
+
         smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
         #Disable Smooth Modifiers
         for mod_type in smooth_modifiers:
@@ -6027,8 +6053,58 @@ class Operator_Apply_Sculpt_Object_to_Shapekey(bpy.types.Operator):
                 if mod.type == mod_type:
                     mod.show_viewport = True
 
+        #Return to Object
+        deselect_all_objects(context)
+        set_active_object(context, ob)
+
         if len(sculpt_eval_verts) != len(ob_eval_verts):
             self.report({'WARNING'}, 'Sculpt Object and Shapekeys Object Topology does not Match')
+
+        #Delete Sculpt Object
+        if self.Clear_Sculpt_Object:
+            deselect_all_objects(context)
+            set_active_object(context, sculpt_object)
+            set_mode('OBJECT')
+            bpy.ops.object.delete(use_global=False, confirm=False)
+            scene.blenrig_guide.sculpt_shapekey_obj = None
+            deselect_all_objects(context)
+            set_active_object(context, ob)
+        return {"FINISHED"}
+
+class Operator_Cancel_Sculpt_Object_to_Shapekey(bpy.types.Operator):
+
+    bl_idname = "blenrig.cancel_sculpt_object_to_shapekey"
+    bl_label = "BlenRig Cancel Sculpt and Return to Character"
+    bl_description = "Cancel Sculpt and Return to Character"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            if context.scene.blenrig_guide.sculpt_shapekey_obj != None:
+                return True
+        else:
+            return False
+
+    def execute(self, context):
+        from . utils import deselect_all_objects, set_active_object, set_mode, switch_out_local_view
+        scene = bpy.context.scene
+        ob = scene.blenrig_guide.shapekeys_obj
+        sculpt_object = scene.blenrig_guide.sculpt_shapekey_obj
+
+        #Switch Out of Local View
+        switch_out_local_view()
+
+        #Delete Sculpt Object
+        deselect_all_objects(context)
+        set_active_object(context, sculpt_object)
+        set_mode('OBJECT')
+        bpy.ops.object.delete(use_global=False, confirm=False)
+        scene.blenrig_guide.sculpt_shapekey_obj = None
+        deselect_all_objects(context)
+        set_active_object(context, ob)
         return {"FINISHED"}
 
 class Operator_blenrig_mirror_active_shapekey(bpy.types.Operator):
