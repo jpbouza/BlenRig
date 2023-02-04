@@ -82,8 +82,8 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row_modifiers.operator("blenrig.mirror_shapekeys_drivers", text = 'Mirror All Shapekeys Drivers')
         box_modifiers.label(text='Sculpting')
         row_modifiers = box_modifiers.row()
-        row_modifiers.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object')
-        row_modifiers.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey')
+        row_modifiers.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').Offset = True
+        row_modifiers.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey').Clear_Sculpt_Object = True
         box_modifiers.operator("blenrig.reset_shapekey", text = 'Reset Active Shapekey')
         #Mirror Vgroups
         box_modifiers = col_buttons.box()
