@@ -990,6 +990,9 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
         except:
             pass
         guide_props.guide_show_mdef_cage = False
+        #Back to Armature
+        deselect_all_objects(context)
+        go_blenrig_pose_mode(context)
         return {"FINISHED"}
 
 class Operator_blenrig_unbind_mdef_modifiers(bpy.types.Operator):
@@ -1072,6 +1075,10 @@ class Operator_blenrig_guide_unbind_mdef_modifiers(bpy.types.Operator):
             set_active_object(context, context.scene.blenrig_guide.character_head_obj)
         except:
             pass
+
+        #Back to Armature
+        deselect_all_objects(context)
+        go_blenrig_pose_mode(context)
         return {"FINISHED"}
 
 class Operator_blenrig_guide_edit_mdef_cage(bpy.types.Operator):
