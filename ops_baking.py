@@ -57,6 +57,12 @@ class ARMATURE_OT_mesh_pose_baker(bpy.types.Operator):
                         for vert in ob.data.vertices:
                             shapekeys['Basis'].data[vert.index].co = mesh.vertices[vert.index].co
 
+                        #Disable Shapekeys that influenced the Baked Shape to avoid double transforms
+                        for i in range(len(ob.data.shape_keys.key_blocks)):
+                            shape = ob.data.shape_keys.key_blocks[i]
+                            if shape.value > 0.1:
+                                shape.mute = True
+
                         # Make baked shape active
                         for i in range(len(shapekeys)):
                             shape = shapekeys[i]
@@ -86,10 +92,17 @@ class ARMATURE_OT_mesh_pose_baker(bpy.types.Operator):
                 for vert in ob.data.vertices:
                     baked_shape.data[vert.index].co = mesh.vertices[vert.index].co
 
+                #Disable Shapekeys that influenced the Baked Shape to avoid double transforms
+                for i in range(len(ob.data.shape_keys.key_blocks)):
+                    shape = ob.data.shape_keys.key_blocks[i]
+                    if shape.value > 0.1:
+                        shape.mute = True
+
                 # Make baked shape active
                 for i in range(len(ob.data.shape_keys.key_blocks)):
                     shape = ob.data.shape_keys.key_blocks[i]
                     if shape.name == baked_shape.name:
+                        shape.mute = False
                         ob.active_shape_key_index = i
 
         # Remove unused baked mesh
