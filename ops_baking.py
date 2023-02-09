@@ -359,12 +359,14 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         armature_objects = search_mod('ARMATURE')[1]
         sdef_objects = search_mod('SURFACE_DEFORM')[1]
         #Link Objects to Temp Collection
+        from .guides.utils import blenrig_temp_unlink
+        blenrig_temp_unlink()
         blenrig_temp_mdef_cage(True)
         blenrig_temp_sdef_cage(True)
         blenrig_temp('MESH_DEFORM')
         blenrig_temp('ARMATURE')
         blenrig_temp('SURFACE_DEFORM')
-        #Bake Surface Deform First
+        #Bake Surface Deform Objects First
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.select_all(action='DESELECT')
         for ob in sdef_objects:
@@ -381,7 +383,7 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
                     bpy.ops.object.select_all(action='DESELECT')
         context.view_layer.objects.active = arm
         bpy.ops.object.mode_set(mode='POSE')
-        #Bake Mesh Deform Second
+        #Bake Mesh Deform Objects Second
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.select_all(action='DESELECT')
         for ob in mdef_objects:
@@ -398,7 +400,7 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
                     bpy.ops.object.select_all(action='DESELECT')
         context.view_layer.objects.active = arm
         bpy.ops.object.mode_set(mode='POSE')
-        #Bake Armature Third
+        #Bake Armature Objects Third
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.select_all(action='DESELECT')
         for ob in armature_objects:
@@ -449,6 +451,22 @@ class ARMATURE_OT_armature_baker_all_part_1(bpy.types.Operator):
         bpy.ops.object.mode_set(mode='POSE')
         #Bake Armature
         bpy.ops.blenrig.advanced_armature_baker()
+        #Rebind Weight Transfer Meshes
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        blenrig_temp_unlink()
+        blenrig_temp('MESH_DEFORM')
+        for ob in mdef_objects:
+            context.view_layer.objects.active = bpy.data.objects[ob]
+            bpy.data.objects[ob].select_set(1)
+            if 'WeightsModel' in bpy.data.objects[ob].name:
+                print(bpy.context.active_object.name)
+                bpy.ops.blenrig.bind_mdef_modifiers(Bind_Type=True)
+                bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        #Back to Armature
+        context.view_layer.objects.active = arm
+        bpy.ops.object.mode_set(mode='POSE')
         #UnLink Objects to Temp Collection
         blenrig_temp_mdef_cage(False)
         blenrig_temp_sdef_cage(False)
