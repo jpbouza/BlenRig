@@ -350,6 +350,29 @@ def blenrig_temp_unlink():
             temp_collection.objects.unlink(ob)
         bpy.context.scene.collection.children.unlink(temp_collection)
 
+#Hack for Mdef Bind Operator
+def blenrig_temp_cage_link(object):
+    temp_collection = bpy.data.collections.get("BlenRig_temp_cage")
+    temp_objects = object
+    if bpy.context.scene.collection.children.find("BlenRig_temp_cage") == -1:
+        if temp_collection:
+                bpy.context.scene.collection.children.link(temp_collection)
+        else:
+            temp_collection = bpy.data.collections.new("BlenRig_temp_cage")
+            bpy.context.scene.collection.children.link(temp_collection)
+        for ob in temp_objects:
+            try:
+                temp_collection.objects.link(ob)
+            except:
+                pass
+
+def blenrig_temp_cage_unlink():
+    temp_collection = bpy.data.collections.get("BlenRig_temp_cage")
+    if bpy.context.scene.collection.children.find("BlenRig_temp_cage") != -1:
+        for ob in temp_collection.objects:
+            temp_collection.objects.unlink(ob)
+        bpy.context.scene.collection.children.unlink(temp_collection)
+
 face_rig_objects = []
 
 def collect_facemask():

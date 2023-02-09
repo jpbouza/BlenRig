@@ -839,7 +839,7 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
 
     #Bind Modifiers
     def bind_mdef(self, context, mdef_precision):
-        from .utils import set_active_object, deselect_all_objects, check_mod_type, blenrig_temp_link, blenrig_temp_unlink
+        from .utils import set_active_object, deselect_all_objects, check_mod_type, blenrig_temp_cage_link, blenrig_temp_cage_unlink
 
         for ob in context.selected_objects:
             set_active_object(context, ob)
@@ -854,8 +854,8 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
                                 mdef_cage = mod.object
                                 deselect_all_objects(context)
                                 # Show Mdef
-                                blenrig_temp_unlink()
-                                blenrig_temp_link([mdef_cage])
+                                blenrig_temp_cage_unlink()
+                                blenrig_temp_cage_link([mdef_cage])
                                 set_active_object(context, mdef_cage)
                                 mdef_cage.hide_viewport = False
                                 #Add
@@ -877,7 +877,7 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
                                     tr_mod.show_viewport = True
                                     tr_mod.show_render = False
                                 deselect_all_objects(context)
-                                blenrig_temp_unlink()
+                                blenrig_temp_cage_unlink()
                                 #Back to Object
                                 set_active_object(context, act_ob)
                                 #MESH DEFORM Bind
@@ -885,8 +885,8 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
                                 #Disable Triangulate
                                 deselect_all_objects(context)
                                 #Show Mdef
-                                blenrig_temp_unlink()
-                                blenrig_temp_link([mdef_cage])
+                                blenrig_temp_cage_unlink()
+                                blenrig_temp_cage_link([mdef_cage])
                                 set_active_object(context, mdef_cage)
                                 mdef_cage.hide_viewport = False
                                 #Disable
@@ -898,10 +898,13 @@ class Operator_blenrig_bind_mdef_modifiers(bpy.types.Operator):
                                             tr_mod.show_viewport = False
                                             tr_mod.show_render = False
                                 #Back to Object
-                                blenrig_temp_unlink()
+                                blenrig_temp_cage_unlink()
                                 set_active_object(context, act_ob)
                                 #Save file
-                                bpy.ops.wm.save_mainfile()
+                                try:
+                                    bpy.ops.wm.save_mainfile()
+                                except:
+                                    pass
                             else:
                                 self.report({'WARNING'}, "No Cage Object Assigned in Mdef Modifier")
                         else:
