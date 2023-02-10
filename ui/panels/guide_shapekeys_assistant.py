@@ -35,6 +35,23 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                 box_pose = steps.box()
                 if '_Cage_' in guide_props.guide_current_step:
                     box_weight.operator("blenrig.toggle_shapekey_editting", text='Toggle Shapekey Editting').mesh_edit_object = 'mdef_cage'
+                    if active != guide_props.mdef_cage_obj:
+                        if 'BlenRigMdefCage' not in active.name:
+                            if hasattr(active, 'modifiers'):
+                                if active_mode != 'WEIGHT_PAINT':
+                                    for mod in active.modifiers:
+                                        if mod.type == 'CORRECTIVE_SMOOTH':
+                                            box_weight.operator("blenrig.edit_corrective_smooth_vgroup", text='Edit Corrective Smooth Vgroup')
+                            if hasattr(active, 'data') and hasattr(active.data, 'shape_keys') and hasattr(active.data.shape_keys, 'key_blocks'):
+                                box_weight.label(text='Sculpt Shapekey')
+                                row_sculpt = box_weight.row()
+                                if active.active_shape_key.name.endswith('_L'):
+                                    row_sculpt.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').X_Mirror = False
+                                elif active.active_shape_key.name.endswith('_R'):
+                                    row_sculpt.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').X_Mirror = False
+                                else:
+                                    row_sculpt.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').X_Mirror = True
+                                row_sculpt.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey')
                 else:
                     box_weight.operator("blenrig.toggle_shapekey_editting", text='Toggle Shapekey Editting').mesh_edit_object = 'char'
                     if hasattr(active, 'modifiers'):
