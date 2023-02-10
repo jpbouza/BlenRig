@@ -5960,11 +5960,11 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         from . utils import deselect_all_objects, set_active_object, set_mode, switch_out_local_view
         ob = context.object
         smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
-        #Disable Smooth Modifiers
-        for mod_type in smooth_modifiers:
-            for mod in ob.modifiers:
-                if mod.type == mod_type:
-                    mod.show_viewport = False
+        # #Disable Smooth Modifiers
+        # for mod_type in smooth_modifiers:
+        #     for mod in ob.modifiers:
+        #         if mod.type == mod_type:
+        #             mod.show_viewport = False
         set_mode('OBJECT')
 
         depsgraph = context.evaluated_depsgraph_get()
