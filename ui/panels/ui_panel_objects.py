@@ -85,6 +85,20 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row_modifiers.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').Offset = True
         row_modifiers.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey').Clear_Sculpt_Object = True
         box_modifiers.operator("blenrig.reset_shapekey", text = 'Reset Active Shapekey')
+        row = box_modifiers.row()
+        col_1 = row.column()
+        col_1.scale_x = 1.5
+        col_2 = row.column()
+        col_1.operator("blenrig.override_sculpt_objects", text = 'Override Sculpt Object').assign = 'Sculpt'
+        try:
+            col_2.label(text=context.scene.blenrig_guide.sculpt_shapekey_obj.name)
+        except:
+            col_2.label(text='No Objects Assigned')
+        col_1.operator("blenrig.override_sculpt_objects", text = 'Override Shapekey Objet').assign = 'Shapekey'
+        try:
+            col_2.label(text=context.scene.blenrig_guide.shapekeys_obj.name)
+        except:
+            col_2.label(text='No Object Assigned')
         #Mirror Vgroups
         box_modifiers = col_buttons.box()
         box_modifiers.label(text='Mirror Vertex Groups')
