@@ -6172,6 +6172,31 @@ class Operator_Cancel_Sculpt_Object_to_Shapekey(bpy.types.Operator):
         set_active_object(context, ob)
         return {"FINISHED"}
 
+class Operator_blenrig_override_sculpt_objects(bpy.types.Operator):
+
+    bl_idname = "blenrig.override_sculpt_objects"
+    bl_label = "BlenRig Manually Assign the Sculpt Source and Target"
+    bl_description = "Manually Assign the Sculpt Source and Target"
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+
+    @classmethod
+    def poll(cls, context):
+        if not context.active_object:
+            return False
+        if (context.active_object.type in ["MESH"]):
+            return True
+        else:
+            return False
+
+    assign : bpy.props.StringProperty()
+
+    def execute(self, context):
+        if self.assign == 'Sculpt':
+            context.scene.blenrig_guide.sculpt_shapekey_obj = context.active_object
+        if self.assign == 'Shapekey':
+            context.scene.blenrig_guide.shapekeys_obj = context.active_object
+        return {"FINISHED"}
+
 class Operator_blenrig_mirror_active_shapekey(bpy.types.Operator):
 
     bl_idname = "blenrig.mirror_active_shapekey"

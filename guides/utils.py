@@ -1827,7 +1827,7 @@ def joint_x6_update(self, context):
                 guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_3
             if guide_props.shapekeys_list_index == 4:
                 guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_4
-            set_active_shapekey(guide_props.active_shapekey_name)
+            set_active_shapekey_guide(guide_props.active_shapekey_name)
         except:
             pass
 
@@ -1930,7 +1930,7 @@ def joint_x4_update(self, context):
                 guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_3
             if guide_props.shapekeys_list_index == 4:
                 guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_4
-            set_active_shapekey(guide_props.active_shapekey_name)
+            set_active_shapekey_guide(guide_props.active_shapekey_name)
         except:
             pass
 
@@ -2007,7 +2007,7 @@ def joint_x2_update(self, context):
                 guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_3
             if guide_props.shapekeys_list_index == 4:
                 guide_props.active_shapekey_name = bpy.context.scene.blenrig_shapekeys_list[index].list_4
-            set_active_shapekey(guide_props.active_shapekey_name)
+            set_active_shapekey_guide(guide_props.active_shapekey_name)
         except:
             pass
 
@@ -2112,6 +2112,43 @@ def set_active_shapekey(shapekey_name):
             shapekeys = ob.data.shape_keys.key_blocks
             index = shapekeys.find(shapekey_name)
             ob.active_shape_key_index = index
+
+#Set Active Shapekey for Editting and also set it on other Meshes of the Character if present
+def set_active_shapekey_guide(shapekey_name):
+    ob = bpy.context.active_object
+    scn = bpy.context.scene
+    guide_props = scn.blenrig_guide
+    armature = guide_props.arm_obj
+    mdef_cage = guide_props.mdef_cage_obj
+    if not ob:
+        return False
+    if ob.type == 'MESH':
+        if hasattr(ob, 'data') and hasattr(ob.data, 'shape_keys') and hasattr(ob.data.shape_keys, 'key_blocks'):
+            shapekeys = ob.data.shape_keys.key_blocks
+            index = shapekeys.find(shapekey_name)
+            ob.active_shape_key_index = index
+        for other_ob in bpy.data.objects:
+            if hasattr(other_ob, 'modifiers'):
+                for mod in other_ob.modifiers:
+                    if mod.type == 'ARMATURE':
+                        if mod.object == armature:
+                            if hasattr(other_ob, 'data') and hasattr(other_ob.data, 'shape_keys') and hasattr(other_ob.data.shape_keys, 'key_blocks'):
+                                shapekeys = other_ob.data.shape_keys.key_blocks
+                                try:
+                                    index = shapekeys.find(shapekey_name)
+                                    other_ob.active_shape_key_index = index
+                                except:
+                                    pass
+                for mod in other_ob.modifiers:
+                    if mod.type == 'MESH_DEFORM':
+                        if mod.object == mdef_cage:
+                            if hasattr(other_ob, 'data') and hasattr(other_ob.data, 'shape_keys') and hasattr(other_ob.data.shape_keys, 'key_blocks'):
+                                shapekeys = other_ob.data.shape_keys.key_blocks
+                                try:
+                                    index = shapekeys.find(shapekey_name)
+                                    other_ob.active_shape_key_index = index
+                                except:
+                                    pass
 
 #Get Shapekey Driver Transform
 #Rotation
