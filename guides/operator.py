@@ -5959,12 +5959,18 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
     def execute(self, context):
         from . utils import deselect_all_objects, set_active_object, set_mode, switch_out_local_view
         ob = context.object
-        smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
-        # #Disable Smooth Modifiers
-        # for mod_type in smooth_modifiers:
-        #     for mod in ob.modifiers:
-        #         if mod.type == mod_type:
-        #             mod.show_viewport = False
+        modifiers = ['SUBSURF', 'MULTIRES']
+        #Disable Modifiers
+        disable_list = []
+        for mod_type in modifiers:
+            for mod in ob.modifiers:
+                if mod.type == mod_type:
+                    if mod.show_viewport == True:
+                        disable_list.append(mod.name)
+        for d_mod in disable_list:
+            for mod in ob.modifiers:
+                if mod.name == d_mod:
+                    mod.show_viewport = False
         set_mode('OBJECT')
 
         depsgraph = context.evaluated_depsgraph_get()
@@ -6008,10 +6014,10 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         for target_v, eval_v in zip(target.data, ob_eval_mesh.vertices):
             target_v.co = eval_v.co
 
-        #Enable Smooth Modifiers
-        for mod_type in smooth_modifiers:
+        #Enable Modifiers
+        for d_mod in disable_list:
             for mod in ob.modifiers:
-                if mod.type == mod_type:
+                if mod.name == d_mod:
                     mod.show_viewport = True
 
         #Set Sculpt as Active
@@ -6064,11 +6070,17 @@ class Operator_Apply_Sculpt_Object_to_Shapekey(bpy.types.Operator):
         #Reset Active Shapekey in order for the Visual Sculpt to Transferred and no just the Difference between the Shapekey and Sculpt
         bpy.ops.blenrig.reset_shapekey()
 
-        smooth_modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH']
+        modifiers = ['CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH', 'SMOOTH', 'SUBSURF', 'MULTIRES']
         #Disable Smooth Modifiers
-        for mod_type in smooth_modifiers:
+        disable_list = []
+        for mod_type in modifiers:
             for mod in ob.modifiers:
                 if mod.type == mod_type:
+                    if mod.show_viewport == True:
+                        disable_list.append(mod.name)
+        for d_mod in disable_list:
+            for mod in ob.modifiers:
+                if mod.name == d_mod:
                     mod.show_viewport = False
 
         depsgraph = bpy.context.evaluated_depsgraph_get()
@@ -6112,10 +6124,10 @@ class Operator_Apply_Sculpt_Object_to_Shapekey(bpy.types.Operator):
 
         ob.crazyspace_eval_clear()
 
-        #Enable Smooth Modifiers
-        for mod_type in smooth_modifiers:
+        #Enable Modifiers
+        for d_mod in disable_list:
             for mod in ob.modifiers:
-                if mod.type == mod_type:
+                if mod.name == d_mod:
                     mod.show_viewport = True
 
         #Return to Object
