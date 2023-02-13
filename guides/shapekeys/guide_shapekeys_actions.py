@@ -194,6 +194,9 @@ bone_list, layers_list, active_bone_list, wp_active_group_list, mode, shapekeys_
     #Set Active Bone
     select_pose_bone(context, joint_list[0])
 
+    #Toggle Pose X-Mirror Off for Sculpt
+    toggle_pose_x_mirror(context, False)
+
     if shp_obj == 'mdef_cage':
         if mode == 'shpaekey_edit':
             #Set Edit Mode
