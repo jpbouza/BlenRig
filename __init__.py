@@ -3312,7 +3312,7 @@ class blenrig_6_props(PropertyGroup):
         # instancio el singleton para ustarlo
         singleton = SingletonClass()
         # actualizo su variable armature_layers con el nuevo data al hacer click en Pircker
-        with open("data_jsons/armature_layers.json", "r") as jsonFile:
+        with open(armature_layers_file, "r") as jsonFile:
             singleton.armature_layers = json.load(jsonFile)
     
 
