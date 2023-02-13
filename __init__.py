@@ -33,11 +33,16 @@
 import json
 from .singleton import SingletonClass
 
+# bpy.utils.user_resource('SCRIPTS')
+# '/home/zebus3d/.config/blender/3.4/scripts'
 import os
-print(os.getcwd())
+script_file = os.path.realpath(__file__)
+directory = os.path.dirname(script_file)
+armature_layers_file = os.path.join(directory, "data_jsons", "armature_layers.json")
+
 # intancio y relleno el singleton:
 singleton = SingletonClass()
-with open("data_jsons/armature_layers.json", "r") as jsonFile:
+with open(armature_layers_file, "r") as jsonFile:
     singleton.armature_layers = json.load(jsonFile)
 
 bl_info = {
