@@ -3365,7 +3365,7 @@ class blenrig_6_props(PropertyGroup):
 
         # obteniendo el data para reemplazarlo:
         armature_layers = None
-        with open("data_jsons/armature_layers.json", "r") as jsonFile:
+        with open(armature_layers_file, "r") as jsonFile:
             armature_layers = json.load(jsonFile)
 
         # reemplazando el data:
@@ -3376,7 +3376,7 @@ class blenrig_6_props(PropertyGroup):
 
         # write data:
         json_string = json.dumps(armature_layers, sort_keys=False, indent=4)
-        with open("data_jsons/armature_layers.json", 'w') as outfile:
+        with open(armature_layers_file, 'w') as outfile:
             outfile.write(json_string)
         
         wm = context.window_manager
