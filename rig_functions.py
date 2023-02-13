@@ -6,9 +6,14 @@ import numpy as np
 
 from bpy.props import FloatProperty, IntProperty, BoolProperty
 
+import os
 import json
 target_bones = None
-with open("data_jsons/toggle_bones_names.json", "r") as jsonFile:
+script_file = os.path.realpath(__file__)
+directory = os.path.dirname(script_file)
+toggle_bones_names_file = os.path.join(directory, "data_jsons", "toggle_bones_names.json")
+
+with open(toggle_bones_names_file, "r") as jsonFile:
     target_bones = json.load(jsonFile)
 
 
