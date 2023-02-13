@@ -33,6 +33,8 @@
 import json
 from .singleton import SingletonClass
 
+import os
+print(os.getcwd())
 # intancio y relleno el singleton:
 singleton = SingletonClass()
 with open("data_jsons/armature_layers.json", "r") as jsonFile:
