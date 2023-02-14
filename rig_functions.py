@@ -21,19 +21,19 @@ def bone_auto_hide(context):
 
     if context:
 
-        if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
+        if not bpy.context.screen and bpy.context.screen.is_animation_playing == True and not bpy.context.active_object:
             return False
 
-        if context.active_object.type == "ARMATURE" and context.active_object.mode == 'POSE':
-            for b_prop in context.active_object.data.items():
+        if bpy.context.active_object.type == "ARMATURE" and bpy.context.active_object.mode == 'POSE':
+            for b_prop in bpy.context.active_object.data.items():
                 if b_prop[0] == 'bone_auto_hide' and b_prop[1] == 0:
                     return False
                     
-            for prop in context.active_object.data.items():
+            for prop in bpy.context.active_object.data.items():
                 if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
-                    arm = context.active_object.data
-                    p_bones = context.active_object.pose.bones
+                    arm = bpy.context.active_object.data
+                    p_bones = bpy.context.active_object.pose.bones
 
                     for b in p_bones:
                         if ('properties' in b.name):
