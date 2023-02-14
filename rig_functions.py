@@ -21,7 +21,10 @@ def bone_auto_hide(context):
 
     if context:
 
-        if not bpy.context.screen and bpy.context.screen.is_animation_playing == True and not bpy.context.active_object:
+        if not bpy.context.screen: 
+            return False
+            
+        if bpy.context.screen.is_animation_playing == True and not bpy.context.active_object:
             return False
 
         if bpy.context.active_object.type == "ARMATURE" and bpy.context.active_object.mode == 'POSE':
