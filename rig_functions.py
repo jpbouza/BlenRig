@@ -21,17 +21,20 @@ def bone_auto_hide(context):
 
     if context:
 
-        if not bpy.context.screen: 
+        if not bpy.context.screen:
             return False
-            
+
         if bpy.context.screen.is_animation_playing == True and not bpy.context.active_object:
             return False
+
+        if not bpy.context.active_object:
+            return
 
         if bpy.context.active_object.type == "ARMATURE" and bpy.context.active_object.mode == 'POSE':
             for b_prop in bpy.context.active_object.data.items():
                 if b_prop[0] == 'bone_auto_hide' and b_prop[1] == 0:
                     return False
-                    
+
             for prop in bpy.context.active_object.data.items():
                 if prop[0] == 'rig_name' and prop[1].__contains__('BlenRig_'):
 
@@ -307,7 +310,7 @@ layers = []
 
 
 def reproportion_toggle(self, context):
-    
+
     if context:
         mode.append(context.active_object.mode)
         layers.append(context.active_object.data.layers[:])
