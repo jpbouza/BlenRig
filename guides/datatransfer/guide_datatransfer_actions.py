@@ -86,14 +86,13 @@ def DT_Select_Head(operator, context):
     if context.mode != 'OBJECT':
         set_mode('OBJECT')
 
-    BlenRig_Empty(context)
-
     armature.hide_viewport = True
 
     deselect_all_objects(context)
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     # Front View.
     set_view_perspective(context, False)
@@ -202,6 +201,7 @@ def DT_Test_Face(operator, context):
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     #Select Character's Head
     try:
@@ -283,6 +283,7 @@ def DT_Select_Hands(operator, context):
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     # Front View.
     set_view_perspective(context, False)
@@ -392,6 +393,7 @@ def DT_Test_Hands(operator, context):
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     #Select Character's Hands
     try:
@@ -434,6 +436,7 @@ def DT_Eyes(operator, context):
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     #Select Character's Head
     try:
@@ -468,6 +471,7 @@ def DT_Inner_Mouth(operator, context):
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     #Select Character's Head
     try:
@@ -502,6 +506,7 @@ def DT_Clean_Symmetry(operator, context):
 
     # Hide MDefHeadWeightsModel
     blenrig_temp_unlink()
+    BlenRig_Empty(context)
 
     #Select Character's Head
     try:
@@ -593,6 +598,12 @@ def datatransfer_end_generic(context):
 
 #Property for action to be performed after steps
 def end_of_step_action(context):
+
+    #Check if the Empty object exist to delete
+    if "BlenRig_Empty" in bpy.data.objects:
+        bpy.data.objects["BlenRig_Empty"].select_set(True)
+        bpy.ops.object.delete()
+
     datatransfer_end_generic(context)
     guide_props = bpy.context.scene.blenrig_guide
     head_weights_obj = guide_props.mdef_head_weights_transfer_obj
@@ -624,3 +635,4 @@ def end_of_step_action(context):
         if hasattr(guide_props.character_hands_obj, 'modifiers'):
             for mod in guide_props.character_hands_obj.modifiers:
                 mod.show_in_editmode = True
+

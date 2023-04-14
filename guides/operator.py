@@ -56,9 +56,14 @@ class Operator_Guide_Transfer_VGroups(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
+        bg = context.scene.blenrig_guide
         if not context.active_object:
             return False
-        if not context.scene.blenrig_guide.character_head_obj:
+        if not bg.character_head_obj:
+            return False
+        if not bg.character_hands_obj:
+            return False
+        if not bg.character_body_obj:
             return False
         if (context.active_object.type in ["MESH"]):
             return True

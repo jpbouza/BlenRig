@@ -2216,8 +2216,12 @@ def BL_Ver(BL_3, BL_2):
 
 # Empty for no object active in Guide
 
-def BlenRig_Empty(context):    
-    bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0, align='WORLD', location=(0, 0, -1000), scale=(1, 1, 1))
-    bpy.context.object.name = "BlenRig_Empty"
-    blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
-    set_active_object(context,blenrig_empty)
+def BlenRig_Empty(context):
+    if not "BlenRig_Empty" in bpy.data.objects:
+        bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0, align='WORLD', location=(0, 0, -1000), scale=(1, 1, 1))
+        bpy.context.object.name = "BlenRig_Empty"
+        blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
+        set_active_object(context,blenrig_empty)
+    else:
+        blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
+        set_active_object(context,blenrig_empty)
