@@ -287,6 +287,7 @@ def DT_Select_Hands(operator, context):
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
+    BlenRig_Empty(context)
 
 def DT_Edit_Hands(operator, context):
     #Perform end of step action and set current step name
@@ -510,8 +511,10 @@ def DT_Clean_Symmetry(operator, context):
         BlenRig_Empty(context)
 
 def DT_Finish(operator, context):
-    #Perform end of step action and set current step name
+    # Del BlenRig_Empty object
     del_BlenRig_Empty(context)
+    
+    #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Finish'
 

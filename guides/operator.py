@@ -696,8 +696,11 @@ class Operator_blenrig_guide_add_body_modifiers(bpy.types.Operator):
 
     def execute(self, context):
 
-        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects, set_mode, add_vgroup
+        from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects, set_mode, add_vgroup, del_BlenRig_Empty
 
+        #Del BlenRig_Empty object
+        del_BlenRig_Empty(context)
+        
         #Clear List
         context.scene.blenrig_character_body_obj.clear()
 
@@ -776,6 +779,10 @@ class Operator_blenrig_define_body_area(bpy.types.Operator):
     area : bpy.props.StringProperty()
 
     def execute(self, context):
+        #Del BlenRig Empty object after asigned body part
+        from . utils import del_BlenRig_Empty
+        del_BlenRig_Empty(context)
+        
         if self.area == 'Body':
             #Clear List
             context.scene.blenrig_character_body_obj.clear()

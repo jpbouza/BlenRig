@@ -148,8 +148,10 @@ def MDEF_Final_Binding(operator, context):
         pass
 
 def MDEF_Finish(operator, context):
-    #Perform end of step action and set current step name
+    # Del BlenRig_Empty object
     del_BlenRig_Empty(context)
+    
+    #Perform end of step action and set current step name
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Finish'
 

@@ -1,6 +1,7 @@
 import bpy
 import bmesh
 from math import *
+from mathutils import bvhtree
 import mathutils as mathu
 from mathutils import Vector, Matrix
 from bpy.types import Operator, PropertyGroup
@@ -17,7 +18,7 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
             bpy.ops.mesh.select_mirror(extend=True)
 
         active_obj = context.active_object
-        props = context.window_manager.blenrig_6_props.ajust_distance_cage
+        props = context.window_manager.blenrig_6_props.adjust_distance_cage
 
         bm = bmesh.from_edit_mesh(active_obj.data)
         bm.verts.ensure_lookup_table()
@@ -71,7 +72,7 @@ class BLENRIG_OT_SnapPoints(bpy.types.Operator):
         else:
             for vert in sel_verts:
                 vert.select= True
-                bmesh.update_edit_mesh(active_obj.data)
+            bmesh.update_edit_mesh(active_obj.data)
         return {'FINISHED'}
 
 def append_attribute_to_obj(obj, attribute, value):

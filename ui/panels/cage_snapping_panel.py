@@ -50,7 +50,7 @@ class BLENRIG_PT_Cage_snapping_panel(bpy.types.Panel):
             col.operator("blenrig.snap_points", text="Ajust Cage", icon="NONE")
             col.operator("blenrig.center_loop_cage", text="Center loop Cage", icon="NONE")
             row = layout.row(heading="Distance Cage")
-            row.prop(props,"ajust_distance_cage",text="value")
+            row.prop(props,"adjust_distance_cage",text="value")
             
             # row =layout.column()
             # row =layout.row()

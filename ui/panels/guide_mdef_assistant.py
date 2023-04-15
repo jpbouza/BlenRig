@@ -36,7 +36,7 @@ class BLENRIG_PT_mdef_guide(BLENRIG_PT_guide_assistant):
                 row = layout.row(align=True)
                 col.operator("blenrig.snap_points", text="Ajust Cage", icon="NONE")
                 row = layout.row(heading="Distance Cage")
-                row.prop(props,"ajust_distance_cage",text="value")
+                row.prop(props,"adjust_distance_cage",text="value")
                 box = layout.column()
                 box.label(text='Mdef Cage Options')
                 col = box.column()

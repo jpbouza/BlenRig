@@ -2299,5 +2299,6 @@ def BlenRig_Empty(context):
 def del_BlenRig_Empty(context):
         #Check if the Empty object exist to delete
     if "BlenRig_Empty" in bpy.data.objects:
+        deselect_all_objects(context)
         bpy.data.objects["BlenRig_Empty"].select_set(True)
         bpy.ops.object.delete()
