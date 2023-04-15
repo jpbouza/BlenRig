@@ -43,16 +43,17 @@ def MDEF_Select_Body_Objects(operator, context):
     go_blenrig_object_mode(context)
     bpy.context.scene.blenrig_guide.arm_obj.hide_viewport = True
     deselect_all_objects(context)
-    
+
     # Front View.
     set_view_perspective(context, False)
     set_viewpoint('FRONT')
 
     #Select Head object
-    try:
+    if bpy.context.scene.blenrig_guide.character_head_obj:
         bpy.context.view_layer.objects.active = bpy.context.scene.blenrig_guide.character_head_obj
-    except:
-        pass
+    else:
+        print("esta vacio")
+        BlenRig_Empty(context)
 
 def MDEF_Edit_Mdef_Cage(operator, context):
     #Perform end of step action and set current step name
@@ -148,6 +149,7 @@ def MDEF_Final_Binding(operator, context):
 
 def MDEF_Finish(operator, context):
     #Perform end of step action and set current step name
+    del_BlenRig_Empty(context)
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'MDEF_Finish'
 

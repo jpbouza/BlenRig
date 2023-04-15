@@ -2284,7 +2284,20 @@ def BL_Ver(BL_3, BL_2):
 # Empty for no object active in Guide
 
 def BlenRig_Empty(context):
-    bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0, align='WORLD', location=(0, 0, -1000), scale=(1, 1, 1))
-    bpy.context.object.name = "BlenRig_Empty"
-    blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
-    set_active_object(context,blenrig_empty)
+
+    if not "BlenRig_Empty" in bpy.data.objects:
+        bpy.ops.mesh.primitive_circle_add(radius=1, enter_editmode=False,location=(0, 0, 0), scale=(1, 1, 1))
+        bpy.context.object.name = "BlenRig_Empty"
+        blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
+        set_active_object(context,blenrig_empty)
+        bpy.ops.transform.resize(0)
+    else:
+        deselect_all_objects(context)
+        blenrig_empty = bpy.context.view_layer.objects['BlenRig_Empty']
+        set_active_object(context,blenrig_empty)
+
+def del_BlenRig_Empty(context):
+        #Check if the Empty object exist to delete
+    if "BlenRig_Empty" in bpy.data.objects:
+        bpy.data.objects["BlenRig_Empty"].select_set(True)
+        bpy.ops.object.delete()

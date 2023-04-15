@@ -207,7 +207,7 @@ def DT_Test_Face(operator, context):
     try:
         set_active_object(context, guide_props.character_head_obj)
     except:
-        pass
+        BlenRig_Empty(context)
 
 def DT_Weight_Mesh_Shapekey_Hands(operator, context):
     #Perform end of step action and set current step name
@@ -397,7 +397,7 @@ def DT_Test_Hands(operator, context):
     try:
         set_active_object(context, guide_props.character_hands_obj)
     except:
-        pass
+        BlenRig_Empty(context)
 
 def DT_Eyes(operator, context):
     #Perform end of step action and set current step name
@@ -439,7 +439,7 @@ def DT_Eyes(operator, context):
     try:
         set_active_object(context, guide_props.character_head_obj)
     except:
-        pass
+        BlenRig_Empty(context)
 
 def DT_Inner_Mouth(operator, context):
     #Perform end of step action and set current step name
@@ -473,7 +473,7 @@ def DT_Inner_Mouth(operator, context):
     try:
         set_active_object(context, guide_props.character_head_obj)
     except:
-        pass
+        BlenRig_Empty(context)
 
 def DT_Clean_Symmetry(operator, context):
     #Perform end of step action and set current step name
@@ -507,10 +507,11 @@ def DT_Clean_Symmetry(operator, context):
     try:
         set_active_object(context, guide_props.character_head_obj)
     except:
-        pass
+        BlenRig_Empty(context)
 
 def DT_Finish(operator, context):
     #Perform end of step action and set current step name
+    del_BlenRig_Empty(context)
     end_of_step_action(context)
     bpy.context.scene.blenrig_guide.guide_current_step = 'DT_Finish'
 
