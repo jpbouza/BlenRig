@@ -3227,7 +3227,7 @@ class blenrig_6_props(bpy.types.PropertyGroup):
     contextOptions2 = [('BONESHAPES', 'BoneShapes', "BoneShapes Tools", 'POSE_HLT', 0),
                         ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
     displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')
-    adjust_distance_cage : bpy.props.FloatProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
+    adjust_distance_cage : bpy.props.FloatProperty(name="Distance from object", description="Adjust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
 
 # BlenRig Armature Tools Operator
 armature_classes = [
