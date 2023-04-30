@@ -52,6 +52,9 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                                 else:
                                     row_sculpt.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').X_Mirror = True
                                 row_sculpt.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey')
+                                row_sculpt = box_weight.row()
+                                row_sculpt.prop(guide_props, "sculpt_use_smooth", text='Use Smooth Modifiers')
+                                row_sculpt.operator("blenrig.reset_shapekey", text = 'Reset Active Shapekey')
                 else:
                     box_weight.operator("blenrig.toggle_shapekey_editting", text='Toggle Shapekey Editting').mesh_edit_object = 'char'
                     if hasattr(active, 'modifiers'):
@@ -69,6 +72,9 @@ class BLENRIG_PT_shapekeys_guide(BLENRIG_PT_guide_assistant):
                         else:
                             row_sculpt.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').X_Mirror = True
                         row_sculpt.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey')
+                        row_sculpt = box_weight.row()
+                        row_sculpt.prop(guide_props, "sculpt_use_smooth", text='Use Smooth Modifiers')
+                        row_sculpt.operator("blenrig.reset_shapekey", text = 'Reset Active Shapekey')
 
                 if active_mode == 'POSE':
                     box_weight.label(text='Pose Options')
