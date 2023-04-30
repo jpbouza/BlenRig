@@ -216,6 +216,10 @@ class BlenrigGuideData(PropertyGroup):
     #BlenRig Sculpt Shapekeys Objects
     sculpt_shapekey_obj : PointerProperty(type=Object)
     shapekeys_obj : PointerProperty(type=Object)
+    sculpt_use_smooth : BoolProperty(default=1,
+    description="Take Smooth Modifiers into account when Generating the Sculpt Object",
+    name="Use Smooth Modifiers"
+    )
     #BlenRig Weights Transfer Meshes
     mdef_head_weights_transfer_obj : PointerProperty(type=Object)
     mdef_hands_weights_transfer_obj : PointerProperty(type=Object)

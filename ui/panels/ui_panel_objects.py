@@ -29,6 +29,7 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
 
     def draw(self, context):
         props = context.window_manager.blenrig_6_props
+        guide_props = context.scene.blenrig_guide
         layout = self.layout
 
         box = layout.column()
@@ -84,6 +85,9 @@ class BLENRIG_PT_blenrig_6_mesh_panel(bpy.types.Panel):
         row_modifiers = box_modifiers.row()
         row_modifiers.operator("blenrig.create_sculpt_shapekey_object_form_pose", text = 'Generate Sculpt Object').Offset = True
         row_modifiers.operator("blenrig.apply_sculpt_object_to_shapekey", text = 'Apply Sculpt to Shapekey').Clear_Sculpt_Object = True
+        row_modifiers = box_modifiers.row()
+        row_modifiers.prop(guide_props, "sculpt_use_smooth", text='Use Smooth Modifiers')
+        row_modifiers.operator("blenrig.cancel_sculpt_object_to_shapekey", text = 'Cancel')
         box_modifiers.operator("blenrig.reset_shapekey", text = 'Reset Active Shapekey')
         row = box_modifiers.row()
         col_1 = row.column()

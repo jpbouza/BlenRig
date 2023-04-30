@@ -700,7 +700,7 @@ class Operator_blenrig_guide_add_body_modifiers(bpy.types.Operator):
 
         #Del BlenRig_Empty object
         del_BlenRig_Empty(context)
-        
+
         #Clear List
         context.scene.blenrig_character_body_obj.clear()
 
@@ -782,7 +782,7 @@ class Operator_blenrig_define_body_area(bpy.types.Operator):
         #Del BlenRig Empty object after asigned body part
         from . utils import del_BlenRig_Empty
         del_BlenRig_Empty(context)
-        
+
         if self.area == 'Body':
             #Clear List
             context.scene.blenrig_character_body_obj.clear()
@@ -5933,13 +5933,18 @@ class Operator_blenrig_reset_shapekey(bpy.types.Operator):
             return False
 
     def execute(self, context):
-        from .utils import blend_from_shape, basis_search
+        from .utils import blend_from_shape, basis_search, set_mode
         ob = context.active_object
+        # Store Current Mode
+        ob_mode = ob.mode
+
         if basis_search:
             blend_from_shape('Basis', [ob.active_shape_key.name])
-
         else:
             self.report({'WARNING'}, 'Could not find Basis Shapekey')
+
+        # Return to Mode
+        set_mode(ob_mode)
 
         return {"FINISHED"}
 
@@ -5969,13 +5974,20 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         from . utils import deselect_all_objects, set_active_object, set_mode, switch_out_local_view
         ob = context.object
         modifiers = ['SUBSURF', 'MULTIRES']
-        #Disable Modifiers
+        smooth_modifiers = ['SMOOTH', 'CORRECTIVE_SMOOTH', 'LAPLACIANSMOOTH']
+        #Disable Modifiers Incompatible Modifiers
         disable_list = []
         for mod_type in modifiers:
             for mod in ob.modifiers:
                 if mod.type == mod_type:
                     if mod.show_viewport == True:
                         disable_list.append(mod.name)
+        if context.scene.blenrig_guide.sculpt_use_smooth == False:
+            for s_mod_type in smooth_modifiers:
+                for s_mod in ob.modifiers:
+                    if s_mod.type == s_mod_type:
+                        if s_mod.show_viewport == True:
+                            disable_list.append(s_mod.name)
         for d_mod in disable_list:
             for mod in ob.modifiers:
                 if mod.name == d_mod:
@@ -6011,6 +6023,10 @@ class Operator_Create_Sculpt_Shapekey_Object_From_pose(bpy.types.Operator):
         target.value = 1
         adjust.value = 1
         sculpt_ob.active_shape_key_index = 2
+
+        # Add Empty Aramture Modifier For Enabling BlenRig Panel
+        sculpt_ob.vertex_groups.clear()
+        mod = sculpt_ob.modifiers.new("Armature", 'ARMATURE')
 
         # Fix material assignments in case any material slots are linked to the
         # object instead of the mesh.
