@@ -29,7 +29,21 @@
 #
 # #########################################################################################################
 
+# creo un singleton para no estar leyendo constantemente el file armature_layers.json:
+import json
+from .singleton import SingletonClass
 
+# bpy.utils.user_resource('SCRIPTS')
+# '/home/zebus3d/.config/blender/3.4/scripts'
+import os
+script_file = os.path.realpath(__file__)
+directory = os.path.dirname(script_file)
+armature_layers_file = os.path.join(directory, "data_jsons", "armature_layers.json")
+
+# intancio y relleno el singleton:
+singleton = SingletonClass()
+with open(armature_layers_file, "r") as jsonFile:
+    singleton.armature_layers = json.load(jsonFile)
 
 bl_info = {
     'name': 'BlenRig 6',
@@ -50,8 +64,8 @@ import bl_ui
 import bmesh
 from mathutils import Vector
 
-
-from bpy.props import FloatProperty, IntProperty, BoolProperty,EnumProperty, FloatVectorProperty
+from bpy.types import PropertyGroup
+from bpy.props import StringProperty, FloatProperty, IntProperty, BoolProperty,EnumProperty, FloatVectorProperty
 
 # Import panels
 from .ui.panels.body_settings import BLENRIG_PT_Rig_Body_settings
@@ -99,14 +113,14 @@ def prop_update(self, context):
 def reprop_update(self, context):
     reproportion_toggle(self, context)
 
-def rig_toggles_update(self, context):
-    rig_toggles(context)
+def rig_toggles_update(self, context, call_from:str, call_from_side:str):
+    rig_toggles(context, call_from, call_from_side)
 
 def fingers_toggles_update(self, context):
     fingers_toggles(self, context)
 
-def toes_toggles_update(self, context):
-    toes_toggles(self, context)
+def toes_toggles_update(self, context, call_from:str, call_from_side:str):
+    toes_toggles(self, context, call_from, call_from_side)
 
 def optimize_face(self, context):
     toggle_face_drivers(context)
@@ -1390,7 +1404,12 @@ bpy.types.Armature.toggle_body_drivers = BoolProperty(
 bpy.types.PoseBone.toggle_fingers_L = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
-    update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'fingers',
+            '_L',
+        ),
     name="toggle_fingers_L"
 )
 bpy.types.PoseBone.toggle_fingers_index_L = BoolProperty(
@@ -1428,37 +1447,67 @@ bpy.types.PoseBone.toggle_fingers_thumb_L = BoolProperty(
 bpy.types.PoseBone.toggle_toes_L = BoolProperty(
     default=0,
     description="Toggle toes in rig",
-    update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_L"
 )
 bpy.types.PoseBone.toggle_toes_index_L = BoolProperty(
     default=1,
     description="Toggle index toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_index_L"
 )
 bpy.types.PoseBone.toggle_toes_middle_L = BoolProperty(
     default=1,
     description="Toggle middle toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_middle_L"
 )
 bpy.types.PoseBone.toggle_toes_fourth_L = BoolProperty(
     default=1,
     description="Toggle fourth toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_fourth_L"
 )
 bpy.types.PoseBone.toggle_toes_little_L = BoolProperty(
     default=1,
     description="Toggle little toe in rig",
-    update=toes_toggles_update,
+        update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toe_little_L"
 )
 bpy.types.PoseBone.toggle_toes_big_L = BoolProperty(
     default=1,
     description="Toggle big toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_L',
+        ),
     name="toggle_toes_big_L"
 )
 
@@ -1466,7 +1515,12 @@ bpy.types.PoseBone.toggle_toes_big_L = BoolProperty(
 bpy.types.PoseBone.toggle_fingers_R = BoolProperty(
     default=0,
     description="Toggle fingers in rig",
-    update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'fingers',
+            '_R',
+        ),
     name="toggle_fingers_R"
 )
 bpy.types.PoseBone.toggle_fingers_index_R = BoolProperty(
@@ -1504,37 +1558,67 @@ bpy.types.PoseBone.toggle_fingers_thumb_R = BoolProperty(
 bpy.types.PoseBone.toggle_toes_R = BoolProperty(
     default=0,
     description="Toggle toes in rig",
-    update=rig_toggles_update,
+    update=lambda self, context: rig_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_R"
 )
 bpy.types.PoseBone.toggle_toes_index_R = BoolProperty(
     default=1,
     description="Toggle index toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_index_R"
 )
 bpy.types.PoseBone.toggle_toes_middle_R = BoolProperty(
     default=1,
     description="Toggle middle toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_middle_R"
 )
 bpy.types.PoseBone.toggle_toes_fourth_R = BoolProperty(
     default=1,
     description="Toggle fourth toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_fourth_R"
 )
 bpy.types.PoseBone.toggle_toes_little_R = BoolProperty(
     default=1,
     description="Toggle little toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toe_little_R"
 )
 bpy.types.PoseBone.toggle_toes_big_R = BoolProperty(
     default=1,
     description="Toggle big toe in rig",
-    update=toes_toggles_update,
+    update=lambda self, context: toes_toggles_update(
+            self,
+            context,
+            'toes',
+            '_R',
+        ),
     name="toggle_toes_big_R"
 )
 
@@ -3192,42 +3276,145 @@ class ARMATURE_OT_blenrig_6_gui(bpy.types.Operator):
 ####### REGISTRATION ##############################################
 
 # Needed for property registration
-class blenrig_6_props(bpy.types.PropertyGroup):
-    gui_picker_body_props: bpy.props.BoolProperty(default=True, description="Toggle properties display")
-    gui_picker_body_picker: bpy.props.BoolProperty(default=True, description="Toggle properties display")
-    gui_snap_all: bpy.props.BoolProperty(default=False, description="Display ALL Snapping Buttons")
-    gui_snap: bpy.props.BoolProperty(default=False, description="Display Snapping Buttons")
-    gui_cust_props_all: bpy.props.BoolProperty(default=False, description="Show ALL Custom Properties")
-    gui_extra_props_face: bpy.props.BoolProperty(default=False, description="Tweak head extra options")
-    gui_extra_props_arms: bpy.props.BoolProperty(default=False, description="Tweak arms extra options")
-    gui_extra_props_fingers: bpy.props.BoolProperty(default=False, description="Tweak fingers extra options")
-    gui_extra_props_legs: bpy.props.BoolProperty(default=False, description="Tweak legs extra options")
-    gui_extra_props_props: bpy.props.BoolProperty(default=False, description="Tweak accessories options")
-    gui_face_movement_ranges: bpy.props.BoolProperty(default=False, description="Set limits to facial movement")
-    gui_face_lip_shaping: bpy.props.BoolProperty(default=False, description="Parameters to define lips curvature")
-    gui_face_action_toggles: bpy.props.BoolProperty(default=False, description="Toggle facial actions off for editing")
-    gui_face_collisions: bpy.props.BoolProperty(default=False, description="Face Collisions Offset")
-    gui_face_bbones: bpy.props.BoolProperty(default=False, description="Face Bendy Bones Settings")
-    gui_body_ik_rot: bpy.props.BoolProperty(default=False, description="Set the initial rotation of IK bones")
-    gui_body_auto_move: bpy.props.BoolProperty(default=False, description="Parameters for automated movement")
-    gui_body_rj: bpy.props.BoolProperty(default=False, description="Simulate how bone thickness affects joint rotation")
-    gui_body_vp: bpy.props.BoolProperty(default=False, description="Volume Preservation Bones Movement Definition")
-    gui_body_toggles: bpy.props.BoolProperty(default=False, description="Toggle body parts")
-    gui_body_bbones: bpy.props.BoolProperty(default=False, description="Body Bendy Bones Settings")
-    gui_body_collisions: bpy.props.BoolProperty(default=False, description="Body Collisions Offset")
-    bake_to_shape: bpy.props.BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
-    enable_to_move: bpy.props.BoolProperty(name="Enable to Move Lattice", default=False, description="Let move Lattice disabling modif hoocks")
-    align_selected_only: bpy.props.BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
-    gui_custom_layers: bpy.props.BoolProperty(default = False ,name = "Gui Custom Layers")
+class blenrig_6_props(PropertyGroup):
+    gui_picker_body_props: BoolProperty(default=True, description="Toggle properties display")
+    gui_picker_body_picker: BoolProperty(default=True, description="Toggle properties display")
+    gui_snap_all: BoolProperty(default=False, description="Display ALL Snapping Buttons")
+    gui_snap: BoolProperty(default=False, description="Display Snapping Buttons")
+    gui_cust_props_all: BoolProperty(default=False, description="Show ALL Custom Properties")
+    gui_extra_props_face: BoolProperty(default=False, description="Tweak head extra options")
+    gui_extra_props_arms: BoolProperty(default=False, description="Tweak arms extra options")
+    gui_extra_props_fingers: BoolProperty(default=False, description="Tweak fingers extra options")
+    gui_extra_props_legs: BoolProperty(default=False, description="Tweak legs extra options")
+    gui_extra_props_props: BoolProperty(default=False, description="Tweak accessories options")
+    gui_face_movement_ranges: BoolProperty(default=False, description="Set limits to facial movement")
+    gui_face_lip_shaping: BoolProperty(default=False, description="Parameters to define lips curvature")
+    gui_face_action_toggles: BoolProperty(default=False, description="Toggle facial actions off for editing")
+    gui_face_collisions: BoolProperty(default=False, description="Face Collisions Offset")
+    gui_face_bbones: BoolProperty(default=False, description="Face Bendy Bones Settings")
+    gui_body_ik_rot: BoolProperty(default=False, description="Set the initial rotation of IK bones")
+    gui_body_auto_move: BoolProperty(default=False, description="Parameters for automated movement")
+    gui_body_rj: BoolProperty(default=False, description="Simulate how bone thickness affects joint rotation")
+    gui_body_vp: BoolProperty(default=False, description="Volume Preservation Bones Movement Definition")
+    gui_body_toggles: BoolProperty(default=False, description="Toggle body parts")
+    gui_body_bbones: BoolProperty(default=False, description="Body Bendy Bones Settings")
+    gui_body_collisions: BoolProperty(default=False, description="Body Collisions Offset")
+    bake_to_shape: BoolProperty(name="Bake to Shape Key", default=False, description="Bake the mesh into a separate Shape Key")
+    enable_to_move: BoolProperty(name="Enable to Move Lattice", default=False, description="Let move Lattice disabling modif hoocks")
+    align_selected_only: BoolProperty(name="Selected Bones Only", default=False, description="Perform aligning only on selected bones")
+    gui_custom_layers: BoolProperty(default = False ,name = "Gui Custom Layers")
     contextOptions = [('PICKER', 'Picker', "Display Rig Picker", 'ARMATURE_DATA', 0),
                         ('RIGTOOLS', 'Rig Tools', "Rig Options and Tools", 'BONE_DATA', 1),
                         ('TOOLS', 'Tools', "Workflow Tools", 'TOOL_SETTINGS', 3),
                         ('GUIDES', 'Rigging Assistant', "Automatic Rigging Assistant Guides", 'HELP', 4)]
-    displayContext : EnumProperty(name='Display Context', description="Type of context to display in this panel.",items=contextOptions, default='PICKER')
+
+    def displayContext_update(self, context):
+        # instancio el singleton para ustarlo
+        singleton = SingletonClass()
+        # actualizo su variable armature_layers con el nuevo data al hacer click en Pircker
+        with open(armature_layers_file, "r") as jsonFile:
+            singleton.armature_layers = json.load(jsonFile)
+    
+
+    displayContext : EnumProperty(
+        name='Display Context', 
+        description="Type of context to display in this panel.", 
+        items=contextOptions, 
+        default='PICKER', 
+        update=displayContext_update
+    )
     contextOptions2 = [('BONESHAPES', 'BoneShapes', "BoneShapes Tools", 'POSE_HLT', 0),
                         ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
     displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')
-    adjust_distance_cage : bpy.props.FloatProperty(name="Distance from object", description="Adjust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
+    adjust_distance_cage : FloatProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
+    
+    # renaming aramture layers:
+    def arm_layers_renaming_update(self, context):
+        arm_props_layers = [self.arm_layers_renaming_facial1,
+                                 self.arm_layers_renaming_facial2,
+                                 self.arm_layers_renaming_facial3,
+                                 self.arm_layers_renaming_arm_r_fk,
+                                 self.arm_layers_renaming_neck_fk,
+                                 self.arm_layers_renaming_arm_l_fk,
+                                 self.arm_layers_renaming_arm_r_ik,
+                                 self.arm_layers_renaming_torso_fk,
+                                 self.arm_layers_renaming_arm_l_ik,
+                                 self.arm_layers_renaming_fingers,
+                                 self.arm_layers_renaming_torso_inv,
+                                 self.arm_layers_renaming_fingers_ik,
+                                 self.arm_layers_renaming_leg_r_fk,
+                                 self.arm_layers_renaming_props,
+                                 self.arm_layers_renaming_leg_l_fk,
+                                 self.arm_layers_renaming_leg_r_ik,
+                                 self.arm_layers_renaming_extras,
+                                 self.arm_layers_renaming_leg_l_ik,
+                                 self.arm_layers_renaming_toes,
+                                 self.arm_layers_renaming_properties,
+                                 self.arm_layers_renaming_toes_fk,
+                                 self.arm_layers_renaming_toon_1,
+                                 self.arm_layers_renaming_toon_2,
+                                 self.arm_layers_renaming_scale,
+                                 self.arm_layers_renaming_optionals,
+                                 self.arm_layers_renaming_protected,
+                                 self.arm_layers_renaming_mech,
+                                 self.arm_layers_renaming_deformation,
+                                 self.arm_layers_renaming_actions,
+                                 self.arm_layers_renaming_bone_rolls,
+                                 self.arm_layers_renaming_snapping,
+                                 self.arm_layers_renaming_reproportion]
+
+        # obteniendo el data para reemplazarlo:
+        armature_layers = None
+        with open(armature_layers_file, "r") as jsonFile:
+            armature_layers = json.load(jsonFile)
+
+        # reemplazando el data:
+        if armature_layers:
+            armature_layers_copy = list(armature_layers.keys())
+            for idx, key in enumerate(armature_layers_copy):
+                armature_layers[arm_props_layers[idx]] = armature_layers.pop(key)
+
+        # write data:
+        json_string = json.dumps(armature_layers, sort_keys=False, indent=4)
+        with open(armature_layers_file, 'w') as outfile:
+            outfile.write(json_string)
+        
+        wm = context.window_manager
+        blenrig_6_props = wm.blenrig_6_props
+        blenrig_6_props.armature_layers_read = True
+
+    arm_layers_renaming_facial1: StringProperty(default="FACIAL1", update=arm_layers_renaming_update)
+    arm_layers_renaming_facial2: StringProperty(default="FACIAL2", update=arm_layers_renaming_update)
+    arm_layers_renaming_facial3: StringProperty(default="FACIAL3", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_r_fk: StringProperty(default="ARM_R FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_neck_fk: StringProperty(default="NECK FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_l_fk: StringProperty(default="ARM_L FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_r_ik: StringProperty(default="ARM_R IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_torso_fk: StringProperty(default="TORSO FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_arm_l_ik: StringProperty(default="ARM_L IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_fingers: StringProperty(default="FINGERS", update=arm_layers_renaming_update)
+    arm_layers_renaming_torso_inv: StringProperty(default="TORSO INV", update=arm_layers_renaming_update)
+    arm_layers_renaming_fingers_ik: StringProperty(default="FINGERS IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_r_fk: StringProperty(default="LEG_R_FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_props: StringProperty(default="PROPS", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_l_fk: StringProperty(default="LEG_L FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_r_ik: StringProperty(default="LEG_R_IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_extras: StringProperty(default="EXTRAS", update=arm_layers_renaming_update)
+    arm_layers_renaming_leg_l_ik: StringProperty(default="LEG_L IK", update=arm_layers_renaming_update)
+    arm_layers_renaming_toes: StringProperty(default="TOES", update=arm_layers_renaming_update)
+    arm_layers_renaming_properties: StringProperty(default="PROPERTIES", update=arm_layers_renaming_update)
+    arm_layers_renaming_toes_fk: StringProperty(default="TOES FK", update=arm_layers_renaming_update)
+    arm_layers_renaming_toon_1: StringProperty(default="TOON 1", update=arm_layers_renaming_update)
+    arm_layers_renaming_toon_2: StringProperty(default="TOON 2", update=arm_layers_renaming_update)
+    arm_layers_renaming_scale: StringProperty(default="SCALE", update=arm_layers_renaming_update)
+    arm_layers_renaming_optionals: StringProperty(default="OPTIONALS", update=arm_layers_renaming_update)
+    arm_layers_renaming_protected: StringProperty(default="PROTECTED", update=arm_layers_renaming_update)
+    arm_layers_renaming_mech: StringProperty(default="MECH", update=arm_layers_renaming_update)
+    arm_layers_renaming_deformation: StringProperty(default="DEFORMATION", update=arm_layers_renaming_update)
+    arm_layers_renaming_actions: StringProperty(default="ACTIONS", update=arm_layers_renaming_update)
+    arm_layers_renaming_bone_rolls: StringProperty(default="BONE-ROLLS", update=arm_layers_renaming_update)
+    arm_layers_renaming_snapping: StringProperty(default="SNAPPING", update=arm_layers_renaming_update)
+    arm_layers_renaming_reproportion: StringProperty(default="REPROPORTION", update=arm_layers_renaming_update)
 
 # BlenRig Armature Tools Operator
 armature_classes = [

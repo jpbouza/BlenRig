@@ -1,0 +1,98 @@
+{
+    "FACIAL1": [
+        0
+    ],
+    "FACIAL2": [
+        1
+    ],
+    "FACIAL3": [
+        2
+    ],
+    "ARM_R FK": [
+        3
+    ],
+    "NECK FK": [
+        4
+    ],
+    "ARM_L FK": [
+        5
+    ],
+    "ARM_R IK": [
+        6
+    ],
+    "TORSO FK": [
+        7
+    ],
+    "ARM_L IK": [
+        16
+    ],
+    "FINGERS": [
+        17
+    ],
+    "TORSO INV": [
+        18
+    ],
+    "FINGERS IK": [
+        19
+    ],
+    "LEG_R_FK": [
+        20
+    ],
+    "PROPS": [
+        21
+    ],
+    "LEG_L FK": [
+        22
+    ],
+    "LEG_R_IK": [
+        23
+    ],
+    "EXTRAS": [
+        8
+    ],
+    "LEG_L IK": [
+        9
+    ],
+    "TOES": [
+        10
+    ],
+    "PROPERTIES": [
+        11
+    ],
+    "TOES FK": [
+        12
+    ],
+    "TOON 1": [
+        13
+    ],
+    "TOON 2": [
+        14
+    ],
+    "SCALE": [
+        15
+    ],
+    "OPTIONALS": [
+        24
+    ],
+    "PROTECTED": [
+        25
+    ],
+    "MECH": [
+        26
+    ],
+    "DEFORMATION": [
+        27
+    ],
+    "ACTIONS": [
+        28
+    ],
+    "BONE-ROLLS": [
+        29
+    ],
+    "SNAPPING": [
+        30
+    ],
+    "REPROPORTION": [
+        31
+    ]
+}

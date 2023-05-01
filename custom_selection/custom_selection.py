@@ -19,6 +19,8 @@ from bpy.props import (
 
 # Note: bones are stored by name, this means that if the bone is renamed,
 # there can be problems. However, bone renaming is unlikely during animation.
+
+
 class SelectionEntry(PropertyGroup):
     name: StringProperty(name="Bone Name")
 
@@ -28,8 +30,45 @@ class SelectionSet(PropertyGroup):
     bone_ids: CollectionProperty(type=SelectionEntry)
     is_selected: BoolProperty(name="Is Selected")
 
+    def get_all_visible_bones_in_list(self, context):
+        arm = context.object
+        # el activo de la lista = arm.blenrig_active_selection_set
+        bones_list = arm.blenrig_selection_sets
+        all_visible_bones = []
+        for item_list in bones_list:
+            if item_list.visible:
+                for bone in item_list.bone_ids:
+                    if bone.name not in all_visible_bones:
+                        all_visible_bones.append(bone.name)
+        if all_visible_bones:
+            return all_visible_bones
+
+    def visible_update(self, context):
+        arm = context.object
+        visibility = not self.visible
+        # guardo todos los que si son visibles por los grupos:
+        all_vivible_bones = self.get_all_visible_bones_in_list(context)
+        for bone in self.bone_ids:
+            arm.data.bones[bone.name].hide = visibility
+        # restauramos todos los que si era visibles
+        if all_vivible_bones:
+            for bone_name in all_vivible_bones:
+                arm.data.bones[bone_name].hide = False
+
+    visible: BoolProperty(default=True, update=visible_update)
+
 
 # UI Panel w/ UIList ##########################################################
+
+class BLENRIG_UL_selection_set(UIList):
+    def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
+
+        layout.prop(item, "name", text="", icon='GROUP_BONE', emboss=False)
+        layout.prop(item, "visible", text="", icon='HIDE_OFF' if item.visible else 'HIDE_ON', emboss=False)
+
+        # if self.layout_type in ('DEFAULT', 'COMPACT'):
+        #     layout.prop(item, "is_selected", text="")
+
 
 class BLENRIG_MT_selection_sets_context_menu(Menu):
     bl_label = "Selection Sets Specials"
@@ -41,14 +80,6 @@ class BLENRIG_MT_selection_sets_context_menu(Menu):
         layout.operator("blenrig.selection_set_remove_bones", icon='X')
         layout.operator("blenrig.selection_set_copy", icon='COPYDOWN')
         layout.operator("blenrig.selection_set_paste", icon='PASTEDOWN')
-
-
-class BLENRIG_UL_selection_set(UIList):
-    def draw_item(self, context, layout, data, item, icon, active_data, active_propname, index):
-        sel_set = item
-        layout.prop(item, "name", text="", icon='GROUP_BONE', emboss=False)
-        if self.layout_type in ('DEFAULT', 'COMPACT'):
-            layout.prop(item, "is_selected", text="")
 
 
 class BLENRIG_MT_selection_set_create(Menu):
@@ -267,18 +298,23 @@ class BLENRIG_OT_selection_set_select(NeedSelSetPluginOperator):
 
     def execute(self, context):
         arm = context.object
+
         bpy.ops.pose.reveal()
-        bpy.ops.pose.select_all(action='DESELECT')
+        # bpy.ops.pose.select_all(action='DESELECT')
+
         if self.selection_set_index == -1:
             idx = arm.blenrig_active_selection_set
         else:
             idx = self.selection_set_index
+
         sel_set = arm.blenrig_selection_sets[idx]
 
         for bone in context.visible_pose_bones:
             if bone.name in sel_set.bone_ids:
                 bone.bone.select = True
-        bpy.ops.pose.hide(unselected =True)
+
+        # bpy.ops.pose.hide(unselected=True)
+
         return {'FINISHED'}
 
 

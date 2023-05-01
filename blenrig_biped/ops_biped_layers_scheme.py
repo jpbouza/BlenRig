@@ -1,32 +1,36 @@
 import bpy
+from bpy.types import Operator
 
 ##################### Layers Schemes Operators ############################
 
 ######## Compact Scheme ########
-class Operator_BlenRig_Layers_Scheme_Compact(bpy.types.Operator):    
-    
-    bl_idname = "blenrig.layers_scheme_compact"   
-    bl_label = "BlenRig Compact Layers Scheme"   
-    bl_description = "Organize layers in a compact scheme relying on bone auto-hiding "    
-    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}      
+
+
+class Operator_BlenRig_Layers_Scheme_Compact(Operator):
+
+    bl_idname = "blenrig.layers_scheme_compact"
+    bl_label = "BlenRig Compact Layers Scheme"
+    bl_description = "Organize layers in a compact scheme relying on bone auto-hiding "
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.object:
+        if not context.object:
             return False
         else:
-            return (bpy.context.object.type=='ARMATURE' and context.mode=='POSE')
-        for prop in bpy.context.object.data.items():
-            if prop[0] == 'rig_type' and prop[1] == 'Biped':              
-                return True 
+            return (context.object.type == 'ARMATURE' and context.mode == 'POSE')
+
+        for prop in context.object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Biped':
+                return True
 
     def set_layers(self, context, N, L):
 
-        pbones = bpy.context.active_object.pose.bones
+        pbones = context.active_object.pose.bones
 
         for b in pbones:
-            layers =  L
-            if b.name == N: 
+            layers = L
+            if b.name == N:
                 b.bone.layers = [(x in layers) for x in range(32)]
 
     def compact_layers(self, context):
@@ -2251,52 +2255,55 @@ class Operator_BlenRig_Layers_Scheme_Compact(bpy.types.Operator):
         self.set_layers(context, 'eyeglasses_mstr', [17, 25])
         self.set_layers(context, 'accessory_mstr', [26])
         self.set_layers(context, 'accessory', [17, 25])
-        
+
     def set_data_props(self, context):
-        scene = bpy.context.view_layer      
-        bpy.context.active_object.data['bone_auto_hide'] = 1.0
-        bpy.context.active_object.data['custom_layers'] = 0.0
-        bpy.context.active_object.data['layers_count'] = 10
-        bpy.context.active_object.data['layer_list'] = 'BODY, BODY 2, FINGERS - TOES, FACIAL 1, FACIAL 2, FACIAL 3, TOON 1, TOON 2, SCALE, EXTRAS, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, OPTIONALS, PROTECTED, MECH, DEFORMATION, ACTIONS, BONE-ROLLS, SNAPPING, REPROPORTION'
-        scene.update()         
+        scene = context.view_layer
+        context.active_object.data['bone_auto_hide'] = 1.0
+        context.active_object.data['custom_layers'] = 0.0
+        context.active_object.data['layers_count'] = 10
+        context.active_object.data['layer_list'] = 'BODY, BODY 2, FINGERS - TOES, FACIAL 1, FACIAL 2, FACIAL 3, TOON 1, TOON 2, SCALE, EXTRAS, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, OPTIONALS, PROTECTED, MECH, DEFORMATION, ACTIONS, BONE-ROLLS, SNAPPING, REPROPORTION'
+        scene.update()
 
     def update_scene(self, context):
-        current = bpy.context.scene.frame_current
-        bpy.context.scene.frame_set(2, subframe=0)
-        bpy.context.scene.frame_set(current, subframe=0)
+        current = context.scene.frame_current
+        context.scene.frame_set(2, subframe=0)
+        context.scene.frame_set(current, subframe=0)
 
     def execute(self, context):
-        self.compact_layers(context)   
-        self.set_data_props(context) 
-        self.update_scene(context) 
+        self.compact_layers(context)
+        self.set_data_props(context)
+        self.update_scene(context)
 
         return {'FINISHED'}
 
-######## Expanded Scheme ########    
-class Operator_BlenRig_Layers_Scheme_Expanded(bpy.types.Operator):    
-    
-    bl_idname = "blenrig.layers_scheme_expanded"   
-    bl_label = "BlenRig Expanded Layers Scheme"   
-    bl_description = "Organize layers by body parts and FK / IK "    
-    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}      
+######## Expanded Scheme ########
+
+
+class Operator_BlenRig_Layers_Scheme_Expanded(Operator):
+
+    bl_idname = "blenrig.layers_scheme_expanded"
+    bl_label = "BlenRig Expanded Layers Scheme"
+    bl_description = "Organize layers by body parts and FK / IK "
+    bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
 
     @classmethod
     def poll(cls, context):
-        if not bpy.context.object:
+        if not context.object:
             return False
         else:
-            return (bpy.context.object.type=='ARMATURE' and context.mode=='POSE')
-        for prop in bpy.context.object.data.items():
-            if prop[0] == 'rig_type' and prop[1] == 'Biped':              
-                return True 
+            return (context.object.type == 'ARMATURE' and context.mode == 'POSE')
+
+        for prop in context.object.data.items():
+            if prop[0] == 'rig_type' and prop[1] == 'Biped':
+                return True
 
     def set_layers(self, context, N, L):
 
-        pbones = bpy.context.active_object.pose.bones
+        pbones = context.active_object.pose.bones
 
         for b in pbones:
-            layers =  L
-            if b.name == N: 
+            layers = L
+            if b.name == N:
                 b.bone.layers = [(x in layers) for x in range(32)]
 
     def expanded_layers(self, context):
@@ -4523,27 +4530,27 @@ class Operator_BlenRig_Layers_Scheme_Expanded(bpy.types.Operator):
         self.set_layers(context, 'accessory', [11, 25])
 
     def set_data_props(self, context):
-        scene = bpy.context.view_layer      
-        bpy.context.active_object.data['bone_auto_hide'] = 0.0
-        bpy.context.active_object.data['custom_layers'] = 1.0
-        bpy.context.active_object.data['layers_count'] = 24
-        bpy.context.active_object.data['layer_list'] = 'FACIAL 1, FACIAL 2, FACIAL 3, ARM_R FK, NECK FK, ARM_L FK, ARM_R IK, NECK IK, ARM_L IK, FINGERS, TORSO FK, FINGERS IK, LEG_R FK, TORSO IK, LEG_L FK, LEG_R IK, TORSO INV, LEG_L IK, TOES, EXTRAS, TOES FK, TOON 1, TOON 2, SCALE, OPTIONALS, PROTECTED, MECH, DEFORMATION, ACTIONS, BONE-ROLLS, SNAPPING, REPROPORTION'
-        scene.update()         
+        scene = context.view_layer
+        context.active_object.data['bone_auto_hide'] = 0.0
+        context.active_object.data['custom_layers'] = 1.0
+        context.active_object.data['layers_count'] = 24
+        context.active_object.data['layer_list'] = 'FACIAL 1, FACIAL 2, FACIAL 3, ARM_R FK, NECK FK, ARM_L FK, ARM_R IK, NECK IK, ARM_L IK, FINGERS, TORSO FK, FINGERS IK, LEG_R FK, TORSO IK, LEG_L FK, LEG_R IK, TORSO INV, LEG_L IK, TOES, EXTRAS, TOES FK, TOON 1, TOON 2, SCALE, OPTIONALS, PROTECTED, MECH, DEFORMATION, ACTIONS, BONE-ROLLS, SNAPPING, REPROPORTION'
+        scene.update()
 
     def update_scene(self, context):
-        current = bpy.context.scene.frame_current
-        bpy.context.scene.frame_set(2, subframe=0)
-        bpy.context.scene.frame_set(current, subframe=0)
+        current = context.scene.frame_current
+        context.scene.frame_set(2, subframe=0)
+        context.scene.frame_set(current, subframe=0)
 
     def unhide_bones(self, context):
-        pbones = bpy.context.active_object.pose.bones
+        pbones = context.active_object.pose.bones
         for b in pbones:
             b.bone.hide = False
 
     def execute(self, context):
-        self.expanded_layers(context)   
-        self.set_data_props(context) 
-        self.update_scene(context) 
+        self.expanded_layers(context)
+        self.set_data_props(context)
+        self.update_scene(context)
         self.unhide_bones(context)
 
-        return {'FINISHED'}    
+        return {'FINISHED'}
