@@ -6,7 +6,7 @@ import inspect
 #### DEVELOPER OPTIONS ####
 
 # Para que te imprima en consola por donde va pasando el flujo de ejecución de la guía.
-USE_DEBUG = True
+USE_DEBUG = False
 # Si es True, usará el sistema anterior con un modal operator.
 # Si es False, usará el nuevo sistema de gizmo.
 USE_MODAL = False
