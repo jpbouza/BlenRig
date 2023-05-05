@@ -605,6 +605,9 @@ def end_of_step_action(context):
 
     #Check if the Empty object exist to delete
     if "BlenRig_Empty" in bpy.data.objects:
+        if context.mode != 'OBJECT':
+            set_mode('OBJECT')
+        bpy.ops.object.select_all(action='DESELECT')
         bpy.data.objects["BlenRig_Empty"].select_set(True)
         bpy.ops.object.delete()
 

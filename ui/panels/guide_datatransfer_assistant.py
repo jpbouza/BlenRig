@@ -72,12 +72,16 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
                 mirror_row.prop(head_weights_model, "show_in_front")
             box.prop(head_weights_model, "display_type")
             box.separator()
-            if head_model.mode == 'EDIT':
-                box = steps.box()
-                box.label(text="Character Head Editing Options")
-                mirror_row = box.row()
-                mirror_row.prop(head_model.data, "use_mirror_x", text='X-Mirror')
-                mirror_row.prop(head_model.data, "use_mirror_topology")
+            
+            try:
+                if head_model.mode == 'EDIT':
+                    box = steps.box()
+                    box.label(text="Character Head Editing Options")
+                    mirror_row = box.row()
+                    mirror_row.prop(head_model.data, "use_mirror_x", text='X-Mirror')
+                    mirror_row.prop(head_model.data, "use_mirror_topology")
+            except:
+                pass
 
         if context.scene.blenrig_guide.guide_current_step == 'DT_Test_Face':
             steps = layout.column(align=True)

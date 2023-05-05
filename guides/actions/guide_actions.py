@@ -9,11 +9,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Intro_A.jpg', 'ACTIONS_Intro_B.jpg', 'ACTIONS_Intro_C.jpg'),
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Paso 1'
+            'ES': 'Introduccion'
             },
         'texto': {
             'EN': "In this Guide you will customize all the predefined motions of the Rig. Just pose it as you see it in the example image. Poses will be automatically saved.",
-            'ES': ""
+            'ES': "En esta Guía personalizarás todos los movimientos predefinidos del Rig. Simplemente pósalo como lo ves en la imagen de ejemplo. Las poses se guardarán automáticamente."
             },
         'accion': ACTIONS_Intro
     },
@@ -22,11 +22,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Fingers_Spread_X_Up.jpg',
         'titulo': {
             'EN': 'Fingers Spread Up',
-            'ES': 'Paso 1'
+            'ES': 'Dedos separados hacia arriba'
             },
         'texto': {
             'EN': "Pose the Fingers into the Spread Up position.",
-            'ES': ""
+            'ES': "Posicione los dedos en la posición Separados hacia arriba."
             },
         'accion': ACTIONS_Fingers_Spread_X_Up
     },
@@ -35,11 +35,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Fingers_Spread_X_Down.jpg',
         'titulo': {
             'EN': 'Fingers Spread Down',
-            'ES': 'Paso 1'
+            'ES': 'Dedos separados'
             },
         'texto': {
             'EN': "Pose the Fingers into the Spread Down position.",
-            'ES': ""
+            'ES': "Posicione los dedos en la posición extendida hacia abajo."
             },
         'accion': ACTIONS_Fingers_Spread_X_Down
     },
@@ -48,11 +48,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Fingers_Spread_Z_Out.jpg',
         'titulo': {
             'EN': 'Fingers Spread Out',
-            'ES': 'Paso 1'
+            'ES': 'Dedos abiertos'
             },
         'texto': {
             'EN': "Pose the Fingers into the Spread Out position.",
-            'ES': ""
+            'ES': "Coloca los dedos en posición extendida."
             },
         'accion': ACTIONS_Fingers_Spread_Z_Out
     },
@@ -61,11 +61,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Fingers_Spread_Z_In.jpg',
         'titulo': {
             'EN': 'Fingers Spread In',
-            'ES': 'Paso 1'
+            'ES': 'Dedos juntos'
             },
         'texto': {
             'EN': "Pose the fingers one next to the other.",
-            'ES': ""
+            'ES': "Coloca los dedos uno junto al otro."
             },
         'accion': ACTIONS_Fingers_Spread_Z_In
     },
@@ -74,11 +74,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Fingers_Curl_In.jpg',
         'titulo': {
             'EN': 'Fingers Curl In',
-            'ES': 'Paso 1'
+            'ES': 'Dedos curvados hacia dentro'
             },
         'texto': {
             'EN': "Adjust the curling pose of the Fingers so that the finger tips touch the palm.",
-            'ES': ""
+            'ES': "Ajuste la postura curvada de los dedos para que las puntas de los dedos toquen la palma."
             },
         'accion': ACTIONS_Fingers_Curl_In
     },
@@ -87,11 +87,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Fingers_Curl_Out.jpg',
         'titulo': {
             'EN': 'Fingers Curl Out',
-            'ES': 'Paso 1'
+            'ES': 'Dedos curvados hacia fuera'
             },
         'texto': {
             'EN': "Adjust the outwards curling pose of the Fingers.",
-            'ES': ""
+            'ES': "Ajustar la postura de curvatura hacia fuera de los Dedos."
             },
         'accion': ACTIONS_Fingers_Curl_Out
     },
@@ -100,11 +100,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Hand_Close.jpg',
         'titulo': {
             'EN': 'Hand Close',
-            'ES': 'Paso 1'
+            'ES': 'Mano Cerrada'
             },
         'texto': {
             'EN': "Adjust the 'Closed Fist' position of the Hand. Scale the main Finger controllers to curl them. Move and Rotate the MSTR controllers to place the Fingers correctly.",
-            'ES': "Adjust the closed fist position of the hand. Scale the main finger controllers to curl them. Move and Rotate the MSTR controllers to place the fingers correctly."
+            'ES': "Ajuste la posición 'Puño cerrado' de la Mano. Escala los controladores principales de los Dedos para doblarlos. Mueve y rota los controladores MSTR para colocar los Dedos correctamente."
             },
         'accion': ACTIONS_Hand_Close
     },
@@ -113,11 +113,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Hand_Open.jpg',
         'titulo': {
             'EN': 'Hand Open',
-            'ES': 'Paso 1'
+            'ES': 'Mano abierta'
             },
         'texto': {
             'EN': "Adjust the 'Wide Opened' position of the Hand. Scale the main Fingers controllers to curl them. Move and Rotate the MSTR controllers to place the Fingers correctly.",
-            'ES': ""
+            'ES': "Ajusta la posición 'Muy abierta' de la Mano. Escala los controladores principales de los Dedos para doblarlos. Mueve y rota los controladores MSTR para colocar los Dedos correctamente."
             },
         'accion': ACTIONS_Hand_Open
     },
@@ -126,11 +126,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Breathing_in_A.jpg', 'ACTIONS_Breathing_in_B.jpg'),
         'titulo': {
             'EN': 'Breathe In',
-            'ES': 'Paso 1'
+            'ES': 'Inspira'
             },
         'texto': {
             'EN': "Pose the Spine and Neck into a Breathing In position. Using the 'spine_ctrl_curve' bone is recommended for this. Rib Cage Expansion, will be done with a Shapekey later. Switch between Pose and Rest Position to visualize the motion.",
-            'ES': ""
+            'ES': "Coloca la columna vertebral y el cuello en posición de Inspiración. Se recomienda usar el hueso 'spine_ctrl_curve' para esto. Expansión de la Caja Torácica, se hará con una Shapekey más tarde. Cambie entre Pose y Posición de Reposo para visualizar el movimiento."
             },
         'accion': ACTIONS_Breathing_in
     },
@@ -139,11 +139,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Breathing_Out_A.jpg', 'ACTIONS_Breathing_Out_B.jpg'),
         'titulo': {
             'EN': 'Breathe Out',
-            'ES': 'Paso 1'
+            'ES': 'Espira'
             },
         'texto': {
             'EN': "Pose the Spine and Neck into a Breathing Out position. Using the 'spine_ctrl_curve' bone is recommended for this. Rib Cage Expansion, will be done with a Shapekey later. Switch between Pose and Rest Position to visualize the motion.",
-            'ES': ""
+            'ES': "Posicione la Espina Dorsal y el Cuello en una posición de Espiración. Se recomienda usar el hueso 'spine_ctrl_curve' para esto. Expansión de la Caja Torácica, se hará con una Shapekey más tarde. Cambie entre Pose y Posición de Reposo para visualizar el movimiento."
             },
         'accion': ACTIONS_Breathing_Out
     },
@@ -152,11 +152,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Up_Up_Range.jpg',
         'titulo': {
             'EN': 'Upper Eyelid Upwards Range',
-            'ES': 'Paso 1'
+            'ES': 'Rango Párpado superior arriba'
             },
         'texto': {
             'EN': "Define the Maximum Range of Upwards Motion of the Upper Eyelid Controller. Do this with the Range Slider.",
-            'ES': ""
+            'ES': "Defina el Rango Máximo de Movimiento Hacia Arriba del Controlador del Párpado Superior. Hágalo con el Deslizador de Rango."
             },
         'accion': ACTIONS_Eyelids_Up_Up_Range
     },
@@ -165,11 +165,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Eyelids_Up_Up_A.jpg', 'ACTIONS_Eyelids_Up_Up_B.jpg'),
         'titulo': {
             'EN': 'Upper Eyelids Up',
-            'ES': 'Paso 1'
+            'ES': 'Párpados superiores hacia arriba'
             },
         'texto': {
             'EN': "Pose the Upper Eyelids into a fully opened position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
-            'ES': ""
+            'ES': "Posicione los párpados superiores en una posición totalmente abierta. Primero intente rotar los controladores 'rot', si necesita mas ajustes use los controladores Cube. Usa la opción 'Show Deformation Bones' para ver que están haciendo las articulaciones."
             },
         'accion': ACTIONS_Eyelids_Up_Up
     },
@@ -178,11 +178,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Up_Down_Range.jpg',
         'titulo': {
             'EN': 'Upper Eyelids Down Range',
-            'ES': 'Paso 1'
+            'ES': 'Rango Párpado superior abajo'
             },
         'texto': {
             'EN': "Define the Maximum Range of Downwards Motion of the Upper Eyelid Controller. Do this with the Range Slider.",
-            'ES': ""
+            'ES': "Defina el Rango Máximo de Movimiento Hacia abajo del Controlador del Párpado Superior. Hágalo con el Deslizador de Rango."
             },
         'accion': ACTIONS_Eyelids_Up_Down_Range
     },
@@ -789,11 +789,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Mouth_Frown_Range.jpg',
         'titulo': {
             'EN': 'Mouth Frown Range',
-            'ES': 'Paso 1'
+            'ES': 'Rango de fruncimiento de la boca'
             },
         'texto': {
             'EN': "Define the Maximum Range of Downwards Motion of the Mouth Frown Controller. Do this with the Range Slider",
-            'ES': ""
+            'ES': "Defina el Rango Máximo de Movimiento Hacia Abajo del Controlador Fruncir Boca. Hágalo con el Deslizador de Rango"
             },
         'accion': ACTIONS_Mouth_Frown_Range
     },
@@ -802,11 +802,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Mouth_Frown.jpg',
         'titulo': {
             'EN': 'Mouth Frown',
-            'ES': 'Paso 1'
+            'ES': 'Fruncir la boca'
             },
         'texto': {
             'EN': "Use the controllers to achieve a 'Frowning Mouth' Pose.",
-            'ES': ""
+            'ES': "Utiliza los controladores para conseguir una pose de 'Boca Fruncida'."
             },
         'accion': ACTIONS_Mouth_Frown
     },
@@ -815,11 +815,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Chin_Frown_Range.jpg',
         'titulo': {
             'EN': 'Chin Frown Range',
-            'ES': 'Paso 1'
+            'ES': 'Rango de fruncimiento de la barbilla'
             },
         'texto': {
-            'EN': "Define the Maximum Range of Motion of the Chin Frown Controller. Do this with the Range Slider",
-            'ES': ""
+            'EN': "Define the Maximum Range of Motion of the Chin Frown Controller. Do this with the Range Slider.",
+            'ES': "Defina el Rango Máximo de Movimiento del Controlador Fruncir Mentón. Hágalo con el Deslizador de Rango."
             },
         'accion': ACTIONS_Chin_Frown_Range
     },
@@ -828,11 +828,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Chin_Frown_Up_A.jpg', 'ACTIONS_Chin_Frown_Up_B.jpg'),
         'titulo': {
             'EN': 'Chin Frown Up',
-            'ES': 'Paso 1'
+            'ES': 'Barbilla fruncida'
             },
         'texto': {
-            'EN': "Use the controllers to achieve an 'Upwards Frowning Chin' Pose. This should also compress the Lower Lips",
-            'ES': ""
+            'EN': "Use the controllers to achieve an 'Upwards Frowning Chin' Pose. This should also compress the Lower Lips.",
+            'ES': "Utiliza los controladores para conseguir una pose de 'barbilla fruncida hacia arriba'. Esto también debería comprimir los labios inferiores."
             },
         'accion': ACTIONS_Chin_Frown_Up
     },
@@ -841,11 +841,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Chin_Frown_Down_A.jpg', 'ACTIONS_Chin_Frown_Down_B.jpg'),
         'titulo': {
             'EN': 'Chin Frown Down',
-            'ES': 'Paso 1'
+            'ES': 'Barbilla fruncida'
             },
         'texto': {
             'EN': "Use the controllers to achieve an 'Downwards Frowning Chin' Pose.",
-            'ES': ""
+            'ES': "Utiliza los controladores para conseguir una pose de 'barbilla fruncida hacia abajo'."
             },
         'accion': ACTIONS_Chin_Frown_Down
     },
@@ -854,11 +854,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Finish.jpg',
         'titulo': {
             'EN': 'Actions Finish',
-            'ES': 'Paso 1'
+            'ES': 'Acciones Acabado'
             },
         'texto': {
             'EN': "Excellent! Move to the Advanced Settings Guide!",
-            'ES': ""
+            'ES': "¡Excelente! ¡Pasa a la Guía de Ajustes Avanzados!"
             },
         'accion': ACTIONS_Finish
     }
