@@ -32,7 +32,7 @@ def draw_callback_px(self, context):
         cxy = spacecoordstoscreencoords(context, (mw @ b.matrix).to_translation())
         if cxy:
             Draw_Text(*cxy-Vector((28, 32)), '•', 92, self.dpi, 0, *color) # dim[0]/2, dim[1]*1.25
-            Draw_Text(*cxy-Vector((28, 32)), '○', 92, self.dpi, 0, 0,0,0,1)
+            Draw_Text(*cxy-Vector((38, 22)), '○', 92, self.dpi, 0, 0,0,0,1)
     bgl.glEnable(bgl.GL_BLEND)
     # Fondo.
     if not bpy.app.background:
