@@ -1,8 +1,6 @@
 import bpy
 import bgl
-import blf
 import gpu
-from gpu_extras.batch import batch_for_shader
 from mathutils import Vector
 from . text import Draw_Text, Draw_Text_Wrap, SetSizeGetDim
 if not bpy.app.background:
@@ -33,7 +31,7 @@ def draw_callback_px(self, context):
         if cxy:
             Draw_Text(*cxy-Vector((28, 32)), '•', 92, self.dpi, 0, *color) # dim[0]/2, dim[1]*1.25
             Draw_Text(*cxy-Vector((38, 22)), '○', 92, self.dpi, 0, 0,0,0,1)
-    bgl.glEnable(bgl.GL_BLEND)
+    gpu.state.blend_set('ALPHA')
     # Fondo.
     if not bpy.app.background:
         Draw_Rectangle(self.widget_pos, self.widget_size, (0, 0, 0, .5))
@@ -50,7 +48,7 @@ def draw_callback_px(self, context):
     Draw_Text(*p + Vector((margin*2, margin/2+dim[1]/2)), text, 13, self.dpi, 0, 1, 1, 1, 1)
 
     # Imagen.
-    bgl.glEnable(bgl.GL_BLEND)
+    gpu.state.blend_set('ALPHA')
     if not bpy.app.background:
         Draw_Rectangle(self.widget_pos+Vector((0, self.text_box_height)), self.image_size, (0, 0, 0, .9))
 
@@ -80,7 +78,7 @@ def draw_callback_px(self, context):
         Draw_Rectangle(self.prev_button_pos, self.button_size, (.4, .4, .4, .6))
     Draw_Text(self.prev_button_pos.x + self.button_size.x / 2 - dim[0] / 2, self.prev_button_pos.y + self.button_size.y / 2 - dim[1] / 2, self.prev_button_text, self.button_text_size, self.dpi, 0, 1, 1, 1, 1)
     if not self.prev_button_enabled:
-        bgl.glEnable(bgl.GL_BLEND)
+        gpu.state.blend_set('ALPHA')
         if not bpy.app.background:
             Draw_Rectangle(self.prev_button_pos, self.button_size, (.08, .08, .08, .8))
 
@@ -89,8 +87,8 @@ def draw_callback_px(self, context):
         Draw_Rectangle(self.next_button_pos, self.button_size, (.4, .4, .4, .6))
     Draw_Text(self.next_button_pos.x + self.button_size.x / 2 - dim[0] / 2, self.next_button_pos.y + self.button_size.y / 2 - dim[1] / 2, self.next_button_text, self.button_text_size, self.dpi, 0, 1, 1, 1, 1)
     if not self.next_button_enabled:
-        bgl.glEnable(bgl.GL_BLEND)
+        gpu.state.blend_set('ALPHA')
         if not bpy.app.background:
             Draw_Rectangle(self.next_button_pos, self.button_size, (.08, .08, .08, .8))
 
-    bgl.glDisable(bgl.GL_BLEND)
+    gpu.state.blend_set('NONE')
