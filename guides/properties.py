@@ -180,7 +180,6 @@ class BlenrigGuideData(PropertyGroup):
         for prop in targets:
             print('prop', prop)
 
-    dpi: IntProperty(default=72, min=72, max=300, name="Screen DPI")
     active_image: PointerProperty(type=Image)
     image_index: IntProperty(default=0)
     images: CollectionProperty(type=BlenrigGuideImages)

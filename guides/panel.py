@@ -145,5 +145,4 @@ class BlenRigGuidePanel_options(BlenRigGuidePanel_menu,Panel):
         from . guide_ops import VIEW3D_OT_blenrig_guide_reproportion as OPERATOR
         layout.enabled = False if OPERATOR.instance else True
         layout.prop(guide, 'language')
-        layout.prop(guide, 'dpi')
         layout.prop(guide, 'image_scale')

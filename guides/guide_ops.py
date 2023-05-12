@@ -6,7 +6,7 @@ from mathutils import Vector
 from bpy.props import IntProperty
 
 from . draw import draw_callback_px
-from . utils import set_mode, inside, get_armature_object, load_guide_image, get_armature_object, get_viewport_resolution
+from . utils import set_mode, inside, get_armature_object, load_guide_image, get_armature_object
 from . traductor import texts_dict
 from . guides import GuideSteps
 from . dev import USE_MODAL, DEBUG
@@ -95,7 +95,8 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         self.max_step_index = len(self.guide_steps) - 1
 
         data = context.scene.blenrig_guide
-        self.dpi = int(data.dpi * get_viewport_resolution() * 0.84)
+        system_scale = context.preferences.system.ui_scale
+        self.scale = system_scale * context.preferences.view.ui_scale
         self.language = data.language
         self.image_scale = data.image_scale
 
@@ -107,10 +108,10 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
         self.step_text = texts_dict['Step'][self.language]
 
         self.next_button_text = texts_dict['Next'][self.language]
-        next_dim = SetSizeGetDim(0, int(self.button_text_size + 4 * get_viewport_resolution()), self.dpi, self.next_button_text)
+        next_dim = SetSizeGetDim(0, int(self.button_text_size + 4 * self.scale), 72, self.next_button_text)
 
         self.prev_button_text = texts_dict['Prev'][self.language]
-        prev_dim = SetSizeGetDim(0, int(self.button_text_size + 4 * get_viewport_resolution()), self.dpi, self.prev_button_text)
+        prev_dim = SetSizeGetDim(0, int(self.button_text_size + 4 * self.scale), 72, self.prev_button_text)
 
         max_button_width = max(next_dim[0], prev_dim[0])
 
@@ -118,12 +119,11 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
             self.report({'WARNING'}, "Guide could not be loaded")
             return ModalReturn.CANCEL()
 
-        factor_dpi = self.dpi / 72
-        margin = 5 * factor_dpi
-        self.widget_pos = Vector((50, 150)) * factor_dpi
-        self.header_height = 30 * factor_dpi
-        self.text_box_height = 100 * factor_dpi
-        self.image_size = Vector((300, 300)) *self.image_scale * factor_dpi
+        margin = 5 * self.scale
+        self.widget_pos = Vector((50, 150)) * self.scale
+        self.header_height = 30 * self.scale
+        self.text_box_height = 100 * self.scale
+        self.image_size = Vector((300, 300)) * self.image_scale * self.scale
         self.widget_size = self.image_size + Vector((0, self.header_height + self.text_box_height))
         self.button_size = Vector((max(int(max_button_width), 20), 20))
 
