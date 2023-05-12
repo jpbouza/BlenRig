@@ -104,7 +104,7 @@ class BlenrigGuide_BaseOperator(bpy.types.Operator):
 
         # Textos.
         from . text import SetSizeGetDim
-        self.button_text_size = 14
+        self.button_text_size = 12
         self.step_text = texts_dict['Step'][self.language]
 
         self.next_button_text = texts_dict['Next'][self.language]

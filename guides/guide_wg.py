@@ -148,7 +148,7 @@ class BLENRIG_WG_guide(BlenrigGuideFunctions):
         self.image_scale = data.image_scale
 
         # TEXTOS.
-        self.button_text_size = 14
+        self.button_text_size = 12
         self.step_text = dictionary['Step'][self.language]
 
         self.next_button_text = dictionary['Next'][self.language]

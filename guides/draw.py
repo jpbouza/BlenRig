@@ -29,8 +29,12 @@ def draw_callback_px(self, context):
         # OLD: mw @ b.matrix @ b.location
         cxy = spacecoordstoscreencoords(context, (mw @ b.matrix).to_translation())
         if cxy:
-            Draw_Text(*cxy-Vector((28, 32)), '•', 92 * self.scale, 72, 0, *color) # dim[0]/2, dim[1]*1.25
-            Draw_Text(*cxy-Vector((38, 22)), '○', 92 * self.scale, 72, 0, 0,0,0,1)
+            dim = SetSizeGetDim(0, 64 * self.scale, 72, '•')
+            _cxy = cxy-Vector((dim[0]*0.5, dim[1]*1.22))
+            Draw_Text(*_cxy, '•', 64 * self.scale, 72, 0, *color) # dim[0]/2, dim[1]*1.25
+            dim = SetSizeGetDim(0, 48 * self.scale, 72, '○')
+            _cxy = cxy-Vector((dim[0]*0.5, dim[1]*0.32))
+            Draw_Text(*_cxy, '○', 48 * self.scale, 72, 0, 0,0,0,1)
     gpu.state.blend_set('ALPHA')
     # Fondo.
     if not bpy.app.background:
