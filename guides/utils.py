@@ -2195,7 +2195,7 @@ def blend_from_shape(source_shape, destination_keys):
 
 #Basis Shapekey Search
 def basis_search():
-    ob = context.active_object
+    ob = bpy.context.active_object
     for shape in ob.data.shape_keys.key_blocks:
         if 'Basis' == shape.name:
             return True
