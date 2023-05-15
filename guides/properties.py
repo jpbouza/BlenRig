@@ -224,6 +224,11 @@ class BlenrigGuideData(PropertyGroup):
     description="Take Smooth Modifiers into account when Generating the Sculpt Object",
     name="Use Smooth Modifiers"
     )
+    # Keyframe Only Insert Available State Property
+    state_keyframe_insert_available: BoolProperty(default=1,
+                                       description="State of Only Insert Available Keyframes in Preferences",
+                                       name="Only Insert Available"
+                                       )
     # BlenRig Weights Transfer Meshes
     mdef_head_weights_transfer_obj: PointerProperty(type=Object)
     mdef_hands_weights_transfer_obj: PointerProperty(type=Object)
