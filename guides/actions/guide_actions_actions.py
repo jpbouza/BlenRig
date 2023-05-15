@@ -41,6 +41,9 @@ def edit_action(operator, context, step_name, frame_bone_1, frame_bone_2, view, 
     #Assign Action
     assign_action(action, frame_number)
 
+    #Set Only Insert Avaialble Keyframes On
+    bpy.context.preferences.edit.use_keyframe_insert_available = True
+
     #Turn On Actions Layer
     on_layers = layer_list
     for l in on_layers:
@@ -1228,6 +1231,9 @@ def actions_end_generic(context):
 
     #Clear Action and Transforms
     clear_action()
+
+    #Set Only Insert Avaialble Keyframes On
+    bpy.context.preferences.edit.use_keyframe_insert_available = guide_props.state_keyframe_insert_available
 
     #Reset Transforms
     reset_all_bones_transforms()
