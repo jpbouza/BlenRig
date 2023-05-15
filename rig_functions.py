@@ -2022,7 +2022,6 @@ def set_vol_variation(context):
 
 ### VOLUME PRESERVATION CONSTRAINTS ####
 
-
 def set_vol_preservation(context):
 
     if not context.screen and context.screen.is_animation_playing == True and not context.active_object:
@@ -2067,6 +2066,11 @@ def set_vol_preservation(context):
     # Toes Down R
     Set_VP_Transforms('properties_leg_R', 'volume_preservation_toes_down_R', 'Toes_VP_Down_R_NOREP', 'to_max_y', 1)
     return {"FINISHED"}
+
+### Get Only Insert Available State
+
+def get_state_only_insert_available(context):
+    bpy.context.scene.blenrig_guide.state_keyframe_insert_available = bpy.context.preferences.edit.use_keyframe_insert_available
 
 
 ##############

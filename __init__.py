@@ -48,7 +48,7 @@ with open(armature_layers_file, "r") as jsonFile:
 bl_info = {
     'name': 'BlenRig 6',
     'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
-    'version': (2,0,0),
+    'version': (2,1,0),
     'blender': (2, 92, 0),
     'location': 'Armature, Object and Lattice properties, View3d tools panel, Armature Add menu',
     'description': 'BlenRig 6 rigging system',
@@ -161,6 +161,9 @@ def vol_variation_update(self, context):
 def vol_prservation_update(self, context):
     set_vol_preservation(context)
 
+def state_only_insert_available(self, context):
+    get_state_only_insert_available(context)
+
 def get_custom_attribute_from_object(obj, attribute):
     if str(attribute) in obj:
         return obj[attribute]
@@ -212,9 +215,14 @@ def load_reprop_handler(self, context):
 def load_handler(context):
     bone_auto_hide(context)
 
+@persistent
+def load_state_only_insert_available(self, context):
+    state_only_insert_available(self, context)
+
 
 bpy.app.handlers.load_post.append(load_reprop_handler)
 bpy.app.handlers.frame_change_post.append(load_handler)
+bpy.app.handlers.load_post.append(load_state_only_insert_available)
 
 
 ######### Properties Creation ############
@@ -3314,20 +3322,20 @@ class blenrig_6_props(PropertyGroup):
         # actualizo su variable armature_layers con el nuevo data al hacer click en Pircker
         with open(armature_layers_file, "r") as jsonFile:
             singleton.armature_layers = json.load(jsonFile)
-    
+
 
     displayContext : EnumProperty(
-        name='Display Context', 
-        description="Type of context to display in this panel.", 
-        items=contextOptions, 
-        default='PICKER', 
+        name='Display Context',
+        description="Type of context to display in this panel.",
+        items=contextOptions,
+        default='PICKER',
         update=displayContext_update
     )
     contextOptions2 = [('BONESHAPES', 'BoneShapes', "BoneShapes Tools", 'POSE_HLT', 0),
                         ('SHAPEKEYS', 'ShapeKeys', "ShapeKeys Tools", 'SURFACE_NCURVE', 1)]
     displayContext2 : EnumProperty(name='Display Context 2', description="Type of context to display in this panel.",items=contextOptions2, default='BONESHAPES')
     adjust_distance_cage : FloatProperty(name="Distance from object", description="Ajust the distance of Cage to object",update = snap_points_update, min=-10, max=10, default=0.1)
-    
+
     # renaming aramture layers:
     def arm_layers_renaming_update(self, context):
         arm_props_layers = [self.arm_layers_renaming_facial1,
@@ -3378,7 +3386,7 @@ class blenrig_6_props(PropertyGroup):
         json_string = json.dumps(armature_layers, sort_keys=False, indent=4)
         with open(armature_layers_file, 'w') as outfile:
             outfile.write(json_string)
-        
+
         wm = context.window_manager
         blenrig_6_props = wm.blenrig_6_props
         blenrig_6_props.armature_layers_read = True
