@@ -698,9 +698,6 @@ class Operator_blenrig_guide_add_body_modifiers(bpy.types.Operator):
 
         from . utils import check_mod_type, check_mod_type_name, add_drivers, add_vars, add_mod_generator, set_active_object, deselect_all_objects, set_mode, add_vgroup, del_BlenRig_Empty
 
-        #Del BlenRig_Empty object
-        del_BlenRig_Empty(context)
-
         #Clear List
         context.scene.blenrig_character_body_obj.clear()
 
@@ -757,6 +754,9 @@ class Operator_blenrig_guide_add_body_modifiers(bpy.types.Operator):
             mod.levels = 0
             mod.render_levels = 3
             mod.show_expanded = True
+
+        #Del BlenRig_Empty object
+        del_BlenRig_Empty(context)
 
         return {"FINISHED"}
 
