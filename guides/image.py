@@ -1,11 +1,13 @@
+import bpy
 import gpu
 from gpu_extras.batch import batch_for_shader
 
-
-shader = gpu.shader.from_builtin('2D_IMAGE')
+if (4,0,0) >= bpy.app.version:
+    shader = gpu.shader.from_builtin('IMAGE')
+else:
+    shader = gpu.shader.from_builtin('2D_IMAGE')
 
 texture_cache: dict[str, gpu.types.GPUTexture] = {}
-
 
 def get_img_verts(x, y, w, h):
     return (
@@ -14,7 +16,6 @@ def get_img_verts(x, y, w, h):
         (x + w, y + h),
         (x, y + h)
     )
-
 
 def Draw_Image(p,s,i):
     if not i:
