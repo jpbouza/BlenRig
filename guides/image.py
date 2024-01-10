@@ -3,9 +3,9 @@ import gpu
 from gpu_extras.batch import batch_for_shader
 
 if (4,0,0) >= bpy.app.version:
-    shader = gpu.shader.from_builtin('IMAGE')
-else:
     shader = gpu.shader.from_builtin('2D_IMAGE')
+else:
+    shader = gpu.shader.from_builtin('IMAGE')
 
 texture_cache: dict[str, gpu.types.GPUTexture] = {}
 
