@@ -126,7 +126,7 @@ class BLENRIG_OP_old_armature_layers_converter(Operator):
         create_missing_layers(arm)
         rename_layers(arm, relations_lyrs_colls)
         move_layers(arm, moves)
-        set_rig_version(arm, "2.2.0")
+        set_rig_version(arm, "4.0.0")
         
         return {'FINISHED'}
 
