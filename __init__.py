@@ -48,8 +48,8 @@ with open(armature_layers_file, "r") as jsonFile:
 bl_info = {
     'name': 'BlenRig 6',
     'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
-    'version': (2,1,0),
-    'blender': (2, 92, 0),
+    'version': (2,2,0),
+    'blender': (3, 1, 0),
     'location': 'Armature, Object and Lattice properties, View3d tools panel, Armature Add menu',
     'description': 'BlenRig 6 rigging system',
     'wiki_url': 'https://cloud.blender.org/p/blenrig/56966411c379cf44546120e8',

@@ -1,5 +1,5 @@
 ************************************
-BlenRig 6 (Beta) - Rigging System for Blender 2.8
+BlenRig 6 (Beta) - Rigging System for Blender 3.1+
 ************************************
 
 **Author:** Juan Pablo Bouza, Sav Martin
@@ -39,8 +39,12 @@ https://blendermarket.com/products/blenrig-skeleton
 
 **--UPDATES--**
 
+**v2.2.0**
+**Fixed:**
 
-**v2.1.0** 
+* Realistic Joints values were not mirroring correctly in the Weight Painting Guide
+
+**v2.1.0**
 
 **New:**
 

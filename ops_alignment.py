@@ -1353,28 +1353,50 @@ class Operator_Mirror_RJ_Constraints(bpy.types.Operator):
 
     def execute(self, context):
         pbones = bpy.context.active_object.pose.bones
-        for br in pbones:
-            if 'properties_' in br.name:
-                if '_R' in br.name:
-                    r_name = br.name.split("_R")
-                    for bl in pbones:
-                        if 'properties_' in bl.name:
-                            if '_L' in bl.name:
-                                l_name = bl.name.split("_L")
-                                if l_name[0] == r_name[0]:
-                                    if br.items() != '[]':
-                                        for Rprop in br.items():
-                                            if 'realistic_joints' in Rprop[0]:
-                                                r_prop = Rprop[0].split("_R")
-                                                if bl.items() != '[]':
-                                                    for Lprop in bl.items():
-                                                        if 'realistic_joints' in Lprop[0]:
-                                                            l_prop = Lprop[0].split("_L")
-                                                            if r_prop[0] == l_prop[0]:
-                                                                if self.to_side == 'L to R':
-                                                                    br[Rprop[0]] = bl[Lprop[0]]
-                                                                if self.to_side == 'R to L':
-                                                                    bl[Lprop[0]] = br[Rprop[0]]
+        for bone in pbones:
+            # Check if the bone name contains 'properties_'
+            if 'properties_' in bone.name:
+                # Split the bone name to get the base name
+                if bone.name.endswith('_L'):
+                    base_name = bone.name.split('_L')[0]
+                    suffix = '_L'
+                    opposite_suffix = '_R'
+                elif bone.name.endswith('_R'):
+                    base_name = bone.name.split('_R')[0]
+                    suffix = '_R'
+                    opposite_suffix = '_L'
+                else:
+                    # If neither '_L' nor '_R' is found, skip this bone
+                    continue
+
+                # Find the opposite bone
+                opposite_bone_name = f'{base_name}{opposite_suffix}'
+                if pbones.find(opposite_bone_name) != -1:
+                    #print(bone.name, opposite_bone_name)
+                    # Iterate through API-generated properties
+                    for prop_name, prop_value in bone.items():
+                        if 'realistic_joints' in prop_name:
+                            #print(bone.name, prop_name)
+                            opposite_prop_name = prop_name.replace(suffix, opposite_suffix)
+                            # Synchronize properties based on direction
+                            if self.to_side == 'L to R':
+                                if suffix == '_L':
+                                    #Check that property exists on opposite bone
+                                    for op_prop_name, op_prop_value in pbones[opposite_bone_name].items():
+                                        if opposite_prop_name == op_prop_name:
+                                            #Write value to gui generated property (doesn't update)
+                                            #pbones[opposite_bone_name][opposite_prop_name] = prop_value
+                                            #Write value to api generated property (works!)
+                                            setattr(pbones[opposite_bone_name], opposite_prop_name, prop_value)
+                            elif self.to_side == 'R to L':
+                                if suffix == '_R':
+                                    #Check that property exists on opposite bone
+                                    for op_prop_name, op_prop_value in pbones[opposite_bone_name].items():
+                                        if opposite_prop_name == op_prop_name:
+                                            #Write value to gui generated property (doesn't update)
+                                            #pbones[opposite_bone_name][opposite_prop_name] = prop_value
+                                            #Write value to api generated property (works!)
+                                            setattr(pbones[opposite_bone_name], opposite_prop_name, prop_value)
 
         return {"FINISHED"}
 
