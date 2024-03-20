@@ -156,7 +156,7 @@ class BLENRIG_PT_blenrig_6_Interface(bpy.types.Panel):
 
                 current_rig_ver = arm.get("rig_version")
                 if current_rig_ver:
-                    desired_ver = "2.2.0"
+                    desired_ver = "4.0.0"
                     if current_rig_ver < desired_ver:
                         main_col.separator()
                         bt_convert = main_col.row(align=True)
