@@ -259,7 +259,7 @@ class ARMATURE_OT_reset_deformers(bpy.types.Operator):
             if ob.type in 'LATTICE' or 'CURVE':
                 for mod in ob.modifiers:
                     if mod.type in 'HOOK':
-                        if mod.object.name == bpy.context.object.name:
+                        if mod.object and mod.object.name == bpy.context.object.name:
                             # Toggle on active collections
                             for coll in bpy.data.collections:
                                 for coll_ob in coll.objects:
