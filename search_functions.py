@@ -27,26 +27,11 @@ def mdef_search(type):
                             if hasattr(cage, 'modifiers'):
                                 for mod in cage.modifiers:
                                     if mod.type == 'ARMATURE':
-                                        if mod.object.name == arm:
+                                        if mod.object and mod.object.name == arm:
                                             if bpy.data.objects.get(ob.modifiers[ob_m.name].object.name) not in mdef_cage_objects:
                                                 mdef_cage_objects.append(bpy.data.objects.get(ob.modifiers[ob_m.name].object.name))
                                                 mdef_cage_names.append(ob.modifiers[ob_m.name].object.name)
     return mdef_cage_objects , mdef_cage_names
-    for ob in bpy.data.objects:
-        if hasattr(ob,'modifiers'):
-            for ob_m in ob.modifiers:
-                if type == 'SURFACE_DEFORM':
-                    if ob_m.type == type:
-                        if hasattr(ob.modifiers[ob_m.name], 'target') and hasattr(ob.modifiers[ob_m.name].target, 'name'):
-                            cage = ob.modifiers[ob_m.name].target
-                            if hasattr(cage, 'modifiers'):
-                                for mod in cage.modifiers:
-                                    if mod.type == 'ARMATURE':
-                                        if mod.object.name == arm:
-                                            if bpy.data.objects.get(ob.modifiers[ob_m.name].target.name) not in sdef_cage_objects:
-                                                sdef_cage_objects.append(bpy.data.objects.get(ob.modifiers[ob_m.name].target.name))
-                                                sdef_cage_objects.append(ob.modifiers[ob_m.name].target.name)
-    return sdef_cage_objects , sdef_cage_names
 
 ###### Search objets with modifiers  #####
 def search_mod(type):

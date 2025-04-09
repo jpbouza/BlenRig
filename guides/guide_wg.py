@@ -101,7 +101,8 @@ class BlenrigGuideFunctions:
 
 
 class BLENRIG_WG_guide(BlenrigGuideFunctions):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         context = bpy.context
         self.needs_update = True
         self.needs_call_action_safe = False
