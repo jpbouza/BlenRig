@@ -9,11 +9,11 @@ GUIDE_STEPS_SHAPEKEYS = (
         'imagen': 'SHAPEKEYS_Intro.jpg',
         'titulo': {
             'EN': 'Introduction',
-            'ES': 'Paso 1'
+            'ES': 'Introduccion'
             },
         'texto': {
             'EN': "Edit the Shapekeys to achieve the Final Deformation of the Character. The idea is to 'Correct what you see'. You won't need to select any Shapekey or Mirror them, just go correcting the poses on the fly.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Edita las Shapekeys para lograr la Deformación Final del Personaje. La idea es ''Corregir lo que ves''. No necesitará seleccionar ninguna Shapekey o Espejarlas, simplemente ve corrigiendo las poses sobre la marcha.'
             },
         'accion': SHAPEKEYS_Intro
     },
@@ -22,11 +22,11 @@ GUIDE_STEPS_SHAPEKEYS = (
         'imagen': ('SHAPEKEYS_Intro_2_A.jpg', 'SHAPEKEYS_Intro_2_B.jpg'),
         'titulo': {
             'EN': 'Workflow',
-            'ES': 'Paso 1'
+            'ES': 'Flujo de Trabajo'
             },
         'texto': {
             'EN': "To tweak the pose of the active shapekey, you can Toggle outside of Shapekeys Editting and manipulate the rig. Then press the 'Update Driver with Current Pose' Button. Don't edit the Shapekey if the color marking is Red.",
-            'ES': 'Si el personaje es simétrico, activa la opción X-Mirror'
+            'ES': 'Para ajustar la pose de la shapekey activa, puedes salir de la edicion Shapekeys y manipular el rig. Luego presiona el botón ''Actualizar controlador con pose actual''. No edites la Shapekey si la marca de color esta en Rojo.'
             },
         'accion': SHAPEKEYS_Intro_2
     },
@@ -35,7 +35,7 @@ GUIDE_STEPS_SHAPEKEYS = (
         'imagen': 'SHAPEKEYS_Cage_Add_Body_Shapes.jpg',
         'titulo': {
             'EN': 'Add Body Shapekeys',
-            'ES': 'Paso 1'
+            'ES': 'Añadir Shapekeys del Cuerpo'
             },
         'texto': {
             'EN': "Select the Mesh Deform Cage and press the 'Add Body Shapekeys' Button.",
