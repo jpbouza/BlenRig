@@ -32,7 +32,7 @@
 bl_info = {
     'name': 'BlenRig 6',
     'author': 'Juan Pablo Bouza , Sav Martin, Jorge Hernández - Meléndez',
-    'version': (4,0,0),
+    'version': (4,0,1),
     'blender': (4, 00, 0),
     'location': 'Armature, Object and Lattice properties, View3d tools panel, Armature Add menu',
     'description': 'BlenRig 6 rigging system',
