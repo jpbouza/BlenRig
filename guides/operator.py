@@ -126,20 +126,30 @@ class Operator_Guide_Transfer_Test_Rig(bpy.types.Operator):
     bl_label = "BlenRig Test how the Character moves with the Rig"
     bl_description = "Test how the Character moves with the Rig"
     bl_options = {'REGISTER', 'UNDO', 'INTERNAL'}
+    
+    bone : bpy.props.StringProperty()
 
     @classmethod
     def poll(cls, context):
-        if not context.active_object:
-            return False
-        if not (context.active_object.type in ["MESH", "ARMATURE"]):
-            return False
-        Body_part = context.scene.blenrig_character_body_obj[0]['character_body_obj'].name
-        if bpy.data.objects[Body_part].modifiers['MeshDeform'].is_bound  == True:
-            return True
-        else:
+        scene = bpy.context.scene
+        active_obj = context.active_object
+
+        if not active_obj or active_obj.type not in ["MESH", "ARMATURE"]:
             return False
 
-    bone : bpy.props.StringProperty()
+        if (scene.blenrig_guide.get('active_guide_name') == "datatransfer" and
+        scene.blenrig_guide.get('character_head_obj') and
+        active_obj.modifiers.get('Armature') and
+        active_obj.modifiers['Armature'].object and
+        active_obj.modifiers['Armature'].object.name == "biped_blenrig"):
+            return True
+
+        if hasattr(scene, 'blenrig_character_body_obj') and len(scene.blenrig_character_body_obj) > 0:
+            Body_part = scene.blenrig_character_body_obj[0]['character_body_obj'].name
+            if  bpy.data.objects[Body_part].modifiers['MeshDeform'].is_bound:
+                return True
+        else:
+            return False
 
     def execute(self, context):
         from .utils import go_blenrig_pose_mode, switch_out_local_view, deselect_all_objects, deselect_all_pose_bones, select_pose_bone
@@ -942,14 +952,16 @@ class Operator_blenrig_guide_bind_mdef_modifiers(bpy.types.Operator):
     Guide_Bind_Type: bpy.props.BoolProperty(default=True, name = 'Fast Binding' )
     @classmethod
     def poll(cls, context):
-        if not context.active_object:
-            return False
-        if not (context.active_object.type in ["MESH", "ARMATURE"]):
+        scene = bpy.context.scene
+        active_obj = context.active_object
+
+        if not active_obj or active_obj.type not in ["MESH", "ARMATURE"]:
             return False
 
-        Body_part = context.scene.blenrig_character_body_obj[0]['character_body_obj'].name
-        if bpy.data.objects[Body_part].modifiers['MeshDeform'].is_bound  == False:
-            return True
+        if hasattr(scene, 'blenrig_character_body_obj') and len(scene.blenrig_character_body_obj) > 0:
+            Body_part = context.scene.blenrig_character_body_obj[0]['character_body_obj'].name        
+            if not bpy.data.objects[Body_part].modifiers['MeshDeform'].is_bound:
+                return True
         else:
             return False
 
@@ -1071,16 +1083,18 @@ class Operator_blenrig_guide_unbind_mdef_modifiers(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-            if not context.active_object:
-                return False
-            if not (context.active_object.type in ["MESH", "ARMATURE"]):
-                return False
-            Body_part = bpy.context.scene.blenrig_character_body_obj[0]['character_body_obj'].name
-            if bpy.data.objects[Body_part].modifiers['MeshDeform'].is_bound  == True:
+        scene = bpy.context.scene
+        active_obj = context.active_object
+
+        if not active_obj or active_obj.type not in ["MESH", "ARMATURE"]:
+            return False
+        
+        if hasattr(scene, 'blenrig_character_body_obj') and len(scene.blenrig_character_body_obj) > 0:
+            Body_part = scene.blenrig_character_body_obj[0]['character_body_obj'].name
+            if  bpy.data.objects[Body_part].modifiers['MeshDeform'].is_bound:
                 return True
-                
-            else:
-                return False
+        else:
+            return False
 
     def execute(self, context):
         from .utils import set_active_object, deselect_all_objects, show_armature, go_blenrig_pose_mode, unhide_all_bones, deselect_all_pose_bones

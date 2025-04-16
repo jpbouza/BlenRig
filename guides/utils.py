@@ -307,8 +307,12 @@ def set_mode(mode: str):
     bpy.ops.object.mode_set(mode=mode)
 
 def set_active_object(context, _object):
-    _object.select_set(state=True)
-    context.view_layer.objects.active = _object
+    if _object is not None:
+        _object.select_set(state=True)
+        context.view_layer.objects.active = _object
+    else:
+        print("Error: object not found")
+
 
 def toggle_pose_x_mirror(context, state):
     if context.mode == 'POSE':
