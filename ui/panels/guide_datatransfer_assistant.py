@@ -111,12 +111,13 @@ class BLENRIG_PT_datatransfer_guide(BLENRIG_PT_guide_assistant):
                 mirror_row.prop(hands_weights_model, "show_in_front")
             box.prop(hands_weights_model, "display_type")
             box.separator()
-            if hands_model.mode == 'EDIT':
+            if hands_model is not None and hands_model.mode == 'EDIT':
                 box = steps.box()
                 box.label(text="Character Hands Editing Options")
                 mirror_row = box.row()
                 mirror_row.prop(hands_model.data, "use_mirror_x", text='X-Mirror')
                 mirror_row.prop(hands_model.data, "use_mirror_topology")
+
         if context.scene.blenrig_guide.guide_current_step == 'DT_Test_Hands':
             steps = layout.column(align=True)
             box_modifiers = steps.box()
