@@ -38,6 +38,12 @@ Make sure to check **Fredegund - The BlenRig Skeleton** out!
 https://blendermarket.com/products/blenrig-skeleton
 
 **--UPDATES--**
+**v4.0.1**
+
+* Fix Guides for Blender 4.4
+
+* Fix Collections error in Reproportion Guide
+
 **v4.0.0**
 
 * First release for Blender 4
