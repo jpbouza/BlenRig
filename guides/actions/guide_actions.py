@@ -191,11 +191,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Up_Down_1.jpg',
         'titulo': {
             'EN': 'Eyelids Down to Middle',
-            'ES': 'Paso 1'
+            'ES': 'Párpados hasta la mitad'
             },
         'texto': {
             'EN': "Pose the Upper Eyelids so that the Eye is Half Closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
-            'ES': ""
+            'ES': "Coloque los párpados superiores de forma que el ojo esté medio cerrado. Primero intente rotar los controladores 'rot', si necesita mas ajustes use los controladores Cube. Los parpados pueden atravesar a traves de los ojos, esto se arreglara con una Shapekey en un paso posterior."
             },
         'accion': ACTIONS_Eyelids_Up_Down_1
     },
@@ -204,7 +204,7 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Up_Down_2.jpg',
         'titulo': {
             'EN': 'Eyelids Down to Bottom',
-            'ES': 'Paso 1'
+            'ES': 'Párpados hasta abajo'
             },
         'texto': {
             'EN': "Pose the Upper Eyelids into a Fully Closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
@@ -217,7 +217,7 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Low_Down_Range.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Down Range',
-            'ES': 'Paso 1'
+            'ES': 'Párpados inferiores hacia abajo'
             },
         'texto': {
             'EN': "Define the Maximum Range of Downwards Motion of the Lower Eyelid Controller. Do this with the Range Slider.",
@@ -230,11 +230,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Eyelids_Low_Down_A.jpg', 'ACTIONS_Eyelids_Low_Down_B.jpg'),
         'titulo': {
             'EN': 'Lower Eyelids Down',
-            'ES': 'Paso 1'
+            'ES': 'Párpados inferiores hacia abajo'
             },
         'texto': {
             'EN': "Pose the Lower Eyelids into a fully opened position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Use the 'Show Deformation Bones' option to see what the actual Joints are doing.",
-            'ES': ""
+            'ES': "Posicione los párpados inferiores en una posición totalmente abierta. Primero intente rotar los controladores 'rot', si necesita mas ajustes use los controladores Cube. Usa la opción 'Show Deformation Bones' para ver que están haciendo las articulaciones."
             },
         'accion': ACTIONS_Eyelids_Low_Down
     },
@@ -243,11 +243,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Low_Up_Range.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Up Range',
-            'ES': 'Paso 1'
+            'ES': 'Párpados inferiores hacia arriba'
             },
         'texto': {
             'EN': "Define the Maximum Range of Upwards Motion of the Lower Eyelid Controller. Do this with the Range Slider.",
-            'ES': ""
+            'ES': "Defina el Rango Máximo de Movimiento Hacia Arriba del Controlador del Párpado Inferior. Hágalo con el Deslizador de Rango."
             },
         'accion': ACTIONS_Eyelids_Low_Up_Range
     },
@@ -256,11 +256,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Low_Up_1.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Up to Middle',
-            'ES': 'Paso 1'
+            'ES': 'Párpados inferiores hasta la mitad'
             },
         'texto': {
             'EN': "Pose the Lower Eyelids so that the Eye is Half Closed. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
-            'ES': ""
+            'ES': "Coloque los párpados inferiores de forma que el ojo esté medio cerrado. Primero intente rotar los controladores 'rot', si necesita mas ajustes use los controladores Cube. Los párpados pueden cortarse a través de los ojos, esto se arreglará con una Shapekey en un paso posterior."
             },
         'accion': ACTIONS_Eyelids_Low_Up_1
     },
@@ -269,11 +269,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_Eyelids_Low_Up_2.jpg',
         'titulo': {
             'EN': 'Lower Eyelids Up to Top',
-            'ES': 'Paso 1'
+            'ES': 'Párpados inferiores Arriba'
             },
         'texto': {
             'EN': "Pose the Lower Eyelids into a Fully Closed position. First try rotating the 'rot' controllers, if you need further tweaking use the Cube controllers. Eyelids might clip through the Eyes, this will be fixed with a Shapekey in a later Step.",
-            'ES': ""
+            'ES': "Coloque los párpados inferiores en una posición completamente cerrada. Primero intente rotar los controladores 'rot', si necesita más ajustes use los controladores Cube. Los párpados pueden cortarse a través de los ojos, esto se arreglará con una Shapekey en un paso posterior."
             },
         'accion': ACTIONS_Eyelids_Low_Up_2
     },
@@ -646,11 +646,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_Mouth_Corner_Down_Out_Corrective_A.jpg', 'ACTIONS_Mouth_Corner_Down_Out_Corrective_B.jpg', 'ACTIONS_Mouth_Corner_Down_Out_Corrective_C.jpg'),
         'titulo': {
             'EN': 'Corner Down Out Corrective',
-            'ES': 'Paso 1'
+            'ES': 'Esquina Abajo Afuera Correctivo'
             },
         'texto': {
             'EN': "Fine tune the Mouth Corner Up and Down combination Pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints. Mesh Deformation will be enhanced in the Shapekeys Steps.",
-            'ES': ""
+            'ES': "Ajuste con precisión la Pose de combinación de la esquina de la boca hacia arriba y hacia abajo. Utilice la opción 'Mostrar Deformación Huesos' y concéntrese en la posición de las Articulaciones. La Deformación de la Malla se realzará en los Pasos Shapekeys."
             },
         'accion': ACTIONS_Mouth_Corner_Down_Out_Corrective
     },
@@ -659,11 +659,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_U_O_M_Range.jpg',
         'titulo': {
             'EN': 'U_O_M Range',
-            'ES': 'Paso 1'
+            'ES': 'Rango U_O_M'
             },
         'texto': {
             'EN': "Define the Maximum Range of motion of the Upper and Lower Mouth Controllers. This controllers trigger the 'U Vowel' and 'M' poses. Do this with the Range Slider.",
-            'ES': ""
+            'ES': "Defina el rango máximo de movimiento de los controladores superior e inferior de la boca. Estos controladores activan las poses 'U Vocal' y 'M'. Haga esto con el Deslizador de Rango."
             },
         'accion': ACTIONS_U_O_M_Range
     },
@@ -672,11 +672,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_U_A.jpg', 'ACTIONS_U_B.jpg', 'ACTIONS_U_C.jpg', 'ACTIONS_U_D.jpg'),
         'titulo': {
             'EN': 'Subtle U Vowel',
-            'ES': 'Paso 1'
+            'ES': 'Vocal U sutil'
             },
         'texto': {
             'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips forwards. The idea is to achieve a 'Subtle U Vowel' Pose. Use 'mouth_corner_mstr_L' to move the Mouth Corners slightly forwards.",
-            'ES': ""
+            'ES': "Usa 'lip_up_ctrl' y 'lip_low_ctrl' para tirar de los labios hacia delante. La idea es lograr una Pose de 'Vocal U sutil'. Usa 'mouth_corner_mstr_L' para mover las comisuras de la boca ligeramente hacia delante."
             },
         'accion': ACTIONS_U
     },
@@ -685,11 +685,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_O_A.jpg', 'ACTIONS_O_B.jpg', 'ACTIONS_O_C.jpg', 'ACTIONS_O_D.jpg', 'ACTIONS_O_E.jpg'),
         'titulo': {
             'EN': 'Opened O Vowel',
-            'ES': 'Paso 1'
+            'ES': 'Vocal O abierta'
             },
         'texto': {
             'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to pull the lips forwards a bit further than in the previous step. The idea is to achieve an opened 'O Vowel' Pose. Use 'mouth_corner_mstr_L' to move the Mouth Corners forwards.",
-            'ES': ""
+            'ES': "Usa 'lip_up_ctrl' y 'lip_low_ctrl' para llevar los labios hacia delante un poco más que en el paso anterior. La idea es lograr una Pose de 'Vocal O' abierta. Usa 'mouth_corner_mstr_L' para mover las esquinas de la boca hacia delante."
             },
         'accion': ACTIONS_O
     },
@@ -698,11 +698,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_U_Zipper.jpg',
         'titulo': {
             'EN': 'U Zipper',
-            'ES': 'Paso 1'
+            'ES': 'U Cremallera'
             },
         'texto': {
             'EN': "Fine tune the Lips Zipper controllers for the 'Subtle U Vowel'.",
-            'ES': ""
+            'ES': "Afina los controladores de la cremallera de los labios para la 'Vocal U sutil'."
             },
         'accion': ACTIONS_U_Zipper
     },
@@ -711,11 +711,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_O_Zipper.jpg',
         'titulo': {
             'EN': 'O Zipper',
-            'ES': 'Paso 1'
+            'ES': 'O Cremallera'
             },
         'texto': {
             'EN': "Fine tune the Lips Zipper controllers for the 'O Vowel'.",
-            'ES': ""
+            'ES': "Afina los controladores de la cremallera de labios para la vocal «O»."
             },
         'accion': ACTIONS_O_Zipper
     },
@@ -724,11 +724,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_U_Narrow_Corrective_A.jpg', 'ACTIONS_U_Narrow_Corrective_B.jpg', 'ACTIONS_U_Narrow_Corrective_C.jpg'),
         'titulo': {
             'EN': 'U Narrow Corrective',
-            'ES': 'Paso 1'
+            'ES': 'U Estrecha Correctiva'
             },
         'texto': {
             'EN': "Pose the 'MSTR' controllers to conform a 'Closed U Vowel'. Use the rest of the controllers to fine tune the pose. Use the 'Show Deformation Bones' option and focus on the position of the Joints.",
-            'ES': ""
+            'ES': "Posa los controladores 'MSTR' para conformar una 'Vocal U Cerrada'. Utilice el resto de los controladores para ajustar la pose. Utiliza la opción 'Show Deformation Bones' y céntrate en la posición de las articulaciones."
             },
         'accion': ACTIONS_U_Narrow_Corrective
     },
@@ -737,11 +737,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': 'ACTIONS_U_Narrow_Corrective_Zipper.jpg',
         'titulo': {
             'EN': 'U Narrow Corrective Zipper',
-            'ES': 'Paso 1'
+            'ES': 'U Estrecha Cremallera Correctiva'
             },
         'texto': {
             'EN': "Fine tune the Lips Zipper controllers for the 'Closed U Vowel'.",
-            'ES': ""
+            'ES': "Ajuste fino de los controladores de la cremallera de labios para la vocal «U cerrada»."
             },
         'accion': ACTIONS_U_Narrow_Corrective_Zipper
     },
@@ -750,11 +750,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_U_Thicker_Lips_A.jpg', 'ACTIONS_U_Thicker_Lips_B.jpg'),
         'titulo': {
             'EN': 'Thicker Lips',
-            'ES': 'Paso 1'
+            'ES': 'Labios gruesos'
             },
         'texto': {
             'EN': "Use the 'lip_line_ctrl' bones to make the lips thicker, as in a 'Whistling' Pose. Use the rest of the controllers to achieve this compressed pose on the Lips",
-            'ES': ""
+            'ES': "Usa los huesos 'lip_line_ctrl' para hacer los labios más gruesos, como en una Pose 'Silbando'. Utiliza el resto de los controladores para conseguir esta pose comprimida en los Labios"
             },
         'accion': ACTIONS_U_Thicker_Lips
     },
@@ -763,11 +763,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_U_Thinner_Lips_A.jpg', 'ACTIONS_U_Thinner_Lips_B.jpg'),
         'titulo': {
             'EN': 'Thinner Lips',
-            'ES': 'Paso 1'
+            'ES': 'Labios finos'
             },
         'texto': {
             'EN': "Use 'lip_up_ctrl' and 'lip_low_ctrl' to open the lips. Use the 'lip_line_ctrl' bones and the rest of the controllers to make the lips thinner.",
-            'ES': ""
+            'ES': "Usa 'lip_up_ctrl' y 'lip_low_ctrl' para abrir los labios. Utiliza los huesos 'lip_line_ctrl' y el resto de controladores para hacer los labios más finos."
             },
         'accion': ACTIONS_U_Thinner_Lips
     },
@@ -776,11 +776,11 @@ GUIDE_STEPS_ACTIONS = (
         'imagen': ('ACTIONS_M_A.jpg', 'ACTIONS_M_B.jpg', 'ACTIONS_M_C.jpg', 'ACTIONS_M_D.jpg'),
         'titulo': {
             'EN': 'M',
-            'ES': 'Paso 1'
+            'ES': 'M'
             },
         'texto': {
             'EN': "Move and Rotate 'lip_up_ctrl_collision_override' and 'lip_low_ctrl_collision_override' to achieve an 'M' Pose. Use the rest of the controllers to seal and fine tune the Pose. Deformation will be enhanced in the Shapekeys Steps.",
-            'ES': ""
+            'ES': "Mueve y Rota 'lip_up_ctrl_collision_override' y 'lip_low_ctrl_collision_override' para conseguir una Pose 'M'. Usa el resto de controladores para sellar y afinar la Pose. La deformación se mejorará en los pasos de la guia Shapekeys."
             },
         'accion': ACTIONS_M
     },
