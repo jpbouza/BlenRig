@@ -165,103 +165,105 @@ class BLENRIG_PT_legacy_blenrig_5_Interface(bpy.types.Panel):
 
 
 
-########### Armature Layers
+            # Armature layers panel ############################################################
             if "gui_layers" in arm:
-                box = layout.column()
-                col = box.column()
-                row = col.row()
-            if "gui_layers" in arm and arm["gui_layers"]:
-                row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss = 1).tab = "gui_layers"
-                row.label(text="ARMATURE LAYERS")
-                # expanded box
-                col.separator()
-                col2 = box.column(align = 1)
-                row_layers = col2.row(align = 1)
 
-                for l_prop in arm.items():
-                    if l_prop[0] == "layers_count":
-                        layer_number = l_prop[1]
-                for prop in arm.items():
-                    if prop[0] == "layer_list":
-                        names = str(prop[1]).split(", ")
 
-                        col_1 = row_layers.column(align = 0)
-                        col_1.scale_y = 0.75
-                        col_1.prop(arm, "layers", index=0 , toggle=True, text ='{}'.format(names[0]))
-                        if layer_number > 3:
-                            col_1.prop(arm, "layers", index=3, toggle=True, text='{}'.format(names[3]))
-                        if layer_number > 6:
-                            col_1.prop(arm, "layers", index=6, toggle=True, text='{}'.format(names[6]))
-                        if layer_number > 9:
-                            col_1.prop(arm, "layers", index=17, toggle=True, text='{}'.format(names[9]))
-                        if layer_number > 12:
-                            col_1.prop(arm, "layers", index=20, toggle=True, text='{}'.format(names[12]))
-                        if layer_number > 15:
-                            col_1.prop(arm, "layers", index=23, toggle=True, text='{}'.format(names[15]))
-                        if layer_number > 18:
-                            col_1.prop(arm, "layers", index=10, toggle=True, text='{}'.format(names[18]))
-                        if layer_number > 21:
-                            col_1.prop(arm, "layers", index=13, toggle=True, text='{}'.format(names[21]))
-                        if layer_number > 24:
-                            col_1.prop(arm, "layers", index=24, toggle=True, text='{}'.format(names[24]))
-                        if layer_number > 27:
-                            col_1.prop(arm, "layers", index=27, toggle=True, text='{}'.format(names[27]))
-                        if layer_number > 30:
-                            col_1.prop(arm, "layers", index=30, toggle=True, text='{}'.format(names[30]))
 
-                        col_2 = row_layers.column(align = 0)
-                        col_2.scale_y = 0.75
-                        if layer_number > 1:
-                            col_2.prop(arm, "layers", index=1, toggle=True, text='{}'.format(names[1]))
-                        if layer_number > 4:
-                            col_2.prop(arm, "layers", index=4, toggle=True, text='{}'.format(names[4]))
-                        if layer_number > 7:
-                            col_2.prop(arm, "layers", index=7, toggle=True, text='{}'.format(names[7]))
-                        if layer_number > 10:
-                            col_2.prop(arm, "layers", index=18, toggle=True, text='{}'.format(names[10]))
-                        if layer_number > 13:
-                            col_2.prop(arm, "layers", index=21, toggle=True, text='{}'.format(names[13]))
-                        if layer_number > 16:
-                            col_2.prop(arm, "layers", index=8, toggle=True, text='{}'.format(names[16]))
-                        if layer_number > 19:
-                            col_2.prop(arm, "layers", index=11, toggle=True, text='{}'.format(names[19]))
-                        if layer_number > 22:
-                            col_2.prop(arm, "layers", index=14, toggle=True, text='{}'.format(names[22]))
-                        if layer_number > 25:
-                            col_2.prop(arm, "layers", index=25, toggle=True, text='{}'.format(names[25]))
-                        if layer_number > 28:
-                            col_2.prop(arm, "layers", index=28, toggle=True, text='{}'.format(names[28]))
-                        if layer_number > 31:
-                            col_2.prop(arm, "layers", index=31, toggle=True, text='{}'.format(names[31]))
+                main_col = layout.box().column(align=True)
+                col = main_col.column(align=True)
+                row = col.row(align=True)
 
-                        col_3 = row_layers.column(align = 0)
-                        col_3.scale_y = 0.75
-                        if layer_number > 2:
-                            col_3.prop(arm, "layers", index=2 , toggle=True, text='{}'.format(names[2]))
-                        if layer_number > 5:
-                            col_3.prop(arm, "layers", index=5 , toggle=True, text='{}'.format(names[5]))
-                        if layer_number > 8:
-                            col_3.prop(arm, "layers", index=16 , toggle=True, text='{}'.format(names[16]))
-                        if layer_number > 11:
-                            col_3.prop(arm, "layers", index=19 , toggle=True, text='{}'.format(names[19]))
-                        if layer_number > 14:
-                            col_3.prop(arm, "layers", index=22 , toggle=True, text='{}'.format(names[22]))
-                        if layer_number > 17:
-                            col_3.prop(arm, "layers", index=9 , toggle=True, text='{}'.format(names[17]))
-                        if layer_number > 20:
-                            col_3.prop(arm, "layers", index=12 , toggle=True, text='{}'.format(names[12]))
-                        if layer_number > 23:
-                            col_3.prop(arm, "layers", index=15 , toggle=True, text='{}'.format(names[15]))
-                        if layer_number > 26:
-                            col_3.prop(arm, "layers", index=26 , toggle=True, text='{}'.format(names[26]))
-                        if layer_number > 29:
-                            col_3.prop(arm, "layers", index=29 , toggle=True, text='{}'.format(names[29]))
-                        col2.separator()
+                row.operator("gui.blenrig_6_tabs", icon="RENDERLAYERS", emboss=1).tab = "gui_layers"
+                row.label(text=" Armature Layers")
 
-                # collapsed box
-            elif "gui_layers" in arm:
-                row.operator("gui.blenrig_6_tabs", icon="RENDER_RESULT", emboss = 1).tab = "gui_layers"
-                row.label(text="ARMATURE LAYERS")
+
+                # zebus3d 
+                if arm["gui_layers"]:
+
+                    active_bcoll = arm.collections.active
+                    rows = 1
+                    if active_bcoll:
+                        rows = 4
+                    
+                    layers_cont = col.column(align=True)
+                    layers_props = layers_cont.column(align=True)
+                
+
+                    if arm.layers_edit_mode: # <- si es true mostramos la replica del listado original de blender:
+                        
+                        layers_cont.separator()
+                        row_layer_settings = layers_cont.row(align=False)
+                        row_layer_settings.template_list(
+                            "DATA_UL_bone_collections",
+                            "collections",
+                            arm,
+                            "collections",
+                            arm.collections,
+                            "active_index",
+                            rows=rows,
+                        )
+                        col = row_layer_settings.column(align=True)
+                        col.operator("armature.collection_add", icon='ADD', text="")
+                        
+                        # Solo permitimos borrar layers que no sean las base de BlenRig:
+                        # col.operator("armature.collection_remove", icon='REMOVE', text="")
+                        col.operator("blenrig.arm_layers_rm", icon='REMOVE', text="")
+
+                        if active_bcoll:
+                            col.separator()
+                            col.operator("armature.collection_move", icon='TRIA_UP', text="").direction = 'UP'
+                            col.operator("armature.collection_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
+                            col.separator()
+
+                        # col.menu("ARMATURE_MT_collection_context_menu", icon='DOWNARROW_HLT', text="")
+
+                        layers_cont.separator()
+                        row = layers_cont.row()
+        
+                        sub = row.row(align=True)
+                        sub.operator("armature.collection_assign", text="Assign")
+                        sub.operator("armature.collection_unassign", text="Remove")
+
+                        sub = row.row(align=True)
+                        sub.operator("armature.collection_select", text="Select")
+                        sub.operator("armature.collection_deselect", text="Deselect")
+                        
+
+                    else: # <- si es false mostramos nuestra custom ui para que sea parecida a lo q había en blenrig previamente:
+
+                        # TODO:
+                        # Un boton de restore de las visibilidades de los layers por default
+                        
+                        layers_props.separator()
+                        header_toggle = layers_props.row(align=True)
+                        header_toggle.scale_y = 0.8
+                        header_toggle.box().prop(arm, "layers_edit_mode_toggle", text="Visualization Options", icon='TRIA_DOWN' if arm.layers_edit_mode_toggle else 'TRIA_RIGHT', emboss=False)
+                        if arm.layers_edit_mode_toggle:
+                            lp_row = layers_props.row(align=True)
+                            lp_row.prop(arm, "num_columns", text="Columns", toggle=True)
+                            lp_row.prop(arm, "max_items_to_show", text="Max items", toggle=True)
+
+                        layers_props.separator()
+
+                        table = layers_cont.column(align=True)
+                        total_colls = len(context.object.data.collections)
+                        num_filas = (total_colls // arm.num_columns)+1
+
+                        for fila in range(num_filas):
+                            row_layout = table.row(align=True)
+                            
+                            for columna in range(arm.num_columns):
+                                indice = fila * arm.num_columns + columna
+
+                                if indice < total_colls and indice < arm.max_items_to_show:
+                                    coll = context.object.data.collections[indice]
+                                    row_layout.prop(coll, "is_visible", text=f"{coll.name}", toggle=True)
+
+                    layers_cont.separator() 
+                    layers_cont.prop(arm, "layers_edit_mode", text="Edit Layers", toggle=True, icon='GREASEPENCIL')
+            
+            # fin Armature layers panel ############################################################
 
     ######################### gui custom layers ##############################
 
